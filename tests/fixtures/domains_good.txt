@@ -1,0 +1,13 @@
+# good fixture: 12 leaves spanning all axis buckets. Used by both test_draw and test_audit.
+neutrino oscillation detection in deep-ice arrays | quantum | fluid | measuring | frontier
+protein crystallography by X-ray diffraction | molecular | living | measuring | industrial
+varve chronology reading annual glacial-lake layers | geological | mineral | measuring | contemporary
+bell founding and casting tuned bronze bells | human | mechanical | building | ancient-craft
+mycorrhizal network mapping in old-growth forest | ecological | living | preserving | frontier
+pipe-organ voicing and wind-chest regulation | human | mechanical | performing | ancient-craft
+salt-marsh tidal hydrology restoration | ecological | fluid | healing | contemporary
+medieval guild charter administration | human | social | governing | ancient-craft
+glassblowing of laboratory borosilicate ware | molecular | mineral | building | industrial
+Noh theatre mask carving and movement | human | symbolic | performing | ancient-craft
+galactic redshift surveying of cosmic structure | cosmic | symbolic | measuring | frontier
+wound-debridement and burn-graft nursing | human | living | healing | contemporary

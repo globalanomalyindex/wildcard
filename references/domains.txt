@@ -1,0 +1,351 @@
+# wildcard knowledge map — one niche leaf per line:
+#   Domain description | scale | medium | activity | era
+# Flat-weighted on purpose: draw.sh picks uniformly. Keep it broad and unglamorous-inclusive.
+# scale: quantum molecular human ecological geological cosmic
+# medium: living mineral fluid social symbolic mechanical
+# activity: measuring building healing performing governing preserving
+# era: ancient-craft industrial contemporary frontier
+drilling-mud rheology testing with Marsh funnel and rotational viscometer | molecular | fluid | measuring | industrial
+mine-ventilation pressure-quantity survey balancing airways underground | human | fluid | governing | industrial
+hailpad foam-block calibration sizing impact dents from storms | human | mineral | measuring | contemporary
+managed aquifer recharge basin operation infiltrating storm runoff | geological | fluid | preserving | contemporary
+dry-stone qanat gallery maintenance keeping desert water tunnels flowing | human | mineral | preserving | ancient-craft
+hand peat-cutting with a tairsgear slicing turf banks for fuel | human | living | building | ancient-craft
+gemstone faceting inspection checking girdle symmetry on a loupe | molecular | mineral | measuring | ancient-craft
+glacier mass-balance stake reading tracking annual ice loss | geological | fluid | measuring | contemporary
+varve chronology counting annual glacial-lake sediment couplets | geological | mineral | measuring | industrial
+diamond drill core logging recording lithology foot by foot | geological | mineral | measuring | industrial
+stream gauging by wading rod measuring discharge across a transect | human | fluid | measuring | industrial
+cadastral boundary retracement chasing old monuments and bearings | human | symbolic | governing | ancient-craft
+salt-pan brine bittern harvesting raking solar evaporation flats | human | mineral | building | ancient-craft
+acid mine drainage limestone channel dosing neutralizing runoff | ecological | fluid | healing | contemporary
+blast-hole stemming and timing for controlled quarry rock fragmentation | human | mineral | building | industrial
+cosmogenic nuclide exposure dating of glacially polished bedrock | cosmic | mineral | measuring | frontier
+snowpack pit profiling for avalanche shear-layer stability tests | human | fluid | measuring | contemporary
+well-screen development surging a borehole to clear fines from the gravel pack | human | fluid | healing | industrial
+radiosonde balloon launching for upper-air temperature soundings | cosmic | fluid | measuring | industrial
+soil double-ring infiltrometer testing for field hydraulic conductivity | human | mineral | measuring | industrial
+abandoned shaft capping and concrete plugging of legacy mine voids | human | mineral | preserving | contemporary
+karst dye tracing to map underground stream connections | geological | fluid | measuring | industrial
+placer gold sluice-box riffle setting and cleanup of black sands | human | mineral | building | ancient-craft
+tide-gauge benchmark leveling tying sea level to a fixed datum | human | fluid | measuring | industrial
+fluid inclusion microthermometry reading paleotemperatures in crystals | molecular | mineral | measuring | frontier
+tailings dam piezometer monitoring for phreatic surface stability | human | fluid | governing | contemporary
+hand-augering soil horizons and Munsell color matching in the field | human | mineral | measuring | industrial
+lightning strike fulgurite excavation tracing fused sand tubes | molecular | mineral | preserving | contemporary
+stone-quarry feather-and-wedge plug splitting along the rift grain | human | mineral | building | ancient-craft
+groundwater-rights adjudication mapping for basin allocation hearings | ecological | social | governing | contemporary
+bentonite slurry-wall trenching to cut off contaminant plumes | human | fluid | healing | industrial
+dowsing-rod water-witching to site a hand-dug village well | human | fluid | measuring | ancient-craft
+playa salt-crust efflorescence mapping for evaporite mineral prospects | ecological | mineral | measuring | industrial
+permafrost active-layer thaw-depth probing along monitoring transects | geological | mineral | measuring | contemporary
+weather-station Stevenson screen siting and thermometer calibration | human | mechanical | measuring | industrial
+mine-rescue self-rescuer breathing-apparatus drills in smoke galleries | human | social | healing | industrial
+rain-gauge tipping-bucket maintenance debugging clogged storm totals | human | mechanical | preserving | contemporary
+asteroid-impact shocked-quartz petrography hunting planar deformation | cosmic | mineral | measuring | frontier
+stope backfill paste reticulation pumping cemented fill underground | human | fluid | building | industrial
+speleothem drip-water hydrochemistry logging for cave climate proxies | molecular | fluid | measuring | frontier
+levee toe seepage berm inspection for sand-boil piping during floods | human | mineral | preserving | industrial
+downhole televiewer fracture-orientation logging in deep boreholes | geological | mineral | measuring | frontier
+fog-net water harvesting array tuning for arid coastal villages | ecological | fluid | building | frontier
+medicinal-leech farming for microsurgery reattachment | human | living | healing | ancient-craft
+antivenom milking of venomous snakes for serum | molecular | fluid | measuring | industrial
+sterile-insect screwworm release for pest eradication | ecological | living | governing | contemporary
+horseshoe-crab bleeding for endotoxin LAL assay | molecular | fluid | measuring | industrial
+farriery hoof-balancing for laminitic horses | human | living | healing | ancient-craft
+coppice woodland rotation cutting for hazel rods | ecological | living | preserving | ancient-craft
+seed-bank cryostorage of orthodox wild accessions | molecular | living | preserving | frontier
+lactation consulting for tongue-tie latch correction | human | living | healing | contemporary
+prosthetic gait retraining for amputee veterans | human | mechanical | healing | contemporary
+maggot debridement therapy for necrotic wounds | human | living | healing | ancient-craft
+pollen-tube grafting of heritage apple cultivars | human | living | building | ancient-craft
+raptor falcon imping of broken flight feathers | human | living | healing | ancient-craft
+captive-condor puppet rearing to avoid imprinting | ecological | living | preserving | contemporary
+coral micro-fragmenting for reef restoration nurseries | ecological | living | building | frontier
+fecal microbiota transplant prep for C. diff colitis | molecular | fluid | healing | frontier
+embryo flushing and transfer in elite dairy cows | molecular | living | building | industrial
+perfusionist running the heart-lung bypass pump | human | fluid | performing | contemporary
+wildlife forensic genotyping of poached ivory | molecular | symbolic | measuring | contemporary
+venom-immunotherapy desensitizing of wasp-allergic patients | molecular | fluid | healing | contemporary
+guide-dog scent-discrimination puppy socializing | human | social | building | contemporary
+rumen-fistula sampling of cannulated cattle digesta | human | fluid | measuring | industrial
+stud-book inbreeding-coefficient keeping for zoos | ecological | symbolic | governing | industrial
+dendrochronology cross-dating of timber tree rings | geological | living | measuring | industrial
+pheromone mating-disruption dispensing in orchards | molecular | fluid | governing | contemporary
+ostomy stoma-siting and appliance fitting for patients | human | living | healing | contemporary
+raptor-feather DNA sexing of monomorphic chicks | molecular | symbolic | measuring | contemporary
+vernalization chilling of bulbs for forced bloom | molecular | living | governing | industrial
+axolotl limb-regeneration colony husbandry | molecular | living | preserving | frontier
+mosquito gut-microbiome rearing for malaria assays | molecular | living | measuring | frontier
+hospice syringe-driver titration for terminal pain | human | fluid | healing | contemporary
+germplasm tissue-culture micropropagation of orchids | molecular | living | building | industrial
+trophic rewilding beaver translocation for wetlands | ecological | living | building | frontier
+phage-cocktail tailoring for antibiotic-resistant wounds | molecular | living | healing | frontier
+tuberculosis sputum smear microscopy reading | molecular | fluid | measuring | industrial
+deep-sea hydrothermal tubeworm chemosymbiont culturing | molecular | living | measuring | frontier
+mountain-hare scat hormone assaying for stress | molecular | fluid | measuring | contemporary
+transhumance shepherding of flocks up alpine pasture | ecological | living | performing | ancient-craft
+cochlear-implant mapping for deafened toddlers | human | mechanical | healing | contemporary
+pollinator hand-brushing of vanilla orchid flowers | human | living | building | ancient-craft
+tardigrade cryptobiosis revival for space exposure trials | molecular | living | measuring | frontier
+raptor radio-telemetry triangulating of migrating eagles | ecological | mechanical | measuring | contemporary
+anthelmintic faecal-egg-count fecal screening of sheep | molecular | fluid | measuring | industrial
+bog-oak peat-core pollen counting for paleoecology | geological | mineral | measuring | industrial
+neonatal incubator humidity weaning of preemies | human | fluid | healing | contemporary
+sputtering target erosion-track profiling on magnetrons | molecular | mineral | measuring | contemporary
+photolithography mask reticle alignment to wafer fiducials | molecular | mineral | building | contemporary
+solid-propellant grain casting and core-mandrel pulling | human | mineral | building | industrial
+cryo-EM grid vitrification by plunge-freezing thin films | molecular | fluid | preserving | frontier
+neutron-activation foil counting for trace-element assay | molecular | mineral | measuring | contemporary
+isotope-ratio mass-spec drift correction with bracketing standards | molecular | fluid | measuring | contemporary
+vibration modal-survey tap testing of airframe panels | human | mechanical | measuring | industrial
+tribology pin-on-disc wear-scar scar-volume gauging | human | mineral | measuring | industrial
+helium leak-rate hunting on UHV chamber flanges | molecular | fluid | measuring | contemporary
+dilution-refrigerator mixing-chamber base-stage tuning | quantum | fluid | building | frontier
+superconducting RF cavity buffered-chemical electropolishing | molecular | mineral | building | frontier
+reactor pressure-vessel surveillance coupon withdrawal | human | mineral | preserving | industrial
+tritium glovebox stack-monitor effluent bookkeeping | molecular | fluid | governing | contemporary
+optical-flat scraping and Newton-ring lapping by hand | human | mineral | building | ancient-craft
+diffraction-grating ruling-engine diamond-tip stylus dressing | molecular | mineral | building | industrial
+czochralski silicon boule seed-pull necking control | molecular | mineral | building | industrial
+wire-bond pull-and-shear strength destructive sampling | human | mineral | measuring | contemporary
+ion-implant dose uniformity wafer-map verification | molecular | mineral | measuring | contemporary
+X-ray rocking-curve epilayer strain-relaxation reading | molecular | mineral | measuring | contemporary
+ultrasonic immersion C-scan of composite delaminations | human | mineral | measuring | industrial
+thermal-vacuum bakeout outgassing-rate certification | human | fluid | governing | contemporary
+shock-tube diaphragm scoring for repeatable burst pressure | human | fluid | performing | industrial
+Kibble-balance flux-gradient mass realization tending | human | mechanical | measuring | frontier
+radiocarbon AMS graphitization of sample CO2 | molecular | mineral | preserving | contemporary
+gauge-block wringing for length interferometry stacks | human | mineral | measuring | ancient-craft
+glassblower fusing borosilicate vacuum-line traps | human | mineral | building | ancient-craft
+electroplating bath Hull-cell throwing-power balancing | molecular | fluid | governing | industrial
+strain-gauge rosette bonding for load-cell calibration | human | mechanical | measuring | industrial
+shielded-cell remote-manipulator hot-cell glovework | human | mineral | healing | contemporary
+Penning-trap g-factor frequency-comparison logging | quantum | symbolic | measuring | frontier
+liquid-helium transfer-line siphon-priming on cryostats | molecular | fluid | performing | contemporary
+molecular-beam-epitaxy RHEED oscillation layer counting | molecular | mineral | measuring | frontier
+fission-track etching and counting in apatite grains | geological | mineral | measuring | contemporary
+adaptive-optics deformable-mirror wavefront flattening | cosmic | mechanical | performing | frontier
+calorimetry-bomb oxygen-charging for fuel heat-value runs | molecular | fluid | measuring | industrial
+crystal-defect dislocation etch-pit density counting | molecular | mineral | measuring | industrial
+focused-ion-beam TEM lamella lift-out thinning | molecular | mineral | building | frontier
+reticle pellicle inspection for haze and crystal growth | molecular | mineral | preserving | contemporary
+ablative heat-shield arc-jet recession-rate gauging | human | mineral | measuring | frontier
+spent-fuel cask criticality-spacing basket loading | human | mineral | governing | contemporary
+quartz-crystal microbalance film-thickness rate watching | molecular | mineral | measuring | contemporary
+torsion-pendulum micro-Newton thruster impulse weighing | human | mechanical | measuring | frontier
+damascene gold-wire inlay hammered into iron undercuts | human | mineral | building | ancient-craft
+intaglio die-sinking for coin and medal striking dies | human | mineral | building | industrial
+Japanese saw-doctoring re-tensioning and setting handsaw teeth | human | mechanical | healing | ancient-craft
+refractory kiln-shelf setting and bat-wash coating for glaze runs | human | mineral | preserving | industrial
+patternmaking with shrinkage rules for sand casting | human | mineral | building | industrial
+dry-stone walling with through-stones and hearting | human | mineral | building | ancient-craft
+lampworking borosilicate joints for scientific glassware | molecular | fluid | building | contemporary
+millwright laser shaft alignment of coupled rotating machinery | human | mechanical | measuring | contemporary
+hand-scraping cast-iron ways flat to bluing high-spots | molecular | mechanical | measuring | industrial
+repousse and chasing raised relief into sheet silver | human | mineral | performing | ancient-craft
+lost-wax investment burnout for turbine-blade casting | molecular | mineral | building | frontier
+gauge-block wringing for sub-micron dimensional standards | molecular | mechanical | measuring | contemporary
+glassblowing the gather and marver of soda-lime parisons | human | fluid | performing | ancient-craft
+stained-glass lead came stretching and cementing | human | mineral | building | ancient-craft
+saggar firing wood-ash ceramics in sealed clay boxes | human | mineral | building | ancient-craft
+bell-founding tuning by lathe-shaving the inner profile | human | mineral | performing | industrial
+wheelwrighting tyre-shrinking hot iron rims onto felloes | human | mechanical | building | industrial
+marquetry of dyed veneers cut with the donkey | human | living | building | ancient-craft
+coopering steam-bent staves and croze-grooving barrel heads | human | living | building | ancient-craft
+tool-and-cutter grinding helical relief on milling cutters | human | mechanical | healing | industrial
+babbitt bearing pouring and hand-scraping white-metal shells | human | mineral | healing | industrial
+carbide brazing tungsten tips onto saw plate | molecular | mineral | building | industrial
+stone-letter carving with mallet and lettering chisel | human | mineral | performing | ancient-craft
+pietra dura inlay of cut hardstone into marble | human | mineral | building | ancient-craft
+wootz crucible-steel smelting for watered-pattern blades | molecular | mineral | building | ancient-craft
+gunsmith bone-charcoal color case-hardening of receivers | molecular | mineral | preserving | industrial
+EDM wire-cutting of hardened tool-steel punch profiles | molecular | mechanical | building | contemporary
+engine-turning guilloche rose patterns on watch dials | human | mineral | performing | industrial
+verdigris and patina chemistry on cast bronze sculpture | molecular | fluid | preserving | ancient-craft
+slate splitting and riving roofing tiles along cleavage | geological | mineral | building | ancient-craft
+anvil hardy-tooling and swage-block forming of collars | human | mechanical | building | ancient-craft
+abrasive waterjet machining of titanium aerospace brackets | human | fluid | building | frontier
+millstone dressing furrows and lands with a mill bill | human | mineral | healing | ancient-craft
+fettling and chipping flash off raw sand castings | human | mineral | preserving | industrial
+spinning seamless metal cones over a lathe chuck | human | mechanical | building | industrial
+hand-stippling and flaking layout-bluing on machinist scribes | molecular | mechanical | measuring | industrial
+froe-and-mallet riving green oak for cleft fence pales | human | living | building | ancient-craft
+kintsugi lacquer-and-gold rejoining of fractured ceramics | human | mineral | healing | ancient-craft
+optical lens grinding and pitch-lap polishing to figure | molecular | mineral | measuring | industrial
+chain-grinding and depth-gauge filing of saw cutters | human | mechanical | healing | contemporary
+atomic-step polishing silicon wafers by chemical mechanical lap | molecular | mineral | measuring | frontier
+thermal-spray HVOF coating of worn pump impeller shafts | molecular | fluid | healing | frontier
+scagliola imitation-marble plasterwork inlaid with pigment | human | mineral | building | ancient-craft
+foundry green-sand ramming and venting of cope and drag | human | mineral | building | industrial
+harpsichord jack quilling cutting crow-feather plectra | human | living | building | ancient-craft
+foley sound artistry mimicking footsteps on gravel trays | human | fluid | performing | industrial
+change-ringing tower-bell method calling by rope sallies | human | mechanical | performing | ancient-craft
+manuscript illumination laying burnished gold leaf on gesso | human | mineral | building | ancient-craft
+opera surtitle cueing live-projecting translated libretto lines | human | symbolic | performing | contemporary
+letterpress composition hand-setting lead type in a stick | human | mineral | building | industrial
+shadow-puppet carving piercing buffalo-hide wayang figures | human | living | building | ancient-craft
+ballet pointe-shoe fitting darning the platform box | human | living | healing | contemporary
+scenic charge artistry scumbling faux-marble flats | human | mineral | building | industrial
+pipe-organ voicing nicking flue mouths for even speech | human | mechanical | measuring | ancient-craft
+prompt-book annotation marking blocking for a stage manager | human | symbolic | governing | industrial
+gilder water-gilding picture frames with rabbit-skin size | human | mineral | building | ancient-craft
+ondes Martenot ring-glissando performing the ribbon control | human | mechanical | performing | industrial
+supernumerary wrangling for crowd scenes on opera stages | human | social | governing | contemporary
+Noh mask carving cypress hannya with sliding expressions | human | living | building | ancient-craft
+marbling paper combing carrageenan size for endpapers | human | fluid | building | ancient-craft
+carillon baton-keyboard playing fisted clavier of bells | human | mechanical | performing | ancient-craft
+theatrical armourer building stage-combat blunt rapiers | human | mineral | building | industrial
+lithography stone graining levigating limestone with grit | human | mineral | building | industrial
+rush-light dipping reeds in tallow for period stage lamps | human | fluid | building | ancient-craft
+ghost-light maintenance keeping a bare stage bulb lit | human | mechanical | preserving | industrial
+intaglio plate retroussage wiping ink from engraved lines | molecular | fluid | building | industrial
+circus rigging mathematics rating aerial-silk anchor loads | human | mechanical | measuring | contemporary
+harp regulating felting the action of pedal discs | human | mechanical | healing | industrial
+vellum preparation liming and scudding calfskin for scribes | human | living | building | ancient-craft
+theremin pitch-field gesturing the heterodyne antenna | human | mechanical | performing | industrial
+bookbinding endband sewing silk chevrons over the headcap | human | living | building | ancient-craft
+Wagner tuba transposing for the low-brass Ring choir | human | mechanical | performing | industrial
+stained-glass cartooning full-scale leadline templates | human | mineral | building | ancient-craft
+fresco intonaco plastering only a day's giornata patch | human | mineral | building | ancient-craft
+subtitle spotting timing dialogue to frame-accurate cues | human | symbolic | measuring | contemporary
+music copyist hand-engraving punched pewter plates | human | mineral | preserving | industrial
+stage-blood mixing kits for retractable squib effects | molecular | fluid | building | contemporary
+cylinder-seal engraving narrative friezes into chalcedony | molecular | mineral | building | ancient-craft
+puppet bunraku head-mechanism stringing eyelid toggles | human | mechanical | building | ancient-craft
+operatic claque organizing paid applause cues in a house | human | social | governing | industrial
+violin bridge cutting fitting the maple feet to the belly | human | living | healing | ancient-craft
+rotoscope ink-tracing animation frames over live footage | human | symbolic | building | industrial
+planetarium star-projector dimming sky for live narration | cosmic | symbolic | performing | contemporary
+carnival glass-bead embroidery for samba parade fantasias | human | mineral | building | contemporary
+haptic-suit choreography mapping vibration cues for dancers | human | mechanical | performing | frontier
+film emulsion hand-tinting dyeing nitrate frames by brush | molecular | fluid | preserving | industrial
+maritime salvage arbitration apportioning Lloyd's award shares | human | social | governing | industrial
+actuarial loss reserving with chain-ladder triangle development | human | symbolic | measuring | contemporary
+harbor pilotage slot scheduling around tidal windows | human | fluid | governing | industrial
+escheatment processing of dormant bank account balances | human | symbolic | preserving | contemporary
+zoning variance adjudication before a board of appeals | human | social | governing | industrial
+reinsurance treaty wording drafting for cat XL layers | ecological | symbolic | building | contemporary
+famine early-warning analysis from market price baskets | ecological | living | measuring | contemporary
+intermodal freight slot allocation across rail ramps | human | mechanical | governing | industrial
+general average adjustment splitting jettison costs at sea | human | fluid | measuring | ancient-craft
+subrogation recovery pursuit after a paid casualty claim | human | symbolic | preserving | contemporary
+tax increment financing district boundary engineering | human | social | building | industrial
+demurrage and detention auditing on container free-time | human | mechanical | measuring | industrial
+catastrophe bond trigger structuring on parametric indices | geological | symbolic | building | frontier
+adverse possession quiet-title surveying of fence lines | human | mineral | preserving | ancient-craft
+letter of credit document examination under UCP 600 | human | symbolic | measuring | industrial
+traffic signal timing retiming on arterial green waves | human | mechanical | governing | contemporary
+probate estate inventory appraisal of household chattels | human | mineral | measuring | ancient-craft
+marine cargo lashing survey and securing certification | human | mechanical | preserving | industrial
+eminent domain just-compensation valuation of taken land | human | mineral | measuring | industrial
+municipal bond official statement disclosure drafting | human | symbolic | building | contemporary
+title abstracting of chain-of-deeds in county registries | human | symbolic | preserving | ancient-craft
+warehouse slotting optimization by SKU pick velocity | human | mechanical | building | contemporary
+flood plain mapping for base flood elevation certificates | ecological | fluid | measuring | contemporary
+subrogated lien tracing through medical billing waterfalls | human | symbolic | measuring | contemporary
+ship registry flagging and tonnage certificate issuance | human | fluid | governing | industrial
+pension funding triennial valuation of accrued liabilities | human | symbolic | measuring | contemporary
+right-of-way easement acquisition for pipeline corridors | ecological | mineral | building | industrial
+cold chain reefer monitoring of perishable cargo temps | molecular | fluid | preserving | contemporary
+bankruptcy claims waterfall priority ranking of creditors | human | symbolic | governing | industrial
+sewer capacity modeling for new subdivision tie-ins | ecological | fluid | building | industrial
+surety bond underwriting on contractor completion risk | human | social | measuring | industrial
+dunnage and stowage planning for vessel hold trim | human | mechanical | building | ancient-craft
+currency carry-trade settlement netting in CLS windows | cosmic | symbolic | governing | frontier
+historic district facade easement covenant enforcement | human | mineral | preserving | ancient-craft
+last-mile delivery route sequencing under time windows | human | mechanical | building | contemporary
+captive insurance domicile structuring for self-insured risk | human | social | building | contemporary
+spectrum license auction band-plan packaging design | quantum | symbolic | governing | frontier
+weighbridge axle-load enforcement at highway checkpoints | human | mechanical | measuring | industrial
+mortality table graduation smoothing for life annuities | human | living | measuring | industrial
+stormwater retention pond sizing for runoff detention | ecological | fluid | building | contemporary
+customs tariff classification under HS heading rulings | human | symbolic | governing | industrial
+orbital slot and frequency coordination at the ITU registry | cosmic | symbolic | governing | frontier
+groundwater rights adjudication of aquifer pumping shares | geological | fluid | governing | industrial
+koji mold propagation onto steamed rice for amazake | molecular | living | building | ancient-craft
+dry-cured charcuterie aging in humidity-stable cellars | human | living | preserving | ancient-craft
+oyster depuration tank cycling to purge gut grit | human | fluid | healing | industrial
+terroir soil tasting to grade vineyard parcels | geological | mineral | measuring | contemporary
+maple-sap sugar grading by Brix refractometer pulls | molecular | fluid | measuring | industrial
+saffron stigma hand-harvesting at dawn before wilt | human | living | preserving | ancient-craft
+sourdough levain ratio logging across hydration runs | molecular | living | measuring | contemporary
+eel-weir tending to channel migrating elvers | ecological | fluid | governing | ancient-craft
+natto bacillus inoculation timing for sticky pull | molecular | living | building | ancient-craft
+balsamic vinegar barrel-battery topping across decades | human | fluid | preserving | ancient-craft
+garum fish-sauce vat fermentation in sun-warmed jars | molecular | living | building | ancient-craft
+rennet curd-set timing by floc and clean-break feel | molecular | fluid | measuring | ancient-craft
+cheese-cave affinage flipping and brine-washing rinds | human | living | preserving | ancient-craft
+honeybee swarm-trap baiting with lemongrass lures | ecological | living | governing | ancient-craft
+truffle-dog scent training in oak-hazel orchards | human | living | performing | contemporary
+rice-paddy water-level sluice gate scheduling | ecological | fluid | governing | ancient-craft
+tea-leaf withering trough humidity managing for oolong | human | living | preserving | ancient-craft
+lobster v-notch tail marking to spare breeding hens | human | living | governing | industrial
+seed-bank germplasm grow-out for accession viability | molecular | living | preserving | contemporary
+vine pruning to spur-and-cane balance for yield | human | living | building | ancient-craft
+salt-marsh sea-vegetable foraging on tidal windows | ecological | living | preserving | ancient-craft
+wild-yeast capture for spontaneous lambic coolship | molecular | living | building | ancient-craft
+grain-elevator moisture probing to set drying runs | human | mineral | measuring | industrial
+milk-test butterfat assaying for co-op pay grades | molecular | fluid | measuring | industrial
+olive-press malaxation temperature minding for yield | molecular | fluid | building | ancient-craft
+scallop-diver hand-gathering on eelgrass beds | ecological | living | preserving | ancient-craft
+hop-yard trellis stringing and bine training | human | living | building | industrial
+smokehouse cold-smoke draft regulating for lox | human | fluid | preserving | ancient-craft
+kimchi jangdok crock burial for winter temper | human | living | preserving | ancient-craft
+salmon-roe ikura brining and membrane sieving | molecular | living | building | industrial
+cranberry-bog flooding and water-reel berry corralling | ecological | fluid | performing | industrial
+mushroom-spawn agar plate cloning of wild strains | molecular | living | building | contemporary
+apiary varroa-mite drop counting on sticky boards | molecular | living | measuring | contemporary
+cider apple bletting and pomace-press scratting | human | living | building | ancient-craft
+seaweed-line kelp seeding on spore-coated twine | ecological | living | building | frontier
+salt-pan paludier raking fleur de sel from brine films | human | mineral | preserving | ancient-craft
+soy-sauce moromi mash paddle-stirring through summer | molecular | living | building | ancient-craft
+espalier fruit-tree limb tying to brick south walls | human | living | building | ancient-craft
+grape must-weight Oechsle reading to call harvest | molecular | fluid | measuring | industrial
+carp-pond polyculture stocking for layered feeders | ecological | living | governing | ancient-craft
+vanilla-pod hand-pollination with bamboo splinters | human | living | building | industrial
+cellared-seed potato chitting on light trays | human | living | preserving | ancient-craft
+microbial terroir mapping of cave biofilm cultures | molecular | living | measuring | frontier
+celestial sextant noon-sight latitude reduction | cosmic | symbolic | measuring | ancient-craft
+tide-table harmonic constituent computation | ecological | fluid | measuring | industrial
+palaeography of medieval Carolingian minuscule hands | human | symbolic | preserving | ancient-craft
+historical cipher cryptanalysis of Vigenere keys | human | symbolic | measuring | ancient-craft
+metrology of platinum-iridium length standards | molecular | mineral | measuring | industrial
+lexicographic citation slip reading for dictionaries | human | symbolic | preserving | industrial
+archival paper deacidification bath treatment | molecular | fluid | preserving | contemporary
+climbing-rope knot rigging for rescue anchors | human | mechanical | building | contemporary
+portolan rhumb-line wind-rose chart drafting | ecological | symbolic | building | ancient-craft
+vellum parchment scraping and pumice finishing | human | living | preserving | ancient-craft
+atomic-clock leap-second timekeeping coordination | quantum | mechanical | governing | contemporary
+geodetic baseline triangulation chain surveying | geological | mineral | measuring | industrial
+ship's deck-log dead-reckoning plot keeping | ecological | fluid | measuring | ancient-craft
+manuscript gold-leaf illumination gilding | human | mineral | building | ancient-craft
+maritime semaphore flag-hoist signalling | human | social | performing | industrial
+cuneiform clay tablet impression decipherment | human | mineral | preserving | ancient-craft
+tally-stick notched debt record keeping | human | living | governing | ancient-craft
+magnetic compass deviation card swinging | geological | mineral | measuring | industrial
+microfilm silver-halide preservation re-imaging | molecular | mineral | preserving | industrial
+bathymetric lead-line sounding chart marking | ecological | fluid | measuring | ancient-craft
+Braille embossing plate proofreading | human | symbolic | building | industrial
+quipu knotted-cord accounting record reading | human | living | governing | ancient-craft
+heraldic blazon emblazoning of coats of arms | human | symbolic | performing | ancient-craft
+GPS satellite ephemeris ranging correction | cosmic | mechanical | measuring | frontier
+punch-card census tabulation key-punching | human | mechanical | governing | industrial
+shorthand stenographic court transcript taking | human | symbolic | performing | industrial
+watermark dandy-roll papermaking mark setting | human | mineral | building | industrial
+gnomon sundial dial-plate hour-line layout | cosmic | mineral | measuring | ancient-craft
+ledger double-entry trial-balance reconciliation | human | symbolic | governing | industrial
+lighthouse Fresnel-lens flash-character timing | ecological | mineral | performing | industrial
+dendrochronology tree-ring crossdating | ecological | living | measuring | contemporary
+Morse-key landline telegraph traffic relaying | human | mechanical | performing | industrial
+iron-gall ink corrosion stabilization on folios | molecular | fluid | preserving | contemporary
+toponymic gazetteer place-name standardization | ecological | social | governing | contemporary
+marine chronometer rate-error logging at sea | human | mechanical | measuring | industrial
+magnetic-tape archive bit-rot remastering | molecular | mineral | preserving | contemporary
+kerning and hot-metal type punchcutting | molecular | mineral | building | industrial
+astrolabe alidade altitude star-sighting | cosmic | mechanical | measuring | ancient-craft
+weights-and-measures inspector seal stamping | human | mineral | governing | industrial
+wax-seal matrix sigillography authentication | human | mineral | preserving | ancient-craft
+pendulum gravimeter local gravity surveying | geological | mineral | measuring | industrial
+endangered-language phonemic field transcription | human | social | preserving | contemporary
+quantum optical-lattice clock frequency comparison | quantum | mechanical | measuring | frontier
