@@ -12,8 +12,8 @@ LENSES="failure-modes materials time-and-rhythm constraints-and-limits energy-an
 
 while [ $# -gt 0 ]; do
   case "$1" in
-    --seed) SEED="${2:-}"; shift 2 ;;
-    --seed=*) SEED="${1#*=}"; shift ;;
+    --seed) SEED="${2:-}"; [ -n "$SEED" ] || { echo "draw.sh: --seed requires a value" >&2; exit 2; }; shift 2 ;;
+    --seed=*) SEED="${1#*=}"; [ -n "$SEED" ] || { echo "draw.sh: --seed requires a value" >&2; exit 2; }; shift ;;
     --file) DOMAINS_FILE="${2:-}"; shift 2 ;;
     --file=*) DOMAINS_FILE="${1#*=}"; shift ;;
     *) echo "draw.sh: unknown argument: $1" >&2; exit 2 ;;
