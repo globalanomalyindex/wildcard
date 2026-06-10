@@ -17,6 +17,11 @@ real structural connections to your work, and offer them as optional seeds. This
 faculty an on-task reasoner lacks — a **synthetic default-mode network** that injects the remote
 associate your focused chain of thought would never wander to.
 
+> **Paths in this file are relative to this skill's own directory** (you were given its absolute
+> path when the skill loaded), *not* your current working directory — which is usually the user's
+> project. When you run the script or read a reference below, resolve it against the skill
+> directory (e.g. `bash "<skill-dir>/scripts/draw.sh"`), or `cd` into the skill directory first.
+
 ## The pipeline
 
 **1. Detect.** Read the project's signals (file tree, manifests, README, recent diffs) *and* the
@@ -26,10 +31,10 @@ Map onto structure, not the tech stack. This works for non-code projects too; st
 substrate-independent. If the project is too thin to read, infer from the conversation rather
 than interrogating the user.
 
-**2. Draw (dice outside the model).** Run the draw:
+**2. Draw (dice outside the model).** Run the draw from the skill directory:
 
 ```bash
-bash scripts/draw.sh
+bash "<skill-dir>/scripts/draw.sh"
 ```
 
 It prints `domain=…` and `lens=…`. Use them exactly as given. Do **not** pick the expert
@@ -52,10 +57,19 @@ by offering to pull one thread into dialogue, or to step back out.
 
 - **No fabrication.** Only genuine structural matches; abstention is honorable. You are never
   rewarded for hitting a count.
-- **No derailment.** Every seed is additive and optional. Never rewrite the user's goals, never
-  critique their vision, never tell them to pivot. They stay the gardener; you hand them seeds.
-- **No favoritism.** The expert is drawn by `draw.sh`, not by you. Trust the dice — including the
-  unglamorous draws; a drainage engineer's eye is as valuable as a mycologist's.
+- **No derailment.** Every seed is additive and optional. Keep your authority pointed at *your*
+  craft and your suggestion optional for *theirs*. Litmus: after each seed, could the user ignore
+  it entirely and still feel you just shared something interesting from your field? If it instead
+  reads as "you're doing it wrong," rewrite it. Two traps to avoid (see
+  `references/structure-mapping.md` for the worked fix): **substituting their question** ("instead
+  of asking X, ask Y") and **branding their method a failure** ("X is what you do when you've
+  failed"). Offer ("in my world the move is Y, because Z — you might find that useful"), don't
+  command.
+- **No favoritism.** The expert is drawn by `draw.sh`, not by you — so each of the hundreds of
+  *specific disciplines* in the map is equally likely. Trust the dice, including the unglamorous
+  draws; a drainage engineer's eye is as valuable as a mycologist's. (The axis tags in the map are
+  a coverage-audit tool, not draw weights — don't expect every *scale* to appear equally often;
+  expect every *discipline* to.)
 
 ## Optional: the seed bank
 

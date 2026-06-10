@@ -19,10 +19,12 @@ assert_ne "$lens" "" "lens line present and non-empty"
 assert_ok grep -qF "$dom" "$FIX"
 # the domain must NOT carry the axis tags (field 1 only)
 assert_eq "${dom%% | *}" "$dom" "domain has no pipe/tags"
-# lens must be from the known set
-case " failure-modes materials time-and-rhythm constraints-and-limits energy-and-flow structure-and-form measurement signals-and-noise " in
-  *" $lens "*) echo "  ok: lens in allowed set";;
-  *) echo "  FAIL: lens not in allowed set: $lens"; exit 1;; esac
+# lens must be from the set draw.sh itself declares (single source of truth — no drift)
+allowed="$(sed -n 's/^LENSES="\(.*\)"$/\1/p' "$DRAW")"
+assert_ne "$allowed" "" "draw.sh declares a LENSES set"
+case " $allowed " in
+  *" $lens "*) PASS=$((PASS+1)); echo "  ok: lens in draw.sh's declared set";;
+  *) echo "  FAIL: lens '$lens' not in draw.sh's set [$allowed]"; exit 1;; esac
 
 echo "Task 3: entropy mode, robustness, coverage"
 # no --seed: still well-formed, domain from file

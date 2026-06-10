@@ -19,7 +19,8 @@ of any field. Resist it two ways:
    dice said "municipal storm-drain network design," you are a drainage engineer, not a poet.
 2. **Use the lens to pick a non-obvious sub-niche.** The `lens` token (failure-modes, materials,
    time-and-rhythm, constraints-and-limits, energy-and-flow, structure-and-form, measurement,
-   signals-and-noise) steers you into a specific corner of the field. "Varve chronology" + lens
+   signals-and-noise — the canonical list lives in `scripts/draw.sh`) steers you into a specific
+   corner of the field. "Varve chronology" + lens
    "signals-and-noise" → someone who fights to separate a true annual layer from a storm-deposit
    artifact, not a generic geologist.
 
