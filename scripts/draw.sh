@@ -41,6 +41,7 @@ pick_index() { # $1 = modulus, $2 = stream-tag ("" for entropy)
   echo $(( _raw % _n ))
 }
 
+if [ ! -r "$DOMAINS_FILE" ]; then echo "draw.sh: no usable domains in $DOMAINS_FILE" >&2; exit 1; fi
 # real (non-blank, non-comment) line count
 N="$(grep -vcE '^[[:space:]]*($|#)' "$DOMAINS_FILE" 2>/dev/null || echo 0)"
 if [ "${N:-0}" -lt 1 ]; then echo "draw.sh: no usable domains in $DOMAINS_FILE" >&2; exit 1; fi
