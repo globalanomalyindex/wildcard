@@ -86,3 +86,18 @@ Karrik (Boyers Blur is wordmark-only). Blinking dot removed. Ghost-navigation ca
 investigated: five reshuffles under capture-phase click+hashchange instrumentation showed
 zero spurious events; deliberate install/back flows correct both directions. 15/15 suite,
 zero overflows, no body scroll.
+
+## v6 figma redesign + case study (2026-06-11)
+
+New flat-orange design (no glass/deck/parallax; those modules + tests retired, in git
+history). Tokens: orange #eb8853, pale #ced9f7, ink #1e1e1e. Layout matches Figma node
+1:2: top-left lede, giant bottom-anchored pale wordmark (boyers blur), top-right pale
+panel ("figures & stuff here") holding REAL regenerable data, big "install > > >" CTA
+that css-:target-flips the panel to the one-command plugin install (no-js friendly),
+seeded digital ASCII drift in the two small cells (the only motion; ~12fps; reduced-motion
+static), and the live seeded typewriter draw (doubles as the parity figure). all rendered
+copy lowercase (verified by a browser textContent A-Z scan = 0 on both pages). zero
+em/en dashes (grep). no body scroll at 1440x1024; no horizontal scroll at 380px; install
+flip + back verified. figures panel data is honest and caveated (small-n flagged) and
+every number regenerates from tests. full case study at docs/case-study.md and the live
+page site/case-study/ (linked from the panel). node suite 8/8, shell suite ALL GREEN.

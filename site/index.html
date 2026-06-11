@@ -3,93 +3,66 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>wildcard - a skill for Claude Code</title>
-  <meta name="description" content="An experimental Claude Code skill that introduces a random expert from an unrelated field to seed non-linear creative thinking." />
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e5e0f6'/%3E%3Ccircle cx='10' cy='10' r='4' fill='%2377a0e4'/%3E%3Ccircle cx='22' cy='13' r='3' fill='%23d0c382'/%3E%3Ccircle cx='14' cy='22' r='5' fill='%2377a0e4'/%3E%3C/svg%3E" />
+  <title>wildcard - a skill for claude code</title>
+  <meta name="description" content="an experimental claude code skill that introduces a random expert from an unrelated field to seed non-linear creative thinking." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23eb8853'/%3E%3Ccircle cx='11' cy='12' r='4.5' fill='%23ced9f7'/%3E%3Ccircle cx='22' cy='20' r='6' fill='%23ced9f7'/%3E%3C/svg%3E" />
   <link rel="preload" href="fonts/BoyersBlur-Regular.otf" as="font" type="font/otf" crossorigin />
   <link rel="preload" href="fonts/Karrik-Regular.otf" as="font" type="font/otf" crossorigin />
   <link rel="stylesheet" href="css/tokens.css" />
   <link rel="stylesheet" href="css/hero.css" />
-  <link rel="stylesheet" href="css/cells.css" />
 </head>
 <body>
   <main class="page">
-    <div class="scaffold" id="scaffold" aria-hidden="true" data-depth="1"></div>
+    <img class="grid" src="assets/chickpea-grid-display.png" alt="" aria-hidden="true" />
 
-    <div class="hero-inner">
-      <div class="zone" id="zone-home">
-        <h1 class="wordmark">wildcard</h1>
-        <div class="hero-row">
-          <span class="tagline">skill for claude code</span>
-          <a class="install-link" href="#install">install</a>
+    <section class="lede">
+      <p>wildcard is an experimental skill for claude code that, at random, introduces an unrelated expert to your current task or project. in doing so, the token pool is seeded with unorthodox directions for standard chain-of-thought systems to work with - influencing more creative thinking, problem-solving, and idea generation in large language models.</p>
+      <p>this project is an experiment in introducing and emulating non-linear creative thinking in artificial intelligence systems, without straying away from current artificial intelligence technology and capabilities.</p>
+    </section>
+
+    <h1 class="wordmark">wildcard</h1>
+
+    <aside class="panel" aria-label="figures and install">
+      <div class="view" id="view-figures">
+        <div class="panel-head">
+          <h2 class="panel-title">figures &amp; stuff here</h2>
+          <span class="panel-tag">real, regenerable, small-n where noted</span>
         </div>
-        <p class="lede">wildcard is an experimental skill for claude code that, at random, introduces an unrelated expert to your current task or project. in doing so, the token pool is seeded with unorthodox directions for standard chain-of-thought systems to work with - influencing more creative thinking, problem-solving, and idea generation in large language models.</p>
-        <p class="closing">this project is an experiment in introducing and emulating non-linear creative thinking in artificial intelligence systems, without straying away from current artificial intelligence technology and capabilities.</p>
+        <div class="figures" id="figures"></div>
+        <p class="case-link"><a href="case-study/">read the full case study &rarr;</a></p>
       </div>
-      <div class="zone" id="install" hidden>
-        <h1 class="install-hero">install</h1>
-        <div class="hero-row">
-          <span class="tagline">skill for claude code</span>
-          <a class="install-link" href="#">back</a>
+
+      <div class="view" id="view-install" hidden>
+        <div class="panel-head">
+          <h2 class="panel-title">install</h2>
+          <a class="panel-back" href="#">&larr; back to figures</a>
         </div>
-        <div class="install-steps">
-          <p class="step"><span class="step-n">1</span>in any claude code session, add the marketplace and install:</p>
+        <div class="install-body">
+          <p class="istep"><span class="n">1</span>in any claude code session:</p>
           <pre><code>/plugin marketplace add globalanomalyindex/wildcard
 /plugin install wildcard@globalanomalyindex</code></pre>
-          <p class="step"><span class="step-n">2</span>run <code>/wildcard</code> in any session - and meet your expert.</p>
-          <p class="step"><span class="step-n">3</span>trust, then verify: every draw on this page reproduces in your terminal with <code>bash draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
+          <p class="istep"><span class="n">2</span>run <code>/wildcard</code> in any session, and meet your expert.</p>
+          <p class="istep"><span class="n">3</span>trust, then verify: every draw here reproduces in your terminal with <code>draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
         </div>
-        <a class="wordmark-frame" href="#" aria-label="back to wildcard">
-          <span class="wordmark-mini">wildcard</span>
-          <span class="back-hint">← back to the field</span>
-        </a>
       </div>
+    </aside>
+
+    <a class="install-cta" id="install" href="#install" aria-label="install">install
+      <span class="chev" aria-hidden="true">&rsaquo;</span><span class="chev" aria-hidden="true">&rsaquo;</span><span class="chev" aria-hidden="true">&rsaquo;</span>
+    </a>
+
+    <div class="ascii" aria-hidden="true">
+      <pre class="ascii-cell" id="ascii-a"></pre>
+      <pre class="ascii-cell" id="ascii-b"></pre>
     </div>
 
-    <div class="cardfield" id="cardfield" aria-live="polite"></div>
-
-    <div class="deck" id="deck">
-      <article class="card" id="card-demo" data-card="demo" aria-label="live wildcard draws">
-        <div class="demo-mount"></div>
-      </article>
-
-      <article class="card" id="card-thesis" data-card="thesis">
-        <h3>a synthetic default-mode network</h3>
-        <p>An LLM's chain of thought is task-locked. It never wanders, so the "pop-in" of a remote idea can't happen; the architecture forbids it. wildcard externalizes the missing faculty: it injects the remote associate the on-task reasoner would never wander to. Different conditioning, not higher temperature - structured divergence, never noise.</p>
-      </article>
-
-      <article class="card" id="card-how-it-works" data-card="how-it-works">
-        <h3>how it works</h3>
-        <ol class="pipeline">
-          <li><b>detect</b> - distill the structural sketch of your project</li>
-          <li><b>draw</b> - real entropy picks one of 344 niche disciplines, outside the model</li>
-          <li><b>specialize</b> - the draw grows into a hyper-specific practitioner</li>
-          <li><b>notice</b> - only genuine relational matches; honest abstention allowed</li>
-          <li><b>seed</b> - 2 to 4 optional provocations, yours to plant or discard</li>
-        </ol>
-      </article>
-
-      <article class="card" id="card-honesty" data-card="honesty">
-        <h3>map relations, not nouns</h3>
-        <p>A bad connection shares a noun: "your code has cells, I study cells!" A real one maps structure: your retry backoff and a predator-prey cycle are the same oscillation, and ecologists found stochastic jitter stops populations synchronizing into a crash. Same relations, different domain. That bar makes "never lies for a connection" checkable.</p>
-      </article>
-
-      <article class="card" id="card-nature" data-card="nature">
-        <h3>looking to nature</h3>
-        <ul class="nature">
-          <li><b>cross-pollination</b> - the carrier doesn't choose what it carries</li>
-          <li><b>germination</b> - most seeds never sprout; you pick what takes root</li>
-          <li><b>outbreeding</b> - a distant cross escapes a closed gene pool</li>
-          <li><b>stochastic resonance</b> - the right noise amplifies a weak signal</li>
-        </ul>
-      </article>
-
-      <article class="card" id="card-recordings" data-card="recordings">
-        <h3>field recordings</h3>
-        <div class="rec-mount"></div>
-      </article>
-
+    <div class="demo" aria-label="live draw">
+      <p class="demo-label">drawing wildcards</p>
+      <pre class="draw-out" id="draw-out"></pre>
+      <p class="draw-note" id="draw-note"></p>
     </div>
+
+    <p class="readout" id="readout" aria-hidden="true"></p>
   </main>
 
   <script type="module" src="js/main.js"></script>

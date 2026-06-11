@@ -10,5 +10,5 @@ const root = join(here, "..");
 test("scaffold: fonts and tokens exist", () => {
   assert.ok(readFileSync(join(root, "fonts/Karrik-Regular.otf")).length > 1000);
   const css = readFileSync(join(root, "css/tokens.css"), "utf8");
-  assert.match(css, /--periwinkle: #77a0e4/);
+  assert.match(css, /--orange: #eb8853/);
 });
