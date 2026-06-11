@@ -4,7 +4,7 @@ HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
 . "$HERE/assert.sh"
 FIX="$HERE/fixtures/domains_good.txt"
-DRAW="$ROOT/scripts/draw.sh"
+DRAW="$ROOT/plugin/scripts/draw.sh"
 
 echo "Task 2: seeded determinism + output shape"
 out1="$(WILDCARD_DOMAINS="$FIX" bash "$DRAW" --seed 42)"

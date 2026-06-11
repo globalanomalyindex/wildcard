@@ -3,7 +3,7 @@ set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
 . "$HERE/assert.sh"
-AUDIT="$ROOT/scripts/audit_domains.sh"
+AUDIT="$ROOT/plugin/scripts/audit_domains.sh"
 GOOD="$HERE/fixtures/domains_good.txt"
 BAD="$HERE/fixtures/domains_bad.txt"
 

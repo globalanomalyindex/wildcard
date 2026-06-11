@@ -1,0 +1,18 @@
+{
+  "name": "globalanomalyindex",
+  "owner": {
+    "name": "globalanomalyindex"
+  },
+  "metadata": {
+    "description": "wildcard: a synthetic default-mode network for Claude Code."
+  },
+  "plugins": [
+    {
+      "name": "wildcard",
+      "source": "./plugin",
+      "description": "Summon a genuinely curious expert from a completely unrelated, niche field to seed fresh, non-linear thinking on whatever you're working on. The expert is drawn by real entropy (no discipline favored) and only offers connections that genuinely map onto your problem.",
+      "homepage": "https://globalanomalyindex.github.io/wildcard/",
+      "repository": "https://github.com/globalanomalyindex/wildcard"
+    }
+  ]
+}

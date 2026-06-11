@@ -7,8 +7,8 @@ set -u
 HERE="$(cd "$(dirname "$0")" && pwd)"
 ROOT="$(cd "$HERE/.." && pwd)"
 . "$HERE/assert.sh"
-DRAW="$ROOT/scripts/draw.sh"
-FILE="$ROOT/references/domains.txt"
+DRAW="$ROOT/plugin/scripts/draw.sh"
+FILE="$ROOT/plugin/references/domains.txt"
 
 echo "Diversity: wide spread over the real map"
 N=200

@@ -3,8 +3,8 @@
 # and the LENSES set from scripts/draw.sh. Never hand-edit the output.
 set -eu
 ROOT="$(cd "$(dirname "$0")/.." && pwd)"
-SRC="$ROOT/references/domains.txt"
-DRAW="$ROOT/scripts/draw.sh"
+SRC="$ROOT/plugin/references/domains.txt"
+DRAW="$ROOT/plugin/scripts/draw.sh"
 OUT="$ROOT/site/js/domains.js"
 COMMIT="$(git -C "$ROOT" rev-parse --short HEAD 2>/dev/null || echo unknown)"
 

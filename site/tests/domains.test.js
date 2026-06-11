@@ -9,7 +9,7 @@ const here = dirname(fileURLToPath(import.meta.url));
 const repo = join(here, "..", "..");
 
 test("domains.js count matches the source map exactly", () => {
-  const src = readFileSync(join(repo, "references/domains.txt"), "utf8");
+  const src = readFileSync(join(repo, "plugin/references/domains.txt"), "utf8");
   const lines = src.split("\n").filter((l) => l.trim() && !l.trim().startsWith("#"));
   assert.equal(DOMAINS.length, lines.length);
   assert.equal(DOMAINS.length, PROVENANCE.count);

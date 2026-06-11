@@ -12,7 +12,7 @@ const repo = join(here, "..", "..");
 function shellDraw(seed) {
   const out = execFileSync(
     "bash",
-    ["scripts/draw.sh", "--seed", seed, "--file", "references/domains.txt"],
+    ["plugin/scripts/draw.sh", "--seed", seed, "--file", "plugin/references/domains.txt"],
     { cwd: repo, encoding: "utf8" }
   );
   const domain = out.match(/^domain=(.*)$/m)[1];

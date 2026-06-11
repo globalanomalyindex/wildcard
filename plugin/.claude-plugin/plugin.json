@@ -1,0 +1,10 @@
+{
+  "name": "wildcard",
+  "description": "Summon a genuinely curious expert from a completely unrelated, niche field to seed fresh, non-linear thinking. Drawn by real entropy outside the model; only offers connections that genuinely map onto your problem.",
+  "author": {
+    "name": "globalanomalyindex"
+  },
+  "homepage": "https://globalanomalyindex.github.io/wildcard/",
+  "repository": "https://github.com/globalanomalyindex/wildcard",
+  "license": "MIT"
+}
