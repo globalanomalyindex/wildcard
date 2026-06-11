@@ -1,8 +1,70 @@
 # wildcard landing page — design spec
 
 **Date:** 2026-06-10
-**Status:** Approved (design); pre-implementation
+**Status:** v1 shipped; superseded in part by the v2 revision below (2026-06-11)
 **Scope:** Phase 2 — the landing page in `site/`. (The skill itself shipped in phase 1.)
+
+---
+
+# v2 revision (2026-06-11) - single viewport, measured grid, card deck
+
+User feedback on v1: too much scrolling; the original Figma look is right; the new
+information belongs in the side space; the chickpea grid image is not a backdrop, it IS
+the layout ("that image will be used as a good reference for the exact modular cells i
+want the page to be made up of"); and **no em dashes anywhere in copy** (use " - ",
+commas, or restructure - matching the Figma copy's own style).
+
+## v2.1 The measured grid (replaces "below-fold engine territory")
+
+The cell geometry is **measured from the image, not invented**. A canvas scan of
+`chickpea-grid-display.png` (the asset pre-rotated to display orientation, 1600x1067)
+finds the rules at these fractions:
+
+- vertical: **0.618, 0.764, 0.854** of width (recursive golden sections; 0.764 = 0.618 + 0.382 x 0.382, 0.854 likewise)
+- horizontal: **0.382, 0.618, 0.764** of height (plus edge rules)
+
+Mapped to the 1440x1024 frame (image band y 32..992 as in Figma), these land at
+x = 890 / 1100 / 1230 and y = 399 / 625 / 765 - which is exactly where the Figma already
+places its elements (right column at 890; description block ending 404; closing statement
+at 767). The Figma was drawn on this grid; v2 makes that literal. Cell fractions are
+committed as generated data with the measuring script (same provenance discipline as
+domains.js).
+
+**Page = one viewport at desktop.** No body scroll at >=1100px wide. The left zone
+(columns 0..0.618) keeps the authored hero exactly as Figma: wordmark + tagline/install
+row (row 1), description (row 2), empty cell (row 3), closing statement (row 4). The
+grid image itself renders as the page's hairline backdrop at its exact Figma placement.
+
+## v2.2 The card deck (replaces sections-in-bands and the scroll story)
+
+The six content pieces become **cards**: thesis, how-it-works, honesty, nature, install,
+plus the demo card (die + draw output) and the field-recordings card. The right zone
+(x 0.618..1, four rows) is the **card field**. Each row is either one wide slot (550px)
+or splits at the measured cuts (210/130/146px sub-cells) for compact cards and empties.
+
+**The deal:** seeded, same entropy/streams as everything else. The dealer assigns cards
+to slots under invariants: every card dealt exactly once; text cards only in wide slots;
+the demo card always lands in row 1 (the draw is the page's hook, per the approved v1
+column mockup); compact slots take only compact content (a lens chip, a seed stamp) or
+stay empty. `?seed=` reproduces a deal; `r` redeals; the layout seed and draw seed remain
+one seed, two streams.
+
+**Reading without luck:** slots hold stacks. A slot shows its top card plus a stack
+indicator ("2/3"); click or Enter cycles the stack. Every card is reachable in every
+deal. Card flips respect prefers-reduced-motion (crossfade -> instant).
+
+## v2.3 Responsive + no-JS (unchanged in spirit)
+
+Below 1100px the deck degrades to the authored single-column flow (cards stacked in
+manifest order, fully readable, page scrolls - mobile scroll was never the objection).
+No-JS likewise serves the authored flow. The engine remains pure + property-tested:
+`deal(seed, slots, cards) -> assignment` with the invariants above; the v1 guillotine
+module and its tests are removed (superseded; preserved in git history).
+
+## v2.4 Copy rules
+
+No em dashes in any user-facing string (HTML, JS-injected notes, captions, alt text).
+Use " - " or restructure. Existing v1 copy is swept in the v2 implementation.
 
 ---
 
