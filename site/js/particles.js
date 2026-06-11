@@ -1,6 +1,6 @@
 import { cksum } from "./entropy.js";
 
-// Sparse pollen/seed dots drifting up the hero — decorative only, seeded from the page
+// Sparse pollen/seed dots drifting up the hero - decorative only, seeded from the page
 // seed (no Math.random theater), absent under reduced motion, paused when the tab hides.
 export function initParticles(hero, seed) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;

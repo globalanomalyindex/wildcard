@@ -50,7 +50,7 @@ html.dealt .deck { display: none; }
   @keyframes card-fade { from { opacity: 0; } to { opacity: 1; } }
 }
 
-/* — demo card internals — */
+/* demo card internals */
 .die {
   display: flex; align-items: center; gap: 10px;
   font-family: var(--font-body); font-size: clamp(14px, 1.2vw, 18px); color: #1d3a66;
@@ -70,7 +70,7 @@ html.dealt .deck { display: none; }
 .draw-note b { color: #1d3a66; }
 .seed-tag { display: block; margin-top: 6px; font-size: 10px; color: var(--ink-soft); }
 
-/* — recordings card internals — */
+/* recordings card internals */
 .rec-head { display: flex; align-items: baseline; gap: 8px; margin-bottom: 6px; flex-wrap: wrap; }
 .rec-date { font-family: var(--font-mono); font-size: 10px; color: var(--periwinkle); }
 .rec-expert { font-family: var(--font-body); font-size: clamp(12px, 1vw, 14px); color: var(--ink); }
@@ -86,7 +86,7 @@ html.dealt .deck { display: none; }
 .rec-count { font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); }
 .provenance { font-size: 9px; color: var(--ink-soft); margin-top: 6px; font-family: var(--font-mono); }
 
-/* — narrow / no-JS flow: deck stacks below the hero, fully readable — */
+/* narrow / no-JS flow: deck stacks below the hero, fully readable */
 .deck { display: flex; flex-direction: column; gap: 0; position: relative; z-index: 1; }
 .deck .card { border-top: 1px solid var(--cell-line); padding: clamp(20px, 4vw, 48px) 16px; }
 @media (min-width: 1100px) {

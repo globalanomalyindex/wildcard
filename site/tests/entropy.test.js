@@ -2,7 +2,7 @@ import { test } from "node:test";
 import assert from "node:assert/strict";
 import { cksum, pickIndex } from "../js/entropy.js";
 
-// Anchors measured from the real `cksum` binary on this machine — if these pass, the JS
+// Anchors measured from the real `cksum` binary on this machine - if these pass, the JS
 // implementation is byte-for-byte the POSIX algorithm, independent of any data file.
 test("cksum matches POSIX cksum byte-for-byte", () => {
   assert.equal(cksum("abc"), 1219131554);
