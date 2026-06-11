@@ -34,7 +34,8 @@
         </div>
         <div class="install-steps">
           <p class="step"><span class="step-n">1</span>get the skill, then link it into your skills folder:</p>
-          <pre><code>ln -s "$(pwd)" ~/.claude/skills/wildcard</code></pre>
+          <pre><code>git clone https://github.com/globalanomalyindex/wildcard
+ln -s "$(pwd)/wildcard" ~/.claude/skills/wildcard</code></pre>
           <p class="step"><span class="step-n">2</span>run <code>/wildcard</code> in any claude code session - and meet your expert.</p>
           <p class="step"><span class="step-n">3</span>trust, then verify: every draw on this page reproduces in your terminal with <code>bash scripts/draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
         </div>

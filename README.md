@@ -12,11 +12,13 @@ can't happen; the architecture forbids it. wildcard externalizes that missing fa
 **synthetic default-mode network** that injects the remote associate the on-task reasoner
 would never wander to.
 
+Live site: https://globalanomalyindex.github.io/wildcard/
+
 ## Install
 
 ```bash
-# personal skills directory (symlink keeps it updatable via git pull)
-ln -s "$(pwd)" ~/.claude/skills/wildcard
+git clone https://github.com/globalanomalyindex/wildcard
+ln -s "$(pwd)/wildcard" ~/.claude/skills/wildcard
 ```
 
 Or copy the directory to `~/.claude/skills/wildcard`. Then, in any Claude Code session:
