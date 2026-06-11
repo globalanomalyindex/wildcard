@@ -17,13 +17,32 @@
     <div class="scaffold" id="scaffold" aria-hidden="true" data-depth="2"></div>
 
     <div class="hero-inner">
-      <h1 class="wordmark">wildcard</h1>
-      <div class="hero-row">
-        <span class="tagline">skill for claude code</span>
-        <a class="install-link" href="#card-install">install</a>
+      <div class="zone" id="zone-home">
+        <h1 class="wordmark">wildcard</h1>
+        <div class="hero-row">
+          <span class="tagline">skill for claude code</span>
+          <a class="install-link" href="#install">install</a>
+        </div>
+        <p class="lede">wildcard is an experimental skill for claude code that, at random, introduces an unrelated expert to your current task or project. in doing so, the token pool is seeded with unorthodox directions for standard chain-of-thought systems to work with - influencing more creative thinking, problem-solving, and idea generation in large language models.</p>
+        <p class="closing">this project is an experiment in introducing and emulating non-linear creative thinking in artificial intelligence systems, without straying away from current artificial intelligence technology and capabilities.</p>
       </div>
-      <p class="lede">wildcard is an experimental skill for claude code that, at random, introduces an unrelated expert to your current task or project. in doing so, the token pool is seeded with unorthodox directions for standard chain-of-thought systems to work with - influencing more creative thinking, problem-solving, and idea generation in large language models.</p>
-      <p class="closing">this project is an experiment in introducing and emulating non-linear creative thinking in artificial intelligence systems, without straying away from current artificial intelligence technology and capabilities.</p>
+      <div class="zone" id="install" hidden>
+        <h1 class="install-hero">install</h1>
+        <div class="hero-row">
+          <span class="tagline">skill for claude code</span>
+          <a class="install-link" href="#">back</a>
+        </div>
+        <div class="install-steps">
+          <p class="step"><span class="step-n">1</span>get the skill, then link it into your skills folder:</p>
+          <pre><code>ln -s "$(pwd)" ~/.claude/skills/wildcard</code></pre>
+          <p class="step"><span class="step-n">2</span>run <code>/wildcard</code> in any claude code session - and meet your expert.</p>
+          <p class="step"><span class="step-n">3</span>trust, then verify: every draw on this page reproduces in your terminal with <code>bash scripts/draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
+        </div>
+        <a class="wordmark-frame" href="#" aria-label="back to wildcard">
+          <span class="wordmark-mini">wildcard</span>
+          <span class="back-hint">← back to the field</span>
+        </a>
+      </div>
     </div>
 
     <div class="cardfield" id="cardfield" aria-live="polite"></div>
@@ -69,11 +88,6 @@
         <div class="rec-mount"></div>
       </article>
 
-      <article class="card" id="card-install" data-card="install">
-        <h3>install</h3>
-        <pre><code>ln -s "$(pwd)" ~/.claude/skills/wildcard</code></pre>
-        <p class="install-line">then run <code>/wildcard</code> in any claude code session - and meet your expert.</p>
-      </article>
     </div>
   </main>
 

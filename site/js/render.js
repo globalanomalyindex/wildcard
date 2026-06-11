@@ -18,6 +18,11 @@ function blobLayer(i) {
 }
 
 export function renderDeal(field, deck, d) {
+  // Cards may currently live inside the field from a previous deal (view changes
+  // re-deal). Collect them document-wide BEFORE clearing, so the nodes survive.
+  const cardEls = new Map(
+    [...document.querySelectorAll("[data-card]")].map((el) => { el.hidden = false; return [el.dataset.card, el]; })
+  );
   field.replaceChildren();
   const zoneW = 1 - 0.618;
   d.slots.forEach((slot, i) => {
@@ -48,20 +53,20 @@ export function renderDeal(field, deck, d) {
       frame.appendChild(pane);
       const content = document.createElement("div");
       content.className = "frame-content";
-      const cards = stack.map((id) => deck.querySelector(`[data-card="${id}"]`));
+      const cards = stack.map((id) => cardEls.get(id));
       cards.forEach((c, k) => { if (k > 0) c.hidden = true; content.appendChild(c); });
       frame.appendChild(content);
       if (cards.length > 1) {
         let cur = 0;
-        const chip = document.createElement("button");
-        chip.className = "stack-chip";
-        chip.type = "button";
+        const cta = document.createElement("button");
+        cta.className = "stack-cta";
+        cta.type = "button";
         const setLabel = () => {
-          chip.textContent = `${cur + 1}/${cards.length} ↻`;
-          chip.setAttribute("aria-label", `card ${cur + 1} of ${cards.length} in this cell, press to cycle`);
+          cta.innerHTML = `next card <span class="cta-count">${cur + 1}/${cards.length}</span> <span class="cta-arrow" aria-hidden="true">→</span>`;
+          cta.setAttribute("aria-label", `show next card, ${cur + 1} of ${cards.length} in this cell`);
         };
         setLabel();
-        chip.addEventListener("click", () => {
+        cta.addEventListener("click", () => {
           cards[cur].hidden = true;
           cur = (cur + 1) % cards.length;
           cards[cur].hidden = false;
@@ -70,7 +75,7 @@ export function renderDeal(field, deck, d) {
           cards[cur].classList.add("swap-in");
           setLabel();
         });
-        frame.appendChild(chip);
+        frame.appendChild(cta);
       }
       el.appendChild(frame);
     }

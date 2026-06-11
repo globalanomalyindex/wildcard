@@ -4,8 +4,9 @@
 import { cksum } from "./entropy.js";
 import { rowSlots, H } from "./grid-cells.js";
 
-// kind: "text" needs a wide slot in a tall-enough row; "compact" fits sub-slots;
-// "demo" is pinned alone to the row-1 wide slot (the draw is the page's hook).
+// kind: "text" needs a wide slot in a tall-enough row; "demo" is pinned alone to the
+// row-1 wide slot (the draw is the page's hook). Install is not a card: it owns the
+// left zone in the install view, reached through the working install link.
 export const CARDS = [
   { id: "demo",         kind: "demo" },
   { id: "thesis",       kind: "text" },
@@ -13,7 +14,6 @@ export const CARDS = [
   { id: "honesty",      kind: "text" },
   { id: "nature",       kind: "text" },
   { id: "recordings",   kind: "text" },
-  { id: "install",      kind: "compact" },
 ];
 
 const MIN_TEXT_ROW = 0.2; // a text card needs a row at least this tall (fraction of zone)
@@ -92,9 +92,9 @@ export function deal(seed, maxAttempts = 32) {
     const t = attempt(a === 0 ? String(seed) : `${seed}#${a}`);
     if (validate(t)) return { ...t, seed: String(seed) };
   }
-  // Deterministic last resort: everything in reading order, one card per wide row,
-  // overflow stacked on the last tall row. Validated by the test suite.
+  // Deterministic last resort: everything in reading order, one stack per tall row.
+  // Validated by the test suite.
   const slots = [rowSlots(0, false)[0], rowSlots(1, false)[0], rowSlots(2, false)[0], rowSlots(3, false)[0]];
-  const stacks = [["demo"], ["thesis", "how-it-works", "honesty"], ["install"], ["nature", "recordings"]];
+  const stacks = [["demo"], ["thesis", "how-it-works", "honesty"], [], ["nature", "recordings"]];
   return { slots, stacks, seed: String(seed), fallback: true };
 }

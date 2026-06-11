@@ -54,3 +54,18 @@ frames (backdrop-blur panes over per-frame drifting blob gradients, periwinkle/g
 violet). Cursor parallax moves blobs (14px), frames (6px), and scaffold (2px) through
 one lerped rAF loop; disabled for reduced motion and coarse pointers. Verified: no body
 scroll, zero card overflows, 15/15 node suite.
+
+## v4 design pass (2026-06-11)
+
+Guided by emil-design-eng + impeccable. Install link now navigates: clicking it reshuffles
+the entire page (fresh seed, re-dealt field), install takes the hero cell (Boyers Blur,
+gold-numbered steps), the wordmark moves to a glass frame at the bottom as the way back;
+hash deep-links work and a CSS :target fallback covers no-JS. Stack chip became a labeled
+CTA ("next card 1/3" pill, scale-on-press, custom ease-out). Deeper jewel blobs
+(indigo/gold/violet) behind the glass plus a page-wide ambient wash for coherence. Band
+gets bottom air (91.5vh); dealt-mode type scales with viewport height (root cause of the
+near-cutoff). Pollen canvas replaced with CSS-animated DOM motes after the canvas was
+caught corrupting compositing beneath backdrop-filter panes (black band in captures);
+alpha-oklch inside gradients pre-resolved to rgba for the same reason. Verified at
+1440x900: no body scroll, zero overflows across all stacks and recordings pages, install
+flow round-trips with reshuffles, 22 seeded motes, console clean. 15/15 node suite.
