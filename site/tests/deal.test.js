@@ -33,16 +33,14 @@ test("demo card pinned alone to the row-1 wide slot", () => {
   }
 });
 
-test("text cards only in wide slots of tall-enough rows; no slot hoards more than 3", () => {
+test("all cards in wide slots (sub-cells stay decorative); text needs tall rows; max stack 3", () => {
   for (const s of SEEDS) {
     const d = deal(s);
     d.slots.forEach((slot, i) => {
       assert.ok(d.stacks[i].length <= 3, `stack hoard for ${s}`);
+      if (!slot.wide) assert.equal(d.stacks[i].length, 0, `card in sub-slot for ${s}`);
       for (const id of d.stacks[i]) {
-        if (KIND[id] === "text") {
-          assert.ok(slot.wide, `text in sub-slot for ${s}`);
-          assert.ok(slot.y1 - slot.y0 >= 0.2, `text in short row for ${s}`);
-        }
+        if (KIND[id] === "text") assert.ok(slot.y1 - slot.y0 >= 0.2, `text in short row for ${s}`);
       }
     });
   }
@@ -69,12 +67,12 @@ test("slots tile their rows: x-extents from measured cuts, no overlap", () => {
 
 test("deterministic in seed; varied across seeds; no fallback in a sweep", () => {
   for (const s of SEEDS.slice(0, 20)) assert.deepEqual(deal(s), deal(s));
-  // The valid outcome space is ~90 signatures (5 text cards split 3+2 over the two tall
-  // rows = 20 sets, times install placement and empty-row split variants). Occupancy math:
-  // 200 draws over ~90 outcomes expects ~80 distinct. 55 is far above collapse (a broken
-  // stream measured 6) and safely below the ceiling.
+  // The valid outcome space is ~60 signatures (5 text cards split 3+2 over the two tall
+  // rows = 20 sets, times install placement and empty-row split variants; measured 56
+  // distinct in 200 draws). 40 sits far above collapse (a broken CRC-counter stream
+  // measured 6) and safely below the ceiling, so it discriminates without flaking.
   const shapes = new Set(SEEDS.map((s) => JSON.stringify(deal(s).stacks)));
-  assert.ok(shapes.size >= 55, `only ${shapes.size}/200 distinct deals`);
+  assert.ok(shapes.size >= 40, `only ${shapes.size}/200 distinct deals`);
   for (const s of SEEDS) assert.ok(!deal(s).fallback, `fallback hit for ${s}`);
 });
 

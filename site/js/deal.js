@@ -58,13 +58,15 @@ function attempt(seed) {
   }
   for (let r = 0; r < 3; r++) {
     const cards = rows[r];
-    const onlyCompact = cards.every((c) => c.kind === "compact");
-    const split = cards.length === 0 ? rng.chance(1, 2) : (onlyCompact && rng.chance(1, 3));
+    // Cards always get the wide slot; only empty rows may split into the narrow
+    // sub-cells, which stay decorative (hairlines + ratio annotations, like the
+    // reference image's own empty cells).
+    const split = cards.length === 0 && rng.chance(1, 2);
     const rs = rowSlots(r + 1, split);
     const base = slots.length;
     slots.push(...rs);
     for (let i = 0; i < rs.length; i++) stacks.push([]);
-    cards.forEach((c, i) => stacks[base + (split ? i % rs.length : 0)].push(c.id));
+    cards.forEach((c) => stacks[base].push(c.id));
   }
   return { slots, stacks };
 }
@@ -77,7 +79,7 @@ function validate({ slots, stacks }) {
   const kind = Object.fromEntries(CARDS.map((c) => [c.id, c.kind]));
   for (let i = 0; i < slots.length; i++) {
     for (const id of stacks[i]) {
-      if (kind[id] === "text" && !slots[i].wide) return false;
+      if (!slots[i].wide) return false; // cards live in wide slots, sub-cells stay decorative
       if (kind[id] === "text" && (slots[i].y1 - slots[i].y0) < MIN_TEXT_ROW) return false;
     }
     if (stacks[i].length > 3) return false; // no slot hoards the deck
