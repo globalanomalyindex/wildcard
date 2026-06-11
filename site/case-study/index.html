@@ -13,7 +13,8 @@
     .topbar a { text-decoration: none; border-bottom: 1px solid var(--ink-soft); }
     h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(64px, 13vw, 132px); line-height: 0.82; letter-spacing: -0.06em; color: var(--pale); margin: 0 0 0.2em; }
     .sub { font-family: var(--font-body); font-size: clamp(16px, 2vw, 22px); line-height: 1.2; color: var(--ink); max-width: 50ch; margin: 0 0 7vh; }
-    h2 { font-family: var(--font-body); font-weight: 400; font-size: clamp(26px, 4vw, 44px); letter-spacing: -0.04em; line-height: 0.98; color: var(--ink); margin: 8vh 0 0.6em; }
+    h2 { font-family: var(--font-body); font-weight: 400; font-size: clamp(26px, 4vw, 44px); letter-spacing: -0.04em; line-height: 0.98; color: var(--ink); margin: 8vh 0 0.6em; scroll-margin-top: 6vh; }
+    h2:target { background: var(--pale); border-radius: 6px; padding: 0 8px; margin-left: -8px; }
     p { font-family: var(--font-body); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.42; color: var(--ink); max-width: 64ch; margin: 0 0 1.1em; }
     strong { font-weight: 400; background: var(--pale); padding: 0 4px; border-radius: 2px; }
     blockquote { margin: 1.2em 0; padding: 14px 18px; background: rgba(206, 217, 247, 0.45); border-radius: 8px; font-family: var(--font-body); font-size: clamp(15px, 1.4vw, 18px); line-height: 1.4; }
@@ -88,7 +89,7 @@ bash plugin/scripts/draw.sh --seed &lt;seed&gt;    # reproduce any seed from the
       <li>the structure-mapping bar is <strong>enforced by the model honoring it</strong>. it held under adversarial review, but it is guidance, not a hard gate.</li>
     </ul>
 
-    <h2>install</h2>
+    <h2 id="install">install</h2>
     <pre>/plugin marketplace add globalanomalyindex/wildcard
 /plugin install wildcard@globalanomalyindex</pre>
     <p>then run <code>/wildcard</code> and meet your expert.</p>

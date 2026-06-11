@@ -22,8 +22,8 @@
 
     <h1 class="wordmark">wildcard</h1>
 
-    <aside class="panel" aria-label="figures and install">
-      <div class="view" id="view-figures">
+    <aside class="panel" aria-label="figures">
+      <div class="view">
         <div class="panel-head">
           <h2 class="panel-title">figures &amp; stuff here</h2>
           <span class="panel-tag">real, regenerable, small-n where noted</span>
@@ -31,23 +31,9 @@
         <div class="figures" id="figures"></div>
         <p class="case-link"><a href="case-study/">read the full case study &rarr;</a></p>
       </div>
-
-      <div class="view" id="view-install" hidden>
-        <div class="panel-head">
-          <h2 class="panel-title">install</h2>
-          <a class="panel-back" href="#">&larr; back to figures</a>
-        </div>
-        <div class="install-body">
-          <p class="istep"><span class="n">1</span>in any claude code session:</p>
-          <pre><code>/plugin marketplace add globalanomalyindex/wildcard
-/plugin install wildcard@globalanomalyindex</code></pre>
-          <p class="istep"><span class="n">2</span>run <code>/wildcard</code> in any session, and meet your expert.</p>
-          <p class="istep"><span class="n">3</span>trust, then verify: every draw here reproduces in your terminal with <code>draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
-        </div>
-      </div>
     </aside>
 
-    <a class="install-cta" id="install" href="#install" aria-label="install">install
+    <a class="install-cta" href="case-study/#install" aria-label="install, opens the case study">install
       <span class="chev" aria-hidden="true">&rsaquo;</span><span class="chev" aria-hidden="true">&rsaquo;</span><span class="chev" aria-hidden="true">&rsaquo;</span>
     </a>
 
@@ -58,6 +44,7 @@
 
     <div class="demo" aria-label="live draw">
       <p class="demo-label">drawing wildcards</p>
+      <div class="draw-bar" id="draw-bar" aria-hidden="true"><span></span></div>
       <pre class="draw-out" id="draw-out"></pre>
       <p class="draw-note" id="draw-note"></p>
     </div>

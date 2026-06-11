@@ -101,3 +101,13 @@ em/en dashes (grep). no body scroll at 1440x1024; no horizontal scroll at 380px;
 flip + back verified. figures panel data is honest and caveated (small-n flagged) and
 every number regenerates from tests. full case study at docs/case-study.md and the live
 page site/case-study/ (linked from the panel). node suite 8/8, shell suite ALL GREEN.
+
+## v7 demo + install tweaks (2026-06-11)
+
+draw demo no longer flashes: reserved heights (demo box a steady 194px through a full
+cycle, measured), the previous note stays in place dimmed while the next draw loads, and a
+subtle pulse bar under the label shows the loading (breathes when idle, sweeps when
+loading; reduced-motion static). install > > > no longer flips the panel (that swap
+shifted page alignment); it now links to case-study/#install, which lands on the
+highlighted install heading with the plugin commands below. dead install-flip css/markup
+removed. node suite 8/8, shell ALL GREEN, zero em dashes, all lowercase.
