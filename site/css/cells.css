@@ -77,7 +77,11 @@ html.dealt .deck { display: none; }
 .rec-chip { background: var(--gold); color: #4d431a; font-size: 10px; padding: 1px 8px; border-radius: 10px; }
 .rec-proj { font-size: clamp(11px, 0.9vw, 12px); color: var(--ink-soft); margin: 0 0 4px; }
 .rec-seed { font-size: clamp(11px, 0.95vw, 13px); line-height: 1.45; margin: 0; }
-.rec-pager { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
+.rec-pager { display: flex; align-items: center; gap: 8px; margin-top: 4px; }
+/* the recordings card carries the most chrome; tighten it to its cell */
+#card-recordings { padding-top: 14px; padding-bottom: 12px; }
+#card-recordings h3 { margin-bottom: 0.3em; }
+#card-recordings .provenance { margin-top: 2px; }
 .rec-pager button {
   font-family: var(--font-mono); font-size: 11px; background: var(--cell-fill);
   border: 1px solid var(--cell-line); border-radius: 8px; padding: 2px 9px; cursor: pointer; color: var(--ink);
