@@ -1,6 +1,6 @@
 // POSIX cksum CRC-32: polynomial 0x04C11DB7, non-reflected, init 0, message length
 // appended LSB-first, final complement. This is the SAME algorithm the `cksum` binary
-// uses, which is what scripts/draw.sh hashes seeds with — so for any seed, the browser
+// uses, which is what scripts/draw.sh hashes seeds with - so for any seed, the browser
 // and the shell pick the same expert. That parity is tested, not assumed.
 const TABLE = (() => {
   const t = new Uint32Array(256);
