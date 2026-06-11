@@ -1,0 +1,11 @@
+{
+  "note": "The blessed fallback layout, mirrored from FALLBACK() in phi-grid.js (inlined there so the engine never needs fetch). Recorded here for documentation and runtime parity.",
+  "bands": [
+    { "hFrac": 0.22, "cells": [{ "wFrac": 1, "section": "thesis" }] },
+    { "hFrac": 0.18, "cells": [{ "wFrac": 0.618, "section": "how-it-works" }, { "wFrac": 0.382, "empty": true }] },
+    { "hFrac": 0.18, "cells": [{ "wFrac": 1, "section": "honesty" }] },
+    { "hFrac": 0.16, "cells": [{ "wFrac": 0.382, "empty": true }, { "wFrac": 0.618, "section": "nature" }] },
+    { "hFrac": 0.16, "cells": [{ "wFrac": 1, "section": "reference-organism" }] },
+    { "hFrac": 0.10, "cells": [{ "wFrac": 0.618, "section": "install" }, { "wFrac": 0.382, "empty": true }] }
+  ]
+}

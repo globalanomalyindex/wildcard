@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>wildcard — a skill for Claude Code</title>
+  <meta name="description" content="An experimental Claude Code skill that introduces a random expert from an unrelated field to seed non-linear creative thinking." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23e5e0f6'/%3E%3Ccircle cx='10' cy='10' r='4' fill='%2377a0e4'/%3E%3Ccircle cx='22' cy='13' r='3' fill='%23d0c382'/%3E%3Ccircle cx='14' cy='22' r='5' fill='%2377a0e4'/%3E%3C/svg%3E" />
+  <link rel="preload" href="fonts/BoyersBlur-Regular.otf" as="font" type="font/otf" crossorigin />
+  <link rel="preload" href="fonts/Karrik-Regular.otf" as="font" type="font/otf" crossorigin />
+  <link rel="stylesheet" href="css/tokens.css" />
+  <link rel="stylesheet" href="css/hero.css" />
+  <link rel="stylesheet" href="css/cells.css" />
+</head>
+<body>
+  <header class="hero">
+    <img class="hero-grid" src="assets/chickpea-grid.png" alt="" aria-hidden="true" />
+    <div class="hero-inner">
+      <h1 class="wordmark">wildcard</h1>
+      <div class="hero-row">
+        <span class="tagline">skill for claude code</span>
+        <a class="install-link" href="#section-install">install</a>
+      </div>
+      <p class="lede">wildcard is an experimental skill for claude code that, at random, introduces an unrelated expert to your current task or project. in doing so, the token pool is seeded with unorthodox directions for standard chain-of-thought systems to work with — influencing more creative thinking, problem-solving, and idea generation in large language models.</p>
+      <p class="closing">this project is an experiment in introducing and emulating non-linear creative thinking in artificial intelligence systems, without straying away from current artificial intelligence technology and capabilities.</p>
+    </div>
+    <aside class="demo" id="demo" aria-label="draw a wildcard"></aside>
+  </header>
+
+  <main id="field" class="field" data-fallback>
+    <section class="section" id="section-thesis" data-section="thesis">
+      <h2>a synthetic default-mode network</h2>
+      <p>An LLM's chain of thought has no default mode. It is relentlessly task-locked — it never wanders, never lets something irrelevant surface, because every token is conditioned on staying on-task. So it can't have the "pop-in"; the architecture forbids it. wildcard externalizes the one faculty the architecture is missing — a synthetic default-mode network that injects the remote associate the on-task reasoner would never wander to.</p>
+      <p class="aside">Not higher temperature, which only flattens the distribution into noise — but different conditioning. A specific expert persona translates the model's high-probability mass to a distant, still-coherent region of latent space. Structured divergence, never randomness.</p>
+    </section>
+
+    <section class="section" id="section-how-it-works" data-section="how-it-works">
+      <h2>how it works</h2>
+      <ol class="pipeline">
+        <li><b>detect</b> — distill the structural sketch of your project: its moving parts, flows, and tensions. Structure, not stack — so it works on code, prose, or research alike.</li>
+        <li><b>draw</b> — a shell script picks one of 344 niche disciplines with real entropy, outside the model, so no field is quietly favored.</li>
+        <li><b>specialize</b> — the coordinate grows into a hyper-specific practitioner with a real toolkit, steered by a drawn lens into a non-obvious corner.</li>
+        <li><b>notice</b> — only genuine relational matches surface; honest abstention when little maps.</li>
+        <li><b>seed</b> — two to four optional provocations, yours to plant or discard.</li>
+      </ol>
+    </section>
+
+    <section class="section" id="section-honesty" data-section="honesty">
+      <h2>map relations, not nouns</h2>
+      <p>A bad connection shares a surface feature — "your code has 'cells,' I study biological cells!" A real one maps relational structure: "your retry backoff and a predator–prey cycle are the same oscillation, and ecologists found stochastic jitter stops the populations from synchronizing into a crash — have you considered jitter in your backoff?" Same relations, different domain. Encoding that bar is how "doesn't lie for the sake of a connection" becomes a checkable property instead of a vibe.</p>
+    </section>
+
+    <section class="section" id="section-nature" data-section="nature">
+      <h2>looking to nature for the mechanism</h2>
+      <ul class="nature">
+        <li><b>cross-pollination</b> — a pollinator carries genes between flowers without choosing which; the draw is that undirected carrier.</li>
+        <li><b>seed dispersal &amp; germination</b> — most seeds never germinate, and that is the honest hit rate; you decide which provocations take root.</li>
+        <li><b>outbreeding</b> — a distant cross escapes the inbreeding depression of a closed gene pool, the way a foreign field escapes mode collapse.</li>
+        <li><b>stochastic resonance</b> — in a nonlinear system, the right amount of noise amplifies a weak signal instead of drowning it.</li>
+      </ul>
+    </section>
+
+    <section class="section" id="section-reference-organism" data-section="reference-organism">
+      <figure>
+        <img src="assets/chickpea-grid.png" alt="A golden-ratio modular grid generated by the Chickpea system, the structural reference this page's cells are grown from." />
+        <figcaption>the reference organism — the φ-grid these cells are grown from, generated by the Chickpea system.</figcaption>
+      </figure>
+    </section>
+
+    <section class="section" id="section-install" data-section="install">
+      <h2>install</h2>
+      <pre><code>ln -s "$(pwd)" ~/.claude/skills/wildcard</code></pre>
+      <p>Then run <code>/wildcard</code> in any Claude Code session — and meet your expert.</p>
+    </section>
+  </main>
+
+  <script type="module" src="js/main.js"></script>
+</body>
+</html>
