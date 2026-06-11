@@ -1,0 +1,30 @@
+@font-face {
+  font-family: "Boyers Blur";
+  src: url("../fonts/BoyersBlur-Regular.otf") format("opentype");
+  font-weight: 400; font-display: swap;
+}
+@font-face {
+  font-family: "Karrik";
+  src: url("../fonts/Karrik-Regular.otf") format("opentype");
+  font-weight: 400; font-display: swap;
+}
+:root {
+  --seafoam: #e5e0f6;
+  --periwinkle: #77a0e4;
+  --gold: #d0c382;
+  --ink: #302e3a;
+  --ink-soft: #6b6580;
+  --cell-line: rgba(48, 46, 58, 0.14);
+  --cell-fill: #efeaf9;
+  --r-phi: 0.618;
+  --r-inv: 0.382;
+  --r-half: 0.5;
+  --measure-min: 38ch;
+  --measure-max: 70ch;
+  --font-display: "Boyers Blur", system-ui, sans-serif;
+  --font-body: "Karrik", system-ui, sans-serif;
+  --font-mono: ui-monospace, "SF Mono", Menlo, monospace;
+}
+* { box-sizing: border-box; }
+html, body { margin: 0; background: var(--seafoam); color: var(--ink); font-family: var(--font-body); }
+a { color: var(--gold); }
