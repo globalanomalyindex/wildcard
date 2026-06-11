@@ -34,12 +34,9 @@ html, body { height: 100%; }
   display: flex; flex-direction: column;
 }
 .view { display: flex; flex-direction: column; min-height: 0; flex: 1; }
-.view[hidden] { display: none; }
 .panel-head { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap; }
 .panel-title { font-family: var(--font-body); font-weight: 400; font-size: clamp(26px, 3.4vw, 52px); letter-spacing: -0.05em; margin: 0; line-height: 0.95; }
 .panel-tag { font-family: var(--font-mono); font-size: 10px; color: var(--ink-soft); }
-.panel-back { font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); text-decoration: none; }
-.panel-back:hover { color: var(--ink); }
 
 .figures { flex: 1; overflow-y: auto; margin-top: clamp(10px, 1.2vw, 16px); padding-right: 6px; }
 .figures .fig { padding: 9px 0; border-top: 1px solid var(--hair); }
@@ -51,13 +48,7 @@ html, body { height: 100%; }
 .case-link { margin: clamp(8px, 1vw, 12px) 0 0; }
 .case-link a { font-family: var(--font-body); font-size: clamp(14px, 1.2vw, 18px); border-bottom: 1px solid var(--ink); text-decoration: none; }
 
-.install-body { margin-top: clamp(12px, 1.6vw, 20px); }
-.istep { display: flex; align-items: baseline; gap: 10px; font-family: var(--font-body); font-size: clamp(14px, 1.2vw, 18px); line-height: 1.25; margin: 0 0 1em; }
-.istep .n { flex: none; width: 22px; height: 22px; border-radius: 50%; display: inline-flex; align-items: center; justify-content: center; font-family: var(--font-mono); font-size: 12px; background: var(--orange); color: var(--ink); transform: translateY(2px); }
-.install-body pre { background: rgba(30, 30, 30, 0.07); border-radius: 8px; padding: 11px 13px; overflow-x: auto; margin: 0 0 1em 32px; }
-.install-body code, .istep code { font-family: var(--font-mono); font-size: clamp(11px, 1vw, 13px); }
-
-/* install -> -> -> big call to action, below the panel */
+/* install -> -> -> big call to action, below the panel (links to the case study) */
 .install-cta {
   position: absolute; right: 2vw; top: calc(3.1vh + 58vh + 1.4vh); z-index: 3;
   display: inline-flex; align-items: center; gap: 0.12em;
@@ -79,18 +70,25 @@ html, body { height: 100%; }
   padding: 6px 8px; background: rgba(30, 30, 30, 0.05);
 }
 
-/* live draw, lower-left, near the wordmark */
-.demo { position: absolute; left: 2.4vw; top: 46vh; width: 40vw; max-width: 540px; z-index: 2; }
-.demo-label { font-family: var(--font-body); font-size: clamp(15px, 1.5vw, 21px); color: var(--ink); margin: 0 0 8px; }
-.draw-out { font-family: var(--font-mono); font-size: clamp(11px, 0.95vw, 13px); color: var(--ink); background: rgba(206, 217, 247, 0.32); border-radius: 6px; padding: 9px 11px; margin: 0 0 8px; white-space: pre-wrap; min-height: 2.6em; }
-.draw-note { font-family: var(--font-body); font-size: clamp(12px, 1vw, 15px); color: var(--ink); line-height: 1.35; max-width: 40ch; }
+/* live draw, lower-left, near the wordmark. heights are reserved so a new draw never
+   collapses the space: the old note stays (dimmed) while the next one loads. */
+.demo { position: absolute; left: 2.4vw; top: 44vh; width: 40vw; max-width: 540px; z-index: 2; }
+.demo-label { font-family: var(--font-body); font-size: clamp(15px, 1.5vw, 21px); color: var(--ink); margin: 0 0 7px; }
+.draw-bar { height: 3px; max-width: 220px; border-radius: 2px; background: rgba(30, 30, 30, 0.1); overflow: hidden; margin: 0 0 9px; }
+.draw-bar > span { display: block; height: 100%; width: 100%; background: var(--ink); opacity: 0.16; transform-origin: left center; }
+@media (prefers-reduced-motion: no-preference) {
+  .draw-bar > span { animation: bar-breathe 2.8s ease-in-out infinite; }
+  .draw-bar.is-loading > span { animation: bar-load 1.05s ease-in-out infinite; }
+}
+@keyframes bar-breathe { 0%, 100% { opacity: 0.12; } 50% { opacity: 0.26; } }
+@keyframes bar-load { 0% { transform: scaleX(0.12); opacity: 0.2; } 50% { transform: scaleX(1); opacity: 0.42; } 100% { transform: scaleX(0.12); opacity: 0.2; transform-origin: right center; } }
+.draw-out { font-family: var(--font-mono); font-size: clamp(11px, 0.95vw, 13px); color: var(--ink); background: rgba(206, 217, 247, 0.32); border-radius: 6px; padding: 9px 11px; margin: 0 0 8px; white-space: pre-wrap; min-height: 3.4em; }
+.draw-note { font-family: var(--font-body); font-size: clamp(12px, 1vw, 15px); color: var(--ink); line-height: 1.35; max-width: 40ch; min-height: 4.4em; transition: opacity 260ms ease; }
+.draw-note.is-stale { opacity: 0.4; }
 .draw-note b { font-weight: 400; border-bottom: 1px solid var(--ink); }
 .seed-tag { display: block; margin-top: 6px; font-family: var(--font-mono); font-size: 11px; color: var(--ink-soft); }
 
 .readout { position: absolute; left: 2.4vw; top: 1.5vh; margin: 0; z-index: 3; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--ink-soft); white-space: nowrap; }
-
-.page:has(.install-cta:target) #view-figures { display: none; }
-.page:has(.install-cta:target) #view-install { display: flex; }
 
 @media (prefers-reduced-motion: reduce) {
   .install-cta .chev { transition: none; }
@@ -108,7 +106,6 @@ html, body { height: 100%; }
   .panel { width: auto; }
   .figures { overflow: visible; }
   .install-cta { font-size: clamp(44px, 13vw, 96px); }
-  .install-body pre { margin-left: 0; }
   .ascii { justify-content: flex-start; }
   .ascii-cell { width: 46vw; height: 110px; }
   .demo { order: 5; }

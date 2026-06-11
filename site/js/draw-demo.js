@@ -21,23 +21,32 @@ function typeOut(el, text, done) {
 export function initDemo(pageSeed) {
   const out = document.getElementById("draw-out");
   const note = document.getElementById("draw-note");
+  const bar = document.getElementById("draw-bar");
 
-  function draw(seed) {
+  function noteHTML(d, seed) {
+    return `now imagine what a <b>${d}</b> specialist would notice about your project. ` +
+      `that part happens in claude code. ` +
+      `<span class="seed-tag">seed ${seed} · reproduce: draw.sh --seed ${seed}</span>`;
+  }
+
+  // The next draw loads with the previous note still in place (dimmed) and the bar
+  // pulsing, so the area stays filled and formatted instead of flashing empty.
+  function draw(seed, isFirst) {
     const d = DOMAINS[pickIndex("domain", seed, DOMAINS.length)];
     const l = LENSES[pickIndex("lens", seed, LENSES.length)];
-    note.innerHTML = "";
+    if (!isFirst) note.classList.add("is-stale");
+    if (bar) bar.classList.add("is-loading");
     typeOut(out, `domain=${d}\nlens=${l}`, () => {
-      note.innerHTML =
-        `now imagine what a <b>${d}</b> specialist would notice about your project. ` +
-        `that part happens in claude code. ` +
-        `<span class="seed-tag">seed ${seed} · reproduce: draw.sh --seed ${seed}</span>`;
+      note.innerHTML = noteHTML(d, seed);
+      note.classList.remove("is-stale");
+      if (bar) bar.classList.remove("is-loading");
     });
   }
 
-  draw(pageSeed);
+  draw(pageSeed, true);
   if (reduce) return;
   let timer = null;
-  const cycle = () => { draw(freshSeed()); schedule(); };
+  const cycle = () => { draw(freshSeed(), false); schedule(); };
   const schedule = () => { timer = setTimeout(cycle, 5000 + Math.random() * 2000); };
   schedule();
   document.addEventListener("visibilitychange", () => {
