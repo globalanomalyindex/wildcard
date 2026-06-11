@@ -3,13 +3,21 @@
    sizes scale with vw from the 1440 reference (200px = 13.89vw etc), so the left zone
    keeps its Figma proportions at any desktop width. */
 :root {
-  --band-top: 3.125vh;
-  --band-h: 93.75vh;
+  /* more air at the bottom than the top: the band breathes before the viewport edge */
+  --band-top: 3vh;
+  --band-h: 91.5vh;
   --row2: calc(var(--band-top) + 0.382 * var(--band-h));
   --row4: calc(var(--band-top) + 0.764 * var(--band-h));
 }
 
 .page { position: relative; min-height: 100vh; }
+/* one ambient wash ties the zones into a single piece */
+.page::before {
+  content: ""; position: absolute; inset: 0; pointer-events: none; z-index: 0;
+  background:
+    radial-gradient(58% 42% at 86% 8%, rgba(77, 90, 155, 0.1), rgba(77, 90, 155, 0) 70%),
+    radial-gradient(50% 40% at 6% 96%, rgba(201, 185, 122, 0.12), rgba(201, 185, 122, 0) 70%);
+}
 html.dealt .page { height: 100vh; overflow: hidden; }
 html.dealt body { overflow: hidden; }
 
@@ -20,11 +28,48 @@ html.dealt body { overflow: hidden; }
   top: var(--band-top); height: var(--band-h);
   pointer-events: none; z-index: 0; overflow: visible;
 }
-.rule { position: absolute; background: var(--cell-line); }
-.rule-h { left: 0; width: 100%; height: 1px; }
-.rule-v { top: 0; height: 100%; width: 1px; }
+/* mechanical seams: dashed rules + registration ticks at the real intersections */
+.rule { position: absolute; transition: opacity 300ms ease; }
+.rule-h { left: 0; width: 100%; height: 1px; background: repeating-linear-gradient(to right, var(--seam) 0 7px, transparent 7px 12px); }
+.rule-v { top: 0; height: 100%; width: 1px; background: repeating-linear-gradient(to bottom, var(--seam) 0 7px, transparent 7px 12px); }
+.tick {
+  position: absolute; width: 9px; height: 9px; pointer-events: none;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(var(--seam) 0 0) center / 9px 1px no-repeat,
+    linear-gradient(var(--seam) 0 0) center / 1px 9px no-repeat;
+  transition: transform 600ms var(--ease-out-strong);
+}
+#scaffold.shuffling .rule { opacity: 0.5; }
+#scaffold.shuffling .tick { transform: translate(-50%, -50%) rotate(45deg); }
+
+/* the instrument line: live engine readout, all values real (see main.js) */
+.readout {
+  position: absolute; left: 3.47vw; bottom: 1.4vh; z-index: 1;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em;
+  color: var(--ink-soft); pointer-events: none; white-space: nowrap;
+}
+@media (max-width: 1099px) { .readout { display: none; } }
+
+/* pollen: DOM motes rising on CSS animations (no canvas under the glass) */
+.pollen { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
+.mote { position: absolute; top: 100%; border-radius: 50%; display: block; animation-name: rise; animation-timing-function: linear; animation-iteration-count: infinite; will-change: transform; }
+.mote-blue { background: rgba(119, 160, 228, 0.5); }
+.mote-gold { background: rgba(208, 195, 130, 0.5); }
+@keyframes rise {
+  from { transform: translate3d(0, 0, 0); }
+  to { transform: translate3d(var(--sway, 0px), -108vh, 0); }
+}
 
 .hero-inner { position: relative; z-index: 1; }
+.zone:not([hidden]) { display: contents; }
+/* no-JS fallback: the install link still works through CSS :target */
+#install:target { display: contents; }
+.hero-inner:has(#install:target) #zone-home { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+  .hero-inner.swap { animation: zone-swap 300ms var(--ease-out-strong); }
+  @keyframes zone-swap { from { opacity: 0; filter: blur(6px); } to { opacity: 1; filter: blur(0); } }
+}
 
 .wordmark {
   position: absolute; top: 3.2vh; left: 3.47vw; margin: 0;
@@ -39,6 +84,7 @@ html.dealt body { overflow: hidden; }
   left: 3.47vw; width: 51.3vw;
   display: flex; justify-content: space-between; align-items: baseline;
 }
+#install .hero-row { top: calc(3.2vh + clamp(80px, 9.5vw, 140px) + 2.6vh); }
 .tagline, .install-link {
   font-family: var(--font-body); font-size: clamp(22px, 2.78vw, 40px);
   letter-spacing: -0.056vw; color: var(--gold); text-decoration: none;
@@ -59,10 +105,64 @@ html.dealt body { overflow: hidden; }
   line-height: 1.06; letter-spacing: -0.044vw; color: var(--ink);
 }
 
+/* - install view: install takes the hero position, the wordmark moves to the bottom - */
+/* Karrik even at hero size: Boyers Blur belongs to the wordmark alone */
+.install-hero {
+  position: absolute; top: 3.2vh; left: 3.47vw; margin: 0;
+  font-family: var(--font-body); font-weight: 400;
+  font-size: clamp(80px, 9.5vw, 140px); line-height: 1;
+  letter-spacing: -0.25vw; color: var(--periwinkle);
+}
+.install-steps { position: absolute; top: calc(var(--row2) + 1.2vh); left: 3.47vw; width: 50vw; }
+.step {
+  display: flex; align-items: baseline; gap: 12px; margin: 0 0 1.4vh;
+  font-family: var(--font-body); font-size: clamp(15px, 1.6vw, 22px);
+  line-height: 1.3; color: var(--ink);
+}
+.step-n {
+  flex: none; width: 24px; height: 24px; border-radius: 50%;
+  display: inline-flex; align-items: center; justify-content: center;
+  font-family: var(--font-mono); font-size: 12px; color: #4d431a;
+  background: var(--gold); transform: translateY(3px);
+}
+.install-steps pre {
+  background: rgba(255, 255, 255, 0.55); border-radius: 10px;
+  padding: 12px 14px; margin: 0 0 1.6vh 36px; overflow-x: auto; max-width: 42vw;
+}
+.install-steps code { font-family: var(--font-mono); font-size: clamp(12px, 1vw, 14px); }
+.wordmark-frame {
+  position: absolute; left: 3.47vw; top: calc(var(--row4) + 1.4vh);
+  width: 44vw; height: calc(0.236 * var(--band-h) - 3.4vh);
+  display: flex; flex-direction: column; justify-content: center; padding: 0 32px;
+  border-radius: 8px; text-decoration: none;
+  background: rgba(239, 234, 249, 0.42);
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(12px) saturate(1.12);
+  border: 1px solid rgba(48, 46, 58, 0.16);
+  box-shadow: 0 3px 14px rgba(58, 53, 86, 0.1);
+  transition: transform 200ms var(--ease-out-strong);
+}
+@media (hover: hover) and (pointer: fine) {
+  .wordmark-frame:hover { transform: translateY(-2px); }
+}
+.wordmark-frame:active { transform: scale(0.985); }
+.wordmark-frame:focus-visible { outline: 3px solid var(--ink); outline-offset: 3px; }
+.wordmark-mini {
+  font-family: var(--font-display); font-weight: 400;
+  font-size: clamp(44px, 5vw, 76px); line-height: 1;
+  letter-spacing: -1.5px; color: var(--periwinkle);
+}
+.back-hint { font-family: var(--font-body); font-size: 14px; color: var(--ink-soft); margin-top: 8px; }
+
 /* Narrow / no-deal flow: everything stacks and the page scrolls normally. */
 @media (max-width: 1099px) {
-  .wordmark, .hero-row, .lede, .closing { position: static; width: auto; }
+  .wordmark, .hero-row, .lede, .closing,
+  .install-hero, .install-steps, .wordmark-frame { position: static; width: auto; height: auto; }
   .hero-inner { display: flex; flex-direction: column; gap: 20px; padding: 24px 16px 0; }
+  .zone:not([hidden]) { display: flex; flex-direction: column; gap: 20px; }
   .wordmark { font-size: clamp(64px, 21vw, 140px); letter-spacing: -2px; white-space: normal; }
+  .install-hero { font-size: clamp(48px, 16vw, 100px); }
+  .install-steps pre { max-width: none; margin-left: 0; }
+  .wordmark-frame { padding: 20px; }
   .scaffold { display: none; }
 }

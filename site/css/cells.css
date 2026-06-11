@@ -14,16 +14,33 @@ html.dealt .deck { display: none; }
   left: calc(var(--x0) * 100%); top: calc(var(--y0) * 100%);
   width: calc((var(--x1) - var(--x0)) * 100%);
   height: calc((var(--y1) - var(--y0)) * 100%);
+  transition:
+    left 480ms cubic-bezier(0.77, 0, 0.175, 1),
+    top 480ms cubic-bezier(0.77, 0, 0.175, 1),
+    width 480ms cubic-bezier(0.77, 0, 0.175, 1),
+    height 480ms cubic-bezier(0.77, 0, 0.175, 1);
+}
+.slot-out { opacity: 0; transform: scale(0.985); transition: opacity 260ms ease, transform 260ms ease; pointer-events: none; }
+.slot.lock { animation: lock-seat 150ms var(--ease-out-strong); }
+@keyframes lock-seat { 0% { transform: scale(1); } 45% { transform: scale(0.992); } 100% { transform: scale(1); } }
+@media (prefers-reduced-motion: reduce) {
+  .slot { transition: none; }
+  .slot.lock { animation: none; }
 }
 .slot-decor { display: flex; align-items: flex-end; padding: 8px; }
 .decor-label { font-family: var(--font-mono); font-size: 10px; color: var(--gold); }
+.slot-meta {
+  position: absolute; top: 1px; right: 4px;
+  font-family: var(--font-mono); font-size: 8.5px; letter-spacing: 0.02em;
+  color: var(--ink-soft); opacity: 0.75; pointer-events: none;
+}
 
-/* - liquid glass frames - */
+/* - glass panels, utilitarian: mounted on the skeleton, not floating above it - */
 .frame {
   position: absolute; inset: 9px;
-  border-radius: 16px; overflow: hidden;
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 8px 28px rgba(48, 46, 58, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  border-radius: 8px; overflow: hidden;
+  border: 1px solid rgba(48, 46, 58, 0.16);
+  box-shadow: 0 3px 14px rgba(58, 53, 86, 0.1);
   will-change: transform;
 }
 .blob-layer { position: absolute; inset: -12%; will-change: transform; }
@@ -31,9 +48,12 @@ html.dealt .deck { display: none; }
   position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%;
   opacity: 0.5; will-change: transform;
 }
-.hue-0 { background: radial-gradient(circle at 35% 35%, rgba(119, 160, 228, 0.75), rgba(119, 160, 228, 0) 65%); }
-.hue-1 { background: radial-gradient(circle at 40% 40%, rgba(208, 195, 130, 0.65), rgba(208, 195, 130, 0) 65%); }
-.hue-2 { background: radial-gradient(circle at 45% 35%, rgba(196, 167, 231, 0.6), rgba(196, 167, 231, 0) 65%); }
+/* deep jewel tones live behind the glass: the page stays daylight, the frames carry
+   weight. rgba pre-resolved from the oklch tokens: alpha-oklch inside gradients hits a
+   compositing black-out in some Chromium builds. */
+.hue-0 { background: radial-gradient(circle at 35% 35%, rgba(77, 90, 155, 0.62), rgba(77, 90, 155, 0) 66%); }
+.hue-1 { background: radial-gradient(circle at 40% 40%, rgba(166, 148, 87, 0.5), rgba(166, 148, 87, 0) 66%); }
+.hue-2 { background: radial-gradient(circle at 45% 35%, rgba(102, 65, 126, 0.55), rgba(102, 65, 126, 0) 66%); }
 .blob-0 { left: -6%; top: -10%; }
 .blob-1 { right: -8%; top: 26%; width: 74%; }
 .blob-2 { left: 18%; bottom: -14%; width: 56%; }
@@ -47,35 +67,54 @@ html.dealt .deck { display: none; }
 }
 .glass-pane {
   position: absolute; inset: 0;
-  background: rgba(239, 234, 249, 0.38);
-  -webkit-backdrop-filter: blur(22px) saturate(1.25);
-  backdrop-filter: blur(22px) saturate(1.25);
+  background: rgba(235, 230, 248, 0.34);
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(12px) saturate(1.12);
 }
 .frame-content { position: absolute; inset: 0; }
 
-.frame .card { position: absolute; inset: 0; padding: clamp(12px, 1.25vw, 20px); overflow: hidden; }
+.frame .card { position: absolute; inset: 0; padding: clamp(12px, 1.8vh, 20px) clamp(12px, 1.25vw, 20px) clamp(14px, 2vh, 24px); overflow: hidden; }
 .frame .card[hidden] { display: none; }
 
-/* Karrik for all small titles; only the hero wordmark wears the display font */
+/* Karrik for all small titles; only hero-position titles wear the display font.
+   In dealt mode type scales with viewport HEIGHT, because the rows do: shorter
+   windows compress the cells, so the text must follow or it crowds the bottom. */
 .card h3 {
   font-family: var(--font-body); font-weight: 400;
   font-size: clamp(15px, 1.45vw, 21px); letter-spacing: -0.3px;
   color: var(--periwinkle); margin: 0 0 0.55em;
 }
 .card p, .card li { font-family: var(--font-body); font-size: clamp(12px, 0.95vw, 14px); line-height: 1.45; color: var(--ink); margin: 0 0 0.5em; }
+html.dealt .card h3 { font-size: clamp(14px, 2.1vh, 21px); margin-bottom: clamp(4px, 0.8vh, 12px); }
+html.dealt .card p, html.dealt .card li { font-size: clamp(11px, 1.45vh, 14px); line-height: 1.38; }
+html.dealt .pipeline li, html.dealt .nature li { margin: clamp(2px, 0.4vh, 7px) 0; }
+html.dealt .rec-seed { font-size: clamp(10px, 1.35vh, 13px); line-height: 1.38; }
+html.dealt .rec-proj { margin-bottom: 2px; }
+html.dealt .rec-head { margin-bottom: clamp(2px, 0.5vh, 6px); }
+@media (max-height: 960px) {
+  html.dealt .provenance { display: none; }
+  html.dealt #card-recordings .rec-pager { margin-top: 2px; }
+}
 .pipeline, .nature { padding-left: 1.1em; margin: 0; }
 .pipeline li, .nature li { margin: 0.35em 0; }
 .card pre { background: var(--cell-fill); padding: 10px 12px; border-radius: 8px; overflow-x: auto; margin: 0 0 0.6em; }
 .card code { font-family: var(--font-mono); font-size: 12px; }
 
-.stack-chip {
-  position: absolute; top: 10px; right: 12px; z-index: 2;
-  font-family: var(--font-mono); font-size: 11px;
-  background: var(--gold); color: #4d431a;
-  border: none; border-radius: 10px; padding: 3px 10px; cursor: pointer;
+.stack-cta {
+  position: absolute; bottom: 12px; right: 12px; z-index: 2;
+  display: inline-flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: 13px; color: #1d3a66;
+  background: var(--periwinkle); border: none; border-radius: 999px;
+  padding: 8px 14px; cursor: pointer;
+  transition: transform 160ms var(--ease-out-strong), filter 160ms ease;
 }
-.stack-chip:hover { filter: brightness(1.06); }
-.stack-chip:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
+.stack-cta .cta-count { font-family: var(--font-mono); font-size: 11px; opacity: 0.75; }
+.stack-cta .cta-arrow { font-size: 14px; line-height: 1; }
+@media (hover: hover) and (pointer: fine) {
+  .stack-cta:hover { filter: brightness(1.07); transform: translateY(-1px); }
+}
+.stack-cta:active { transform: scale(0.96); }
+.stack-cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
 
 @media (prefers-reduced-motion: no-preference) {
   html.dealt .slot { animation: deal-in 0.5s ease both; animation-delay: calc(var(--i) * 70ms); }
@@ -86,14 +125,8 @@ html.dealt .deck { display: none; }
 
 /* demo card internals */
 .demo-title {
-  display: flex; align-items: center; gap: 8px;
   font-family: var(--font-body); font-size: clamp(15px, 1.45vw, 21px);
   letter-spacing: -0.3px; color: var(--periwinkle); margin: 0 0 0.55em;
-}
-.live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
-@media (prefers-reduced-motion: no-preference) {
-  .live-dot { animation: pulse 2.4s ease-in-out infinite; }
-  @keyframes pulse { 50% { opacity: 0.35; } }
 }
 .sr-note { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0; }
 .draw-out {

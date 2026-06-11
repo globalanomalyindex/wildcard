@@ -16,4 +16,15 @@ export function renderScaffold(mount) {
   line("rule-h", { top: "100%" });
   for (const v of V) line("rule-v", { left: `${v * 100}%` });
   line("rule-v", { left: "0%" });
+  // registration ticks at every real V x H intersection (they rotate while the
+  // mechanism re-seats - see #scaffold.shuffling)
+  for (const v of V) {
+    for (const h of H) {
+      const t = document.createElement("div");
+      t.className = "tick";
+      t.style.left = `${v * 100}%`;
+      t.style.top = `${h * 100}%`;
+      mount.appendChild(t);
+    }
+  }
 }

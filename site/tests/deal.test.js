@@ -67,12 +67,12 @@ test("slots tile their rows: x-extents from measured cuts, no overlap", () => {
 
 test("deterministic in seed; varied across seeds; no fallback in a sweep", () => {
   for (const s of SEEDS.slice(0, 20)) assert.deepEqual(deal(s), deal(s));
-  // The valid outcome space is ~60 signatures (5 text cards split 3+2 over the two tall
-  // rows = 20 sets, times install placement and empty-row split variants; measured 56
-  // distinct in 200 draws). 40 sits far above collapse (a broken CRC-counter stream
-  // measured 6) and safely below the ceiling, so it discriminates without flaking.
+  // The valid outcome space is ~40 signatures (5 text cards split 3+2 over the two tall
+  // rows = 20 sets, times empty-row split variants). 25 sits far above collapse (a broken
+  // CRC-counter stream measured 6) and safely below the ceiling, so it discriminates
+  // without flaking.
   const shapes = new Set(SEEDS.map((s) => JSON.stringify(deal(s).stacks)));
-  assert.ok(shapes.size >= 40, `only ${shapes.size}/200 distinct deals`);
+  assert.ok(shapes.size >= 25, `only ${shapes.size}/200 distinct deals`);
   for (const s of SEEDS) assert.ok(!deal(s).fallback, `fallback hit for ${s}`);
 });
 
