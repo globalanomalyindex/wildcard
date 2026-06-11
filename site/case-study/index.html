@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>wildcard - case study</title>
+  <meta name="description" content="an honest write-up of an experiment in seeding non-linear thinking in an llm: the mechanism, a small blind a/b test, a failure we fixed, and the reproducible numbers." />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23eb8853'/%3E%3Ccircle cx='11' cy='12' r='4.5' fill='%23ced9f7'/%3E%3Ccircle cx='22' cy='20' r='6' fill='%23ced9f7'/%3E%3C/svg%3E" />
+  <link rel="stylesheet" href="../css/tokens.css" />
+  <style>
+    .wrap { max-width: 760px; margin: 0 auto; padding: 7vh 22px 16vh; }
+    .topbar { display: flex; justify-content: space-between; align-items: baseline; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); margin-bottom: 9vh; }
+    .topbar a { text-decoration: none; border-bottom: 1px solid var(--ink-soft); }
+    h1 { font-family: var(--font-display); font-weight: 400; font-size: clamp(64px, 13vw, 132px); line-height: 0.82; letter-spacing: -0.06em; color: var(--pale); margin: 0 0 0.2em; }
+    .sub { font-family: var(--font-body); font-size: clamp(16px, 2vw, 22px); line-height: 1.2; color: var(--ink); max-width: 50ch; margin: 0 0 7vh; }
+    h2 { font-family: var(--font-body); font-weight: 400; font-size: clamp(26px, 4vw, 44px); letter-spacing: -0.04em; line-height: 0.98; color: var(--ink); margin: 8vh 0 0.6em; }
+    p { font-family: var(--font-body); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.42; color: var(--ink); max-width: 64ch; margin: 0 0 1.1em; }
+    strong { font-weight: 400; background: var(--pale); padding: 0 4px; border-radius: 2px; }
+    blockquote { margin: 1.2em 0; padding: 14px 18px; background: rgba(206, 217, 247, 0.45); border-radius: 8px; font-family: var(--font-body); font-size: clamp(15px, 1.4vw, 18px); line-height: 1.4; }
+    blockquote.draws { font-family: var(--font-mono); font-size: 13px; line-height: 1.7; }
+    em { font-style: normal; color: var(--ink-soft); }
+    code, pre { font-family: var(--font-mono); }
+    pre { background: rgba(30,30,30,0.08); border-radius: 8px; padding: 13px 15px; overflow-x: auto; font-size: 13px; }
+    code { font-size: 0.92em; }
+    ul { max-width: 64ch; padding-left: 1.1em; }
+    li { font-family: var(--font-body); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.42; margin: 0.5em 0; }
+    .foot { margin-top: 10vh; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
+    .foot a { border-bottom: 1px solid var(--ink-soft); text-decoration: none; }
+  </style>
+</head>
+<body>
+  <article class="wrap">
+    <div class="topbar">
+      <span>wildcard · case study</span>
+      <a href="../">&larr; back to wildcard</a>
+    </div>
+
+    <h1>case study</h1>
+    <p class="sub">an honest write-up of an experiment in seeding non-linear thinking in an llm. all numbers real and regenerable, caveated where the sample is small, nothing dressed up to look more rigorous than it is.</p>
+
+    <h2>tl;dr</h2>
+    <p>an llm asked to "think of a random unrelated expert" is a bad random number generator over its own training distribution: it returns its priors with extra steps. wildcard moves the randomness out of the model (a shell script reading os entropy), hands the model a specific foreign expert it would never have picked, and asks it to find genuine <em>structural</em> matches to your problem, or to honestly say there are none. a small blind a/b test showed the effect we hoped for. we also caught the mechanism failing once, fixed it, and report that here rather than hiding it.</p>
+
+    <h2>the idea</h2>
+    <p>human creativity leans on a faculty an on-task reasoner does not have. while you are not working on a problem, your mind wanders and recombines, and sometimes a distant memory pops in unbidden, the "aha". psychologists call the resting state the default mode network; wallas called the stages incubation and illumination; mednick framed creative cognition as reaching <em>remote associates</em>, distant nodes in your semantic web.</p>
+    <p>an llm's chain of thought has no default mode. every token is conditioned on staying on-task, so it never wanders and the pop-in cannot happen; the architecture forbids it. wildcard does not fake consciousness. it externalizes the one missing faculty: a synthetic default-mode network that injects the remote associate the focused reasoner would never wander to.</p>
+    <p>a note on mechanism, because it matters: there are two ways to make a model less predictable. raising the <em>temperature</em> flattens the next-token distribution into noise. changing the <em>conditioning</em>, putting a specific expert persona in context, translates the model's high-probability mass to a different but still-coherent region. wildcard is structured divergence, not randomness. the specific persona is the seed.</p>
+
+    <h2>the mechanism</h2>
+    <p>five steps, each with a job: <strong>detect, then freeze</strong> the structural sketch of your problem before drawing, so it cannot be retrofitted to the expert (pre-registration). <strong>draw, outside the model</strong>: <code>draw.sh</code> reads <code>/dev/urandom</code> and rejection-samples an exactly uniform pick over 378 niche disciplines, plus a "lens" toward a non-obvious sub-niche. <strong>specialize</strong> into a practitioner with a real toolkit, built before looking. <strong>notice, honestly</strong>: find what genuinely rhymes, relational structure not shared nouns, and abstain if little maps. <strong>seed</strong>: two to four optional provocations, additive never prescriptive.</p>
+    <p>the honesty bar is gentner's structure-mapping. a fake connection shares a surface feature ("your code has cells, i study cells!"). a real one maps a system of relations ("your retry backoff and a predator-prey cycle are the same oscillation, and ecologists found stochastic jitter stops the populations synchronizing into a crash, have you considered jitter?"). same relations, different domain. encoding that bar is what makes "never lies for the sake of a connection" a checkable property instead of a vibe.</p>
+
+    <h2>does it actually work? a blind a/b test</h2>
+    <p>we wanted to know if the external draw matters, or if the model could reach the same places on its own. so we ran a small blind comparison on one fixed problem: a personal-finance "spending forecast" that warns before a user overspends, which feels either alarmist (ignored) or too late (useless).</p>
+    <p><strong>condition a, model self-picks.</strong> asked three times to pick "an expert from an unrelated field", the model chose:</p>
+    <blockquote>(1) probabilistic weather/storm forecaster · (2) wildfire/avalanche risk forecaster · (3) er triage nurse.</blockquote>
+    <p>all three collapsed onto a single attractor: people whose job is to issue warnings and worry about false alarms. the problem says "alarmist", "warnings", "well-timed", and the model walked straight to professionals defined by that vocabulary. it did not pick generically "creative" fields, it picked the problem's nearest neighbors, the experts who already share its framing. that is the opposite of an outside view.</p>
+    <p><strong>condition b, the real draw</strong> (<code>/dev/urandom</code>). five entropy draws, verbatim:</p>
+    <blockquote class="draws">1. hand-stippling and flaking layout-bluing on machinist scribes · materials<br>2. cold-chain reefer monitoring of perishable cargo temps · measurement<br>3. coopering steam-bent staves and croze-grooving barrel heads · energy-and-flow<br>4. spectrum-license auction band-plan packaging · energy-and-flow<br>5. rush-light dipping reeds in tallow for period stage lamps · failure-modes</blockquote>
+    <p>a cooper, a machinist-scribe, a rush-light dipper arrive with no pre-fitted opinion about warning systems. two mapped through deep structure rather than shared vocabulary:</p>
+    <ul>
+      <li><strong>reefer monitoring -&gt; the forecast.</strong> the strongest seed: overspend is not any single large transaction, it is accumulated trajectory against time-remaining, the same shape as <em>mean kinetic temperature</em>, where you alarm on projected end-of-cycle dose, not instantaneous readings. a finance pm would plausibly never reach for this; it is a concrete design move that arrived with the persona.</li>
+      <li><strong>band-plan packaging -&gt; a budget guard band.</strong> define a usable limit short of the hard limit; the gap absorbs fluctuation; alarm on entry to the gap, not the limit. real hysteresis, honestly transferred.</li>
+    </ul>
+    <p><strong>a clean abstention.</strong> a sixth draw, a theatrical armourer who builds blunt stage-combat rapiers, did not map. the lens ("energy-and-flow") even baited a fake link (the "emotional energy" of a warning), and the expert refused: "i'd be selling you a metaphor, not a method. i'll abstain rather than hand you a decorative connection."</p>
+    <p><strong>what this shows, and what it does not.</strong> this is one session, a single fixed problem, graded by us. it is a qualitative demonstration, not a controlled study with statistical significance, so treat n as small and the result as illustrative. with that caveat: condition a mode-collapsed exactly as predicted, condition b produced foreign machinery the on-task reasoner demonstrably did not reach, and the honesty bar both killed a surface match and drove a clean abstention. the mechanism did the thing it claims to do.</p>
+
+    <h2>the failure we are not hiding</h2>
+    <p>a separate cold adversarial review tested the skill's three guarantees. on a three-timeline-novel problem, a drawn vellum-preparation expert produced genuinely strong structural matches but crossed a line on the <em>no-derailment</em> guarantee: two provocations told the writer their own question was wrong ("instead of asking x, ask y") and branded their method a failure ("x is what you do when you've failed"). that is the expert grading the user's work instead of offering a lens. the guarantee <strong>failed</strong> that run.</p>
+    <p>the fix was a rule, not a patch: keep your authority pointed at your own craft and your suggestion optional for theirs; describe what works in your world, do not diagnose theirs. we added it with a worked before/after, re-ran the same expert on the same problem, and it came back additive and self-audited clean. we report the failure because a guarantee you have never seen fail is a guarantee you have never tested.</p>
+
+    <h2>reproducibility and the numbers</h2>
+    <p>everything here is regenerable from the repo:</p>
+    <ul>
+      <li><strong>exact uniformity.</strong> the entropy draw is rejection-sampled, so every discipline is equiprobable (plain modulo would favor a handful of indices by one count). over 200 entropy draws on the 378-leaf map: <strong>152 distinct experts, none recurring more than 6 times</strong>. wide spread, no clustering.</li>
+      <li><strong>the map.</strong> 378 niche disciplines, breadth-audited: all 22 axis buckets spanned, no duplicates. uniform over this deliberately broad curated span, not a claim to contain every field.</li>
+      <li><strong>browser == terminal.</strong> the live draw uses the same crc (posix <code>cksum</code>) the shell does, so any seed reproduces in your terminal byte-for-byte. a parity test checks six seeds against the real script, and ci gates the deploy on the full suite.</li>
+    </ul>
+    <pre>bash tests/run_all.sh                       # regenerate the diversity numbers
+bash plugin/scripts/audit_domains.sh        # re-run the map breadth audit
+bash plugin/scripts/draw.sh --seed &lt;seed&gt;    # reproduce any seed from the site</pre>
+
+    <h2>honest limitations</h2>
+    <ul>
+      <li>the a/b test is <strong>n of one session</strong>, self-graded, on a single problem. it demonstrates the mechanism; it does not measure an effect size.</li>
+      <li>the map's breadth is <strong>curated, not exhaustive</strong>. uniform-over-the-map is not uniform-over-all-human-knowledge. we widened it after noticing a craft/material skew, but it remains a taste.</li>
+      <li>the <strong>lens has only 8 values</strong>, so it can repeat across a short session by chance. that is honest variance; we deliberately did not add anti-repetition memory, because biasing the draw to feel more varied would betray the point.</li>
+      <li>the structure-mapping bar is <strong>enforced by the model honoring it</strong>. it held under adversarial review, but it is guidance, not a hard gate.</li>
+    </ul>
+
+    <h2>install</h2>
+    <pre>/plugin marketplace add globalanomalyindex/wildcard
+/plugin install wildcard@globalanomalyindex</pre>
+    <p>then run <code>/wildcard</code> and meet your expert.</p>
+
+    <p class="foot">repo: <a href="https://github.com/globalanomalyindex/wildcard">github.com/globalanomalyindex/wildcard</a> · <a href="../">back to wildcard</a></p>
+  </article>
+</body>
+</html>

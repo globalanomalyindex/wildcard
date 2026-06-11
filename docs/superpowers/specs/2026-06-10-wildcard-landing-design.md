@@ -6,6 +6,38 @@
 
 ---
 
+# v6 revision (2026-06-11) - flat orange, bottom wordmark, figures panel, ascii motion
+
+New Figma (same node 1:2). Supersedes the card-deck/glass design below. Tokens: field
+#eb8853 (orange), ink #1e1e1e, pale periwinkle #ced9f7 (wordmark + panel). Layout: body
+copy top-left (karrik 30px, both paragraphs); giant wordmark bottom-anchored (boyers blur
+350px, tracking -35px, #ced9f7, left 34, width 1193); one rounded panel (#ced9f7, r12,
+891x32, 550x593) holding "figures & stuff here" (karrik 64px) and "install -> -> ->"
+(karrik 128px) at its bottom edge; two small empty cells in the phi row below the panel
+(906/1239 x 625ish, ~205x140); chickpea grid image stays as the faint backdrop at its
+figma placement. NO liquid glass, no card deck, no parallax: the deal engine retires
+(modules + tests removed; preserved in git history).
+
+Content requirements:
+- the figures panel presents REAL measured data, academically honest, small-n caveats
+  included, every number regenerable from the repo's tests or session records: the a/b
+  expert-selection dogfood (self-pick collapse vs entropy spread), exact-uniform
+  rejection-sampled draw, 152 distinct in 200 draws over 378 (max recurrence 6),
+  browser==shell parity (ci-gated), and the failed-then-fixed no-derailment adversarial
+  test reported truthfully. one small live element stays: the seeded typewriter draw
+  (it IS the parity figure, live).
+- install -> -> -> flips the panel to the real one-command plugin install
+  (/plugin marketplace add globalanomalyindex/wildcard; /plugin install
+  wildcard@globalanomalyindex) with a back affordance; css :target fallback for no-js.
+- motion: intentionally-digital ASCII, in-palette (#ced9f7 / ink-on-orange at low
+  alpha), seeded via the same cksum->mulberry32 discipline, ~12fps pre-grid drift in the
+  two small phi cells (and only there: restraint). reduced-motion: static frame.
+- NO UPPERCASE anywhere in rendered copy (authored lowercase; verified by an automated
+  textContent scan in the browser).
+- case study files prepped: docs/case-study.md (full honest narrative, all-lowercase,
+  playful-but-rigorous) + site/case-study/index.html (styled draft, linked from the
+  panel's figures footer), same tokens, no uppercase.
+
 # v2 revision (2026-06-11) - single viewport, measured grid, card deck
 
 User feedback on v1: too much scrolling; the original Figma look is right; the new
