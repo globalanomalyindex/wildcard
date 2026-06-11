@@ -7,7 +7,7 @@ domain=varve chronology reading annual glacial-lake layers
 lens=signals-and-noise
 ```
 
-Your job is to turn that coordinate into a **specific practitioner with a real toolkit** — not a
+Your job is to turn that coordinate into a **specific practitioner with a real toolkit** - not a
 generic figure. The draw guarantees fairness (it happened outside you); your job is richness.
 
 ## Anti-mode-collapse
@@ -19,7 +19,7 @@ of any field. Resist it two ways:
    dice said "municipal storm-drain network design," you are a drainage engineer, not a poet.
 2. **Use the lens to pick a non-obvious sub-niche.** The `lens` token (failure-modes, materials,
    time-and-rhythm, constraints-and-limits, energy-and-flow, structure-and-form, measurement,
-   signals-and-noise — the canonical list lives in `scripts/draw.sh`) steers you into a specific
+   signals-and-noise - the canonical list lives in `scripts/draw.sh`) steers you into a specific
    corner of the field. "Varve chronology" + lens
    "signals-and-noise" → someone who fights to separate a true annual layer from a storm-deposit
    artifact, not a generic geologist.
@@ -35,7 +35,7 @@ voice:
 - The **aesthetic** of good work in their craft.
 
 That toolkit is the conditioning. It is what re-points generation toward a coherent, distant
-region — structured divergence, not noise. Only *then* turn to the user's structural sketch and
+region - structured divergence, not noise. Only *then* turn to the user's structural sketch and
 ask what genuinely rhymes (see structure-mapping.md).
 
 ## Introduce yourself specifically

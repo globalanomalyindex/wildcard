@@ -33,11 +33,11 @@
           <a class="install-link" href="#">back</a>
         </div>
         <div class="install-steps">
-          <p class="step"><span class="step-n">1</span>get the skill, then link it into your skills folder:</p>
-          <pre><code>git clone https://github.com/globalanomalyindex/wildcard
-ln -s "$(pwd)/wildcard" ~/.claude/skills/wildcard</code></pre>
-          <p class="step"><span class="step-n">2</span>run <code>/wildcard</code> in any claude code session - and meet your expert.</p>
-          <p class="step"><span class="step-n">3</span>trust, then verify: every draw on this page reproduces in your terminal with <code>bash scripts/draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
+          <p class="step"><span class="step-n">1</span>in any claude code session, add the marketplace and install:</p>
+          <pre><code>/plugin marketplace add globalanomalyindex/wildcard
+/plugin install wildcard@globalanomalyindex</code></pre>
+          <p class="step"><span class="step-n">2</span>run <code>/wildcard</code> in any session - and meet your expert.</p>
+          <p class="step"><span class="step-n">3</span>trust, then verify: every draw on this page reproduces in your terminal with <code>bash draw.sh --seed &lt;seed&gt;</code>. same dice, same expert.</p>
         </div>
         <a class="wordmark-frame" href="#" aria-label="back to wildcard">
           <span class="wordmark-mini">wildcard</span>

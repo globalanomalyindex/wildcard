@@ -1,4 +1,4 @@
-# wildcard knowledge map — one niche leaf per line:
+# wildcard knowledge map - one niche leaf per line:
 #   Domain description | scale | medium | activity | era
 # Flat-weighted on purpose: draw.sh picks uniformly. Keep it broad and unglamorous-inclusive.
 # scale: quantum molecular human ecological geological cosmic
@@ -349,3 +349,40 @@ wax-seal matrix sigillography authentication | human | mineral | preserving | an
 pendulum gravimeter local gravity surveying | geological | mineral | measuring | industrial
 endangered-language phonemic field transcription | human | social | preserving | contemporary
 quantum optical-lattice clock frequency comparison | quantum | mechanical | measuring | frontier
+# systems, dynamics, and social-process disciplines (2026-06-11): foreign-but-rigorous
+# structural machinery (feedback, queues, propagation, equilibria, networks) - corrects
+# the map's craft/material skew so abstract and systems projects get a real lens too.
+describing-function analysis of limit cycles in relay control loops | human | symbolic | measuring | contemporary
+phase-locked-loop loop-filter damping for oscillator jitter rejection | human | symbolic | building | contemporary
+anti-windup compensator tuning for saturating actuators | human | mechanical | building | contemporary
+Kalman-filter process-noise tuning for inertial navigation drift | human | symbolic | measuring | contemporary
+hysteresis-band relay tuning against thermostat short-cycling | human | mechanical | building | industrial
+gain-scheduling lookup design for nonlinear flight envelopes | human | symbolic | building | frontier
+Erlang-C staffing calculation for call-center queue abandonment | human | symbolic | measuring | contemporary
+kanban work-in-progress limit setting for flow balancing | human | social | governing | contemporary
+two-bin reorder-point sizing for shop-floor buffer stock | human | mechanical | governing | industrial
+berth-allocation scheduling to ease container-terminal congestion | human | mechanical | governing | contemporary
+compartmental SIR parameter fitting for outbreak nowcasting | ecological | living | measuring | contemporary
+contact-tracing cluster reconstruction from exposure logs | human | social | measuring | contemporary
+ring-vaccination containment planning around index cases | ecological | living | healing | contemporary
+wastewater pathogen surveillance trend deconvolution | ecological | fluid | measuring | frontier
+food-web stability analysis from predator-prey interaction matrices | ecological | living | measuring | contemporary
+metapopulation patch-occupancy modeling for habitat corridors | ecological | living | preserving | contemporary
+tipping-point early-warning variance scanning in lake ecosystems | ecological | fluid | measuring | frontier
+trophic-cascade rebalancing after apex-predator reintroduction | ecological | living | healing | contemporary
+Reed-Solomon erasure-code interleaving for burst-error channels | human | symbolic | building | contemporary
+rate-distortion bit-allocation for perceptual audio coding | human | symbolic | building | contemporary
+arithmetic range-coder renormalization for entropy compression | human | symbolic | building | contemporary
+Vickrey-Clarke-Groves payment design for truthful combinatorial auctions | human | symbolic | governing | contemporary
+stable-matching market design for medical residency placement | human | social | governing | contemporary
+congestion-pricing cordon tariff setting for network flow | human | social | governing | contemporary
+conversation-analysis turn-taking transcription of repair sequences | human | social | measuring | contemporary
+restorative-justice circle facilitation for harm repair | human | social | healing | contemporary
+crowd-flow lane-formation marshaling at transit chokepoints | human | social | governing | contemporary
+fault-tree minimal-cut-set analysis for redundant safety systems | human | symbolic | measuring | industrial
+cascading-failure load-redistribution study for power grids | human | mechanical | measuring | contemporary
+N-version voting arbitration design for avionics redundancy | human | symbolic | building | frontier
+negative-feedback gene-circuit tuning in synthetic biology | molecular | living | building | frontier
+chemostat dilution-rate control for steady-state cultures | molecular | living | measuring | industrial
+immune clonal-selection affinity-maturation tracking | molecular | living | healing | contemporary
+circadian light-dosing for shift-work entrainment realignment | human | living | healing | contemporary

@@ -35,10 +35,25 @@ rand_u32() {
 }
 crc_of() { printf '%s' "$1" | cksum | awk '{print $1}'; }   # deterministic on BSD+GNU
 
-pick_index() { # $1 = modulus, $2 = stream-tag ("" for entropy)
+pick_index() { # $1 = modulus, $2 = stream-tag
   _n="$1"; _tag="$2"
-  if [ -n "$SEED" ]; then _raw="$(crc_of "${_tag}:${SEED}")"; else _raw="$(rand_u32)"; fi
-  echo $(( _raw % _n ))
+  if [ -n "$SEED" ]; then
+    # Seeded: plain modulo of the CRC. Deterministic AND byte-reproducible in the
+    # browser demo (site/js/entropy.js does the same cksum(tag:seed) % n), which the
+    # parity test pins. A fixed seed is one value, so modulo bias is irrelevant here.
+    _raw="$(crc_of "${_tag}:${SEED}")"
+    echo $(( _raw % _n ))
+    return
+  fi
+  # Entropy: rejection sampling for EXACT uniformity. Plain u32 % n favors the first
+  # (2^32 mod n) indices by one count; over many real draws that is a tiny thumb on the
+  # scale, which contradicts "no discipline is favored". Reject the unfair tail so every
+  # domain is exactly equiprobable (~4e-9 chance of even one retry at n=344).
+  _limit=$(( 4294967296 - (4294967296 % _n) ))
+  while :; do
+    _raw="$(rand_u32)"
+    if [ "$_raw" -lt "$_limit" ]; then echo $(( _raw % _n )); return; fi
+  done
 }
 
 if [ ! -r "$DOMAINS_FILE" ]; then echo "draw.sh: no usable domains in $DOMAINS_FILE" >&2; exit 1; fi
