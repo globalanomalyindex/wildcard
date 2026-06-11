@@ -1,5 +1,7 @@
 import { deal } from "./deal.js";
 import { renderDeal } from "./render.js";
+import { renderScaffold } from "./scaffold.js";
+import { initParallax } from "./parallax.js";
 import { freshSeed } from "./entropy.js";
 import { initDemo, initRecordings } from "./draw-demo.js";
 import { initParticles } from "./particles.js";
@@ -14,12 +16,14 @@ const seed = currentSeed();
 // Below 1100px (and with JS off) the authored deck flow in index.html IS the page -
 // readability over theater on small screens.
 if (window.matchMedia("(min-width: 1100px)").matches) {
+  renderScaffold(document.getElementById("scaffold"));
   renderDeal(document.getElementById("cardfield"), document.getElementById("deck"), deal(seed));
 }
 
 initDemo(document.querySelector("#card-demo .demo-mount"), seed);
 initRecordings(document.querySelector("#card-recordings .rec-mount"));
 initParticles(document.querySelector(".page"), seed);
+initParallax(document.querySelector(".page"));
 
 // Reroll: press "r" to re-deal the page from a fresh seed. The seed lands in the URL
 // first, so every deal you see is shareable and reproducible.

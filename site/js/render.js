@@ -1,11 +1,25 @@
-// Place the deal: build slot divs in the card field, move the authored card nodes into
-// their slots, wire stack cycling. Decorative sub-cells get the ratio annotations the
-// reference image itself carries.
+// Place the deal: slots hold liquid-glass frames. Each frame layers slow blob gradients
+// (behind), a backdrop-blur glass pane (middle), and the card content (front). Blob
+// layers and frames carry data-depth so the cursor parallax can move them at different
+// rates. Decorative sub-cells stay plain scaffold with their ratio annotation.
 const RATIO_LABEL = { "0.382": "1-1/φ 0.382", "0.236": "0.236", "1.000": "1:1 1.000" };
+
+function blobLayer(i) {
+  const layer = document.createElement("div");
+  layer.className = "blob-layer";
+  layer.dataset.depth = "14";
+  for (let k = 0; k < 3; k++) {
+    const b = document.createElement("div");
+    b.className = `blob blob-${k} hue-${(i + k) % 3}`;
+    b.style.setProperty("--phase", `${((i * 7 + k * 11) % 20) - 10}s`);
+    layer.appendChild(b);
+  }
+  return layer;
+}
 
 export function renderDeal(field, deck, d) {
   field.replaceChildren();
-  const zoneW = 1 - 0.618; // slot fractions arrive in page space; normalize to the zone
+  const zoneW = 1 - 0.618;
   d.slots.forEach((slot, i) => {
     const el = document.createElement("div");
     el.className = "slot";
@@ -25,8 +39,18 @@ export function renderDeal(field, deck, d) {
         el.appendChild(label);
       }
     } else {
+      const frame = document.createElement("div");
+      frame.className = "frame";
+      frame.dataset.depth = "6";
+      frame.appendChild(blobLayer(i));
+      const pane = document.createElement("div");
+      pane.className = "glass-pane";
+      frame.appendChild(pane);
+      const content = document.createElement("div");
+      content.className = "frame-content";
       const cards = stack.map((id) => deck.querySelector(`[data-card="${id}"]`));
-      cards.forEach((c, k) => { if (k > 0) c.hidden = true; el.appendChild(c); });
+      cards.forEach((c, k) => { if (k > 0) c.hidden = true; content.appendChild(c); });
+      frame.appendChild(content);
       if (cards.length > 1) {
         let cur = 0;
         const chip = document.createElement("button");
@@ -46,8 +70,9 @@ export function renderDeal(field, deck, d) {
           cards[cur].classList.add("swap-in");
           setLabel();
         });
-        el.appendChild(chip);
+        frame.appendChild(chip);
       }
+      el.appendChild(frame);
     }
     field.appendChild(el);
   });

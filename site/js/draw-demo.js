@@ -19,10 +19,9 @@ function typeOut(el, text, done) {
 
 export function initDemo(mount, pageSeed) {
   mount.innerHTML = `
-    <button class="die" type="button" aria-label="draw a wildcard">
-      <span class="die-face" aria-hidden="true">⚄</span><span>draw a wildcard</span>
-    </button>
-    <pre class="draw-out" aria-live="polite"></pre>
+    <p class="demo-title"><span class="live-dot" aria-hidden="true"></span>drawing wildcards</p>
+    <p class="sr-note">a new expert is drawn automatically every few seconds; each draw is reproducible in a terminal with the shown seed</p>
+    <pre class="draw-out"></pre>
     <p class="draw-note"></p>`;
   const out = mount.querySelector(".draw-out");
   const note = mount.querySelector(".draw-note");
@@ -39,8 +38,19 @@ export function initDemo(mount, pageSeed) {
     });
   }
 
-  mount.querySelector(".die").addEventListener("click", () => draw(freshSeed()));
   draw(pageSeed); // first draw shares the page seed: one seed grows the deal AND the expert
+
+  // The shuffle: a fresh real-entropy draw every ~6s, paused while the tab is hidden.
+  // Reduced motion keeps the page-seed draw static instead of auto-cycling.
+  if (reduce) return;
+  let timer = null;
+  const cycle = () => { draw(freshSeed()); schedule(); };
+  const schedule = () => { timer = setTimeout(cycle, 5000 + Math.random() * 2000); };
+  schedule();
+  document.addEventListener("visibilitychange", () => {
+    clearTimeout(timer);
+    if (!document.hidden) schedule();
+  });
 }
 
 export function initRecordings(mount) {

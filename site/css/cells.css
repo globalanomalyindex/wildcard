@@ -14,19 +14,53 @@ html.dealt .deck { display: none; }
   left: calc(var(--x0) * 100%); top: calc(var(--y0) * 100%);
   width: calc((var(--x1) - var(--x0)) * 100%);
   height: calc((var(--y1) - var(--y0)) * 100%);
-  border-left: 1px solid var(--cell-line);
-  border-top: 1px solid var(--cell-line);
 }
 .slot-decor { display: flex; align-items: flex-end; padding: 8px; }
 .decor-label { font-family: var(--font-mono); font-size: 10px; color: var(--gold); }
 
-.slot .card { position: absolute; inset: 0; padding: clamp(14px, 1.4vw, 24px); overflow: hidden; }
-.slot .card[hidden] { display: none; }
+/* - liquid glass frames - */
+.frame {
+  position: absolute; inset: 9px;
+  border-radius: 16px; overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.55);
+  box-shadow: 0 8px 28px rgba(48, 46, 58, 0.07), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  will-change: transform;
+}
+.blob-layer { position: absolute; inset: -12%; will-change: transform; }
+.blob {
+  position: absolute; width: 62%; aspect-ratio: 1; border-radius: 50%;
+  opacity: 0.5; will-change: transform;
+}
+.hue-0 { background: radial-gradient(circle at 35% 35%, rgba(119, 160, 228, 0.75), rgba(119, 160, 228, 0) 65%); }
+.hue-1 { background: radial-gradient(circle at 40% 40%, rgba(208, 195, 130, 0.65), rgba(208, 195, 130, 0) 65%); }
+.hue-2 { background: radial-gradient(circle at 45% 35%, rgba(196, 167, 231, 0.6), rgba(196, 167, 231, 0) 65%); }
+.blob-0 { left: -6%; top: -10%; }
+.blob-1 { right: -8%; top: 26%; width: 74%; }
+.blob-2 { left: 18%; bottom: -14%; width: 56%; }
+@media (prefers-reduced-motion: no-preference) {
+  .blob-0 { animation: drift-a 17s ease-in-out infinite alternate; animation-delay: var(--phase, 0s); }
+  .blob-1 { animation: drift-b 23s ease-in-out infinite alternate; animation-delay: var(--phase, 0s); }
+  .blob-2 { animation: drift-c 19s ease-in-out infinite alternate; animation-delay: var(--phase, 0s); }
+  @keyframes drift-a { to { transform: translate3d(16%, 10%, 0) scale(1.12); } }
+  @keyframes drift-b { to { transform: translate3d(-12%, -8%, 0) scale(0.92); } }
+  @keyframes drift-c { to { transform: translate3d(8%, -12%, 0) scale(1.08); } }
+}
+.glass-pane {
+  position: absolute; inset: 0;
+  background: rgba(239, 234, 249, 0.38);
+  -webkit-backdrop-filter: blur(22px) saturate(1.25);
+  backdrop-filter: blur(22px) saturate(1.25);
+}
+.frame-content { position: absolute; inset: 0; }
 
+.frame .card { position: absolute; inset: 0; padding: clamp(12px, 1.25vw, 20px); overflow: hidden; }
+.frame .card[hidden] { display: none; }
+
+/* Karrik for all small titles; only the hero wordmark wears the display font */
 .card h3 {
-  font-family: var(--font-display); font-weight: 400;
-  font-size: clamp(17px, 1.7vw, 25px); letter-spacing: -0.5px;
-  color: var(--periwinkle); margin: 0 0 0.6em;
+  font-family: var(--font-body); font-weight: 400;
+  font-size: clamp(15px, 1.45vw, 21px); letter-spacing: -0.3px;
+  color: var(--periwinkle); margin: 0 0 0.55em;
 }
 .card p, .card li { font-family: var(--font-body); font-size: clamp(12px, 0.95vw, 14px); line-height: 1.45; color: var(--ink); margin: 0 0 0.5em; }
 .pipeline, .nature { padding-left: 1.1em; margin: 0; }
@@ -51,20 +85,21 @@ html.dealt .deck { display: none; }
 }
 
 /* demo card internals */
-.die {
-  display: flex; align-items: center; gap: 10px;
-  font-family: var(--font-body); font-size: clamp(14px, 1.2vw, 18px); color: #1d3a66;
-  background: var(--periwinkle); border: none; border-radius: 10px;
-  padding: 10px 14px; cursor: pointer;
+.demo-title {
+  display: flex; align-items: center; gap: 8px;
+  font-family: var(--font-body); font-size: clamp(15px, 1.45vw, 21px);
+  letter-spacing: -0.3px; color: var(--periwinkle); margin: 0 0 0.55em;
 }
-.die:hover { filter: brightness(1.05); }
-.die:focus-visible { outline: 3px solid var(--ink); outline-offset: 2px; }
-.die:active { transform: scale(0.98); }
-.die-face { font-size: 20px; line-height: 1; }
+.live-dot { width: 9px; height: 9px; border-radius: 50%; background: var(--gold); }
+@media (prefers-reduced-motion: no-preference) {
+  .live-dot { animation: pulse 2.4s ease-in-out infinite; }
+  @keyframes pulse { 50% { opacity: 0.35; } }
+}
+.sr-note { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); margin: 0; }
 .draw-out {
   font-family: var(--font-mono); font-size: clamp(10px, 0.85vw, 12px);
-  background: rgba(255, 255, 255, 0.75); border-radius: 8px;
-  padding: 10px; margin: 12px 0 8px; white-space: pre-wrap; min-height: 2.6em;
+  background: rgba(255, 255, 255, 0.55); border-radius: 8px;
+  padding: 10px; margin: 10px 0 8px; white-space: pre-wrap; min-height: 2.6em;
 }
 .draw-note { font-family: var(--font-body); font-size: clamp(11px, 0.95vw, 13px); color: var(--ink); line-height: 1.45; }
 .draw-note b { color: #1d3a66; }

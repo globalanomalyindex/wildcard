@@ -30,7 +30,7 @@ Browser (playwright):
   functional, no horizontal scroll.
 - Console: 0 errors; 2 benign Chromium font-preload timing warnings (fonts are
   demonstrably in use).
-- Copy: `grep -rn "—" site/ scripts/` returns nothing. No em dashes anywhere.
+- Copy: grepping site/ and scripts/ for the em-dash character returns nothing.
 
 By construction: no-JS and narrow viewports get the authored deck flow (page scrolls,
 everything readable); reduced motion removes deal-in/fade animations, the typed reveal,
@@ -42,3 +42,15 @@ and the pollen canvas.
 invariants over 120 seeds, 400-seed no-fallback sweep); browser-verified hero fidelity,
 seed-42 parity, scroll reveals, mobile single column, a11y spot checks. The v1 guillotine
 and its tests were removed in v2 (preserved in git history).
+
+## v3 notes pass (2026-06-11)
+
+Auto-shuffle replaces the die: a fresh real-entropy draw every 5-7s with the typewriter
+effect, paused on hidden tabs, static under reduced motion (machine-verified: two
+different draws 8s apart). Closing statement left-aligned. Karrik on all card titles;
+Boyers Blur only on the wordmark. The reference image is no longer rendered: scaffold.js
+DRAWS the grid from the measured constants (8 rules), and content sits in liquid-glass
+frames (backdrop-blur panes over per-frame drifting blob gradients, periwinkle/gold/
+violet). Cursor parallax moves blobs (14px), frames (6px), and scaffold (2px) through
+one lerped rAF loop; disabled for reduced motion and coarse pointers. Verified: no body
+scroll, zero card overflows, 15/15 node suite.
