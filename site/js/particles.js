@@ -9,7 +9,7 @@ export function initParticles(page, seed) {
   if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
   const layer = document.createElement("div");
   layer.className = "pollen";
-  layer.dataset.depth = "10";
+  layer.dataset.depth = "5";
   layer.setAttribute("aria-hidden", "true");
 
   let s = cksum(`pollen:${seed}`) || 1;

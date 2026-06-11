@@ -69,3 +69,20 @@ caught corrupting compositing beneath backdrop-filter panes (black band in captu
 alpha-oklch inside gradients pre-resolved to rgba for the same reason. Verified at
 1440x900: no body scroll, zero overflows across all stacks and recordings pages, install
 flow round-trips with reshuffles, 22 seeded motes, console clean. 15/15 node suite.
+
+## v5 mechanical skeleton (2026-06-11)
+
+The exposed-internals pass: utilitarian Swiss, and everything shown is real. Panels are
+persistent objects reconciled by CARGO (greedy best-overlap matching): on every reshuffle
+they glide to their new measured geometry over 480ms (mechanical in-out curve, 45ms
+stagger) and seat with a lock click; measured 0-3 panels physically moving per round with
+panels surviving across rounds and the demo's timers never disturbed. Scaffold rules
+became dashed seams with registration ticks at the 9 real intersections (ticks rotate 45
+degrees while the mechanism re-seats). Every label is live engine data: per-panel cell
+schematics (row + x-extent on the measured grid) and a bottom instrument line (seed,
+cards/cells, the phi cuts, domain count @ generating commit). De-polished: radius 8,
+seam-colored borders, blur 24 to 12, parallax depths 14/6/2 to 8/5/2/1. Install hero in
+Karrik (Boyers Blur is wordmark-only). Blinking dot removed. Ghost-navigation candidate
+investigated: five reshuffles under capture-phase click+hashchange instrumentation showed
+zero spurious events; deliberate install/back flows correct both directions. 15/15 suite,
+zero overflows, no body scroll.

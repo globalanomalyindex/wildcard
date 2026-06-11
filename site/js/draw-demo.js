@@ -19,7 +19,7 @@ function typeOut(el, text, done) {
 
 export function initDemo(mount, pageSeed) {
   mount.innerHTML = `
-    <p class="demo-title"><span class="live-dot" aria-hidden="true"></span>drawing wildcards</p>
+    <p class="demo-title">drawing wildcards</p>
     <p class="sr-note">a new expert is drawn automatically every few seconds; each draw is reproducible in a terminal with the shown seed</p>
     <pre class="draw-out"></pre>
     <p class="draw-note"></p>`;

@@ -28,9 +28,28 @@ html.dealt body { overflow: hidden; }
   top: var(--band-top); height: var(--band-h);
   pointer-events: none; z-index: 0; overflow: visible;
 }
-.rule { position: absolute; background: var(--cell-line); }
-.rule-h { left: 0; width: 100%; height: 1px; }
-.rule-v { top: 0; height: 100%; width: 1px; }
+/* mechanical seams: dashed rules + registration ticks at the real intersections */
+.rule { position: absolute; transition: opacity 300ms ease; }
+.rule-h { left: 0; width: 100%; height: 1px; background: repeating-linear-gradient(to right, var(--seam) 0 7px, transparent 7px 12px); }
+.rule-v { top: 0; height: 100%; width: 1px; background: repeating-linear-gradient(to bottom, var(--seam) 0 7px, transparent 7px 12px); }
+.tick {
+  position: absolute; width: 9px; height: 9px; pointer-events: none;
+  transform: translate(-50%, -50%);
+  background:
+    linear-gradient(var(--seam) 0 0) center / 9px 1px no-repeat,
+    linear-gradient(var(--seam) 0 0) center / 1px 9px no-repeat;
+  transition: transform 600ms var(--ease-out-strong);
+}
+#scaffold.shuffling .rule { opacity: 0.5; }
+#scaffold.shuffling .tick { transform: translate(-50%, -50%) rotate(45deg); }
+
+/* the instrument line: live engine readout, all values real (see main.js) */
+.readout {
+  position: absolute; left: 3.47vw; bottom: 1.4vh; z-index: 1;
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em;
+  color: var(--ink-soft); pointer-events: none; white-space: nowrap;
+}
+@media (max-width: 1099px) { .readout { display: none; } }
 
 /* pollen: DOM motes rising on CSS animations (no canvas under the glass) */
 .pollen { position: absolute; inset: 0; overflow: hidden; pointer-events: none; z-index: 0; }
@@ -87,11 +106,12 @@ html.dealt body { overflow: hidden; }
 }
 
 /* - install view: install takes the hero position, the wordmark moves to the bottom - */
+/* Karrik even at hero size: Boyers Blur belongs to the wordmark alone */
 .install-hero {
   position: absolute; top: 3.2vh; left: 3.47vw; margin: 0;
-  font-family: var(--font-display); font-weight: 400;
+  font-family: var(--font-body); font-weight: 400;
   font-size: clamp(80px, 9.5vw, 140px); line-height: 1;
-  letter-spacing: -0.2vw; color: var(--periwinkle);
+  letter-spacing: -0.25vw; color: var(--periwinkle);
 }
 .install-steps { position: absolute; top: calc(var(--row2) + 1.2vh); left: 3.47vw; width: 50vw; }
 .step {
@@ -114,12 +134,12 @@ html.dealt body { overflow: hidden; }
   position: absolute; left: 3.47vw; top: calc(var(--row4) + 1.4vh);
   width: 44vw; height: calc(0.236 * var(--band-h) - 3.4vh);
   display: flex; flex-direction: column; justify-content: center; padding: 0 32px;
-  border-radius: 16px; text-decoration: none;
+  border-radius: 8px; text-decoration: none;
   background: rgba(239, 234, 249, 0.42);
-  -webkit-backdrop-filter: blur(20px) saturate(1.25);
-  backdrop-filter: blur(20px) saturate(1.25);
-  border: 1px solid rgba(255, 255, 255, 0.55);
-  box-shadow: 0 10px 32px rgba(58, 53, 86, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(12px) saturate(1.12);
+  backdrop-filter: blur(12px) saturate(1.12);
+  border: 1px solid rgba(48, 46, 58, 0.16);
+  box-shadow: 0 3px 14px rgba(58, 53, 86, 0.1);
   transition: transform 200ms var(--ease-out-strong);
 }
 @media (hover: hover) and (pointer: fine) {
