@@ -14,7 +14,7 @@ echo "Diversity: wide spread over the real map"
 N=200
 tmp="$(mktemp)"
 i=1; while [ $i -le $N ]; do
-  WILDCARD_DOMAINS="$FILE" bash "$DRAW" --seed "div-$i" | sed -n 's/^domain=//p' >> "$tmp"
+  WILDCARD_DOMAINS="$FILE" bash "$DRAW" --mode specialist --seed "div-$i" | sed -n 's/^domain=//p' >> "$tmp"
   i=$((i+1))
 done
 distinct="$(sort -u "$tmp" | grep -c .)"
