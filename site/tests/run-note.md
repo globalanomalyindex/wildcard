@@ -173,3 +173,30 @@ rewritten H1-led around the real study with the goddard/farid epigraph tied to
 persona-conditioning; methods colophon (docs/methods-colophon.md) argues architecture-enforced
 blinding and states the residuals. figures panel updated. node suite green, shell ALL GREEN,
 zero em/en dashes, all-lowercase voice (verbatim quote excepted).
+
+## v10 skill v2 (seeding, not forcing) + re-test (2026-06-12)
+
+closed the loop the v1 study opened. the v1 study found the mapping-gated wildcard's distant
+connections scored LOWER on genuineness than the model's own near picks (an honest loss). we
+diagnosed the cause with 3 opus reviewers over the 90 frozen v1 transcripts: an EMIT-stage
+failure, not reach - the skill found the real connection but shipped it still wearing the donor's
+vocabulary, ending in metaphor instead of a concrete move in the user's world. fix authored by
+claude-fable-5 (opus-reviewed for honesty-preservation), applied as the seeding-not-forcing
+rewrite: structure-mapping demoted from gate to servant; the gate is now a removability test
+(delete the wildcard sentence, an executable move in the user's words must survive); three-beat
+schema ends in a concrete move with a falsifiable specific; conviction = "a good direction exists
+in the draw"; the wildcard stays a visible spark. the honesty bar got TIGHTER, not looser.
+
+re-test: pre-registered head-to-head (experiment/v2/preregistration.md, M2 committed before data),
+v1 skill vs v2 skill on 10 FRESH problems (zero overlap with v1 study), identical draws per matched
+run so only the prose differs, sonnet subjects, haiku normalizers, 4 opus blind graders. result:
+genuineness v2 5.74 vs v1 4.93, paired diff +0.81 (95% ci 0.60-1.03), exact wilcoxon p=0.002,
+pre-registered +0.5 prediction MET; usefulness +0.84 (p=0.002); novelty -0.37 (honest cost of
+discharging into concrete moves); 0 fabrications both arms; removability v1 0.98 / v2 1.00;
+distance controlled by construction. validated OUT OF SAMPLE on problems the fix never saw.
+
+new: experiment/v2/ (diagnosis, fix-spec, edit sheet, prereg, fresh problems, 60 transcripts,
+grades, results); scripts/analyze_retest.mjs + fixture test (CI-gated). case study gains a "the
+fix, and the re-test" section + tl;dr update; methods colophon gains a re-test section; figures
+panel gains the fix figure. node + shell suites green (16 experiment-lib tests), zero em/en
+dashes in authored copy, all-lowercase voice.

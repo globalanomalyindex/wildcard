@@ -15,8 +15,13 @@ confirmed the core claim decisively: the model's own "random" picks collapse and
 to the problem, while the external draw is far more diverse and far less adjacent. the
 no-fabrication guarantee held under both ai and human grading. and, honestly, the stronger claim
 did not hold: the distant connections did not score *higher* on judged genuineness, they scored
-lower, because reaching far costs you the easy clean mapping. we report that plainly. we also
-caught the mechanism failing a different guarantee once, fixed it, and report that too.
+lower, because reaching far costs you the easy clean mapping. we report that plainly - and then we
+did something about it. we diagnosed the cause (the skill found the connection but never forced it
+to be *spent* into a concrete move in your own words), rewrote the skill around that, and
+re-tested on ten fresh problems: the new version beats the old by +0.81 on genuineness and +0.84
+on usefulness, a gain we predicted in advance and confirmed out of sample, with zero new
+fabrication. we also caught the mechanism failing a different guarantee once, fixed it, and report
+that too.
 
 ## the idea
 
@@ -213,6 +218,59 @@ reasoner demonstrably did not reach, and the honesty bar both killed a surface m
 drove a clean abstention. in this single illustration the mechanism behaved as designed - but
 the pre-registered study above is what actually tests it, including the part that went against
 us.
+
+## the fix, and the re-test
+
+the study handed us a problem, not a trophy: the wildcard reached genuinely distant material, but
+a blind panel rated those distant connections *lower* on genuineness than the model's own nearby
+picks. that is not the tool we set out to build, so we treated the study as a diagnosis.
+
+**the cause.** three independent reviewers read all 90 study outputs against their genuineness
+scores and converged on one root cause, and it was not reach, it was *emit*. the wildcard finds
+the real connection; the old skill let a strand ship while it was still wearing the donor's
+vocabulary at the donor's altitude, ending in a metaphor instead of a move. the data proved it:
+the skill's own best distant outputs (knitting mapped to a credential-dependency graph, chemistry
+to a literal rental-turn ratio) reached just as far and scored 6.5, because they *spent* the
+analogy into a concrete move in the user's world. the low scorers reached the same distance and
+stopped at the image.
+
+**the fix: seed, not subject.** this is the original vision, stated precisely. the wildcard is a
+seed, not a subject. you do not force the problem to map onto it; you let it steer your thinking
+somewhere new and bring back the genuinely good idea it seeds, stated in the user's own words.
+gentner's structure-mapping went from the gate every strand had to pass to one mode of payoff and
+a standing check against decoration. the new gate is a *removability test*: delete the sentence
+that names the wildcard, and an executable move in the user's own words must still stand, one the
+plainest reading of the problem would not already produce. note the direction: the honesty bar got
+*tighter*, not looser, because a decorative rhyme the old skill could ship as a "mapping" now
+fails when nothing survives deleting the donor sentence.
+
+**the re-test, pre-registered first.** we wrote the prediction down before collecting anything: the
+new skill beats the old by at least half a point on genuineness, fabrication does not rise, and the
+draw distance does not shrink. then we ran both skill versions head to head on *ten fresh problems
+the fix had never seen*, with the wildcards held identical between versions so the only thing that
+could differ was the prose, blind-graded by four opus graders. it worked, and the guard rails held:
+
+- **genuineness: 4.93 to 5.74**, a paired gain of **+0.81** (95% ci 0.60 to 1.03), exact wilcoxon
+  p = 0.002. the pre-registered prediction was met.
+- **usefulness: +0.84** (p = 0.002).
+- **novelty: -0.37** (p = 0.02), the honest cost. spending a seed into a grounded, concrete move
+  makes the output read a little less exotic. we think a usable idea beats an impressive-sounding
+  one, but the trade is real and we are not hiding it.
+- **zero fabrications** in both versions; removability compliance rose from 0.98 to 1.00; and
+  because the two versions drew identical wildcards, the gain came from *discharging* the distance,
+  not from quietly reaching for nearer material.
+
+**what it means.** the loop closed. the first study found the mapping-gated wildcard's distant
+connections scoring below the model's own near picks; the fix, validated on problems it was never
+tuned against, lifts them back above that bar. distant *and* genuinely useful, measured rather than
+asserted. the strongest part is not the +0.81, it is where it came from: a number predicted in
+advance and confirmed out of sample, with the draws held identical, is a different kind of evidence
+than a number reported after the fact.
+
+**honest bounds.** ten problems again, llm graders again (moderate agreement, alpha around 0.6 on
+the quality scales), the same limits as the first study. the comparison is *within* the re-test,
+same problems and rubric and draws; the first study's numbers ran on different problems, so we
+compare the two skill versions to each other, not across studies.
 
 ## the failure we are not hiding
 
