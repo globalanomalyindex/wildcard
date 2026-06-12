@@ -1,0 +1,44 @@
+[
+  {
+    "problemId": "pA",
+    "k": 1,
+    "mode": "concept",
+    "pick": "a",
+    "adjacent": false
+  },
+  {
+    "problemId": "pA",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "b",
+    "adjacent": false
+  },
+  {
+    "problemId": "pA",
+    "k": 3,
+    "mode": "concept",
+    "pick": "c",
+    "adjacent": false
+  },
+  {
+    "problemId": "pB",
+    "k": 1,
+    "mode": "concept",
+    "pick": "d",
+    "adjacent": false
+  },
+  {
+    "problemId": "pB",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "e",
+    "adjacent": false
+  },
+  {
+    "problemId": "pB",
+    "k": 3,
+    "mode": "concept",
+    "pick": "f",
+    "adjacent": false
+  }
+]

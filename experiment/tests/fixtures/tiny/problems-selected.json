@@ -1,0 +1,11 @@
+{
+  "masterSeed": "fixtureM",
+  "problems": [
+    {
+      "id": "pA"
+    },
+    {
+      "id": "pB"
+    }
+  ]
+}
