@@ -22,6 +22,33 @@ The experiment's own honesty mechanics mirror the skill's: freeze before you dra
 (pre-registration), dice outside the model (entropy with committed master seeds), and an
 accept-test the searcher does not control (blind panel + pre-specified analysis).
 
+## creative-posture refinement (folded into the skill BEFORE the experiment)
+
+Before collection, the skill is updated to a **conviction search posture**, then the
+experiment tests that shipped version. Two stages, opposite postures:
+
+- **search = conviction.** The skill no longer asks "is there a connection?" - that question
+  is an out that licenses shallow bailing. It instructs the model to *become* the wildcard
+  (think *from* it, not *about* it) and work from the premise that a structure is there to be
+  uncovered. This drives genuine depth (spread further, refine the loose strand one step more).
+- **offering = rigor.** The structure-mapping bar still governs what is *presented*. Conviction
+  fuels the search; the bar governs what is offered.
+- **abstention = earned terminus, not reflex.** Honest abstention stays (never fabricate is
+  non-negotiable) but becomes the rare result of a wholehearted search that still found no
+  isomorphism, not the easy first-line escape.
+
+This is not a thumb on the scale: it makes the no-fabrication guarantee an empirical question
+the study answers. If "assume a connection exists" caused the model to fabricate, the blind
+panel's **fabrication flag** (a pre-registered endpoint) would catch it across arms. So the
+posture change is validated by the experiment, not merely asserted. The change applies to the
+shared scaffolding, so arms A and B both inherit it; the A-vs-B contrast still isolates only
+the draw source.
+
+The philosophical root is quoted in the case study (Neville Goddard, *The Power of Awareness*,
+1952, pp. 24-25, quoting Farid ud-Din Attar): "you can know a thing spiritually only by
+becoming it, only by thinking from it." That is persona-conditioning stated decades early -
+inhabiting the wildcard (from it) vs analyzing it (about it) is conditioning vs noise.
+
 ## design summary
 
 | | |
@@ -173,7 +200,10 @@ disclosures, never from overclaiming.
 - **case study:** the "does it actually work?" section is replaced by the real study: methods,
   pre-registration pointer, H1 numbers, H2 effect sizes + CIs, alpha, human-anchor correlation,
   blinding-check result, limitations. The old n=1 A/B survives as a clearly labelled
-  "illustrative walkthrough" subsection. The html mirror is synced.
+  "illustrative walkthrough" subsection. The html mirror is synced. The Goddard/Farid epigraph
+  opens the study and is tied explicitly to the persona-conditioning mechanism (verbatim,
+  attributed, original capitalization preserved as cited data - the standing quote exception to
+  the all-lowercase rule).
 - **skill:** measured divergence numbers replace the qualitative "poor RNG over its own
   distribution" claim in SKILL.md (cite the experiment); any failure mode surfaced in the 90
   transcripts becomes a guidance line (same route as the vellum derailment fix). The skill is

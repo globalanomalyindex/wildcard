@@ -464,6 +464,149 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 ---
 
+### Task 4b: Skill creative-posture refresh (MUST land before the Task 5 freeze)
+
+The skill gains the conviction search posture (become it, think from it not about it; search
+from the premise a connection exists; abstention is an earned terminus, not a reflex) while the
+structure-mapping accept-test stays exactly as strict. This ships to the skill regardless of the
+experiment; doing it now means the study tests the version users get. Arms A and B read SKILL.md
+live, so both inherit it; A vs B still isolates only the draw source.
+
+**Files:**
+- Modify: `plugin/SKILL.md`
+- Modify: `plugin/references/connecting.md`
+
+- [ ] **Step 1: SKILL.md - add the posture to step 3 (inhabit)**
+
+Replace:
+
+```
+**3. Inhabit the wildcard (branch on `mode`).**
+```
+
+with:
+
+```
+**3. Inhabit the wildcard (branch on `mode`).** Do not study the draw from the outside -
+*become* it. You know a thing by thinking *from* it, not *about* it, and that inhabiting is
+the conditioning that does the seeding; so reason from inside the wildcard, not at arm's length.
+```
+
+- [ ] **Step 2: SKILL.md - reframe the close of step 4 (search vs offer)**
+
+Replace:
+
+```
+Both branches end in the *same* two places: genuine connections, or honest abstention. If little
+maps, abstain gracefully - that is the skill working, not failing. Refinement never licenses a
+connection the bar would reject.
+```
+
+with:
+
+```
+**Search from conviction; offer with rigor.** Do not open by asking whether a connection exists
+- that question is an out, and it makes you bail at the first non-obvious turn. Work from the
+premise that a structure is there to be uncovered, and let that conviction drive the search deep
+(spread further, refine the loose strand one step more). What you *present*, though, is still
+governed by the structure-mapping bar: offer only what genuinely maps. Conviction fuels the dig;
+the bar governs the gold. Abstention remains - never fabricate - but it is the rare, earned
+terminus of a wholehearted search that still found no isomorphism, not a reflex you reach for
+early. Refinement never licenses a connection the bar would reject.
+```
+
+- [ ] **Step 3: SKILL.md - guard the no-fabrication guarantee against misreading**
+
+Replace:
+
+```
+- **No fabrication.** Only genuine structural matches; abstention is honorable. You are never
+  rewarded for hitting a count.
+```
+
+with:
+
+```
+- **No fabrication.** Only genuine structural matches; abstention is honorable. You are never
+  rewarded for hitting a count. Mind the division of labor: you *search* from the conviction
+  that a connection is there to uncover (this drives depth), but you *offer* only what passes
+  the structure-mapping bar (this keeps you honest). Conviction is a search posture, never a
+  license to assert a connection that does not hold.
+```
+
+- [ ] **Step 4: SKILL.md - tie the mechanism to its older statement (why specificity matters)**
+
+Replace:
+
+```
+In concept mode the same logic runs through the concept's precise relational properties rather
+than a person: it is the *specificity* of the conditioning, persona or property, that does the
+seeding.
+```
+
+with:
+
+```
+In concept mode the same logic runs through the concept's precise relational properties rather
+than a person: it is the *specificity* of the conditioning, persona or property, that does the
+seeding. This mechanism is older than the model: you know a thing, as Goddard put it, by
+*becoming* it - by thinking *from* it, not *about* it. Inhabiting the wildcard rather than
+analyzing it is exactly the difference between shifting the conditioning to a coherent distant
+region and merely adding noise.
+```
+
+- [ ] **Step 5: connecting.md - conviction in the cast (intro)**
+
+Replace:
+
+```
+Think
+of it as a web you spin out from the concept: most strands catch nothing and are swept away, and
+you offer only the few that hold weight.
+```
+
+with:
+
+```
+Think
+of it as a web you spin out from the concept, from the conviction that a strand will hold - that
+is what makes you cast widely and dig rather than bail. Most strands still catch nothing and are
+swept away; you offer only the few that genuinely hold weight.
+```
+
+- [ ] **Step 6: connecting.md - earned abstention (terminus)**
+
+Replace:
+
+```
+A wide cast that yields nothing is the skill working: you say so plainly (see the
+graceful-abstention shape in structure-mapping.md) and hand over the one true fragment you found, or
+none.
+```
+
+with:
+
+```
+A wide cast that, after a wholehearted search, still yields nothing is the skill working and not
+a reflex reached for early: you say so plainly (see the graceful-abstention shape in
+structure-mapping.md) and hand over the one true fragment you found, or none.
+```
+
+- [ ] **Step 7: Verify and commit**
+
+Run: `grep -nP '[\x{2013}\x{2014}]' plugin/SKILL.md plugin/references/connecting.md || echo clean`
+Expected: `clean`.
+Run: `bash plugin/scripts/draw.sh --seed 1` (sanity: skill scripts untouched, still draws).
+
+```bash
+git add plugin/SKILL.md plugin/references/connecting.md
+git commit -m "feat(skill): conviction search posture (become it, think from it) with the honesty bar unchanged; earned abstention
+
+Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
+```
+
+---
+
 ### Task 5: Pre-registration freeze (the heart of the study)
 
 **Files:**
@@ -1347,6 +1490,25 @@ blinding check scored {blinding.accuracy}); see the case study's limitations.
 
 In `docs/case-study.md`, replace the section `## does it actually work? a blind a/b test` (keep its content as a new subsection `### the original illustrative walkthrough (n=1, kept for honesty)` at the end of the new section). New section skeleton, slots from results.json:
 
+The section opens with the epigraph (verbatim, attributed, original capitalization preserved as
+cited data - the standing quote exception to the all-lowercase rule), then one lowercase line
+tying it to the mechanism: knowing a thing by *becoming* it, thinking *from* it not *about* it,
+is persona-conditioning stated in 1952; inhabiting the wildcard vs analyzing it is conditioning
+vs noise, and the conviction posture (assume the connection, uncover it) is how the model thinks
+from the draw. Epigraph block, exactly:
+
+```markdown
+> You know a thing mentally by looking at it from the outside, by comparing it with other
+> things, by analyzing it and defining it [by thinking of it]; whereas you can know a thing
+> spiritually only by becoming it, [only by thinking from it]. You must be the thing itself and
+> not merely talk about it or look at it. You must be like the moth in search of his idol, the
+> flame, who spurred with true desire, plunging at once into the sacred fire, folded his wings
+> within, till he became one color and one substance with the flame. He only knew the flame who
+> in it burned, and only he could tell who ne'er to tell returned [Farid ud-Din Attar].
+>
+> - Neville Goddard, The Power of Awareness (1952), pp. 24-25
+```
+
 ```markdown
 ## does it actually work? a pre-registered, blind, three-arm study
 
@@ -1469,7 +1631,9 @@ Update `wildcard-v2-concepts.md` (or a new memory file) with: experiment shipped
 
 ## Execution notes
 
-- Tasks 1-5 are pure local work. Task 5's commit is the freeze and MUST precede Tasks 6-9.
+- Tasks 1-4b are pure local work. Task 4b (skill posture) MUST precede Task 5 so the freeze
+  and the whole study are defined against the shipped skill. Task 5's commit is the freeze and
+  MUST precede Tasks 6-9.
 - Tasks 6-9 are Workflow fan-outs with inline orchestration between them; raw data stays
   in `$STAGE` (outside the repo) until Task 9's freeze commit.
 - Task 10 pauses for the user (~15 minutes of blind grading).
