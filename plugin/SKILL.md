@@ -48,12 +48,17 @@ It prints three lines: `mode=specialist|concept`, then either `domain=…` (spec
 `concept=…` (concept), then `lens=…`. Read all three and use them exactly as given. Do **not** pick
 the mode or the draw yourself. This is the core engineering move: an LLM asked to name a "random
 unrelated field" mode-collapses to its creativity-adjacent priors (jazz, mycology, marine biology)
-- it is a poor RNG over its own distribution. `draw.sh` reads real OS entropy (`/dev/urandom`) and
-rejection-samples for an *exactly* uniform pick over the map, so the choice comes from outside your
-distribution and no discipline or concept is favored. (Pass `--seed N` only for reproducible demos;
+- it is a poor RNG over its own distribution. (Measured in a pre-registered study: across 10
+problems x 20 self-picks, the model's own picks averaged 1.48 bits of entropy against the external
+draw's 4.30, and 47% were surface-adjacent to the problem against 9% for the draw - see
+`docs/case-study.md`.) `draw.sh` reads real OS entropy (`/dev/urandom`) and rejection-samples for
+an *exactly* uniform pick over the map, so the choice comes from outside your distribution and no
+discipline or concept is favored. (Pass `--seed N` only for reproducible demos;
 the website's live draw reproduces any seed in your terminal.)
 
-**3. Inhabit the wildcard (branch on `mode`).**
+**3. Inhabit the wildcard (branch on `mode`).** Do not study the draw from the outside -
+*become* it. You know a thing by thinking *from* it, not *about* it, and that inhabiting is the
+conditioning that does the seeding; so reason from inside the wildcard, not at arm's length.
 
 - **specialist:** grow the drawn `domain` into a specific practitioner with a real toolkit. Follow
   `references/specializing.md` (honor the draw exactly; use the lens for a non-obvious sub-niche;
@@ -76,9 +81,14 @@ the website's live draw reproduces any seed in your terminal.)
   probe each strand against the frozen sketch, keep only what passes the structure-mapping bar,
   refine a promising-but-loose strand one association deeper, drop the rest.
 
-Both branches end in the *same* two places: genuine connections, or honest abstention. If little
-maps, abstain gracefully - that is the skill working, not failing. Refinement never licenses a
-connection the bar would reject.
+**Search from conviction; offer with rigor.** Do not open by asking whether a connection exists
+- that question is an out, and it makes you bail at the first non-obvious turn. Work from the
+premise that a structure is there to be uncovered, and let that conviction drive the search deep
+(spread further, refine the loose strand one step more). What you *present*, though, is still
+governed by the structure-mapping bar: offer only what genuinely maps. Conviction fuels the dig;
+the bar governs the gold. Abstention remains - never fabricate - but it is the rare, earned
+terminus of a wholehearted search that still found no isomorphism, not a reflex you reach for
+early. Refinement never licenses a connection the bar would reject.
 
 **5. Present seeds.** Offer 2-4 connections in the three-beat seed shape (noticing → mapping →
 provocation, with *why it works in their world*). Keep them tight and explicitly optional. Close
@@ -89,7 +99,10 @@ offer the discards - "want the threads i discarded? a couple looked promising an
 ## The guarantees (non-negotiable)
 
 - **No fabrication.** Only genuine structural matches; abstention is honorable. You are never
-  rewarded for hitting a count.
+  rewarded for hitting a count. Mind the division of labor: you *search* from the conviction that
+  a connection is there to uncover (this drives depth), but you *offer* only what passes the
+  structure-mapping bar (this keeps you honest). Conviction is a search posture, never a license
+  to assert a connection that does not hold.
 - **No derailment.** Every seed is additive and optional. Keep your authority pointed at *your*
   craft and your suggestion optional for *theirs*. Litmus: after each seed, could the user ignore
   it entirely and still feel you just shared something interesting from your field? If it instead
@@ -133,3 +146,6 @@ persona in context *translates* generation to a coherent but distant region of l
 (conditioning), which is different from raising temperature (noise). Vague personas waste it. In
 concept mode the same logic runs through the concept's precise relational properties rather than a
 person: it is the *specificity* of the conditioning, persona or property, that does the seeding.
+This mechanism is older than the model: you know a thing, as Goddard put it, by *becoming* it - by
+thinking *from* it, not *about* it. Inhabiting the wildcard rather than analyzing it is exactly the
+difference between shifting the conditioning to a coherent distant region and merely adding noise.

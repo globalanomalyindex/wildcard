@@ -1,0 +1,56 @@
+[
+  {
+    "outId": "out-00",
+    "rawId": "A-pA-r1",
+    "arm": "A",
+    "problemId": "pA",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-01",
+    "rawId": "B-pA-r1",
+    "arm": "B",
+    "problemId": "pA",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-02",
+    "rawId": "C-pA-r1",
+    "arm": "C",
+    "problemId": "pA",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-03",
+    "rawId": "A-pB-r1",
+    "arm": "A",
+    "problemId": "pB",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-04",
+    "rawId": "B-pB-r1",
+    "arm": "B",
+    "problemId": "pB",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-05",
+    "rawId": "C-pB-r1",
+    "arm": "C",
+    "problemId": "pB",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  }
+]

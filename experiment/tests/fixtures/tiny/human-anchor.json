@@ -1,0 +1,23 @@
+[
+  {
+    "outId": "out-00",
+    "genuineness": 4,
+    "usefulness": 4,
+    "novelty": 4,
+    "nonDerailment": 6
+  },
+  {
+    "outId": "out-01",
+    "genuineness": 6,
+    "usefulness": 6,
+    "novelty": 6,
+    "nonDerailment": 6
+  },
+  {
+    "outId": "out-03",
+    "genuineness": 3,
+    "usefulness": 3,
+    "novelty": 3,
+    "nonDerailment": 6
+  }
+]

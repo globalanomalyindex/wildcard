@@ -1,0 +1,1402 @@
+[
+  {
+    "problemId": "p08",
+    "k": 1,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 2,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 3,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 4,
+    "raw": "Immunology's concept of clonal deletion",
+    "canonical": "immunology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 5,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 6,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 7,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 8,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 9,
+    "raw": "Immunology",
+    "canonical": "immunology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 10,
+    "raw": "Immunology",
+    "canonical": "immunology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 11,
+    "raw": "Immunology",
+    "canonical": "immunology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 12,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 13,
+    "raw": "Immunology",
+    "canonical": "immunology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 14,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 15,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 16,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 17,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 18,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 19,
+    "raw": "Immunology",
+    "canonical": "immunology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 20,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 1,
+    "raw": "Archival librarian",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 2,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 3,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 4,
+    "raw": "Paleographic manuscript cataloguing",
+    "canonical": "paleography",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 5,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 6,
+    "raw": "Archival cataloging",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 7,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 8,
+    "raw": "Paleographic manuscript cataloguing",
+    "canonical": "paleography",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 9,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 10,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 11,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 12,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 13,
+    "raw": "Paleographic archivists",
+    "canonical": "paleography",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 14,
+    "raw": "Vannevar Bush",
+    "canonical": "vannevar bush",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 15,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 16,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 17,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 18,
+    "raw": "Paleography",
+    "canonical": "paleography",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 19,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 20,
+    "raw": "Archival science",
+    "canonical": "archival science",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 1,
+    "raw": "Desensitization hierarchy",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 2,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 3,
+    "raw": "Interleaved practice",
+    "canonical": "interleaved practice",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 4,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 5,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 6,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 7,
+    "raw": "Desensitization hierarchy",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 8,
+    "raw": "Desensitization hierarchy",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 9,
+    "raw": "Desensitization hierarchy",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 10,
+    "raw": "Desensitization hierarchy",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 11,
+    "raw": "Desensitization hierarchies",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 12,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 13,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 14,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 15,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 16,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 17,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 18,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p44",
+    "k": 19,
+    "raw": "Desensitization hierarchy",
+    "canonical": "desensitization hierarchy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 20,
+    "raw": "Spaced repetition",
+    "canonical": "spaced repetition",
+    "adjacent": true
+  },
+  {
+    "problemId": "p39",
+    "k": 1,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 2,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 3,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 4,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 5,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 6,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 7,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 8,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 9,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 10,
+    "raw": "Hospital triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 11,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 12,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 13,
+    "raw": "Lean manufacturing's \"andon cord\"",
+    "canonical": "lean manufacturing",
+    "adjacent": true
+  },
+  {
+    "problemId": "p39",
+    "k": 14,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 15,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 16,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 17,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 18,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 19,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 20,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 1,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 2,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 3,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 4,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 5,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 6,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 7,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 8,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 9,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 10,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 11,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 12,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 13,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 14,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 15,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 16,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 17,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 18,
+    "raw": "Triage nurse",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 19,
+    "raw": "Triage nursing",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 20,
+    "raw": "Triage medicine",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 1,
+    "raw": "Airline hub-and-spoke operations research",
+    "canonical": "hub-and-spoke network design",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 2,
+    "raw": "Markov chain Monte Carlo",
+    "canonical": "markov chain monte carlo",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 3,
+    "raw": "Milk-run logistics",
+    "canonical": "milk-run logistics",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 4,
+    "raw": "Airline hub-and-spoke network design",
+    "canonical": "hub-and-spoke network design",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 5,
+    "raw": "Airline hub-and-spoke network design",
+    "canonical": "hub-and-spoke network design",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 6,
+    "raw": "Logistics network design (hub-and-spoke routing theory)",
+    "canonical": "hub-and-spoke network design",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 7,
+    "raw": "Humanitarian logistics coordinator (post-disaster supply chain deployment)",
+    "canonical": "humanitarian logistics",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 8,
+    "raw": "Postal service mail carrier routing",
+    "canonical": "vehicle routing",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 9,
+    "raw": "Trauma surgery triage",
+    "canonical": "triage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 10,
+    "raw": "Airline hub-and-spoke network design",
+    "canonical": "hub-and-spoke network design",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 11,
+    "raw": "Traveling salesman problem",
+    "canonical": "traveling salesman problem",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 12,
+    "raw": "Ambulance deployment theory",
+    "canonical": "ambulance deployment",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 13,
+    "raw": "Orienteering",
+    "canonical": "orienteering",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 14,
+    "raw": "Traveling salesman problem",
+    "canonical": "traveling salesman problem",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 15,
+    "raw": "Wardrobing logistics in professional sports",
+    "canonical": "wardrobing logistics",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 16,
+    "raw": "Wardrobing logistics in professional theater touring",
+    "canonical": "wardrobing logistics",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 17,
+    "raw": "Wardrobing logistics from haute couture trunk shows",
+    "canonical": "wardrobing logistics",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 18,
+    "raw": "Traveling salesman problem",
+    "canonical": "traveling salesman problem",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 19,
+    "raw": "Traveling salesman problem",
+    "canonical": "traveling salesman problem",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 20,
+    "raw": "Traveling salesman problem",
+    "canonical": "traveling salesman problem",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 1,
+    "raw": "Blast radius containment",
+    "canonical": "blast radius containment",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 2,
+    "raw": "Blast radius containment (munitions engineering)",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 3,
+    "raw": "Blast radius containment",
+    "canonical": "blast radius containment",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 4,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 5,
+    "raw": "Blast radius containment in munitions engineering",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 6,
+    "raw": "Cartography",
+    "canonical": "cartography",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 7,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 8,
+    "raw": "Blast radius containment",
+    "canonical": "blast radius containment",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 9,
+    "raw": "Blast radius containment",
+    "canonical": "blast radius containment",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 10,
+    "raw": "Blast radius containment in nuclear reactor design",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 11,
+    "raw": "Blast radius containment in munitions engineering",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 12,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 13,
+    "raw": "Blast radius containment (munitions engineering)",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 14,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 15,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 16,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 17,
+    "raw": "Blast radius containment in nuclear reactor design",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 18,
+    "raw": "Blast radius containment (nuclear engineering)",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 19,
+    "raw": "Epidemiological contact tracing",
+    "canonical": "epidemiological contact tracing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 20,
+    "raw": "Blast radius containment in nuclear facility design",
+    "canonical": "blast radius containment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 1,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 2,
+    "raw": "Queueing theory",
+    "canonical": "queueing theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 3,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 4,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 5,
+    "raw": "Fairness-aware traffic shaping in cellular radio access networks",
+    "canonical": "traffic shaping",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 6,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 7,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 8,
+    "raw": "Queuing theory",
+    "canonical": "queueing theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 9,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 10,
+    "raw": "Anesthesiology",
+    "canonical": "anesthesiology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 11,
+    "raw": "Traffic engineering",
+    "canonical": "traffic engineering",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 12,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 13,
+    "raw": "Airshed management",
+    "canonical": "airshed management",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 14,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 15,
+    "raw": "Queuing theory",
+    "canonical": "queueing theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 16,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 17,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 18,
+    "raw": "Air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 19,
+    "raw": "Anesthesiology",
+    "canonical": "anesthesiology",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 20,
+    "raw": "air traffic control",
+    "canonical": "air traffic control",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 1,
+    "raw": "Librarian cataloging practice",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 2,
+    "raw": "Librarian cataloging theory",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 3,
+    "raw": "Oral history archival methodology",
+    "canonical": "oral history archiving",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 4,
+    "raw": "Inventory management theory",
+    "canonical": "inventory management",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 5,
+    "raw": "Oral history archivism",
+    "canonical": "oral history archiving",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 6,
+    "raw": "Librarian cataloging practice",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 7,
+    "raw": "Personal librarian cataloging",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 8,
+    "raw": "Personal librarian / archival science",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 9,
+    "raw": "Librarian cataloging theory",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 10,
+    "raw": "Vannevar Bush",
+    "canonical": "vannevar bush",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 11,
+    "raw": "Librarian cataloging",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 12,
+    "raw": "Airline operations control",
+    "canonical": "airline operations control",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 13,
+    "raw": "Librarian cataloging",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 14,
+    "raw": "Librarian cataloging systems",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 15,
+    "raw": "Personal library science",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 16,
+    "raw": "Librarian cataloging",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 17,
+    "raw": "Personal library science",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 18,
+    "raw": "Airline operations control center dispatcher",
+    "canonical": "airline operations control",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 19,
+    "raw": "Personal library science",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 20,
+    "raw": "Personal librarian",
+    "canonical": "library cataloging",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 1,
+    "raw": "Fisherian signaling theory",
+    "canonical": "fisherian signaling theory",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 2,
+    "raw": "Prospect theory",
+    "canonical": "prospect theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 3,
+    "raw": "Goodhart's Law",
+    "canonical": "goodhart's law",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 4,
+    "raw": "Tragedy of the Commons",
+    "canonical": "tragedy of the commons",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 5,
+    "raw": "Adverse selection",
+    "canonical": "adverse selection",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 6,
+    "raw": "Yield management",
+    "canonical": "yield management",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 7,
+    "raw": "Prospect theory",
+    "canonical": "prospect theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 8,
+    "raw": "Bait-and-switch litigation doctrine",
+    "canonical": "bait-and-switch",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 9,
+    "raw": "Fisherian runaway selection",
+    "canonical": "fisherian runaway selection",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 10,
+    "raw": "Prospect theory",
+    "canonical": "prospect theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 11,
+    "raw": "Theatrical stage lighting design",
+    "canonical": "theatrical lighting design",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 12,
+    "raw": "Adverse selection",
+    "canonical": "adverse selection",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 13,
+    "raw": "Veblen goods",
+    "canonical": "veblen goods",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 14,
+    "raw": "Yield management",
+    "canonical": "yield management",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 15,
+    "raw": "Toll road economics",
+    "canonical": "toll road economics",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 16,
+    "raw": "Threshold signaling in animal coloration (aposematism)",
+    "canonical": "aposematism",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 17,
+    "raw": "Lewin's Force Field Analysis",
+    "canonical": "force field analysis",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 18,
+    "raw": "Mechanism design",
+    "canonical": "mechanism design",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 19,
+    "raw": "Prospect theory",
+    "canonical": "prospect theory",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 20,
+    "raw": "Clayton Christensen",
+    "canonical": "clayton christensen",
+    "adjacent": false
+  }
+]

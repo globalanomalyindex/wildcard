@@ -1,0 +1,3628 @@
+{
+  "graders": [
+    {
+      "graderId": "g1",
+      "grades": [
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 2,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-84",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-64",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-62",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-88",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-65",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-85",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 3,
+          "usefulness": 3,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-60",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-81",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-66",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-83",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-63",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-70",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-61",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-76",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-78",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-89",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-74",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-13",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-77",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-86",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-68",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-80",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-87",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-75",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-79",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-73",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-71",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-67",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-69",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-72",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-82",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g2",
+      "grades": [
+        {
+          "id": "out-39",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-89",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-63",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-85",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-13",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-71",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-67",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-82",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-60",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-69",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-78",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-66",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-77",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-68",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-81",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-64",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-62",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-74",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-65",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-84",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-61",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-72",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-76",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-73",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-87",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-79",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-80",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-70",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-86",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-75",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-88",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 4,
+          "usefulness": 3,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-83",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g3",
+      "grades": [
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 3,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-78",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-87",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-68",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-82",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-70",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-86",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-72",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-84",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-83",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-80",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 4,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-88",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-89",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-85",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-76",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-79",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 4,
+          "usefulness": 3,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-65",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-71",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-75",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-73",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-63",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-66",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-62",
+          "genuineness": 5,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-61",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-77",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-67",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-74",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-64",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-60",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-69",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-81",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-13",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g4",
+      "grades": [
+        {
+          "id": "out-82",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-89",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-70",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 3,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-13",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 4,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-63",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-74",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 7,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-84",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-61",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-81",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-66",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-76",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-87",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-79",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-80",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-67",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-64",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 4,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-69",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 7,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-77",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-85",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 6,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-75",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 4,
+          "usefulness": 3,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-72",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-60",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-78",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-65",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-62",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-73",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-88",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-71",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-86",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-83",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-68",
+          "genuineness": 7,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    }
+  ],
+  "blinding": {
+    "guesses": [
+      {
+        "id": "out-00",
+        "arm": "B"
+      },
+      {
+        "id": "out-01",
+        "arm": "A"
+      },
+      {
+        "id": "out-02",
+        "arm": "C"
+      },
+      {
+        "id": "out-03",
+        "arm": "A"
+      },
+      {
+        "id": "out-04",
+        "arm": "C"
+      },
+      {
+        "id": "out-05",
+        "arm": "C"
+      },
+      {
+        "id": "out-06",
+        "arm": "A"
+      },
+      {
+        "id": "out-07",
+        "arm": "C"
+      },
+      {
+        "id": "out-08",
+        "arm": "C"
+      },
+      {
+        "id": "out-09",
+        "arm": "B"
+      },
+      {
+        "id": "out-10",
+        "arm": "A"
+      },
+      {
+        "id": "out-11",
+        "arm": "C"
+      },
+      {
+        "id": "out-12",
+        "arm": "B"
+      },
+      {
+        "id": "out-13",
+        "arm": "B"
+      },
+      {
+        "id": "out-14",
+        "arm": "A"
+      },
+      {
+        "id": "out-15",
+        "arm": "C"
+      },
+      {
+        "id": "out-16",
+        "arm": "B"
+      },
+      {
+        "id": "out-17",
+        "arm": "C"
+      },
+      {
+        "id": "out-18",
+        "arm": "C"
+      },
+      {
+        "id": "out-19",
+        "arm": "C"
+      },
+      {
+        "id": "out-20",
+        "arm": "C"
+      },
+      {
+        "id": "out-21",
+        "arm": "A"
+      },
+      {
+        "id": "out-22",
+        "arm": "B"
+      },
+      {
+        "id": "out-23",
+        "arm": "C"
+      },
+      {
+        "id": "out-24",
+        "arm": "C"
+      },
+      {
+        "id": "out-25",
+        "arm": "C"
+      },
+      {
+        "id": "out-26",
+        "arm": "B"
+      },
+      {
+        "id": "out-27",
+        "arm": "A"
+      },
+      {
+        "id": "out-28",
+        "arm": "A"
+      },
+      {
+        "id": "out-29",
+        "arm": "C"
+      },
+      {
+        "id": "out-30",
+        "arm": "B"
+      },
+      {
+        "id": "out-31",
+        "arm": "B"
+      },
+      {
+        "id": "out-32",
+        "arm": "C"
+      },
+      {
+        "id": "out-33",
+        "arm": "C"
+      },
+      {
+        "id": "out-34",
+        "arm": "B"
+      },
+      {
+        "id": "out-35",
+        "arm": "C"
+      },
+      {
+        "id": "out-36",
+        "arm": "B"
+      },
+      {
+        "id": "out-37",
+        "arm": "C"
+      },
+      {
+        "id": "out-38",
+        "arm": "B"
+      },
+      {
+        "id": "out-39",
+        "arm": "C"
+      },
+      {
+        "id": "out-40",
+        "arm": "C"
+      },
+      {
+        "id": "out-41",
+        "arm": "B"
+      },
+      {
+        "id": "out-42",
+        "arm": "C"
+      },
+      {
+        "id": "out-43",
+        "arm": "C"
+      },
+      {
+        "id": "out-44",
+        "arm": "C"
+      },
+      {
+        "id": "out-45",
+        "arm": "C"
+      },
+      {
+        "id": "out-46",
+        "arm": "C"
+      },
+      {
+        "id": "out-47",
+        "arm": "B"
+      },
+      {
+        "id": "out-48",
+        "arm": "B"
+      },
+      {
+        "id": "out-49",
+        "arm": "B"
+      },
+      {
+        "id": "out-50",
+        "arm": "B"
+      },
+      {
+        "id": "out-51",
+        "arm": "A"
+      },
+      {
+        "id": "out-52",
+        "arm": "B"
+      },
+      {
+        "id": "out-53",
+        "arm": "C"
+      },
+      {
+        "id": "out-54",
+        "arm": "B"
+      },
+      {
+        "id": "out-55",
+        "arm": "B"
+      },
+      {
+        "id": "out-56",
+        "arm": "C"
+      },
+      {
+        "id": "out-57",
+        "arm": "C"
+      },
+      {
+        "id": "out-58",
+        "arm": "A"
+      },
+      {
+        "id": "out-59",
+        "arm": "C"
+      },
+      {
+        "id": "out-60",
+        "arm": "C"
+      },
+      {
+        "id": "out-61",
+        "arm": "B"
+      },
+      {
+        "id": "out-62",
+        "arm": "B"
+      },
+      {
+        "id": "out-63",
+        "arm": "C"
+      },
+      {
+        "id": "out-64",
+        "arm": "C"
+      },
+      {
+        "id": "out-65",
+        "arm": "C"
+      },
+      {
+        "id": "out-66",
+        "arm": "B"
+      },
+      {
+        "id": "out-67",
+        "arm": "B"
+      },
+      {
+        "id": "out-68",
+        "arm": "A"
+      },
+      {
+        "id": "out-69",
+        "arm": "C"
+      },
+      {
+        "id": "out-70",
+        "arm": "A"
+      },
+      {
+        "id": "out-71",
+        "arm": "A"
+      },
+      {
+        "id": "out-72",
+        "arm": "B"
+      },
+      {
+        "id": "out-73",
+        "arm": "C"
+      },
+      {
+        "id": "out-74",
+        "arm": "B"
+      },
+      {
+        "id": "out-75",
+        "arm": "A"
+      },
+      {
+        "id": "out-76",
+        "arm": "B"
+      },
+      {
+        "id": "out-77",
+        "arm": "B"
+      },
+      {
+        "id": "out-78",
+        "arm": "B"
+      },
+      {
+        "id": "out-79",
+        "arm": "B"
+      },
+      {
+        "id": "out-80",
+        "arm": "C"
+      },
+      {
+        "id": "out-81",
+        "arm": "B"
+      },
+      {
+        "id": "out-82",
+        "arm": "C"
+      },
+      {
+        "id": "out-83",
+        "arm": "C"
+      },
+      {
+        "id": "out-84",
+        "arm": "B"
+      },
+      {
+        "id": "out-85",
+        "arm": "B"
+      },
+      {
+        "id": "out-86",
+        "arm": "B"
+      },
+      {
+        "id": "out-87",
+        "arm": "B"
+      },
+      {
+        "id": "out-88",
+        "arm": "B"
+      },
+      {
+        "id": "out-89",
+        "arm": "C"
+      }
+    ]
+  }
+}

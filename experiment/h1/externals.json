@@ -1,0 +1,1402 @@
+[
+  {
+    "problemId": "p08",
+    "k": 1,
+    "mode": "specialist",
+    "pick": "music copyist hand-engraving punched pewter plates",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 2,
+    "mode": "concept",
+    "pick": "origami",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 3,
+    "mode": "concept",
+    "pick": "archipelago",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 4,
+    "mode": "concept",
+    "pick": "bipedalism",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 5,
+    "mode": "concept",
+    "pick": "covalent bond",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 6,
+    "mode": "specialist",
+    "pick": "compartmental SIR parameter fitting for outbreak nowcasting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 7,
+    "mode": "specialist",
+    "pick": "GPS satellite ephemeris ranging correction",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 8,
+    "mode": "specialist",
+    "pick": "kimchi jangdok crock burial for winter temper",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 9,
+    "mode": "specialist",
+    "pick": "truffle-dog scent training in oak-hazel orchards",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 10,
+    "mode": "specialist",
+    "pick": "watermark dandy-roll papermaking mark setting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 11,
+    "mode": "specialist",
+    "pick": "wire-bond pull-and-shear strength destructive sampling",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 12,
+    "mode": "concept",
+    "pick": "ozone",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 13,
+    "mode": "concept",
+    "pick": "glacial landform",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 14,
+    "mode": "concept",
+    "pick": "alluvial fan",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 15,
+    "mode": "concept",
+    "pick": "vacuum",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 16,
+    "mode": "specialist",
+    "pick": "subtitle spotting timing dialogue to frame-accurate cues",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 17,
+    "mode": "specialist",
+    "pick": "groundwater rights adjudication of aquifer pumping shares",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 18,
+    "mode": "specialist",
+    "pick": "downhole televiewer fracture-orientation logging in deep boreholes",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 19,
+    "mode": "specialist",
+    "pick": "speleothem drip-water hydrochemistry logging for cave climate proxies",
+    "adjacent": false
+  },
+  {
+    "problemId": "p08",
+    "k": 20,
+    "mode": "concept",
+    "pick": "spiral galaxy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 1,
+    "mode": "concept",
+    "pick": "scavenger",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "seaweed-line kelp seeding on spore-coated twine",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 3,
+    "mode": "specialist",
+    "pick": "foley sound artistry mimicking footsteps on gravel trays",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 4,
+    "mode": "specialist",
+    "pick": "weather-station Stevenson screen siting and thermometer calibration",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 5,
+    "mode": "specialist",
+    "pick": "levee toe seepage berm inspection for sand-boil piping during floods",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 6,
+    "mode": "concept",
+    "pick": "coordinate system",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 7,
+    "mode": "concept",
+    "pick": "swamp",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 8,
+    "mode": "concept",
+    "pick": "spiral galaxy",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 9,
+    "mode": "concept",
+    "pick": "ionic bonding",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 10,
+    "mode": "concept",
+    "pick": "standard deviation",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 11,
+    "mode": "concept",
+    "pick": "arch",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "groundwater rights adjudication of aquifer pumping shares",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "Kibble-balance flux-gradient mass realization tending",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "watermark dandy-roll papermaking mark setting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "speleothem drip-water hydrochemistry logging for cave climate proxies",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 16,
+    "mode": "concept",
+    "pick": "signal processing",
+    "adjacent": true
+  },
+  {
+    "problemId": "p21",
+    "k": 17,
+    "mode": "concept",
+    "pick": "embroidery",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 18,
+    "mode": "concept",
+    "pick": "seed",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 19,
+    "mode": "concept",
+    "pick": "soil formation",
+    "adjacent": false
+  },
+  {
+    "problemId": "p21",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "raptor radio-telemetry triangulating of migrating eagles",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 1,
+    "mode": "specialist",
+    "pick": "anthelmintic faecal-egg-count fecal screening of sheep",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 2,
+    "mode": "concept",
+    "pick": "cytoskeleton",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 3,
+    "mode": "concept",
+    "pick": "bamboo",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 4,
+    "mode": "concept",
+    "pick": "adhesive",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 5,
+    "mode": "concept",
+    "pick": "dialectic",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 6,
+    "mode": "specialist",
+    "pick": "hailpad foam-block calibration sizing impact dents from storms",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 7,
+    "mode": "specialist",
+    "pick": "adverse possession quiet-title surveying of fence lines",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 8,
+    "mode": "specialist",
+    "pick": "gunsmith bone-charcoal color case-hardening of receivers",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 9,
+    "mode": "specialist",
+    "pick": "weather-station Stevenson screen siting and thermometer calibration",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 10,
+    "mode": "concept",
+    "pick": "alternating current",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 11,
+    "mode": "concept",
+    "pick": "fluorescence",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "archival paper deacidification bath treatment",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "germplasm tissue-culture micropropagation of orchids",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "Kalman-filter process-noise tuning for inertial navigation drift",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "hand peat-cutting with a tairsgear slicing turf banks for fuel",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 16,
+    "mode": "concept",
+    "pick": "mitosis",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 17,
+    "mode": "concept",
+    "pick": "axle",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 18,
+    "mode": "concept",
+    "pick": "supply and demand",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 19,
+    "mode": "concept",
+    "pick": "oscillation",
+    "adjacent": false
+  },
+  {
+    "problemId": "p44",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "superconducting RF cavity buffered-chemical electropolishing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 1,
+    "mode": "specialist",
+    "pick": "tuberculosis sputum smear microscopy reading",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 2,
+    "mode": "concept",
+    "pick": "temperature",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 3,
+    "mode": "concept",
+    "pick": "harmony",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 4,
+    "mode": "concept",
+    "pick": "combinatorics",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 5,
+    "mode": "concept",
+    "pick": "bias",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 6,
+    "mode": "specialist",
+    "pick": "glassblower fusing borosilicate vacuum-line traps",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 7,
+    "mode": "specialist",
+    "pick": "operatic claque organizing paid applause cues in a house",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 8,
+    "mode": "specialist",
+    "pick": "climbing-rope knot rigging for rescue anchors",
+    "adjacent": true
+  },
+  {
+    "problemId": "p39",
+    "k": 9,
+    "mode": "specialist",
+    "pick": "chain-grinding and depth-gauge filing of saw cutters",
+    "adjacent": true
+  },
+  {
+    "problemId": "p39",
+    "k": 10,
+    "mode": "concept",
+    "pick": "event horizon",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 11,
+    "mode": "concept",
+    "pick": "ecological niche",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "balsamic vinegar barrel-battery topping across decades",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "anvil hardy-tooling and swage-block forming of collars",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "mine-rescue self-rescuer breathing-apparatus drills in smoke galleries",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "prosthetic gait retraining for amputee veterans",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 16,
+    "mode": "concept",
+    "pick": "acid rain",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 17,
+    "mode": "concept",
+    "pick": "hot spring",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 18,
+    "mode": "concept",
+    "pick": "bioluminescence",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 19,
+    "mode": "concept",
+    "pick": "reflection",
+    "adjacent": false
+  },
+  {
+    "problemId": "p39",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "spinning seamless metal cones over a lathe chuck",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 1,
+    "mode": "concept",
+    "pick": "conformity",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "rush-light dipping reeds in tallow for period stage lamps",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 3,
+    "mode": "specialist",
+    "pick": "compartmental SIR parameter fitting for outbreak nowcasting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 4,
+    "mode": "specialist",
+    "pick": "food-web stability analysis from predator-prey interaction matrices",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 5,
+    "mode": "specialist",
+    "pick": "blast-hole stemming and timing for controlled quarry rock fragmentation",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 6,
+    "mode": "concept",
+    "pick": "isotope",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 7,
+    "mode": "concept",
+    "pick": "axle",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 8,
+    "mode": "concept",
+    "pick": "transformer",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 9,
+    "mode": "concept",
+    "pick": "glacier",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 10,
+    "mode": "concept",
+    "pick": "tessellation",
+    "adjacent": true
+  },
+  {
+    "problemId": "p24",
+    "k": 11,
+    "mode": "concept",
+    "pick": "silk",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "dendrochronology cross-dating of timber tree rings",
+    "adjacent": true
+  },
+  {
+    "problemId": "p24",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "diamond drill core logging recording lithology foot by foot",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "prosthetic gait retraining for amputee veterans",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "downhole televiewer fracture-orientation logging in deep boreholes",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 16,
+    "mode": "concept",
+    "pick": "ribosome",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 17,
+    "mode": "concept",
+    "pick": "arch",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 18,
+    "mode": "concept",
+    "pick": "handicraft",
+    "adjacent": true
+  },
+  {
+    "problemId": "p24",
+    "k": 19,
+    "mode": "concept",
+    "pick": "circadian rhythm",
+    "adjacent": false
+  },
+  {
+    "problemId": "p24",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "restorative-justice circle facilitation for harm repair",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 1,
+    "mode": "concept",
+    "pick": "bog",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "seaweed-line kelp seeding on spore-coated twine",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 3,
+    "mode": "specialist",
+    "pick": "historic district facade easement covenant enforcement",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 4,
+    "mode": "specialist",
+    "pick": "theremin pitch-field gesturing the heterodyne antenna",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 5,
+    "mode": "specialist",
+    "pick": "ballet pointe-shoe fitting darning the platform box",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 6,
+    "mode": "concept",
+    "pick": "axiom",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 7,
+    "mode": "concept",
+    "pick": "polarization",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 8,
+    "mode": "concept",
+    "pick": "luminosity",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 9,
+    "mode": "concept",
+    "pick": "melting",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 10,
+    "mode": "concept",
+    "pick": "surface tension",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 11,
+    "mode": "concept",
+    "pick": "combustion",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "anvil hardy-tooling and swage-block forming of collars",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "mine-ventilation pressure-quantity survey balancing airways underground",
+    "adjacent": true
+  },
+  {
+    "problemId": "p33",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "Braille embossing plate proofreading",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "rumen-fistula sampling of cannulated cattle digesta",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 16,
+    "mode": "concept",
+    "pick": "granite",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 17,
+    "mode": "concept",
+    "pick": "canyon",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 18,
+    "mode": "concept",
+    "pick": "normal distribution",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 19,
+    "mode": "concept",
+    "pick": "mycelium",
+    "adjacent": false
+  },
+  {
+    "problemId": "p33",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "salt-pan paludier raking fleur de sel from brine films",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 1,
+    "mode": "specialist",
+    "pick": "engine-turning guilloche rose patterns on watch dials",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 2,
+    "mode": "concept",
+    "pick": "oasis",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 3,
+    "mode": "concept",
+    "pick": "surface tension",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 4,
+    "mode": "concept",
+    "pick": "alphabet",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 5,
+    "mode": "concept",
+    "pick": "ionization",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 6,
+    "mode": "specialist",
+    "pick": "fettling and chipping flash off raw sand castings",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 7,
+    "mode": "specialist",
+    "pick": "rotoscope ink-tracing animation frames over live footage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 8,
+    "mode": "specialist",
+    "pick": "playa salt-crust efflorescence mapping for evaporite mineral prospects",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 9,
+    "mode": "specialist",
+    "pick": "raptor-feather DNA sexing of monomorphic chicks",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 10,
+    "mode": "concept",
+    "pick": "spring",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 11,
+    "mode": "concept",
+    "pick": "rhythm",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "spectrum license auction band-plan packaging design",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "watermark dandy-roll papermaking mark setting",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "well-screen development surging a borehole to clear fines from the gravel pack",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "watermark dandy-roll papermaking mark setting",
+    "adjacent": true
+  },
+  {
+    "problemId": "p06",
+    "k": 16,
+    "mode": "concept",
+    "pick": "wedge",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 17,
+    "mode": "concept",
+    "pick": "tundra",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 18,
+    "mode": "concept",
+    "pick": "glass",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 19,
+    "mode": "concept",
+    "pick": "abacus",
+    "adjacent": false
+  },
+  {
+    "problemId": "p06",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "palaeography of medieval Carolingian minuscule hands",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 1,
+    "mode": "concept",
+    "pick": "marble",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "fog-net water harvesting array tuning for arid coastal villages",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 3,
+    "mode": "specialist",
+    "pick": "geodetic baseline triangulation chain surveying",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 4,
+    "mode": "specialist",
+    "pick": "Erlang-C staffing calculation for call-center queue abandonment",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 5,
+    "mode": "specialist",
+    "pick": "fluid inclusion microthermometry reading paleotemperatures in crystals",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 6,
+    "mode": "concept",
+    "pick": "respiration",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 7,
+    "mode": "concept",
+    "pick": "carotenoid",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 8,
+    "mode": "concept",
+    "pick": "momentum",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 9,
+    "mode": "concept",
+    "pick": "radian",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 10,
+    "mode": "concept",
+    "pick": "curve",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 11,
+    "mode": "concept",
+    "pick": "bipedalism",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "wire-bond pull-and-shear strength destructive sampling",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "Vickrey-Clarke-Groves payment design for truthful combinatorial auctions",
+    "adjacent": true
+  },
+  {
+    "problemId": "p09",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "kerning and hot-metal type punchcutting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "kerning and hot-metal type punchcutting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 16,
+    "mode": "concept",
+    "pick": "ecological niche",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 17,
+    "mode": "concept",
+    "pick": "vacuum",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 18,
+    "mode": "concept",
+    "pick": "coordinate system",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 19,
+    "mode": "concept",
+    "pick": "solar wind",
+    "adjacent": false
+  },
+  {
+    "problemId": "p09",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "haptic-suit choreography mapping vibration cues for dancers",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 1,
+    "mode": "concept",
+    "pick": "noise",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 2,
+    "mode": "specialist",
+    "pick": "axolotl limb-regeneration colony husbandry",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 3,
+    "mode": "specialist",
+    "pick": "torsion-pendulum micro-Newton thruster impulse weighing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 4,
+    "mode": "specialist",
+    "pick": "climbing-rope knot rigging for rescue anchors",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 5,
+    "mode": "specialist",
+    "pick": "intermodal freight slot allocation across rail ramps",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 6,
+    "mode": "concept",
+    "pick": "bioluminescence",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 7,
+    "mode": "concept",
+    "pick": "pheromone",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 8,
+    "mode": "concept",
+    "pick": "knitting",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 9,
+    "mode": "concept",
+    "pick": "transparency and translucency",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 10,
+    "mode": "concept",
+    "pick": "rope",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 11,
+    "mode": "concept",
+    "pick": "absolute zero",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "saffron stigma hand-harvesting at dawn before wilt",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "heraldic blazon emblazoning of coats of arms",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "catastrophe bond trigger structuring on parametric indices",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "carp-pond polyculture stocking for layered feeders",
+    "adjacent": true
+  },
+  {
+    "problemId": "p46",
+    "k": 16,
+    "mode": "concept",
+    "pick": "moment of inertia",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 17,
+    "mode": "concept",
+    "pick": "osmosis",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 18,
+    "mode": "concept",
+    "pick": "mosaic",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 19,
+    "mode": "concept",
+    "pick": "tidal locking",
+    "adjacent": false
+  },
+  {
+    "problemId": "p46",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "farriery hoof-balancing for laminitic horses",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 1,
+    "mode": "specialist",
+    "pick": "refractory kiln-shelf setting and bat-wash coating for glaze runs",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 2,
+    "mode": "concept",
+    "pick": "data compression",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 3,
+    "mode": "concept",
+    "pick": "paradox",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 4,
+    "mode": "concept",
+    "pick": "sphere",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 5,
+    "mode": "concept",
+    "pick": "simple harmonic motion",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 6,
+    "mode": "specialist",
+    "pick": "rotoscope ink-tracing animation frames over live footage",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 7,
+    "mode": "specialist",
+    "pick": "cryo-EM grid vitrification by plunge-freezing thin films",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 8,
+    "mode": "specialist",
+    "pick": "magnetic-tape archive bit-rot remastering",
+    "adjacent": true
+  },
+  {
+    "problemId": "p19",
+    "k": 9,
+    "mode": "specialist",
+    "pick": "vellum parchment scraping and pumice finishing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 10,
+    "mode": "concept",
+    "pick": "radioactive decay",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 11,
+    "mode": "concept",
+    "pick": "mask",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 12,
+    "mode": "specialist",
+    "pick": "marine chronometer rate-error logging at sea",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 13,
+    "mode": "specialist",
+    "pick": "mine-rescue self-rescuer breathing-apparatus drills in smoke galleries",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 14,
+    "mode": "specialist",
+    "pick": "groundwater-rights adjudication mapping for basin allocation hearings",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 15,
+    "mode": "specialist",
+    "pick": "electroplating bath Hull-cell throwing-power balancing",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 16,
+    "mode": "concept",
+    "pick": "chlorophyll",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 17,
+    "mode": "concept",
+    "pick": "mirror",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 18,
+    "mode": "concept",
+    "pick": "clamp",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 19,
+    "mode": "concept",
+    "pick": "simple machine",
+    "adjacent": false
+  },
+  {
+    "problemId": "p19",
+    "k": 20,
+    "mode": "specialist",
+    "pick": "focused-ion-beam TEM lamella lift-out thinning",
+    "adjacent": false
+  }
+]

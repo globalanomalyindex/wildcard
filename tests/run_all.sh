@@ -12,4 +12,5 @@ echo "== concept audit gate =="; bash "$HERE/test_audit_concepts.sh" || fail=1
 echo "== real domains audit =="; bash "$ROOT/plugin/scripts/audit_domains.sh" "$ROOT/plugin/references/domains.txt" || fail=1
 echo "== real concepts audit =="; bash "$ROOT/plugin/scripts/audit_concepts.sh" "$ROOT/plugin/references/concepts.txt" || fail=1
 echo "== diversity (real map) =="; bash "$HERE/test_diversity.sh" || fail=1
+echo "== experiment libs =="; node --test "$ROOT"/experiment/tests/*.test.js || fail=1
 if [ "$fail" -eq 0 ]; then echo "ALL GREEN"; else echo "SOME FAILED"; exit 1; fi

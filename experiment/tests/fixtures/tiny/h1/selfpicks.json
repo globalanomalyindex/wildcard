@@ -1,0 +1,38 @@
+[
+  {
+    "problemId": "pA",
+    "k": 1,
+    "canonical": "x",
+    "adjacent": true
+  },
+  {
+    "problemId": "pA",
+    "k": 2,
+    "canonical": "x",
+    "adjacent": false
+  },
+  {
+    "problemId": "pA",
+    "k": 3,
+    "canonical": "y",
+    "adjacent": false
+  },
+  {
+    "problemId": "pB",
+    "k": 1,
+    "canonical": "z",
+    "adjacent": true
+  },
+  {
+    "problemId": "pB",
+    "k": 2,
+    "canonical": "z",
+    "adjacent": false
+  },
+  {
+    "problemId": "pB",
+    "k": 3,
+    "canonical": "z",
+    "adjacent": false
+  }
+]

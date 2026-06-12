@@ -1,0 +1,150 @@
+{
+  "graders": [
+    {
+      "graderId": "g1",
+      "grades": [
+        {
+          "id": "out-00",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 3,
+          "usefulness": 3,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 3,
+          "usefulness": 3,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 2,
+          "usefulness": 2,
+          "novelty": 2,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g2",
+      "grades": [
+        {
+          "id": "out-00",
+          "genuineness": 4,
+          "usefulness": 4,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 3,
+          "usefulness": 3,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 3,
+          "usefulness": 3,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 2,
+          "usefulness": 2,
+          "novelty": 2,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    }
+  ],
+  "blinding": {
+    "guesses": [
+      {
+        "id": "out-00",
+        "arm": "A"
+      },
+      {
+        "id": "out-01",
+        "arm": "A"
+      },
+      {
+        "id": "out-02",
+        "arm": "C"
+      },
+      {
+        "id": "out-03",
+        "arm": "B"
+      },
+      {
+        "id": "out-04",
+        "arm": "B"
+      },
+      {
+        "id": "out-05",
+        "arm": "C"
+      }
+    ]
+  }
+}

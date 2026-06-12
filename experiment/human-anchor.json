@@ -1,0 +1,122 @@
+[
+  {
+    "outId": "out-76",
+    "genuineness": 4,
+    "usefulness": 6,
+    "novelty": 6,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-14",
+    "genuineness": 6,
+    "usefulness": 7,
+    "novelty": 7,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-72",
+    "genuineness": 4,
+    "usefulness": 5,
+    "novelty": 6,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-04",
+    "genuineness": 7,
+    "usefulness": 7,
+    "novelty": 4,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-39",
+    "genuineness": 7,
+    "usefulness": 7,
+    "novelty": 6,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-49",
+    "genuineness": 4,
+    "usefulness": 3,
+    "novelty": 2,
+    "nonDerailment": 6,
+    "fabrication": false
+  },
+  {
+    "outId": "out-16",
+    "genuineness": 7,
+    "usefulness": 7,
+    "novelty": 7,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-84",
+    "genuineness": 4,
+    "usefulness": 5,
+    "novelty": 4,
+    "nonDerailment": 6,
+    "fabrication": false
+  },
+  {
+    "outId": "out-36",
+    "genuineness": 3,
+    "usefulness": 3,
+    "novelty": 5,
+    "nonDerailment": 4,
+    "fabrication": false
+  },
+  {
+    "outId": "out-42",
+    "genuineness": 4,
+    "usefulness": 3,
+    "novelty": 3,
+    "nonDerailment": 5,
+    "fabrication": false
+  },
+  {
+    "outId": "out-32",
+    "genuineness": 3,
+    "usefulness": 4,
+    "novelty": 3,
+    "nonDerailment": 6,
+    "fabrication": false
+  },
+  {
+    "outId": "out-19",
+    "genuineness": 7,
+    "usefulness": 7,
+    "novelty": 7,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-86",
+    "genuineness": 5,
+    "usefulness": 5,
+    "novelty": 4,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-67",
+    "genuineness": 5,
+    "usefulness": 4,
+    "novelty": 6,
+    "nonDerailment": 7,
+    "fabrication": false
+  },
+  {
+    "outId": "out-12",
+    "genuineness": 3,
+    "usefulness": 2,
+    "novelty": 6,
+    "nonDerailment": 7,
+    "fabrication": false
+  }
+]
