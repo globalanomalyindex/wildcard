@@ -59,7 +59,7 @@ inhabiting the wildcard (from it) vs analyzing it (about it) is conditioning vs 
 | self-pick samples (H1) | K=20 per problem = 200 |
 | graders | 4 independent blind LLM instances, every output graded by all 4 = 360 gradings |
 | human anchor | user blind-grades a random ~15-output subset; report correlation with panel |
-| subject model | claude-fable-5 (pinned, identical across all arms) |
+| subject model | claude-sonnet-4-6 (prereg amendment 1; pinned, identical across all arms) |
 | grader model | claude-opus-4-8 (pinned; cross-model judge separation from subjects) |
 | primary endpoint | structural-genuineness, arm B vs arm A (paired by problem) |
 
@@ -190,7 +190,7 @@ seed committed before any data existed (even the experimenters could not steer i
 transcript is committed, so the chain of custody is a git history; and the scale (90 passes,
 360 independent gradings) exceeds what a solo human evaluation can deliver, while the human
 anchor keeps the panel honest. Names the real stack truthfully: design and orchestration by
-claude (opus 4.8 with 1M context, and fable 5), subjects pinned to fable 5, graders pinned to
+claude (opus 4.8 with 1M context, and fable 5), subjects pinned to sonnet 4.6, graders pinned to
 opus 4.8, fan-out via the workflow orchestrator. Honest about residual limits (LLM graders,
 same-vendor models, n=10 problems) - the credibility comes from the architecture plus the
 disclosures, never from overclaiming.
@@ -212,7 +212,7 @@ disclosures, never from overclaiming.
 
 ## run plan
 
-Phased workflows (user has approved workflow usage), subjects pinned fable-5, graders pinned
+Phased workflows (user has approved workflow usage), subjects pinned sonnet-4-6, graders pinned
 opus-4-8, all agents receive only their need-to-know slice:
 
 1. pre-registration freeze (no agents: write, draw M, commit)

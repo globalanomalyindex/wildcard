@@ -4,7 +4,7 @@
 
 **Goal:** Run the pre-registered, blind, three-arm experiment from `docs/superpowers/specs/2026-06-12-wildcard-experiment-design.md`, then fold the measured results into the case study, skill, and site.
 
-**Architecture:** Pure, tested libraries first (seeded derivation + statistics), then the pre-registration freeze (master seed M committed before any data), then phased Workflow fan-outs (blind pool -> collection -> normalization -> blind panel), with raw data quarantined in an OS temp dir outside the repo until grading completes. Analysis is a zero-dependency node script over frozen committed artifacts, CI-gated. Subjects pinned to fable-5, graders pinned to opus-4-8.
+**Architecture:** Pure, tested libraries first (seeded derivation + statistics), then the pre-registration freeze (master seed M committed before any data), then phased Workflow fan-outs (blind pool -> collection -> normalization -> blind panel), with raw data quarantined in an OS temp dir outside the repo until grading completes. Analysis is a zero-dependency node script over frozen committed artifacts, CI-gated. Subjects pinned to sonnet-4-6, graders pinned to opus-4-8 (subject model per prereg amendment 1).
 
 **Tech Stack:** node 26 (node:test, ES modules, zero dependencies), bash, the repo's existing cksum entropy module (`site/js/entropy.js`), the Workflow tool for fan-out.
 
@@ -645,7 +645,7 @@ from /dev/urandom at freeze time, before any problem pool, transcript, or grade 
 
 ## design constants
 
-subject model: claude-fable-5 (all arms, all self-picks). grader model: claude-opus-4-8.
+subject model: claude-sonnet-4-6 (all arms, all self-picks; prereg amendment 1). grader model: claude-opus-4-8.
 arms A/B/C as specified in the design spec. 10 problems, 3 runs per problem per arm,
 K=20 self-picks per problem, K=20 matched external draws per problem, 4 graders, all 90
 outputs graded by all 4.
@@ -980,8 +980,8 @@ export const meta = {
   name: 'wildcard-exp-collect',
   description: 'Collect 90 protocol passes (A/B/C) and 200 self-picks, fresh contexts',
   phases: [
-    { title: 'Protocol', detail: '10 problems x 3 arms x 3 runs, subjects fable-5' },
-    { title: 'Selfpicks', detail: 'K=20 per problem, fable-5' },
+    { title: 'Protocol', detail: '10 problems x 3 arms x 3 runs, subjects sonnet-4-6' },
+    { title: 'Selfpicks', detail: 'K=20 per problem, sonnet-4-6' },
   ],
 }
 const { stage, master, problems, armA, armB, armC, selfpickPrompt } = args
@@ -1004,10 +1004,10 @@ async function runJob(j) {
     + ' is written; abstained=true only if your final message is an honest abstention'
     + ' rather than offered connections; drawLine = the draw you used (its mode and'
     + ' domain/concept lines joined with " | "), or null if your arm had no draw step.'
-  let res = await agent(prompt, { label: id, phase: 'Protocol', model: 'fable', schema: OUT_SCHEMA })
+  let res = await agent(prompt, { label: id, phase: 'Protocol', model: 'sonnet', schema: OUT_SCHEMA })
   if (!res || !res.written) {
     log(`retrying ${id}`)
-    res = await agent(prompt, { label: `${id}:retry`, phase: 'Protocol', model: 'fable', schema: OUT_SCHEMA })
+    res = await agent(prompt, { label: `${id}:retry`, phase: 'Protocol', model: 'sonnet', schema: OUT_SCHEMA })
   }
   return { id, arm: j.arm, problemId: j.p.id, run: j.r,
     abstained: res ? res.abstained : null, drawLine: res ? res.drawLine : null,
@@ -1021,7 +1021,7 @@ const pickJobs = []
 for (const p of problems) for (let k = 1; k <= 20; k++) pickJobs.push({ p, k })
 const selfpicks = await parallel(pickJobs.map(({ p, k }) => () =>
   agent(selfpickPrompt.replaceAll('<PROBLEM>', p.text),
-    { label: `pick:${p.id}:${k}`, phase: 'Selfpicks', model: 'fable', schema: PICK_SCHEMA })
+    { label: `pick:${p.id}:${k}`, phase: 'Selfpicks', model: 'sonnet', schema: PICK_SCHEMA })
     .then((r) => ({ problemId: p.id, k, pick: r ? r.pick.trim() : null }))))
 const missing = manifest.filter((m) => !m.ok).map((m) => m.id)
 if (missing.length) log(`MISSING after retry: ${missing.join(', ')}`)
@@ -1466,7 +1466,7 @@ blinding and isolation in this study are enforced by architecture, not by promis
 
 ## the stack, truthfully
 designed and orchestrated by claude (opus 4.8 with 1m context, and fable 5, across
-sessions); subjects pinned to claude-fable-5; the four blind graders pinned to
+sessions); subjects pinned to claude-sonnet-4-6; the four blind graders pinned to
 claude-opus-4-8 (a different model family from the subjects, reducing self-preference);
 fan-out via a deterministic workflow orchestrator. [...]
 
@@ -1640,6 +1640,6 @@ Update `wildcard-v2-concepts.md` (or a new memory file) with: experiment shipped
 - Task 10 pauses for the user (~15 minutes of blind grading).
 - If H2 lands null or unfavorable, Tasks 12-13 report it exactly per the pre-registered
   bands; the colophon and case study do not soften it.
-- Model pins: subjects and pool generators `model: 'fable'`; graders `model: 'opus'`;
+- Model pins: subjects `model: 'sonnet'` (prereg amendment 1), pool generators `model: 'fable'`; graders `model: 'opus'`;
   support agents (normalizer, canonicalizer, adjacency, blinding checker) inherit the
   session model.
