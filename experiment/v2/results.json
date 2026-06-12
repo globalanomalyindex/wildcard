@@ -1,0 +1,82 @@
+{
+  "primary": {
+    "item": "genuineness",
+    "nPairs": 10,
+    "meanV2": 5.742222222222223,
+    "meanV1": 4.9333333333333345,
+    "meanDiff": 0.8088888888888892,
+    "delta": 0.95,
+    "ci": {
+      "lo": 0.5977777777777781,
+      "hi": 1.0250000000000004
+    },
+    "p": 0.001953125,
+    "metGE05": true,
+    "band": "v2 > v1"
+  },
+  "secondary": [
+    {
+      "item": "usefulness",
+      "nPairs": 10,
+      "meanV2": 6.734999999999999,
+      "meanV1": 5.891666666666667,
+      "meanDiff": 0.8433333333333334,
+      "delta": 0.95,
+      "ci": {
+        "lo": 0.6183333333333335,
+        "hi": 1.051666666666667
+      },
+      "p": 0.001953125
+    },
+    {
+      "item": "novelty",
+      "nPairs": 10,
+      "meanV2": 4.588888888888889,
+      "meanV1": 4.958333333333333,
+      "meanDiff": -0.3694444444444446,
+      "delta": -0.54,
+      "ci": {
+        "lo": -0.6611111111111111,
+        "hi": -0.11388888888888901
+      },
+      "p": 0.01953125
+    },
+    {
+      "item": "nonDerailment",
+      "nPairs": 10,
+      "meanV2": 6.855555555555556,
+      "meanV1": 6.766666666666666,
+      "meanDiff": 0.08888888888888884,
+      "delta": 0.55,
+      "ci": {
+        "lo": 0.033333333333333395,
+        "hi": 0.14166666666666644
+      },
+      "p": 0.0234375
+    }
+  ],
+  "guardRails": {
+    "v1": {
+      "n": 30,
+      "fabricationOutputs": 0,
+      "abstentions": 0,
+      "removabilityRate": 0.9833333333333333
+    },
+    "v2": {
+      "n": 30,
+      "fabricationOutputs": 0,
+      "abstentions": 0,
+      "removabilityRate": 1
+    }
+  },
+  "reliability": {
+    "genuineness": 0.590707198351321,
+    "usefulness": 0.6579699154398482,
+    "novelty": 0.6283989581950429,
+    "nonDerailment": -0.0077492877492875145
+  },
+  "missing": [],
+  "counts": {
+    "outputs": 60
+  }
+}

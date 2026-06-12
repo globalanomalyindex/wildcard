@@ -1,0 +1,38 @@
+[
+  {
+    "outId": "out-00",
+    "id": "v1-pA-r1",
+    "arm": "v1",
+    "problemId": "pA",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-01",
+    "id": "v2-pA-r1",
+    "arm": "v2",
+    "problemId": "pA",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-02",
+    "id": "v1-pB-r1",
+    "arm": "v1",
+    "problemId": "pB",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  },
+  {
+    "outId": "out-03",
+    "id": "v2-pB-r1",
+    "arm": "v2",
+    "problemId": "pB",
+    "run": 1,
+    "abstained": false,
+    "ok": true
+  }
+]

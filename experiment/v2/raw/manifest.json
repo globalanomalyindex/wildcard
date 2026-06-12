@@ -1,0 +1,602 @@
+[
+  {
+    "outId": "out-09",
+    "id": "v1-p28-r1",
+    "arm": "v1",
+    "problemId": "p28",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=coral micro-fragmenting for reef restoration nurseries | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-51",
+    "id": "v1-p28-r2",
+    "arm": "v1",
+    "problemId": "p28",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=dynamical system | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-02",
+    "id": "v1-p28-r3",
+    "arm": "v1",
+    "problemId": "p28",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=glacial landform | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-13",
+    "id": "v2-p28-r1",
+    "arm": "v2",
+    "problemId": "p28",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=coral micro-fragmenting for reef restoration nurseries | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-08",
+    "id": "v2-p28-r2",
+    "arm": "v2",
+    "problemId": "p28",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=dynamical system | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-53",
+    "id": "v2-p28-r3",
+    "arm": "v2",
+    "problemId": "p28",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=glacial landform | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-16",
+    "id": "v1-p10-r1",
+    "arm": "v1",
+    "problemId": "p10",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=weather-station Stevenson screen siting and thermometer calibration | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-33",
+    "id": "v1-p10-r2",
+    "arm": "v1",
+    "problemId": "p10",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=polarization | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-12",
+    "id": "v1-p10-r3",
+    "arm": "v1",
+    "problemId": "p10",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=wave-particle duality | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-07",
+    "id": "v2-p10-r1",
+    "arm": "v2",
+    "problemId": "p10",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=weather-station Stevenson screen siting and thermometer calibration",
+    "ok": true
+  },
+  {
+    "outId": "out-26",
+    "id": "v2-p10-r2",
+    "arm": "v2",
+    "problemId": "p10",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=polarization | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-50",
+    "id": "v2-p10-r3",
+    "arm": "v2",
+    "problemId": "p10",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=wave-particle duality | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-05",
+    "id": "v1-p41-r1",
+    "arm": "v1",
+    "problemId": "p41",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=adaptation | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-55",
+    "id": "v1-p41-r2",
+    "arm": "v1",
+    "problemId": "p41",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=salt-marsh sea-vegetable foraging on tidal windows | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-28",
+    "id": "v1-p41-r3",
+    "arm": "v1",
+    "problemId": "p41",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=marquetry of dyed veneers cut with the donkey | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-24",
+    "id": "v2-p41-r1",
+    "arm": "v2",
+    "problemId": "p41",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=adaptation | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-06",
+    "id": "v2-p41-r2",
+    "arm": "v2",
+    "problemId": "p41",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=salt-marsh sea-vegetable foraging on tidal windows | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-59",
+    "id": "v2-p41-r3",
+    "arm": "v2",
+    "problemId": "p41",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=marquetry of dyed veneers cut with the donkey | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-20",
+    "id": "v1-p26-r1",
+    "arm": "v1",
+    "problemId": "p26",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=moss | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-37",
+    "id": "v1-p26-r2",
+    "arm": "v1",
+    "problemId": "p26",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "specialist | domain=vanilla-pod hand-pollination with bamboo splinters | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-34",
+    "id": "v1-p26-r3",
+    "arm": "v1",
+    "problemId": "p26",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=stone-quarry feather-and-wedge plug splitting along the rift grain | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-35",
+    "id": "v2-p26-r1",
+    "arm": "v2",
+    "problemId": "p26",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=moss | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-03",
+    "id": "v2-p26-r2",
+    "arm": "v2",
+    "problemId": "p26",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "specialist | domain=vanilla-pod hand-pollination with bamboo splinters | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-46",
+    "id": "v2-p26-r3",
+    "arm": "v2",
+    "problemId": "p26",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "specialist | domain=stone-quarry feather-and-wedge plug splitting along the rift grain | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-14",
+    "id": "v1-p15-r1",
+    "arm": "v1",
+    "problemId": "p15",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=cuneiform clay tablet impression decipherment | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-11",
+    "id": "v1-p15-r2",
+    "arm": "v1",
+    "problemId": "p15",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=umbrella | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-01",
+    "id": "v1-p15-r3",
+    "arm": "v1",
+    "problemId": "p15",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=diffusion",
+    "ok": true
+  },
+  {
+    "outId": "out-15",
+    "id": "v2-p15-r1",
+    "arm": "v2",
+    "problemId": "p15",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=cuneiform clay tablet impression decipherment | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-32",
+    "id": "v2-p15-r2",
+    "arm": "v2",
+    "problemId": "p15",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=umbrella | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-39",
+    "id": "v2-p15-r3",
+    "arm": "v2",
+    "problemId": "p15",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=diffusion | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-19",
+    "id": "v1-p04-r1",
+    "arm": "v1",
+    "problemId": "p04",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=mica | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-27",
+    "id": "v1-p04-r2",
+    "arm": "v1",
+    "problemId": "p04",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=apiary varroa-mite drop counting on sticky boards | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-10",
+    "id": "v1-p04-r3",
+    "arm": "v1",
+    "problemId": "p04",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=weather-station Stevenson screen siting and thermometer calibration | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-36",
+    "id": "v2-p04-r1",
+    "arm": "v2",
+    "problemId": "p04",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=mica | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-22",
+    "id": "v2-p04-r2",
+    "arm": "v2",
+    "problemId": "p04",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "specialist | domain=apiary varroa-mite drop counting on sticky boards | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-41",
+    "id": "v2-p04-r3",
+    "arm": "v2",
+    "problemId": "p04",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "specialist | domain=weather-station Stevenson screen siting and thermometer calibration | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-54",
+    "id": "v1-p25-r1",
+    "arm": "v1",
+    "problemId": "p25",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=operatic claque organizing paid applause cues in a house | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-25",
+    "id": "v1-p25-r2",
+    "arm": "v1",
+    "problemId": "p25",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=mirror | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-04",
+    "id": "v1-p25-r3",
+    "arm": "v1",
+    "problemId": "p25",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=refraction | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-42",
+    "id": "v2-p25-r1",
+    "arm": "v2",
+    "problemId": "p25",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=operatic claque organizing paid applause cues in a house",
+    "ok": true
+  },
+  {
+    "outId": "out-00",
+    "id": "v2-p25-r2",
+    "arm": "v2",
+    "problemId": "p25",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=mirror | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-43",
+    "id": "v2-p25-r3",
+    "arm": "v2",
+    "problemId": "p25",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=refraction | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-44",
+    "id": "v1-p30-r1",
+    "arm": "v1",
+    "problemId": "p30",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=shorthand stenographic court transcript taking | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-57",
+    "id": "v1-p30-r2",
+    "arm": "v1",
+    "problemId": "p30",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=momentum | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-52",
+    "id": "v1-p30-r3",
+    "arm": "v1",
+    "problemId": "p30",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=coral reef | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-38",
+    "id": "v2-p30-r1",
+    "arm": "v2",
+    "problemId": "p30",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=shorthand stenographic court transcript taking | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-45",
+    "id": "v2-p30-r2",
+    "arm": "v2",
+    "problemId": "p30",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=momentum | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-29",
+    "id": "v2-p30-r3",
+    "arm": "v2",
+    "problemId": "p30",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=coral reef | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-47",
+    "id": "v1-p23-r1",
+    "arm": "v1",
+    "problemId": "p23",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=permafrost | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-40",
+    "id": "v1-p23-r2",
+    "arm": "v1",
+    "problemId": "p23",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=wildlife forensic genotyping of poached ivory | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-49",
+    "id": "v1-p23-r3",
+    "arm": "v1",
+    "problemId": "p23",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=cylinder-seal engraving narrative friezes into chalcedony | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-23",
+    "id": "v2-p23-r1",
+    "arm": "v2",
+    "problemId": "p23",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=permafrost | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-17",
+    "id": "v2-p23-r2",
+    "arm": "v2",
+    "problemId": "p23",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=wildlife forensic genotyping of poached ivory | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-30",
+    "id": "v2-p23-r3",
+    "arm": "v2",
+    "problemId": "p23",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=cylinder-seal engraving narrative friezes into chalcedony | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-56",
+    "id": "v1-p14-r1",
+    "arm": "v1",
+    "problemId": "p14",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=convection | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-21",
+    "id": "v1-p14-r2",
+    "arm": "v1",
+    "problemId": "p14",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=pipe-organ voicing nicking flue mouths for even speech | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-18",
+    "id": "v1-p14-r3",
+    "arm": "v1",
+    "problemId": "p14",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=tide-table harmonic constituent computation | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-58",
+    "id": "v2-p14-r1",
+    "arm": "v2",
+    "problemId": "p14",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=convection | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-31",
+    "id": "v2-p14-r2",
+    "arm": "v2",
+    "problemId": "p14",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=pipe-organ voicing nicking flue mouths for even speech | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-48",
+    "id": "v2-p14-r3",
+    "arm": "v2",
+    "problemId": "p14",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=tide-table harmonic constituent computation | lens=materials",
+    "ok": true
+  }
+]

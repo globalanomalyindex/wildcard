@@ -1,0 +1,2424 @@
+{
+  "graders": [
+    {
+      "graderId": "g1",
+      "grades": [
+        {
+          "id": "out-10",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 3,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 3,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-13",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g2",
+      "grades": [
+        {
+          "id": "out-18",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-13",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 3,
+          "usefulness": 4,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": false,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g3",
+      "grades": [
+        {
+          "id": "out-13",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g4",
+      "grades": [
+        {
+          "id": "out-13",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-20",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-44",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-37",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-43",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-04",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-56",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-49",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-58",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-41",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-19",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-12",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-36",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-28",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-57",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-17",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-52",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-22",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-21",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-11",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-14",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-15",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-54",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-40",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-10",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-31",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-33",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-26",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-47",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-09",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-05",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-48",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-29",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-39",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-23",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-00",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-35",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-59",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-25",
+          "genuineness": 3,
+          "usefulness": 4,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": false,
+          "abstained": false
+        },
+        {
+          "id": "out-08",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-07",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-34",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-45",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-55",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-53",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-38",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-06",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-32",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-51",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-42",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-46",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-16",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-27",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-50",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-30",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-24",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-18",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        }
+      ]
+    }
+  ]
+}
