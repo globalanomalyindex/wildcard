@@ -1,0 +1,375 @@
+{
+  "h1": {
+    "perProblem": [
+      {
+        "problemId": "p08",
+        "self": {
+          "k": 20,
+          "distinct": 2,
+          "entropy": 0.8812908992306927,
+          "top1Share": 0.7
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p21",
+        "self": {
+          "k": 20,
+          "distinct": 3,
+          "entropy": 0.9917601481809735,
+          "top1Share": 0.75
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p44",
+        "self": {
+          "k": 20,
+          "distinct": 3,
+          "entropy": 1.1883763717345073,
+          "top1Share": 0.6
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p39",
+        "self": {
+          "k": 20,
+          "distinct": 3,
+          "entropy": 0.5689955935892812,
+          "top1Share": 0.9
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p24",
+        "self": {
+          "k": 20,
+          "distinct": 1,
+          "entropy": 0,
+          "top1Share": 1
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p33",
+        "self": {
+          "k": 20,
+          "distinct": 10,
+          "entropy": 2.9232196723355077,
+          "top1Share": 0.25
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p06",
+        "self": {
+          "k": 20,
+          "distinct": 3,
+          "entropy": 1.1883763717345073,
+          "top1Share": 0.6
+        },
+        "external": {
+          "k": 20,
+          "distinct": 19,
+          "entropy": 4.221928094887362,
+          "top1Share": 0.1
+        }
+      },
+      {
+        "problemId": "p09",
+        "self": {
+          "k": 20,
+          "distinct": 6,
+          "entropy": 1.833206219346495,
+          "top1Share": 0.6
+        },
+        "external": {
+          "k": 20,
+          "distinct": 19,
+          "entropy": 4.221928094887362,
+          "top1Share": 0.1
+        }
+      },
+      {
+        "problemId": "p46",
+        "self": {
+          "k": 20,
+          "distinct": 5,
+          "entropy": 1.4567796494470395,
+          "top1Share": 0.7
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      },
+      {
+        "problemId": "p19",
+        "self": {
+          "k": 20,
+          "distinct": 15,
+          "entropy": 3.721928094887362,
+          "top1Share": 0.2
+        },
+        "external": {
+          "k": 20,
+          "distinct": 20,
+          "entropy": 4.321928094887363,
+          "top1Share": 0.05
+        }
+      }
+    ],
+    "pooledDistinct": 46,
+    "pooledTopShare": 0.72,
+    "selfAdjacency": 0.47,
+    "externalAdjacency": 0.09,
+    "meanSelfEntropy": 1.4753933020486367,
+    "meanExternalEntropy": 4.301928094887362
+  },
+  "h2": {
+    "primary": {
+      "item": "genuineness",
+      "nPairs": 10,
+      "meanX": 5.266666666666667,
+      "meanY": 5.7,
+      "delta": -0.5,
+      "ci": {
+        "lo": -0.84,
+        "hi": -0.25
+      },
+      "p": 0.0078125,
+      "band": "inferiority"
+    },
+    "secondary": [
+      {
+        "contrast": "B vs C",
+        "item": "genuineness",
+        "nPairs": 10,
+        "meanX": 5.266666666666667,
+        "meanY": 5.941666666666666,
+        "delta": -0.73,
+        "ci": {
+          "lo": -1,
+          "hi": -0.39
+        },
+        "p": 0.00390625,
+        "band": "inferiority"
+      },
+      {
+        "contrast": "A vs C",
+        "item": "genuineness",
+        "nPairs": 10,
+        "meanX": 5.7,
+        "meanY": 5.941666666666666,
+        "delta": -0.23,
+        "ci": {
+          "lo": -0.58,
+          "hi": 0.18
+        },
+        "p": 0.044921875,
+        "band": "no detected difference"
+      },
+      {
+        "contrast": "B vs A",
+        "item": "usefulness",
+        "nPairs": 10,
+        "meanX": 5.666666666666667,
+        "meanY": 5.975,
+        "delta": -0.36,
+        "ci": {
+          "lo": -0.72,
+          "hi": -0.08
+        },
+        "p": 0.0703125,
+        "band": "inferiority"
+      },
+      {
+        "contrast": "B vs C",
+        "item": "usefulness",
+        "nPairs": 10,
+        "meanX": 5.666666666666667,
+        "meanY": 6.675,
+        "delta": -0.93,
+        "ci": {
+          "lo": -1,
+          "hi": -0.8
+        },
+        "p": 0.001953125,
+        "band": "inferiority"
+      },
+      {
+        "contrast": "A vs C",
+        "item": "usefulness",
+        "nPairs": 10,
+        "meanX": 5.975,
+        "meanY": 6.675,
+        "delta": -0.85,
+        "ci": {
+          "lo": -1,
+          "hi": -0.69
+        },
+        "p": 0.001953125,
+        "band": "inferiority"
+      },
+      {
+        "contrast": "B vs A",
+        "item": "novelty",
+        "nPairs": 10,
+        "meanX": 4.891666666666667,
+        "meanY": 4.941666666666667,
+        "delta": 0.05,
+        "ci": {
+          "lo": -0.42,
+          "hi": 0.52
+        },
+        "p": 0.865234375,
+        "band": "no detected difference"
+      },
+      {
+        "contrast": "B vs C",
+        "item": "novelty",
+        "nPairs": 10,
+        "meanX": 4.891666666666667,
+        "meanY": 5.333333333333334,
+        "delta": -0.33,
+        "ci": {
+          "lo": -0.73,
+          "hi": 0.16
+        },
+        "p": 0.15625,
+        "band": "no detected difference"
+      },
+      {
+        "contrast": "A vs C",
+        "item": "novelty",
+        "nPairs": 10,
+        "meanX": 4.941666666666667,
+        "meanY": 5.333333333333334,
+        "delta": -0.53,
+        "ci": {
+          "lo": -0.85,
+          "hi": -0.18
+        },
+        "p": 0.03125,
+        "band": "inferiority"
+      },
+      {
+        "contrast": "B vs A",
+        "item": "nonDerailment",
+        "nPairs": 10,
+        "meanX": 6.333333333333333,
+        "meanY": 6.241666666666666,
+        "delta": 0.04,
+        "ci": {
+          "lo": -0.28,
+          "hi": 0.39
+        },
+        "p": 0.36328125,
+        "band": "no detected difference"
+      },
+      {
+        "contrast": "B vs C",
+        "item": "nonDerailment",
+        "nPairs": 10,
+        "meanX": 6.333333333333333,
+        "meanY": 6.433333333333333,
+        "delta": -0.48,
+        "ci": {
+          "lo": -0.78,
+          "hi": -0.2
+        },
+        "p": 0.03125,
+        "band": "inferiority"
+      },
+      {
+        "contrast": "A vs C",
+        "item": "nonDerailment",
+        "nPairs": 10,
+        "meanX": 6.241666666666666,
+        "meanY": 6.433333333333333,
+        "delta": -0.39,
+        "ci": {
+          "lo": -0.75,
+          "hi": -0.09
+        },
+        "p": 0.125,
+        "band": "inferiority"
+      }
+    ],
+    "fabrication": {
+      "A": {
+        ">=1": 0,
+        ">=2": 0,
+        ">=3": 0,
+        ">=4": 0
+      },
+      "B": {
+        ">=1": 0,
+        ">=2": 0,
+        ">=3": 0,
+        ">=4": 0
+      },
+      "C": {
+        ">=1": 0,
+        ">=2": 0,
+        ">=3": 0,
+        ">=4": 0
+      }
+    },
+    "abstention": {
+      "A": 0,
+      "B": 0,
+      "C": 0
+    }
+  },
+  "reliability": {
+    "genuineness": 0.6899456289816672,
+    "usefulness": 0.6314453364176038,
+    "novelty": 0.7199193064245957,
+    "nonDerailment": -0.10147412765568431
+  },
+  "anchor": null,
+  "blinding": {
+    "n": 90,
+    "correct": 58,
+    "accuracy": 0.6444444444444445,
+    "chance": 0.3333333333333333
+  },
+  "missing": [],
+  "counts": {
+    "outputs": 90
+  }
+}

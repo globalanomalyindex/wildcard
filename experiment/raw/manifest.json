@@ -1,0 +1,902 @@
+[
+  {
+    "outId": "out-72",
+    "id": "A-p08-r1",
+    "arm": "A",
+    "problemId": "p08",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=forensic audiology - identification of gunshot residue acoustic signatures in contested crime-scene recordings | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-64",
+    "id": "A-p08-r2",
+    "arm": "A",
+    "problemId": "p08",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=triage | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-07",
+    "id": "A-p08-r3",
+    "arm": "A",
+    "problemId": "p08",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=industrial audiometry — occupational hearing conservation, fitting noise exposure dose curves to shift workers in environments with multiple co-occurring noise sources | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-75",
+    "id": "B-p08-r1",
+    "arm": "B",
+    "problemId": "p08",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=temperature | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-86",
+    "id": "B-p08-r2",
+    "arm": "B",
+    "problemId": "p08",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=letterpress composition hand-setting lead type in a stick | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-80",
+    "id": "B-p08-r3",
+    "arm": "B",
+    "problemId": "p08",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=repousse and chasing raised relief into sheet silver | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-24",
+    "id": "C-p08-r1",
+    "arm": "C",
+    "problemId": "p08",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-56",
+    "id": "C-p08-r2",
+    "arm": "C",
+    "problemId": "p08",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-46",
+    "id": "C-p08-r3",
+    "arm": "C",
+    "problemId": "p08",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-50",
+    "id": "A-p21-r1",
+    "arm": "A",
+    "problemId": "p21",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=forensic document examination — ink and paper dating by degradation chemistry | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-18",
+    "id": "A-p21-r2",
+    "arm": "A",
+    "problemId": "p21",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=dendrochronology — cross-dating of ring-width series from historic building timbers | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-51",
+    "id": "A-p21-r3",
+    "arm": "A",
+    "problemId": "p21",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=forensic audio restoration specialist working on degraded archival recordings | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-83",
+    "id": "B-p21-r1",
+    "arm": "B",
+    "problemId": "p21",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "specialist | domain=antivenom milking of venomous snakes for serum | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-32",
+    "id": "B-p21-r2",
+    "arm": "B",
+    "problemId": "p21",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=mask | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-13",
+    "id": "B-p21-r3",
+    "arm": "B",
+    "problemId": "p21",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=phase diagram | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-57",
+    "id": "C-p21-r1",
+    "arm": "C",
+    "problemId": "p21",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-08",
+    "id": "C-p21-r2",
+    "arm": "C",
+    "problemId": "p21",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-17",
+    "id": "C-p21-r3",
+    "arm": "C",
+    "problemId": "p21",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-01",
+    "id": "A-p44-r1",
+    "arm": "A",
+    "problemId": "p44",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=precision fermentation process validation in contract brewing | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-78",
+    "id": "A-p44-r2",
+    "arm": "A",
+    "problemId": "p44",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=cold chain logistics | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-16",
+    "id": "A-p44-r3",
+    "arm": "A",
+    "problemId": "p44",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=drainage gradient",
+    "ok": true
+  },
+  {
+    "outId": "out-03",
+    "id": "B-p44-r1",
+    "arm": "B",
+    "problemId": "p44",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=geodetic baseline triangulation chain surveying | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-54",
+    "id": "B-p44-r2",
+    "arm": "B",
+    "problemId": "p44",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=centripetal force | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-71",
+    "id": "B-p44-r3",
+    "arm": "B",
+    "problemId": "p44",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=door | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-20",
+    "id": "C-p44-r1",
+    "arm": "C",
+    "problemId": "p44",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-42",
+    "id": "C-p44-r2",
+    "arm": "C",
+    "problemId": "p44",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-04",
+    "id": "C-p44-r3",
+    "arm": "C",
+    "problemId": "p44",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-66",
+    "id": "A-p39-r1",
+    "arm": "A",
+    "problemId": "p39",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=airport instrument landing system (ILS) ground station maintenance | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-38",
+    "id": "A-p39-r2",
+    "arm": "A",
+    "problemId": "p39",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=queuing under non-stationary arrival bursts with priority routing",
+    "ok": true
+  },
+  {
+    "outId": "out-44",
+    "id": "A-p39-r3",
+    "arm": "A",
+    "problemId": "p39",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=triage | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-26",
+    "id": "B-p39-r1",
+    "arm": "B",
+    "problemId": "p39",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=gauge-block wringing for sub-micron dimensional standards | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-74",
+    "id": "B-p39-r2",
+    "arm": "B",
+    "problemId": "p39",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=chemical equilibrium | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-21",
+    "id": "B-p39-r3",
+    "arm": "B",
+    "problemId": "p39",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=hot spring | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-40",
+    "id": "C-p39-r1",
+    "arm": "C",
+    "problemId": "p39",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-15",
+    "id": "C-p39-r2",
+    "arm": "C",
+    "problemId": "p39",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-63",
+    "id": "C-p39-r3",
+    "arm": "C",
+    "problemId": "p39",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-30",
+    "id": "A-p24-r1",
+    "arm": "A",
+    "problemId": "p24",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=dark matter detection",
+    "ok": true
+  },
+  {
+    "outId": "out-10",
+    "id": "A-p24-r2",
+    "arm": "A",
+    "problemId": "p24",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=triage | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-76",
+    "id": "A-p24-r3",
+    "arm": "A",
+    "problemId": "p24",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=air traffic control radar sequencing | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-14",
+    "id": "B-p24-r1",
+    "arm": "B",
+    "problemId": "p24",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "specialist | domain=mountain-hare scat hormone assaying for stress | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-27",
+    "id": "B-p24-r2",
+    "arm": "B",
+    "problemId": "p24",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=graph theory | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-35",
+    "id": "B-p24-r3",
+    "arm": "B",
+    "problemId": "p24",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=silk | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-37",
+    "id": "C-p24-r1",
+    "arm": "C",
+    "problemId": "p24",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-23",
+    "id": "C-p24-r2",
+    "arm": "C",
+    "problemId": "p24",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-19",
+    "id": "C-p24-r3",
+    "arm": "C",
+    "problemId": "p24",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-58",
+    "id": "A-p33-r1",
+    "arm": "A",
+    "problemId": "p33",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=air traffic flow management, specifically en-route sector capacity balancing | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-09",
+    "id": "A-p33-r2",
+    "arm": "A",
+    "problemId": "p33",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=airline crew scheduling and recovery operations | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-52",
+    "id": "A-p33-r3",
+    "arm": "A",
+    "problemId": "p33",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=interferometry | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-88",
+    "id": "B-p33-r1",
+    "arm": "B",
+    "problemId": "p33",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "specialist | domain=magnetic-tape archive bit-rot remastering | lens=structure-and-form",
+    "ok": true
+  },
+  {
+    "outId": "out-77",
+    "id": "B-p33-r2",
+    "arm": "B",
+    "problemId": "p33",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=fossil | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-12",
+    "id": "B-p33-r3",
+    "arm": "B",
+    "problemId": "p33",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=landslide | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-43",
+    "id": "C-p33-r1",
+    "arm": "C",
+    "problemId": "p33",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-82",
+    "id": "C-p33-r2",
+    "arm": "C",
+    "problemId": "p33",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-25",
+    "id": "C-p33-r3",
+    "arm": "C",
+    "problemId": "p33",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-70",
+    "id": "A-p06-r1",
+    "arm": "A",
+    "problemId": "p06",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=chain of custody | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-68",
+    "id": "A-p06-r2",
+    "arm": "A",
+    "problemId": "p06",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=chain of custody | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-81",
+    "id": "A-p06-r3",
+    "arm": "A",
+    "problemId": "p06",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=chain of custody | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-55",
+    "id": "B-p06-r1",
+    "arm": "B",
+    "problemId": "p06",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=strain-gauge rosette bonding for load-cell calibration | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-48",
+    "id": "B-p06-r2",
+    "arm": "B",
+    "problemId": "p06",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=knitting | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-67",
+    "id": "B-p06-r3",
+    "arm": "B",
+    "problemId": "p06",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=mask | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-60",
+    "id": "C-p06-r1",
+    "arm": "C",
+    "problemId": "p06",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-29",
+    "id": "C-p06-r2",
+    "arm": "C",
+    "problemId": "p06",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-02",
+    "id": "C-p06-r3",
+    "arm": "C",
+    "problemId": "p06",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-79",
+    "id": "A-p09-r1",
+    "arm": "A",
+    "problemId": "p09",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=traffic signal coordination",
+    "ok": true
+  },
+  {
+    "outId": "out-28",
+    "id": "A-p09-r2",
+    "arm": "A",
+    "problemId": "p09",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=competitive whitewater slalom course design | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-06",
+    "id": "A-p09-r3",
+    "arm": "A",
+    "problemId": "p09",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=traffic signal coordination (progressive green waves in urban arterial networks) | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-47",
+    "id": "B-p09-r1",
+    "arm": "B",
+    "problemId": "p09",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=tribology pin-on-disc wear-scar scar-volume gauging | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-31",
+    "id": "B-p09-r2",
+    "arm": "B",
+    "problemId": "p09",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=wavelength | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-87",
+    "id": "B-p09-r3",
+    "arm": "B",
+    "problemId": "p09",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=tropical cyclone | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-65",
+    "id": "C-p09-r1",
+    "arm": "C",
+    "problemId": "p09",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-89",
+    "id": "C-p09-r2",
+    "arm": "C",
+    "problemId": "p09",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-45",
+    "id": "C-p09-r3",
+    "arm": "C",
+    "problemId": "p09",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-22",
+    "id": "A-p46-r1",
+    "arm": "A",
+    "problemId": "p46",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=shipwreck site archaeology - underwater excavation and artifact provenance recording | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-53",
+    "id": "A-p46-r2",
+    "arm": "A",
+    "problemId": "p46",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=sediment stratigraphy | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-59",
+    "id": "A-p46-r3",
+    "arm": "A",
+    "problemId": "p46",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=forensic document examination — specifically the questioned-document examiner who authenticates handwriting and detects alterations in mixed-provenance paper archives | lens=signals-and-noise",
+    "ok": true
+  },
+  {
+    "outId": "out-41",
+    "id": "B-p46-r1",
+    "arm": "B",
+    "problemId": "p46",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=glassblower fusing borosilicate vacuum-line traps | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-36",
+    "id": "B-p46-r2",
+    "arm": "B",
+    "problemId": "p46",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=granite | lens=failure-modes",
+    "ok": true
+  },
+  {
+    "outId": "out-61",
+    "id": "B-p46-r3",
+    "arm": "B",
+    "problemId": "p46",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=sandstone | lens=energy-and-flow",
+    "ok": true
+  },
+  {
+    "outId": "out-73",
+    "id": "C-p46-r1",
+    "arm": "C",
+    "problemId": "p46",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-33",
+    "id": "C-p46-r2",
+    "arm": "C",
+    "problemId": "p46",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-69",
+    "id": "C-p46-r3",
+    "arm": "C",
+    "problemId": "p46",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-84",
+    "id": "A-p19-r1",
+    "arm": "A",
+    "problemId": "p19",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "concept=slip casting (ceramics manufacturing process) | lens=constraints-and-limits",
+    "ok": true
+  },
+  {
+    "outId": "out-49",
+    "id": "A-p19-r2",
+    "arm": "A",
+    "problemId": "p19",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "mode=concept | concept=debt seniority",
+    "ok": true
+  },
+  {
+    "outId": "out-62",
+    "id": "A-p19-r3",
+    "arm": "A",
+    "problemId": "p19",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=radiometric age calibration (geochronology - converting raw isotope-ratio measurements into calendar years using calibration curves) | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-34",
+    "id": "B-p19-r1",
+    "arm": "B",
+    "problemId": "p19",
+    "run": 1,
+    "abstained": false,
+    "drawLine": "mode=specialist | domain=wax-seal matrix sigillography authentication | lens=materials",
+    "ok": true
+  },
+  {
+    "outId": "out-00",
+    "id": "B-p19-r2",
+    "arm": "B",
+    "problemId": "p19",
+    "run": 2,
+    "abstained": false,
+    "drawLine": "concept=thermohaline circulation | lens=time-and-rhythm",
+    "ok": true
+  },
+  {
+    "outId": "out-85",
+    "id": "B-p19-r3",
+    "arm": "B",
+    "problemId": "p19",
+    "run": 3,
+    "abstained": false,
+    "drawLine": "concept=recycling | lens=measurement",
+    "ok": true
+  },
+  {
+    "outId": "out-39",
+    "id": "C-p19-r1",
+    "arm": "C",
+    "problemId": "p19",
+    "run": 1,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-11",
+    "id": "C-p19-r2",
+    "arm": "C",
+    "problemId": "p19",
+    "run": 2,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  },
+  {
+    "outId": "out-05",
+    "id": "C-p19-r3",
+    "arm": "C",
+    "problemId": "p19",
+    "run": 3,
+    "abstained": false,
+    "drawLine": null,
+    "ok": true
+  }
+]
