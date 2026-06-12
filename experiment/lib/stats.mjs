@@ -78,3 +78,60 @@ export function bootstrapCI(items, statFn, iterations, rng) {
     hi: stats[Math.ceil(0.975 * iterations) - 1],
   };
 }
+
+// Exact two-sided Wilcoxon signed-rank test by full enumeration of the 2^n sign
+// assignments (n after dropping zero diffs; n=10 -> 1024 cases, instant). Returns
+// { wPlus, n, p }. Exact conditional on the observed tie-averaged ranks.
+export function wilcoxonExact(diffs) {
+  const nz = diffs.filter((d) => d !== 0);
+  const n = nz.length;
+  if (n === 0) return { wPlus: 0, n: 0, p: 1 };
+  const ranks = rankWithTies(nz.map(Math.abs));
+  let wPlus = 0;
+  nz.forEach((d, i) => { if (d > 0) wPlus += ranks[i]; });
+  const wMax = ranks.reduce((s, r) => s + r, 0);
+  const wObs = Math.min(wPlus, wMax - wPlus);
+  let count = 0;
+  const total = 1 << n;
+  for (let mask = 0; mask < total; mask++) {
+    let w = 0;
+    for (let b = 0; b < n; b++) if (mask & (1 << b)) w += ranks[b];
+    if (Math.min(w, wMax - w) <= wObs + 1e-12) count++;
+  }
+  return { wPlus, n, p: count / total };
+}
+
+// Krippendorff's alpha with the ordinal difference metric (Krippendorff 2011).
+// items: array per unit of the ratings it received (2+ raters; variable ok).
+export function krippendorffAlphaOrdinal(items) {
+  const values = [...new Set(items.flat())].sort((a, b) => a - b);
+  const vi = new Map(values.map((v, i) => [v, i]));
+  const V = values.length;
+  const o = Array.from({ length: V }, () => new Array(V).fill(0));
+  for (const ratings of items) {
+    const m = ratings.length;
+    if (m < 2) continue;
+    for (let a = 0; a < m; a++) for (let b = 0; b < m; b++) {
+      if (a === b) continue;
+      o[vi.get(ratings[a])][vi.get(ratings[b])] += 1 / (m - 1);
+    }
+  }
+  const nc = values.map((_, c) => o[c].reduce((s, x) => s + x, 0));
+  const n = nc.reduce((s, x) => s + x, 0);
+  const dist = (c, k) => {
+    if (c === k) return 0;
+    const [lo, hi] = c < k ? [c, k] : [k, c];
+    let s = 0;
+    for (let g = lo; g <= hi; g++) s += nc[g];
+    s -= (nc[lo] + nc[hi]) / 2;
+    return s * s;
+  };
+  let Do = 0, De = 0;
+  for (let c = 0; c < V; c++) for (let k = 0; k < V; k++) {
+    Do += o[c][k] * dist(c, k);
+    De += nc[c] * nc[k] * dist(c, k);
+  }
+  Do /= n;
+  De /= n * (n - 1);
+  return 1 - Do / De;
+}
