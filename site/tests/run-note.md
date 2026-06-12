@@ -111,3 +111,34 @@ loading; reduced-motion static). install > > > no longer flips the panel (that s
 shifted page alignment); it now links to case-study/#install, which lands on the
 highlighted install heading with the plugin commands below. dead install-flip css/markup
 removed. node suite 8/8, shell ALL GREEN, zero em dashes, all lowercase.
+
+## v8 concepts mode (2026-06-12)
+
+second draw mode shipped end-to-end. draw.sh now rolls a mode first via
+cksum("mode:"+seed)%2 (0=specialist from the 378-discipline map, 1=concept from a new
+461-concept pool) and emits mode= + domain=|concept= + lens=; the specialist tag stays
+"domain" so prior parity holds by construction. concept pool sourced offline (frozen,
+not a live api call): wikipedia vital articles l3+l4 (7291 candidates, people+history
+excluded at source) -> screen_concepts.sh mechanical denylist with logged drops (7115
+kept, 176 rejected: 142 names/15 person/9 toolong/6 ip/4 meta) -> multi-agent curate +
+adversarial pass -> 461 final, gated by audit_concepts.sh (re-runs the denylist).
+measured: mode split 296/600 (49.3%) via test_mode_balance.sh; specialist diversity 152
+distinct/200 (max 6); concept diversity 160 distinct/200 (max 3). all numbers in
+docs/measurements.md, regenerable.
+
+site: domains.js now exports DOMAINS(378) + CONCEPTS(461) + LENSES + PROVENANCE; the live
+demo is mode-aware (specialist -> "what a <x> specialist would notice"; concept -> "what a
+professor of <x> would notice, or what <x> has in common"); parity.test.js checks mode +
+pick + lens against the real draw.sh over 6 seeds incl. a concept seed and string seeds;
+concept-diversity.test.js added. figures panel gains two figures (two-modes coin-flip;
+concept-pool safety pipeline). case study + its hand-maintained html gain an "open scope,
+safely" section (why an offline snapshot beats a live wikipedia call; the logged screen;
+concept-as-professor framing so concept mode keeps the "summon an expert" quality) plus an
+honest concept-pool limitation. concept connection uses spreading activation (collins &
+loftus 1975) gated by the same structure-mapping bar; documented in connecting.md.
+
+browser smoke: index + case study render at 1440 and 380px; index single-viewport at
+desktop; concept mode surfaces in the live demo (302/600 in-browser over 1..600); live
+parity exact (seed 1 -> concept/bell, seed 2 -> specialist/shielded-cell); console 0/0;
+no mobile horizontal page overflow (rejection-log pre scrolls internally by design). node
+suite 9/9, shell ALL GREEN, zero em/en dashes, all-lowercase voice.
