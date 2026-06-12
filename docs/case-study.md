@@ -131,14 +131,87 @@ we added it to the skill with a worked before/after, then re-ran the same expert
 problem. it came back additive and self-audited clean. we are reporting the failure because
 a guarantee you have never seen fail is a guarantee you have never tested.
 
+## open scope, safely
+
+the draw has two modes now. before it picks a leaf, it flips a seeded coin -
+`cksum("mode:"+seed)%2`, so ~50/50 and reproducible (measured **296 specialist over 600
+seeds, 49.3%**) - and draws either a hyper-specific **specialist** from the 378-discipline
+map above, or a general **concept** from a separate 461-concept pool. a specialist is "a
+cold-chain reefer monitor"; a concept is "tides", "adenosine", "a moire pattern". the
+specialist mode is the original wildcard; this section is about how we opened the second
+pool without breaking any of the promises the first one keeps.
+
+the obvious way to draw a general concept is a live "random wikipedia article" call at
+runtime. we did not do that, because it would break the one promise the rest of the project
+keeps: a live call is **non-reproducible** (your seed could not regenerate it), needs a
+**network** (the draw is offline by design), adds **latency**, and **cannot be pre-screened**
+for sensitive topics before a user sees it. so instead we take a one-time, committed,
+version-pinned snapshot and screen it offline. the filter, not the network, is the
+interesting part.
+
+the source is wikipedia **vital articles**, levels 3 and 4 (community-curated for importance
+and breadth). we pull the **titles only** - a title and the bare fact that a topic exists are
+not copyrightable - and use them purely as inspiration pointers; no article prose is ever
+reproduced. wikipedia text is CC BY-SA, attributed in the corpus header. two whole topics are
+excluded **at the source**: people (biographies) and history (events), because a person or a
+war is never a "concept" we would draw.
+
+then every surviving title runs a mechanical, **logged** safety screen - each drop written to
+`rejection-log.txt` with the rule that caught it, so the guardrail is auditable rather than
+asserted. the rule families and one real drop each:
+
+```
+names    A Christmas Carol
+person   Actor
+ip       Apple Inc.
+meta     History of Earth
+toolong  A Sunday Afternoon on the Island of La Grande Jatte
+```
+
+the snapshot counts: **7291 candidates -> 7115 passed the screen -> 176 rejected**
+(142 names, 15 person, 9 toolong, 6 ip, 4 meta). the screen guarantees safety, not quality, so
+a separate editorial pass (the multi-agent method that hardened the discipline map) keeps only
+genuine, mechanism-rich concepts and tags each `concept | tier | facet`, and an adversarial
+pass tries to break the safety bar one more time. that curated **461** (89 everyday, 162
+natural, 150 scientific, 60 abstract) is gated by `audit_concepts.sh`, which re-runs the
+denylist as belt-and-suspenders. the pool spreads well: **160 distinct concepts in 200 seeded
+draws, max recurrence 3**.
+
+ip-bearing entities - brands, franchises, characters, specific copyrighted works - are excluded
+at curation time. if one ever slipped through to runtime, the skill is instructed to use it only
+as abstract inspiration and to name it as such, never to reproduce its content.
+
+a concept arrives with no person and no toolkit attached - but it need not stay impersonal, and
+concept mode keeps the "summon an expert" quality. you can embody a *generalist of the concept's
+field*, the broad-knowledge counterpart to specialist mode's niche practitioner ("tides" -> a
+coastal-oceanography professor, "adenosine" -> a neuropharmacologist), who thinks *with* the
+concept as their lens; or you work the bare concept directly when a persona adds nothing. either
+way the connection is built from the concept side. the honest name for that is **spreading
+activation** (collins & loftus, 1975):
+from one node, activation flows out along associative links and lights up neighbours. left alone
+that is exactly the "everything reminds me of everything" associating that produces decorative
+non-connections. so it is **gated by the same structure-mapping bar** as specialist mode: cast
+3 to 5 relational properties of the concept (how it works, what it trades off, how it fails -
+never its surface nouns), probe each against the frozen sketch, keep only strands where the same
+*system of relations* genuinely holds, and refine a promising-but-loose strand one association
+deeper until it either tightens into a real isomorphism or is dropped. spreading activation
+proposes; structure-mapping disposes. the terminus is the same two exits as before: a few
+genuine connections, or honest abstention. refinement never licenses a connection the bar would
+have rejected.
+
 ## reproducibility and the numbers
 
 everything on the live site and in this study is regenerable from the repo:
 
-- **exact uniformity.** the entropy draw is rejection-sampled, so every discipline is
-  equiprobable (plain `% n` would favor a handful of indices by one count). over 200 entropy
-  draws on the shipped 378-leaf map we measured **152 distinct experts, no expert recurring
-  more than 6 times** - wide spread, no clustering. regenerate: `bash tests/run_all.sh`.
+- **two modes, one coin-flip.** each draw rolls `cksum("mode:"+seed)%2` to pick specialist or
+  concept before drawing a leaf - ~50/50 and reproducible, **measured 296 specialist over 600
+  seeds (49.3%)**. browser and shell agree on the mode pick too, so any seed reproduces
+  end-to-end. regenerate: `bash tests/test_mode_balance.sh`.
+- **exact uniformity.** the entropy draw is rejection-sampled, so every leaf is equiprobable
+  (plain `% n` would favor a handful of indices by one count). over 200 entropy draws on the
+  shipped **378-leaf discipline map** we measured **152 distinct experts, no expert recurring
+  more than 6 times** - wide spread, no clustering. the **461-concept pool** spreads similarly:
+  **160 distinct in 200 seeded draws, max recurrence 3**. regenerate: `bash tests/run_all.sh`.
 - **the map.** 378 niche disciplines, breadth-audited: all 22 axis buckets (scale x medium x
   activity x era) are spanned and there are no duplicates. selection is uniform over this
   deliberately broad, curated span - not a claim to contain literally every field.
@@ -156,6 +229,10 @@ everything on the live site and in this study is regenerable from the repo:
 - the map's breadth is **curated, not exhaustive**. uniform-over-the-map is not
   uniform-over-all-human-knowledge. we widened it (added systems, dynamics, and social-
   process disciplines) after noticing a craft/material skew, but it remains a taste.
+- the **concept pool is a frozen snapshot**, mechanically screened (every drop logged) then
+  curated. that makes the guardrail auditable, but the safety bar is a denylist plus editorial
+  judgment, not a proof: a borderline title could in principle survive, which is why the skill
+  also carries a runtime inspiration-only / ip rule as a second line of defense.
 - the **lens has only 8 values**, so it can repeat across a short session by chance. that is
   honest variance, not a fixed lens; we deliberately did not add anti-repetition memory,
   because biasing the draw to feel more varied would betray the whole point.
