@@ -1,0 +1,176 @@
+names	A Christmas Carol
+toolong	A Sunday Afternoon on the Island of La Grande Jatte
+names	Abortion
+names	Academy Awards
+person	Actor
+names	Aerial warfare
+names	Allah
+names	Alzheimer's disease
+names	Anti-aircraft warfare
+ip	Apple Inc.
+names	Armoured warfare
+names	Asexual reproduction
+names	Asexuality
+names	Assassination
+names	Autoimmune disease
+names	Bhubaneswar
+names	Biological warfare
+names	Bisexuality
+names	Bomb
+names	Bomber
+names	Bombyx mori
+names	Brain tumor
+ip	Brand
+names	Breast cancer
+names	Brown dwarf
+names	Cancer
+names	Cardiovascular disease
+names	Casino
+names	Cassowary
+names	Ceres (dwarf planet)
+names	Chemical weapon
+names	Chinese Communist Party
+names	Christ the Redeemer (statue)
+names	Christian democracy
+names	Christian philosophy
+names	Christianity
+names	Christmas
+names	Christmas carol
+names	Chronic obstructive pulmonary disease
+names	Civil war
+names	Club (weapon)
+ip	Coca-Cola
+names	Cocaine
+names	Colorectal cancer
+names	Communism
+names	Computer hardware
+names	Cookware and bakeware
+toolong	Declaration of the Rights of Man and of the Citizen
+names	Domestic violence
+names	Dwarf galaxy
+names	Dwarf planet
+names	Eastern Christianity
+names	Election
+names	Eris (dwarf planet)
+names	Fascism
+names	Gambling
+names	Genocide
+names	Genocide denial
+names	Grace in Christianity
+names	Grape
+names	Grapefruit
+names	Gun
+names	Gun dog
+names	Gunpowder
+names	Hand, foot, and mouth disease
+names	Handgun
+names	Heterosexuality
+meta	History of Earth
+meta	History of atomic theory
+meta	History of life
+meta	History of the Peloponnesian War
+names	Homosexuality
+names	Horses in warfare
+names	Human sexual activity
+names	Human sexuality
+toolong	International Covenant on Civil and Political Rights
+toolong	International Covenant on Economic, Social and Cultural Rights
+person	Jade Emperor
+person	King Arthur
+person	King James Version
+person	King Lear
+names	Law of war
+names	Lung cancer
+names	Lyme disease
+names	Machine gun
+names	Malware
+ip	McDonald's
+names	Messiah
+names	Messiah (Handel)
+names	Missile
+names	Mortar (weapon)
+names	Murder
+toolong	Mythologies of the Indigenous peoples of the Americas
+names	Natural selection
+names	Naval warfare
+names	Nazism
+names	New World warbler
+ip	Nintendo
+person	Notre-Dame de Paris
+names	Nuclear chemistry
+names	Nuclear family
+names	Nuclear fission
+names	Nuclear fusion
+names	Nuclear physics
+names	Nuclear power
+names	Nuclear technology
+names	Nuclear weapon
+names	Nudity
+names	Nut (hardware)
+names	Open-source software
+toolong	Organization for Security and Co-operation in Europe
+names	Pandemic
+names	Parkinson's disease
+names	Parliament
+names	Peshawar
+names	Plate (dishware)
+person	Pope
+names	Pornography
+names	Prisoner of war
+names	Prostate cancer
+names	Rape
+names	Rapeseed
+names	Reformed Christianity
+names	Religious war
+names	Rifle
+person	Saint
+person	Saint Kitts and Nevis
+person	Saint Lucia
+person	Saint Petersburg
+person	Saint Vincent and the Grenadines
+names	Sexual and reproductive health
+names	Sexual assault
+names	Sexual attraction
+names	Sexual dimorphism
+names	Sexual fetishism
+names	Sexual intercourse
+names	Sexual orientation
+names	Sexual reproduction
+names	Sexually transmitted infection
+names	Shotgun
+names	Skin cancer
+names	Skyscraper
+names	Slavery
+names	Sling (weapon)
+names	Snow White and the Seven Dwarfs (1937 film)
+names	Software
+names	Software engineering
+names	Star Wars
+names	Suicide
+names	Tableware
+names	Terrorism
+names	The Art of War
+names	The Communist Manifesto
+toolong	The General Theory of Employment, Interest and Money
+names	The Grapes of Wrath
+toolong	The History of the Decline and Fall of the Roman Empire
+person	The Hunchback of Notre-Dame
+person	The Jazz Singer
+ip	The Walt Disney Company
+names	The War of the Worlds
+names	Thermonuclear weapon
+names	Trench warfare
+names	Tropic of Cancer
+names	Tug of war
+names	Violence
+toolong	Visual arts of the Indigenous peoples of the Americas
+names	War and Peace
+names	War crime
+names	War elephant
+names	Warehouse
+names	Warsaw
+names	Warship
+names	Weapon
+names	Weapon of mass destruction
+names	White dwarf
+person	Yellow Emperor
