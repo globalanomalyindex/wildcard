@@ -26,7 +26,7 @@ export function initDemo(pageSeed) {
   function noteHTML(mode, pick, seed) {
     const lead = mode === "specialist"
       ? `now imagine what a <b>${pick}</b> specialist would notice about your project. `
-      : `now imagine what <b>${pick}</b> has in common with your problem. `;
+      : `now imagine what a professor of <b>${pick}</b> would notice in your project, or what <b>${pick}</b> itself has in common with it. `;
     return lead +
       `that part happens in claude code. ` +
       `<span class="seed-tag">seed ${seed} · reproduce: draw.sh --seed ${seed}</span>`;

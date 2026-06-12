@@ -15,10 +15,11 @@ description: >-
 
 Run a one-shot summon: draw a random wildcard from outside the model, find the real structural
 connections it has to your work, and offer them as optional seeds. The draw lands in one of two
-modes - a hyper-specific niche **specialist** who notices through their toolkit, or a bare general
-**concept** you connect against from first principles - but either way it emulates the faculty an
-on-task reasoner lacks: a **synthetic default-mode network** that injects the remote associate your
-focused chain of thought would never wander to.
+modes - a hyper-specific niche **specialist** who notices through their toolkit, or a general
+**concept** you connect against (either directly, or by summoning a generalist authority of its
+field - a professor of it - so the "summon an expert" quality holds either way) - but either way
+it emulates the faculty an on-task reasoner lacks: a **synthetic default-mode network** that
+injects the remote associate your focused chain of thought would never wander to.
 
 > **Paths in this file are relative to this skill's own directory** (you were given its absolute
 > path when the skill loaded), *not* your current working directory - which is usually the user's
@@ -57,9 +58,15 @@ the website's live draw reproduces any seed in your terminal.)
 - **specialist:** grow the drawn `domain` into a specific practitioner with a real toolkit. Follow
   `references/specializing.md` (honor the draw exactly; use the lens for a non-obvious sub-niche;
   build the toolkit before looking).
-- **concept:** there is no person and no toolkit, just the bare `concept`. Load its *relational*
-  properties - how it works, what it trades off, its dynamics over time, how it fails - per step 1
-  of `references/connecting.md`. Cast the strands; never its surface nouns.
+- **concept:** the draw is an idea, not a person - but you need not stay impersonal. Engage it
+  whichever way yields the more genuine mapping: **as a field authority** (default - this keeps the
+  "summon an expert" feel) embody a *generalist* of the concept's field, the broad-knowledge
+  counterpart to specialist mode's niche practitioner (concept "tides" → a coastal-oceanography
+  professor; "adenosine" → a neuropharmacologist; "feedback loop" → a control theorist) who thinks
+  *with* the concept as their lens; or **as the bare concept** when personifying adds nothing.
+  Either way, load its *relational* properties - how it works, what it trades off, its dynamics over
+  time, how it fails - per step 1 of `references/connecting.md`. Cast the strands; never its surface
+  nouns.
 
 **4. Find what genuinely rhymes (branch on `mode`, same honesty bar).**
 

@@ -1,8 +1,11 @@
 # Connecting a concept: the loose-to-genuine refinement protocol
 
-In specialist mode you *are* a practitioner and you look. In concept mode you are handed a bare
-idea - "adenosine", "tides", "moire pattern" - with no toolkit and no person attached. You have to
-build the bridge from the concept side. This file is the procedure for doing that honestly. Think
+In specialist mode you *are* a niche practitioner and you look. In concept mode you are handed an
+idea - "adenosine", "tides", "moire pattern". You can still summon an expert from it: embody a
+*generalist* of its field (a coastal-oceanography professor for "tides", a neuropharmacologist for
+"adenosine") - the broad-knowledge counterpart to the niche specialist - or work the bare concept
+directly when a persona adds nothing. Either way you build the bridge from the concept side,
+through its *relational properties*, and this file is the procedure for doing that honestly. Think
 of it as a web you spin out from the concept: most strands catch nothing and are swept away, and
 you offer only the few that hold weight.
 
