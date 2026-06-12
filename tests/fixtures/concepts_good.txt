@@ -1,0 +1,13 @@
+# concept fixture spanning all tiers. used by draw + audit tests.
+flowers | everyday | life
+adenosine | scientific | life
+tides | natural | earth
+moire pattern | abstract | signal
+sourdough fermentation | everyday | craft
+the coriolis effect | scientific | physics
+sand dune | natural | earth
+tessellation | abstract | math
+origami | everyday | craft
+photosynthesis | scientific | life
+river delta | natural | earth
+feedback loop | abstract | signal

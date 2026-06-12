@@ -42,3 +42,20 @@ ask what genuinely rhymes (see structure-mapping.md).
 
 A vague intro wastes the mechanism. Two or three sentences: who you are, the exact corner of your
 field, and the one obsession that defines how you see. Specificity *is* the seeding.
+
+## Axes to spin a niche from
+
+The lens picks a corner; these axes find a *room* inside it. When a draw lands on something broad,
+turn one or two of these dials until "a generic figure" becomes "a person with one obsession":
+
+- **era** - which period's tools and constraints (a pre-radar navigator, not "a navigator").
+- **scale** - the magnitude they work at (a microns-and-tolerances machinist; a watershed-scale
+  hydrologist).
+- **instrument** - the one tool they live inside (a mass-spectrometry chemist, not "a chemist").
+- **material** - the specific stuff they fight (a green-oak timber framer; a brackish-water ecologist).
+- **failure-mode** - the disaster they exist to prevent (a fatigue-crack metallurgist).
+- **sub-sub-specialty** - drill past the obvious sub-field into its narrowest live corner.
+
+One-line transform: "a mathematician" -> (sub-sub-specialty + failure-mode + scale) -> "a specialist
+in the numerical stability of long-horizon orbit integrators." Pick the dials that the lens already
+points at; do not crank all six.

@@ -1,4 +1,4 @@
-import { DOMAINS, LENSES } from "./domains.js";
+import { DOMAINS, CONCEPTS, LENSES } from "./domains.js";
 import { pickIndex, freshSeed } from "./entropy.js";
 
 const reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
@@ -23,21 +23,28 @@ export function initDemo(pageSeed) {
   const note = document.getElementById("draw-note");
   const bar = document.getElementById("draw-bar");
 
-  function noteHTML(d, seed) {
-    return `now imagine what a <b>${d}</b> specialist would notice about your project. ` +
+  function noteHTML(mode, pick, seed) {
+    const lead = mode === "specialist"
+      ? `now imagine what a <b>${pick}</b> specialist would notice about your project. `
+      : `now imagine what a professor of <b>${pick}</b> would notice in your project, or what <b>${pick}</b> itself has in common with it. `;
+    return lead +
       `that part happens in claude code. ` +
       `<span class="seed-tag">seed ${seed} · reproduce: draw.sh --seed ${seed}</span>`;
   }
 
   // The next draw loads with the previous note still in place (dimmed) and the bar
   // pulsing, so the area stays filled and formatted instead of flashing empty.
+  // The mode is rolled the same way draw.sh does it: cksum("mode:"+seed) % 2.
   function draw(seed, isFirst) {
-    const d = DOMAINS[pickIndex("domain", seed, DOMAINS.length)];
+    const mode = pickIndex("mode", seed, 2) === 0 ? "specialist" : "concept";
+    const pool = mode === "specialist" ? DOMAINS : CONCEPTS;
+    const key = mode === "specialist" ? "domain" : "concept";
+    const pick = pool[pickIndex(key, seed, pool.length)];
     const l = LENSES[pickIndex("lens", seed, LENSES.length)];
     if (!isFirst) note.classList.add("is-stale");
     if (bar) bar.classList.add("is-loading");
-    typeOut(out, `domain=${d}\nlens=${l}`, () => {
-      note.innerHTML = noteHTML(d, seed);
+    typeOut(out, `mode=${mode}\n${key}=${pick}\nlens=${l}`, () => {
+      note.innerHTML = noteHTML(mode, pick, seed);
       note.classList.remove("is-stale");
       if (bar) bar.classList.remove("is-loading");
     });

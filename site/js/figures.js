@@ -13,8 +13,18 @@ export const FIGURES = [
     cmd: "regenerate: bash tests/run_all.sh",
   },
   {
+    k: "two modes · one seeded coin-flip",
+    v: "each draw first rolls a mode: a hyper-specific <b>specialist</b> (378 disciplines) or a general <b>concept</b> (461 concepts). the roll is <code>cksum(\"mode:\"+seed)%2</code>, so it is ~50/50 and reproducible. measured <b>296</b> specialist over <b>600</b> seeds (<b>49.3%</b>).",
+    cmd: "regenerate: bash tests/test_mode_balance.sh",
+  },
+  {
+    k: "concept pool · safety pipeline",
+    v: "open scope without a live network call. <b>7291</b> concept-bearing candidates from wikipedia vital articles (people and history excluded at source) -> <b>7115</b> passed a mechanical, logged safety screen -> <b>176</b> rejected by rule (142 names, 15 person, 9 toolong, 6 ip, 4 meta) -> curated and adversarially reviewed to <b>461</b>. concept draws: <b>160</b> distinct in <b>200</b> seeds, max recurrence 3.",
+    cmd: "screen: bash plugin/scripts/screen_concepts.sh",
+  },
+  {
     k: "reproducibility",
-    v: "every seeded draw on this page reproduces in your terminal, byte for byte. ci gates the live deploy on the parity test, so the page can't ship a claim the mechanism fails.",
+    v: "every seeded draw on this page reproduces in your terminal, byte for byte, now including the mode pick. ci gates the live deploy on the parity test, so the page can't ship a claim the mechanism fails.",
     cmd: "verify: draw.sh --seed <seed>",
   },
   {

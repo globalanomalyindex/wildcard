@@ -3,29 +3,34 @@ import assert from "node:assert/strict";
 import { execFileSync } from "node:child_process";
 import { fileURLToPath } from "node:url";
 import { dirname, join } from "node:path";
-import { DOMAINS, LENSES } from "../js/domains.js";
+import { DOMAINS, CONCEPTS, LENSES } from "../js/domains.js";
 import { pickIndex } from "../js/entropy.js";
 
 const here = dirname(fileURLToPath(import.meta.url));
 const repo = join(here, "..", "..");
 
 function shellDraw(seed) {
-  const out = execFileSync(
-    "bash",
-    ["plugin/scripts/draw.sh", "--seed", seed, "--file", "plugin/references/domains.txt"],
-    { cwd: repo, encoding: "utf8" }
-  );
-  const domain = out.match(/^domain=(.*)$/m)[1];
+  const out = execFileSync("bash", [
+    "plugin/scripts/draw.sh", "--seed", seed,
+    "--domains-file", "plugin/references/domains.txt",
+    "--concepts-file", "plugin/references/concepts.txt",
+  ], { cwd: repo, encoding: "utf8" });
+  const mode = out.match(/^mode=(.*)$/m)[1];
+  const pick = out.match(/^(?:domain|concept)=(.*)$/m)[1];
   const lens = out.match(/^lens=(.*)$/m)[1];
-  return { domain, lens };
+  return { mode, pick, lens };
 }
 
-test("browser pick equals draw.sh pick for many seeds", () => {
-  for (const seed of ["1", "42", "7", "review-101", "wildcard", "999"]) {
-    const shell = shellDraw(seed);
-    const jsDomain = DOMAINS[pickIndex("domain", seed, DOMAINS.length)];
-    const jsLens = LENSES[pickIndex("lens", seed, LENSES.length)];
-    assert.equal(jsDomain, shell.domain, `domain parity for seed ${seed}`);
-    assert.equal(jsLens, shell.lens, `lens parity for seed ${seed}`);
+test("browser reproduces shell mode + pick + lens for many seeds", () => {
+  for (const seed of ["1", "42", "7", "wildcard", "review-101", "999"]) {
+    const s = shellDraw(seed);
+    const mode = pickIndex("mode", seed, 2) === 0 ? "specialist" : "concept";
+    const pool = mode === "specialist" ? DOMAINS : CONCEPTS;
+    const tag = mode === "specialist" ? "domain" : "concept";
+    const pick = pool[pickIndex(tag, seed, pool.length)];
+    const lens = LENSES[pickIndex("lens", seed, LENSES.length)];
+    assert.equal(mode, s.mode, `mode for ${seed}`);
+    assert.equal(pick, s.pick, `pick for ${seed}`);
+    assert.equal(lens, s.lens, `lens for ${seed}`);
   }
 });
