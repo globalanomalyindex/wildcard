@@ -1,3 +1,41 @@
+# Re-test pre-registration freeze: wildcard v2 (seeding) vs v1 (mapping-gated)
+
+Committed before any v2 output or re-run v1 output exists. Master seed
+M2 = `b6443153e1e18f11`, drawn from /dev/urandom at freeze time.
+
+## skill versions under test (identical draw.sh, identical draws)
+
+- **v1** = the mapping-gated skill as merged to main (commit `76f3252`): plugin/SKILL.md + references.
+- **v2** = the seeding-not-forcing revision on branch skill-v2-seeding (commit `30fe03b`): the
+  removability-gated skill. The only thing that differs between arms is the skill text the subject reads.
+
+## design
+
+10 fresh problems (experiment/v2/problems-selected.json), drawn from the committed 50-problem pool with
+M2, excluding the 10 v1-study problems (zero overlap, verified). Each problem is run 3 times per arm;
+arm = {v1 skill, v2 skill}. The draw for a matched run is fixed via
+`draw.sh --seed "b6443153e1e18f11:draw:<pid>:r<run>"`, identical for v1 and v2, so the two arms receive the SAME
+wildcards and differ only in skill text. 60 protocol passes (10 x 3 x 2). Subjects pinned
+claude-sonnet-4-6 (as in the v1 study). Normalizers claude-haiku; 4 blind graders claude-opus-4-8.
+Raw outputs quarantined outside the repo until grading completes.
+
+## derivations from M2 (via the parity-tested cksum stream)
+
+- arm draw seeds: `M2:draw:<pid>:r<run>` (shared by v1 and v2 for the same pid + run).
+- opaque output ids: seededShuffle of the 60 manifest rows, tag "ids", seed M2.
+- grader presentation order: seededShuffle(out-ids, "order:<grader-id>", M2).
+
+## rubric
+
+Same four 1-7 scales as the v1 study (structural genuineness [primary], usefulness, novelty,
+non-derailment) plus the fabrication flag, with one addition committed here before any scoring: graders
+score an offering on the quality of its **distinct executable moves**, not on the number of strands (v2
+ships fewer by design). Plus, per the guard rails: a removability-compliance judgment (does each
+shipped strand's final move survive deleting the donor sentence?) and the v1 adjacency judgment (is the
+donor surface-adjacent to the problem?), so a v2 win can be re-checked conditioned on distance.
+
+---
+
 # Pre-registration: wildcard v2 (seeding) vs v1 (mapping-gated), blind head-to-head
 
 Registered before any v2 output is generated or scored.
