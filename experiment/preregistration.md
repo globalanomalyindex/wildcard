@@ -213,3 +213,20 @@ seeded order, in fresh contexts, with no channel to the arms, the raw files, eac
 or this document. the pool generator's prompt contains no mention of the hypothesis. the
 freeze commit of this file predates all data; M predates the pool, so neither problem
 selection nor any draw could be steered toward a result.
+
+## amendments
+
+### amendment 1 (2026-06-12, before any outcome data): subject model fable-5 -> sonnet-4-6
+
+the held-constant subject model is changed from claude-fable-5 to claude-sonnet-4-6 for all
+arms (A/B/C) and all H1 self-picks. rationale: (a) cost and scale - a cheaper subject lets us
+run the full pre-registered 90-pass + 200-self-pick design rather than trimming it; (b) cleaner
+cross-model grading - sonnet subjects judged by opus-4-8 graders is a wider capability-tier
+separation, which reduces self-preference more than flagship-judging-flagship would; (c)
+conservative generalization - an effect that holds on a strong, widely-deployed model is
+evidence of the mechanism rather than a flagship artifact, and it generalizes to a model many
+users actually run. this amendment changes ONLY the subject model, a factor orthogonal to the
+within-model A-vs-B contrast; the hypotheses, primary endpoint, rubric, analysis plan, grader
+model (opus-4-8), and the master seed M are all unchanged. it is committed before any protocol
+output or grade exists - the 200 external draws already staged come from draw.sh, which is
+model-independent, and stand unchanged. git chain of custody: freeze -> this amendment -> data.
