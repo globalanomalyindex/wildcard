@@ -1,0 +1,466 @@
+# wildcard concept corpus. source: wikipedia vital articles L3+L4 (CC BY-SA), titles only,
+# used as inspiration pointers; no article text reproduced; IP-bearing entities excluded.
+# screened by scripts/screen_concepts.sh, then curated + adversarially audited (multi-agent).
+# format: concept | tier | facet   (tier in everyday|natural|scientific|abstract)
+# pulled 2026-06-12 · candidates 7291 · safety-screened 7115 · curated final 461
+abacus | everyday | math
+abrasive | everyday | matter
+absolute zero | scientific | physics
+acceleration | scientific | physics
+acid rain | natural | earth
+adaptation | scientific | life
+adhesive | everyday | matter
+aeolian processes | natural | earth
+aerodynamics | scientific | physics
+aerosol | scientific | matter
+albedo | scientific | light
+allotropy | scientific | chemistry
+alloy | everyday | matter
+alluvial fan | natural | earth
+alphabet | everyday | society
+alternating current | scientific | energy
+alternation of generations | scientific | life
+amber | natural | matter
+amplitude | scientific | signal
+angular momentum | scientific | physics
+animal migration | natural | life
+antimatter | scientific | physics
+arch | everyday | structure
+archipelago | natural | earth
+atmospheric circulation | natural | earth
+atoll | natural | earth
+aurora | natural | light
+autumn | natural | time
+avalanche | natural | earth
+axiom | abstract | math
+axle | everyday | structure
+bamboo | natural | life
+bark | natural | life
+barometer | everyday | physics
+basalt | natural | matter
+basket weaving | everyday | craft
+bearing | everyday | structure
+bell | everyday | sound
+bias | abstract | mind
+binary number | abstract | math
+binary star | scientific | physics
+binomial nomenclature | abstract | structure
+biodiversity | scientific | life
+bioluminescence | natural | light
+biome | scientific | life
+bipedalism | scientific | life
+black hole | scientific | physics
+black-body radiation | scientific | energy
+bog | natural | earth
+boiling | natural | physics
+brewing | everyday | craft
+buoyancy | scientific | physics
+calligraphy | everyday | craft
+camouflage | natural | life
+canyon | natural | earth
+capacitor | scientific | energy
+capillary | scientific | physics
+carotenoid | natural | chemistry
+cast iron | everyday | matter
+catalysis | scientific | chemistry
+causality | abstract | physics
+cellular respiration | scientific | life
+cellulose | natural | matter
+centripetal force | scientific | physics
+ceramic | everyday | matter
+chain | everyday | structure
+chameleon | natural | life
+chaos theory | abstract | math
+charcoal | everyday | matter
+chemical equilibrium | scientific | chemistry
+chisel | everyday | craft
+chitin | natural | matter
+chlorophyll | natural | life
+cicada | natural | life
+circadian rhythm | natural | life
+clamp | everyday | craft
+clay | everyday | matter
+collage | everyday | craft
+combinatorics | abstract | math
+combustion | natural | energy
+compass | everyday | craft
+condensation | natural | physics
+conformity | abstract | society
+conic section | abstract | math
+conifer | natural | life
+continental crust | natural | earth
+control theory | scientific | signal
+convection | natural | physics
+convex set | abstract | math
+cooperation | abstract | society
+coordinate system | abstract | structure
+coral reef | natural | earth
+correlation | abstract | math
+corrosion | natural | chemistry
+counterpoint | abstract | sound
+covalent bond | scientific | chemistry
+crochet | everyday | craft
+crystal | natural | matter
+crystallization | scientific | chemistry
+cube | abstract | math
+curve | abstract | math
+cyclone | natural | earth
+cytoskeleton | scientific | life
+dam | everyday | structure
+data compression | abstract | signal
+decentralization | abstract | society
+decomposition | natural | life
+derivative | abstract | math
+dew | natural | earth
+dialectic | abstract | mind
+diatom | natural | life
+diffraction | scientific | light
+diffusion | scientific | physics
+dimension | abstract | math
+distillation | scientific | chemistry
+dome | everyday | structure
+domestication | abstract | life
+door | everyday | structure
+drainage basin | natural | earth
+dune | natural | earth
+dynamical system | abstract | math
+echo | natural | sound
+eclipse | natural | light
+ecological niche | scientific | life
+eddy current | scientific | physics
+electromagnetic induction | scientific | energy
+elevator | everyday | structure
+ellipse | scientific | math
+embroidery | everyday | craft
+embryo | natural | life
+emulsion | scientific | chemistry
+entropy | scientific | physics
+enzyme | scientific | chemistry
+equinox | natural | earth
+erosion | natural | earth
+estuary | natural | earth
+evaporation | natural | physics
+event horizon | scientific | physics
+extrusion | everyday | craft
+feather | natural | life
+feedback | abstract | signal
+feedback loop | abstract | structure
+felt | everyday | matter
+fermentation | natural | chemistry
+fern | natural | life
+ferromagnetism | scientific | physics
+filter | scientific | signal
+filtration | scientific | chemistry
+fjord | natural | earth
+fluorescence | scientific | light
+foam | natural | matter
+fog | natural | earth
+fossil | natural | earth
+fractal | scientific | math
+friction | natural | physics
+frost | natural | earth
+fugue | abstract | sound
+gear | everyday | structure
+gel | scientific | matter
+geyser | natural | earth
+glacial landform | natural | earth
+glacier | natural | earth
+glass | everyday | matter
+glycolysis | scientific | life
+gneiss | natural | earth
+granite | natural | earth
+graph theory | abstract | math
+graphite | natural | matter
+gravel | everyday | matter
+gravitational wave | scientific | physics
+gravity | scientific | physics
+greenhouse effect | scientific | earth
+groundwater | natural | earth
+gypsum | natural | matter
+gyroscope | scientific | physics
+hammer | everyday | craft
+hand spinning | everyday | craft
+handicraft | everyday | craft
+harmonic oscillator | scientific | physics
+harmony | abstract | sound
+heat transfer | scientific | energy
+heredity | scientific | life
+hibernation | natural | life
+hierarchy | abstract | structure
+hinge | everyday | craft
+horizon | everyday | light
+hot spring | natural | earth
+hydrogen bond | scientific | chemistry
+hyperbola | scientific | math
+ice sheet | natural | earth
+iceberg | natural | earth
+igneous rock | natural | earth
+imagination | abstract | mind
+immune system | scientific | life
+impact crater | natural | earth
+impulse | scientific | physics
+inclined plane | scientific | physics
+inertia | scientific | physics
+inference | abstract | mind
+infrared | scientific | light
+instinct | natural | life
+interferometry | scientific | signal
+intermolecular force | scientific | chemistry
+inverse function | abstract | math
+ionic bonding | scientific | chemistry
+ionization | scientific | chemistry
+irrigation | everyday | earth
+isomorphism | abstract | math
+isotope | scientific | chemistry
+jet stream | natural | earth
+karst | natural | earth
+kelp | natural | life
+kinetic energy | scientific | energy
+knitting | everyday | craft
+knot | everyday | craft
+knot theory | abstract | math
+krill | natural | life
+lace | everyday | craft
+ladder | everyday | structure
+landform | natural | earth
+landslide | natural | earth
+larva | natural | life
+lathe | everyday | craft
+lava | natural | earth
+leaf | natural | life
+leather | everyday | matter
+lens | everyday | light
+lever | everyday | physics
+lichen | natural | life
+light | scientific | light
+lighthouse | everyday | structure
+lightning | natural | energy
+limestone | natural | earth
+linen | everyday | matter
+liquid | scientific | matter
+lock and key | everyday | structure
+logarithm | scientific | math
+loom | everyday | craft
+luminosity | scientific | light
+lunar eclipse | natural | light
+magma | natural | earth
+magnet | everyday | physics
+magnetic field | scientific | physics
+mangrove | natural | life
+manifold | abstract | math
+map | everyday | structure
+marble | natural | matter
+marsh | natural | earth
+mask | everyday | craft
+maze | abstract | structure
+meander | natural | earth
+meiosis | scientific | life
+melody | everyday | sound
+melting | scientific | matter
+memory | abstract | mind
+meristem | scientific | life
+metabolism | scientific | life
+metamorphosis | natural | life
+mica | natural | earth
+microscope | everyday | light
+mirage | natural | light
+mirror | everyday | light
+mitochondrion | scientific | life
+mitosis | scientific | life
+mixture | scientific | chemistry
+moat | everyday | structure
+molecule | scientific | chemistry
+molting | natural | life
+moment of inertia | scientific | physics
+momentum | scientific | physics
+monsoon | natural | earth
+moraine | natural | earth
+mosaic | everyday | craft
+moss | natural | life
+moulting | natural | life
+muscle contraction | scientific | life
+mutation | scientific | life
+mycelium | natural | life
+mycology | scientific | life
+narrative | abstract | mind
+natural number | scientific | math
+nebula | natural | physics
+negative number | scientific | math
+nervous system | scientific | life
+neuron | scientific | life
+noise | natural | signal
+normal distribution | scientific | math
+nut | everyday | life
+oasis | natural | earth
+ocean current | natural | earth
+octopus | natural | life
+optical fiber | everyday | light
+optical illusion | natural | mind
+orbit | scientific | physics
+origami | everyday | craft
+oscillation | scientific | physics
+osmosis | scientific | chemistry
+ozone | natural | chemistry
+parabola | scientific | math
+paradox | abstract | mind
+parallax | scientific | light
+parasitism | natural | life
+pendulum | everyday | physics
+permafrost | natural | earth
+permutation | scientific | math
+perspective | abstract | light
+phase diagram | scientific | chemistry
+phase transition | scientific | physics
+pheromone | natural | life
+photosynthesis | natural | life
+pigment | everyday | matter
+plankton | natural | life
+plate tectonics | natural | earth
+polarization | scientific | light
+pollination | natural | life
+polygon | scientific | math
+polymer | scientific | matter
+potential energy | scientific | energy
+pottery | everyday | craft
+precipitation | natural | earth
+predation | natural | life
+pressure | scientific | physics
+prism | scientific | light
+probability | abstract | math
+pulley | everyday | structure
+quantum entanglement | scientific | physics
+quantum tunnelling | scientific | physics
+quartz | natural | matter
+radian | scientific | math
+radiation | scientific | energy
+radioactive decay | scientific | physics
+rainbow | natural | light
+rainforest | natural | earth
+rapids | natural | earth
+rational number | abstract | math
+recycling | everyday | society
+redox | scientific | chemistry
+redshift | scientific | light
+reductionism | abstract | mind
+redundancy | abstract | signal
+reflection | scientific | light
+reflex | natural | life
+refraction | scientific | light
+refrigeration | everyday | energy
+resonance | scientific | physics
+respiration | natural | life
+rhyme | abstract | sound
+rhythm | abstract | sound
+ribosome | scientific | life
+right angle | abstract | math
+river delta | natural | earth
+rivet | everyday | structure
+rope | everyday | craft
+rotation | scientific | physics
+salt | everyday | matter
+sand | natural | earth
+sandstone | natural | earth
+savanna | natural | earth
+scallop | natural | life
+scattering | scientific | physics
+scavenger | natural | life
+schist | natural | earth
+screw | everyday | structure
+scroll | everyday | craft
+sea ice | natural | earth
+seahorse | natural | life
+seamount | natural | earth
+sediment | natural | earth
+sedimentary rock | natural | earth
+seed | natural | life
+selective breeding | scientific | life
+semiconductor | scientific | physics
+sequence | abstract | math
+set theory | abstract | math
+sextant | everyday | craft
+signal processing | scientific | signal
+signal-to-noise ratio | scientific | signal
+silk | natural | matter
+simple harmonic motion | scientific | physics
+simple machine | scientific | physics
+siphon | everyday | physics
+slime mold | natural | life
+snow | natural | earth
+social stratification | abstract | society
+soil formation | natural | earth
+solar wind | natural | physics
+solstice | natural | time
+sonar | scientific | sound
+spectroscopy | scientific | light
+sphere | abstract | structure
+spiral galaxy | natural | physics
+spore | natural | life
+spring | everyday | structure
+standard deviation | abstract | math
+stellar evolution | scientific | physics
+stochastic process | abstract | math
+stoma | natural | life
+storm | natural | earth
+strait | natural | earth
+stratigraphy | scientific | earth
+substitution reaction | scientific | chemistry
+superconductivity | scientific | physics
+superposition principle | scientific | physics
+supply and demand | abstract | society
+surface tension | scientific | physics
+suspension | scientific | chemistry
+swamp | natural | earth
+symbiosis | natural | life
+symmetry | abstract | structure
+syntax | abstract | structure
+taiga | natural | earth
+tapestry | everyday | craft
+taxonomy | abstract | structure
+telescope | everyday | light
+temperature | scientific | energy
+tendon | natural | life
+tessellation | abstract | math
+thermohaline circulation | scientific | earth
+thermoregulation | scientific | life
+thunderstorm | natural | earth
+tidal locking | scientific | physics
+tide | natural | earth
+topology | abstract | math
+tornado | natural | earth
+torque | scientific | physics
+trade winds | natural | earth
+transformer | everyday | energy
+transparency and translucency | scientific | light
+transpiration | natural | life
+triple point | scientific | chemistry
+tropical cyclone | natural | earth
+tsunami | natural | earth
+tundra | natural | earth
+tunnel | everyday | structure
+turbine | everyday | energy
+turbulence | scientific | physics
+typography | everyday | craft
+ultrasound | scientific | sound
+ultraviolet | scientific | light
+umbrella | everyday | matter
+uncertainty principle | scientific | physics
+vacuum | scientific | physics
+valve | everyday | structure
+variance | scientific | math
+vector space | abstract | math
+viscosity | scientific | physics
+volcano | natural | earth
+wave interference | scientific | signal
+waveguide | scientific | signal
+wavelength | scientific | signal
+wave–particle duality | scientific | physics
+weathering | natural | earth
+weaving | everyday | craft
+wedge | everyday | structure
+wetland | natural | earth
+wheel and axle | everyday | structure
+whirlpool | natural | earth
+wildfire | natural | earth
+windmill | everyday | energy
+yeast | natural | life
+zipper | everyday | structure
