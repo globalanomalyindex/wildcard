@@ -48,9 +48,12 @@ It prints three lines: `mode=specialist|concept`, then either `domain=…` (spec
 `concept=…` (concept), then `lens=…`. Read all three and use them exactly as given. Do **not** pick
 the mode or the draw yourself. This is the core engineering move: an LLM asked to name a "random
 unrelated field" mode-collapses to its creativity-adjacent priors (jazz, mycology, marine biology)
-- it is a poor RNG over its own distribution. `draw.sh` reads real OS entropy (`/dev/urandom`) and
-rejection-samples for an *exactly* uniform pick over the map, so the choice comes from outside your
-distribution and no discipline or concept is favored. (Pass `--seed N` only for reproducible demos;
+- it is a poor RNG over its own distribution. (Measured in a pre-registered study: across 10
+problems x 20 self-picks, the model's own picks averaged 1.48 bits of entropy against the external
+draw's 4.30, and 47% were surface-adjacent to the problem against 9% for the draw - see
+`docs/case-study.md`.) `draw.sh` reads real OS entropy (`/dev/urandom`) and rejection-samples for
+an *exactly* uniform pick over the map, so the choice comes from outside your distribution and no
+discipline or concept is favored. (Pass `--seed N` only for reproducible demos;
 the website's live draw reproduces any seed in your terminal.)
 
 **3. Inhabit the wildcard (branch on `mode`).** Do not study the draw from the outside -

@@ -3,9 +3,9 @@
 // session in the case study. Kept lowercase by intent.
 export const FIGURES = [
   {
-    k: "expert selection · blind a/b · single session, small n (illustrative)",
-    v: "asked to self-pick an unrelated expert, the model collapsed <b>3 of 3</b> times onto the problem's neighbor professions. five real entropy draws spanned six unrelated crafts the model never reached on its own.",
-    cmd: "raw draws + transcript: case study",
+    k: "self-pick vs external draw · pre-registered blind study",
+    v: "across <b>10</b> problems x <b>20</b> self-picks each, the model's own \"random unrelated expert\" averaged <b>1.48</b> bits of entropy vs the draw's <b>4.30</b>, and <b>47%</b> of self-picks were surface-adjacent to the problem vs <b>9%</b> for the draw. blind-graded by 4 graders + a human anchor: <b>0</b> fabrications. honestly, the distant connections scored <i>lower</i> on judged genuineness (delta -0.50, p=0.008), not higher: distance costs clean mapping. full writeup in the case study.",
+    cmd: "regenerate: node scripts/analyze_experiment.mjs experiment",
   },
   {
     k: "draw uniformity",

@@ -142,3 +142,34 @@ desktop; concept mode surfaces in the live demo (302/600 in-browser over 1..600)
 parity exact (seed 1 -> concept/bell, seed 2 -> specialist/shielded-cell); console 0/0;
 no mobile horizontal page overflow (rejection-log pre scrolls internally by design). node
 suite 9/9, shell ALL GREEN, zero em/en dashes, all-lowercase voice.
+
+## v9 pre-registered experiment (2026-06-12)
+
+ran the structured study that replaces the n=1 demo. design: pre-registered (hypotheses,
+prompts, rubric, master seed, analysis plan all committed to experiment/preregistration.md
+BEFORE any data), blind, three arms (a self-pick control, b wildcard/draw.sh, c plain
+baseline) over 10 problems that were authored by an agent blind to the hypothesis and then
+entropy-selected from a pool of 50 with the committed seed. subjects pinned claude sonnet 4.6
+(prereg amendment 1, for cost/scale and a cleaner cross-model split); 4 blind graders pinned
+claude opus 4.8; one human blind-graded a 15-output anchor. raw outputs quarantined outside the
+repo until grading finished; 30/30 treatment draws verified against their pre-registered seed.
+
+results (all in experiment/results.md, regenerable via node scripts/analyze_experiment.mjs):
+H1 divergence confirmed decisively - self-pick entropy 1.48 bits vs external 4.30, adjacency
+47% vs 9%, pooled 46 distinct labels over 200 self-picks (top-10 = 72%). no-fabrication
+validated, not asserted: 0 fabrications across all 90 outputs (panel) and 0 across the 15
+(human), even after the conviction-posture skill change. H2 quality (primary: genuineness b vs
+a) came back INFERIORITY: b 5.27 vs a 5.70 (c 5.94), cliff delta -0.50, exact wilcoxon p=0.008
+- reported plainly. the human anchor did NOT validate the panel item-level (pooled spearman
+0.29; genuineness 0.01; panel scores compressed 4.5-6.25), though the arm-level direction
+(c>a>b) reproduces in the human's grades. blinding leaked (checker 64% vs 33%); non-derailment
+alpha unusable (-0.10), other scales 0.63-0.72.
+
+skill: conviction search posture shipped (search from conviction, offer with rigor, earned
+abstention; honesty bar unchanged); measured divergence numbers folded into SKILL.md step 2.
+new experiment/ libs (seeded.mjs, stats.mjs: entropy, cliff's delta, exact wilcoxon by
+enumeration, krippendorff alpha ordinal, bootstrap, spearman) are TDD + CI-gated. case study
+rewritten H1-led around the real study with the goddard/farid epigraph tied to
+persona-conditioning; methods colophon (docs/methods-colophon.md) argues architecture-enforced
+blinding and states the residuals. figures panel updated. node suite green, shell ALL GREEN,
+zero em/en dashes, all-lowercase voice (verbatim quote excepted).
