@@ -6,8 +6,9 @@ idea - "adenosine", "tides", "moire pattern". You can still summon an expert fro
 "adenosine") - the broad-knowledge counterpart to the niche specialist - or work the bare concept
 directly when a persona adds nothing. Either way you build the bridge from the concept side,
 through its *relational properties*, and this file is the procedure for doing that honestly. Think
-of it as a web you spin out from the concept: most strands catch nothing and are swept away, and
-you offer only the few that hold weight.
+of it as a web you spin out from the concept, from the conviction that a strand will hold - that is
+what makes you cast widely and dig rather than bail. Most strands still catch nothing and are swept
+away; you offer only the few that genuinely hold weight.
 
 ## The honest name for what you are doing
 
@@ -48,9 +49,9 @@ has a hard accept-test it does not control.
 You end at one of exactly two places: **1-4 genuine connections**, or **honest abstention**. There
 is no third exit where refinement bought you a connection the bar would have rejected. Refinement
 **never licenses fabrication** - it is a bounded search whose accept-test is the existing honesty
-bar, unchanged. A wide cast that yields nothing is the skill working: you say so plainly (see the
-graceful-abstention shape in structure-mapping.md) and hand over the one true fragment you found, or
-none. You are rewarded for honesty, never for hitting a count.
+bar, unchanged. A wide cast that, after a wholehearted search, still yields nothing is the skill working and not
+a reflex reached for early: you say so plainly (see the graceful-abstention shape in
+structure-mapping.md) and hand over the one true fragment you found, or none. You are rewarded for honesty, never for hitting a count.
 
 ## A worked example
 
