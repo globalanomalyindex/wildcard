@@ -7,14 +7,15 @@ description: >-
   feel stuck or over-familiar with a problem, are brainstorming or looking for non-obvious
   connections, ideas, names, or directions, or just want to break out of an obvious groove. Works
   on code and non-code projects alike. The wildcard is drawn by real entropy (no discipline or
-  concept is favored) and only offers connections that genuinely map onto your problem - never
-  invented ones.
+  concept is favored) and only ships ideas that genuinely earn their place in your problem -
+  never invented connections.
 ---
 
 # wildcard
 
-Run a one-shot summon: draw a random wildcard from outside the model, find the real structural
-connections it has to your work, and offer them as optional seeds. The draw lands in one of two
+Run a one-shot summon: draw a random wildcard from outside the model, let it steer your thinking
+somewhere it would not otherwise go, and offer the genuinely good ideas it seeds as optional
+moves in the user's own world. The draw lands in one of two
 modes - a hyper-specific niche **specialist** who notices through their toolkit, or a general
 **concept** you connect against (either directly, or by summoning a generalist authority of its
 field - a professor of it - so the "summon an expert" quality holds either way) - but either way
@@ -59,6 +60,10 @@ the website's live draw reproduces any seed in your terminal.)
 **3. Inhabit the wildcard (branch on `mode`).** Do not study the draw from the outside -
 *become* it. You know a thing by thinking *from* it, not *about* it, and that inhabiting is the
 conditioning that does the seeding; so reason from inside the wildcard, not at arm's length.
+Remember what the seed is *for*: it may rhyme structurally with the problem, remind you of a real
+technique, hint at a direction, or act as a skeleton a real idea hangs on. Any of these is the
+seed working. You are not here to prove the draw fits; you are here to think from somewhere new
+and bring back what is genuinely good.
 
 - **specialist:** grow the drawn `domain` into a specific practitioner with a real toolkit. Follow
   `references/specializing.md` (honor the draw exactly; use the lens for a non-obvious sub-niche;
@@ -73,36 +78,59 @@ conditioning that does the seeding; so reason from inside the wildcard, not at a
   time, how it fails - per step 1 of `references/connecting.md`. Cast the strands; never its surface
   nouns.
 
-**4. Find what genuinely rhymes (branch on `mode`, same honesty bar).**
+**4. Harvest what the seed surfaces (branch on `mode`, same honesty bar).**
 
-- **specialist:** study the structural sketch through that practitioner's lens and find what
-  *genuinely* rhymes, applying `references/structure-mapping.md`: **map relations, not nouns.**
-- **concept:** run the loose-to-genuine refinement search in `references/connecting.md` (steps 2-4):
-  probe each strand against the frozen sketch, keep only what passes the structure-mapping bar,
-  refine a promising-but-loose strand one association deeper, drop the rest.
+- **specialist:** study the structural sketch through that practitioner's lens and notice what
+  surfaces: a genuine rhyme, a real technique your field actually uses, a direction the plain
+  reading would not take. `references/structure-mapping.md` is your sharpest tool here (**map
+  relations, not nouns**) and your check against decoration - but it is a servant, not the gate.
+- **concept:** run the loose-to-genuine refinement search in `references/connecting.md`
+  (steps 2-4): probe each strand against the frozen sketch, keep what pays off in the user's
+  terms, refine a promising-but-loose strand one association deeper, release the rest.
 
-**Search from conviction; offer with rigor.** Do not open by asking whether a connection exists
-- that question is an out, and it makes you bail at the first non-obvious turn. Work from the
-premise that a structure is there to be uncovered, and let that conviction drive the search deep
-(spread further, refine the loose strand one step more). What you *present*, though, is still
-governed by the structure-mapping bar: offer only what genuinely maps. Conviction fuels the dig;
-the bar governs the gold. Abstention remains - never fabricate - but it is the rare, earned
-terminus of a wholehearted search that still found no isomorphism, not a reflex you reach for
-early. Refinement never licenses a connection the bar would reject.
+The gate, in both modes, is the **removability test**: delete the sentence that names the
+wildcard, and an executable move in the user's own words must still stand - one the plainest
+reading of the problem would not already produce. If the move cannot be stated without the
+donor's nouns, it is not earned yet: dig one step deeper or release the strand. A strand never
+ships because the mapping is elegant; it ships because the idea is good.
 
-**5. Present seeds.** Offer 2-4 connections in the three-beat seed shape (noticing → mapping →
-provocation, with *why it works in their world*). Keep them tight and explicitly optional. Close
-by offering to pull one thread into dialogue, or to step back out. In concept mode you may also
-offer the discards - "want the threads i discarded? a couple looked promising and didn't hold up"
-- showing them only if asked (see `references/connecting.md`).
+**Search from conviction; offer with rigor.** Do not open by asking whether the draw will pay
+off - that question is an out, and it makes you bail at the first non-obvious turn. Work from
+the premise that **a good direction exists in this draw**, and let that conviction drive the
+search deep (spread further, refine the loose strand one step more). But conviction is about the
+draw, never about a particular strand: releasing a strand that only surface-rhymes is routine
+editing, cheap and frequent, not abstention. What you *present* is governed by one question -
+does this strand deliver a genuinely good, concrete move in the user's world, and does it survive
+the removability test? Whole-task abstention remains - never fabricate - but it is the rare,
+earned terminus of a wholehearted search in which no strand paid off, not a reflex you reach for
+early.
+
+**5. Present seeds.** Offer a few strong strands (default about 3; fewer is fine) in the
+three-beat shape: **noticing -> mapping -> concrete move**. The third beat is the payload: an
+executable action carrying at least one falsifiable specific (a number, a threshold, a named
+artifact, a checklist, a field) - never a reframe, a relabel, or a "treat X as Y" with no
+executable verb. Each strand names at least two particulars from the user's actual problem, and
+donor vocabulary appears in at most a one-clause gloss. Collapse any two strands whose concrete
+moves are the same action under different metaphors. Keep them tight and explicitly optional.
+Close by offering to pull one thread into dialogue, or to step back out. In concept mode you may
+also offer the discards - "want the threads i discarded? a couple looked promising and didn't
+hold up" - showing them only if asked (see `references/connecting.md`).
 
 ## The guarantees (non-negotiable)
 
-- **No fabrication.** Only genuine structural matches; abstention is honorable. You are never
-  rewarded for hitting a count. Mind the division of labor: you *search* from the conviction that
-  a connection is there to uncover (this drives depth), but you *offer* only what passes the
-  structure-mapping bar (this keeps you honest). Conviction is a search posture, never a license
-  to assert a connection that does not hold.
+- **No fabrication.** Never invent a fact, a mechanism, or a connection. You *search* from the
+  conviction that a good direction exists in the draw (this drives depth), but you *offer* only
+  strands that deliver a genuinely good, concrete move in the user's world (this keeps you
+  honest). Releasing a weak strand is routine editing, not abstention; whole-task abstention -
+  the draw led nowhere good, and you say so plainly - remains honorable and rare. You are never
+  rewarded for hitting a count. Present the wildcard as inspiration ("drawing on X...", "X brings
+  to mind...") - never as a proven structural law.
+- **No decoration.** A visible-but-undischarged analogy is a failure even when the mapping is
+  real. Every strand must pass the **removability test**: delete the sentence naming the
+  wildcard, and an executable move in the user's own words survives - one the plainest reading
+  would not already produce. Structure-mapping (`references/structure-mapping.md`) is the
+  sharpest mode by which a seed pays off and the standing check against decoration, but the test
+  a strand must pass is the goodness of the move, not the fidelity of the map.
 - **No derailment.** Every seed is additive and optional. Keep your authority pointed at *your*
   craft and your suggestion optional for *theirs*. Litmus: after each seed, could the user ignore
   it entirely and still feel you just shared something interesting from your field? If it instead
@@ -135,7 +163,7 @@ Append in this shape:
 
 ```markdown
 ## YYYY-MM-DD - <expert one-liner, or concept>
-- **<noticing>** → <mapping> → *<provocation>*
+- **<noticing>** -> <mapping> -> *<concrete move>*
 - ...
 ```
 
@@ -149,3 +177,9 @@ person: it is the *specificity* of the conditioning, persona or property, that d
 This mechanism is older than the model: you know a thing, as Goddard put it, by *becoming* it - by
 thinking *from* it, not *about* it. Inhabiting the wildcard rather than analyzing it is exactly the
 difference between shifting the conditioning to a coherent distant region and merely adding noise.
+
+The seeding has two ends, and both matter: the wildcard's specificity conditions the *search*, but
+the user's particulars carry the *output*. The donor is scaffolding; the user's world is the
+subject. A seed has done its job when the idea it inspired stands in the user's own words, with the
+wildcard still visible as a one-clause spark that names where the idea came from - present as
+inspiration, never erased into anonymous advice.

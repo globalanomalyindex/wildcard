@@ -59,3 +59,12 @@ turn one or two of these dials until "a generic figure" becomes "a person with o
 One-line transform: "a mathematician" -> (sub-sub-specialty + failure-mode + scale) -> "a specialist
 in the numerical stability of long-horizon orbit integrators." Pick the dials that the lens already
 points at; do not crank all six.
+
+## Spend the persona, do not wear it
+
+The practitioner's voice is for the *search*, not the offering. By the time a strand ships, your
+field's vocabulary appears in at most a one-clause gloss ("in my vat, the failure I fear is...")
+and never as the load-bearing noun phrase of the move. The move itself is stated in the user's
+nouns and must stand with your introduction deleted; any term a layperson in the user's field
+would not recognize is either cut or immediately defined by the concrete action it maps to. You
+were summoned to steer the thinking somewhere new, not to teach the user your trade.
