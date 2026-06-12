@@ -1,0 +1,68 @@
+{
+  "masterSeed": "1b8a5f85afa94e5f",
+  "derivation": "pickIndex(\"problems:\"+i, M, 50), skipping repeats, first 10 distinct",
+  "indices": [
+    8,
+    21,
+    44,
+    39,
+    24,
+    33,
+    6,
+    9,
+    46,
+    19
+  ],
+  "problems": [
+    {
+      "id": "p08",
+      "slice": "software and infrastructure engineering",
+      "text": "i run the on-call rotation for a payments backend with six engineers. we page on about 30 alerts a week, but postmortem records show only one in ten pages over the last quarter required any action. the noisiest alerts are threshold checks on per-host cpu and disk that fire during routine batch jobs. two engineers have quietly muted their phones overnight, and another cited on-call load in their resignation letter. compliance requires that certain payment-flow failures page within five minutes, so i cannot simply raise thresholds across the board, and nobody can confidently say which alerts actually protect the regulated paths."
+    },
+    {
+      "id": "p21",
+      "slice": "writing, media, and content",
+      "text": "i produce a twice-weekly interview podcast that has been running four years, 410 episodes in the back catalog. none of the episodes have transcripts, so nothing is searchable, and guests keep emailing to ask where they said a particular thing. a publisher wants to license quotes from old episodes but needs timestamps and exact wording within three weeks. the raw audio lives on two external drives in inconsistent folder structures, some files named by date, others by guest. i edit everything myself in the evenings and my hosting plan caps uploads at 250 mb per file."
+    },
+    {
+      "id": "p44",
+      "slice": "personal projects, learning, and life admin",
+      "text": "i started teaching myself piano during lockdown and i have plateaued hard. i can play about six pieces from memorized finger patterns, but i still cannot read bass clef fluently and anything with syncopation falls apart. i practice 20 minutes most evenings on a 61-key keyboard in the living room, where i cannot make noise after my kid's 8pm bedtime. lessons near me cost 70 dollars an hour, which i cannot justify monthly. i keep restarting beginner books, getting bored at the parts i already know, and quitting before the parts i actually need."
+    },
+    {
+      "id": "p39",
+      "slice": "operations, logistics, and physical-world work",
+      "text": "i manage the yard for an equipment rental branch with about 400 assets, from skid steers to scissor lifts. returns pile up faster than my two mechanics can inspect them, so machines sit marked available in the system while actually awaiting checks, and counter staff promise units we cannot deliver. customers bring equipment back muddy, low on fuel, or damaged, and disputes drag on because check-in photos are inconsistent. saturday pickups all land between 7 and 9 am with one loader and one forklift driver on shift. utilization looks fine on paper while three of my big excavators have not turned in weeks."
+    },
+    {
+      "id": "p24",
+      "slice": "writing, media, and content",
+      "text": "i run a woodworking youtube channel with 85,000 subscribers and upload one 15-minute video a week. retention graphs show 30 percent of viewers leaving in the first 45 seconds, before i even get to the build. each video starts as four to six hours of footage from two cameras and a phone, and i now spend more time editing than woodworking. my last five videos got fewer impressions than usual and i can't tell whether the thumbnails, the titles, or the topics are the problem. i film in my garage on weekends, so reshoots are impossible once a piece is glued up."
+    },
+    {
+      "id": "p33",
+      "slice": "operations, logistics, and physical-world work",
+      "text": "i run an hvac service company with nine technicians covering a metro area about 50 miles across. dispatch assigns jobs first-come, so techs crisscross town and average four calls a day when the work could support six. each van carries a different mix of parts, and about a quarter of calls end in a second visit because the right capacitor or control board was not on the truck. summer surge doubles call volume, customers wait five days for non-emergency work, and our best installer spends half his day driving. the parts room has no inventory count i would trust."
+    },
+    {
+      "id": "p06",
+      "slice": "software and infrastructure engineering",
+      "text": "i am the de facto security engineer at a 30-person startup. database passwords, api keys, and signing certificates live in a mix of .env files, ci variables, a shared password vault, and a few hardcoded strings we keep finding in repo history. last month a contractor's laptop was stolen and we could not say with confidence which credentials needed rotating, so we rotated almost everything and broke staging for two days. services run across heroku, aws, and a legacy vps. engineers push back hard on anything that adds friction to local development, and soc 2 fieldwork starts in three months."
+    },
+    {
+      "id": "p09",
+      "slice": "software and infrastructure engineering",
+      "text": "i build the backend for a multi-tenant analytics product where all 4,000 customers share one api fleet and a single clickhouse cluster. a handful of enterprise tenants run scheduled exports at the top of each hour that spike query latency for everyone, doubling our p99 during those windows. contracts with two large customers include latency slas we now violate weekly. tenant ids are threaded inconsistently through the request path, so today we cannot reliably attribute load, let alone limit it. sales keeps selling unlimited api access, and moving big tenants onto isolated clusters is not in this year's budget."
+    },
+    {
+      "id": "p46",
+      "slice": "personal projects, learning, and life admin",
+      "text": "i cook most nights and my recipe collection is scattered across browser bookmarks, instagram saves, screenshots in my camera roll, a notes app, and a binder of my grandmother's handwritten cards. when i plan meals on sundays i can never find the thing i made three weeks ago that everyone liked. half my saved links now hit paywalls or deleted pages, the screenshots are unsearchable, and the binder lives at my parents' house. i shop for a family of five with one gluten-free kid, and i keep rebuying spices i already own because i never know what a week's plan actually requires."
+    },
+    {
+      "id": "p19",
+      "slice": "product, ux, and visual design",
+      "text": "i run growth at a developer-tools startup selling api monitoring. our pricing page shows three tiers priced per host, but customers think in requests per month. trial users consistently pick the cheapest tier, hit the host limit in week one, and churn instead of upgrading, telling exit surveys they felt tricked. finance models revenue per host and won't approve changing the unit before the next board cycle. competitors publish simple pricing calculators we can't copy without exposing how unfavorable our unit is at small scale. trial-to-paid conversion sits at 4% against an 11% industry benchmark."
+    }
+  ]
+}
