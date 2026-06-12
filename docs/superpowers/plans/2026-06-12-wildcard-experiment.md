@@ -442,10 +442,11 @@ Co-Authored-By: Claude Fable 5 <noreply@anthropic.com>"
 
 - [ ] **Step 1: Add the suite line**
 
-In `tests/run_all.sh`, after the `== diversity (real map) ==` line and before the final `if`, insert:
+In `tests/run_all.sh`, after the `== diversity (real map) ==` line and before the final `if`, insert
+(explicit glob - node 26 rejects a bare directory path to `--test`):
 
 ```bash
-echo "== experiment libs =="; node --test "$ROOT/experiment/tests/" || fail=1
+echo "== experiment libs =="; node --test "$ROOT"/experiment/tests/*.test.js || fail=1
 ```
 
 - [ ] **Step 2: Run the full suite**
