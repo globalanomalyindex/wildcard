@@ -453,7 +453,7 @@ volcano | natural | earth
 wave interference | scientific | signal
 waveguide | scientific | signal
 wavelength | scientific | signal
-wave–particle duality | scientific | physics
+wave-particle duality | scientific | physics
 weathering | natural | earth
 weaving | everyday | craft
 wedge | everyday | structure
