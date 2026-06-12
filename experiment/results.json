@@ -361,7 +361,16 @@
     "novelty": 0.7199193064245957,
     "nonDerailment": -0.10147412765568431
   },
-  "anchor": null,
+  "anchor": {
+    "perItem": {
+      "genuineness": 0.007450650083028168,
+      "usefulness": 0.3218840023300643,
+      "novelty": 0.007554326818322276,
+      "nonDerailment": -0.30591198748023907
+    },
+    "pooled": 0.29353918255773503,
+    "n": 15
+  },
   "blinding": {
     "n": 90,
     "correct": 58,

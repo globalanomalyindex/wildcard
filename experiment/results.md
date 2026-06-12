@@ -45,5 +45,6 @@ abstentions per arm: {"A":0,"B":0,"C":0}
 ## reliability and checks
 
 krippendorff alpha (ordinal): genuineness 0.69, usefulness 0.63, novelty 0.72, nonDerailment -0.10.
+human anchor (n=15): pooled spearman 0.29; per item genuineness 0.01, usefulness 0.32, novelty 0.01, nonDerailment -0.31.
 blinding check: 58/90 (64.4%) vs chance 33.3%.
 missing cells: none.
