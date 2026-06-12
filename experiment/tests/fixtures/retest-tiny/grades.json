@@ -1,0 +1,94 @@
+{
+  "graders": [
+    {
+      "graderId": "g1",
+      "grades": [
+        {
+          "id": "out-00",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "graderId": "g2",
+      "grades": [
+        {
+          "id": "out-00",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": false,
+          "abstained": false
+        },
+        {
+          "id": "out-01",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        },
+        {
+          "id": "out-02",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": false,
+          "abstained": false
+        },
+        {
+          "id": "out-03",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "removabilityCompliant": true,
+          "abstained": false
+        }
+      ]
+    }
+  ]
+}

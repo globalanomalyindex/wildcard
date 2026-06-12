@@ -50,6 +50,20 @@ output with zero cross-talk**, and the agreement among them is measured, not ass
 outputs graded blind by a person - is the cross-check that keeps the panel honest rather than
 self-certifying.
 
+## the re-test (the same machine, run a second time)
+
+the first study found a real weakness: the wildcard's distant connections were judged less
+genuine than the model's own near picks. we did not stop at reporting it. three independent
+graders diagnosed the cause from the 90 frozen transcripts; claude fable 5 authored a revised
+skill from that diagnosis, with a separate opus pass reviewing it for honesty-preservation; and we
+re-ran the whole pipeline as a head-to-head: the old skill and the new skill on ten fresh problems
+the fix had never seen, with the wildcards held identical between versions so only the prose could
+differ, blind-graded by four opus graders. the prediction (a half-point genuineness gain) was
+written into a committed pre-registration before any re-test output existed. the new skill won by
++0.81 (p = 0.002), out of sample, with fabrication flat and draw distance controlled by
+construction. that the number was named in advance and then confirmed on unseen problems, with the
+draws held identical, is what makes it evidence rather than anecdote.
+
 ## what it does not guarantee (the honest residuals)
 
 the architecture removes the *procedural* failure modes. it does not make the graders right.

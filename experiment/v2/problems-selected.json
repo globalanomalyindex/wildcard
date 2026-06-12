@@ -1,0 +1,80 @@
+{
+  "masterSeed": "b6443153e1e18f11",
+  "derivation": "pickIndex(\"problems:\"+i, M2, 50), skipping repeats and the 10 v1-study problems, first 10 fresh distinct",
+  "excludedV1": [
+    "p08",
+    "p21",
+    "p44",
+    "p39",
+    "p24",
+    "p33",
+    "p06",
+    "p09",
+    "p46",
+    "p19"
+  ],
+  "indices": [
+    28,
+    10,
+    41,
+    26,
+    15,
+    4,
+    25,
+    30,
+    23,
+    14
+  ],
+  "problems": [
+    {
+      "id": "p28",
+      "slice": "writing, media, and content",
+      "text": "i am the in-house photographer for a regional theater company. fifteen years of production photos, about 70,000 images, sit on a raid array organized only by show date. marketing asks for things like the shot of the red dress from any production of carmen, and finding it takes me an afternoon. none of the files carry keywords, performer names, or rights notes, and some older shoots have unclear usage permissions in the performers' contracts. we just lost a licensing sale because i couldn't confirm clearance in time. i can spare maybe three hours a week for the archive between shoots."
+    },
+    {
+      "id": "p10",
+      "slice": "product, ux, and visual design",
+      "text": "i lead design at a 40-person b2b saas company. our figma library has 312 components but engineers ship from a react package that covers about half of them. designers detach instances to get the variants they need, engineers rebuild those screens with whatever props exist, and production drifts further from the mocks every sprint. we just closed a six-figure contract partly on the promise of a polished ui, the customer's review flagged inconsistent focus states, and i have two months and no extra headcount. leadership measures the design team on feature velocity, not consistency."
+    },
+    {
+      "id": "p41",
+      "slice": "personal projects, learning, and life admin",
+      "text": "i have about 80,000 family photos spread across google photos, an old icloud account, and two external hard drives from previous laptops. many are duplicates at different resolutions, some exist as both edited and original versions, and the drives use a folder scheme i abandoned in 2019. my mom keeps asking for the pictures from my brother's wedding and i genuinely cannot find the full set. i pay for 2tb of google storage that is nearly full, my upload bandwidth is slow rural dsl, and i am afraid of deleting the only good copy of something."
+    },
+    {
+      "id": "p26",
+      "slice": "writing, media, and content",
+      "text": "i coordinate content for a travel booking site that publishes in english, german, spanish, french, and japanese. our freelance translators each keep their own glossary, so the same loyalty program has three different names in german depending on who picked up the job, and customers in japan keep asking about a feature name that doesn't match the app. turnaround commitments leave no room for extra review rounds, the translation budget is fixed for the year, and the source english copy changes weekly because the marketing team edits live pages without telling anyone."
+    },
+    {
+      "id": "p15",
+      "slice": "product, ux, and visual design",
+      "text": "i manage communications for a 30-year-old children's literacy nonprofit. our logo exists in at least nine versions across chapter websites, donated billboards, embroidered volunteer shirts, and a decade of printed workbooks still sitting in classrooms. a board member's agency donated a sleek rebrand, but our largest donors are retired teachers who associate the old crayon-style mark with us, and last spring's donor survey showed recognition of that mark drives year-end giving. chapters print locally from whatever files they have, we have no shared asset server, and my entire design budget for the year is $12,000."
+    },
+    {
+      "id": "p04",
+      "slice": "software and infrastructure engineering",
+      "text": "i look after a kafka cluster that feeds a fraud-scoring service. one consumer group falls behind during evening peaks, with lag climbing to 20 million messages before slowly draining overnight. scoring decisions arriving more than a minute late are useless to the checkout flow, so during the backlog window we effectively run unprotected. the consumers are cpu-bound on json deserialization, the hot topic already has 48 partitions, and the producing team cannot change the message format until next quarter. adding consumer instances stopped helping once we matched the partition count, and finance has flagged our broker spend twice this year."
+    },
+    {
+      "id": "p25",
+      "slice": "writing, media, and content",
+      "text": "i am the only technical writer at a 60-person startup. product documentation is split between a public help center, a readme in the main repo, and a confluence space nobody has cleaned up since 2023. engineers ship changes that silently break the docs, and support only tells me after customers complain. last month a customer followed an outdated auth guide and locked themselves out for two days. i have no visibility into the release process, i learn about features at launch, and the help center search ranks archived pages above current ones."
+    },
+    {
+      "id": "p30",
+      "slice": "operations, logistics, and physical-world work",
+      "text": "i run a 40,000 square foot warehouse that ships about 900 e-commerce orders a day. our fastest movers are slotted wherever space happened to be free when they arrived, so pickers crisscross the whole building and our pick rate has fallen to 55 lines per hour from 80 a year ago. receiving appointments cluster on mondays and thursdays, which jams the dock and pushes pallets into pick aisles. peak season starts in eight weeks, the landlord will not let us expand, and i can only absorb about six temps before training overwhelms my two supervisors."
+    },
+    {
+      "id": "p23",
+      "slice": "writing, media, and content",
+      "text": "i manage the blog for a b2b saas company, around 460 published posts going back to 2018. organic traffic dropped 40 percent after the last search update and leadership wants it recovered by q4. many posts target the same keywords because three different writers never checked what already existed, and most tutorials show an old version of our product ui. i have one part-time writer, no developer time, and a cms with no way to review content in bulk. every post i touch needs sign-off from product marketing, which takes about a week per piece."
+    },
+    {
+      "id": "p14",
+      "slice": "product, ux, and visual design",
+      "text": "i'm a contractor redesigning a county benefits portal people use to apply for housing and food assistance. an advocacy group filed a complaint citing 140 wcag failures, and we're under a court-supervised deadline nine months out. the portal is 60-plus screens of forms maintained by three vendors on two different stacks, with shared header code nobody owns. many users are on five-year-old android phones, prepaid data plans, or library computers with 15-minute session limits and screen readers. any wording change to a form must be re-approved by state legal, which takes about six weeks per batch."
+    }
+  ]
+}

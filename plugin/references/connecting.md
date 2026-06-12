@@ -15,9 +15,11 @@ away; you offer only the few that genuinely hold weight.
 This is **spreading activation** (Collins & Loftus, 1975): from one node, activation flows out
 along associative links and lights up neighbours. That is the engine. Left alone it is exactly the
 loose, "everything reminds me of everything" associating that produces decorative non-connections.
-So the engine is **gated by the structure-mapping predicate** (see structure-mapping.md): activation
-may spread freely, but a strand only survives if the same *system of relations* genuinely holds in
-the user's problem. Spreading activation proposes; structure-mapping disposes. Naming it this way
+So the engine is **gated at the payoff** (see structure-mapping.md, test 3): activation may
+spread freely, but a strand only survives if it cashes out into an executable move in the user's
+own words - one that survives with the concept-naming sentence deleted. Structure-mapping is the
+sharpest way a strand earns that move, and the check against decoration; the move itself is the
+gate. Spreading activation proposes; the concrete move disposes. Naming it this way
 keeps you honest - you are running a real cognitive search, not manufacturing rhyme, and the search
 has a hard accept-test it does not control.
 
@@ -30,13 +32,21 @@ has a hard accept-test it does not control.
    constructive reinforcement at spring alignment.* Those are the strands. Surface nouns ("the moon",
    "the beach") are not strands and must not be cast - they are the trap structure-mapping forbids.
 
-2. **Probe each strand against the frozen structural sketch.** For each relational property, ask the
-   structure-mapping question: does this same relation actually hold in their problem? Not "could it
-   sound like it" - does the structure match, and does something transfer (a method, a failure mode,
-   a constraint, a next question)?
+2. **Probe each strand against the frozen structural sketch.** For each relational property, ask
+   what it *yields* in their problem: does the relation genuinely hold there, or does it remind
+   you of a real technique, a failure mode, a constraint, a next question? Then apply the emit
+   gate: can the payoff be stated as an executable move in the *user's own words*, with the
+   concept-naming sentence deleted - a move the plainest reading of their problem would not
+   already produce? A strand that only sounds like the problem, or that can speak only in the
+   concept's nouns, has not earned its place yet.
 
-3. **Keep only what passes the bar; drop the rest without ceremony.** Most strands catch nothing.
-   That is the expected yield, not a failure. Dropping is the whole point of the gate.
+3. **Release freely; keep only what pays off.** Most strands catch nothing - that is the expected
+   yield, not a failure, and releasing one is routine editing, never abstention. Assume *a* good
+   direction exists in the draw, not that *this* strand must connect. Before a strand ships, two
+   quick checks: (a) it yields a concrete move the plainest reading would not already produce,
+   and (b) it survives "why is this not the previous strand reworded?" - collapse any two strands
+   whose moves are the same action under different metaphors. Default to about 3 strong strands;
+   fewer-but-tighter beats a fan of weak ones.
 
 4. **Refine a promising-but-loose strand one association deeper.** Sometimes a strand half-fits: the
    shape rhymes but the mapping is fuzzy. Do not offer it loose and do not force it. Spread one step
@@ -46,12 +56,16 @@ has a hard accept-test it does not control.
 
 ## The terminus
 
-You end at one of exactly two places: **1-4 genuine connections**, or **honest abstention**. There
-is no third exit where refinement bought you a connection the bar would have rejected. Refinement
-**never licenses fabrication** - it is a bounded search whose accept-test is the existing honesty
-bar, unchanged. A wide cast that, after a wholehearted search, still yields nothing is the skill working and not
-a reflex reached for early: you say so plainly (see the graceful-abstention shape in
-structure-mapping.md) and hand over the one true fragment you found, or none. You are rewarded for honesty, never for hitting a count.
+You end at one of exactly two places: **a few strands that each deliver a genuinely good,
+concrete move in the user's world** (about 3; fewer is fine), or **honest whole-task
+abstention**. There is no third exit where refinement bought you a strand the emit gate would
+have rejected. Refinement **never licenses fabrication** - it is a bounded search whose
+accept-test is the removability gate, unchanged in spirit from the honesty bar. Releasing
+individual strands along the way is routine editing and is not abstention; abstention is the
+whole-task terminus, the rare, earned admission that a wholehearted search found nothing worth
+handing over. When that happens, say so plainly (see the graceful-abstention shape in
+structure-mapping.md) and hand over the one true fragment you found, or none. You are rewarded
+for honesty, never for hitting a count.
 
 ## A worked example
 

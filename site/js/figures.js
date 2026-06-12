@@ -8,6 +8,11 @@ export const FIGURES = [
     cmd: "regenerate: node scripts/analyze_experiment.mjs experiment",
   },
   {
+    k: "the fix, validated out of sample",
+    v: "the study found the wildcard's distant connections judged <i>lower</i> on genuineness than the model's own near picks. we diagnosed it (un-discharged analogy: the skill found the link but never spent it into a concrete move), rewrote the skill, pre-registered a prediction, and re-tested both versions head-to-head on <b>10 fresh problems</b> with identical draws. the new skill won: genuineness <b>+0.81</b>, usefulness <b>+0.84</b> (p=0.002 each), <b>0</b> new fabrications, draw distance held constant. honest cost: novelty -0.37.",
+    cmd: "regenerate: node scripts/analyze_retest.mjs experiment/v2",
+  },
+  {
     k: "draw uniformity",
     v: "rejection-sampled, <b>exactly uniform</b> over the map. <b>152</b> distinct experts in <b>200</b> entropy draws over <b>378</b> leaves; no expert recurred more than 6 times.",
     cmd: "regenerate: bash tests/run_all.sh",
