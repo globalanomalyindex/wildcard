@@ -15,10 +15,10 @@ is a property of how the machinery is wired, and the wiring is in the git histor
   committed verbatim in `experiment/preregistration.md` and contains no mention of wildcard,
   randomness, draws, or arms. it could not have written problems that favor a method it did not
   know existed.
-- the **master seed was drawn from os entropy and committed before any data existed** (the
+- the **master seed was drawn from OS entropy and committed before any data existed** (the
   freeze commit predates the problem pool, every transcript, and every grade). problem
   selection, the draws, the grader shuffles, and the human-anchor subset all derive from it, so
-  no one - including us - could have steered the randomness toward a result. the whole draw
+  no one - including me - could have steered the randomness toward a result. the whole draw
   replays byte for byte from the repo.
 - raw transcripts and the id map were **quarantined in a temp directory outside the
   repository** until grading finished. graders received only anonymized, normalized text, each
@@ -31,13 +31,15 @@ is a property of how the machinery is wired, and the wiring is in the git histor
 
 ## the stack, truthfully
 
-designed and orchestrated by claude (opus 4.8 with the 1m-token context, across sessions),
-with the blind problem pool authored by claude fable 5. the **subjects** under test - the model
-actually doing the brainstorming in all three arms and the self-pick probe - were pinned to
-**claude sonnet 4.6**. the **four blind graders** were pinned to **claude opus 4.8**, a more
+designed and orchestrated by Claude - Opus 4.8 (`claude-opus-4-8`) with the 1m-token context,
+across sessions - with the blind problem pool authored by Fable 5 (`claude-fable-5`), Anthropic's
+most capable generally available model and the first of its mythos-class intelligence made general.
+the **subjects** under test - the model actually doing the brainstorming in all three arms and the
+self-pick probe - were pinned to **Sonnet 4.6** (`claude-sonnet-4-6`). the **four blind graders**
+were pinned to **Opus 4.8** (`claude-opus-4-8`), a more
 capable, different-tier model than the subjects, so the panel judging the work is not the same
 system that produced it. fan-out ran through a deterministic workflow orchestrator that capped
-concurrency, retried failed agents, and logged every call. this is not "we asked an llm if it
+concurrency, retried failed agents, and logged every call. this is not "i asked an LLM if it
 liked the output." it is 90 protocol passes and 360 independent blind gradings, run as isolated
 processes, reconciled by committed code.
 
@@ -53,12 +55,12 @@ self-certifying.
 ## the re-test (the same machine, run a second time)
 
 the first study found a real weakness: the wildcard's distant connections were judged less
-genuine than the model's own near picks. we did not stop at reporting it. three independent
-graders diagnosed the cause from the 90 frozen transcripts; claude fable 5 authored a revised
-skill from that diagnosis, with a separate opus pass reviewing it for honesty-preservation; and we
+genuine than the model's own near picks. i did not stop at reporting it. three independent
+graders diagnosed the cause from the 90 frozen transcripts; Fable 5 authored a revised
+skill from that diagnosis, with a separate Opus 4.8 pass reviewing it for honesty-preservation; and i
 re-ran the whole pipeline as a head-to-head: the old skill and the new skill on ten fresh problems
 the fix had never seen, with the wildcards held identical between versions so only the prose could
-differ, blind-graded by four opus graders. the prediction (a half-point genuineness gain) was
+differ, blind-graded by four Opus 4.8 graders. the prediction (a half-point genuineness gain) was
 written into a committed pre-registration before any re-test output existed. the new skill won by
 +0.81 (p = 0.002), out of sample, with fabrication flat and draw distance controlled by
 construction. that the number was named in advance and then confirmed on unseen problems, with the
@@ -69,7 +71,7 @@ draws held identical, is what makes it evidence rather than anecdote.
 the architecture removes the *procedural* failure modes. it does not make the graders right.
 the study is candid about four limits, and the data names them:
 
-- **the llm panel is a blunt instrument.** the human anchor correlated only weakly with the
+- **the LLM panel is a blunt instrument.** the human anchor correlated only weakly with the
   panel item by item (pooled spearman about 0.29; on the primary genuineness scale, near zero).
   the panel also compressed its scores into a narrow band where a human used the full range. the
   panel is useful for aggregate, arm-level direction and nearly useless for ranking individual
