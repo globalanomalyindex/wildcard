@@ -12,7 +12,11 @@
   --orange: #eb8853;
   --pale: #ced9f7;
   --ink: #1e1e1e;
-  --ink-soft: rgba(30, 30, 30, 0.58);
+  /* 0.80, not 0.58: at 0.58 every micro label sat at 2.92:1 on the orange ground and
+     3.68:1 on the pale panel, under the 4.5:1 AA floor for the 10-11px type it carries.
+     0.80 measures 4.61:1 on orange and 7.01:1 on pale and still reads clearly softer
+     than full ink (6.49:1). regenerate: node tests/contrast.mjs */
+  --ink-soft: rgba(30, 30, 30, 0.80);
   --pale-soft: rgba(206, 217, 247, 0.5);
   --hair: rgba(30, 30, 30, 0.16);
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);

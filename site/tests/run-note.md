@@ -200,3 +200,67 @@ grades, results); scripts/analyze_retest.mjs + fixture test (CI-gated). case stu
 fix, and the re-test" section + tl;dr update; methods colophon gains a re-test section; figures
 panel gains the fix figure. node + shell suites green (16 experiment-lib tests), zero em/en
 dashes in authored copy, all-lowercase voice.
+
+## v11 - product audit: the caption bug, a layout collision, and the honesty gaps
+
+full audit of the shipped product (site, skill, docs) across five lenses, every finding then
+adversarially verified against the real files. 61 findings raised, 24 refuted and dropped. the
+refutations mattered as much as the survivors: an inline install block was proposed and killed
+because v6 already shipped and deliberately reverted it, and several "accessibility" findings
+turned out to be handled elsewhere. what follows is only what survived and reproduced.
+
+caption grammar (the reported bug). the concept caption read "a professor of <concept>", which is
+false for almost the whole pool: there is no professor of abrasive, of amber, of frost. the
+specialist caption had the same class of defect one level quieter, printing "a acid mine
+drainage..." on the 46 of 378 domains that begin with a vowel. root cause was not the word
+"professor", it was interpolating an arbitrary pool string into a slot that requires a determiner.
+both leads now place the draw after a colon, where no article agreement is possible.
+site/tests/caption.test.js holds that property against all 378 domains and 461 concepts; against
+the old templates it fails with 129 article disagreements.
+
+layout. the lede's type scaled on width only while .demo sits at top:44vh, so every desktop from
+701px to ~848px tall printed the lede's last line on top of the draw label. measured 57px of
+overlap at 1440x780, an ordinary laptop. fixed with a height term, min(2.05vw, 3.4vh): at 1440x900
+min() picks the width term and the design viewport is pixel-identical; at 1440x780 there is now
+35px of clearance.
+
+the live draw could stall forever. the 5-7s cycle ran on its own clock alongside a 24ms/char
+typewriter, so any character slower than ~110ms restarted the typing before the caption was ever
+written. background tabs throttle timers to ~1s/tick and hit exactly that: a page opened in a
+background tab showed a stuck partial draw and a permanently blank caption. the next delay is now
+armed by the typewriter's completion callback. verified under real throttling with document.hidden
+true: the caption completes.
+
+contrast. --ink-soft sat at 2.92:1 on orange and 3.68:1 on pale, carrying every 10-11px mono label
+including the provenance line and the regenerate commands. raised to 0.80 (4.61:1 / 7.01:1).
+tests/contrast.mjs recomputes from tokens.css and is wired into run_all.sh, so the token cannot
+drift back silently. the pale-on-orange wordmark and case study h1 (1.82:1) are a deliberate
+logotype exemption, documented in DESIGN.md rather than quietly passed.
+
+draw.sh, two real bugs. `grep -c` exits 1 on a zero count, so N became "0\n0", the integer guard
+errored instead of firing, and the script printed an empty draw and exited 0. a silently blank
+wildcard is the worst failure available here, because nothing downstream can tell it from a real
+one. also, four valued flags shifted twice without guarding their value, so a trailing flag spun
+forever. both fixed and covered; SKILL.md now tells the model to stop rather than improvise a
+wildcard if the draw fails.
+
+honesty and staleness. the front-door provenance line cited commit 2f5e700, which does not exist in
+the repo; it now stamps a cksum over both pool files, reproducible with
+`cat plugin/references/*.txt | cksum`. the panel title was still the placeholder "figures & stuff
+here". figure 2 said "we" in a project written as "i". figure 1 implied the human anchor graded all
+90 outputs when it graded 15. three published commands exited non-zero as printed. the case study's
+mechanism section still described the pre-fix v1 pipeline and called structure-mapping "the honesty
+bar", contradicting its own fix section further down the same page. the README claimed all five
+guarantees were mechanically enforced when four are model-honored. the epigraph was "four decades"
+before the model for a 1952 source. all corrected.
+
+also: install docs corrected to /wildcard:wildcard (plugin skills are namespaced) with the
+prerequisites, the network posture, and the uninstall path stated; the lens now has a defined job
+in concept mode, which is ~half of all runs; marketplace and plugin descriptions brought to two
+modes; mobile order re-cut so the live draw sits third instead of dead last and the mono provenance
+line stops being the first thing on the page; reshuffle is a real focusable control instead of a
+keyboard-only hint announced inside an aria-hidden element; hover gated by (hover:hover); dead
+particles.js and an unreferenced 51KB png removed; DESIGN.md and PRODUCT.md rewritten, they had
+been describing a seafoam-and-glass site that no longer exists.
+
+suite green including the new contrast and caption gates, and the browser==shell parity test.

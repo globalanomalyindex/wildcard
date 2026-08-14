@@ -14,15 +14,20 @@ SEED=""
 MODE=""
 LENSES="failure-modes materials time-and-rhythm constraints-and-limits energy-and-flow structure-and-form measurement signals-and-noise"
 
+# Every valued flag must guard its value before shifting twice. Without the guard, a flag
+# in the final position leaves $# at 1, `shift 2` fails under `set -u` without exiting,
+# and the while loop spins on the same argument forever.
+need_val() { [ -n "${2:-}" ] || { echo "draw.sh: $1 requires a value" >&2; exit 2; }; }
+
 while [ $# -gt 0 ]; do
   case "$1" in
-    --seed) SEED="${2:-}"; [ -n "$SEED" ] || { echo "draw.sh: --seed requires a value" >&2; exit 2; }; shift 2 ;;
+    --seed) need_val "$1" "${2:-}"; SEED="$2"; shift 2 ;;
     --seed=*) SEED="${1#*=}"; [ -n "$SEED" ] || { echo "draw.sh: --seed requires a value" >&2; exit 2; }; shift ;;
-    --mode) MODE="${2:-}"; shift 2 ;;
+    --mode) need_val "$1" "${2:-}"; MODE="$2"; shift 2 ;;
     --mode=*) MODE="${1#*=}"; shift ;;
-    --file|--domains-file) DOMAINS_FILE="${2:-}"; shift 2 ;;
+    --file|--domains-file) need_val "$1" "${2:-}"; DOMAINS_FILE="$2"; shift 2 ;;
     --file=*|--domains-file=*) DOMAINS_FILE="${1#*=}"; shift ;;
-    --concepts-file) CONCEPTS_FILE="${2:-}"; shift 2 ;;
+    --concepts-file) need_val "$1" "${2:-}"; CONCEPTS_FILE="$2"; shift 2 ;;
     --concepts-file=*) CONCEPTS_FILE="${1#*=}"; shift ;;
     *) echo "draw.sh: unknown argument: $1" >&2; exit 2 ;;
   esac
@@ -53,12 +58,20 @@ case "$MODE" in
 esac
 
 if [ ! -r "$POOL_FILE" ]; then echo "draw.sh: no usable pool in $POOL_FILE" >&2; exit 1; fi
-N="$(grep -vcE '^[[:space:]]*($|#)' "$POOL_FILE" 2>/dev/null || echo 0)"
-if [ "${N:-0}" -lt 1 ]; then echo "draw.sh: no usable entries in $POOL_FILE" >&2; exit 1; fi
+# `grep -c` exits 1 on a zero count, so it BOTH prints "0" and triggers the `|| echo 0`.
+# That made N the two-line string "0\n0", which is not an integer: the -lt guard errored
+# out instead of firing, and the script fell through to print an empty draw and exit 0.
+# A silently blank wildcard is the worst possible failure here, because the model
+# downstream cannot tell it apart from a real one. Count without the fallback, then check.
+N="$(grep -vE '^[[:space:]]*($|#)' "$POOL_FILE" 2>/dev/null | grep -c . || true)"
+case "$N" in ''|*[!0-9]*) N=0 ;; esac
+if [ "$N" -lt 1 ]; then echo "draw.sh: no usable entries in $POOL_FILE" >&2; exit 1; fi
 
 IDX="$(pick_index "$N" "$KEY")"
 PICK="$(grep -vE '^[[:space:]]*($|#)' "$POOL_FILE" \
   | awk -v i="$IDX" 'NR==i+1{ sub(/[[:space:]]*\|.*/,""); sub(/[[:space:]]+$/,""); print; exit }')"
+# Belt and braces: never emit a nameless wildcard, whatever went wrong upstream.
+if [ -z "$PICK" ]; then echo "draw.sh: drew an empty entry from $POOL_FILE (index $IDX of $N)" >&2; exit 1; fi
 
 NL="$(printf '%s\n' $LENSES | grep -c .)"
 LIDX="$(pick_index "$NL" "lens")"

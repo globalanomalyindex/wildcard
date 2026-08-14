@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>wildcard - a skill for claude code</title>
-  <meta name="description" content="an experimental claude code skill that introduces a random expert from an unrelated field to seed non-linear creative thinking." />
+  <meta name="description" content="a claude code skill that draws a specialist from an unrelated field, or a plain concept, to seed non-linear thinking. tested in a pre-registered blind study." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23eb8853'/%3E%3Ccircle cx='11' cy='12' r='4.5' fill='%23ced9f7'/%3E%3Ccircle cx='22' cy='20' r='6' fill='%23ced9f7'/%3E%3C/svg%3E" />
   <link rel="preload" href="fonts/BoyersBlur-Regular.otf" as="font" type="font/otf" crossorigin />
   <link rel="preload" href="fonts/Karrik-Regular.otf" as="font" type="font/otf" crossorigin />
@@ -16,8 +16,8 @@
     <img class="grid" src="assets/chickpea-grid-display.png" alt="" aria-hidden="true" />
 
     <section class="lede">
-      <p>wildcard is an experimental skill for claude code that, at random, introduces an unrelated expert to your current task or project. in doing so, the token pool is seeded with unorthodox directions for standard chain-of-thought systems to work with - influencing more creative thinking, problem-solving, and idea generation in large language models.</p>
-      <p>this project is an experiment in introducing and emulating non-linear creative thinking in artificial intelligence systems, without straying away from current artificial intelligence technology and capabilities.</p>
+      <p>wildcard is an experimental skill for claude code. at random, it drops something foreign into your session: a hyper-specific specialist from an unrelated field, or a plain concept to think against. the draw is a seed, not a subject. you do not force your problem onto it, you let it pull your thinking somewhere new and keep only what holds up.</p>
+      <p>an llm's chain of thought never wanders, so the stray idea that pops in from nowhere cannot happen. wildcard is that missing wandering mind, bolted on from the outside.</p>
     </section>
 
     <h1 class="wordmark">wildcard</h1>
@@ -25,7 +25,7 @@
     <aside class="panel" aria-label="figures">
       <div class="view">
         <div class="panel-head">
-          <h2 class="panel-title">figures &amp; stuff here</h2>
+          <h2 class="panel-title">measured, not asserted</h2>
           <span class="panel-tag">real, regenerable, small-n where noted</span>
         </div>
         <div class="figures" id="figures"></div>
@@ -49,7 +49,7 @@
       <p class="draw-note" id="draw-note"></p>
     </div>
 
-    <p class="readout" id="readout" aria-hidden="true"></p>
+    <p class="readout" id="readout"><span id="readout-text"></span> <button type="button" class="reshuffle" id="reshuffle">reshuffle</button></p>
   </main>
 
   <script type="module" src="js/main.js"></script>

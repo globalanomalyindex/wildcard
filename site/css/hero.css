@@ -13,7 +13,12 @@ html, body { height: 100%; }
 }
 .lede p {
   font-family: var(--font-body); color: var(--ink);
-  font-size: clamp(15px, 2.05vw, 30px); line-height: 1.04; letter-spacing: -0.02em;
+  /* the height term is load-bearing. sized on width alone, the lede kept its full height
+     as the viewport got shorter while .demo (top: 44vh) walked up to meet it, so every
+     desktop between 701px and ~848px tall printed the last lede line on top of the draw
+     label. min() adds a height ceiling: on a tall screen 3.4vh exceeds 2.05vw and the
+     original composition is untouched, on a short one the lede reflows instead of colliding. */
+  font-size: clamp(15px, min(2.05vw, 3.4vh), 30px); line-height: 1.04; letter-spacing: -0.02em;
   margin: 0 0 1em;
 }
 
@@ -56,9 +61,12 @@ html, body { height: 100%; }
   letter-spacing: -0.1em; color: var(--ink); text-decoration: none; line-height: 0.8;
 }
 .install-cta .chev { transition: transform 240ms var(--ease-out); }
-.install-cta:hover .chev:nth-child(2) { transform: translateX(0.06em); }
-.install-cta:hover .chev:nth-child(3) { transform: translateX(0.12em); }
-.install-cta:hover .chev:nth-child(4) { transform: translateX(0.18em); }
+/* gated: on touch, :hover latches after a tap and the chevrons stay shoved right */
+@media (hover: hover) {
+  .install-cta:hover .chev:nth-child(2) { transform: translateX(0.06em); }
+  .install-cta:hover .chev:nth-child(3) { transform: translateX(0.12em); }
+  .install-cta:hover .chev:nth-child(4) { transform: translateX(0.18em); }
+}
 .install-cta:focus-visible { outline: 3px solid var(--ink); outline-offset: 4px; }
 
 /* the only motion: intentionally-digital ascii in two small cells */
@@ -90,6 +98,17 @@ html, body { height: 100%; }
 
 .readout { position: absolute; left: 2.4vw; top: 1.5vh; margin: 0; z-index: 3; font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em; color: var(--ink-soft); white-space: nowrap; }
 
+/* reshuffle is a real control, not a keyboard hint. "press r" was the only way to
+   re-deal the page, and it was announced inside an aria-hidden line, so touch and
+   screen-reader users had no path to it at all. the r key still works. */
+.reshuffle {
+  font-family: var(--font-mono); font-size: 10px; letter-spacing: 0.03em;
+  color: var(--ink-soft); background: none; border: 0; border-bottom: 1px solid var(--ink-soft);
+  padding: 0; margin: 0; cursor: pointer; text-transform: lowercase;
+}
+.reshuffle:hover { color: var(--ink); border-bottom-color: var(--ink); }
+.reshuffle:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+
 @media (prefers-reduced-motion: reduce) {
   .install-cta .chev { transition: none; }
 }
@@ -100,13 +119,19 @@ html, body { height: 100%; }
   .grid { display: none; }
   .lede, .wordmark, .panel, .install-cta, .ascii, .demo, .readout { position: static; width: auto; max-width: none; height: auto; max-height: none; }
   .page { overflow: visible; display: flex; flex-direction: column; gap: 22px; padding: 22px 16px 40px; }
-  .readout { order: -3; white-space: normal; }
-  .lede { order: -2; }
-  .wordmark { font-size: clamp(48px, 15vw, 150px); line-height: 0.82; white-space: normal; overflow-wrap: anywhere; letter-spacing: -0.05em; order: -1; }
-  .panel { width: auto; }
+  /* stacked reading order. it used to open on the mono provenance line (whose only
+     call to action was "press r", meaningless on a phone) and close with the live
+     draw below the decorative ascii. the draw is the one thing that demonstrates the
+     thesis, so it now sits right under the wordmark, and the provenance line moves
+     to the end where a footnote belongs. */
+  .lede { order: -3; }
+  .wordmark { font-size: clamp(48px, 15vw, 150px); line-height: 0.82; white-space: normal; overflow-wrap: anywhere; letter-spacing: -0.05em; order: -2; }
+  .demo { order: -1; width: 100%; }
+  .panel { width: auto; order: 0; }
   .figures { overflow: visible; }
-  .install-cta { font-size: clamp(44px, 13vw, 96px); }
-  .ascii { justify-content: flex-start; }
+  .install-cta { font-size: clamp(44px, 13vw, 96px); order: 1; }
+  .ascii { justify-content: flex-start; order: 2; }
   .ascii-cell { width: 46vw; height: 110px; }
-  .demo { order: 5; }
+  .readout { order: 3; white-space: normal; }
+  .draw-note { max-width: none; }
 }

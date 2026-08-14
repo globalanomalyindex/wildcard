@@ -4,12 +4,12 @@
 export const FIGURES = [
   {
     k: "self-pick vs external draw · pre-registered blind study",
-    v: "across <b>10</b> problems x <b>20</b> self-picks each, the model's own \"random unrelated expert\" averaged <b>1.48</b> bits of entropy vs the draw's <b>4.30</b>, and <b>47%</b> of self-picks were surface-adjacent to the problem vs <b>9%</b> for the draw. blind-graded by 4 graders + a human anchor: <b>0</b> fabrications. honestly, the distant connections scored <i>lower</i> on judged genuineness (delta -0.50, p=0.008), not higher: distance costs clean mapping. full writeup in the case study.",
+    v: "across <b>10</b> problems x <b>20</b> self-picks each, the model's own \"random unrelated expert\" averaged <b>1.48</b> bits of entropy vs the draw's <b>4.30</b>, and <b>47%</b> of self-picks were surface-adjacent to the problem vs <b>9%</b> for the draw. blind-graded by 4 graders across all <b>90</b> outputs, plus a human anchor on <b>15</b> of them: <b>0</b> fabrications either way. honestly, the distant connections scored <i>lower</i> on judged genuineness (delta -0.50, p=0.008), not higher: distance costs clean mapping. full writeup in the case study.",
     cmd: "regenerate: node scripts/analyze_experiment.mjs experiment",
   },
   {
     k: "the fix, validated out of sample",
-    v: "the study found the wildcard's distant connections judged <i>lower</i> on genuineness than the model's own near picks. we diagnosed it (un-discharged analogy: the skill found the link but never spent it into a concrete move), rewrote the skill, pre-registered a prediction, and re-tested both versions head-to-head on <b>10 fresh problems</b> with identical draws. the new skill won: genuineness <b>+0.81</b>, usefulness <b>+0.84</b> (p=0.002 each), <b>0</b> new fabrications, draw distance held constant. honest cost: novelty -0.37.",
+    v: "the study found the wildcard's distant connections judged <i>lower</i> on genuineness than the model's own near picks. i diagnosed it (un-discharged analogy: the skill found the link but never spent it into a concrete move), rewrote the skill, pre-registered a prediction, and re-tested both versions head-to-head on <b>10 fresh problems</b> with identical draws. the new skill won: genuineness <b>+0.81</b>, usefulness <b>+0.84</b> (p=0.002 each), <b>0</b> new fabrications, draw distance held constant. honest cost: novelty -0.37.",
     cmd: "regenerate: node scripts/analyze_retest.mjs experiment/v2",
   },
   {
@@ -25,7 +25,7 @@ export const FIGURES = [
   {
     k: "concept pool · safety pipeline",
     v: "open scope without a live network call. <b>7291</b> concept-bearing candidates from wikipedia vital articles (people and history excluded at source) -> <b>7115</b> passed a mechanical, logged safety screen -> <b>176</b> rejected by rule (142 names, 15 person, 9 toolong, 6 ip, 4 meta) -> curated and adversarially reviewed to <b>461</b>. concept draws: <b>160</b> distinct in <b>200</b> seeds, max recurrence 3.",
-    cmd: "screen: bash plugin/scripts/screen_concepts.sh",
+    cmd: "screen: bash plugin/scripts/screen_concepts.sh plugin/references/concepts-raw.txt /tmp/rejects.txt",
   },
   {
     k: "reproducibility",
@@ -40,7 +40,7 @@ export const FIGURES = [
   {
     k: "the map",
     v: "<b>378</b> niche disciplines, breadth-audited: all 22 axis buckets spanned, zero duplicates. selection is uniform over this curated span, not a claim to hold every field.",
-    cmd: "audit: bash audit_domains.sh",
+    cmd: "audit: bash plugin/scripts/audit_domains.sh plugin/references/domains.txt",
   },
 ];
 

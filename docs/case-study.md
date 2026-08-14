@@ -6,22 +6,26 @@ sample is small. nothing here is dressed up to look more rigorous than it is.*
 
 ## tl;dr
 
-an LLM asked to "think of a random unrelated expert" is a bad random number generator over
-its own training distribution: it returns its priors with extra steps. wildcard moves the
-randomness out of the model (a shell script reading OS entropy), hands the model a specific
-foreign expert it would never have picked, and asks it to find genuine *structural* matches
-to your problem - or to honestly say there are none. a pre-registered, blind, three-arm study
-confirmed the core claim decisively: the model's own "random" picks collapse and sit right next
-to the problem, while the external draw is far more diverse and far less adjacent. the
-no-fabrication guarantee held under both AI and human grading. and, honestly, the stronger claim
-did not hold: the distant connections did not score *higher* on judged genuineness, they scored
-lower, because reaching far costs you the easy clean mapping. i report that plainly - and then i
-did something about it. i diagnosed the cause (the skill found the connection but never forced it
-to be *spent* into a concrete move in your own words), rewrote the skill around that, and
-re-tested on ten fresh problems: the new version beats the old by +0.81 on genuineness and +0.84
-on usefulness, a gain i predicted in advance and confirmed out of sample, with zero new
-fabrication. i also caught the mechanism failing a different guarantee once, fixed it, and report
-that too.
+ask an LLM to "think of a random unrelated expert" and it hands back its own priors with extra
+steps. it is a bad random number generator over its own training distribution. wildcard moves the
+randomness out of the model, into a shell script reading OS entropy. the model gets a specific
+foreign wildcard it would never have picked, and has to bring back something genuinely useful or
+honestly say it found nothing.
+
+i ran a pre-registered, blind, three-arm study to see if that works. the core claim held
+decisively: the model's own "random" picks collapse and sit right next to the problem, while the
+external draw is far more diverse and far less adjacent. the no-fabrication guarantee held too,
+under both AI and human grading.
+
+the stronger claim did not hold. the distant connections scored *lower* on judged genuineness, not
+higher, because reaching far costs the easy clean mapping. i report that plainly, and then i did
+something about it. i diagnosed the cause: the skill found the connection but never forced it to be
+*spent* into a concrete move in your own words. i rewrote the skill around that and re-tested on
+ten fresh problems.
+
+the new version beats the old by **+0.81** on genuineness and **+0.84** on usefulness, a gain i
+predicted in advance and confirmed out of sample, with zero new fabrication. i also caught the
+mechanism failing a different guarantee once, fixed it, and report that too.
 
 ## the idea
 
@@ -48,27 +52,40 @@ structured divergence, not randomness. the specific persona is the seed.
 five steps, each with a job:
 
 1. **detect, then freeze.** distill a structural sketch of your problem - its moving parts,
-   flows, tensions - and commit to it *before* drawing the expert. this is pre-registration:
-   once you know who you drew, it is tempting to quietly reshape the problem so the
+   flows, tensions - and commit to it *before* drawing. this is pre-registration:
+   once you know what you drew, it is tempting to quietly reshape the problem so the
    connection lands. freezing first keeps the mapping honest.
-2. **draw, outside the model.** `draw.sh` reads `/dev/urandom`, rejection-samples for an
-   exactly uniform pick over a map of 378 niche disciplines, and prints a domain plus a
-   "lens" (a second entropy axis that pushes toward a non-obvious sub-niche). the model does
-   not choose. that is the whole point.
-3. **specialize.** grow the drawn coordinate into a specific practitioner with a real
-   toolkit, built *before* looking at your problem.
-4. **notice, honestly.** look at the frozen sketch through that toolkit and find what
-   genuinely rhymes - relational structure, not shared nouns. if little maps, abstain.
-   abstention is the skill working, not failing.
-5. **seed.** offer two to four optional provocations, each as noticing -> mapping ->
-   provocation, with why it works in the expert's own world. additive, never prescriptive.
+2. **draw, outside the model.** `draw.sh` reads `/dev/urandom` and rejection-samples for an
+   exactly uniform pick. it first rolls a mode, then draws either a niche discipline from a
+   map of 378 or a general concept from a pool of 461, plus a "lens" (a second entropy axis
+   that picks where to look first). the model does not choose. that is the whole point.
+3. **become it.** inhabit the draw and think *from* it, not *about* it: a specialist grows
+   into a practitioner with a real toolkit, built *before* looking at your problem; a concept
+   gets loaded for its relational properties, how it works and what it trades off and how it
+   fails. that inhabiting is the conditioning that does the seeding.
+4. **harvest what the seed surfaces.** look at the frozen sketch from in there and keep what
+   pays off. the gate is the **removability test**: delete the sentence that names the
+   wildcard, and an executable move in your own words must still stand, one the plainest
+   reading of the problem would not already produce. if nothing survives that deletion, dig
+   one step deeper or let the strand go. abstention is the skill working, not failing.
+5. **present seeds.** offer about three optional seeds, each as noticing -> mapping ->
+   concrete move, where the third beat carries a falsifiable specific. additive, never
+   prescriptive.
 
-the honesty bar is gentner's structure-mapping. a fake connection shares a surface feature
-("your code has cells, i study cells!"). a real one maps a system of relations ("your retry
-backoff and a predator-prey cycle are the same oscillation, and ecologists found stochastic
-jitter stops the populations synchronizing into a crash - have you considered jitter?").
-same relations, different domain. encoding that bar is what makes "never lies for the sake
-of a connection" a checkable property instead of a vibe.
+one caveat you should hold while reading the rest of this page: steps 4 and 5 are the *current*
+version. the study below tested an earlier one, whose gate was structure-mapping rather than
+removability and whose third beat was a "provocation" rather than a move. that difference is not
+a footnote, it is the whole finding, and the fix section explains how the study produced it.
+
+gentner's structure-mapping is the sharpest tool in that harvest. a fake connection shares a
+surface feature ("your code has cells, i study cells!"). a real one maps a system of relations
+("your retry backoff and a predator-prey cycle are the same oscillation, and ecologists found
+stochastic jitter stops the populations synchronizing into a crash - have you considered
+jitter?"). same relations, different domain. it is how a seed usually earns its keep, and it is
+the standing check against decoration. what it is *not*, any more, is the gate: a mapping can be
+real and still ship nothing usable, which is exactly the failure the study found. the gate is the
+removability test, and encoding it is what makes "never lies for the sake of a connection" a
+checkable property instead of a vibe.
 
 ## does it actually work? a pre-registered, blind, three-arm study
 
@@ -85,7 +102,7 @@ of a connection" a checkable property instead of a vibe.
 >
 > - Farid ud-Din Attar
 
-that passage is the mechanism stated four decades before the model existed. you know a thing by
+that passage is the mechanism stated seven decades before the model existed. you know a thing by
 *becoming* it, by thinking *from* it and not *about* it. that is persona-conditioning in plain
 words: inhabiting the wildcard (from it) rather than analyzing it (about it) is the difference
 between shifting the model's conditioning to a coherent distant region and merely adding noise.
@@ -382,7 +399,7 @@ everything on the live site and in this study is regenerable from the repo:
 - **the map.** 378 niche disciplines, breadth-audited: all 22 axis buckets (scale x medium x
   activity x era) are spanned and there are no duplicates. selection is uniform over this
   deliberately broad, curated span - not a claim to contain literally every field.
-  audit: `bash plugin/scripts/audit_domains.sh`.
+  audit: `bash plugin/scripts/audit_domains.sh plugin/references/domains.txt`.
 - **browser == terminal.** the live draw on the site uses the same crc (posix `cksum`) the
   shell does, so any seed reproduces in your terminal byte-for-byte. a parity test checks six
   seeds against the real `draw.sh`, and CI gates the site deploy on the full suite, so the
@@ -419,7 +436,10 @@ in any Claude Code session:
 /plugin install wildcard@globalanomalyindex
 ```
 
-then run `/wildcard` and meet your expert.
+then run `/wildcard:wildcard` and meet whatever you draw. plugin skills are namespaced
+`plugin-name:skill-name`, which is why the name says itself twice. it needs bash and a readable
+`/dev/urandom`, makes no network calls, and the only thing it ever writes to your project is
+`.wildcard/seedbank.md`, and only when you say yes to being asked.
 
 repo: https://github.com/globalanomalyindex/wildcard ·
 site: https://globalanomalyindex.github.io/wildcard/

@@ -17,15 +17,17 @@ Run a one-shot summon: draw a random wildcard from outside the model, let it ste
 somewhere it would not otherwise go, and offer the genuinely good ideas it seeds as optional
 moves in the user's own world. The draw lands in one of two
 modes - a hyper-specific niche **specialist** who notices through their toolkit, or a general
-**concept** you connect against (either directly, or by summoning a generalist authority of its
-field - a professor of it - so the "summon an expert" quality holds either way) - but either way
-it emulates the faculty an on-task reasoner lacks: a **synthetic default-mode network** that
-injects the remote associate your focused chain of thought would never wander to.
+**concept** you connect against (either directly, or through a generalist authority of the field
+that studies it, so the "summon an expert" quality holds in both modes). Either way it emulates
+the faculty an on-task reasoner lacks: a **synthetic default-mode network** that injects the
+remote associate your focused chain of thought would never wander to.
 
 > **Paths in this file are relative to this skill's own directory** (you were given its absolute
 > path when the skill loaded), *not* your current working directory - which is usually the user's
 > project. When you run the script or read a reference below, resolve it against the skill
 > directory (e.g. `bash "<skill-dir>/scripts/draw.sh"`), or `cd` into the skill directory first.
+> When wildcard is installed as a plugin, `${CLAUDE_PLUGIN_ROOT}` holds that directory and is the
+> most reliable way to name it, since the install path changes between plugin versions.
 
 ## The pipeline
 
@@ -42,12 +44,14 @@ description can't be retrofitted to the draw.
 **2. Draw (dice outside the model).** Only now, run the draw from the skill directory:
 
 ```bash
-bash "<skill-dir>/scripts/draw.sh"
+bash "<skill-dir>/scripts/draw.sh"     # or "${CLAUDE_PLUGIN_ROOT}/scripts/draw.sh" when installed as a plugin
 ```
 
 It prints three lines: `mode=specialist|concept`, then either `domain=…` (specialist) or
 `concept=…` (concept), then `lens=…`. Read all three and use them exactly as given. Do **not** pick
-the mode or the draw yourself. This is the core engineering move: an LLM asked to name a "random
+the mode or the draw yourself. If the script exits non-zero or any line comes back empty, say so
+and stop - never improvise a wildcard to cover for a failed draw, because a self-picked one is the
+exact failure this skill exists to prevent. This is the core engineering move: an LLM asked to name a "random
 unrelated field" mode-collapses to its creativity-adjacent priors (jazz, mycology, marine biology)
 - it is a poor RNG over its own distribution. (Measured in a pre-registered study: across 10
 problems x 20 self-picks, the model's own picks averaged 1.48 bits of entropy against the external
@@ -70,13 +74,22 @@ and bring back what is genuinely good.
   build the toolkit before looking).
 - **concept:** the draw is an idea, not a person - but you need not stay impersonal. Engage it
   whichever way yields the more genuine mapping: **as a field authority** (default - this keeps the
-  "summon an expert" feel) embody a *generalist* of the concept's field, the broad-knowledge
-  counterpart to specialist mode's niche practitioner (concept "tides" → a coastal-oceanography
-  professor; "adenosine" → a neuropharmacologist; "feedback loop" → a control theorist) who thinks
-  *with* the concept as their lens; or **as the bare concept** when personifying adds nothing.
-  Either way, load its *relational* properties - how it works, what it trades off, its dynamics over
-  time, how it fails - per step 1 of `references/connecting.md`. Cast the strands; never its surface
-  nouns.
+  "summon an expert" feel) embody a *generalist* of the field that studies the concept, the
+  broad-knowledge counterpart to specialist mode's niche practitioner (concept "tides" → a
+  coastal-oceanography professor; "adenosine" → a neuropharmacologist; "feedback loop" → a control
+  theorist) who thinks *with* the concept as their lens; or **as the bare concept** when
+  personifying adds nothing. Pick by what the concept is: a concept with a field that owns it takes
+  an authority well, while a bare material or everyday object ("abrasive", "amber", "zipper") often
+  does not, and forcing a person onto it invents an expert who does not exist - work those
+  directly. Either way, load its *relational* properties - how it works, what it trades off, its
+  dynamics over time, how it fails - per step 1 of `references/connecting.md`. Cast the strands;
+  never its surface nouns.
+
+**The lens applies in both modes.** In specialist mode it aims you at a non-obvious sub-niche (see
+`references/specializing.md`). In concept mode it does the same job one level down: it tells you
+*which* relational properties to cast first, so `lens=failure-modes` on "tides" starts from how the
+oscillation breaks down rather than how it works. It biases where you look, never what you are
+allowed to keep.
 
 **4. Harvest what the seed surfaces (branch on `mode`, same honesty bar).**
 

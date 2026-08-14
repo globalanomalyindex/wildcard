@@ -89,7 +89,7 @@ cochlear-implant mapping for deafened toddlers | human | mechanical | healing | 
 pollinator hand-brushing of vanilla orchid flowers | human | living | building | ancient-craft
 tardigrade cryptobiosis revival for space exposure trials | molecular | living | measuring | frontier
 raptor radio-telemetry triangulating of migrating eagles | ecological | mechanical | measuring | contemporary
-anthelmintic faecal-egg-count fecal screening of sheep | molecular | fluid | measuring | industrial
+anthelmintic fecal-egg-count screening of sheep | molecular | fluid | measuring | industrial
 bog-oak peat-core pollen counting for paleoecology | geological | mineral | measuring | industrial
 neonatal incubator humidity weaning of preemies | human | fluid | healing | contemporary
 sputtering target erosion-track profiling on magnetrons | molecular | mineral | measuring | contemporary

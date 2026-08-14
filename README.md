@@ -38,15 +38,25 @@ that's it. the plugin pulls the skill, its `draw.sh`, and both pools; updates ar
 `/plugin marketplace update`. then, in any session:
 
 ```
-/wildcard
+/wildcard:wildcard
 ```
 
-prefer a manual install? drop the skill folder into your personal skills directory:
+plugin skills are namespaced `plugin-name:skill-name`, which is why the name says itself twice.
+you can also just ask for an outside perspective in plain language and claude will reach for the
+skill on its own; the slash form is the explicit way to summon it.
+
+prefer a manual install? drop the skill folder into your personal skills directory, and it becomes
+plain `/wildcard` (personal skills are not namespaced):
 
 ```bash
 git clone https://github.com/globalanomalyindex/wildcard
 ln -s "$(pwd)/wildcard/plugin" ~/.claude/skills/wildcard
 ```
+
+it needs bash and a readable `/dev/urandom`, which is to say any mac or linux box. it makes no
+network calls. the only thing it ever writes to your project is `.wildcard/seedbank.md`, and only
+when you say yes to being asked. to remove it, run `/plugin uninstall wildcard@globalanomalyindex`,
+or delete the symlink above.
 
 ## how it works
 
@@ -67,12 +77,16 @@ ln -s "$(pwd)/wildcard/plugin" ~/.claude/skills/wildcard
    specific, with an offer to pull one thread further. optionally banked to `.wildcard/seedbank.md`
    in your project.
 
-guarantees, each enforced by a mechanism rather than a hope: **no fabrication** (only genuine,
-usable ideas; honest abstention is honorable), **no decoration** (the removability test rejects a
-visible-but-undischarged analogy even when the mapping is real), **no derailment** (seeds are
-additive and optional, never prescriptive), **no favoritism** (the dice live in a shell script, not
-in the model's associations), and **inspiration only** (a drawn title or concept is a pointer, never
-content to reproduce).
+guarantees, and how each one is actually held. **no favoritism** is mechanical: the dice live in a
+shell script, not in the model's associations, so it holds whether or not the model cooperates. the
+other four are rules the skill holds itself to, and the model has to honor them: **no fabrication**
+(only genuine, usable ideas; honest abstention is honorable), **no decoration** (the removability
+test rejects a visible-but-undischarged analogy even when the mapping is real), **no derailment**
+(seeds are additive and optional, never prescriptive), and **inspiration only** (a drawn title or
+concept is a pointer, never content to reproduce). i test those instead of assuming them: no
+fabrication held under both AI and human grading in the study, and no derailment failed a cold
+adversarial review once, which is how i know the check works. the case study reports that failure
+and the rule that fixed it.
 
 ## layout
 
