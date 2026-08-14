@@ -1,0 +1,13 @@
+{
+  "masterSeed": "7eb8abe05e8a13d2",
+  "subjects": "claude-sonnet-4-6",
+  "normalizer": "claude-haiku-4-5",
+  "graders": "claude-opus-5",
+  "arms": {
+    "W": "shipped wildcard skill (plugin/SKILL.md), draw pinned to a derived seed",
+    "P": "plain brainstorm, study-1 arm-C prompt verbatim"
+  },
+  "nProblems": 10,
+  "repsPerCell": 3,
+  "collectedAt": "2026-08-14"
+}

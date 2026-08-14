@@ -1,0 +1,2166 @@
+{
+  "graders": [
+    {
+      "grader": "g1",
+      "grades": [
+        {
+          "id": "P-p32-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r1",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r3",
+          "genuineness": 7,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r1",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": true,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r1",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r2",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r2",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "grader": "g4",
+      "grades": [
+        {
+          "id": "W-p47-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r2",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": true,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r2",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r1",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": true,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r2",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r2",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r3",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r1",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "grader": "g3",
+      "grades": [
+        {
+          "id": "W-p42-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": true,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r3",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r1",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 5,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r3",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r2",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r2",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r1",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r3",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r2",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 7,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    },
+    {
+      "grader": "g2",
+      "grades": [
+        {
+          "id": "W-p01-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r1",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p01-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r1",
+          "genuineness": 4,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r2",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": true,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r2",
+          "genuineness": 5,
+          "usefulness": 5,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p13-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r1",
+          "genuineness": 7,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p02-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p47-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p16-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p32-r1",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p01-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": true,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p48-r2",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r3",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p36-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r2",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p42-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r1",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p13-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 6,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p16-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p42-r3",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r1",
+          "genuineness": 4,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p48-r1",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 4,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p37-r3",
+          "genuineness": 5,
+          "usefulness": 7,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p37-r2",
+          "genuineness": 4,
+          "usefulness": 5,
+          "novelty": 3,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "P-p02-r2",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p36-r2",
+          "genuineness": 6,
+          "usefulness": 7,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r3",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p47-r2",
+          "genuineness": 5,
+          "usefulness": 6,
+          "novelty": 5,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        },
+        {
+          "id": "W-p32-r3",
+          "genuineness": 6,
+          "usefulness": 6,
+          "novelty": 6,
+          "nonDerailment": 7,
+          "fabrication": false,
+          "abstained": false
+        }
+      ]
+    }
+  ]
+}

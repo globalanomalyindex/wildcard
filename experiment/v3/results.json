@@ -1,0 +1,188 @@
+{
+  "masterSeed": "7eb8abe05e8a13d2",
+  "nOutputs": 60,
+  "nProblems": 10,
+  "primaryEndpoint": "novelty",
+  "predictedGain": 0.3,
+  "predictionMet": true,
+  "verdict": "W wins: prediction met",
+  "results": {
+    "genuineness": {
+      "item": "genuineness",
+      "nPairs": 10,
+      "meanW": 5.208333333333334,
+      "meanP": 5.438888888888888,
+      "diff": -0.23055555555555546,
+      "cliffsDelta": -0.25,
+      "ci95": [
+        -0.5527777777777777,
+        0.07222222222222223
+      ],
+      "p": 0.3125
+    },
+    "usefulness": {
+      "item": "usefulness",
+      "nPairs": 10,
+      "meanW": 6.216666666666667,
+      "meanP": 6.45,
+      "diff": -0.2333333333333334,
+      "cliffsDelta": -0.48,
+      "ci95": [
+        -0.4472222222222223,
+        -0.025000000000000088
+      ],
+      "p": 0.140625
+    },
+    "novelty": {
+      "item": "novelty",
+      "nPairs": 10,
+      "meanW": 5.433333333333333,
+      "meanP": 4.708333333333334,
+      "diff": 0.7249999999999999,
+      "cliffsDelta": 0.63,
+      "ci95": [
+        0.21666666666666662,
+        1.208333333333333
+      ],
+      "p": 0.037109375
+    },
+    "nonDerailment": {
+      "item": "nonDerailment",
+      "nPairs": 10,
+      "meanW": 6.658333333333334,
+      "meanP": 6.5472222222222225,
+      "diff": 0.11111111111111108,
+      "cliffsDelta": 0.36,
+      "ci95": [
+        0.01111111111111116,
+        0.22777777777777758
+      ],
+      "p": 0.09765625
+    }
+  },
+  "guardRails": {
+    "fabricationW": 0,
+    "fabricationP": 6,
+    "abstentionsW": 0,
+    "abstentionsP": 0,
+    "nonDerailmentW": 6.658333333333334
+  },
+  "reliability": {
+    "genuineness": 0.6421439597811791,
+    "usefulness": 0.4611097155739805,
+    "novelty": 0.7845039308423118,
+    "nonDerailment": -0.06547379232040118
+  },
+  "perProblem": [
+    {
+      "problemId": "p02",
+      "genuinenessW": 5.083333333333333,
+      "genuinenessP": 6,
+      "usefulnessW": 6.083333333333333,
+      "usefulnessP": 6.75,
+      "noveltyW": 6,
+      "noveltyP": 5.416666666666667,
+      "nonDerailmentW": 6.416666666666667,
+      "nonDerailmentP": 6.5
+    },
+    {
+      "problemId": "p47",
+      "genuinenessW": 4.916666666666667,
+      "genuinenessP": 5.777777777777778,
+      "usefulnessW": 6.166666666666667,
+      "usefulnessP": 6.638888888888889,
+      "noveltyW": 5.25,
+      "noveltyP": 5.027777777777778,
+      "nonDerailmentW": 6.666666666666667,
+      "nonDerailmentP": 6.638888888888889
+    },
+    {
+      "problemId": "p48",
+      "genuinenessW": 4.666666666666667,
+      "genuinenessP": 4.944444444444444,
+      "usefulnessW": 6.083333333333333,
+      "usefulnessP": 6.111111111111111,
+      "noveltyW": 4.833333333333333,
+      "noveltyP": 4.138888888888888,
+      "nonDerailmentW": 6.75,
+      "nonDerailmentP": 6.666666666666667
+    },
+    {
+      "problemId": "p32",
+      "genuinenessW": 5.5,
+      "genuinenessP": 5.5,
+      "usefulnessW": 5.75,
+      "usefulnessP": 6.5,
+      "noveltyW": 6.083333333333333,
+      "noveltyP": 4.416666666666667,
+      "nonDerailmentW": 6.75,
+      "nonDerailmentP": 6.583333333333333
+    },
+    {
+      "problemId": "p42",
+      "genuinenessW": 4.416666666666667,
+      "genuinenessP": 5.416666666666667,
+      "usefulnessW": 6.666666666666667,
+      "usefulnessP": 6.5,
+      "noveltyW": 4.25,
+      "noveltyP": 4.666666666666667,
+      "nonDerailmentW": 6.75,
+      "nonDerailmentP": 6.416666666666667
+    },
+    {
+      "problemId": "p37",
+      "genuinenessW": 5,
+      "genuinenessP": 5,
+      "usefulnessW": 6,
+      "usefulnessP": 6.666666666666667,
+      "noveltyW": 4.916666666666667,
+      "noveltyP": 4.666666666666667,
+      "nonDerailmentW": 6.75,
+      "nonDerailmentP": 6.666666666666667
+    },
+    {
+      "problemId": "p01",
+      "genuinenessW": 5.583333333333333,
+      "genuinenessP": 5.5,
+      "usefulnessW": 6.583333333333333,
+      "usefulnessP": 6.416666666666667,
+      "noveltyW": 5.5,
+      "noveltyP": 4.083333333333333,
+      "nonDerailmentW": 6.666666666666667,
+      "nonDerailmentP": 6.75
+    },
+    {
+      "problemId": "p13",
+      "genuinenessW": 5.833333333333333,
+      "genuinenessP": 5.416666666666667,
+      "usefulnessW": 6.083333333333333,
+      "usefulnessP": 6.083333333333333,
+      "noveltyW": 6.333333333333333,
+      "noveltyP": 4.75,
+      "nonDerailmentW": 6.5,
+      "nonDerailmentP": 6
+    },
+    {
+      "problemId": "p16",
+      "genuinenessW": 5.666666666666667,
+      "genuinenessP": 5.833333333333333,
+      "usefulnessW": 6.25,
+      "usefulnessP": 6.25,
+      "noveltyW": 5.166666666666667,
+      "noveltyP": 5.666666666666667,
+      "nonDerailmentW": 6.583333333333333,
+      "nonDerailmentP": 6.5
+    },
+    {
+      "problemId": "p36",
+      "genuinenessW": 5.416666666666667,
+      "genuinenessP": 5,
+      "usefulnessW": 6.5,
+      "usefulnessP": 6.583333333333333,
+      "noveltyW": 6,
+      "noveltyP": 4.25,
+      "nonDerailmentW": 6.75,
+      "nonDerailmentP": 6.75
+    }
+  ]
+}

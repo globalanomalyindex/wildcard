@@ -1,0 +1,482 @@
+[
+  {
+    "id": "it001",
+    "outId": "P-p01-r1",
+    "arm": "P",
+    "problemId": "p01",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it002",
+    "outId": "P-p01-r2",
+    "arm": "P",
+    "problemId": "p01",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it003",
+    "outId": "P-p01-r3",
+    "arm": "P",
+    "problemId": "p01",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it004",
+    "outId": "P-p02-r1",
+    "arm": "P",
+    "problemId": "p02",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it005",
+    "outId": "P-p02-r2",
+    "arm": "P",
+    "problemId": "p02",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it006",
+    "outId": "P-p02-r3",
+    "arm": "P",
+    "problemId": "p02",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it007",
+    "outId": "P-p13-r1",
+    "arm": "P",
+    "problemId": "p13",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it008",
+    "outId": "P-p13-r2",
+    "arm": "P",
+    "problemId": "p13",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it009",
+    "outId": "P-p13-r3",
+    "arm": "P",
+    "problemId": "p13",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it010",
+    "outId": "P-p16-r1",
+    "arm": "P",
+    "problemId": "p16",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it011",
+    "outId": "P-p16-r2",
+    "arm": "P",
+    "problemId": "p16",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it012",
+    "outId": "P-p16-r3",
+    "arm": "P",
+    "problemId": "p16",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it013",
+    "outId": "P-p32-r1",
+    "arm": "P",
+    "problemId": "p32",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it014",
+    "outId": "P-p32-r2",
+    "arm": "P",
+    "problemId": "p32",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it015",
+    "outId": "P-p32-r3",
+    "arm": "P",
+    "problemId": "p32",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it016",
+    "outId": "P-p36-r1",
+    "arm": "P",
+    "problemId": "p36",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it017",
+    "outId": "P-p36-r2",
+    "arm": "P",
+    "problemId": "p36",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it018",
+    "outId": "P-p36-r3",
+    "arm": "P",
+    "problemId": "p36",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it019",
+    "outId": "P-p37-r1",
+    "arm": "P",
+    "problemId": "p37",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it020",
+    "outId": "P-p37-r2",
+    "arm": "P",
+    "problemId": "p37",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it021",
+    "outId": "P-p37-r3",
+    "arm": "P",
+    "problemId": "p37",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it022",
+    "outId": "P-p42-r1",
+    "arm": "P",
+    "problemId": "p42",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it023",
+    "outId": "P-p42-r2",
+    "arm": "P",
+    "problemId": "p42",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it024",
+    "outId": "P-p42-r3",
+    "arm": "P",
+    "problemId": "p42",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it025",
+    "outId": "P-p47-r1",
+    "arm": "P",
+    "problemId": "p47",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it026",
+    "outId": "P-p47-r2",
+    "arm": "P",
+    "problemId": "p47",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it027",
+    "outId": "P-p47-r3",
+    "arm": "P",
+    "problemId": "p47",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it028",
+    "outId": "P-p48-r1",
+    "arm": "P",
+    "problemId": "p48",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it029",
+    "outId": "P-p48-r2",
+    "arm": "P",
+    "problemId": "p48",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it030",
+    "outId": "P-p48-r3",
+    "arm": "P",
+    "problemId": "p48",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it031",
+    "outId": "W-p01-r1",
+    "arm": "W",
+    "problemId": "p01",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it032",
+    "outId": "W-p01-r2",
+    "arm": "W",
+    "problemId": "p01",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it033",
+    "outId": "W-p01-r3",
+    "arm": "W",
+    "problemId": "p01",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it034",
+    "outId": "W-p02-r1",
+    "arm": "W",
+    "problemId": "p02",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it035",
+    "outId": "W-p02-r2",
+    "arm": "W",
+    "problemId": "p02",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it036",
+    "outId": "W-p02-r3",
+    "arm": "W",
+    "problemId": "p02",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it037",
+    "outId": "W-p13-r1",
+    "arm": "W",
+    "problemId": "p13",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it038",
+    "outId": "W-p13-r2",
+    "arm": "W",
+    "problemId": "p13",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it039",
+    "outId": "W-p13-r3",
+    "arm": "W",
+    "problemId": "p13",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it040",
+    "outId": "W-p16-r1",
+    "arm": "W",
+    "problemId": "p16",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it041",
+    "outId": "W-p16-r2",
+    "arm": "W",
+    "problemId": "p16",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it042",
+    "outId": "W-p16-r3",
+    "arm": "W",
+    "problemId": "p16",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it043",
+    "outId": "W-p32-r1",
+    "arm": "W",
+    "problemId": "p32",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it044",
+    "outId": "W-p32-r2",
+    "arm": "W",
+    "problemId": "p32",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it045",
+    "outId": "W-p32-r3",
+    "arm": "W",
+    "problemId": "p32",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it046",
+    "outId": "W-p36-r1",
+    "arm": "W",
+    "problemId": "p36",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it047",
+    "outId": "W-p36-r2",
+    "arm": "W",
+    "problemId": "p36",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it048",
+    "outId": "W-p36-r3",
+    "arm": "W",
+    "problemId": "p36",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it049",
+    "outId": "W-p37-r1",
+    "arm": "W",
+    "problemId": "p37",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it050",
+    "outId": "W-p37-r2",
+    "arm": "W",
+    "problemId": "p37",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it051",
+    "outId": "W-p37-r3",
+    "arm": "W",
+    "problemId": "p37",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it052",
+    "outId": "W-p42-r1",
+    "arm": "W",
+    "problemId": "p42",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it053",
+    "outId": "W-p42-r2",
+    "arm": "W",
+    "problemId": "p42",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it054",
+    "outId": "W-p42-r3",
+    "arm": "W",
+    "problemId": "p42",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it055",
+    "outId": "W-p47-r1",
+    "arm": "W",
+    "problemId": "p47",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it056",
+    "outId": "W-p47-r2",
+    "arm": "W",
+    "problemId": "p47",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it057",
+    "outId": "W-p47-r3",
+    "arm": "W",
+    "problemId": "p47",
+    "rep": 3,
+    "abstained": false
+  },
+  {
+    "id": "it058",
+    "outId": "W-p48-r1",
+    "arm": "W",
+    "problemId": "p48",
+    "rep": 1,
+    "abstained": false
+  },
+  {
+    "id": "it059",
+    "outId": "W-p48-r2",
+    "arm": "W",
+    "problemId": "p48",
+    "rep": 2,
+    "abstained": false
+  },
+  {
+    "id": "it060",
+    "outId": "W-p48-r3",
+    "arm": "W",
+    "problemId": "p48",
+    "rep": 3,
+    "abstained": false
+  }
+]

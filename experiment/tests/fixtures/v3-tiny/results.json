@@ -1,0 +1,111 @@
+{
+  "masterSeed": "testseed",
+  "nOutputs": 7,
+  "nProblems": 3,
+  "primaryEndpoint": "novelty",
+  "predictedGain": 0.3,
+  "predictionMet": true,
+  "verdict": "W wins: prediction met",
+  "results": {
+    "genuineness": {
+      "item": "genuineness",
+      "nPairs": 3,
+      "meanW": 5,
+      "meanP": 4,
+      "diff": 1,
+      "cliffsDelta": 0.5555555555555556,
+      "ci95": [
+        1,
+        1
+      ],
+      "p": 0.25
+    },
+    "usefulness": {
+      "item": "usefulness",
+      "nPairs": 3,
+      "meanW": 5,
+      "meanP": 4,
+      "diff": 1,
+      "cliffsDelta": 0.5555555555555556,
+      "ci95": [
+        1,
+        1
+      ],
+      "p": 0.25
+    },
+    "novelty": {
+      "item": "novelty",
+      "nPairs": 3,
+      "meanW": 5,
+      "meanP": 4,
+      "diff": 1,
+      "cliffsDelta": 0.5555555555555556,
+      "ci95": [
+        1,
+        1
+      ],
+      "p": 0.25
+    },
+    "nonDerailment": {
+      "item": "nonDerailment",
+      "nPairs": 3,
+      "meanW": 6,
+      "meanP": 6,
+      "diff": 0,
+      "cliffsDelta": 0,
+      "ci95": [
+        0,
+        0
+      ],
+      "p": 1
+    }
+  },
+  "guardRails": {
+    "fabricationW": 0,
+    "fabricationP": 0,
+    "abstentionsW": 0,
+    "abstentionsP": 1,
+    "nonDerailmentW": 6
+  },
+  "reliability": {
+    "genuineness": 1,
+    "usefulness": 1,
+    "novelty": 1,
+    "nonDerailment": null
+  },
+  "perProblem": [
+    {
+      "problemId": "q1",
+      "genuinenessW": 4,
+      "genuinenessP": 3,
+      "usefulnessW": 4,
+      "usefulnessP": 3,
+      "noveltyW": 4,
+      "noveltyP": 3,
+      "nonDerailmentW": 6,
+      "nonDerailmentP": 6
+    },
+    {
+      "problemId": "q2",
+      "genuinenessW": 5,
+      "genuinenessP": 4,
+      "usefulnessW": 5,
+      "usefulnessP": 4,
+      "noveltyW": 5,
+      "noveltyP": 4,
+      "nonDerailmentW": 6,
+      "nonDerailmentP": 6
+    },
+    {
+      "problemId": "q3",
+      "genuinenessW": 6,
+      "genuinenessP": 5,
+      "usefulnessW": 6,
+      "usefulnessP": 5,
+      "noveltyW": 6,
+      "noveltyP": 5,
+      "nonDerailmentW": 6,
+      "nonDerailmentP": 6
+    }
+  ]
+}

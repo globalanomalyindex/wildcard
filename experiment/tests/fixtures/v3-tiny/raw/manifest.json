@@ -1,0 +1,9 @@
+[
+ {"outId":"W-q1","arm":"W","problemId":"q1","rep":1,"abstained":false},
+ {"outId":"P-q1","arm":"P","problemId":"q1","rep":1,"abstained":false},
+ {"outId":"W-q2","arm":"W","problemId":"q2","rep":1,"abstained":false},
+ {"outId":"P-q2","arm":"P","problemId":"q2","rep":1,"abstained":false},
+ {"outId":"W-q3","arm":"W","problemId":"q3","rep":1,"abstained":false},
+ {"outId":"P-q3","arm":"P","problemId":"q3","rep":1,"abstained":false},
+ {"outId":"P-q3b","arm":"P","problemId":"q3","rep":2,"abstained":true}
+]

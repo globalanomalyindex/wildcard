@@ -1,0 +1,126 @@
+{
+ "graders": [
+  {
+   "grader": "g1",
+   "grades": [
+    {
+     "id": "W-q1",
+     "genuineness": 4,
+     "usefulness": 4,
+     "novelty": 4,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q1",
+     "genuineness": 3,
+     "usefulness": 3,
+     "novelty": 3,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "W-q2",
+     "genuineness": 5,
+     "usefulness": 5,
+     "novelty": 5,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q2",
+     "genuineness": 4,
+     "usefulness": 4,
+     "novelty": 4,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "W-q3",
+     "genuineness": 6,
+     "usefulness": 6,
+     "novelty": 6,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q3",
+     "genuineness": 5,
+     "usefulness": 5,
+     "novelty": 5,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q3b",
+     "genuineness": 1,
+     "usefulness": 1,
+     "novelty": 1,
+     "nonDerailment": 6,
+     "fabrication": false
+    }
+   ]
+  },
+  {
+   "grader": "g2",
+   "grades": [
+    {
+     "id": "W-q1",
+     "genuineness": 4,
+     "usefulness": 4,
+     "novelty": 4,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q1",
+     "genuineness": 3,
+     "usefulness": 3,
+     "novelty": 3,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "W-q2",
+     "genuineness": 5,
+     "usefulness": 5,
+     "novelty": 5,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q2",
+     "genuineness": 4,
+     "usefulness": 4,
+     "novelty": 4,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "W-q3",
+     "genuineness": 6,
+     "usefulness": 6,
+     "novelty": 6,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q3",
+     "genuineness": 5,
+     "usefulness": 5,
+     "novelty": 5,
+     "nonDerailment": 6,
+     "fabrication": false
+    },
+    {
+     "id": "P-q3b",
+     "genuineness": 1,
+     "usefulness": 1,
+     "novelty": 1,
+     "nonDerailment": 6,
+     "fabrication": false
+    }
+   ]
+  }
+ ]
+}

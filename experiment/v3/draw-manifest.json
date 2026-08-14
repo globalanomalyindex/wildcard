@@ -1,0 +1,152 @@
+{
+  "p02-1": {
+    "mode": "specialist",
+    "domain": "horseshoe-crab bleeding for endotoxin LAL assay",
+    "lens": "energy-and-flow"
+  },
+  "p02-2": {
+    "mode": "concept",
+    "concept": "river delta",
+    "lens": "signals-and-noise"
+  },
+  "p02-3": {
+    "mode": "concept",
+    "concept": "quantum entanglement",
+    "lens": "constraints-and-limits"
+  },
+  "p47-1": {
+    "mode": "concept",
+    "concept": "substitution reaction",
+    "lens": "structure-and-form"
+  },
+  "p47-2": {
+    "mode": "specialist",
+    "domain": "cylinder-seal engraving narrative friezes into chalcedony",
+    "lens": "measurement"
+  },
+  "p47-3": {
+    "mode": "specialist",
+    "domain": "neonatal incubator humidity weaning of preemies",
+    "lens": "time-and-rhythm"
+  },
+  "p48-1": {
+    "mode": "specialist",
+    "domain": "fog-net water harvesting array tuning for arid coastal villages",
+    "lens": "energy-and-flow"
+  },
+  "p48-2": {
+    "mode": "concept",
+    "concept": "corrosion",
+    "lens": "signals-and-noise"
+  },
+  "p48-3": {
+    "mode": "concept",
+    "concept": "meiosis",
+    "lens": "constraints-and-limits"
+  },
+  "p32-1": {
+    "mode": "concept",
+    "concept": "photosynthesis",
+    "lens": "constraints-and-limits"
+  },
+  "p32-2": {
+    "mode": "specialist",
+    "domain": "chain-grinding and depth-gauge filing of saw cutters",
+    "lens": "failure-modes"
+  },
+  "p32-3": {
+    "mode": "specialist",
+    "domain": "gilder water-gilding picture frames with rabbit-skin size",
+    "lens": "energy-and-flow"
+  },
+  "p42-1": {
+    "mode": "concept",
+    "concept": "decentralization",
+    "lens": "signals-and-noise"
+  },
+  "p42-2": {
+    "mode": "specialist",
+    "domain": "wildlife forensic genotyping of poached ivory",
+    "lens": "energy-and-flow"
+  },
+  "p42-3": {
+    "mode": "specialist",
+    "domain": "guide-dog scent-discrimination puppy socializing",
+    "lens": "failure-modes"
+  },
+  "p37-1": {
+    "mode": "concept",
+    "concept": "embroidery",
+    "lens": "materials"
+  },
+  "p37-2": {
+    "mode": "specialist",
+    "domain": "toponymic gazetteer place-name standardization",
+    "lens": "time-and-rhythm"
+  },
+  "p37-3": {
+    "mode": "specialist",
+    "domain": "olive-press malaxation temperature minding for yield",
+    "lens": "measurement"
+  },
+  "p01-1": {
+    "mode": "specialist",
+    "domain": "coral micro-fragmenting for reef restoration nurseries",
+    "lens": "time-and-rhythm"
+  },
+  "p01-2": {
+    "mode": "concept",
+    "concept": "permutation",
+    "lens": "materials"
+  },
+  "p01-3": {
+    "mode": "concept",
+    "concept": "centripetal force",
+    "lens": "structure-and-form"
+  },
+  "p13-1": {
+    "mode": "specialist",
+    "domain": "cylinder-seal engraving narrative friezes into chalcedony",
+    "lens": "measurement"
+  },
+  "p13-2": {
+    "mode": "concept",
+    "concept": "calligraphy",
+    "lens": "structure-and-form"
+  },
+  "p13-3": {
+    "mode": "concept",
+    "concept": "telescope",
+    "lens": "materials"
+  },
+  "p16-1": {
+    "mode": "specialist",
+    "domain": "chain-grinding and depth-gauge filing of saw cutters",
+    "lens": "energy-and-flow"
+  },
+  "p16-2": {
+    "mode": "concept",
+    "concept": "topology",
+    "lens": "signals-and-noise"
+  },
+  "p16-3": {
+    "mode": "concept",
+    "concept": "camouflage",
+    "lens": "constraints-and-limits"
+  },
+  "p36-1": {
+    "mode": "specialist",
+    "domain": "varve chronology counting annual glacial-lake sediment couplets",
+    "lens": "measurement"
+  },
+  "p36-2": {
+    "mode": "concept",
+    "concept": "fern",
+    "lens": "structure-and-form"
+  },
+  "p36-3": {
+    "mode": "concept",
+    "concept": "charcoal",
+    "lens": "materials"
+  }
+}
