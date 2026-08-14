@@ -66,6 +66,27 @@ written into a committed pre-registration before any re-test output existed. the
 construction. that the number was named in advance and then confirmed on unseen problems, with the
 draws held identical, is what makes it evidence rather than anecdote.
 
+## the third study (the arm i had been missing)
+
+after two studies i went looking for the weakest point in my own argument. study 1 had a plain
+brainstorm arm with no wildcard at all, and that arm beat the wildcard on every quality scale.
+study 2 fixed the skill and showed the new version beats the old one, but both of its arms were
+wildcard versions, and its problems differ from study 1's, so the two cannot be subtracted.
+
+study 3 runs the missing arm. ten problems entropy-selected from the thirty neither prior study
+used, the master seed and the prediction and the decision rule all committed before collection,
+and, importantly, arm P reuses study 1's baseline prompt **word for word** rather than a fresh one
+i could have tuned to lose. the primary endpoint was novelty with a committed +0.30 bar, chosen
+because that is the scale carrying the project's actual claim, and flagged in the pre-registration
+as the prediction i was least confident in.
+
+it came in at **+0.72** (95% CI 0.22 to 1.21, exact wilcoxon p = 0.037), ahead on eight of ten
+problems, with the strongest inter-rater agreement of any scale across all three studies
+(alpha 0.78). genuineness came in a wash and usefulness a small cost, both reported. fabrication
+flags ran wildcard 0, plain brainstorm 6, which i did not predict and would not have thought to
+claim. the point of naming the endpoint, the threshold, and the losing condition in advance is that
+none of those three outcomes could be reinterpreted after the fact.
+
 ## what it does not guarantee (the honest residuals)
 
 the architecture removes the *procedural* failure modes. it does not make the graders right.

@@ -4,7 +4,7 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>wildcard - case study</title>
-  <meta name="description" content="an honest write-up of an experiment in seeding non-linear thinking in an LLM: the mechanism, a pre-registered blind three-arm study, a failure i fixed, and the reproducible numbers." />
+  <meta name="description" content="an honest write-up of an experiment in seeding non-linear thinking in an LLM: the mechanism, three pre-registered blind studies, a result that went against me, the fix, and the reproducible numbers." />
   <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%23eb8853'/%3E%3Ccircle cx='11' cy='12' r='4.5' fill='%23ced9f7'/%3E%3Ccircle cx='22' cy='20' r='6' fill='%23ced9f7'/%3E%3C/svg%3E" />
   <link rel="stylesheet" href="../css/tokens.css" />
   <style>
@@ -30,6 +30,10 @@
     code { font-size: 0.92em; }
     ul { max-width: 64ch; padding-left: 1.1em; }
     li { font-family: var(--font-body); font-size: clamp(16px, 1.5vw, 19px); line-height: 1.42; margin: 0.5em 0; }
+    .tablewrap { overflow-x: auto; margin: 1.2em 0; }
+    table { border-collapse: collapse; font-family: var(--font-body); font-size: clamp(14px, 1.3vw, 16px); min-width: 520px; }
+    th, td { text-align: left; padding: 7px 14px 7px 0; border-bottom: 1px solid var(--hair); }
+    th { font-weight: 400; color: var(--ink-soft); }
     .foot { margin-top: 10vh; font-family: var(--font-mono); font-size: 12px; color: var(--ink-soft); }
     .foot a { border-bottom: 1px solid var(--ink-soft); text-decoration: none; }
   </style>
@@ -49,6 +53,7 @@
     <p>i ran a pre-registered, blind, three-arm study to see if that works. the core claim held decisively: the model's own "random" picks collapse and sit right next to the problem, while the external draw is far more diverse and far less adjacent. the no-fabrication guarantee held too, under both AI and human grading.</p>
     <p>the stronger claim did not hold. the distant connections scored <em>lower</em> on judged genuineness, not higher, because reaching far costs the easy clean mapping. i report that plainly, and then i did something about it. i diagnosed the cause: the skill found the connection but never forced it to be <em>spent</em> into a concrete move in your own words. i rewrote the skill around that and re-tested on ten fresh problems.</p>
     <p>the new version beats the old by <strong>+0.81</strong> on genuineness and <strong>+0.84</strong> on usefulness, a gain i predicted in advance and confirmed out of sample, with zero new fabrication. i also caught the mechanism failing a different guarantee once, fixed it, and report that too.</p>
+    <p>then i noticed the hole in all of that. two studies in, i had never run the arm that answers the obvious question: is this better than just asking the model normally? so i ran it. on ten more fresh problems, the shipped skill beats a plain brainstorm on <strong>novelty by +0.72</strong> (p = 0.037), which is the claim the whole project rests on, and it does <strong>not</strong> beat it on usefulness or genuineness. it also fabricated nothing where the plain brainstorm fabricated six times. that is the real shape of the tool: it buys you distance, not polish.</p>
 
     <h2>the idea</h2>
     <p>human creativity leans on a faculty an on-task reasoner does not have. while you are not working on a problem, your mind wanders and recombines, and sometimes a distant memory pops in unbidden, the "aha". psychologists call the resting state the default mode network; wallas called the stages incubation and illumination; mednick framed creative cognition as reaching <em>remote associates</em>, distant nodes in your semantic web.</p>
@@ -100,6 +105,27 @@
     </ul>
     <p><strong>what it means.</strong> the loop closed. the first study found the mapping-gated wildcard's distant connections scoring below the model's own near picks; the fix, validated on problems it was never tuned against, lifts them back above that bar. distant <em>and</em> genuinely useful, measured rather than asserted. the strongest part is not the +0.81, it is where it came from: a number predicted in advance and confirmed out of sample, with the draws held identical, is a different kind of evidence than a number reported after the fact.</p>
     <p><strong>honest bounds.</strong> ten problems again, LLM graders again (moderate agreement, alpha around 0.6 on the quality scales), the same limits as the first study. the comparison is <em>within</em> the re-test, same problems and rubric and draws; the first study's numbers ran on different problems, so i compare the two skill versions to each other, not across studies.</p>
+
+    <h2 id="baseline">the arm i had not run: does it beat just asking?</h2>
+    <p>two studies in, i went looking for the weakest point in my own argument and found it fast. study 1 had three arms, and one of them was a plain brainstorm with no wildcard at all. <strong>that arm won.</strong> it scored 5.94 on genuineness against the wildcard's 5.27, 6.67 on usefulness against 5.67, and even 5.33 on novelty against 4.89. study 2 then fixed the skill and proved the new version beats the old one, but both of <em>its</em> arms were wildcard versions. the plain baseline was not in it.</p>
+    <p>so the question the whole project rests on had never actually been asked of the shipped skill. study 1 said the old skill lost to doing nothing. study 2 said the new skill beats the old one. the two ran on different problems, so i cannot subtract them and claim the gap is closed. i had to run the arm.</p>
+    <p><strong>the design.</strong> ten problems again, entropy-selected from the thirty in the pool that neither prior study touched, so this is out of sample for a third time. arm <strong>W</strong> is the skill exactly as it ships; arm <strong>P</strong> reuses study 1's baseline prompt <em>word for word</em>, because a baseline i wrote fresh for this study would be a strawman built to lose. three replicates each, subjects on Sonnet (<code>claude-sonnet-4-6</code>), normalization on Haiku (<code>claude-haiku-4-5</code>), four blind Opus (<code>claude-opus-5</code>) graders on study 1's rubric verbatim. master seed <code>7eb8abe05e8a13d2</code>, drawn from <code>/dev/urandom</code> and committed before a single output existed, along with the prediction and the decision rule.</p>
+    <p>the primary endpoint is <strong>novelty</strong>, because that is the scale that carries "wildcard makes output more creative", and i wrote down <strong>+0.30 or better</strong> as the bar. i also wrote down that i was not confident: study 1 had the baseline ahead on novelty, and study 2's fix had <em>lowered</em> novelty by 0.37 as the price of forcing seeds into concrete moves. a straight-line reading of my own prior data predicted i would lose this.</p>
+    <p><strong>the result: the prediction held.</strong></p>
+    <div class="tablewrap"><table>
+      <thead><tr><th>scale</th><th>wildcard</th><th>plain</th><th>difference</th><th>95% CI</th><th>exact wilcoxon p</th></tr></thead>
+      <tbody>
+        <tr><td><strong>novelty</strong> (primary)</td><td><strong>5.43</strong></td><td><strong>4.71</strong></td><td><strong>+0.72</strong></td><td>0.22 to 1.21</td><td><strong>0.037</strong></td></tr>
+        <tr><td>genuineness</td><td>5.21</td><td>5.44</td><td>-0.23</td><td>-0.55 to 0.07</td><td>0.31</td></tr>
+        <tr><td>usefulness</td><td>6.22</td><td>6.45</td><td>-0.23</td><td>-0.45 to -0.03</td><td>0.14</td></tr>
+        <tr><td>non-derailment</td><td>6.66</td><td>6.55</td><td>+0.11</td><td>0.01 to 0.23</td><td>0.10</td></tr>
+      </tbody>
+    </table></div>
+    <p>the novelty gain is not one lucky problem: the wildcard arm is ahead on <strong>eight of the ten</strong>, and inter-rater agreement on novelty was the strongest of any scale in any of the three studies (alpha 0.78). so the headline claim is now supported by an experiment designed to break it.</p>
+    <p><strong>and the rest is a wash or a small loss, which is the honest half.</strong> genuineness sits at -0.23 with a confidence interval straddling zero: no detectable difference. usefulness sits at -0.23 with an interval just clear of zero but a wilcoxon p of 0.14, which is the edge of what ten problems can resolve; i read it as a small real cost, not a proven one, and the plain brainstorm was ahead on six of ten problems there. non-derailment i will not claim at all, because the graders did not agree with each other on it (alpha -0.07), exactly as in study 1.</p>
+    <p><strong>the guard rail went the other way from what i expected.</strong> fabrication flags: <strong>wildcard 0, plain brainstorm 6</strong>. two of the plain outputs invented confident-sounding empirical claims, one of them flagged by all four graders for asserting that "hospitals discovered that most day-of surgery cancellations trace back to" a specific set of causes. the wildcard arm, which is the one carrying a foreign domain it has to be careful about, invented nothing across thirty outputs. i did not predict that and would not have thought to claim it.</p>
+    <p><strong>what this actually establishes.</strong> wildcard buys you <strong>distance</strong>, measurably: more novel angles than the model produces on its own, from a mechanism that provably reaches material the model would never pick (study 1's entropy result), without fabricating. what it does not buy you is a more useful or more structurally sound answer. if you want the single best actionable response to a problem, ask normally. if you are stuck in the obvious groove and want somewhere genuinely new to stand, that is what this is for, and now there is a number behind it instead of a story.</p>
+    <p><strong>honest bounds.</strong> ten problems, one vendor on both sides, LLM graders that study 1 showed to be blunt at the item level. usefulness agreement was weak here too (alpha 0.46), so that scale carries less weight than novelty's 0.78. and it measures the skill against one specific baseline prompt: a differently-worded baseline could land differently. every number regenerates with <code>node scripts/analyze_v3.mjs experiment/v3</code>.</p>
 
     <h2>the failure i am not hiding</h2>
     <p>a separate cold adversarial review tested the skill's three guarantees. on a three-timeline-novel problem, a drawn vellum-preparation expert produced genuinely strong structural matches but crossed a line on the <em>no-derailment</em> guarantee: two provocations told the writer their own question was wrong ("instead of asking x, ask y") and branded their method a failure ("x is what you do when you've failed"). that is the expert grading the user's work instead of offering a lens. the guarantee <strong>failed</strong> that run.</p>

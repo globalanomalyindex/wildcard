@@ -3,6 +3,11 @@
 // session in the case study. Kept lowercase by intent.
 export const FIGURES = [
   {
+    k: "vs just asking · the arm the first two studies never ran",
+    v: "the honest test: the shipped skill against a plain brainstorm with no wildcard, on <b>10</b> problems neither earlier study touched, baseline prompt reused verbatim so it is not a strawman. primary endpoint pre-registered as novelty with a <b>+0.30</b> bar. result: <b>+0.72</b> (95% CI 0.22 to 1.21, p=0.037), ahead on <b>8 of 10</b> problems. prediction met. the honest half: genuineness is a wash (-0.23, CI crosses zero) and usefulness a small cost (-0.23). fabrication flags: wildcard <b>0</b>, plain brainstorm <b>6</b>. it buys distance, not polish.",
+    cmd: "regenerate: node scripts/analyze_v3.mjs experiment/v3",
+  },
+  {
     k: "self-pick vs external draw · pre-registered blind study",
     v: "across <b>10</b> problems x <b>20</b> self-picks each, the model's own \"random unrelated expert\" averaged <b>1.48</b> bits of entropy vs the draw's <b>4.30</b>, and <b>47%</b> of self-picks were surface-adjacent to the problem vs <b>9%</b> for the draw. blind-graded by 4 graders across all <b>90</b> outputs, plus a human anchor on <b>15</b> of them: <b>0</b> fabrications either way. honestly, the distant connections scored <i>lower</i> on judged genuineness (delta -0.50, p=0.008), not higher: distance costs clean mapping. full writeup in the case study.",
     cmd: "regenerate: node scripts/analyze_experiment.mjs experiment",

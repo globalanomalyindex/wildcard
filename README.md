@@ -19,11 +19,14 @@ good.
 
 live site: https://globalanomalyindex.github.io/wildcard/
 
-and yes, i tested whether it actually works: a pre-registered, blind, three-arm study (the model's
-own "random" picks collapse and hug the problem; the external draw does not), an honest result that
-went against me at first, a diagnosis, a fix, and a re-test on fresh problems that confirmed the fix
-out of sample. the whole write-up, with every number regenerable, is the case study:
-https://globalanomalyindex.github.io/wildcard/case-study/
+and yes, i tested whether it actually works, three times. a pre-registered, blind, three-arm study
+(the model's own "random" picks collapse and hug the problem; the external draw does not), an honest
+result that went against me at first, a diagnosis, a fix, and a re-test on fresh problems that
+confirmed the fix out of sample. then the arm i had been missing: the shipped skill against a plain
+brainstorm with no wildcard at all. it wins on novelty by **+0.72** (p=0.037, ahead on 8 of 10
+problems), and it does not win on usefulness or genuineness. so it buys you distance, not polish,
+and that is the claim i make for it. the whole write-up, with every number regenerable, is the case
+study: https://globalanomalyindex.github.io/wildcard/case-study/
 
 ## install
 
@@ -106,7 +109,7 @@ plugin/                            # the installable plugin
   references/connecting.md         # the loose-to-genuine refinement protocol for concept mode
 tests/run_all.sh                   # full suite (draw, audits, real-pool diversity, experiment libs)
 site/                              # the landing page (globalanomalyindex.github.io/wildcard)
-experiment/                        # the pre-registered study + the seeding fix re-test (frozen data)
+experiment/                        # three pre-registered studies, frozen data (v3 = vs plain brainstorm)
 docs/                              # case study, methods colophon, design specs + plans
 ```
 
@@ -121,4 +124,5 @@ website's live draw byte-for-byte; entropy draws are rejection-sampled to exact 
 pools pass their breadth and safety audits; and many draws over the real pools stay widely varied
 with no dominance. ci gates the live-site deploy on this same suite, so the page can never ship a
 claim the mechanism fails. the experiment's numbers regenerate too: `node
-scripts/analyze_experiment.mjs experiment` and `node scripts/analyze_retest.mjs experiment/v2`.
+scripts/analyze_experiment.mjs experiment`, `node scripts/analyze_retest.mjs experiment/v2`, and
+`node scripts/analyze_v3.mjs experiment/v3`.

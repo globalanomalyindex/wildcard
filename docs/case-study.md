@@ -27,6 +27,13 @@ the new version beats the old by **+0.81** on genuineness and **+0.84** on usefu
 predicted in advance and confirmed out of sample, with zero new fabrication. i also caught the
 mechanism failing a different guarantee once, fixed it, and report that too.
 
+then i noticed the hole in all of that. two studies in, i had never run the arm that answers the
+obvious question: is this better than just asking the model normally? so i ran it. on ten more
+fresh problems, the shipped skill beats a plain brainstorm on **novelty by +0.72** (p = 0.037),
+which is the claim the whole project rests on, and it does **not** beat it on usefulness or
+genuineness. it also fabricated nothing where the plain brainstorm fabricated six times. that is
+the real shape of the tool: it buys you distance, not polish.
+
 ## the idea
 
 human creativity leans on a faculty an on-task reasoner does not have. while you are not
@@ -298,6 +305,74 @@ than a number reported after the fact.
 the quality scales), the same limits as the first study. the comparison is *within* the re-test,
 same problems and rubric and draws; the first study's numbers ran on different problems, so i
 compare the two skill versions to each other, not across studies.
+
+## the arm i had not run: does it beat just asking?
+
+two studies in, i went looking for the weakest point in my own argument and found it fast. study 1
+had three arms, and one of them was a plain brainstorm with no wildcard at all. **that arm won.**
+it scored 5.94 on genuineness against the wildcard's 5.27, 6.67 on usefulness against 5.67, and
+even 5.33 on novelty against 4.89. study 2 then fixed the skill and proved the new version beats
+the old one, but both of *its* arms were wildcard versions. the plain baseline was not in it.
+
+so the question the whole project rests on had never actually been asked of the shipped skill.
+study 1 said the old skill lost to doing nothing. study 2 said the new skill beats the old one. the
+two ran on different problems, so i cannot subtract them and claim the gap is closed. i had to run
+the arm.
+
+**the design.** ten problems again, entropy-selected from the thirty in the pool that neither prior
+study touched, so this is out of sample for a third time. arm **W** is the skill exactly as it
+ships; arm **P** reuses study 1's baseline prompt **word for word**, because a baseline i wrote
+fresh for this study would be a strawman built to lose. three replicates each, subjects on Sonnet
+(`claude-sonnet-4-6`), normalization on Haiku (`claude-haiku-4-5`), four blind Opus
+(`claude-opus-5`) graders on study 1's rubric verbatim. master seed `7eb8abe05e8a13d2`, drawn from
+`/dev/urandom` and committed before a single output existed, along with the prediction and the
+decision rule.
+
+the primary endpoint is **novelty**, because that is the scale that carries "wildcard makes output
+more creative", and i wrote down **+0.30 or better** as the bar. i also wrote down that i was not
+confident: study 1 had the baseline ahead on novelty, and study 2's fix had *lowered* novelty by
+0.37 as the price of forcing seeds into concrete moves. a straight-line reading of my own prior
+data predicted i would lose this.
+
+**the result: the prediction held.**
+
+| scale | wildcard | plain | difference | 95% CI | exact wilcoxon p |
+|---|---|---|---|---|---|
+| **novelty** (primary) | **5.43** | **4.71** | **+0.72** | 0.22 to 1.21 | **0.037** |
+| genuineness | 5.21 | 5.44 | -0.23 | -0.55 to 0.07 | 0.31 |
+| usefulness | 6.22 | 6.45 | -0.23 | -0.45 to -0.03 | 0.14 |
+| non-derailment | 6.66 | 6.55 | +0.11 | 0.01 to 0.23 | 0.10 |
+
+the novelty gain is not one lucky problem: the wildcard arm is ahead on **eight of the ten**, and
+inter-rater agreement on novelty was the strongest of any scale in any of the three studies
+(alpha 0.78). so the headline claim is now supported by an experiment designed to break it.
+
+**and the rest is a wash or a small loss, which is the honest half.** genuineness sits at -0.23
+with a confidence interval straddling zero: no detectable difference. usefulness sits at -0.23 with
+an interval just clear of zero but a wilcoxon p of 0.14, which is the edge of what ten problems can
+resolve; i read it as a small real cost, not a proven one, and the plain brainstorm was ahead on
+six of ten problems there. non-derailment i will not claim at all, because the graders did not
+agree with each other on it (alpha -0.07), exactly as in study 1.
+
+**the guard rail went the other way from what i expected.** fabrication flags: **wildcard 0, plain
+brainstorm 6**. two of the plain outputs invented confident-sounding empirical claims, one of them
+flagged by all four graders for asserting that "hospitals discovered that most day-of surgery
+cancellations trace back to" a specific set of causes. the wildcard arm, which is the one carrying
+a foreign domain it has to be careful about, invented nothing across thirty outputs. i did not
+predict that and would not have thought to claim it.
+
+**what this actually establishes.** wildcard buys you **distance**, measurably: more novel angles
+than the model produces on its own, from a mechanism that provably reaches material the model would
+never pick (study 1's entropy result), without fabricating. what it does not buy you is a more
+useful or more structurally sound answer. if you want the single best actionable response to a
+problem, ask normally. if you are stuck in the obvious groove and want somewhere genuinely new to
+stand, that is what this is for, and now there is a number behind it instead of a story.
+
+**honest bounds.** ten problems, one vendor on both sides, LLM graders that study 1 showed to be
+blunt at the item level. usefulness agreement was weak here too (alpha 0.46), so that scale carries
+less weight than novelty's 0.78. and it measures the skill against one specific baseline prompt: a
+differently-worded baseline could land differently. every number regenerates with
+`node scripts/analyze_v3.mjs experiment/v3`.
 
 ## the failure i am not hiding
 
