@@ -1,0 +1,52 @@
+[
+  {
+    "id": "p02",
+    "slice": "software and infrastructure engineering",
+    "text": "i operate three kubernetes clusters on eks that are two minor versions behind, and the oldest one hits end of support in ten weeks. about 60 workloads run there, owned by eight teams, and a handful still use deprecated apis that were removed in the next version. several stateful services use local persistent volumes pinned to specific nodes, which makes node replacement during upgrades risky. a previous upgrade attempt caused a 40-minute outage when a misconfigured admission webhook blocked pod scheduling cluster-wide. i have no staging cluster that mirrors production traffic, and the workload owners have little spare capacity this quarter."
+  },
+  {
+    "id": "p47",
+    "slice": "personal projects, learning, and life admin",
+    "text": "i have been researching my family tree for three years and i have hit a wall of my own making. i have 312 people in an ancestry tree, a gedcom export from my late uncle's computer, scanned church records in polish that i cannot read, and a shoebox of unlabeled photographs from the 1940s. the two trees disagree on my great-grandmother's birth year and i no longer remember which sources support which date. my subscription renews at 240 dollars next month, the relatives who could identify the photos are in their late eighties, and my notes are split between two notebooks and an abandoned word doc."
+  },
+  {
+    "id": "p48",
+    "slice": "personal projects, learning, and life admin",
+    "text": "i am moving to a new apartment across town in five weeks and the logistics keep multiplying. my current lease overlaps the new one by six days, which is also the only window the movers had available. i need to transfer electric and internet, but the new building only allows one specific isp with a three-week install backlog. my address is attached to roughly forty accounts, my car registration, my voter record, and a passport renewal currently in the mail to the old address. i work 9 to 6 with no flexibility and most offices i need to call keep the same hours i do."
+  },
+  {
+    "id": "p32",
+    "slice": "operations, logistics, and physical-world work",
+    "text": "i own a wholesale bakery that supplies 60 cafes with bread and pastries six days a week. everything moves through two deck ovens, and laminated doughs need the cold room during the same hours the bread needs proofing space. orders arrive by text and voicemail until 10 pm and the night shift starts mixing at 11, so late changes mean either waste or shortages. on saturdays we throw away roughly 8 percent of production while two cafes complain about shorted croissants. my head baker keeps the schedule in his head and he wants to cut back to four nights."
+  },
+  {
+    "id": "p42",
+    "slice": "personal projects, learning, and life admin",
+    "text": "i run a small home automation setup on a raspberry pi 4 in my closet: zigbee lights, a few temperature sensors, and automations i wrote in node-red two years ago. the sd card has corrupted twice this year, and each time i rebuild from memory because my only backup is a year-old disk image on my desktop. my partner is fed up because when the pi dies the bedroom lights stop responding to the wall switch entirely. i have maybe four hours a weekend for this and a growing suspicion that i no longer understand half the flows i wrote."
+  },
+  {
+    "id": "p37",
+    "slice": "operations, logistics, and physical-world work",
+    "text": "i run distribution for a seafood wholesaler moving fresh product from two coastal suppliers to 90 restaurants within 24 hours of landing. our reefer vans hold temperature fine on the road, but product sits on the receiving dock during the morning sort and we have logged excursions above 40 degrees three times this month. when a chef rejects a box i cannot trace which lot it came from without digging through paper invoices for an afternoon. anything unsold by day two gets discounted to a fish market at a loss, and the health inspector wants temperature records we mostly do not have."
+  },
+  {
+    "id": "p01",
+    "slice": "software and infrastructure engineering",
+    "text": "i run a postgres 13 instance backing a b2b saas product with about 900 gb of data. one append-heavy events table accounts for two thirds of the size, and queries that aggregate over the last 90 days have crept from 200 ms to 8 seconds over the past year. autovacuum falls behind during business hours, and the nightly reporting job now overlaps with the morning traffic peak in europe. we are on a managed provider, downtime windows are limited to sunday nights, and the application's orm generates most of the queries, so i can't easily hand-tune each one."
+  },
+  {
+    "id": "p13",
+    "slice": "product, ux, and visual design",
+    "text": "i design the dispatch screen for a trucking logistics platform. dispatchers monitor 80 to 200 active loads on dual 24-inch monitors and insist every load stay visible without scrolling, so the current table uses 11px type across 18 columns. new dispatchers take three months to read it fluently, and our two biggest customers have aging workforces complaining about eye strain. when i prototyped a roomier layout, veteran users revolted because hiding any column slows their exception-spotting. meanwhile sales demos this same screen to small fleets who find it terrifying and buy a competitor instead."
+  },
+  {
+    "id": "p16",
+    "slice": "product, ux, and visual design",
+    "text": "i'm a product manager on a nine-year-old project management tool with 60,000 paying teams. every acquisition and enterprise deal added a top-level nav item, and we're now at 13, plus a settings area with nine tabs that support says drives a quarter of all tickets. nps verbatims keep saying 'bloated' and 'can't find anything,' yet usage logs show every nav item has at least one large account using it daily. the last time we moved a menu item, three enterprise customers escalated to their account reps within a week. churn among new self-serve signups is creeping up every quarter."
+  },
+  {
+    "id": "p36",
+    "slice": "operations, logistics, and physical-world work",
+    "text": "i coordinate home delivery for a furniture retailer running about 70 stops a day with eight two-person crews. roughly one in ten deliveries fails because the customer is not home, the sofa will not fit the stairwell, or the freight elevator was never reserved, and every failure costs a return trip plus warehouse re-handling. crews self-route from a printed manifest, so afternoon stops routinely miss their four-hour windows and complaints spike after 2 pm. damage claims run 3 percent of deliveries, mostly stairwell scuffs we cannot prove either way. on peak weekends we rent extra trucks but cannot find vetted second crew members."
+  }
+]
