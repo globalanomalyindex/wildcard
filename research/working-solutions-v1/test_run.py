@@ -1,10 +1,94 @@
+"""Collector boundaries tested with synthetic transport output, never model calls."""
+import contextlib
 import json
 from pathlib import Path
 import subprocess
 import tempfile
 import unittest
 from unittest.mock import patch
+
 import run
+
+class CollectorTests(unittest.TestCase):
+    def request(self):
+        prompt='Synthetic transport test only'
+        return {'id':'unit-D-initial','taskId':'unit','arm':'D','phase':'initial','model':'test-alias','prompt':prompt,'promptSHA256':run.sha(prompt.encode())}
+
+    def events(self,text='invalid-json'):
+        return ('\n'.join(json.dumps(x) for x in [{'type':'item.completed','item':{'type':'agent_message','text':text}},{'type':'turn.completed','usage':{'input_tokens':3,'output_tokens':2}}])+'\n').encode()
+
+    def test_nondict_events_and_items_are_counted_without_crashing(self):
+        parsed=run.parse_events('null\n[]\n{"type":"item.completed","item":null}\n'+self.events().decode())
+        self.assertEqual(parsed['malformedEventLines'],3)
+        self.assertTrue(parsed['completed'])
+        self.assertEqual(parsed['text'],'invalid-json')
+
+    @contextlib.contextmanager
+    def transport(self,responses):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)/'repository';root.mkdir()
+            target=root/'run';target.mkdir()
+            def fake_run(*args,**kwargs):
+                item=responses.pop(0)
+                if isinstance(item,Exception):raise item
+                return subprocess.CompletedProcess(args[0],item[0],item[1],item[2])
+            with patch.object(run,'ROOT',root),patch.object(run.shutil,'which',return_value='/test/codex'),patch.object(run.subprocess,'run',side_effect=fake_run),patch.object(run.subprocess,'check_output',return_value='codex test-version\n'):
+                yield target
+
+    def test_completed_nonzero_exit_is_preserved_and_never_retried(self):
+        raw=self.events()
+        with self.transport([(1,raw,b'cleanup failed')]) as target:
+            result=run.acquire(self.request(),target)
+            folder=target/'calls'/'unit-D-initial'
+            record=run.read(folder/'record.json')
+            self.assertEqual(result[1],'acquisition_error')
+            self.assertEqual(len(record['attempts']),1)
+            self.assertEqual((folder/'attempt-1.events.jsonl').read_bytes(),raw)
+            self.assertEqual((folder/'response.txt').read_text(),'invalid-json')
+            with self.assertRaises(ValueError):run.record_for(target,self.request())
+
+    def test_partial_utf8_timeout_is_saved_then_transport_retry_is_recorded(self):
+        partial=b'\xe2\x82';complete=self.events()
+        timeout=subprocess.TimeoutExpired('codex',300,output=partial,stderr=b'\xff')
+        with self.transport([timeout,(0,complete,b'')]) as target:
+            result=run.acquire(self.request(),target)
+            folder=target/'calls'/'unit-D-initial';record=run.read(folder/'record.json')
+            self.assertEqual(result[1],'validation_error')
+            self.assertEqual(len(record['attempts']),2)
+            self.assertEqual((folder/'attempt-1.events.jsonl').read_bytes(),partial)
+            self.assertEqual((folder/'attempt-1.stderr.txt').read_bytes(),b'\xff')
+            self.assertEqual(record['attempts'][0]['eventsSHA256'],run.sha(partial))
+            self.assertEqual(run.record_for(target,self.request())['status'],'validation_error')
+
+    def test_completed_invalid_json_is_not_retried(self):
+        with self.transport([(0,self.events(),b'')]) as target:
+            run.acquire(self.request(),target)
+            record=run.record_for(target,self.request())
+            self.assertEqual(record['status'],'validation_error')
+            self.assertEqual(len(record['attempts']),1)
+
+    def test_request_sidecar_and_orphan_attempt_are_rejected(self):
+        with self.transport([(0,self.events(),b'')]) as target:
+            request=self.request();run.acquire(request,target)
+            folder=target/'calls'/request['id'];sidecar=folder/'request.json'
+            original=sidecar.read_text();changed=json.loads(original);changed['prompt']='altered';sidecar.write_text(json.dumps(changed))
+            with self.assertRaises(ValueError):run.record_for(target,request)
+            sidecar.write_text(original)
+            (folder/'attempt-2.events.jsonl').write_text('unlisted')
+            with self.assertRaises(ValueError):run.record_for(target,request)
+
+    def test_closed_phases_prevent_new_acquisition(self):
+        for marker in ('final-manifest.json','final-program-seal.json','hidden-corpus.json'):
+            with self.transport([]) as target:
+                (target/marker).write_text('{}')
+                with self.subTest(marker=marker),self.assertRaises(ValueError):run.acquire(self.request(),target)
+
+    def test_inventory_rejects_untracked_artifact_before_network_check(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root=Path(directory)
+            subprocess.run(['git','init','-q',str(root)],check=True)
+            path=root/'raw.json';path.write_text('{}')
+            with patch.object(run,'ROOT',root),self.assertRaises(ValueError):run.require_inventory_published([path])
 
 class CollectionTests(unittest.TestCase):
     def test_transport_parser_flags_tool_use(self):
@@ -60,5 +144,6 @@ class CollectionTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as folder:
             path=Path(folder)/'record.json';run.write_new(path,{'a':1});run.write_new(path,{'a':1})
             with self.assertRaises(ValueError):run.write_new(path,{'a':2})
+
 
 if __name__=='__main__':unittest.main()

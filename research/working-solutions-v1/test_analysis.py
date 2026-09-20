@@ -100,6 +100,7 @@ class AnalysisTests(unittest.TestCase):
                 target=base/'runs'/'development-1';manifest=run.read(target/'manifest.json')
                 def delivered_invalid(request):
                     destination=target/'calls'/request['id'];destination.mkdir(parents=True)
+                    run.write_new(destination/'request.json',request)
                     text='invalid-json'
                     events='\n'.join(json.dumps(x) for x in [{'type':'item.completed','item':{'type':'agent_message','text':text}},{'type':'turn.completed','usage':{'input_tokens':10,'output_tokens':2}}])+'\n'
                     attempt={'number':1,'exitCode':0,'elapsedSeconds':1.0,'usage':{'input_tokens':10,'output_tokens':2},'completed':True,'toolViolation':False,'malformedEventLines':0,'eventsSHA256':run.sha(events.encode()),'stderrSHA256':run.sha(b'')}
@@ -134,6 +135,15 @@ class AnalysisTests(unittest.TestCase):
             self.assertEqual(data['acquisition']['attempts'],48)
             self.assertEqual(data['acquisition']['reportedUsageTotals']['input_tokens'],480)
             self.assertTrue(all(row['arms']['R']['passCount']==0 for row in data['perTask']))
+            # Rehashed prompt changes still fail reconstruction from frozen material.
+            import run
+            for filename,verifier in [('manifest.json',lambda:run.verify_manifest(target)),('final-manifest.json',lambda:run.final_requests(target,run.read(target/'manifest.json')))]:
+                path=target/filename;original=path.read_text();value=json.loads(original)
+                value['requests'][0]['prompt']+='\nUNREGISTERED INFORMATION'
+                value['requests'][0]['promptSHA256']=run.sha(value['requests'][0]['prompt'].encode())
+                path.write_text(json.dumps(value))
+                with self.assertRaises(ValueError):verifier()
+                path.write_text(original)
             execution=next((target/'execution').glob('*.json'))
             raw=next((target/'calls').glob('*/attempt-1.events.jsonl'))
             for path,mutate in [(execution,lambda value:value['cases'].pop()),(target/'hidden-corpus.json',lambda value:value['cases'][0]['input']['config'].update({'unexpected':1})),(target/'final-program-seal.json',lambda value:value.update({'manifestSHA256':'wrong'}))]:
@@ -144,7 +154,12 @@ class AnalysisTests(unittest.TestCase):
             with self.assertRaises((ValueError,FileNotFoundError)):module.load_dataset(target)
             raw.write_text(original)
             # A prospective source revision must dispatch to the old full snapshot.
+            run.write_new(target/'results.json',module.analyze_dataset(data))
             current=target.parent.parent/'js_worker.py';current.write_text(current.read_text()+'\n# new prospective version\n')
+            with patch.object(run,'require_inventory_published'):
+                calibration,binding=run.verified_calibration(target)
+            self.assertFalse(calibration['developmentGate']['readyForMain'])
+            self.assertEqual(binding['resultsSHA256'],run.sha((target/'results.json').read_bytes()))
             import sys
             proc=subprocess.run([sys.executable,str(target.parent.parent/'analysis.py'),'--run-dir',str(target),'--validate-only'],capture_output=True,text=True)
             self.assertEqual(proc.returncode,0,proc.stderr)

@@ -105,7 +105,7 @@ def verify_record(target,request):
     for i,attempt in enumerate(attempts):
         number=attempt['number']
         require(digest(run.read(destination/f'attempt-{number}.json'))==digest(attempt),'Attempt sidecar differs from record')
-        observed=run.parse_events((destination/f'attempt-{number}.events.jsonl').read_text())
+        observed=run.parse_events((destination/f'attempt-{number}.events.jsonl').read_bytes())
         for key in ('usage','completed','toolViolation','malformedEventLines'):
             require(digest(observed[key])==digest(attempt.get(key)),'Attempt metadata differs from raw events: '+key)
         require(not observed['toolViolation'],'Tool-policy violation prevents analysis')
@@ -231,7 +231,7 @@ def main():
         require(frozen.exists() and frozen.resolve()!=Path(__file__).resolve(),'Frozen analysis implementation is missing or changed')
         for name,expected in manifest['sourceSHA256'].items():require(run.sha((target/'frozen-source'/name).read_bytes())==expected,'Frozen source changed: '+name)
         flags=['--check'] if args.check else ['--validate-only'] if args.validate_only else []
-        result=subprocess.run([sys.executable,str(frozen),'--run-dir',str(target),*flags],check=False)
+        result=subprocess.run([sys.executable,'-B',str(frozen),'--run-dir',str(target),*flags],check=False)
         raise SystemExit(result.returncode)
     data=load_dataset(target)
     if args.validate_only:
