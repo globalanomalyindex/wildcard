@@ -1,0 +1,79 @@
+{
+  "checkedOn": "2026-09-20",
+  "host": "Claude Code 2.1.228 on macOS",
+  "source": "Local worktree under a new isolated CLAUDE_CONFIG_DIR; normal profile unchanged",
+  "initialChecks": {
+    "marketplaceValidation": "passed",
+    "pluginValidation": "passed",
+    "marketplaceAdd": "passed",
+    "install": "passed",
+    "recognizedSkills": [
+      "wildcard"
+    ],
+    "version": "2.0.0"
+  },
+  "results": [
+    {
+      "command": [
+        "bash",
+        "$ISOLATED_PROFILE/config/plugins/cache/globalanomalyindex/wildcard/2.0.0/scripts/draw.sh",
+        "--seed",
+        "clean-install-2026-09-20",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schemaVersion\": 2,\n  \"sampler\": \"sha256-counter-v2\",\n  \"seedEncoding\": \"utf-8\",\n  \"seed\": \"clean-install-2026-09-20\",\n  \"corpusVersion\": \"corpus-v2-2026-09-20\",\n  \"corpusSha256\": \"acd7a92dd154ca5ba93d8e7939e4c6331eb1a8dfeaf461bf456a85608ed56388\",\n  \"lensVersion\": \"lenses-v1\",\n  \"modePolicy\": \"equal-mode\",\n  \"modeForced\": false,\n  \"mode\": \"specialist\",\n  \"key\": \"domain\",\n  \"entryId\": \"specialist-cec26cb47ad204ac2536e577\",\n  \"entryIndex\": 176,\n  \"value\": \"manuscript illumination laying burnished gold leaf on gesso\",\n  \"lens\": \"materials\",\n  \"lensIndex\": 1\n}\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "claude",
+        "plugin",
+        "update",
+        "wildcard@globalanomalyindex"
+      ],
+      "returncode": 0,
+      "stdout": "Checking for updates for plugin \"wildcard@globalanomalyindex\" at user scope\u2026\n\u2714 wildcard is already at the latest version (2.0.0).\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "claude",
+        "plugin",
+        "uninstall",
+        "wildcard@globalanomalyindex"
+      ],
+      "returncode": 0,
+      "stdout": "\u2714 Successfully uninstalled plugin: wildcard (scope: user)\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "claude",
+        "plugin",
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "claude",
+        "plugin",
+        "marketplace",
+        "remove",
+        "globalanomalyindex"
+      ],
+      "returncode": 0,
+      "stdout": "\u2714 Successfully removed marketplace: globalanomalyindex\n",
+      "stderr": ""
+    }
+  ],
+  "limits": [
+    "Local marketplace source, not a fresh GitHub download",
+    "Plugin update reported already at latest version, not a version migration",
+    "Model invocation not tested: this Claude account is not signed in"
+  ]
+}

@@ -45,7 +45,7 @@ jobs:
         run: |
           npx --yes --package=@playwright/cli@0.1.21 playwright-cli install-browser chromium --with-deps
           npx --yes --package=@playwright/cli@0.1.21 playwright-cli install-browser firefox --with-deps
-          npx --yes --package=@playwright/cli@0.1.21 playwright-cli install-browser webkit --with-deps
+          npx --yes --package=playwright@1.63.0 playwright install webkit --with-deps
       - name: Browser security, interaction and layout regressions
         run: python3 scripts/test-browser.py --browsers chromium firefox webkit
       - name: Keep browser evidence
