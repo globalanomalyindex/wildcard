@@ -1,0 +1,168 @@
+{
+  "initialRecordSHA256": "4ac608fa575ecf01b0bb777625e11837c40d4f3974d2b3822163399641dc3a12",
+  "firstShown": {
+    "explanation": "Stable IDs determine retention and navigation. Disabled entries are never valid active or selected values; edits preserve valid identities while re-evaluating order.",
+    "mapping": "The controller state maps active and selected IDs to the current enabled option set. Keyboard navigation maps to enabled-option order, and edits map by ID rather than index.",
+    "assumptions": "Invalid clicks are no-ops. Unknown event types are no-ops. The supplied option IDs are unique as specified.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var o=input.config.options||[],a=null,s=null;function en(x,id){for(var i=0;i<x.length;i++)if(x[i].id===id)return !x[i].disabled;return false}function first(x,rev){for(var i=rev?x.length-1:0;rev?i>=0:i<x.length;rev?i--:i++)if(!x[i].disabled)return x[i].id;return null}a=first(o,false);for(var k=0;k<input.events.length;k++){var e=input.events[k];if(e.type==='options'){o=e.options||[];if(!en(o,a))a=first(o,false);if(!en(o,s))s=null}else if(e.type==='click'){if(en(o,e.id)){a=e.id;s=e.id}}else if(e.type==='key'){var z=[];for(var i=0;i<o.length;i++)if(!o[i].disabled)z.push(o[i].id);if(!z.length){a=s=null}else if(e.key==='Home')a=z[0];else if(e.key==='End')a=z[z.length-1];else if(e.key==='Enter'){if(en(o,a))s=a}else if(e.key==='ArrowDown'||e.key==='ArrowUp'){var q=z.indexOf(a);if(q<0)q=0;else q=(q+(e.key==='ArrowDown'?1:-1)+z.length)%z.length;a=z[q]}}var r=output[k];if(!r||Object.keys(r).length!==2||r.active!==a||r.selected!==s)return false}return true}",
+    "program": "function solve({config,state,event}){var o=state?state.o:(config.options||[]),a=state?state.a:null,s=state?state.s:null;function valid(id){for(var i=0;i<o.length;i++)if(o[i].id===id)return !o[i].disabled;return false}function pick(last){for(var i=last?o.length-1:0;last?i>=0:i<o.length;last?i--:i++)if(!o[i].disabled)return o[i].id;return null}if(!state)a=pick(false);if(event.type==='options'){o=event.options||[];if(!valid(a))a=pick(false);if(!valid(s))s=null}else if(event.type==='click'){if(valid(event.id)){a=event.id;s=event.id}}else if(event.type==='key'){var z=[];for(var i=0;i<o.length;i++)if(!o[i].disabled)z.push(o[i].id);if(!z.length){a=null;s=null}else if(event.key==='Home')a=z[0];else if(event.key==='End')a=z[z.length-1];else if(event.key==='Enter'){if(valid(a))s=a}else if(event.key==='ArrowDown'||event.key==='ArrowUp'){var q=z.indexOf(a);if(q<0)q=0;else q=(q+(event.key==='ArrowDown'?1:-1)+z.length)%z.length;a=z[q]}}return {state:{o:o,a:a,s:s},output:{active:a,selected:s}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v158088_2",
+            "selected": null
+          },
+          {
+            "active": "v158088_2",
+            "selected": "v158088_2"
+          },
+          {
+            "active": "v158088_2",
+            "selected": "v158088_2"
+          },
+          {
+            "active": "v065683_0",
+            "selected": "v158088_2"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v849370_2",
+            "selected": null
+          },
+          {
+            "active": "v849370_2",
+            "selected": "v849370_2"
+          },
+          {
+            "active": "v849370_2",
+            "selected": "v849370_2"
+          },
+          {
+            "active": "v985834_0",
+            "selected": "v849370_2"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v978476_2",
+            "selected": null
+          },
+          {
+            "active": "v097175_0",
+            "selected": null
+          },
+          {
+            "active": "v097175_0",
+            "selected": "v097175_0"
+          },
+          {
+            "active": "v097175_0",
+            "selected": "v097175_0"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v369979_2",
+            "selected": null
+          },
+          {
+            "active": null,
+            "selected": null
+          },
+          {
+            "active": "v984949_3",
+            "selected": null
+          },
+          {
+            "active": "v984949_3",
+            "selected": "v984949_3"
+          }
+        ]
+      }
+    ]
+  }
+}

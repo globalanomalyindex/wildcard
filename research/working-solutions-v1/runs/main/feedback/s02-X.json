@@ -1,0 +1,215 @@
+{
+  "initialRecordSHA256": "725730ba21fc7fe2f03b240198915520e3338d5d66c117dcecc7b60fccf60c93",
+  "firstShown": {
+    "explanation": "For each key, retain the lexicographically greatest record by (version, deletion flag, actor, value). A deletion is therefore a durable tombstone until replaced by a strictly greater record. Reprocessing any record is harmless, and delivery order converges.",
+    "mapping": "The optional seed-bank analogy maps to retaining a recoverable reserve: records are retained, deletions preserve identity as tombstones, and duplicate deliveries correspond to duplicate holdings. The analogy does not override the specified tuple ordering or output format.",
+    "assumptions": "Inputs satisfy the published event and numeric limits. State is returned only to the same host and is not externally modified. JavaScript strings are compared by Unicode code points explicitly, rather than UTF-16 code units.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let m={},cp=s=>Array.from(s),cmp=(a,b)=>{for(let i=0;i<4;i++){if(i===1){if(a[i]!==b[i])return a[i]-b[i]}else if(i===0){if(a[i]!==b[i])return a[i]-b[i]}else{let x=cp(a[i]),y=cp(b[i]),n=Math.min(x.length,y.length);for(let j=0;j<n;j++)if(x[j]!==y[j])return x[j]<y[j]?-1:1;if(x.length!==y.length)return x.length-y.length}}return 0};for(let i=0;i<input.events.length;i++){let e=input.events[i],r=[e.version,e.deleted?1:0,e.actor,e.value];if(!m[e.key]||cmp(r,m[e.key])>0)m[e.key]=r;let v={},t=[];for(let k in m)if(m[k][1])t.push(k);else v[k]=m[k][3];t.sort((a,b)=>{let x=cp(a),y=cp(b),n=Math.min(x.length,y.length);for(let j=0;j<n;j++)if(x[j]!==y[j])return x[j]<y[j]?-1:1;return x.length-y.length});if(JSON.stringify(output[i])!==JSON.stringify({visible:v,tombstones:t}))return false}return true}",
+    "program": "function solve({config,state,event}){let r=state&&state.r?state.r:{};let e=event,k=e.key,n=[e.version,e.deleted?1:0,e.actor,e.value],a=r[k],cp=s=>Array.from(s),sc=(x,y)=>{let u=cp(x),v=cp(y),z=Math.min(u.length,v.length);for(let i=0;i<z;i++)if(u[i]!==v[i])return u[i]<v[i]?-1:1;return u.length-v.length},gt=(x,y)=>x[0]!==y[0]?x[0]>y[0]:x[1]!==y[1]?x[1]>y[1]:sc(x[2],y[2])||sc(x[3],y[3]);if(!a||gt(n,a))r[k]=n;let visible={},tombstones=[];for(let q in r)if(r[q][1])tombstones.push(q);else visible[q]=r[q][3];tombstones.sort(sc);return{state:{r:r},output:{visible:visible,tombstones:tombstones}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {
+              "v053246_0": "v971023_2"
+            },
+            "tombstones": []
+          },
+          {
+            "visible": {},
+            "tombstones": [
+              "v053246_0"
+            ]
+          },
+          {
+            "visible": {
+              "v524226_4": "v637751_6"
+            },
+            "tombstones": [
+              "v053246_0"
+            ]
+          },
+          {
+            "visible": {
+              "v524226_4": "v637751_6"
+            },
+            "tombstones": [
+              "v053246_0",
+              "v523828_7"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {
+              "v433009_0": "v792729_2"
+            },
+            "tombstones": []
+          },
+          {
+            "visible": {
+              "v433009_0": "v678678_4"
+            },
+            "tombstones": []
+          },
+          {
+            "visible": {},
+            "tombstones": [
+              "v433009_0"
+            ]
+          },
+          {
+            "visible": {},
+            "tombstones": [
+              "v433009_0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {},
+            "tombstones": [
+              "v551662_0"
+            ]
+          },
+          {
+            "visible": {
+              "v577227_2": "v980665_4"
+            },
+            "tombstones": [
+              "v551662_0"
+            ]
+          },
+          {
+            "visible": {
+              "v577227_2": "v760470_5"
+            },
+            "tombstones": [
+              "v551662_0"
+            ]
+          },
+          {
+            "visible": {
+              "v577227_2": "v760470_5",
+              "v408047_6": "v040241_8"
+            },
+            "tombstones": [
+              "v551662_0"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {},
+            "tombstones": [
+              "v899598_0"
+            ]
+          },
+          {
+            "visible": {},
+            "tombstones": [
+              "v899598_0"
+            ]
+          },
+          {
+            "visible": {},
+            "tombstones": [
+              "v899598_0",
+              "v909760_4"
+            ]
+          },
+          {
+            "visible": {},
+            "tombstones": [
+              "v262016_6",
+              "v899598_0",
+              "v909760_4"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

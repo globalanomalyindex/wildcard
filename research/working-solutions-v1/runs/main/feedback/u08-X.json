@@ -1,0 +1,165 @@
+{
+  "initialRecordSHA256": "e9cbd019fbd1c04e24c64e462f1da4cbb28b3ef4861d0b7373fb5869909872f6",
+  "firstShown": {
+    "explanation": "Maintain the current ordered view, selected IDs, and anchor. Views filter selection and invalidate unavailable anchors. Clicks use enabled IDs only; shift ranges follow the current view and skip disabled entries, while ctrl+shift unions.",
+    "mapping": "The optional rule maps ordered options to the current view, selected to retained identities, and anchor to the range-selection endpoint. The seed-banking analogy is not transferred because this task concerns interactive selection, not preservation or viability.",
+    "assumptions": "IDs are unique nonempty ASCII strings as specified. JavaScript string ordering is sufficient for the required lexicographic ID ordering.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)&&!!input.config&&Array.isArray(input.config.options)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var o=input.config.options.map(function(x){return {id:x.id,disabled:!!x.disabled}}),s=[],a=null;function valid(id){for(var i=0;i<o.length;i++)if(o[i].id===id)return !o[i].disabled;return false}function clean(){s=s.filter(valid);if(a!==null&&!valid(a))a=null}function result(){return {selected:s.slice().sort(),anchor:a}}for(var k=0;k<input.events.length;k++){var e=input.events[k];if(e.type==='view'){o=(e.options||[]).map(function(x){return {id:x.id,disabled:!!x.disabled}});clean()}else if(e.type==='click'&&valid(e.id)){if(!e.shift){if(e.ctrl){var q=s.indexOf(e.id);if(q<0)s.push(e.id);else s.splice(q,1);a=e.id}else{s=[e.id];a=e.id}}else{var start=a;if(start===null||!valid(start)){start=e.id;a=e.id}var i=-1,j=-1;for(var z=0;z<o.length;z++){if(!o[z].disabled&&o[z].id===start)i=z;if(!o[z].disabled&&o[z].id===e.id)j=z}var lo=Math.min(i,j),hi=Math.max(i,j),r=[];for(z=lo;z<=hi;z++)if(!o[z].disabled)r.push(o[z].id);if(e.ctrl)s=s.concat(r.filter(function(x){return s.indexOf(x)<0}));else s=r}}var got=output[k],want=result();if(!got||got.anchor!==want.anchor||JSON.stringify(got.selected)!==JSON.stringify(want.selected)||Object.keys(got).length!==2||Object.keys(got).some(function(x){return x!=='selected'&&x!=='anchor'}))return false}return true}",
+    "program": "function solve(x){var st=x.state,e=x.event;if(st===null){st={o:x.config.options.map(function(q){return{id:q.id,d:!!q.disabled}}),s:[],a:null}}function ok(id){for(var i=0;i<st.o.length;i++)if(st.o[i].id===id)return !st.o[i].d;return false}function clean(){st.s=st.s.filter(ok);if(st.a!==null&&!ok(st.a))st.a=null}if(e.type==='view'){st.o=e.options.map(function(q){return{id:q.id,d:!!q.disabled}});clean()}else if(e.type==='click'&&ok(e.id)){if(!e.shift){if(e.ctrl){var n=st.s.indexOf(e.id);if(n<0)st.s.push(e.id);else st.s.splice(n,1);st.a=e.id}else{st.s=[e.id];st.a=e.id}}else{var base=st.a;if(base===null||!ok(base)){base=e.id;st.a=e.id}var i=-1,j=-1,z;for(z=0;z<st.o.length;z++){if(!st.o[z].d&&st.o[z].id===base)i=z;if(!st.o[z].d&&st.o[z].id===e.id)j=z}var lo=Math.min(i,j),hi=Math.max(i,j),r=[];for(z=lo;z<=hi;z++)if(!st.o[z].d)r.push(st.o[z].id);if(e.ctrl)for(z=0;z<r.length;z++)if(st.s.indexOf(r[z])<0)st.s.push(r[z]);else st.s=r}}var out={selected:st.s.slice().sort(),anchor:st.a};return{state:st,output:out}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_1_contract",
+          "event_2_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": "v030387_0"
+          },
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": "v030387_0"
+          },
+          {
+            "selected": [
+              "v030387_0",
+              "v585619_2"
+            ],
+            "anchor": "v585619_2"
+          },
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_1_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v217284_0"
+            ],
+            "anchor": "v217284_0"
+          },
+          {
+            "selected": [
+              "v217284_0"
+            ],
+            "anchor": "v217284_0"
+          },
+          {
+            "selected": [],
+            "anchor": null
+          },
+          {
+            "selected": [],
+            "anchor": null
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_2_contract",
+          "event_3_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v544284_3"
+            ],
+            "anchor": "v544284_3"
+          },
+          {
+            "selected": [
+              "v488561_0"
+            ],
+            "anchor": "v488561_0"
+          },
+          {
+            "selected": [
+              "v488561_0"
+            ],
+            "anchor": "v488561_0"
+          },
+          {
+            "selected": [
+              "v488561_0"
+            ],
+            "anchor": "v488561_0"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_1_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v338074_0"
+            ],
+            "anchor": "v338074_0"
+          },
+          {
+            "selected": [
+              "v338074_0"
+            ],
+            "anchor": "v338074_0"
+          },
+          {
+            "selected": [
+              "v322425_2"
+            ],
+            "anchor": "v322425_2"
+          },
+          {
+            "selected": [
+              "v322425_2"
+            ],
+            "anchor": "v322425_2"
+          }
+        ]
+      }
+    ]
+  }
+}

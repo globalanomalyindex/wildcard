@@ -1,0 +1,230 @@
+{
+  "initialRecordSHA256": "75ed18b1b3227f3847be33ccabf9481dd3183b67657777e76aa2281549552b76",
+  "firstShown": {
+    "explanation": "The conditional rule is: retain snapshots in insertion order, replace an existing ID before appending it, cap retention to the newest keep entries, and restore the newest retained snapshot whose stored checksum matches its recomputed checksum. A counterexample to choosing the newest snapshot unconditionally is p1: damaged b must be skipped so a is restored.",
+    "mapping": "config.keep maps to retention capacity; each snapshot maps to {id,data,checksum}; event operations map to ordered state transitions; restore maps to reverse validation and copying.",
+    "assumptions": "Inputs satisfy the stated numeric, event, and capacity constraints. State is internally represented as a snapshot array. Damage mutates only data and never the stored checksum.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.events.length<=48&&input.config&&Number.isInteger(input.config.keep)&&input.config.keep>=1}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false; for(const x of output){if(!x||!Array.isArray(x.retained)||!Object.prototype.hasOwnProperty.call(x,'data')||!Object.prototype.hasOwnProperty.call(x,'chosen'))return false} return true}",
+    "program": "function solve({config,state,event}) {\n  let s = Array.isArray(state) ? state : [];\n  const copy = a => a.slice();\n  const sum = a => { let n=0; for(let i=0;i<a.length;i++) n=(n+(i+1)*a[i])%251; return n; };\n  const type = event && event.type;\n  if(type === 'save') {\n    const id=event.id;\n    let k=s.findIndex(x=>x.id===id);\n    if(k>=0) s.splice(k,1);\n    s.push({id:id,data:copy(event.data),checksum:event.checksum});\n    while(s.length>config.keep) s.shift();\n  } else if(type === 'damage') {\n    const x=s.find(x=>x.id===event.id);\n    if(x && Number.isInteger(event.index) && event.index>=0 && event.index<x.data.length) x.data[event.index]=event.value;\n  } else if(type === 'drop') {\n    const k=s.findIndex(x=>x.id===event.id);\n    if(k>=0) s.splice(k,1);\n  } else if(type === 'restore') {}\n  let data=null, chosen=null;\n  if(type === 'restore') {\n    for(let i=s.length-1;i>=0;i--) if(sum(s[i].data)===s[i].checksum){data=copy(s[i].data);chosen=s[i].id;break;}\n  }\n  return {state:s,output:{data:data,chosen:chosen,retained:s.map(x=>x.id)}};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": [
+              1,
+              2
+            ],
+            "chosen": "a",
+            "retained": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "b"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": [
+              1,
+              2
+            ],
+            "chosen": "a",
+            "retained": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

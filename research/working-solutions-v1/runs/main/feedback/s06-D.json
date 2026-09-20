@@ -1,0 +1,173 @@
+{
+  "initialRecordSHA256": "9f61242ac05dac474e635ce3519b80b1489c96c86a30e93db86364122ddd5c7e",
+  "firstShown": {
+    "explanation": "The conditional rule is: process each event against the current version/value; only strictly newer, causally valid updates advance state, while conflicting or causally invalid updates request one snapshot until a successful advance rearms the latch. Acknowledgements only record the current version.",
+    "mapping": "config.version/value initialize v/x; acknowledged is a, and the request latch is l. Each event maps to one output snapshot of v, x, a, and effects.",
+    "assumptions": "Inputs follow the stated legal numeric and JSON constraints. Unknown event types are no-ops because no other behavior is specified.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={v:c.version,x:c.value,a:-1,l:false};for(let i=0;i<input.events.length;i++){let e=input.events[i],f=[],t=e&&e.type;if(t==='delta'){if(e.base===s.v&&e.version>s.v){s.v=e.version;s.x+=e.delta;s.l=false}else if(e.version>s.v&&!s.l){s.l=true;f=[{type:'snapshot',base:s.v}]}}else if(t==='snapshot'){if(e.version>s.v){s.v=e.version;s.x=e.value;s.l=false}else if(e.version===s.v&&e.value!==s.x&&!s.l){s.l=true;f=[{type:'snapshot',base:s.v}]}}else if(t==='ack'&&e.version===s.v)s.a=s.v;let q={version:s.v,value:s.x,acknowledged:s.a,effects:f};if(JSON.stringify(q)!==JSON.stringify(output[i]))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={v:config.version,x:config.value,a:-1,l:false};else s={v:s.v,x:s.x,a:s.a,l:s.l};let f=[],t=event&&event.type;if(t==='delta'){if(event.base===s.v&&event.version>s.v){s.v=event.version;s.x+=event.delta;s.l=false}else if(event.version>s.v&&!s.l){s.l=true;f=[{type:'snapshot',base:s.v}]}}else if(t==='snapshot'){if(event.version>s.v){s.v=event.version;s.x=event.value;s.l=false}else if(event.version===s.v&&event.value!==s.x&&!s.l){s.l=true;f=[{type:'snapshot',base:s.v}]}}else if(t==='ack'&&event.version===s.v)s.a=s.v;return {state:s,output:{version:s.v,value:s.x,acknowledged:s.a,effects:f}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": [
+              {
+                "type": "snapshot",
+                "base": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 0,
+            "value": -1,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 1,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 4,
+            "value": 9,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 4,
+            "value": 9,
+            "acknowledged": -1,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": [
+              {
+                "type": "snapshot",
+                "base": 1
+              }
+            ]
+          },
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": [
+              {
+                "type": "snapshot",
+                "base": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

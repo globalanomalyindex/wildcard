@@ -1,0 +1,213 @@
+{
+  "initialRecordSHA256": "1c4228d572b3ff62228678153497a7c27bce2b615d739cda2c62514570084288",
+  "firstShown": {
+    "explanation": "Maintain an opaque controller state containing element eligibility overrides, the ordered dialog stack, and current focus. Each event applies the specified transition, then emits a derived snapshot. Stale or lower-layer completions are ignored.",
+    "mapping": "Dialog stack maps to active and inert layers; each dialog record maps its ID, opener, and requested focus. Element eligibility maps to present AND enabled, with fallback always eligible.",
+    "assumptions": "Inputs satisfy the published identity, shape, finiteness, and trace limits. Dialog IDs are unique while present in the stack. Unknown focus IDs are ineligible unless supplied by an element configuration or later element event.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={e:{},a:[],f:c.fallback};function ok(x){if(x===c.fallback)return true;let v=s.e[x]||c.elements[x];return !!(v&&v.present&&v.enabled)}function snap(){let a=s.a;return {stack:a.map(x=>x.id),active:a.length?a[a.length-1].id:null,focus:s.f,inert:a.slice(0,-1).map(x=>x.id)}}for(let q of input.events){if(q.type==='element'){s.e[q.id]={present:q.present,enabled:q.enabled};if(!ok(s.f))s.f=s.a.length&&ok(s.a[s.a.length-1].focus)?s.a[s.a.length-1].focus:c.fallback}else if(q.type==='open'&&!s.a.some(x=>x.id===q.id)){s.a.push({id:q.id,opener:q.opener,focus:q.focus});s.f=ok(q.focus)?q.focus:c.fallback}else if((q.type==='close'||q.type==='complete')&&s.a.length&&s.a[s.a.length-1].id===q.id){let x=s.a.pop();let t=s.a.length?s.a[s.a.length-1].focus:null;s.f=ok(x.opener)?x.opener:t&&ok(t)?t:c.fallback}let z=snap(),r=output.shift();if(JSON.stringify(z)!==JSON.stringify(r))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{e:{},a:[],f:config.fallback};const ok=x=>{if(x===config.fallback)return true;let v=s.e[x]||config.elements[x];return!!(v&&v.present&&v.enabled)};if(event.type==='element'){s.e[event.id]={present:event.present,enabled:event.enabled};if(!ok(s.f))s.f=s.a.length&&ok(s.a[s.a.length-1].focus)?s.a[s.a.length-1].focus:config.fallback}else if(event.type==='open'&&!s.a.some(x=>x.id===event.id)){s.a.push({id:event.id,opener:event.opener,focus:event.focus});s.f=ok(event.focus)?event.focus:config.fallback}else if((event.type==='close'||event.type==='complete')&&s.a.length&&s.a[s.a.length-1].id===event.id){let x=s.a.pop(),t=s.a.length?s.a[s.a.length-1].focus:null;s.f=ok(x.opener)?x.opener:t&&ok(t)?t:config.fallback}let a=s.a;return{state:s,output:{stack:a.map(x=>x.id),active:a.length?a[a.length-1].id:null,focus:s.f,inert:a.slice(0,-1).map(x=>x.id)}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "stack": [],
+            "active": null,
+            "focus": "v259890_0",
+            "inert": []
+          },
+          {
+            "stack": [
+              "v682711_4"
+            ],
+            "active": "v682711_4",
+            "focus": "v259890_0",
+            "inert": []
+          },
+          {
+            "stack": [
+              "v682711_4",
+              "v239551_5"
+            ],
+            "active": "v239551_5",
+            "focus": "v420865_3",
+            "inert": [
+              "v682711_4"
+            ]
+          },
+          {
+            "stack": [
+              "v682711_4",
+              "v239551_5"
+            ],
+            "active": "v239551_5",
+            "focus": "v420865_3",
+            "inert": [
+              "v682711_4"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "stack": [],
+            "active": null,
+            "focus": "v175380_0",
+            "inert": []
+          },
+          {
+            "stack": [
+              "v662329_4"
+            ],
+            "active": "v662329_4",
+            "focus": "v175380_0",
+            "inert": []
+          },
+          {
+            "stack": [
+              "v662329_4",
+              "v353592_5"
+            ],
+            "active": "v353592_5",
+            "focus": "v177733_3",
+            "inert": [
+              "v662329_4"
+            ]
+          },
+          {
+            "stack": [
+              "v662329_4",
+              "v353592_5"
+            ],
+            "active": "v353592_5",
+            "focus": "v177733_3",
+            "inert": [
+              "v662329_4"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "stack": [
+              "v214066_4"
+            ],
+            "active": "v214066_4",
+            "focus": "v465814_2",
+            "inert": []
+          },
+          {
+            "stack": [
+              "v214066_4",
+              "v355668_5"
+            ],
+            "active": "v355668_5",
+            "focus": "v270580_3",
+            "inert": [
+              "v214066_4"
+            ]
+          },
+          {
+            "stack": [
+              "v214066_4",
+              "v355668_5"
+            ],
+            "active": "v355668_5",
+            "focus": "v553232_0",
+            "inert": [
+              "v214066_4"
+            ]
+          },
+          {
+            "stack": [
+              "v214066_4"
+            ],
+            "active": "v214066_4",
+            "focus": "v465814_2",
+            "inert": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "stack": [
+              "v885727_4"
+            ],
+            "active": "v885727_4",
+            "focus": "v292176_2",
+            "inert": []
+          },
+          {
+            "stack": [
+              "v885727_4",
+              "v507898_5"
+            ],
+            "active": "v507898_5",
+            "focus": "v457871_3",
+            "inert": [
+              "v885727_4"
+            ]
+          },
+          {
+            "stack": [
+              "v885727_4",
+              "v507898_5"
+            ],
+            "active": "v507898_5",
+            "focus": "v457871_3",
+            "inert": [
+              "v885727_4"
+            ]
+          },
+          {
+            "stack": [
+              "v885727_4",
+              "v507898_5"
+            ],
+            "active": "v507898_5",
+            "focus": "v457871_3",
+            "inert": [
+              "v885727_4"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

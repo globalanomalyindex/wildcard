@@ -1,0 +1,278 @@
+{
+  "initialRecordSHA256": "87c786945bd75a026d3e0fc0acf90e713ce2dc3e15eea250fb4170fc054f9c08",
+  "firstShown": {
+    "explanation": "Apply a single-job state machine: only the current pending attempt accepts responses; waiting retries become pending exactly once when due. Terminal jobs ignore responses and can be restarted.",
+    "mapping": "config.attempts and delay map to retry limits and waiting deadlines; state tracks now, phase, id, attempt, and due; event responses map to status and optional send.",
+    "assumptions": "Inputs satisfy the stated schema, safe-integer bounds, and event limits. No event other than the current event is inspected.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x.status!==\"string\"||typeof x.phase!==\"string\"||typeof x.attempt!==\"number\"||typeof x.now!==\"number\"||!Array.isArray(x.send))return false;if(!(\"id\"in x)||!(\"due\"in x))return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={now:0,phase:\"idle\",id:null,attempt:0,due:null};else s={now:s.now,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due};var st=\"ignored\",send=[];if(e.type===\"start\"){if(s.phase===\"pending\"||s.phase===\"waiting\")st=\"busy\";else{s.id=e.id;s.attempt=1;s.phase=\"pending\";s.due=null;st=\"started\";send=[{id:s.id,attempt:1}]}}else if(e.type===\"fail\"){if(s.phase===\"pending\"&&e.id===s.id&&e.attempt===s.attempt){if(s.attempt>=c.attempts){s.phase=\"failed\";s.due=null;st=\"failed\"}else{s.phase=\"waiting\";s.due=s.now+Math.max(c.delay,e.after);st=\"waiting\"}}}else if(e.type===\"success\"){if(s.phase===\"pending\"&&e.id===s.id&&e.attempt===s.attempt){s.phase=\"succeeded\";s.due=null;st=\"succeeded\"}}else if(e.type===\"cancel\"){if(s.phase===\"pending\"||s.phase===\"waiting\"){s.phase=\"cancelled\";s.due=null;st=\"cancelled\"}}else if(e.type===\"advance\"){s.now+=e.dt;st=\"advanced\";if(s.phase===\"waiting\"&&s.now>=s.due){s.attempt++;s.phase=\"pending\";s.due=null;send=[{id:s.id,attempt:s.attempt}]}}return{state:s,output:{status:st,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due,now:s.now,send:send}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "started",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 0,
+            "send": [
+              {
+                "id": "a",
+                "attempt": 1
+              }
+            ]
+          },
+          {
+            "status": "waiting",
+            "phase": "waiting",
+            "id": "a",
+            "attempt": 1,
+            "due": 3,
+            "now": 0,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "waiting",
+            "id": "a",
+            "attempt": 1,
+            "due": 3,
+            "now": 2,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 2,
+            "due": null,
+            "now": 3,
+            "send": [
+              {
+                "id": "a",
+                "attempt": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "started",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 0,
+            "send": [
+              {
+                "id": "a",
+                "attempt": 1
+              }
+            ]
+          },
+          {
+            "status": "waiting",
+            "phase": "waiting",
+            "id": "a",
+            "attempt": 1,
+            "due": 3,
+            "now": 0,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "waiting",
+            "id": "a",
+            "attempt": 1,
+            "due": 3,
+            "now": 2,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 2,
+            "due": null,
+            "now": 3,
+            "send": [
+              {
+                "id": "a",
+                "attempt": 2
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "started",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 0,
+            "send": [
+              {
+                "id": "a",
+                "attempt": 1
+              }
+            ]
+          },
+          {
+            "status": "busy",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 0,
+            "send": []
+          },
+          {
+            "status": "waiting",
+            "phase": "waiting",
+            "id": "a",
+            "attempt": 1,
+            "due": 3,
+            "now": 0,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "waiting",
+            "id": "a",
+            "attempt": 1,
+            "due": 3,
+            "now": 2,
+            "send": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "started",
+            "phase": "pending",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 0,
+            "send": [
+              {
+                "id": "a",
+                "attempt": 1
+              }
+            ]
+          },
+          {
+            "status": "failed",
+            "phase": "failed",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 0,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "failed",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 2,
+            "send": []
+          },
+          {
+            "status": "advanced",
+            "phase": "failed",
+            "id": "a",
+            "attempt": 1,
+            "due": null,
+            "now": 3,
+            "send": []
+          }
+        ]
+      }
+    ]
+  }
+}

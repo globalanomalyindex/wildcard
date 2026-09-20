@@ -1,0 +1,238 @@
+{
+  "initialRecordSHA256": "9178f421cda19d04d9822e8e39728b72883570102cdf7406cd71e4caad47c2ed",
+  "firstShown": {
+    "explanation": "Implement a single-flight cache with fresh and stale visibility windows. Cached entries remain stored after expiry; refreshes are deduplicated by pending key, and only matching responses affect state.",
+    "mapping": "The cache maps keys to {value,time}; pending maps keys to tokens; now is logical time and next is the monotonic token counter. Get computes age against ttl and ttl+stale.",
+    "assumptions": "Inputs obey the stated event, numeric, and JSON constraints. Values are preserved exactly, including false, zero, empty strings, objects, arrays, and null.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var keys={};for(var i=0;i<input.events.length;i++){var e=input.events[i];if(e.type==='get')keys[e.key]=1;var o=output[i];if(!o||!Array.isArray(o.fetch)||!Array.isArray(o.pending)||typeof o.now!=='number'||!('value'in o))return false;for(var j=0;j<o.fetch.length;j++){var f=o.fetch[j];if(!f||!keys[f.key]||typeof f.token!=='number')return false}for(var k=1;k<o.pending.length;k++)if(o.pending[k-1]>o.pending[k])return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={now:0,next:1,cache:{},pending:{}};var out={value:null,fetch:[],pending:[],now:s.now};if(e.type==='advance')s.now+=e.dt;else if(e.type==='get'){var z=s.cache[e.key],age=z===undefined?Infinity:s.now-z.t;if(z!==undefined&&age<c.ttl+c.stale)out.value=z.v;if((z===undefined||age>=c.ttl)&&s.pending[e.key]===undefined){var tok=s.next++;s.pending[e.key]=tok;out.fetch.push({key:e.key,token:tok})}}else if(e.type==='resolve'){if(s.pending[e.key]===e.token){s.cache[e.key]={v:e.value,t:s.now};delete s.pending[e.key]}}else if(e.type==='reject'){if(s.pending[e.key]===e.token)delete s.pending[e.key];}else if(e.type==='invalidate'){delete s.cache[e.key];delete s.pending[e.key]}out.now=s.now;var p=Object.keys(s.pending);p.sort();out.pending=p;return{state:s,output:out}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      }
+    ]
+  }
+}

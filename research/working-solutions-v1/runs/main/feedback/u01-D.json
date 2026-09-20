@@ -1,0 +1,290 @@
+{
+  "initialRecordSHA256": "39f2727bede33d6df6be43060f7553350aa401147a14953cbaa0db2739ccaed8",
+  "firstShown": {
+    "explanation": "The conditional rule is: callbacks affect state only when the controller is mounted, still loading, and the callback ID equals the current request ID. A new search cancels the prior loading request before issuing its request; disposed instances ignore everything except mount.",
+    "mapping": "The rule maps request identity and lifecycle state to visible state transitions and ordered effects: current identifies the sole settleable request, loading gates settlement, mounted gates all activity, and effects records only cancellations and requests from the current event.",
+    "assumptions": "Events use the documented types and fields. State is trusted only as the state previously returned by this function; null means the documented initial mounted state. JSON values are finite and directly reusable.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){function eq(a,b){if(a===b)return true;if(!a||!b||typeof a!==typeof b)return false;if(Array.isArray(a))return Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>eq(v,b[i]));if(typeof a==='object'){let ka=Object.keys(a),kb=Object.keys(b);if(ka.length!==kb.length)return false;return ka.every(k=>Object.prototype.hasOwnProperty.call(b,k)&&eq(a[k],b[k]))}return false} let s=null,r=[];for(let e of input.events){let x=solve({config:input.config,state:s,event:e});s=x.state;r.push(x.output)}return eq(r,output)}",
+    "program": "function solve({config,state,event}){\n  let s=state||{mounted:true,query:'',current:null,loading:false,result:null,error:null};\n  let e=event||{}, f=[];\n  const reset=()=>({mounted:true,query:'',current:null,loading:false,result:null,error:null});\n  if(!s.mounted){\n    if(e.type==='mount')s=reset();\n    return {state:s,output:{mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects:f}};\n  }\n  if(e.type==='search'){\n    if(s.loading)f.push({type:'cancel',id:s.current});\n    s={mounted:true,query:e.query,current:e.id,loading:true,result:s.result,error:null};\n    f.push({type:'request',id:e.id,query:e.query});\n  }else if(e.type==='success'){\n    if(s.loading&&s.current===e.id)s={mounted:true,query:s.query,current:s.current,loading:false,result:e.result,error:null};\n  }else if(e.type==='failure'){\n    if(s.loading&&s.current===e.id)s={mounted:true,query:s.query,current:s.current,loading:false,result:s.result,error:e.error};\n  }else if(e.type==='cancel'){\n    if(s.loading)f.push({type:'cancel',id:s.current});\n    s={mounted:true,query:s.query,current:null,loading:false,result:s.result,error:null};\n  }else if(e.type==='dispose'){\n    if(s.loading)f.push({type:'cancel',id:s.current});\n    s={mounted:false,query:'',current:null,loading:false,result:null,error:null};\n  }\n  return {state:s,output:{mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects:f}};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: solve is not defined\n    at holds (<input>:1:447)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "v804151_1",
+            "current": "v926237_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v926237_0",
+                "query": "v804151_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v854081_3",
+            "current": "v596094_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v926237_0"
+              },
+              {
+                "type": "request",
+                "id": "v596094_2",
+                "query": "v854081_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v854081_3",
+            "current": "v596094_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v804151_1",
+            "current": "v045903_5",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v596094_2"
+              },
+              {
+                "type": "request",
+                "id": "v045903_5",
+                "query": "v804151_1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "v649933_1",
+            "current": "v923660_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v923660_0",
+                "query": "v649933_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v800454_3",
+            "current": "v552196_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v923660_0"
+              },
+              {
+                "type": "request",
+                "id": "v552196_2",
+                "query": "v800454_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v800454_3",
+            "current": "v552196_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v800454_3",
+            "current": "v552196_2",
+            "loading": false,
+            "result": null,
+            "error": null,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "v367284_1",
+            "current": "v743562_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v743562_0",
+                "query": "v367284_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v738619_3",
+            "current": "v405615_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v743562_0"
+              },
+              {
+                "type": "request",
+                "id": "v405615_2",
+                "query": "v738619_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v738619_3",
+            "current": "v405615_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v367284_1",
+            "current": "v470433_5",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v405615_2"
+              },
+              {
+                "type": "request",
+                "id": "v470433_5",
+                "query": "v367284_1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "",
+            "current": null,
+            "loading": false,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v310502_1",
+            "current": "v869668_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v869668_0",
+                "query": "v310502_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v941653_3",
+            "current": "v964514_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v869668_0"
+              },
+              {
+                "type": "request",
+                "id": "v964514_2",
+                "query": "v941653_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v941653_3",
+            "current": "v964514_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          }
+        ]
+      }
+    ]
+  }
+}

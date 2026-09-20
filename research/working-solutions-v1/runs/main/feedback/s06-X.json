@@ -1,0 +1,173 @@
+{
+  "initialRecordSHA256": "0ec2d3471254b0948e71079fe7a977004b524152e8915cf7c7d3f33d3503bf62",
+  "firstShown": {
+    "explanation": "Maintain version, value, historical acknowledgment, and a request latch. Valid newer deltas/snapshots advance state and rearm recovery; conflicts request one snapshot until advancement.",
+    "mapping": "config.version/value initialize current version/value. State fields v,x,a,l represent current version/value, acknowledged version, and request latch.",
+    "assumptions": "Malformed or unknown events are ignored. Legal numeric inputs remain safe integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,v=c.version,x=c.value,a=-1,l=false;for(var i=0;i<input.events.length;i++){var e=input.events[i],fx=[];if(e&&e.type==='delta'){if(e.base===v&&e.version>v){v=e.version;x+=e.delta;l=false}else if(e.version>v){if(!l){fx=[{type:'snapshot',base:v}];l=true}}}else if(e&&e.type==='snapshot'){if(e.version>v){v=e.version;x=e.value;l=false}else if(e.version===v&&e.value!==x&&!l){fx=[{type:'snapshot',base:v}];l=true}}else if(e&&e.type==='ack'&&e.version===v)a=v;var q=output[i];if(!q||q.version!==v||q.value!==x||q.acknowledged!==a||JSON.stringify(q.effects)!==JSON.stringify(fx))return false}return true}",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={v:config.version,x:config.value,a:-1,l:false};var v=s.v,x=s.x,a=s.a,l=s.l,e=event,fx=[];if(e&&e.type==='delta'){if(e.base===v&&e.version>v){v=e.version;x+=e.delta;l=false}else if(e.version>v&&!l){fx=[{type:'snapshot',base:v}];l=true}}else if(e&&e.type==='snapshot'){if(e.version>v){v=e.version;x=e.value;l=false}else if(e.version===v&&e.value!==x&&!l){fx=[{type:'snapshot',base:v}];l=true}}else if(e&&e.type==='ack'&&e.version===v)a=v;var ns={v:v,x:x,a:a,l:l};return {state:ns,output:{version:v,value:x,acknowledged:a,effects:fx}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 6,
+            "acknowledged": -1,
+            "effects": [
+              {
+                "type": "snapshot",
+                "base": 1
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 0,
+            "value": -1,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 1,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 4,
+            "value": 9,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 4,
+            "value": 9,
+            "acknowledged": -1,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": [
+              {
+                "type": "snapshot",
+                "base": 1
+              }
+            ]
+          },
+          {
+            "version": 1,
+            "value": 0,
+            "acknowledged": -1,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": []
+          },
+          {
+            "version": 1,
+            "value": 5,
+            "acknowledged": -1,
+            "effects": [
+              {
+                "type": "snapshot",
+                "base": 1
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

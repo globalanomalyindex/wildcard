@@ -1,0 +1,232 @@
+{
+  "initialRecordSHA256": "0e3c95dd2d657a9d60eaf4e958d5bc26a45ccdafa4b6e972cc8089f6d2265a2c",
+  "firstShown": {
+    "explanation": "Use the transactional history rule directly: edits outside groups create bounded undo entries; grouped edits defer history until an outermost commit, while cancel restores the saved document. Undo/redo exchange current documents between bounded stacks and are disabled inside groups.",
+    "mapping": "The optional source rule maps alignment to preserving document snapshots and history ordering; however, astronomical interferometry is not relevant to this state-transition contract, so no outside assumptions are used.",
+    "assumptions": "Documents contain JSON-compatible object data and event values are JSON scalars as specified. State is represented by the current document, undo/redo arrays, group-start array, and configured limit.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.limit>=1&&input.config.limit<=4}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;return output.every(x=>x&&typeof x==='object'&&Object.keys(x).sort().join(',')==='canRedo,canUndo,depth,document'&&typeof x.canRedo==='boolean'&&typeof x.canUndo==='boolean'&&Number.isInteger(x.depth))}",
+    "program": "function solve({config,state,event}){\n  const cp=x=>{if(Array.isArray(x))return x.map(cp);if(x&&typeof x==='object'){let y={};for(const k of Object.keys(x))y[k]=cp(x[k]);return y}return x};\n  const same=(a,b)=>{if(a===b)return true;if(typeof a!==typeof b||a===null||b===null||typeof a!=='object')return false;let ak=Object.keys(a),bk=Object.keys(b);if(ak.length!==bk.length)return false;for(const k of ak)if(!Object.prototype.hasOwnProperty.call(b,k)||!same(a[k],b[k]))return false;return true};\n  const trim=(a,n)=>{while(a.length>n)a.shift()};\n  let s=state?{d:cp(state.d),u:cp(state.u),r:cp(state.r),g:cp(state.g),l:state.l}: {d:cp(config.initial),u:[],r:[],g:[],l:config.limit};\n  const push=(a,v)=>{a.push(cp(v));trim(a,s.l)};\n  if(event.type==='begin')s.g.push(cp(s.d));\n  else if(event.type==='set'||event.type==='delete'){\n    let n=cp(s.d),changed=false;\n    if(event.type==='set'){changed=!Object.prototype.hasOwnProperty.call(n,event.key)||!same(n[event.key],event.value);if(changed)n[event.key]=cp(event.value)}\n    else if(Object.prototype.hasOwnProperty.call(n,event.key)){changed=true;delete n[event.key]}\n    if(changed){if(!s.g.length){push(s.u,s.d);s.r=[]}s.d=n}\n  } else if(event.type==='commit'&&s.g.length){let start=s.g.pop();if(!s.g.length&&!same(start,s.d)){push(s.u,start);s.r=[]}}\n  else if(event.type==='cancel'&&s.g.length)s.d=s.g.pop();\n  else if((event.type==='undo'||event.type==='redo')&&!s.g.length){let a=event.type==='undo'?s.u:s.r,b=event.type==='undo'?s.r:s.u;if(a.length){let x=a.pop();push(b,s.d);s.d=x}}\n  return {state:s,output:{document:cp(s.d),canUndo:!s.g.length&&s.u.length>0,canRedo:!s.g.length&&s.r.length>0,depth:s.g.length}};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v928500_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v928500_0": 1
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v928500_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v928500_0": 2
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v263492_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v263492_0": 3
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v263492_0": 3
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v263492_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v320365_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v320365_0": 1
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v320365_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v320365_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 2
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v087372_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v087372_0": 1
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v087372_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v087372_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 2
+          }
+        ]
+      }
+    ]
+  }
+}

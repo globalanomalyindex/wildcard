@@ -1,0 +1,230 @@
+{
+  "initialRecordSHA256": "67f014f85f1ae191f6a5b8756757e5abc68ff7b74667595fb5c9ad3eee0ed24c",
+  "firstShown": {
+    "explanation": "Maintain an ordered bounded snapshot log. Saves replace an ID as newest, damage changes data only, and restore scans newest-to-oldest for checksum equality.",
+    "mapping": "config.keep maps to retention capacity; state.snapshots maps to ordered retained snapshots; event fields map directly to save, damage, drop, and restore operations.",
+    "assumptions": "Inputs follow the stated schema and safe-integer bounds. Checksum arithmetic is normalized modulo 251. Unknown event types have no state effect and return null results.",
+    "applies": "function applies(input){return !!(input&&input.config&&Array.isArray(input.events)&&input.config.keep>=1)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||!Array.isArray(x.retained)||!(x.data===null||Array.isArray(x.data))||!(x.chosen===null||typeof x.chosen==='string'))return false}return true}",
+    "program": "function solve({config,state,event}){let a=state&&Array.isArray(state.snapshots)?state.snapshots:[];const sum=d=>{let s=0;for(let i=0;i<d.length;i++)s=(s+(i+1)*d[i])%251;return s};const copy=d=>d.slice();if(event.type==='save'){let n={id:event.id,data:copy(event.data),checksum:event.checksum};a=a.filter(x=>x.id!==event.id);a.push(n);if(a.length>config.keep)a=a.slice(a.length-config.keep)}else if(event.type==='damage'){let x=a.find(x=>x.id===event.id);if(x&&event.index>=0&&event.index<x.data.length)x.data[event.index]=event.value}else if(event.type==='drop'){a=a.filter(x=>x.id!==event.id)}let data=null,chosen=null;if(event.type==='restore'){for(let i=a.length-1;i>=0;i--)if(sum(a[i].data)===a[i].checksum){data=copy(a[i].data);chosen=a[i].id;break}}return{state:{snapshots:a},output:{data:data,chosen:chosen,retained:a.map(x=>x.id)}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": [
+              1,
+              2
+            ],
+            "chosen": "a",
+            "retained": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "b"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": null,
+            "chosen": null,
+            "retained": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "data": [
+              1,
+              2
+            ],
+            "chosen": "a",
+            "retained": [
+              "a",
+              "b"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

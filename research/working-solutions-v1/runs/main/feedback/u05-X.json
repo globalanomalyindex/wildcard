@@ -1,0 +1,168 @@
+{
+  "initialRecordSHA256": "162a1a8a819f48d85ae8b874a805eecfd34f9c5a447ae98f501865078a588f48",
+  "firstShown": {
+    "explanation": "Maintain active and selected IDs by identity, filtering every transition through the current enabled option list. Keyboard navigation operates only on enabled IDs and wraps for arrows.",
+    "mapping": "The optional rule corresponds to stable identity preservation: changing option order does not change the meaning of active or selected IDs when those IDs remain enabled and present.",
+    "assumptions": "State stores the current option view plus active and selected IDs. Invalid or disabled identities are never retained or introduced.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){const opts=(input.config.options||[]).slice(), ev=input.events||[];let o=opts,a=null,s=null;const ids=x=>o.filter(q=>!q.disabled).map(q=>q.id), ok=x=>ids(o).includes(x);a=ids().length?ids()[0]:null;const ans=[];for(const e of ev){if(e.type==='options'){o=e.options||[];const z=ids();a=z.includes(a)?a:(z[0]??null);s=z.includes(s)?s:null}else if(e.type==='click'){if(ok(e.id)){a=e.id;s=e.id}}else if(e.type==='key'){const z=ids();if(z.length){if(e.key==='Home')a=z[0];else if(e.key==='End')a=z[z.length-1];else if(e.key==='ArrowDown'||e.key==='ArrowUp'){let i=z.indexOf(a);if(i<0)i=0;else i=(i+(e.key==='ArrowDown'?1:-1)+z.length)%z.length;a=z[i]}else if(e.key==='Enter')s=a}}ans.push({active:a,selected:s})}return JSON.stringify(ans)===JSON.stringify(output)}",
+    "program": "function solve({config,state,event}){let st=state;if(st===null){st={o:(config.options||[]).slice(),a:null,s:null};let z=st.o.filter(x=>!x.disabled).map(x=>x.id);st.a=z.length?z[0]:null}let o=st.o,a=st.a,s=st.s;const ids=()=>o.filter(x=>!x.disabled).map(x=>x.id),has=x=>ids().indexOf(x)>=0;if(event.type==='options'){o=(event.options||[]).slice();let z=ids();a=z.indexOf(a)>=0?a:(z.length?z[0]:null);s=z.indexOf(s)>=0?s:null}else if(event.type==='click'){if(has(event.id)){a=event.id;s=event.id}}else if(event.type==='key'){let z=ids();if(z.length){if(event.key==='Home')a=z[0];else if(event.key==='End')a=z[z.length-1];else if(event.key==='ArrowDown'||event.key==='ArrowUp'){let i=z.indexOf(a);if(i<0)i=0;else i=(i+(event.key==='ArrowDown'?1:-1)+z.length)%z.length;a=z[i]}else if(event.key==='Enter')s=a}}st={o,a,s};return {state:st,output:{active:a,selected:s}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v158088_2",
+            "selected": null
+          },
+          {
+            "active": "v158088_2",
+            "selected": "v158088_2"
+          },
+          {
+            "active": "v158088_2",
+            "selected": "v158088_2"
+          },
+          {
+            "active": "v065683_0",
+            "selected": "v158088_2"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v849370_2",
+            "selected": null
+          },
+          {
+            "active": "v849370_2",
+            "selected": "v849370_2"
+          },
+          {
+            "active": "v849370_2",
+            "selected": "v849370_2"
+          },
+          {
+            "active": "v985834_0",
+            "selected": "v849370_2"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v978476_2",
+            "selected": null
+          },
+          {
+            "active": "v097175_0",
+            "selected": null
+          },
+          {
+            "active": "v097175_0",
+            "selected": "v097175_0"
+          },
+          {
+            "active": "v097175_0",
+            "selected": "v097175_0"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "active": "v369979_2",
+            "selected": null
+          },
+          {
+            "active": null,
+            "selected": null
+          },
+          {
+            "active": "v984949_3",
+            "selected": null
+          },
+          {
+            "active": "v984949_3",
+            "selected": "v984949_3"
+          }
+        ]
+      }
+    ]
+  }
+}

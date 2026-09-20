@@ -1,0 +1,142 @@
+{
+  "initialRecordSHA256": "2dd1a76f3f6dd1c3dfe6c65da854238ccd064438cef1ffe8c5346359b639b79b",
+  "firstShown": {
+    "explanation": "Apply the credit-accounting rule directly: advances convert elapsed-rate units through the denominator, while reservations consume and eligible refunds restore credits without altering carry.",
+    "mapping": "config.capacity, rate, and denom map to bounded credits and fractional carry; reservation records map IDs to accepted costs and refund status.",
+    "assumptions": "Inputs satisfy the stated presence, safety, identifier, and event-count constraints. State is opaque and may retain configuration and reservation records.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,C=c.capacity,r=c.rate,d=c.denom,cr=C,ca=0,rec=[];for(var i=0;i<input.events.length;i++){var e=input.events[i],s='';if(e.type==='advance'){var n=ca+e.dt*r;cr=Math.min(C,cr+Math.floor(n/d));ca=n%d;s='advanced'}else if(e.type==='take'){var x=null;for(var j=0;j<rec.length;j++)if(rec[j].id===e.id)x=rec[j];if(!x&&e.cost<=cr){cr-=e.cost;rec.push({id:e.id,cost:e.cost,ref:false});s='taken'}else s='rejected'}else{var y=null;for(var k=0;k<rec.length;k++)if(rec[k].id===e.id)y=rec[k];if(y&&!y.ref){cr=Math.min(C,cr+y.cost);y.ref=true;s='refunded'}else s='ignored'}var o=output[i];if(!o||o.status!==s||o.credits!==cr||o.carry!==ca)return false}return true}",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={C:config.capacity,R:config.rate,D:config.denom,c:config.capacity,b:0,q:[]};var e=event,t=e.type,status;if(t==='advance'){var n=s.b+e.dt*s.R;s.c=Math.min(s.C,s.c+Math.floor(n/s.D));s.b=n%s.D;status='advanced'}else if(t==='take'){var found=false;for(var i=0;i<s.q.length;i++)if(s.q[i].id===e.id){found=true;break}if(!found&&e.cost<=s.c){s.c-=e.cost;s.q.push({id:e.id,cost:e.cost,ref:false});status='taken'}else status='rejected'}else{var z=null;for(var j=0;j<s.q.length;j++)if(s.q[j].id===e.id){z=s.q[j];break}if(z&&!z.ref){s.c=Math.min(s.C,s.c+z.cost);z.ref=true;status='refunded'}else status='ignored'}return {state:s,output:{status:status,credits:s.c,carry:s.b}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "taken",
+            "credits": 5,
+            "carry": 0
+          },
+          {
+            "status": "advanced",
+            "credits": 5,
+            "carry": 2
+          },
+          {
+            "status": "advanced",
+            "credits": 6,
+            "carry": 1
+          },
+          {
+            "status": "refunded",
+            "credits": 7,
+            "carry": 1
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "taken",
+            "credits": 0,
+            "carry": 0
+          },
+          {
+            "status": "advanced",
+            "credits": 0,
+            "carry": 2
+          },
+          {
+            "status": "advanced",
+            "credits": 1,
+            "carry": 1
+          },
+          {
+            "status": "refunded",
+            "credits": 2,
+            "carry": 1
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "taken",
+            "credits": 5,
+            "carry": 0
+          },
+          {
+            "status": "rejected",
+            "credits": 5,
+            "carry": 0
+          },
+          {
+            "status": "advanced",
+            "credits": 5,
+            "carry": 2
+          },
+          {
+            "status": "advanced",
+            "credits": 6,
+            "carry": 1
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "taken",
+            "credits": 2,
+            "carry": 0
+          },
+          {
+            "status": "advanced",
+            "credits": 2,
+            "carry": 3
+          },
+          {
+            "status": "advanced",
+            "credits": 2,
+            "carry": 6
+          },
+          {
+            "status": "refunded",
+            "credits": 4,
+            "carry": 6
+          }
+        ]
+      }
+    ]
+  }
+}

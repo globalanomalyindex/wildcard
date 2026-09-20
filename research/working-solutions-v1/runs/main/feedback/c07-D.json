@@ -1,0 +1,216 @@
+{
+  "initialRecordSHA256": "91641b6caf3e468afed2dfd5e490dab9eb1ab7223f5e80bc80e171329deb73d3",
+  "firstShown": {
+    "explanation": "The rule is direct: memoization is demand-driven, and setting a leaf invalidates exactly that leaf and all nodes reachable from it through reverse dependency edges. A set always returns null with zero newly computed nodes. Evaluation recursively follows listed dependency order, reusing valid memo entries.",
+    "mapping": "config.deps and config.values map node IDs to dependency lists and leaf values; state stores current leaf values and memoized node values; event.type selects evaluation or invalidation.",
+    "assumptions": "Inputs satisfy the stated finite-DAG, existing-node, safe-integer contract. State is only produced by this function.",
+    "applies": "function applies(input){return !!input&&input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let d=input.config.deps,v=input.config.values,m={};function inv(x){delete m[x];for(let k in d)if(d[k].indexOf(x)>=0)inv(k)}function ev(x){if(Object.prototype.hasOwnProperty.call(m,x))return m[x];let q=d[x],z;if(q.length===0)z=v[x];else{z=0;for(let i=0;i<q.length;i++)z+=ev(q[i])}m[x]=z;return z}for(let i=0;i<input.events.length;i++){let e=input.events[i],o=output[i],c=0;if(e.type==='set'){if(d[e.node].length===0){v[e.node]=e.value;inv(e.node)}if(o.value!==null||o.computed!==0)return false}else{let before=Object.keys(m).length,z=ev(e.node),a=Object.keys(m).sort();if(o.value!==z||o.computed!==Object.keys(m).length-before||JSON.stringify(o.valid)!==JSON.stringify(a))return false}}return true}",
+    "program": "function solve({config,state,event}){const d=config.deps;let s=state;if(s===null){s={v:{},m:{}};for(const k in config.values)s.v[k]=config.values[k]}function drop(x){delete s.m[x];for(const k in d)if(d[k].indexOf(x)>=0)drop(k)}let computed=0,value=null;if(event.type==='set'){if(d[event.node].length===0){s.v[event.node]=event.value;drop(event.node)}}else{function get(x){if(Object.prototype.hasOwnProperty.call(s.m,x))return s.m[x];let q=d[x],z;if(q.length===0)z=s.v[x];else{z=0;for(let i=0;i<q.length;i++)z+=get(q[i])}s.m[x]=z;computed++;return z}value=get(event.node)}return{state:s,output:{value,computed,valid:Object.keys(s.m).sort()}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": -2,
+            "computed": 1,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": -2,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": null,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": -2,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": -1,
+            "computed": 1,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": -1,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": null,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": -1,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": 4,
+            "computed": 1,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": 4,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": 4,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          },
+          {
+            "value": null,
+            "computed": 0,
+            "valid": [
+              "d"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": -3,
+            "computed": 1,
+            "valid": [
+              "f"
+            ]
+          },
+          {
+            "value": -3,
+            "computed": 0,
+            "valid": [
+              "f"
+            ]
+          },
+          {
+            "value": null,
+            "computed": 0,
+            "valid": [
+              "f"
+            ]
+          },
+          {
+            "value": -3,
+            "computed": 0,
+            "valid": [
+              "f"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

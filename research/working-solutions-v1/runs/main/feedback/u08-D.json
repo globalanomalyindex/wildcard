@@ -1,0 +1,165 @@
+{
+  "initialRecordSHA256": "27d6b7516efbd3a68bb493ef08709c7e6e36832a5011fbfd03b80b8118fd174f",
+  "firstShown": {
+    "explanation": "Use the current ordered view as the sole range coordinate system. Disabled or absent clicks are no-ops; view updates filter selection and invalidate anchors. A shift click preserves a valid anchor, while a missing anchor is established at the clicked ID.",
+    "mapping": "config.options initializes view order and disabled status; state stores current options, selected IDs, and anchor; each event transforms those variables and emits sorted selected IDs plus anchor.",
+    "assumptions": "Inputs satisfy the stated schema and ID uniqueness constraints. JavaScript string ordering matches the required lexicographic ordering.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.options)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let r={o:input.config.options.map(x=>({id:x.id,d:!!x.disabled})),s:[],a:null};for(let k=0;k<input.events.length;k++){let e=input.events[k];if(e.type==='view'){r.o=e.options.map(x=>({id:x.id,d:!!x.disabled}));let ok=new Set(r.o.filter(x=>!x.d).map(x=>x.id));r.s=r.s.filter(x=>ok.has(x));if(r.a==null||!ok.has(r.a))r.a=null}else if(e.type==='click'){let q=r.o.findIndex(x=>x.id===e.id);if(q<0||r.o[q].d){}else if(!e.shift){if(e.ctrl){r.s=r.s.includes(e.id)?r.s.filter(x=>x!==e.id):r.s.concat(e.id);r.a=e.id}else{r.s=[e.id];r.a=e.id}}else{if(r.a==null||!r.o.some(x=>x.id===r.a&&!x.d))r.a=e.id;let a=r.o.findIndex(x=>x.id===r.a),b=q,lo=Math.min(a,b),hi=Math.max(a,b),z=r.o.slice(lo,hi+1).filter(x=>!x.d).map(x=>x.id);r.s=e.ctrl?r.s.concat(z.filter(x=>!r.s.includes(x))):z}}let want={selected:r.s.slice().sort(),anchor:r.a};if(JSON.stringify(want)!==JSON.stringify(output[k]))return false}return true}",
+    "program": "function solve({config,state,event}){let r=state||{o:config.options.map(x=>({id:x.id,d:!!x.disabled})),s:[],a:null};if(event.type==='view'){r.o=event.options.map(x=>({id:x.id,d:!!x.disabled}));let ok=new Set(r.o.filter(x=>!x.d).map(x=>x.id));r.s=r.s.filter(x=>ok.has(x));if(r.a==null||!ok.has(r.a))r.a=null}else if(event.type==='click'){let q=r.o.findIndex(x=>x.id===event.id);if(q>=0&&!r.o[q].d){if(!event.shift){if(event.ctrl)r.s=r.s.includes(event.id)?r.s.filter(x=>x!==event.id):r.s.concat(event.id);else r.s=[event.id];r.a=event.id}else{if(r.a==null||!r.o.some(x=>x.id===r.a&&!x.d))r.a=event.id;let a=r.o.findIndex(x=>x.id===r.a),lo=Math.min(a,q),hi=Math.max(a,q),z=r.o.slice(lo,hi+1).filter(x=>!x.d).map(x=>x.id);r.s=event.ctrl?r.s.concat(z.filter(x=>!r.s.includes(x))):z}}}return{state:r,output:{selected:r.s.slice().sort(),anchor:r.a}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": "v030387_0"
+          },
+          {
+            "selected": [
+              "v030387_0",
+              "v585619_2",
+              "v736690_3"
+            ],
+            "anchor": "v030387_0"
+          },
+          {
+            "selected": [
+              "v030387_0",
+              "v736690_3"
+            ],
+            "anchor": "v585619_2"
+          },
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v217284_0"
+            ],
+            "anchor": "v217284_0"
+          },
+          {
+            "selected": [
+              "v217284_0",
+              "v510454_2",
+              "v834982_3"
+            ],
+            "anchor": "v217284_0"
+          },
+          {
+            "selected": [],
+            "anchor": null
+          },
+          {
+            "selected": [],
+            "anchor": null
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v544284_3"
+            ],
+            "anchor": "v544284_3"
+          },
+          {
+            "selected": [
+              "v488561_0"
+            ],
+            "anchor": "v488561_0"
+          },
+          {
+            "selected": [
+              "v167631_2",
+              "v488561_0",
+              "v544284_3"
+            ],
+            "anchor": "v488561_0"
+          },
+          {
+            "selected": [
+              "v167631_2",
+              "v488561_0",
+              "v544284_3"
+            ],
+            "anchor": "v488561_0"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v338074_0"
+            ],
+            "anchor": "v338074_0"
+          },
+          {
+            "selected": [
+              "v322425_2",
+              "v338074_0",
+              "v389580_3"
+            ],
+            "anchor": "v338074_0"
+          },
+          {
+            "selected": [
+              "v322425_2"
+            ],
+            "anchor": "v322425_2"
+          },
+          {
+            "selected": [
+              "v322425_2"
+            ],
+            "anchor": "v322425_2"
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,242 @@
+{
+  "initialRecordSHA256": "122a16944a159c046fc9aea33d0f40fa48170b3d06c5876deda1829b4a09ac5b",
+  "firstShown": {
+    "explanation": "Weighted cyclic dispatch: sort tenant IDs, expand each by weight into slots, and retain a cursor plus FIFO queues. Add rejects any pending duplicate. Dispatch scans one cycle from the cursor and advances to the slot after the selected tenant.",
+    "mapping": "The rule maps config.weights to the fixed cycle, state to cursor and pending queues, and each event to one status/output snapshot.",
+    "assumptions": "Tenant IDs are sortable strings, weights are positive safe integers, and events follow the documented forms.",
+    "applies": "function applies(input){return !!input&&!!input.config&&!!input.config.weights&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var w=input.config.weights,n=Object.keys(w).sort(),cy=[];for(var i=0;i<n.length;i++)for(var j=0;j<w[n[i]];j++)cy.push(n[i]);var q={};for(i=0;i<n.length;i++)q[n[i]]=[];var c=0,exp=[];for(i=0;i<input.events.length;i++){var e=input.events[i],st='queued',sent=null;if(e.type==='add'){var d=false;for(j=0;j<n.length;j++)if(q[n[j]].indexOf(e.id)>=0)d=true;if(d)st='duplicate';else q[e.tenant].push(e.id)}else{st='empty';for(j=0;j<cy.length;j++){var z=(c+j)%cy.length,t=cy[z];if(q[t].length){sent=q[t].shift();c=(z+1)%cy.length;st='sent';break}}}var qq={};for(j=0;j<n.length;j++)qq[n[j]]=q[n[j]].slice();exp.push({status:st,sent:sent,queues:qq,cursor:c})}return JSON.stringify(exp)===JSON.stringify(output)}",
+    "program": "function solve(x){var cfg=x.config,w=cfg.weights,n=Object.keys(w).sort(),cy=[],i,j;for(i=0;i<n.length;i++)for(j=0;j<w[n[i]];j++)cy.push(n[i]);var s=x.state,q,c;if(!s){q={};for(i=0;i<n.length;i++)q[n[i]]=[];c=0}else{q=s.q;c=s.c}var e=x.event,st,sent=null;if(e.type==='add'){var d=false;for(i=0;i<n.length;i++)if(q[n[i]].indexOf(e.id)>=0)d=true;if(d)st='duplicate';else{q[e.tenant].push(e.id);st='queued'}}else{st='empty';for(j=0;j<cy.length;j++){var z=(c+j)%cy.length,t=cy[z];if(q[t].length){sent=q[t].shift();c=(z+1)%cy.length;st='sent';break}}}var queues={};for(i=0;i<n.length;i++)queues[n[i]]=q[n[i]].slice();return{state:{q:q,c:c},output:{status:st,sent:sent,queues:queues,cursor:c}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "duplicate",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "sent",
+            "sent": "a",
+            "queues": {
+              "a": [],
+              "b": [],
+              "c": []
+            },
+            "cursor": 2
+          },
+          {
+            "status": "empty",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [],
+              "c": []
+            },
+            "cursor": 2
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "duplicate",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "sent",
+            "sent": "a",
+            "queues": {
+              "a": [],
+              "b": [],
+              "c": []
+            },
+            "cursor": 2
+          },
+          {
+            "status": "empty",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [],
+              "c": []
+            },
+            "cursor": 2
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "duplicate",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "duplicate",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "sent",
+            "sent": "a",
+            "queues": {
+              "a": [],
+              "b": [],
+              "c": []
+            },
+            "cursor": 2
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "duplicate",
+            "sent": null,
+            "queues": {
+              "a": [],
+              "b": [
+                "a"
+              ],
+              "c": []
+            },
+            "cursor": 0
+          },
+          {
+            "status": "sent",
+            "sent": "a",
+            "queues": {
+              "a": [],
+              "b": [],
+              "c": []
+            },
+            "cursor": 3
+          },
+          {
+            "status": "queued",
+            "sent": null,
+            "queues": {
+              "a": [
+                "a"
+              ],
+              "b": [],
+              "c": []
+            },
+            "cursor": 3
+          }
+        ]
+      }
+    ]
+  }
+}

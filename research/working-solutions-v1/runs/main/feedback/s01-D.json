@@ -1,0 +1,185 @@
+{
+  "initialRecordSHA256": "f21ffec679768073d1599f3e13b574f55f93314c70c59ca24db727bd3e5a66e7",
+  "firstShown": {
+    "explanation": "Maintain permanent ID records and unique sequence reservations. Existing IDs are duplicate only when both original fields match; otherwise conflict. New IDs below next are stale, while sequences already reserved conflict. Accepted records are repeatedly applied in sequence order from next.",
+    "mapping": "state.n is the next unapplied sequence, state.v is accumulated value, and state.a stores permanent [id,seq,delta] records. Reservations include applied records. Each output reports status, current value, next, and sorted pending sequences.",
+    "assumptions": "Inputs follow the stated event contract and use safe integers. The implementation treats malformed events defensively as conflicts, although legal traces contain only valid events.",
+    "applies": "input=>!!input&&Array.isArray(input.events)",
+    "holds": "(input,out)=>{if(!Array.isArray(out)||out.length!==input.events.length)return false;let n=1,v=0,a=[];for(let k=0;k<input.events.length;k++){let e=input.events[k],s='accepted',old=a.find(x=>x[0]===e.id);if(old)s=old[1]===e.seq&&old[2]===e.delta?'duplicate':'conflict';else if(e.seq<n)s='stale';else if(a.some(x=>x[1]===e.seq))s='conflict';else a.push([e.id,e.seq,e.delta]);if(s==='accepted')for(;;){let x=a.find(x=>x[1]===n);if(!x)break;v+=x[2];n++}let p=a.filter(x=>x[1]>=n).map(x=>x[1]).sort((x,y)=>x-y),q=out[k];if(!q||Object.keys(q).length!==4||q.status!==s||q.value!==v||q.next!==n||JSON.stringify(q.pending)!==JSON.stringify(p))return false}return true}",
+    "program": "function solve({config,state,event}){let z=state||{n:1,v:0,a:[]},n=z.n,v=z.v,a=z.a,e=event,s='accepted',o=a.find(x=>x[0]===e.id);if(o)s=o[1]===e.seq&&o[2]===e.delta?'duplicate':'conflict';else if(e.seq<n)s='stale';else if(a.some(x=>x[1]===e.seq))s='conflict';else a.push([e.id,e.seq,e.delta]);if(s==='accepted')for(;;){let x=a.find(x=>x[1]===n);if(!x)break;v+=x[2];n++}let p=a.filter(x=>x[1]>=n).map(x=>x[1]).sort((x,y)=>x-y);return{state:{n:n,v:v,a:a},output:{status:s,value:v,next:n,pending:p}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "function applies is required",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              5
+            ]
+          },
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              2,
+              5
+            ]
+          },
+          {
+            "status": "conflict",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              2,
+              5
+            ]
+          },
+          {
+            "status": "accepted",
+            "value": 11,
+            "next": 3,
+            "pending": [
+              5
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              2
+            ]
+          },
+          {
+            "status": "accepted",
+            "value": 12,
+            "next": 3,
+            "pending": []
+          },
+          {
+            "status": "duplicate",
+            "value": 12,
+            "next": 3,
+            "pending": []
+          },
+          {
+            "status": "conflict",
+            "value": 12,
+            "next": 3,
+            "pending": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              4
+            ]
+          },
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              3,
+              4
+            ]
+          },
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              2,
+              3,
+              4
+            ]
+          },
+          {
+            "status": "conflict",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              2,
+              3,
+              4
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "value": 0,
+            "next": 1,
+            "pending": [
+              2
+            ]
+          },
+          {
+            "status": "accepted",
+            "value": 3,
+            "next": 3,
+            "pending": []
+          },
+          {
+            "status": "duplicate",
+            "value": 3,
+            "next": 3,
+            "pending": []
+          },
+          {
+            "status": "conflict",
+            "value": 3,
+            "next": 3,
+            "pending": []
+          }
+        ]
+      }
+    ]
+  }
+}

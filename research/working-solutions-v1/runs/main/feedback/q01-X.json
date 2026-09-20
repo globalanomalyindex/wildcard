@@ -1,0 +1,241 @@
+{
+  "initialRecordSHA256": "2b429f1a99db44e0c792e805f7102d1f4cc249031ef38b8bd055be9573a00099",
+  "firstShown": {
+    "explanation": "A queued job remains eligible until its deadline, while expiration is applied before each event and immediately after time advances. Accepted jobs retain insertion order for deadline ties.",
+    "mapping": "config.capacity bounds queued bytes; state tracks now, queued jobs, and insertion sequence; event mutates only the current queue and clock; output is a snapshot after processing.",
+    "assumptions": "Events and quantities satisfy the stated public preconditions. State is trusted only as the state returned by this program.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&input.config.capacity>=1}",
+    "holds": "function holds(input,output){let c=input.config.capacity,n=0,q=[],seq=0;function exp(){q=q.filter(x=>x.d>n)}function snap(s,r){let b=0;for(let x of q)b+=x.z;return s&&output[i].status===s&&output[i].now===n&&output[i].bytes===b&&output[i].ran===r&&JSON.stringify(output[i].pending)===JSON.stringify(q.map(x=>x.id))}for(var i=0;i<input.events.length;i++){let e=input.events[i];exp();let r=null,s;if(e.type==='add'){if(q.some(x=>x.id===e.id)||e.deadline<=n||q.reduce((a,x)=>a+x.z,0)+e.size>c)s='rejected';else{q.push({id:e.id,z:e.size,d:e.deadline,k:seq++});s='accepted'}}else if(e.type==='cancel'){let j=q.findIndex(x=>x.id===e.id);if(j<0)s='missing';else{q.splice(j,1);s='cancelled'}}else if(e.type==='advance'){n+=e.dt;exp();s='advanced'}else{if(!q.length)s='empty';else{let j=0;for(let k=1;k<q.length;k++)if(q[k].d<q[j].d||q[k].d===q[j].d&&q[k].k<q[j].k)j=k;r=q[j].id;q.splice(j,1);s='ran'}}if(!snap(s,r))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,jobs:[],seq:0},q=s.jobs;function expire(){s.jobs=q=q.filter(x=>x.deadline>s.now)}function bytes(){let n=0;for(let x of q)n+=x.size;return n}expire();let t=event.type,st,ran=null;if(t==='add'){if(q.some(x=>x.id===event.id)||event.deadline<=s.now||bytes()+event.size>config.capacity)st='rejected';else{q.push({id:event.id,size:event.size,deadline:event.deadline,seq:s.seq++});st='accepted'}}else if(t==='cancel'){let i=q.findIndex(x=>x.id===event.id);if(i<0)st='missing';else{q.splice(i,1);st='cancelled'}}else if(t==='advance'){s.now+=event.dt;expire();st='advanced'}else if(t==='run'){if(!q.length)st='empty';else{let i=0;for(let j=1;j<q.length;j++)if(q[j].deadline<q[i].deadline||q[j].deadline===q[i].deadline&&q[j].seq<q[i].seq)i=j;ran=q[i].id;q.splice(i,1);st='ran'}}return{state:s,output:{status:st,ran:ran,pending:q.map(x=>x.id),bytes:bytes(),now:s.now}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a"
+            ],
+            "bytes": 1,
+            "now": 0
+          },
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a",
+              "b"
+            ],
+            "bytes": 3,
+            "now": 0
+          },
+          {
+            "status": "ran",
+            "ran": "a",
+            "pending": [
+              "b"
+            ],
+            "bytes": 2,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "ran": null,
+            "pending": [],
+            "bytes": 0,
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a"
+            ],
+            "bytes": 1,
+            "now": 0
+          },
+          {
+            "status": "rejected",
+            "ran": null,
+            "pending": [
+              "a"
+            ],
+            "bytes": 1,
+            "now": 0
+          },
+          {
+            "status": "ran",
+            "ran": "a",
+            "pending": [],
+            "bytes": 0,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "ran": null,
+            "pending": [],
+            "bytes": 0,
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a"
+            ],
+            "bytes": 1,
+            "now": 0
+          },
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a",
+              "b"
+            ],
+            "bytes": 3,
+            "now": 0
+          },
+          {
+            "status": "ran",
+            "ran": "a",
+            "pending": [
+              "b"
+            ],
+            "bytes": 2,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "ran": null,
+            "pending": [],
+            "bytes": 0,
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a"
+            ],
+            "bytes": 1,
+            "now": 0
+          },
+          {
+            "status": "accepted",
+            "ran": null,
+            "pending": [
+              "a",
+              "b"
+            ],
+            "bytes": 3,
+            "now": 0
+          },
+          {
+            "status": "ran",
+            "ran": "a",
+            "pending": [
+              "b"
+            ],
+            "bytes": 2,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "ran": null,
+            "pending": [],
+            "bytes": 0,
+            "now": 2
+          }
+        ]
+      }
+    ]
+  }
+}

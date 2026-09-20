@@ -1,0 +1,232 @@
+{
+  "initialRecordSHA256": "c4a6b5cf2426642594fbdcb31369313631f73a8260cd50dab32fc317ab268a0a",
+  "firstShown": {
+    "explanation": "The conditional rule is: after the first event, redo is unavailable whenever the initial redo history is empty. More generally, redo changes only through successful undo/redo or changed history-recording edits; no-op edits, group operations, and unavailable commands preserve it. I implement full nested transactional history semantics.",
+    "mapping": "Document d, undo u, redo r, and group stack g are the target variables. Each group stores its saved document. History arrays store snapshots oldest-to-newest.",
+    "assumptions": "Inputs are valid under the stated contract. Document values are plain objects with scalar values, and JSON parsing has already normalized equivalent numeric forms.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||typeof x.canUndo!==\"boolean\"||typeof x.canRedo!==\"boolean\"||!Number.isInteger(x.depth)||x.depth<0||!x.document||Array.isArray(x.document))return false}return output.length===0||output[0].canRedo===false}",
+    "program": "function solve({config,state,event}){function cp(x){const y={};for(const k in x)y[k]=x[k];return y}function eq(a,b){const ak=Object.keys(a),bk=Object.keys(b);if(ak.length!==bk.length)return false;for(const k of ak)if(!Object.prototype.hasOwnProperty.call(b,k)||a[k]!==b[k])return false;return true}function trim(a){while(a.length>config.limit)a.shift()}let s=state;if(!s)s={d:cp(config.initial),u:[],r:[],g:[]};const e=event,t=e.type;if(t==='begin')s.g.push(cp(s.d));else if(t==='set'||t==='delete'){let n=cp(s.d),has=Object.prototype.hasOwnProperty.call(n,e.key);if(t==='set')n[e.key]=e.value;else if(has)delete n[e.key];if(!eq(n,s.d)){if(!s.g.length){s.u.push(cp(s.d));trim(s.u);s.r=[]}s.d=n}}else if(t==='commit'&&s.g.length){let old=s.g.pop();if(!s.g.length&&!eq(old,s.d)){s.u.push(old);trim(s.u);s.r=[]}}else if(t==='cancel'&&s.g.length)s.d=s.g.pop();else if(!s.g.length&&t==='undo'&&s.u.length){s.r.push(cp(s.d));trim(s.r);s.d=s.u.pop()}else if(!s.g.length&&t==='redo'&&s.r.length){s.u.push(cp(s.d));trim(s.u);s.d=s.r.pop()}return{state:s,output:{document:cp(s.d),canUndo:!s.g.length&&s.u.length>0,canRedo:!s.g.length&&s.r.length>0,depth:s.g.length}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v928500_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v928500_0": 1
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v928500_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v928500_0": 2
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v263492_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v263492_0": 3
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v263492_0": 3
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v263492_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v320365_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v320365_0": 1
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v320365_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v320365_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 2
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "document": {
+              "v087372_0": 1
+            },
+            "canUndo": true,
+            "canRedo": false,
+            "depth": 0
+          },
+          {
+            "document": {
+              "v087372_0": 1
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v087372_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 1
+          },
+          {
+            "document": {
+              "v087372_0": 2
+            },
+            "canUndo": false,
+            "canRedo": false,
+            "depth": 2
+          }
+        ]
+      }
+    ]
+  }
+}
