@@ -126,6 +126,7 @@ html, body { height: 100%; }
      to the end where a footnote belongs. */
   .lede { order: -3; }
   .wordmark { font-size: clamp(48px, 15vw, 150px); line-height: 0.82; white-space: normal; overflow-wrap: anywhere; letter-spacing: -0.05em; order: -2; }
+  .fig-cmd, .case-link a { min-height: 44px; display: flex; align-items: center; }
   .demo { order: -1; width: 100%; }
   .panel { width: auto; order: 0; }
   .figures { overflow: visible; }
@@ -134,4 +135,35 @@ html, body { height: 100%; }
   .ascii-cell { width: 46vw; height: 110px; }
   .readout { order: 3; white-space: normal; }
   .draw-note { max-width: none; }
+}
+
+/* The draw is still a compact cell; the reader owns its pace. */
+.lede .author-credit { font: 12px/1.4 var(--font-mono); letter-spacing: 0; margin-top: 24px; }
+.demo { top: 35vh; width: 49vw; max-width: 690px; max-height: 40vh; overflow-y: auto; padding-right: 12px; }
+.draw-note { max-width: 66ch; min-height: 0; margin: 10px 0; }
+.seed-tag { overflow-wrap: anywhere; font-size: 10px; }
+.draw-controls { display: flex; flex-wrap: wrap; gap: 4px 14px; align-items: center; }
+.draw-controls button, #receipt-copy, .reshuffle { min-height: 32px; min-width: 32px; padding: 5px 0; font: 11px/1.2 var(--font-mono); color: var(--ink); background: none; border: 0; border-bottom: 1px solid var(--ink); cursor: pointer; }
+.draw-controls button:first-child { font-family: var(--font-body); font-size: 17px; }
+button:disabled { opacity: .5; cursor: default; }
+.draw-controls button:focus-visible, summary:focus-visible, #receipt-copy:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+.draw-status { font: 11px/1.4 var(--font-mono); min-height: 1.4em; margin: 10px 0; }
+#receipt-details { font: 11px/1.5 var(--font-mono); padding-bottom: 12px; }
+#receipt-details summary { min-height: 32px; cursor: pointer; display: list-item; padding: 6px 0; }
+#receipt-text { white-space: pre-wrap; overflow-wrap: anywhere; padding: 12px; background: var(--pale); border-radius: 4px; text-transform: none; }
+.readout { top: .5vh; }
+@media (max-width: 1099px), (max-height: 700px) {
+  .demo { max-height: none; overflow: visible; padding: 0; width: 100%; }
+  .lede .author-credit { margin-top: 18px; }
+  .draw-controls { gap: 4px 18px; }
+  .draw-controls button, #receipt-copy { min-height: 44px; }
+  .readout { top: auto; }
+}
+.seed-tag { text-transform: none; }
+@media (max-width: 1099px), (max-height: 700px) {
+  html, body { height: auto; min-height: 100%; overflow-x: clip; }
+}
+#replay-command { white-space: pre-wrap; overflow-wrap: anywhere; text-transform: none; background: var(--pale); padding: 12px; border-radius: 4px; }
+@media (max-width: 1099px), (max-height: 700px) {
+  .reshuffle, #receipt-details summary { min-height: 44px; }
 }

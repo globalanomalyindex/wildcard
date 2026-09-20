@@ -14,7 +14,7 @@ Pale on orange is about 1.82:1. The decorative brand wordmark can retain that id
 
 ## Typography
 
-Boyers Blur is reserved for the wordmark. Karrik carries headings and prose; system monospace carries short commands and receipts. Font names are existing asset metadata, not proof of redistribution rights; see `THIRD_PARTY_NOTICES.md`.
+Rubik Bubbles carries the wordmark and its small expressive echo in the case study. Karrik carries headings and prose; system monospace carries short commands and receipts. Both bundled font families include verified OFL notices. The display font replaces the earlier Boyers Blur asset, whose project-specific redistribution entitlement was not established; see `THIRD_PARTY_NOTICES.md`.
 
 Use the lowercase voice for authored labels, not to corrupt copied values. Seeds, JSON, identifiers and code must retain their exact content. Keep long prose near 65 characters per line where practical. Do not depend on 10px captions to communicate essential uncertainty or primary actions.
 

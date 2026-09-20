@@ -5,3 +5,4 @@ __pycache__/
 .playwright-cli/
 .playwright-mcp/
 node_modules/
+output/playwright/
