@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "s04-bank-1",
+  "request_sha256": "57f416c30e6d50cc37083b0ada0bcbf2a4ce01839d0dcc2d30337d180bb09023",
+  "prompt_sha256": "8b6908af67bac83c4a37ae7e7ac15a394f8760bede210c5ac9cb2d43e5e75d13",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:00:51.813481+00:00",
+  "finished_at": "2026-09-20T20:01:20.312633+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 28.498215749999986,
+      "usage": {
+        "input_tokens": 7140,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 780,
+        "reasoning_output_tokens": 266
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "4ae51bd88770115b95b55a000206fc6f1dc9833ae586cf40ea1384de21033461",
+      "stderr_sha256": "93711852451a67b2fc01f05eb08dc0b100d158a824257f5ccbc9fc726440cf1d"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce expiry at the display boundary",
+        "mechanism": "Check expiry continuously, not just during synchronization; stop early enough to cover the clock’s 30-second uncertainty.",
+        "implementation": "Display timestamped items only while device time plus 30 seconds precedes expiry. Schedule removal and recheck after restart or resume.",
+        "check": "Disconnect for six hours with clocks offset by ±30 seconds; verify rendered frames contain no items after true expiry.",
+        "risk": "Items may disappear up to 60 seconds early."
+      },
+      {
+        "action": "Persist removal and revision barriers",
+        "mechanism": "Durable per-ID revision floors and ordered configuration generations prevent delayed updates from restoring removed content.",
+        "implementation": "Record revocations against item revisions; reject equal-or-older revisions and previously superseded generations. Require a strictly newer revision for intentional republication.",
+        "check": "Remove an item, reboot, then deliver duplicated and reordered older bundles; verify the item remains absent.",
+        "risk": "Revision floors require durable storage and a defined retention strategy."
+      },
+      {
+        "action": "Activate complete configurations atomically",
+        "mechanism": "Transactional activation prevents interrupted reconnects from mixing new removals with older display state.",
+        "implementation": "Stage and validate each bundle; commit items, revision barriers, and generation together. Render only committed state, applying expiry checks throughout recovery.",
+        "check": "Interrupt power at each installation step; recovery must expose a complete committed configuration without losing any committed removal.",
+        "risk": "Staging requires additional local storage; invalid updates leave older eligible content active."
+      },
+      {
+        "action": "Show explicit offline freshness limits",
+        "mechanism": "A persistent status distinguishes locally enforceable expiry from removals that require a successfully applied update.",
+        "implementation": "Show last successful configuration application time. While disconnected, state: “Scheduled expiry enforced; removals issued since this update may not be reflected.”",
+        "check": "During a six-hour outage, verify status remains visible and advances only after successful application, not merely reconnection.",
+        "risk": "Status text consumes display space and must remain understandable."
+      },
+      {
+        "action": "Enforce a strict configuration size budget",
+        "mechanism": "Admission control keeps every complete bundle below 100 KB without silently dropping removals or metadata.",
+        "implementation": "Set a conservative 99,000-byte ceiling on both encoded and decoded bundles, including metadata. Reject oversized publication; reduce content explicitly before retrying.",
+        "check": "Test boundary sizes and highly compressible oversized payloads; rejected bundles must never replace the committed configuration.",
+        "risk": "Capacity failures can delay updates; publication errors must be surfaced promptly."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "da209eb5df7d8fff208920e76ef9d5c404690b92b796fa635316dfc120f52a7d",
+  "raw_output_sha256": "8bc7d57358afa2be7967a0b97f4eaee699fd9cdfe0a33b00cc1cb5a686d2ba82"
+}

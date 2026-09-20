@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Separate page selection from all matching records",
+      "mechanism": "Explicit scope choices prevent a page checkbox from silently selecting records on other pages.",
+      "implementation": "Offer “Select these 25 records” and “Select all 600 matching records.” Keep scope, exclusions, and target status visible beside confirmation.",
+      "check": "With keyboard and screen reader, verify each choice announces its count and confirmation names the selected scope.",
+      "risk": "Counts alone can conceal which filters defined the selection."
+    },
+    {
+      "action": "Freeze the confirmed record set",
+      "mechanism": "An immutable ID manifest prevents changing filters or newly matching records from expanding an operation.",
+      "implementation": "Resolve selection into explicit IDs before confirmation. Store the confirmed manifest; submit only its IDs and enforce membership server-side.",
+      "check": "Change filters and add matching records after confirmation; verify every submitted ID belongs to the original manifest.",
+      "risk": "Resolving large selections may require a loading state before confirmation."
+    },
+    {
+      "action": "Skip records changed since confirmation",
+      "mechanism": "Atomic version checks prevent bulk edits from overwriting intervening changes without informed confirmation.",
+      "implementation": "Capture record versions with the manifest. Extend the write path to condition each update on its confirmed version; return conflicts separately.",
+      "check": "Modify a record after confirmation but before its write; verify it remains untouched and receives a conflict outcome.",
+      "risk": "Requires conditional writes, not a separate preflight check."
+    },
+    {
+      "action": "Keep a durable per-record operation ledger",
+      "mechanism": "Recorded outcomes distinguish completed writes, failures, and unresolved requests throughout a long-running operation.",
+      "implementation": "Persist the manifest, target status, and per-ID outcomes under an operation ID. Show completed, failed, pending, and unknown counts.",
+      "check": "Disconnect midway and reopen the operation; verify known outcomes persist and unresolved requests are not labeled failed.",
+      "risk": "Lost responses require server reconciliation before safe recovery."
+    },
+    {
+      "action": "Retry only eligible unsuccessful records",
+      "mechanism": "Outcome-based retry sets exclude successes; idempotency prevents duplicate execution when request delivery is uncertain.",
+      "implementation": "Build retry IDs from confirmed-manifest failures. Reconcile unknown outcomes, reuse per-record idempotency keys, and require refreshed confirmation for conflicts.",
+      "check": "Simulate mixed outcomes and a lost response; verify retry never reapplies a success or includes an unconfirmed ID.",
+      "risk": "Conflict recovery must not silently authorize overwriting newer changes."
+    },
+    {
+      "action": "Explain and enforce reversal eligibility per record",
+      "mechanism": "Time and version checks allow safe reversal while exposing specific reasons a record cannot be restored.",
+      "implementation": "Store prior status, resulting version, and policy deadline. Atomically check both eligibility conditions; display “Time expired” or “Changed afterward” per record.",
+      "check": "Reverse unchanged, subsequently edited, and expired records; verify only eligible records revert and every rejection has a reason.",
+      "risk": "Eligibility can change between display and reversal execution."
+    },
+    {
+      "action": "Make the entire operation keyboard and screen-reader usable",
+      "mechanism": "Semantic controls, predictable focus, and restrained announcements expose scope and recovery without relying on visual cues.",
+      "implementation": "Use labeled checkboxes, keyboard-operable scope controls, a confirmation summary, polite progress announcements, and searchable per-record results with textual reasons.",
+      "check": "Without a pointer, select across pages, confirm, locate a failure, retry it, and inspect an unavailable reversal using a screen reader.",
+      "risk": "Announcing every record completion would overwhelm meaningful feedback."
+    }
+  ],
+  "abstention_reason": ""
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "s03-bank-1",
+  "request_sha256": "191a9f0a496b70fa5dd8f7ff3068ec42c869ef094823004bca23efb75d75287d",
+  "prompt_sha256": "0166da3a738487ee4abeb7cbcf33979390e3e8cf8b80965202f34fd3b8cc3c91",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:55:07.325989+00:00",
+  "finished_at": "2026-09-20T19:55:42.839159+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.511785,
+      "usage": {
+        "input_tokens": 7142,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1057,
+        "reasoning_output_tokens": 163
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "58b84b6fd6b903b16e9211bb275db8b314861d9190b781a0b7bd3f31ff3c9f42",
+      "stderr_sha256": "782df1f609a3e3c6da3957fb97b859a847f84f566558f20ac723e03e7cb03f79"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Merge paragraph versions instead of whole documents",
+        "mechanism": "A causal multi-value register preserves concurrent text versions while replacing only versions an edit explicitly supersedes.",
+        "implementation": "Key versions by paragraph ID and device/revision; attach two-device causal context, author, and original text. Union versions and retain causally maximal alternatives.",
+        "check": "Edit different paragraphs offline; reconnect in both orders. Assert both edits survive. Concurrent same-paragraph edits must retain both exact texts.",
+        "risk": "Logical revision numbers alone cannot establish cross-device causality."
+      },
+      {
+        "action": "Represent deletion as a conflicting paragraph version",
+        "mechanism": "A deletion marker participates in causal comparison, preventing concurrent edits from disappearing when a paragraph is deleted.",
+        "implementation": "Store deletion operations with paragraph ID, author, revision, and causal context. Concurrent text and deletion remain an unresolved pair; retain the edited text.",
+        "check": "Delete a paragraph on one device and edit it offline on the other. Both reconnect orders must expose deletion-versus-edit alternatives.",
+        "risk": "Hiding deletion conflicts in ordinary trash would obscure unresolved work."
+      },
+      {
+        "action": "Separate paragraph ordering from paragraph text",
+        "mechanism": "Independent move operations prevent a reorder from overwriting prose; deterministic replay gives replicas the same paragraph sequence.",
+        "implementation": "Record moves as paragraph ID plus predecessor ID. Replay causally, breaking concurrent ties by device/revision. Preserve deleted anchors as invisible sequence entries.",
+        "check": "Combine concurrent moves, text edits, and anchor deletion. Every delivery permutation must produce identical ordering and preserved text alternatives.",
+        "risk": "Deterministic ordering may surprise users; retain competing move history for explanation."
+      },
+      {
+        "action": "Make conflict resolution an authored operation",
+        "mechanism": "Explicit resolution records explain which alternatives were reviewed without silently overriding edits the resolving device has never seen.",
+        "implementation": "Show original alternatives with authors, devices, and revisions. Save the chosen or combined text with references to reviewed versions and their causal context.",
+        "check": "Resolve a conflict, then deliver an unseen concurrent edit. Verify it remains a conflict rather than disappearing beneath the resolution.",
+        "risk": "Do not interpret logical revisions as reliable wall-clock chronology."
+      },
+      {
+        "action": "Exchange durable operations through the existing connection",
+        "mechanism": "Idempotent operation transfer tolerates duplicate delivery, interrupted reconnects, and either device becoming the first sender.",
+        "implementation": "Persist operations transactionally before acknowledging receipt. Exchange missing per-device revision ranges through the existing transport; deduplicate by device/revision and track gaps explicitly.",
+        "check": "Interrupt transfer before and after acknowledgment, restart both devices, and resend duplicates. Assert identical operations, text, conflicts, and ordering after synchronization.",
+        "risk": "Reused device identities or revision counters can create operation collisions."
+      },
+      {
+        "action": "Compact history without discarding unresolved alternatives",
+        "mechanism": "Acknowledged checkpoints reduce replay work while retaining conflict originals, provenance, and ordering anchors needed by offline operations.",
+        "implementation": "Checkpoint only a causal frontier acknowledged by both devices. Preserve unresolved alternatives and required tombstones; never expire them merely because 48 hours elapsed.",
+        "check": "Leave one device offline for 48 hours, compact the other, then reconnect with edits referencing old paragraphs. Assert no lost alternatives or broken anchors.",
+        "risk": "The paragraph limits do not bound accumulated conflict-history storage."
+      },
+      {
+        "action": "Enforce limits without silently truncating conflicts",
+        "mechanism": "Admission checks keep authored paragraphs within limits while treating conflicting versions as alternatives, not additional live paragraphs.",
+        "implementation": "Define the 8 KB encoding measure and validate each version. For concurrent insertions exceeding 500 paragraphs, retain excess additions in an explicit pending queue.",
+        "check": "Merge two valid offline insertions into a 499-paragraph note. Verify 500 active paragraphs maximum, identical pending additions, and no discarded text.",
+        "risk": "Pending additions require a visible user decision, not hidden eviction."
+      },
+      {
+        "action": "Build deterministic adversarial replay tests",
+        "mechanism": "A fixed operation trace and delivery permutations make convergence, authorship preservation, and deletion behavior falsifiable.",
+        "implementation": "Seed identical notes; script independent edits, conflicting text, moves, and deletion-versus-edit. Replay all deliveries respecting local creation order, including duplicates and restarts.",
+        "check": "Compare canonical paragraph order, exact alternative bytes, author/revision metadata, and conflict states across replicas; assert expected independent edits and deletion-versus-edit alternatives remain.",
+        "risk": "Convergence alone is insufficient: identically losing edits must fail explicit survival assertions."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "2180bef0c13fc32b8f32ddb5aa29c3bf70616860220d000c1a74495a37e2447c",
+  "raw_output_sha256": "0fbcfcd651455dbfe0268281c51a662fcd0924e482977fddc422c5925062a533"
+}

@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "i01-bank-1",
+  "request_sha256": "1d74f3cada3e7dc2b2d62532f826f6182f257be511008b2c538bbcb76179977a",
+  "prompt_sha256": "fb02d08a614913bbc182bdc181c14b63b3569c824dc69d8018dce15c5495e4e8",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:59:35.041673+00:00",
+  "finished_at": "2026-09-20T20:00:07.153648+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.10906079200004,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 827,
+        "reasoning_output_tokens": 111
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "03623e6966b673fb8406c2f71399654e5c2a8f5773ebf56a5f484011a56a6b71",
+      "stderr_sha256": "95a65a455ea8a0ea07dda87290faf4aef1ff8ad682f0bce951fb53965e40f566"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Store scope separately from claim wording",
+        "mechanism": "Population, setting, period, and outcome fields distinguish similar claims without treating different scopes as direct contradictions.",
+        "implementation": "Add passage-linked scope fields to each claim. Mark unstated dimensions unspecified; require confirmation before merging claims with different scope values.",
+        "check": "Load opposing findings about adults and adolescents. Verify separate claims, exact passage IDs, and visible population differences.",
+        "risk": "Inferred scope could misrepresent passages; preserve unspecified values."
+      },
+      {
+        "action": "Separate opposition from missing evidence",
+        "mechanism": "Explicit evidence relationships prevent empty searches or absent links from becoming negative findings.",
+        "implementation": "Label claim–passage links supports, opposes, or contextualizes, with passage IDs and user confirmation. Display absent supporting links as missing supplied evidence.",
+        "check": "Remove supporting links and verify no opposition appears. An opposing relationship must retain an inspectable passage explicitly supporting that interpretation.",
+        "risk": "Automated relationship suggestions may mistake qualifications for opposition."
+      },
+      {
+        "action": "Show disagreement before the polished summary",
+        "mechanism": "A paired evidence view exposes opposing findings while distinguishing scope differences and unresolved scope overlap.",
+        "implementation": "Place passage-linked finding cards side by side. Show population and other scope differences; label direct contradiction only after confirming comparable scope.",
+        "check": "Opposing adult and adolescent findings appear together as differently scoped, not as a resolved consensus or direct contradiction.",
+        "risk": "Pairing findings can imply comparability unless scope differences remain prominent."
+      },
+      {
+        "action": "Require statement-level evidence before briefing export",
+        "mechanism": "A provenance gate binds every briefing claim and its scope to exact stored passages.",
+        "implementation": "Store passage IDs on each factual clause. Restrict summarization inputs to selected stored passages; block export for missing IDs and require scope confirmation.",
+        "check": "Reject a nonexistent ID and an uncited clause. An adult-only passage must not pass review for an all-populations statement.",
+        "risk": "Valid IDs establish traceability, not entailment; reviewers must inspect wording."
+      },
+      {
+        "action": "Inspect original passages beside briefing text",
+        "mechanism": "An in-workspace source drawer lets users verify wording without abandoning their drafting context.",
+        "implementation": "Make every claim citation open the exact stored passage, its ID, and report metadata. Highlight cited spans without replacing the original passage text.",
+        "check": "Open citations from both opposing claims. Verify the correct originals remain readable alongside the draft without external navigation.",
+        "risk": "Highlights can distract from qualifications; always display the complete stored passage."
+      },
+      {
+        "action": "Compress wording without silently dropping disagreement",
+        "mechanism": "An evidence-coverage ledger makes brevity tradeoffs explicit rather than allowing a summary to erase opposing findings.",
+        "implementation": "Map selected findings to briefing clauses. Before export, flag omitted opposing findings; require inclusion or explicit scope narrowing with a passage-backed limitation.",
+        "check": "Under a short word limit, opposing population-specific findings remain identifiable, or the briefing visibly narrows its population instead of implying consensus.",
+        "risk": "Coverage requirements may consume space; remove redundant prose before evidential distinctions."
+      },
+      {
+        "action": "Invalidate briefing review when evidence changes",
+        "mechanism": "Dependency tracking prevents previously checked prose from silently surviving changes to its supporting claims or passages.",
+        "implementation": "Version stored passages and claim scopes. Track dependent briefing clauses; mark them for re-review after edits and block export when cited passages become unavailable.",
+        "check": "Change one population field and withdraw one cited passage. Verify dependent clauses require review without converting withdrawn support into opposing evidence.",
+        "risk": "Broad invalidation creates review fatigue; track dependencies at clause level."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d640900f2f3535b6abacaea8ee49d9b027d2b5c97f01871fb81a717cb3761cfa",
+  "raw_output_sha256": "b620422fd661e84bfa74c7145b5d58dbaabbeab868a2b0acb77cf0980c14c75e"
+}

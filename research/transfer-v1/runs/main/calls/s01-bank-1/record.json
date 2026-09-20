@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "s01-bank-1",
+  "request_sha256": "1269eb68a926bcc2f33b36e1467ce1615469abd5477d33c414dcb5a371d5240a",
+  "prompt_sha256": "a346c86cc5e9451e3b0f5dcdeeaad5ba3544b4498b703178fa532307cf56bfe9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:57:46.480441+00:00",
+  "finished_at": "2026-09-20T19:58:23.737655+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.25436970800001,
+      "usage": {
+        "input_tokens": 7156,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 951,
+        "reasoning_output_tokens": 394
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "5026c16ea083c57b2f9bd126657494a5322129cc51f368327a455d08a69ec9d6",
+      "stderr_sha256": "a56f0520e844f75b4921c59c65162b086794a16edb6c11d1091f68d77a45269d"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Commit the update and event receipt together.",
+        "mechanism": "A unique event-ID receipt and business update share one transaction; acknowledgement follows successful commit.",
+        "implementation": "Insert the partner-scoped ID using a unique key. Only the successful inserter may update state. Roll back both on failure; acknowledge committed duplicates.",
+        "check": "Race concurrent deliveries of one ID. Assert one committed receipt and at most one business update.",
+        "risk": "External side effects cannot be protected by this database transaction alone."
+      },
+      {
+        "action": "Gate entity updates on their revision.",
+        "mechanism": "An atomic revision comparison prevents older or equal revisions from changing already newer entity state.",
+        "implementation": "Within the receipt transaction, lock the entity and apply only an eligible higher revision. Record stale deliveries without updating. Retain revision markers across deletion.",
+        "check": "Deliver revisions 12, 10, 12 concurrently. Assert final revision 12 and no regression or repeated revision-12 update.",
+        "risk": "Incremental events require gap handling rather than blindly skipping missing revisions."
+      },
+      {
+        "action": "Expire receipts only after the replay boundary.",
+        "mechanism": "A fixed first-seen deadline covers seven-day redelivery; processing grace protects deliveries admitted near expiry.",
+        "implementation": "Set expiry to first_seen plus seven days plus an enforced maximum processing delay. Never refresh on duplicates. Delete only after expiry; serialize cleanup with receipt access.",
+        "check": "Replay just before, exactly at, and just after seven days. Delay a boundary delivery through the processing limit; verify no repeated update.",
+        "risk": "Without a bounded processing delay, finite time-based retention alone cannot protect arbitrarily delayed requests."
+      },
+      {
+        "action": "Budget physical receipt storage before deployment.",
+        "mechanism": "Compact receipts and measured database overhead keep deduplication storage below 2 GB without premature eviction.",
+        "implementation": "Store only scoped IDs and necessary timestamps; minimize indexes. Measure table, indexes, deletion overhead, and revision markers. Include grace-period population and cleanup backlog in capacity limits.",
+        "check": "Load the maximum retained population using representative ID lengths. Run cleanup under traffic; require peak durable deduplication storage below 2 GB.",
+        "risk": "Average ID length alone does not bound index, allocator, or operational overhead."
+      },
+      {
+        "action": "Automate crash and replay fault injection.",
+        "mechanism": "Failures around transaction commit and acknowledgement expose update-without-receipt and replay races.",
+        "implementation": "Crash before commit, after commit before acknowledgement, and during acknowledgement. Replay each event, including concurrent duplicates, reordered revisions, and receipts undergoing expiry cleanup.",
+        "check": "Assert uncommitted work rolls back; committed updates never repeat; revisions never decrease; boundary behavior matches retention policy.",
+        "risk": "Tests must inspect business state, not merely successful HTTP responses."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "4f4e7fd1060cf9f4a47ac06c8379cb94387f3708145102f056cee3d2bd17fa82",
+  "raw_output_sha256": "ba116fb6ed72a4e95fa13bbb08abec09db1961ecce61b51ffb8a5f1ec164e738"
+}

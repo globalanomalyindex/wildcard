@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "i03-bank-2",
+  "request_sha256": "51d13a99f9ad2b70432c36b19e4fb3d6fc33408384290f02578b6f37d984acf5",
+  "prompt_sha256": "9456d4953f649a646bf3fbb9166130c9f06593a3c0fd28e6f5bce066eb022741",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:59:37.237742+00:00",
+  "finished_at": "2026-09-20T20:00:15.060930+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.820542542000055,
+      "usage": {
+        "input_tokens": 7123,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 960,
+        "reasoning_output_tokens": 125
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "317c99720a2d33551630a4e9a99e651c88d96f3ba6b99820942b90d4c57f88cb",
+      "stderr_sha256": "06802b7198cfa6ec0fcbbbb7f46d6dbf1dda0d8b890e399188a1004dd61ac6fa"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate imported attribution from verified identity",
+        "mechanism": "Explicit attribution states prevent imported labels or confidence scores from implying that a researcher verified the speaker.",
+        "implementation": "Store imported labels separately from reviewed identity. Default to unverified; allow unknown. Bind verification to reviewer, audio interval, and attribution revision.",
+        "check": "Import a confidently labeled segment; confirm it remains unverified. Save an unknown speaker without forcing an identity.",
+        "risk": "A generic verified badge could obscure which claim was checked."
+      },
+      {
+        "action": "Version corrections and preserve saved quote history",
+        "mechanism": "Append-only corrections preserve evidence while saved collections resolve references to current revisions without overwriting earlier snapshots.",
+        "implementation": "Retain immutable imported text. Append corrections with segment ID, reviewer ID, reason, and parent revision. Store each saved quote’s original revision.",
+        "check": "Correct a saved quotation; confirm its collection shows the update and its original text, attribution, and reviewer history remain accessible.",
+        "risk": "Silently refreshing quotes could conceal changes; display revision differences."
+      },
+      {
+        "action": "Represent boundary-crossing quotations as ordered spans",
+        "mechanism": "A quotation can reference multiple segments without inheriting the first segment’s speaker for its entire text.",
+        "implementation": "Store ordered segment IDs, text offsets, and audio intervals. Preserve attribution per span; display mixed or unknown identity when appropriate.",
+        "check": "Select a quote crossing two segments with different speakers, one unresolved; confirm both spans survive saving, playback, and export.",
+        "risk": "Combining adjacent spans may hide a real speaker transition."
+      },
+      {
+        "action": "Review audio alignment independently of speaker identity",
+        "mechanism": "Editable audio anchors address incorrect timestamps without treating correct speaker attribution as proof that the interval is correct.",
+        "implementation": "Provide contextual playback and adjustable start/end anchors. Retain imported timestamps, version reviewed anchors, and record alignment verification separately from identity verification.",
+        "check": "Import an intentionally shifted interval; adjust it and confirm playback contains the entire quotation while imported timing remains available.",
+        "risk": "Unrecoverable alignment must remain visibly unresolved, not receive fabricated precision."
+      },
+      {
+        "action": "Make export provenance inseparable from the quotation",
+        "mechanism": "An export contract carries attribution status and audio provenance into formats where interface warnings would otherwise disappear.",
+        "implementation": "Include revision, speaker or unknown, verification states, segment IDs, and recording-relative intervals with a stable audio route. Label provisional intervals explicitly.",
+        "check": "Export an unresolved speaker and a boundary-crossing quote; reopen each audio route and confirm warnings survive plain-text copying.",
+        "risk": "Audio access may expire; retain recording identifiers and interval coordinates."
+      },
+      {
+        "action": "Expose attribution uncertainty directly in search results",
+        "mechanism": "Search distinguishes imported speaker claims from reviewed identities so retrieval does not silently endorse incorrect attribution.",
+        "implementation": "Label every result’s attribution state. Separate verified-speaker filters from imported-label filters; keep unknown speakers searchable and provide contextual audio playback.",
+        "check": "Search a name present only in an imported label; confirm the result cannot appear under verified-speaker filtering but remains discoverable elsewhere.",
+        "risk": "Hiding uncertain results by default could exclude valuable evidence."
+      },
+      {
+        "action": "Invalidate verification when its supporting evidence changes",
+        "mechanism": "Verification applies to a specific claim and evidence revision, not permanently to a segment or quotation.",
+        "implementation": "Track dependencies on text spans, identity mappings, and audio anchors. Mark dependent verification stale after relevant corrections while preserving prior signoffs.",
+        "check": "Change a verified quote’s speaker mapping or interval; confirm saved collections and new exports no longer present its old verification as current.",
+        "risk": "Overbroad invalidation creates unnecessary review work; test dependency boundaries."
+      },
+      {
+        "action": "Prevent competing reviews from silently overwriting decisions",
+        "mechanism": "Revision-aware writes expose conflicting corrections instead of allowing the last reviewer’s submission to become unquestioned truth.",
+        "implementation": "Require each correction to name its parent revision. Preserve conflicting submissions with reviewer identities; require explicit reconciliation before marking the disputed attribution verified.",
+        "check": "Have two reviewers correct the same revision to different speakers; confirm neither submission disappears and the unresolved conflict blocks current verification.",
+        "risk": "Reconciliation can stall; keep disputed quotations usable with explicit warnings."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "90181098531a898ef5c62c54bbe179789d00d171bf4ade8d516fa17005530e35",
+  "raw_output_sha256": "5c7c8e13ed0e3afbbab111aa564568d5d61f5d093cf870ac99e51cdf5cfae1af"
+}

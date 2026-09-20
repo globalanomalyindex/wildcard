@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "o02-bank-1",
+  "request_sha256": "7ef697bdc4766b92b0333e39c15f1800601f27a752600fddc4a5489231286d94",
+  "prompt_sha256": "d777e8b8b8f20bdce109e1993522218362f6c3c9bc0551e4a5f576e2339bf3dd",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:55:39.036104+00:00",
+  "finished_at": "2026-09-20T19:56:12.719355+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 33.681836290999996,
+      "usage": {
+        "input_tokens": 7114,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 982,
+        "reasoning_output_tokens": 147
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e333e0b56e7dc92da95bd64713488d497c3f705b290312a6761d5e07f61ea9cd",
+      "stderr_sha256": "3d6e2b285bc6c4370d9f1b575e7d6e5da925150de39c91a56dcf9edcf7edb46d"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind approvals to exact paragraph revisions",
+        "mechanism": "Approval records identify both source and translation revisions, preventing approval transfer after either text changes.",
+        "implementation": "Store immutable paragraph revisions and approval tuples containing language, stable IDs, both revision IDs, reviewer, and timestamp. Preserve superseded approvals as history.",
+        "check": "Substantively edit an approved source paragraph; confirm its new revision has no approval while an unchanged paragraph retains its approval.",
+        "risk": "Matching approvals by stable ID alone defeats revision protection."
+      },
+      {
+        "action": "Separate paragraph movement from text modification",
+        "mechanism": "Ordering changes independently of paragraph text, while contextual moves receive targeted review rather than automatic approval reuse.",
+        "implementation": "Store order separately from content revisions. Compare stable IDs to identify moves; flag moved paragraphs and changed neighbor boundaries for context review.",
+        "check": "Move an unchanged paragraph: its text revision stays fixed, context review opens, and unrelated unchanged paragraphs remain approved.",
+        "risk": "A move can alter meaning without changing any words."
+      },
+      {
+        "action": "Track meaning dependencies between paragraphs",
+        "mechanism": "Explicit dependencies extend review to translations affected indirectly by changed definitions, references, or shared terminology.",
+        "implementation": "Let reviewers link dependent paragraph IDs. When a linked source revision changes, open review tasks for dependents and block their publication pending clearance.",
+        "check": "Change a defined term; verify its linked uses enter review while an unrelated paragraph does not.",
+        "risk": "Missing dependency links leave indirect effects undetected."
+      },
+      {
+        "action": "Offer a focused human reapproval view",
+        "mechanism": "Reviewers compare source changes against the existing translation, deciding whether correction or explicit reapproval is needed.",
+        "implementation": "Display old and new source text, their diff, translation, and relevant context. Allow translation edits or unchanged-text reapproval bound to the new source revision.",
+        "check": "Use a punctuation edit and a substantive edit; verify neither becomes approved without a recorded human decision.",
+        "risk": "Small visual changes can carry substantial meaning."
+      },
+      {
+        "action": "Divide affected work between two reviewers",
+        "mechanism": "A shared per-language queue assigns affected paragraphs without restarting completed work or routinely duplicating volunteer effort.",
+        "implementation": "Assign each task to one of the two reviewers; reserve the other for flagged uncertainty. Include dependency reasons, revision targets, and resumable progress.",
+        "check": "Create changes across six languages; verify each affected task has an owner and unaffected paragraphs generate no tasks.",
+        "risk": "Disputed paragraphs may remain blocked when both reviewers disagree."
+      },
+      {
+        "action": "Reject approval of a superseded review target",
+        "mechanism": "An optimistic concurrency check detects source or translation changes made while a reviewer is reading.",
+        "implementation": "Capture both revision IDs when review opens. At submission, compare them with the task’s current targets; on mismatch, show intervening changes and require reconfirmation.",
+        "check": "Open review, change the source, then submit; verify the new revision receives no approval from that submission.",
+        "risk": "Frequent edits can repeatedly interrupt volunteer reviews."
+      },
+      {
+        "action": "Gate publication on an immutable revision manifest",
+        "mechanism": "A release contains only explicitly approved source–translation pairs and cleared contextual review requirements.",
+        "implementation": "Freeze a manifest of paragraph IDs, order, source revisions, and six-language translation revisions. Validate approvals and outstanding review blocks before atomically publishing that manifest.",
+        "check": "Try publishing a cleared move, unchanged paragraph, and unapproved substantive edit; only the substantive edit must block release.",
+        "risk": "A live-data renderer could bypass the validated manifest."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "5f34bfdc7f270a0d3416384a43bfc3cb919732d163d418b7efb9ef758305b51d",
+  "raw_output_sha256": "a85dd3b53d2dbf6663840dbeb7356112d4b67094358791b0b6156382310d2d4f"
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "i02-bank-2",
+  "request_sha256": "11c4259a92017a15da0fdf695824df37f6c1f6a1836a1f32a87a574812db5f5a",
+  "prompt_sha256": "4cd8887ab6d9e7026b99d4863e44cf81aca305db39f74944fdb875637826a848",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:58:43.183988+00:00",
+  "finished_at": "2026-09-20T19:59:09.610016+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 26.42357520799999,
+      "usage": {
+        "input_tokens": 7134,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 718,
+        "reasoning_output_tokens": 80
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "7d1acb21aef426be6b15883037a1906d6e2861da57302414ff2ed4820a70ccf5",
+      "stderr_sha256": "f9d4578a5be5a29761e5dbbde4b8977ad04d8acd39980aa4d7d0f1b89a96a5cf"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Condense only verified, license-equivalent exact duplicates",
+        "mechanism": "Matching file hashes establish duplicate candidates; verified license equivalence gates condensation, while distinct licensing remains visible.",
+        "implementation": "Precompute groups using hashes, dimensions, and verified license identity. Keep unknown licenses separate; expose member paths, creators, and an expand control.",
+        "check": "Identical pixels with different license records remain separate results. Same-hash, license-equivalent copies expand to every original file.",
+        "risk": "Overly broad license equivalence could conceal distinct entitlements."
+      },
+      {
+        "action": "Record variant relationships without collapsing their results",
+        "mechanism": "Explicit relationships organize crops and annotations without treating visual resemblance as permission to hide files.",
+        "implementation": "Let people link asset IDs with typed relationships: crop-of, annotated-from, or alternate-version-of. Display related assets while preserving independent search entries.",
+        "check": "Link two different crops to one original; confirm all three remain individually searchable and relationship changes never modify files.",
+        "risk": "Mistaken relationships require editable labels and recorded authorship."
+      },
+      {
+        "action": "Record the exact licensed file each project used",
+        "mechanism": "Project usage records preserve file identity and licensing context independently of search grouping or later metadata changes.",
+        "implementation": "On asset selection, record project ID, member asset ID, hash, path, and license record revision or snapshot; require member selection within groups.",
+        "check": "Select identically rendered files with different licenses into separate projects; each project must resolve its chosen file and historical license.",
+        "risk": "Existing projects without usage records need explicit reconciliation."
+      },
+      {
+        "action": "Make condensed results explain their query matches",
+        "mechanism": "Query-aware representatives prevent duplicate grouping from obscuring matching folder paths, creators, or other member-specific metadata.",
+        "implementation": "Apply search filters before grouping; choose a matching member as representative. Show matching-member counts and distinguish other copies when expanded.",
+        "check": "Search a creator or folder belonging only to a nondefault member; its group must appear and identify that matching file.",
+        "risk": "Unlabeled counts could imply every member matches the query."
+      },
+      {
+        "action": "Keep grouping work off the first-page request",
+        "mechanism": "Precomputed group fields and bounded result payloads avoid request-time file inspection and full-family expansion.",
+        "implementation": "Add group IDs and summary counts to the existing index. Fetch member details on expansion; measure the complete first-page load.",
+        "check": "Benchmark broad, filtered, and crop searches across all 12,000 assets under documented load and cache conditions; each first page must load under one second.",
+        "risk": "Index updates can temporarily leave group summaries stale."
+      },
+      {
+        "action": "Let users protect intentionally separate search entries",
+        "mechanism": "An explicit keep-separate override protects workflows where even identical, license-equivalent files have distinct organizational meaning.",
+        "implementation": "Store a reversible asset-level grouping exclusion with author and reason. Offer an uncondensed search view; neither control changes files or licensing.",
+        "check": "Exclude one member of a duplicate group; it appears independently. Undo the exclusion and verify regrouping preserves project usage records.",
+        "risk": "Excessive exclusions can restore clutter; show their reasons."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "405d31ce8927f5c0f83433476f33fe41b6ac8397e889e31082e80b8cd029ff8f",
+  "raw_output_sha256": "cbc2891fa96b0e95702593daac6ac66fb153be1c736b5697dbbc65642bb78d2c"
+}

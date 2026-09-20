@@ -1,0 +1,61 @@
+{
+  "actions": [
+    {
+      "action": "Gate electrical opening at intake",
+      "mechanism": "Separate intake from opening authorization so uncertain item classification never grants general volunteers electrical access.",
+      "implementation": "Add an electrical-or-uncertain flag and specialist authorization field. General volunteers record owner-reported symptoms without opening flagged equipment; only the specialist opens electrical equipment.",
+      "check": "Audit observed openings against operator names; any electrical opening by a general volunteer fails the check.",
+      "risk": "Misclassification can bypass the gate; route uncertainty to the specialist."
+    },
+    {
+      "action": "Time-box diagnosis, not repair completion",
+      "mechanism": "A diagnostic checkpoint forces a continuation decision without assuming every repair can safely stop immediately.",
+      "implementation": "Set a 15-minute initial diagnostic review. At review, record continue, safely pause, await parts, or return, with an accountable person and next action.",
+      "check": "Every diagnosis exceeding 15 minutes must have a recorded decision; track overruns lacking one.",
+      "risk": "Unsafe interruption; the specialist controls pausing opened electrical equipment."
+    },
+    {
+      "action": "Protect turns for short safe jobs",
+      "mechanism": "A rotating dispatch rule prevents uncertain repairs from consuming every newly available bench turn.",
+      "implementation": "Alternate available bench starts between assessed short safe jobs and the oldest other ready item. Use either queue when the other is empty.",
+      "check": "With both queues populated, two consecutive starts from one queue violate the rule. Record specialist-unavailable exceptions separately.",
+      "risk": "Short-job estimates can be wrong; apply diagnostic checkpoints after starting."
+    },
+    {
+      "action": "Move parts waits out of active work",
+      "mechanism": "A separate parts-wait state prevents unavailable components from silently occupying the ready queue or a bench.",
+      "implementation": "After safe stabilization, move blocked items to labeled existing storage. Record required part, procurement responsibility, and review date; return to ready only after verification.",
+      "check": "At closing, every parts-wait item has a storage location and procurement owner, and none is counted as active.",
+      "risk": "Without suitable storage, arrange owner collection rather than unsafe parking."
+    },
+    {
+      "action": "Maintain item custody independently of repair status",
+      "mechanism": "A stable identifier links owner receipt, physical location, and custody even when an item changes workflow state.",
+      "implementation": "Issue matching numbered item tags and owner receipts. Maintain a location register; record every move, including separately stored components, before releasing custody.",
+      "check": "Sample five receipts each shift: locate each item and its components, then match their tags back to the owner record.",
+      "risk": "Detached tags break traceability; secure labels without damaging items."
+    },
+    {
+      "action": "Require accepted responsibility at shift handoff",
+      "mechanism": "Explicit acceptance transfers accountability rather than leaving unfinished work assigned to someone who has departed.",
+      "implementation": "For every retained item, record state, location, last finding, next action, and responsible person. Incoming volunteers acknowledge assignments; electrical opening remains specialist-only.",
+      "check": "After handoff, no retained item lacks an accepting responsible person or a concrete next action.",
+      "risk": "If nobody accepts, the shift lead retains coordination responsibility."
+    },
+    {
+      "action": "Communicate uncertainty instead of single deadlines",
+      "mechanism": "Separate the next status update from completion expectations so diagnosis and parts uncertainty remain visible.",
+      "implementation": "Use receipt fields for next update date and completion estimate. Permit either 'unknown' or an explicit time range with assumptions; prohibit standalone completion dates.",
+      "check": "Audit receipts and visitor messages: every completion promise includes a range, and update appointments are not presented as completion promises.",
+      "risk": "Unsupported ranges mislead; leave completion unknown when evidence is insufficient."
+    },
+    {
+      "action": "Limit retained work to traceable safe spaces",
+      "mechanism": "A storage-based admission limit prevents parked repairs from overwhelming custody tracking or displacing active bench work.",
+      "implementation": "Count suitable existing storage positions and assign identifiers. Accept a drop-off only against an available position; otherwise offer owner retention and a later intake opportunity.",
+      "check": "At shift end, retained-item records reconcile with occupied positions; no item uses an aisle or unrecorded overflow location.",
+      "risk": "Owner retention may inconvenience visitors; explain the limit before acceptance."
+    }
+  ],
+  "abstention_reason": ""
+}

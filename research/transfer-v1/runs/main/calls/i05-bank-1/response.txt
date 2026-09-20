@@ -1,0 +1,61 @@
+{
+  "actions": [
+    {
+      "action": "Explore scene-and-state paths with explicit limits",
+      "mechanism": "Track scene identifiers together with variable values so revisits with changed state remain distinct.",
+      "implementation": "Declare starting states, transition semantics, and depth, state-count, and time limits. Store predecessor choices and report why exploration stopped.",
+      "check": "A reachable scene includes a replayable witness; an unvisited scene after cutoff says “not explored within limit,” never “proven unreachable.”",
+      "risk": "Large state spaces require limits and can leave many scenes unresolved."
+    },
+    {
+      "action": "Prove unreachable scenes separately from bounded exploration",
+      "mechanism": "Exhaustive finite-state exploration or sound overapproximation can establish unreachability without confusing missing evidence with proof.",
+      "implementation": "Add a proof pass for supported conditions and updates. Model unsupported code conservatively; label unresolved results unknown and attach proof assumptions.",
+      "check": "An unreachable warning exposes the declared starts and an inspectable exclusion certificate; unsupported behavior cannot silently strengthen the conclusion.",
+      "risk": "Conservative models can prevent proofs even when scenes are genuinely unreachable."
+    },
+    {
+      "action": "Detect traps using state-aware closed regions",
+      "mechanism": "A reachable closed region without an accepted ending traps players; a scene-level cycle alone proves nothing.",
+      "implementation": "Find closed strongly connected components in a complete supported state graph. Show an entry path, repeating choices, and why every outward choice is disabled.",
+      "check": "A counter incrementing from zero exits on visit three without a trap warning; an impossible exit produces a trap certificate.",
+      "risk": "Incomplete exploration cannot establish closure; player-selectable repetition is not necessarily a trap."
+    },
+    {
+      "action": "Replay warnings directly in the story editor",
+      "mechanism": "Stepwise execution makes warning evidence inspectable through the same choices and variables the writer edits.",
+      "implementation": "Provide a replay panel showing each scene, selected choice, condition evaluation, and before-and-after state. Link failed transitions to their expressions.",
+      "check": "Replaying a stored witness reproduces its final state; changed story versions mark old evidence stale rather than presenting it as current.",
+      "risk": "Replay diverges unless analyzer and player share transition semantics."
+    },
+    {
+      "action": "Explain blocked scenes through backward conditions",
+      "mechanism": "Backward propagation identifies requirements for reaching a target and contradictions that prevent particular routes.",
+      "implementation": "Let writers select a scene, propagate its entry requirements backward through updates, and display conflicting conditions with source links.",
+      "check": "For a route requiring both flag=true and flag=false without an intervening update, show both conflicting choices; leave alternate routes separately classified.",
+      "risk": "A contradiction on one route does not prove the entire scene unreachable."
+    },
+    {
+      "action": "Record narrow, reviewable author exceptions",
+      "mechanism": "Exceptions attach intent to specific findings rather than silencing every warning around a scene or loop.",
+      "implementation": "Store warning type, affected choices or scene, relevant state predicate, rationale, and dependency fingerprint. Keep accepted findings visible in an exceptions view.",
+      "check": "Accepting a deliberate loop leaves an unrelated unreachable-scene warning active; changing its exit condition requests renewed review.",
+      "risk": "Broad predicates can hide accidental cases; preview the exact matched findings."
+    },
+    {
+      "action": "Turn important paths into executable story contracts",
+      "mechanism": "Writer-defined expectations catch regressions independently of whether the analyzer discovers the same warning again.",
+      "implementation": "Save starting states and assertions such as “this ending remains reachable” or “this loop exits on visit three.” Run them after relevant edits.",
+      "check": "Include fixtures for three-visit escape and impossible escape; altering the counter update must fail the appropriate contract with evidence.",
+      "risk": "Bounded or unsupported checks must report inconclusive, not a passing contract."
+    },
+    {
+      "action": "Use playtest traces to challenge the model",
+      "mechanism": "Observed executions supply concrete reachability witnesses and reveal differences between modeled and actual story behavior.",
+      "implementation": "Capture versioned scenes, choices, and state changes during opt-in playtests. Replay imported traces and compare every transition against analyzer semantics.",
+      "check": "A trace reaching a supposedly unreachable scene raises a model-mismatch error; scenes absent from all traces remain unproven, not unreachable.",
+      "risk": "External effects and sensitive state require controlled recording and explicit handling."
+    }
+  ],
+  "abstention_reason": ""
+}

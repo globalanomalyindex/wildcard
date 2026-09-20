@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Bind approvals to exact paragraph revisions",
+      "mechanism": "Approval records identify both source and translation revisions, preventing approval transfer after either text changes.",
+      "implementation": "Store immutable paragraph revisions and approval tuples containing language, stable IDs, both revision IDs, reviewer, and timestamp. Preserve superseded approvals as history.",
+      "check": "Substantively edit an approved source paragraph; confirm its new revision has no approval while an unchanged paragraph retains its approval.",
+      "risk": "Matching approvals by stable ID alone defeats revision protection."
+    },
+    {
+      "action": "Separate paragraph movement from text modification",
+      "mechanism": "Ordering changes independently of paragraph text, while contextual moves receive targeted review rather than automatic approval reuse.",
+      "implementation": "Store order separately from content revisions. Compare stable IDs to identify moves; flag moved paragraphs and changed neighbor boundaries for context review.",
+      "check": "Move an unchanged paragraph: its text revision stays fixed, context review opens, and unrelated unchanged paragraphs remain approved.",
+      "risk": "A move can alter meaning without changing any words."
+    },
+    {
+      "action": "Track meaning dependencies between paragraphs",
+      "mechanism": "Explicit dependencies extend review to translations affected indirectly by changed definitions, references, or shared terminology.",
+      "implementation": "Let reviewers link dependent paragraph IDs. When a linked source revision changes, open review tasks for dependents and block their publication pending clearance.",
+      "check": "Change a defined term; verify its linked uses enter review while an unrelated paragraph does not.",
+      "risk": "Missing dependency links leave indirect effects undetected."
+    },
+    {
+      "action": "Offer a focused human reapproval view",
+      "mechanism": "Reviewers compare source changes against the existing translation, deciding whether correction or explicit reapproval is needed.",
+      "implementation": "Display old and new source text, their diff, translation, and relevant context. Allow translation edits or unchanged-text reapproval bound to the new source revision.",
+      "check": "Use a punctuation edit and a substantive edit; verify neither becomes approved without a recorded human decision.",
+      "risk": "Small visual changes can carry substantial meaning."
+    },
+    {
+      "action": "Divide affected work between two reviewers",
+      "mechanism": "A shared per-language queue assigns affected paragraphs without restarting completed work or routinely duplicating volunteer effort.",
+      "implementation": "Assign each task to one of the two reviewers; reserve the other for flagged uncertainty. Include dependency reasons, revision targets, and resumable progress.",
+      "check": "Create changes across six languages; verify each affected task has an owner and unaffected paragraphs generate no tasks.",
+      "risk": "Disputed paragraphs may remain blocked when both reviewers disagree."
+    },
+    {
+      "action": "Reject approval of a superseded review target",
+      "mechanism": "An optimistic concurrency check detects source or translation changes made while a reviewer is reading.",
+      "implementation": "Capture both revision IDs when review opens. At submission, compare them with the task’s current targets; on mismatch, show intervening changes and require reconfirmation.",
+      "check": "Open review, change the source, then submit; verify the new revision receives no approval from that submission.",
+      "risk": "Frequent edits can repeatedly interrupt volunteer reviews."
+    },
+    {
+      "action": "Gate publication on an immutable revision manifest",
+      "mechanism": "A release contains only explicitly approved source–translation pairs and cleared contextual review requirements.",
+      "implementation": "Freeze a manifest of paragraph IDs, order, source revisions, and six-language translation revisions. Validate approvals and outstanding review blocks before atomically publishing that manifest.",
+      "check": "Try publishing a cleared move, unchanged paragraph, and unapproved substantive edit; only the substantive edit must block release.",
+      "risk": "A live-data renderer could bypass the validated manifest."
+    }
+  ],
+  "abstention_reason": ""
+}

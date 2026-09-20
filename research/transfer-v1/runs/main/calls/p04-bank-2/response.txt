@@ -1,0 +1,61 @@
+{
+  "actions": [
+    {
+      "action": "Bind confirmation to the explicitly selected slot",
+      "mechanism": "Stable slot identity prevents refreshes or list reordering from changing what the person confirms.",
+      "implementation": "Store the selected slot ID and displayed booking details. Submit that ID only; require renewed review if material details change.",
+      "check": "Reorder slots and change their details during review; verify no request books a replacement or materially changed appointment without review.",
+      "risk": "Matching slots by display position defeats this protection."
+    },
+    {
+      "action": "Keep review controls stationary during capacity updates",
+      "mechanism": "A persistent review panel preserves focus and pointer targets while availability changes around it.",
+      "implementation": "Keep the selected slot and confirmation control mounted in normal document flow. Update status without moving controls or automatically switching selection.",
+      "check": "Refresh capacity repeatedly with keyboard focus and pointer over confirmation; verify focus, target position, and selected identity remain unchanged.",
+      "risk": "Dynamic messages can move controls unless layout space is reserved."
+    },
+    {
+      "action": "Explain availability changes without creating urgency",
+      "mechanism": "Explicit, non-expiring status distinguishes selection from reservation without countdowns or promises.",
+      "implementation": "Show “Selected, not reserved; availability may change.” Announce selected-slot availability transitions politely, suppress duplicate announcements, and keep unavailable status visible.",
+      "check": "Simulate repeated identical updates followed by unavailability; verify one transition announcement, persistent text, and no automatic dismissal or forced response.",
+      "risk": "Announcing every five-second refresh can overwhelm assistive technology."
+    },
+    {
+      "action": "Recover through preference-preserving alternatives",
+      "mechanism": "Keeping the unavailable choice visible preserves context while alternatives respect the person's existing requirements.",
+      "implementation": "Retain workshop, week, filters, and accessibility preferences after rejection. Offer matching alternatives without preselecting one; require explicit selection and confirmation.",
+      "check": "Reject a confirmation and verify preferences remain intact, alternatives meet active filters, and no replacement booking request occurs automatically.",
+      "risk": "Silently relaxing filters can suggest unsuitable appointments."
+    },
+    {
+      "action": "Separate unavailable responses from uncertain outcomes",
+      "mechanism": "Distinct pending, rejected, successful, and unknown states prevent premature recovery or accidental duplicate submissions.",
+      "implementation": "Permit one confirmation request at a time. Preserve review data on rejection; on timeout, show uncertainty and use existing booking-status facilities if available.",
+      "check": "Test rejection, delayed success, repeated activation, and lost responses; verify no automatic resubmission or unsupported success claim.",
+      "risk": "Without existing reconciliation facilities, an uncertain outcome may need support."
+    },
+    {
+      "action": "Provide a narrow-screen keyboard slot list",
+      "mechanism": "A chronological list avoids relying on a seven-column grid, dragging, or precise pointer movement.",
+      "implementation": "At 320 pixels, show day headings and native slot buttons in one column. Include date, time, and availability in accessible names; preserve logical focus order.",
+      "check": "Complete selection, review, rejection recovery, and confirmation using only a keyboard at 320 pixels without horizontal page scrolling.",
+      "risk": "Duplicate hidden layouts can create duplicate focus stops."
+    },
+    {
+      "action": "Preserve review state without an interaction deadline",
+      "mechanism": "Unlimited interface review time avoids adding motor-speed pressure, although capacity remains unreserved.",
+      "implementation": "Do not expire selection, reset preferences after inactivity, or add timed retry prompts. If availability returns, update status without automatically confirming.",
+      "check": "Pause through multiple refresh cycles and resume; verify review state survives, no booking was attempted, and confirmation still uses current endpoint results.",
+      "risk": "Persistent selection must never imply persistent availability."
+    },
+    {
+      "action": "Measure race-condition recovery independently of speed",
+      "mechanism": "Controlled rejection scenarios assess accessible recovery rather than rewarding participants who reach confirmation fastest.",
+      "implementation": "In tests, return unavailability on the first confirmation regardless of elapsed time. Measure wrong-slot bookings, preference loss, failure comprehension, and eventual recovery without deadlines.",
+      "check": "Run identical scenarios with deliberately delayed input; require zero silent substitutions and preference loss, and report recovery outcomes separately from timing.",
+      "risk": "Controlled tests do not establish production rejection frequency."
+    }
+  ],
+  "abstention_reason": ""
+}

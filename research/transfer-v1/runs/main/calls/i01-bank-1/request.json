@@ -1,0 +1,11 @@
+{
+  "id": "i01-bank-1",
+  "phase": "bank",
+  "task_id": "i01",
+  "arm": "S",
+  "count": 8,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Research board with contradictory evidence\",\n  \"brief\": \"A research board stores claims linked to passages from reports. Multiple reports disagree, and a polished summary currently hides this disagreement. Users need to prepare a short evidence-backed briefing.\",\n  \"constraints\": [\n    \"Every claim must link to exact stored source passage IDs.\",\n    \"The tool may summarize only the supplied passages; no web retrieval.\",\n    \"Missing evidence must not be represented as evidence against a claim.\",\n    \"A user can inspect the original passages without leaving the workspace.\"\n  ],\n  \"success_criteria\": [\n    \"Contradictory and differently scoped findings remain distinguishable.\",\n    \"A briefing statement can be traced to the evidence supporting its scope.\",\n    \"Test two similar claims with different populations and opposing findings.\"\n  ],\n  \"non_goals\": [\n    \"Automatically deciding which source is true or generating new research results.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "fb02d08a614913bbc182bdc181c14b63b3569c824dc69d8018dce15c5495e4e8"
+}

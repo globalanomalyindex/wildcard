@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Preserve arrival order across every reroute",
+      "mechanism": "Immutable arrival time and a stable tie-breaker preserve service claims independently of team membership.",
+      "implementation": "Store write-protected original_arrived_at and intake_sequence. Within each explicit urgency class, select the oldest eligible case across team queues.",
+      "check": "Reroute an older case twice; verify it precedes newer equally urgent eligible cases. Simultaneous arrivals retain deterministic ordering.",
+      "risk": "Strict urgency precedence can prolong ordinary-case waits."
+    },
+    {
+      "action": "Enforce eligibility and capacity before assignment",
+      "mechanism": "Hard qualification gates prevent unsafe routing; roster-derived capacity limits prevent overbooking as shifts change.",
+      "implementation": "Require verified language, required product expertise, and urgent qualification when applicable. Atomically reserve available roster capacity and revalidate eligibility before committing assignment.",
+      "check": "Race two assignments for one remaining slot; only one succeeds. Reject unavailable, wrong-language, and urgent-unqualified workers.",
+      "risk": "Stale qualification or roster records can block valid assignments."
+    },
+    {
+      "action": "Show skill and information blockers separately",
+      "mechanism": "Independent blocker flags distinguish missing customer information from unavailable expertise without obscuring cases blocked by both.",
+      "implementation": "Track waiting-for-skill and waiting-for-information separately, with reasons, next actions, and review dates. Display total age from original arrival regardless of blockers.",
+      "check": "Create cases with either blocker and both. Clear one blocker; verify the other remains and original age never resets.",
+      "risk": "Unreviewed blockers can become permanent holding states."
+    },
+    {
+      "action": "Correct tags without transferring queue ownership",
+      "mechanism": "A shared case pool recalculates eligible workers after tag corrections instead of recreating cases in destination queues.",
+      "implementation": "Version language and product requirements; record correction evidence. For uncertain requirements, hold assignment pending verification. On correction, revalidate or revoke incompatible assignments.",
+      "check": "Correct a wrong-language tag during routing; verify stale assignment attempts fail and the case retains its original service-order key.",
+      "risk": "Overly cautious verification can increase waiting-for-information time."
+    },
+    {
+      "action": "Make urgency decisions explicit and reviewable",
+      "mechanism": "Documented incident criteria determine urgent qualification requirements without using customer status or spending as proxies.",
+      "implementation": "Require an urgency reason grounded in reported impact or symptoms. Exclude commercial attributes from urgency rules; log overrides and revalidate existing assignments.",
+      "check": "Change only customer status and spending; urgency remains unchanged. Promote an assigned case to urgent; an unqualified worker loses assignment.",
+      "risk": "Ambiguous impact reports require human review."
+    },
+    {
+      "action": "Handle uncovered urgent shifts without unsafe fallback",
+      "mechanism": "A visible coverage-gap workflow preserves urgent cases until qualified capacity exists rather than relaxing assignment requirements.",
+      "implementation": "When neither trained worker is eligible, mark waiting-for-skill, alert the coverage owner, and show next rostered coverage if known. Retry on roster updates.",
+      "check": "Run a shift with no eligible urgent worker; verify zero unsafe assignments, a coverage alert, and oldest-first dispatch when coverage returns.",
+      "risk": "Escalation cannot guarantee that qualified coverage becomes available."
+    },
+    {
+      "action": "Replay adversarial routing scenarios before release",
+      "mechanism": "Deterministic event simulation exposes ordering, qualification, and capacity failures that ordinary single-case tests can miss.",
+      "implementation": "Build a controllable-clock test harness covering simultaneous arrivals, tag corrections, information replies, concurrent dispatch, shift boundaries, and uncovered urgent shifts.",
+      "check": "Assert immutable arrival timestamps, no ineligible assignments, no capacity overruns, correct blocker visibility, and oldest-eligible selection within urgency classes after every event.",
+      "risk": "Passing simulations does not establish real-world response-time improvements."
+    }
+  ],
+  "abstention_reason": ""
+}

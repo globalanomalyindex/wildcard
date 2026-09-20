@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "o05-bank-2",
+  "request_sha256": "225d3af95aa66de392a048656af175ac347c6e4c3498ca47177e2fbc202285e2",
+  "prompt_sha256": "0abaa4d300073e1510c76d6cb73e43f6e9a76d73b856797a658454e6969b1582",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:59:51.679419+00:00",
+  "finished_at": "2026-09-20T20:00:28.026782+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 36.3448095,
+      "usage": {
+        "input_tokens": 7117,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1092,
+        "reasoning_output_tokens": 95
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "497c4ff0ee0644ced52ac618eda20de95afc9c1991e7a0bf74bc5653a6202f2e",
+      "stderr_sha256": "6da3b79ffc048b77a92ddae83fa311ac0572c11124d9ae05fface8e7b98872dd"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate reservation requests from inspected-stock commitments",
+        "mechanism": "Expected returns support tentative requests, not pickup promises; only inspected, uncommitted items support ready-for-pickup status.",
+        "implementation": "Track each item's inspection, condition, accessories, and allocation. Atomically allocate inspected stock before confirming readiness; require consent before changing the reserved item.",
+        "check": "Simulate concurrent reservations and late returns. No item receives overlapping commitments, and no uninspected item supports a readiness confirmation.",
+        "risk": "Tentative status must be conspicuous during booking and afterward."
+      },
+      {
+        "action": "Open recovery cases automatically when returns slip",
+        "mechanism": "A missed return deadline creates owned, time-bounded recovery work for every dependent reservation.",
+        "implementation": "Link reservations to expected returns. On lateness, create cases with an owner, pickup deadline, and branches for consented substitution, borrower-approved rescheduling, or recorded unfulfilled pickup.",
+        "check": "Inject a late return affecting several bookings. Every affected booking gets a case; none closes without a recorded outcome.",
+        "risk": "Notification alone must not count as completed recovery."
+      },
+      {
+        "action": "Offer substitutions with explicit differences and consent",
+        "mechanism": "Borrowers approve the actual replacement, including its condition and accessories, rather than a generic equivalence claim.",
+        "implementation": "Offer inspected, uncommitted alternatives through the supplied contact preference. List differences, place an expiring hold, and record affirmative consent before allocation.",
+        "check": "Test refusal, silence, expired holds, and changed accessories. None results in substitution without valid consent for the offered configuration.",
+        "risk": "Long holds can obstruct recovery for other borrowers."
+      },
+      {
+        "action": "Reserve operational time between return and pickup",
+        "mechanism": "Scheduling gaps provide time for inspection and recovery without treating expected returns as inspected inventory.",
+        "implementation": "Configure turnaround intervals from recorded inspection durations and opening hours. Reject impossible handoffs; label future-return-dependent requests tentative and retain their original requested pickup windows.",
+        "check": "Replay actual timelines with proposed intervals. Report feasible handoffs, failed pickups, and requests displaced by the scheduling rule.",
+        "risk": "Excessive gaps reduce access without necessarily preventing lateness."
+      },
+      {
+        "action": "Prioritize inspections by threatened pickup deadlines",
+        "mechanism": "Returned items blocking imminent reservations enter an urgent inspection queue, while safety requirements remain unchanged.",
+        "implementation": "Keep returns unavailable pending inspection. Sort inspection work by dependent pickup deadline; use aging to prevent starvation and record condition and accessories before release.",
+        "check": "Introduce an inspection backlog. Verify urgent items are surfaced, older work progresses, and incomplete or failed inspections never release stock.",
+        "risk": "Deadline pressure must not shorten required safety checks."
+      },
+      {
+        "action": "Check reservation conflicts before granting extensions",
+        "mechanism": "Extension decisions expose downstream conflicts before an administrative change makes another reservation impossible.",
+        "implementation": "Evaluate extension requests against dependent pickup windows and inspection time. Block automatic approval on conflict, preserve original deadlines, and open recovery work if continued possession threatens pickup.",
+        "check": "Request an extension across a dependent booking. The system flags the conflict and never silently shifts that borrower's pickup.",
+        "risk": "Declining an extension cannot ensure the item's physical return."
+      },
+      {
+        "action": "Gate recovery communication by existing contact preferences",
+        "mechanism": "A centralized dispatch rule prevents urgent recovery work from bypassing each borrower's permitted contact route.",
+        "implementation": "Route reminders, substitution offers, and status changes only through the supplied preference. Record delivery failures; queue staff follow-up through that same route without collecting new contact details.",
+        "check": "Test incompatible channels, failed delivery, and unanswered offers. No alternate-channel message or inferred consent occurs.",
+        "risk": "An unreachable borrower may remain unrecovered before pickup."
+      },
+      {
+        "action": "Measure failures against original booking intent",
+        "mechanism": "Immutable booking cohorts prevent cancellations and rescheduling from disguising unsupported or missed pickup commitments.",
+        "implementation": "Retain original windows and outcomes, including library-induced cancellations. Audit preventability against timestamped stock, inspection, consent, and recovery records; report tentative requests and confirmed pickups separately.",
+        "check": "Cancel or move a difficult booking in test data. Its original-window miss remains counted; preventability requires evidence of a feasible timely intervention.",
+        "risk": "Preventability judgments need documented rules and periodic review."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "51178ad75638590b98f3844f8c3470211333b095b2ae72412c10580149acc467",
+  "raw_output_sha256": "a429f24d773f67258f4d759e73a4a3feb20c063cc372398c08248c0c92ad9307"
+}

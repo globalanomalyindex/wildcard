@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "s02-bank-2",
+  "request_sha256": "9c1436b0dbf18f9d223a95c4bff3ee431cf72bbab253f3fd45030bf84c26cb90",
+  "prompt_sha256": "57334c332961cbe923122132ba0ae5812f5bc43385cfb2f4b73d362646679b19",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:56:46.688437+00:00",
+  "finished_at": "2026-09-20T19:57:26.268144+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 39.57854279200001,
+      "usage": {
+        "input_tokens": 7127,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1171,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "41e365e0994bc3c0f343d9bc7c38a22545c3e2be1df0936d0de8b9370ebc5aa9",
+      "stderr_sha256": "de5e2e087beb32e9ff2ad4a2b84323414027c96615c07c6c1fdf56d82e58187a"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Freeze membership at a committed change version.",
+        "mechanism": "A session traverses IDs existing at cutoff V, not historical field values.",
+        "implementation": "Store immutable birth versions and deletion versions. Atomically replace deleted records with membership tombstones. Publish V only after all changes through V commit.",
+        "check": "Eligibility is birth_version ≤ V and deletion_version absent or > V. Later inserts are excluded; later deletes return ID-only deletion markers.",
+        "risk": "Requires globally ordered committed versions; per-record counters alone are insufficient."
+      },
+      {
+        "action": "Replace offsets with an immutable-ID cursor.",
+        "mechanism": "Strict keyset traversal prevents shifting positions from duplicating or skipping eligible IDs.",
+        "implementation": "Index the combined live/tombstone membership store by immutable ID. Seek strictly after the cursor ID; apply cutoff eligibility before emitting entries.",
+        "check": "Insert and delete around page boundaries. Concatenated results must equal eligible IDs in ID order, with every ID appearing exactly once.",
+        "risk": "Live-to-tombstone transitions must preserve an atomically readable membership entry."
+      },
+      {
+        "action": "Expire sessions before retained history disappears.",
+        "mechanism": "A bounded cursor lifetime makes the membership promise compatible with 24-hour tombstones.",
+        "implementation": "Issue authenticated cursors containing cutoff, position, filters, tenant and a fixed ten-minute expiry. Retain tombstones for 24 hours; reject expired cursors explicitly.",
+        "check": "Verify page requests cannot extend expiry, alter filters or cross tenants. Expired requests must require restart, never silently switch datasets.",
+        "risk": "Ten minutes is a proposed policy, not measured user coverage."
+      },
+      {
+        "action": "Bound scanning, not just returned page size.",
+        "mechanism": "Candidate-work limits prevent invisible inserts and tombstones from causing unbounded scans.",
+        "implementation": "Use indexed seeks and a measured candidate cap with deadline headroom. Permit short or empty nonterminal pages; advance the cursor to the last examined ID.",
+        "check": "Under mutation-heavy load, verify every request meets 300 ms and continuation eventually returns all eligible IDs without duplicates.",
+        "risk": "A hard latency guarantee still requires bounded store latency and load."
+      },
+      {
+        "action": "Alternatively browse a published ID manifest.",
+        "mechanism": "A shared immutable manifest fixes membership without reconstructing eligibility on every page.",
+        "implementation": "Build sorted, deduplicated ID manifests in the existing store; publish only completed generations. Pin sessions for ten minutes. Promise exactly that manifest's IDs, not start-time membership.",
+        "check": "Exclude inserts absent from the manifest; return deletion markers for missing IDs. Compare traversal against manifest contents and test requests against 300 ms.",
+        "risk": "Build-time membership may be stale; manifests consume storage and write capacity."
+      },
+      {
+        "action": "Test complete traversal against an independent oracle.",
+        "mechanism": "Set equality detects omissions; multiplicity checks detect duplicates that set comparisons hide.",
+        "implementation": "Seed 80,000 IDs. Log committed mutations independently; interleave inserts, deletes and page requests, including six-page, two-minute schedules and complete traversals.",
+        "check": "For completed sessions, assert returned-ID set equals promised membership and every count equals one. For partial sessions, assert the exact expected prefix.",
+        "risk": "Use unique page continuations; retries legitimately repeat the same logical page."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "87b0b60741f19003e86ab8aca381dcf63f44f5012b9626de6cf3accc608bd622",
+  "raw_output_sha256": "5fed9add79c779b7b5676befb9f00b13cda79d1abcbc124a6a607b0183b8d947"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "i08-bank-2",
+  "phase": "bank",
+  "task_id": "i08",
+  "arm": "S",
+  "count": 8,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Highlights after a document revision\",\n  \"brief\": \"A reading tool stores highlights and notes in technical documents. When the document is edited, character offsets point to the wrong passages. Some deleted passages remain important to the reader's notes.\",\n  \"constraints\": [\n    \"Keep a copy of the originally highlighted text and its document revision.\",\n    \"Do not silently attach a note to a merely similar passage.\",\n    \"The user can compare old and new passages.\",\n    \"Documents can contain repeated boilerplate and moved sections.\"\n  ],\n  \"success_criteria\": [\n    \"A moved passage can retain its notes with traceable evidence.\",\n    \"Ambiguous or deleted matches remain explicit.\",\n    \"Test identical repeated sentences, a moved paragraph, and a small meaning-changing edit.\"\n  ],\n  \"non_goals\": [\n    \"Rewriting user notes or guaranteeing a match for every highlight.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "47376a0f6b6abe1a9aadf214d5c35ad6d67a74aab926fe2ab0fa62f14fcc3390"
+}

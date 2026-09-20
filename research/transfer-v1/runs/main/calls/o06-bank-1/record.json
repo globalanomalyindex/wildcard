@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "o06-bank-1",
+  "request_sha256": "45dc5e4a4e2084936a7c8bd5cdc3a35b1c3b0c4958468c39044ce3922974c391",
+  "prompt_sha256": "3c0aba755fd6018a948064d8a9fc06aed4ded71e51b17f6fa608c2c2fc274021",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:56:48.333701+00:00",
+  "finished_at": "2026-09-20T19:57:22.911386+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 34.57425820799999,
+      "usage": {
+        "input_tokens": 7126,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1000,
+        "reasoning_output_tokens": 146
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "fbe857332c93544e7ba29ffe32d17e353b92539c373188faa09b457247fc70ea",
+      "stderr_sha256": "148e6fe09aa03f993fc4d3036d6d02246351b94fed2cd638bdd84e5652e162a3"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate public seating from private access records",
+        "mechanism": "Publish a minimal seating view rather than hiding sensitive columns in a shared spreadsheet.",
+        "implementation": "Restrict the source file to designated organizers. Publish attendee identifiers and table/seat assignments only; exclude access flags, notes, and pair requests.",
+        "check": "Using an attendee account, inspect the published view, downloads, and linked files; verify no accommodation reasons or private fields are accessible.",
+        "risk": "Previously shared copies may persist; revoke their access where possible."
+      },
+      {
+        "action": "Allocate hard requirements before pair preferences",
+        "mechanism": "Treat the four clear-route seats as eligible placements for access requirements; optimize pairs only within feasible assignments.",
+        "implementation": "Give all 48 seats stable identifiers, mark exactly four as route-qualified, and record access requirements without medical details. Reject conflicting assignments before considering pair preferences.",
+        "check": "Test four access requests plus competing pairs: every confirmed access request receives a qualified seat, with no duplicate assignments.",
+        "risk": "Incorrect seat eligibility data can invalidate otherwise correct allocations."
+      },
+      {
+        "action": "Protect confirmed accessible placements from automatic changes",
+        "mechanism": "A protected-placement flag blocks cancellation cleanup, optimization, and manual reassignment until attendee contact is recorded.",
+        "implementation": "Require an organizer to record contact and the resulting arrangement before changing a protected assignment. Preserve the hard requirement whenever attendance continues.",
+        "check": "Attempt to move a protected attendee through each editing path; every attempt without recorded contact must fail.",
+        "risk": "Sending an unanswered message should not count as completed contact."
+      },
+      {
+        "action": "Process cancellations as atomic seating updates",
+        "mechanism": "Versioned updates prevent simultaneous edits from assigning the same vacancy or overwriting protected placements.",
+        "implementation": "Route edits through one organizer or controlled form. Validate each proposed change against the latest version, commit it completely, then refresh public assignments and notify affected attendees privately.",
+        "check": "Submit two requests for one cancelled seat simultaneously; exactly one succeeds, and protected assignments remain unchanged.",
+        "risk": "Direct spreadsheet edits can bypass the update controls."
+      },
+      {
+        "action": "Offer honest choices for late pair requests",
+        "mechanism": "A pair preference never authorizes displacement of a hard requirement or a false promise of adjacent seating.",
+        "implementation": "When only separated seats remain, privately offer those seats or an optional together-seating waitlist. Retain existing confirmations unless attendees explicitly choose otherwise.",
+        "check": "Test a late pair request with only separated vacancies: offer separation, make no adjacent-seat promise, and preserve all confirmed accessible placements.",
+        "risk": "Waiting together may mean missing the session."
+      },
+      {
+        "action": "Handle access demand beyond four seats explicitly",
+        "mechanism": "A capacity gate prevents organizers from confirming placements that cannot satisfy the required clear route.",
+        "implementation": "If all four qualified seats are committed, privately explain the placement limit and offer a timestamped access waitlist. Do not request diagnoses or substitute an unqualified seat.",
+        "check": "Submit a fifth access request; verify it receives no unsuitable confirmed placement and displaces no confirmed attendee.",
+        "risk": "A waitlist does not guarantee attendance; communicate that clearly."
+      },
+      {
+        "action": "Verify clear routes in the actual room",
+        "mechanism": "Physical setup checks ensure spreadsheet eligibility corresponds to usable routes at session time.",
+        "implementation": "Label the four qualified seats, keep their routes free of bags and extra chairs, and assign an organizer to inspect before opening and after layout changes.",
+        "check": "Inspect all four routes against the required clearance. Introduce a temporary obstruction during rehearsal; staff must detect and remove it before seating.",
+        "risk": "Fix obstructions first; do not silently relocate a confirmed attendee."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "6e04e303947473418ed61df78a76908de3dd671ac24d2d1e6a625d56fe07facc",
+  "raw_output_sha256": "33ba542a002983f8f8ab6767aad95931f14af13440355dd3a383a5d9cb355aad"
+}

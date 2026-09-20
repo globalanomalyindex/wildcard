@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Separate private requirements from public seat assignments",
+      "mechanism": "Generate the attendee list from an allowlist of placement fields, not a copy of the private spreadsheet.",
+      "implementation": "Keep access requirements in an organizer-only file. Publish only attendee booking codes, tables, and seats; exclude accommodation flags and notes.",
+      "check": "Open the published file as an attendee; verify private columns, comments, hidden sheets, and source-file links are absent.",
+      "risk": "Previously shared copies may remain accessible; revoke their access."
+    },
+    {
+      "action": "Allocate hard needs before pair preferences",
+      "mechanism": "Treat clear-route eligibility as a mandatory constraint and pair proximity as a secondary objective.",
+      "implementation": "Mark the four eligible seats. Assign required access first, preserve protected confirmations, then seat pairs together where feasible among the remaining seats.",
+      "check": "Test a layout where pairing would displace an access assignment; reject that pairing and retain every feasible hard requirement.",
+      "risk": "An impossible allocation must produce an exception, not silent compromise."
+    },
+    {
+      "action": "Protect confirmed accessible placements from automatic moves",
+      "mechanism": "A protected assignment cannot be removed by optimization, manual edits, or imports without a recorded contact step.",
+      "implementation": "Lock confirmed accessible assignments. Stage proposed changes separately; contact the attendee privately and obtain agreement before releasing their original placement.",
+      "check": "Attempt removal through each editing path; verify the original seat remains assigned when contact or agreement is missing.",
+      "risk": "Unanswered messages must not count as agreement."
+    },
+    {
+      "action": "Manage the four clear-route seats as limited inventory",
+      "mechanism": "Track hard-access demand separately from general vacancies so ordinary empty seats cannot imply accessible availability.",
+      "implementation": "Record each eligible seat as available, held, or confirmed. Keep unassigned eligible seats available for access requests; privately waitlist excess demand without requesting medical details.",
+      "check": "Submit five simultaneous access requests; no more than four receive confirmed placements, and the fifth receives an explicit capacity response.",
+      "risk": "Reserved inventory may leave seats temporarily unused."
+    },
+    {
+      "action": "Process cancellations as atomic assignment changes",
+      "mechanism": "One serialized update releases and reallocates a seat, preventing conflicting edits during last-minute changes.",
+      "implementation": "Use one designated editor or transactional script. Record attendee-initiated cancellations, release those seats, then offer eligible vacancies to unmet hard needs before pair improvements.",
+      "check": "Submit a cancellation and two competing requests concurrently; verify one occupant per seat and no protected assignment is silently removed.",
+      "risk": "Never treat a late arrival as a cancellation."
+    },
+    {
+      "action": "Offer separated seats for an infeasible late pair",
+      "mechanism": "A pair request changes preference scoring, not access eligibility or existing placement protections.",
+      "implementation": "When only separated seats remain, privately offer those seats and optional notification if adjacent seats open. Do not explain another attendee’s placement or move them automatically.",
+      "check": "Test a late pair request with exactly two separated vacancies; offer both without displacing access assignments or promising adjacency.",
+      "risk": "The pair may decline; record each person’s decision."
+    },
+    {
+      "action": "Verify clear routes in the actual room",
+      "mechanism": "Physical inspection catches mismatches between spreadsheet eligibility and furniture, bags, or equipment blocking access.",
+      "implementation": "Before opening, check all four marked seats and their routes against the workshop’s access requirements. Remove obstructions and keep those routes clear throughout arrivals.",
+      "check": "Deliberately obstruct one marked route during setup testing; confirm inspection detects it and the obstruction is cleared before seating.",
+      "risk": "If restoration fails, contact affected attendees before changing confirmed placements."
+    }
+  ],
+  "abstention_reason": ""
+}

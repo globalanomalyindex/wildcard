@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "s07-bank-1",
+  "request_sha256": "334fc01bfba820ce56d2d0a9b0e87c1f7b98a7ff06205eaa98a2e44655c297f5",
+  "prompt_sha256": "8fd645aef2bc91b467ffcec97663abd6e3168780903d5f3e0af0f1e38a6e705e",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:55:43.782625+00:00",
+  "finished_at": "2026-09-20T19:56:18.796767+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.008240333,
+      "usage": {
+        "input_tokens": 7142,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 998,
+        "reasoning_output_tokens": 136
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d069e047136b6b26bd639a15669b4a17b3bc9f12b7a0ac89183604618be020db",
+      "stderr_sha256": "a6b17a0deccda96d7089fca216f615bd87fbd64b2fdd9ace5bcff978a1ff557b"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Persist resumable uploads before importing",
+        "mechanism": "Durable file storage separates connection failures from processing; digest verification binds accepted work to exact file bytes.",
+        "implementation": "Stream uploads to disk or object storage with durable offsets. Resume interrupted uploads; verify the supplied digest before starting database writes.",
+        "check": "Disconnect halfway, resume, and verify the complete digest. Alter one uploaded byte; confirm importing is blocked.",
+        "risk": "Requires storage quotas, cleanup, and sufficient durable capacity."
+      },
+      {
+        "action": "Enforce a measured streaming memory budget",
+        "mechanism": "Incremental parsing, byte-limited batches, and backpressure prevent file size or slow writes from determining memory usage.",
+        "implementation": "Cap parser buffers, record size, batch bytes, and queued batches. Track physical source lines across quoted newlines; never load the complete file.",
+        "check": "Import 4 GB with oversized records and throttled database writes; verify peak process memory remains below 128 MB.",
+        "risk": "Malformed quoting may require stopping with an explicit unprocessed range."
+      },
+      {
+        "action": "Commit row outcomes with each transactional batch",
+        "mechanism": "An atomic outcome ledger makes replay safe without requiring a whole-file transaction.",
+        "implementation": "Identify imports by tenant, verified digest, and immutable configuration. Commit target writes, outcomes keyed by import and source line, and checkpoint together; enforce natural-key uniqueness.",
+        "check": "Crash before and after batch commits; replay and verify unchanged accepted counts, no duplicate targets, and no checkpoint beyond committed outcomes.",
+        "risk": "Define natural-key conflict policy explicitly; never silently overwrite existing data."
+      },
+      {
+        "action": "Quarantine invalid rows without aborting valid neighbors",
+        "mechanism": "Strict validation and database constraints preserve invalid values as errors rather than coercing them into plausible data.",
+        "implementation": "Validate types and references without defaults. On row-level constraint failure, roll back and bisect the batch until offending rows receive durable rejection outcomes.",
+        "check": "Place invalid references between valid rows; verify both neighbors commit and rejected values remain unchanged in evidence.",
+        "risk": "Retry transient failures separately; infrastructure errors must not become row rejections."
+      },
+      {
+        "action": "Provide downloadable, precise rejection evidence",
+        "mechanism": "A paginated report connects each rejection to its original location, identity, value, and violated rule.",
+        "implementation": "Expose digest, source line, natural key, field, safely encoded original value, error code, and correction guidance. Generate downloads by streaming durable outcomes.",
+        "check": "Given only the report and original file, locate every seeded rejection, including records containing quoted newlines.",
+        "risk": "Restrict sensitive-value access and neutralize spreadsheet formulas without altering stored evidence."
+      },
+      {
+        "action": "Apply corrections as linked, replay-safe attempts",
+        "mechanism": "Separate correction attempts preserve original evidence while allowing rejected rows to be accepted later.",
+        "implementation": "Accept patches naming import, rejected source line, and expected rejection version. Revalidate all fields; transactionally commit the target write and linked resolution under an idempotency key.",
+        "check": "Submit one correction twice and race conflicting corrections; verify one resolution, no duplicate target, and preserved original rejection.",
+        "risk": "Corrected natural keys can conflict; return an explicit conflict instead of overwriting."
+      },
+      {
+        "action": "Publish partial status with verifiable reconciliation",
+        "mechanism": "Durable row outcomes distinguish completed partial imports from interruptions and provide an auditable accounting of accepted work.",
+        "implementation": "Require verified EOF for completion. Derive accepted, unresolved rejected, and unprocessed counts from ledger coverage; reconcile accepted outcomes to target identifiers and committed versions.",
+        "check": "Verify accepted plus rejected equals total parsed records at completion; inject a missing target link and confirm reconciliation fails.",
+        "risk": "Before EOF, total rows may be unknown; report incomplete rather than reconciled."
+      },
+      {
+        "action": "Fence concurrent workers for the same import",
+        "mechanism": "Database-enforced ownership prevents overlapping restarts from racing checkpoints or publishing inconsistent completion states.",
+        "implementation": "Acquire an expiring import lease with a monotonically increasing fencing token. Within every batch transaction, lock the ownership row and reject stale tokens before writes.",
+        "check": "Pause a worker beyond lease expiry, start another, then resume the first; verify stale commits fail and outcomes remain unique.",
+        "risk": "Lease renewal failures can delay progress; retain transactional idempotency as a backstop."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "69a283f2a0e0d4fddbc1263f6845cdecedd6c7cfb948b6d0afe910f678804c1d",
+  "raw_output_sha256": "f55986c3b997103aa2bdd5a2dafb79fd816ec9870bb411cefeeedaa45dd92105"
+}

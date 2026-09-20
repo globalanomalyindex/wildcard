@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Preserve permission history as dated events",
+      "mechanism": "Append grants and withdrawals rather than overwriting records, separating effective dates from recording times.",
+      "implementation": "Store asset ID, venue/date scope, event ID, effective time, recording time, and responsible operator. Derive current permission from these events.",
+      "check": "Withdraw future permission; confirm future eligibility changes while a previously authorized display and its supporting permission remain retrievable.",
+      "risk": "Incorrect effective dates can misclassify displays; preserve corrections as additional events."
+    },
+    {
+      "action": "Require venue verification before installation",
+      "mechanism": "A live installation check evaluates the asset against the actual venue and intended display interval.",
+      "implementation": "Scan the asset ID, enter venue and display dates, and record the permission revision checked. Block installation on denial or unavailable verification.",
+      "check": "Attempt installation with a wrong venue, an uncovered date, and a withdrawn permission; each must be blocked.",
+      "risk": "Connectivity failures delay installation; packing approval must never substitute for verification."
+    },
+    {
+      "action": "Treat offline packing as provisional",
+      "mechanism": "Cached permissions support packing for one offline workday without granting authority to install.",
+      "implementation": "Download a versioned permission snapshot. Log each packing decision with asset, destination, dates, and snapshot revision; reconcile against current records before release.",
+      "check": "Pack offline, withdraw permission centrally, then reconnect. Reconciliation must flag the packed print and prevent its installation clearance.",
+      "risk": "Missing reconciliation logs require a complete shipment rescan before installation."
+    },
+    {
+      "action": "Make withdrawn prints physically interceptable",
+      "mechanism": "A custody map connects permission changes to the actual package, shipment, or receiving location.",
+      "implementation": "Record asset-to-package assignments and custody handoffs. Flag affected packages for hold, notify the current custodian, and require a recorded removal scan.",
+      "check": "Withdraw an asset after sealing a mixed package; staff must locate and remove that print without blocking unaffected prints unnecessarily.",
+      "risk": "Unrecorded repacking breaks traceability; require assignment updates whenever contents change."
+    },
+    {
+      "action": "Track withdrawal delivery and acknowledgement",
+      "mechanism": "Persistent notifications expose unacknowledged withdrawals instead of assuming that sending a message completes the change.",
+      "implementation": "Create a withdrawal task for each affected shipment and venue. Retry delivery, track acknowledgement, and escalate unresolved tasks before scheduled installation.",
+      "check": "Disconnect a venue during withdrawal. Confirm its task remains pending, retries after reconnection, and cannot be closed by message delivery alone.",
+      "risk": "Acknowledgement is not proof of removal or fresh permission verification."
+    },
+    {
+      "action": "Separate public labels from private permission administration",
+      "mechanism": "Opaque asset identifiers permit verification without placing contributor contact information on labels or public lookup pages.",
+      "implementation": "Print asset ID and an opaque lookup code. Restrict permission administration to authenticated staff; exclude contact fields from label templates and public responses.",
+      "check": "Inspect printed labels, decoded codes, and unauthenticated lookup responses; none may reveal contributor contact information.",
+      "risk": "Opaque identifiers alone do not protect an unrestricted lookup endpoint."
+    },
+    {
+      "action": "Prepare independently permitted replacement prints",
+      "mechanism": "A separately approved reserve gives staff a practical alternative when a packed print loses future permission.",
+      "implementation": "Select reserve assets with their own venue/date permission records. Pack them separately and require the same reconciliation and installation checks before substitution.",
+      "check": "Withdraw the primary print and exercise substitution; the reserve must pass its own verification, while a withdrawn reserve must also be blocked.",
+      "risk": "Reserve permission can change too; never inherit clearance from the replaced print."
+    }
+  ],
+  "abstention_reason": ""
+}

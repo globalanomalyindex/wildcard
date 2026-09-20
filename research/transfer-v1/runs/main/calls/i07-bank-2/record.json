@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "i07-bank-2",
+  "request_sha256": "d9473bf1d93d492c3f4b72c459c7cde2cde6011067ea3d3b0bcda24285289d12",
+  "prompt_sha256": "e4c6e4d1b845b7fdc04a163161a63c233643536207a93669ccfcc9841f410b71",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:56:18.847249+00:00",
+  "finished_at": "2026-09-20T19:56:48.320820+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.472262208000004,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 821,
+        "reasoning_output_tokens": 85
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "90798db42db7349ef8022baca4530b9bb7f8f8bed3e7cd4054fb750c46993940",
+      "stderr_sha256": "36b733ef416440269125e9e90ecce9bcc24dcfe88474ce8c3cb48526212db740"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind callouts to testable evidence",
+        "mechanism": "Store the descriptive claim separately from its wording and reevaluate it when referenced data changes.",
+        "implementation": "Attach stable metric/filter IDs, compared series, aggregation, and a predicate such as “A exceeds B.” Require review for claims without predicates.",
+        "check": "Refresh a fixture where A leads B, then B leads A; the original callout must become contradicted before export.",
+        "risk": "A predicate may capture only part of the prose."
+      },
+      {
+        "action": "Represent missing evidence separately from zero",
+        "mechanism": "Explicit availability states prevent absent series and null observations from silently becoming numeric evidence.",
+        "implementation": "Distinguish present values, null observations, and absent series. Define claim-specific completeness requirements; show “evidence unavailable” when unmet, without substituting zero.",
+        "check": "Test an absent series, an all-null series, and a measured zero; each must produce a distinct status and display.",
+        "risk": "Partial observations can still bias aggregates unless completeness rules apply."
+      },
+      {
+        "action": "Track the exact date and filter scope",
+        "mechanism": "Stable IDs identify references, while resolved scope records what observations actually supported the annotation.",
+        "implementation": "Save filter-definition versions, resolved date boundaries, timezone, and aggregation grain. On refresh, flag scope differences even when the descriptive predicate remains true.",
+        "check": "Shift a rolling date range while preserving its filter ID; surface the changed boundaries before export.",
+        "risk": "Rolling windows may generate frequent, legitimate review requests."
+      },
+      {
+        "action": "Separate harmless revisions from material evidence changes",
+        "mechanism": "Claim-specific tolerances distinguish changed observations from changes that undermine the stated pattern.",
+        "implementation": "Record absolute or relative tolerances for numeric claims. Compare refreshed evidence with the last approved snapshot; predicate failures and scope changes always override tolerance.",
+        "check": "A revision below tolerance remains valid with a revision note; accumulated drift beyond tolerance triggers review against the approved baseline.",
+        "risk": "Loose tolerances can conceal meaningful changes; defaults need analyst approval."
+      },
+      {
+        "action": "Validate charts and callouts against one snapshot",
+        "mechanism": "Atomic version selection prevents a refreshed chart from being paired with annotation checks from an older dataset.",
+        "implementation": "Compute chart data and evidence checks using one immutable snapshot token. Invalidate pending export validation whenever its dataset or annotation revision changes.",
+        "check": "Trigger a refresh between validation and export; export must either retain the validated snapshot or rerun checks on the newer snapshot.",
+        "risk": "Multiple data sources may require a version manifest rather than one token."
+      },
+      {
+        "action": "Require explicit resolution before clean export",
+        "mechanism": "A review queue turns detected evidence changes into decisions instead of leaving confident callouts silently visible.",
+        "implementation": "Highlight contradicted, unavailable, scope-changed, and unverified callouts. Offer edit, remove, or export with an explicit warning; bind decisions to the validated evidence version.",
+        "check": "Attempt export with a ranking reversal; no unqualified original callout may pass. A later evidence change must invalidate its prior resolution.",
+        "risk": "Generic acknowledgement buttons encourage rubber-stamping; require a specific disposition."
+      },
+      {
+        "action": "Export evidence provenance alongside visible claims",
+        "mechanism": "A durable manifest makes exported annotations traceable even after the live dataset and chart have changed.",
+        "implementation": "Include dataset version, annotation revision, stable metric/filter IDs, resolved dates, evidence values, validation status, and review disposition. Embed a manifest identifier in static exports.",
+        "check": "Reopen an export independently and identify its exact data version and each callout’s evidence status without consulting the current chart.",
+        "risk": "Evidence values may be sensitive; apply export permissions to metadata too."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "9d83db5d87606e27e2a71d8a60eacda35f97f17f0b9baa093dd3699ffc51ec0b",
+  "raw_output_sha256": "d7f694cddbe54242d110f4b28657d262a381fc873c2204660c931275c0b94b11"
+}

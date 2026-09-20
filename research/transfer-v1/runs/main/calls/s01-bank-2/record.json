@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "s01-bank-2",
+  "request_sha256": "6722f5c41333a7c6970aba1d0499fc9852bb81b9014cb90f7120eb2d56d45227",
+  "prompt_sha256": "a346c86cc5e9451e3b0f5dcdeeaad5ba3544b4498b703178fa532307cf56bfe9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:03:46.172371+00:00",
+  "finished_at": "2026-09-20T20:04:13.983367+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 27.808004708,
+      "usage": {
+        "input_tokens": 7156,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 802,
+        "reasoning_output_tokens": 223
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e73162e9615261c78fa4da4a52d98a7287a8c3ed0ad9b273dc804df6b495e91c",
+      "stderr_sha256": "734e6423cd8da7647f96700b0979c919c0a298ce693cc1e905ab193e985ab527"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Commit deduplication and business updates together",
+        "mechanism": "A unique event key makes retries contend on one durable record; atomic commit prevents partially recorded processing.",
+        "implementation": "Insert the partner-scoped event ID and apply the update in one transaction. On conflict, skip processing. Acknowledge only after successful commit.",
+        "check": "Send concurrent copies of one event; verify one committed business update. Roll back processing and verify its deduplication insertion also disappears.",
+        "risk": "External effects require separate transactional coordination, such as an outbox."
+      },
+      {
+        "action": "Guard entity updates with monotonic revisions",
+        "mechanism": "An atomic revision comparison prevents older or equal revisions from changing already newer entity state.",
+        "implementation": "For state-replacement events, update only when incoming revision exceeds stored revision, inside the deduplication transaction. Record stale events without applying effects.",
+        "check": "Deliver revisions 12, 10, 12 concurrently under different event IDs; verify final revision 12 and no stale or equal-revision effects.",
+        "risk": "Incremental events require ordered processing or gap recovery, not simply skipping revisions."
+      },
+      {
+        "action": "Retain event keys through the seven-day boundary",
+        "mechanism": "A fixed first-receipt deadline covers the redelivery window without allowing duplicates to extend retention indefinitely.",
+        "implementation": "Store database-generated first-receipt time. Delete in batches only when database time strictly exceeds first receipt plus seven days; retain at equality.",
+        "check": "Replay just before and exactly at expiry: both must deduplicate. After expiry, verify cleanup and continued rejection of equal entity revisions.",
+        "risk": "Confirm seven days bounds arrival, not merely partner transmission; otherwise transit delay needs allowance."
+      },
+      {
+        "action": "Budget actual deduplication storage below 2 GB",
+        "mechanism": "Compact records and measured database overhead constrain durable storage, rather than relying on raw event-ID size alone.",
+        "implementation": "Store only scoped ID and receipt time with essential indexes. Measure one million representative records; budget cleanup overlap and bloat. Stop admission before exceeding capacity.",
+        "check": "Load representative 64-byte-average IDs, exercise inserts and cleanup, and verify total allocated deduplication storage remains below 2 GB.",
+        "risk": "Never evict unexpired keys for space; reject without updating or acknowledging instead."
+      },
+      {
+        "action": "Exercise crash and replay paths automatically",
+        "mechanism": "Fault injection verifies that acknowledgement loss cannot turn a committed event into a second business update.",
+        "implementation": "Kill processing before commit, after commit before acknowledgement, and during acknowledgement. Restart and replay each event, including stale revisions and boundary-time duplicates.",
+        "check": "Before-commit crashes must replay successfully; after-commit crashes must not repeat updates. Assert final state, effect counts, retained keys, and expiry behavior.",
+        "risk": "Mock-only tests can miss real database locking and connection-loss behavior."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "ef7b875144a52dc96d3606e97f0b1c986ce4d04e5cbbc60889cbd9458f1ce3da",
+  "raw_output_sha256": "a744682d0e71668ceba71308ebb2eecd7175edc2d9d45ebec13b4b98c550a584"
+}
