@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "s03-judge-2",
+  "request_sha256": "c03989c736e9d062793bfcc7ecced56384e399a47e6b0ac68c39cdb6cab68680",
+  "prompt_sha256": "f9971549c7a8280ec0e723fc936765551d45d1e5590bffad0033ed65ebedc9c3",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:48:32.776022+00:00",
+  "finished_at": "2026-09-20T20:49:00.672926+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 27.895439332999956,
+      "usage": {
+        "input_tokens": 9185,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1362,
+        "reasoning_output_tokens": 313
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1632349db3cd14c0d1868e9a0e5889057a013a52c3d36b17b8f67bc62a4cd179",
+      "stderr_sha256": "2c9a8f8519ee911de1e419f219af4f3541a42a6b18e55bd2f1dd5c4f9bd96183"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "d57123ce19ae4055",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7796a74c61c9d654",
+        "mechanism_group": "509c8d9fc681f9cf",
+        "reason": "509c8d9fc681f9cf"
+      },
+      {
+        "id": "16c9ec48857dd1dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "411ab665b73c397d",
+        "reason": "411ab665b73c397d"
+      },
+      {
+        "id": "e5eec67af6ce210e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "05242a34aaf30f98",
+        "mechanism_group": "509c8d9fc681f9cf",
+        "reason": "509c8d9fc681f9cf"
+      },
+      {
+        "id": "c34e12291de804b3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "42c0ac29199a7130",
+        "mechanism_group": "c33a23633f902ccc",
+        "reason": "c33a23633f902ccc"
+      },
+      {
+        "id": "97c358a9995ee77b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "411ab665b73c397d",
+        "reason": "411ab665b73c397d"
+      },
+      {
+        "id": "82e91e2d0b9d34bf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cd4bb69be12aecdd",
+        "mechanism_group": "d172afd1cdff995f",
+        "reason": "d172afd1cdff995f"
+      },
+      {
+        "id": "2913a12b485b511d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "411ab665b73c397d",
+        "reason": "411ab665b73c397d"
+      },
+      {
+        "id": "818e091de954aa20",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cd4bb69be12aecdd",
+        "mechanism_group": "d172afd1cdff995f",
+        "reason": "d172afd1cdff995f"
+      },
+      {
+        "id": "609630c9e620b992",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4c66e5bbf720af00",
+        "mechanism_group": "779ad01cc7fd7440",
+        "reason": "779ad01cc7fd7440"
+      },
+      {
+        "id": "c33a23633f902ccc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "936453366395ebad",
+        "mechanism_group": "c33a23633f902ccc",
+        "reason": "c33a23633f902ccc"
+      },
+      {
+        "id": "48249cb4c46980ee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "05242a34aaf30f98",
+        "mechanism_group": "509c8d9fc681f9cf",
+        "reason": "509c8d9fc681f9cf"
+      },
+      {
+        "id": "d172afd1cdff995f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ea8db87e9678f017",
+        "mechanism_group": "d172afd1cdff995f",
+        "reason": "d172afd1cdff995f"
+      },
+      {
+        "id": "411ab665b73c397d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "411ab665b73c397d",
+        "reason": "411ab665b73c397d"
+      },
+      {
+        "id": "779ad01cc7fd7440",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0b6173b156ddf6e3",
+        "mechanism_group": "779ad01cc7fd7440",
+        "reason": "779ad01cc7fd7440"
+      },
+      {
+        "id": "b99699ce630dc9dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e4fb120a7bcba2d",
+        "mechanism_group": "b99699ce630dc9dc",
+        "reason": "b99699ce630dc9dc"
+      },
+      {
+        "id": "509c8d9fc681f9cf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "05242a34aaf30f98",
+        "mechanism_group": "509c8d9fc681f9cf",
+        "reason": "509c8d9fc681f9cf"
+      }
+    ]
+  },
+  "result_sha256": "d78162bf809f9e90cbcd786e6547e2bc2ff22248589a0fcfb7eaa4771da86b30",
+  "raw_output_sha256": "84a0ef5cc4a5f1fca370f1908c0181cccf29233968def38b030e4c3075b3c25b"
+}
