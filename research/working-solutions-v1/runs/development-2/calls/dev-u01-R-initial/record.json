@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u01-R-initial",
+  "requestSHA256": "3611ac781999e7a84bdb0c412ddd58345f77ab3ebc39b6cee9614f8e15117611",
+  "promptSHA256": "4361f17cc38961e31104cf4d168fdd4a898e0b13ca2a685ea4f972e0899f2c46",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:51:54.964159+00:00",
+  "finishedAt": "2026-09-20T22:52:31.405615+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 36.44183133379556,
+      "usage": {
+        "input_tokens": 7138,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 989,
+        "reasoning_output_tokens": 367
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "995db823d59492b8300cbc4139b7beb62bc6efc5e67250dd1c7ed899f57fd37b",
+      "stderrSHA256": "f9e4ce1e2c9c41af61bba1f745dc1f19d0d806238cd24a3f93e0c816ee95c78d"
+    }
+  ],
+  "result": {
+    "explanation": "Use a staged controller: input edits draft text, commit validates and snaps to the nearest legal lattice value, stepping moves by one lattice position, cancel restores the committed value, and disabled mode blocks only input/commit/step.",
+    "mapping": "The controller state maps to committed value, draft text, error, and disabled mode. Tracking is not applicable: each event is processed independently from the returned opaque state, with no forward propagation or cue history.",
+    "assumptions": "config is valid as specified; event types and fields are valid; arithmetic values remain safe integers; solve is called once per event with the prior returned state.",
+    "applies": "function applies(input){return !!(input&&input.config&&Array.isArray(input.events));}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,e=input.events[0],o=output[0],s=String(c.initial);if(!o||o.value!==c.initial||o.disabled!==false||o.error!==null)return false;var d=e.type==='input'?e.text:s;return o.draft===d&&o.dirty===(d!==s);}",
+    "program": "function solve(x){var c=x.config,s=x.state,e=x.event;if(!s){s={c:c,v:c.initial,d:String(c.initial),er:null,dis:false};}else if(!s.c)s.c=c;c=s.c;var t=e.type;if(t==='mode')s.dis=e.disabled;else if(t==='cancel'){s.d=String(s.v);s.er=null;}else if(!s.dis&&t==='input'){s.d=e.text;s.er=null;}else if(!s.dis&&t==='commit'){var z=e.text===undefined?s.d:s.d;if(/^[+-]?\\d+$/.test(z)){var n=Number(z);if(Number.isSafeInteger(n)){var q=Math.floor((n-c.min)/c.step),m=Math.floor((c.max-c.min)/c.step),a=q<0?0:q>m?m:q,b=a+1>m?m:a+1,va=c.min+a*c.step,vb=c.min+b*c.step;var nv=Math.abs(n-va)<=Math.abs(vb-n)?va:vb;s.v=nv;s.d=String(nv);s.er=null;}else s.er='invalid';}else s.er='invalid';}else if(!s.dis&&t==='step'){var k=Math.round((s.v-c.min)/c.step)+(e.direction<0?-1:1),mx=Math.floor((c.max-c.min)/c.step);if(k<0)k=0;if(k>mx)k=mx;s.v=c.min+k*c.step;s.d=String(s.v);s.er=null;}return{state:s,output:{value:s.v,draft:s.d,dirty:s.d!==String(s.v),error:s.er,disabled:s.dis}};}"
+  },
+  "resultSHA256": "9553ef231afd7432d8aedf5ec08e9822143b20b6fefe257ecfcfefa7c9275f7c",
+  "rawOutputSHA256": "34cef432fcae0c89c83c7299c60719b7ec6ce6f39598e31de951b0631bbeea72"
+}

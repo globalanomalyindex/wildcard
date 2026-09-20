@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u01-X-initial",
+  "requestSHA256": "7f2a72414d496e7966057197bda9bbcfea9484613990b2f37ade15a3ea2b8c28",
+  "promptSHA256": "2c707082bbc012d56a91f411cef80f71fbc773b2a989b165e3fd1b0802cdf5fd",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:51:22.352790+00:00",
+  "finishedAt": "2026-09-20T22:51:54.911042+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 32.558803874999285,
+      "usage": {
+        "input_tokens": 7164,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 924,
+        "reasoning_output_tokens": 315
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "81ad8ce840d4d6482347830ef8c82e5a1f92551be44a0be86735b95c0eb8bf10",
+      "stderrSHA256": "eac437884881d8d1e9a232ae97c77901a5ab46e36b60eb67c911289c43369495"
+    }
+  ],
+  "result": {
+    "explanation": "Use a finite staged controller: input edits only the draft, commit validates and snaps to the nearest legal lattice value (ties downward), step moves the committed lattice index, cancel restores it, and disabled mode blocks only input/commit/step.",
+    "mapping": "config defines the lattice; state stores committed value, draft, error, and disabled status; each event deterministically updates those variables and returns their projection.",
+    "assumptions": "All supplied configurations and events satisfy the public contract. Decimal parsing accepts only ASCII digits with an optional leading sign and only safe integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const o of output){if(!o||Object.keys(o).length!==5||typeof o.value!=='number'||typeof o.draft!=='string'||typeof o.dirty!=='boolean'||typeof o.disabled!=='boolean'||!(o.error===null||o.error==='invalid'))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null){s={v:config.initial,d:String(config.initial),e:null,x:false,min:config.min,max:config.max,step:config.step}}else if(!s.min&&s.min!==0){s.min=config.min;s.max=config.max;s.step=config.step}const t=event&&event.type;if(t==='mode'){s.x=event.disabled}else if(t==='cancel'){s.d=String(s.v);s.e=null}else if(!s.x&&t==='input'){s.d=event.text;s.e=null}else if(!s.x&&t==='commit'){const m=/^[+-]?\\d+$/.test(s.d);let n=m?Number(s.d):NaN;if(!m||!Number.isSafeInteger(n)){s.e='invalid'}else{let q=Math.floor((s.max-s.min)/s.step),z=Math.floor((n-s.min)/s.step);if(z<0)z=0;if(z>q)z=q;let a=s.min+z*s.step,b=z<q?a+s.step:a;if(z<q&&Math.abs(n-a)>Math.abs(b-n))a=b;s.v=a;s.d=String(a);s.e=null}}else if(!s.x&&t==='step'){let q=Math.floor((s.max-s.min)/s.step),k=Math.round((s.v-s.min)/s.step)+(event.direction<0?-1:1);if(k<0)k=0;if(k>q)k=q;s.v=s.min+k*s.step;s.d=String(s.v);s.e=null}return{state:s,output:{value:s.v,draft:s.d,dirty:s.d!==String(s.v),error:s.e,disabled:s.x}}}"
+  },
+  "resultSHA256": "2d9c6f46b13af2a0276d8f692e2ec000114a63d8dac33c87a6d4e320df9d1920",
+  "rawOutputSHA256": "f282522969cf572f7cd18cbe2c6fcee54aa8e3af35d12fdc934b3860d6da9571"
+}

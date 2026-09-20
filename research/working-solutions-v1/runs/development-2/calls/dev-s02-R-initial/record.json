@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-R-initial",
+  "requestSHA256": "7b78937b85ccd765a72549b7681cef8d2ae48d981d36f66630d830026f47c9d4",
+  "promptSHA256": "aaacb7f979fbf2cbc4ba48756d0880b1a515497b70f59ff6a3072163d039c9c8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:50:09.800536+00:00",
+  "finishedAt": "2026-09-20T22:50:38.792120+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 28.991150042042136,
+      "usage": {
+        "input_tokens": 7759,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1357,
+        "reasoning_output_tokens": 706
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "356712a3a7804eff1daa0c5afe111798c6a72522f2d0c934527767e96883d71e",
+      "stderrSHA256": "6e05ff9a90c2f39cc0c3552bce8ef41904ae2804ee4e1fd2535b2390979bbdb4"
+    }
+  ],
+  "result": {
+    "explanation": "Uses the required atomic guarded-batch rule: validation precedes version, conflict, and capacity checks; rejected requests preserve state, while successful non-identical candidates increment version once.",
+    "mapping": "Registers map to state.values, optimistic version maps to state.v, and capacity maps to state.cap. The optional archival rule does not transfer: this task concerns live atomic state, not provenance or original order.",
+    "assumptions": "Inputs follow the stated JSON and numeric constraints. Update keys are accepted when guarded; newly introduced keys become registers because the specification explicitly invalidates unknown guard keys, not unknown update keys.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.length===input.events.length&&output.every(x=>x&&['invalid','stale','conflict','capacity','unchanged','committed'].includes(x.status)&&Array.isArray(x.changed)&&x.changed.every(k=>typeof k==='string'&&!k.includes('__')))}",
+    "program": "function solve({config,state,event}){if(state===null)state={v:0,values:Object.assign({},config.initial),cap:config.capacity};var val=state.values, v=state.v, invalid=false, g=event.guards||{},u=event.updates||{},ks=Object.keys(g),us=Object.keys(u);for(var i=0;i<ks.length;i++)if(!Object.prototype.hasOwnProperty.call(val,ks[i]))invalid=true;for(i=0;i<us.length;i++)if(!Object.prototype.hasOwnProperty.call(g,us[i])||u[us[i]]<0)invalid=true;var status,changed=[];if(invalid)status='invalid';else if(event.version!==v)status='stale';else{for(i=0;i<ks.length;i++)if(val[ks[i]]!==g[ks[i]]){status='conflict';break}if(!status){var cand=Object.assign({},val);for(i=0;i<us.length;i++)cand[us[i]]=u[us[i]];var sum=0;Object.keys(cand).forEach(function(k){sum+=cand[k]});if(sum>state.cap)status='capacity';else{for(i=0;i<us.length;i++)if(val[us[i]]!==cand[us[i]])changed.push(us[i]);changed.sort(function(a,b){var A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(var j=0;j<n;j++){var d=A[j].codePointAt(0)-B[j].codePointAt(0);if(d)return d}return A.length-B.length});if(changed.length){val=cand;v++;status='committed'}else status='unchanged'}}}var out={status:status,version:v,values:Object.assign({},val),changed:status==='committed'?changed:[]};return{state:{v:v,values:val,cap:state.cap},output:out}}"
+  },
+  "resultSHA256": "535dc327f2ebf2acba6418052e29b6dddc741533ab2226674f29c75cac06aef4",
+  "rawOutputSHA256": "6cbf6e52b8d747a9e6b64662fd585ac028f2581b620c3849d41645c5d4896d27"
+}

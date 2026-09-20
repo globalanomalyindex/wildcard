@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u02-X-initial",
+  "requestSHA256": "5cbf95984c4afcf4e6ef1ac9c17d1c6d2dfdbf39e50fdac617836290f255af62",
+  "promptSHA256": "a0c2537850cad43d72d4d0ef0a8c999922ee9daeef4e178255dce90e6842f8a2",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:49:53.503543+00:00",
+  "finishedAt": "2026-09-20T22:50:53.655458+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 60.15323979104869,
+      "usage": {
+        "input_tokens": 7810,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1313,
+        "reasoning_output_tokens": 268
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "7653950abf6c99f9f522e851509ab8c88ed2ff753d282ca6ca82e8a9c5ed05dc",
+      "stderrSHA256": "c7def6a1d82762e860d59f3a9153283571d82d6958fdb35801514ccdefde4511"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain each group's currently open panel and each panel's enabled status. Apply the event, remove ineligible selections, then fill empty required groups using fixed panel order. Render open, globally ordered expanded panels, and sorted unsatisfied required groups.",
+    "mapping": "The target variables map directly to group requirement, panel eligibility, group-to-panel selection, and fixed panel ordering. No outside-rule transfer is needed.",
+    "assumptions": "Inputs satisfy the stated identity, membership, scalar, and size constraints. IDs are ASCII, so ordinary lexical sorting gives the required sorted group order.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){const c=input.config,e=input.events;if(!Array.isArray(output)||output.length!==e.length)return false;const gs=c.groups,ps=c.panels,oi={};ps.forEach((p,i)=>oi[p.id]=i);const gi={};gs.forEach((g,i)=>gi[g.id]=i);let en=ps.map(p=>p.enabled),op=gs.map(g=>null);function norm(){for(let i=0;i<gs.length;i++){if(op[i]!==null&&!en[oi[op[i]]])op[i]=null;if(op[i]===null&&gs[i].required)for(const p of ps)if(p.group===gs[i].id&&en[oi[p.id]]){op[i]=p.id;break}}}norm();for(let z=0;z<e.length;z++){const x=e[z],pi=oi[x.id],q=gi[x.group];if(x.type==='toggle'&&pi!==undefined&&en[pi]){let k=gi[ps[pi].group];if(op[k]===x.id){if(!gs[k].required)op[k]=null}else op[k]=x.id}else if(x.type==='enabled'&&pi!==undefined)en[pi]=x.value;else if(x.type==='close'&&q!==undefined&&!gs[q].required)op[q]=null;else if(x.type==='mode'&&q!==undefined)gs[q].required=x.required;norm();let ex=ps.filter(p=>op[gi[p.group]]===p.id).map(p=>p.id),u=gs.filter((g,i)=>g.required&&op[i]===null).map(g=>g.id).sort();let oo={};gs.forEach((g,i)=>oo[g.id]=op[i]);let want={open:oo,expanded:ex,unsatisfied:u};if(JSON.stringify(output[z])!==JSON.stringify(want))return false}return true}",
+    "program": "function solve({config,state,event}){\n  let s=state;\n  if(s===null){\n    s={g:config.groups.map(x=>({id:x.id,required:x.required,open:null})),p:config.panels.map(x=>({id:x.id,group:x.group,enabled:x.enabled}))};\n    for(let i=0;i<s.g.length;i++) if(s.g[i].required) for(const p of s.p) if(p.group===s.g[i].id&&p.enabled){s.g[i].open=p.id;break}\n  }\n  const gs=s.g,ps=s.p,gi={},pi={};\n  gs.forEach((g,i)=>gi[g.id]=i);ps.forEach((p,i)=>pi[p.id]=i);\n  const e=event;\n  if(e.type==='toggle'&&pi[e.id]!==undefined){\n    const p=ps[pi[e.id]],k=gi[p.group];\n    if(p.enabled){if(gs[k].open===p.id){if(!gs[k].required)gs[k].open=null}else gs[k].open=p.id}\n  }else if(e.type==='enabled'&&pi[e.id]!==undefined) ps[pi[e.id]].enabled=e.value;\n  else if(e.type==='close'&&gi[e.group]!==undefined){let k=gi[e.group];if(!gs[k].required)gs[k].open=null}\n  else if(e.type==='mode'&&gi[e.group]!==undefined) gs[gi[e.group]].required=e.required;\n  for(const g of gs){if(g.open!==null&&!ps[pi[g.open]].enabled)g.open=null;if(g.open===null&&g.required)for(const p of ps)if(p.group===g.id&&p.enabled){g.open=p.id;break}}\n  const open={},expanded=[],unsatisfied=[];\n  for(const g of gs)open[g.id]=g.open;\n  for(const p of ps)if(open[p.group]===p.id)expanded.push(p.id);\n  for(const g of gs)if(g.required&&g.open===null)unsatisfied.push(g.id);\n  unsatisfied.sort();\n  return {state:s,output:{open,expanded,unsatisfied}};\n}"
+  },
+  "resultSHA256": "24f6ac392f768a9740806635fbcf6f96f26b4090f67c9b0b62bc70c3bc83d927",
+  "rawOutputSHA256": "1c98b9e8eb9d91b9821a8911b4dc2bfc6acd4fbec5fd20cd1192c72fb1e52e9c"
+}

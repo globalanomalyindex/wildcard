@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q01-R-initial",
+  "requestSHA256": "56cb3086190881577f0a8ca336f569bae2bb633b5b0e9de2bc2edf51e68e323e",
+  "promptSHA256": "bc22e90e6cada3e5a074346ab07fc663d9bbfa03d3eac145ba880eaa60beaa6e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:51:18.187873+00:00",
+  "finishedAt": "2026-09-20T22:51:49.864998+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 31.677390166092664,
+      "usage": {
+        "input_tokens": 7852,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1278,
+        "reasoning_output_tokens": 300
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "168c1602e04bb3d78453ac60169fae516340370ff50df8d54c124c8daeac41ba",
+      "stderrSHA256": "58efa81fd94af4ade1d0c9c57342cbe35dd288c6223a9c68ae6f2777740df61b"
+    }
+  ],
+  "result": {
+    "explanation": "A pending job has fixed arrival and insertion order. Aging increases effective priority only when time advances; service never advances time. Capacity counts pending jobs, and completion frees the identifier for reuse.",
+    "mapping": "config controls capacity, ceiling, and quantum; state stores now and pending jobs; events mutate time, queue membership, remaining work, and service output.",
+    "assumptions": "Inputs satisfy the stated validity and safe-integer constraints. State is trusted only as previously returned by this function.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={n:0,j:[],z:0},eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b),mk=(status,served)=>{let p={},r={},ids=[];for(let x of s.j){ids.push(x.id);r[x.id]=x.w;p[x.id]=Math.min(c.ceiling,x.p+Math.floor((s.n-x.a)/c.quantum))}return {status,served,pending:ids,remaining:r,priorities:p,now:s.n}},e;for(let i=0;i<input.events.length;i++){e=input.events[i];let k=e.type,st='missing',sv=[];if(k==='advance'){s.n+=e.dt;st='advanced'}else if(k==='add'){if(s.j.length<c.capacity&&!s.j.some(x=>x.id===e.id)){s.j.push({id:e.id,w:e.work,p:e.priority,a:s.n,o:s.z++});st='queued'}else st='rejected'}else if(k==='cancel'){let q=s.j.findIndex(x=>x.id===e.id);if(q>=0){s.j.splice(q,1);st='cancelled'}}else if(k==='run'&&s.j.length){let q=0;for(let x=1;x<s.j.length;x++){let a=s.j[x],b=s.j[q],pa=Math.min(c.ceiling,a.p+Math.floor((s.n-a.a)/c.quantum)),pb=Math.min(c.ceiling,b.p+Math.floor((s.n-b.a)/c.quantum));if(pa>pb||pa===pb&&a.o<b.o)q=x}let x=s.j[q],u=Math.min(e.budget,x.w);x.w-=u;let done=x.w===0;sv=[{id:x.id,units:u,complete:done}];if(done)s.j.splice(q,1);st='served'}else if(k==='run')st='empty';if(!eq(mk(st,sv),output[i]))return false}return true}",
+    "program": "function solve({config:c,state,event:e}){let s=state||{n:0,j:[],z:0},k=e.type,st='missing',sv=[];if(k==='advance'){s.n+=e.dt;st='advanced'}else if(k==='add'){if(s.j.length<c.capacity&&!s.j.some(x=>x.id===e.id)){s.j.push({id:e.id,w:e.work,p:e.priority,a:s.n,o:s.z++});st='queued'}else st='rejected'}else if(k==='cancel'){let q=s.j.findIndex(x=>x.id===e.id);if(q>=0){s.j.splice(q,1);st='cancelled'}}else if(k==='run'&&s.j.length){let q=0;for(let i=1;i<s.j.length;i++){let x=s.j[i],y=s.j[q],px=Math.min(c.ceiling,x.p+Math.floor((s.n-x.a)/c.quantum)),py=Math.min(c.ceiling,y.p+Math.floor((s.n-y.a)/c.quantum));if(px>py||px===py&&x.o<y.o)q=i}let x=s.j[q],u=Math.min(e.budget,x.w),d=x.w===u;x.w-=u;sv=[{id:x.id,units:u,complete:d}];if(d)s.j.splice(q,1);st='served'}else if(k==='run')st='empty';let p={},r={},ids=[];for(let x of s.j){ids.push(x.id);r[x.id]=x.w;p[x.id]=Math.min(c.ceiling,x.p+Math.floor((s.n-x.a)/c.quantum))}return{state:s,output:{status:st,served:sv,pending:ids,remaining:r,priorities:p,now:s.n}}}"
+  },
+  "resultSHA256": "b0fdd694c51812a6c685cf14329a16393a546e4e08edefc8c410a9466eeb09db",
+  "rawOutputSHA256": "77c1f25d8f06c9e27f90204f91dbbf3b7eef3a8a6b46568d4b38714f494cd055"
+}

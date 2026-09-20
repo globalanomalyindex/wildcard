@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-R-initial",
+  "requestSHA256": "17eb2e77a55eacc49a52da3b8e19e6c72b099f838bfcba9382e8814d45291e11",
+  "promptSHA256": "943febd8fd83549aae97e04c9b4192ec7de82719565bc60e23f1792462724dfc",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:50:38.811617+00:00",
+  "finishedAt": "2026-09-20T22:50:59.373199+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.561325333081186,
+      "usage": {
+        "input_tokens": 7479,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 981,
+        "reasoning_output_tokens": 337
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "c0e1c76bd31ad9533ad7bd661e7bca6a8f70a73c4388b9614e66ebbcd87cb879",
+      "stderrSHA256": "3c46124a017574c785368a20284c5bc78b4cf7b1b34032fe69b58d8fb3541d85"
+    }
+  ],
+  "result": {
+    "explanation": "A pending offer is a lease: each event first advances time when applicable, then expires an unconnected lease at its deadline. Offers replace all prior state; valid unique approvals accumulate; both parties connect permanently. Matching cancellation clears either session, while stale messages are ignored.",
+    "mapping": "config.ttl and config.parties define lease duration and authorized identities. State stores current time, token, deadline, approvals, connection, and configuration. Each output reflects post-event state plus whether expiration occurred during that event.",
+    "assumptions": "Inputs satisfy the stated legal contract; unknown or malformed events are treated as ignored without changing state, except that any required expiration still occurs first. Approval output is sorted by Unicode scalar-value order.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&Array.isArray(input.config.parties)&&input.config.parties.length===2}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;return output.every(x=>x&&typeof x.status==='string'&&Number.isSafeInteger(x.now)&&typeof x.expired==='boolean'&&Array.isArray(x.approved)&&Object.keys(x).length===7)}",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={q:config.ttl,p:config.parties.slice(),n:0,t:null,x:null,a:[],c:null};var e=event||{},z=false;if(e.type==='advance'){s.n+=e.dt}if(s.c===null&&s.t!==null&&s.n>=s.x){s.t=null;s.x=null;s.a=[];z=true}var r='ignored';if(e.type==='offer'){s.t=e.token;s.x=s.n+s.q;s.a=[];s.c=null;r='offered'}else if(e.type==='accept'){if(s.c===null&&s.t!==null&&e.token===s.t&&(e.party===s.p[0]||e.party===s.p[1])){if(s.a.indexOf(e.party)>=0)r='duplicate';else{s.a.push(e.party);r='accepted';if(s.a.length===2){s.a.sort(cmp);s.c=s.t;s.x=null;r='connected'}}}}else if(e.type==='cancel'){if(s.t!==null&&e.token===s.t){s.t=null;s.x=null;s.a=[];s.c=null;r='cancelled'}}else if(e.type==='advance')r='advanced';s.a.sort(cmp);return{state:s,output:{status:r,now:s.n,token:s.t,expires:s.x,approved:s.a.slice(),connected:s.c,expired:z}}}function cmp(a,b){var i=0,j=0;while(i<a.length&&j<b.length){var x=a.codePointAt(i),y=b.codePointAt(j);if(x!==y)return x-y;i+=x>65535?2:1;j+=y>65535?2:1}return a.length-i-(b.length-j)}"
+  },
+  "resultSHA256": "fcc18a2925db633fb2690d337651123219334063e80504d8d8c338e4ab430447",
+  "rawOutputSHA256": "a8665a9ecad9f2a133539089f93b42dc2b129a73165946e41ec549d3d7ddb3d5"
+}

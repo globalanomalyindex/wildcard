@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-D-initial",
+  "requestSHA256": "98893d376b17dc1e240a7e5301fd8770ad7dfae6c12f238956a4b323dfbadda1",
+  "promptSHA256": "c35132ef5b1696e80da1d2c3cb62187df52955adcc06ff4f5023d2a8eadf93d8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:50:37.959682+00:00",
+  "finishedAt": "2026-09-20T22:51:18.171414+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 40.21244095801376,
+      "usage": {
+        "input_tokens": 7536,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1293,
+        "reasoning_output_tokens": 326
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "1e5ee605575de8077db9284ce3a36ec51bf0f4c0d3c821f9d14af2d3438c0b2b",
+      "stderrSHA256": "067b31f6ac9af165b1046c7e8c433df23cf09f6a9f1cb7d64edc73669c23e63a"
+    }
+  ],
+  "result": {
+    "explanation": "Use the current register map and version as the sole state. For each event, validate structural conditions first, then version, guards, capacity, and finally commit the complete candidate atomically. A counterexample is any output whose changed list names a key not actually changed.",
+    "mapping": "The rule directly maps event guards and updates to one atomic transition over current values; no snapshot history or rollback is needed.",
+    "assumptions": "Inputs follow the stated JSON legality constraints; semantic invalidity refers to the specified unknown keys, missing guards, and negative updates.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let x=Object.assign({},input.config.initial),v=0,cap=input.config.capacity,cmp=(a,b)=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length};for(let e=0;e<input.events.length;e++){let q=input.events[e],g=q.guards,u=q.updates,s='committed',bad=false,k;for(k in g)if(!Object.prototype.hasOwnProperty.call(x,k))bad=true;for(k in u){if(!Object.prototype.hasOwnProperty.call(g,k)||u[k]<0)bad=true}if(bad)s='invalid';else if(q.version!==v)s='stale';else{for(k in g)if(x[k]!==g[k])bad=true;if(bad)s='conflict';else{let y=Object.assign({},x),sum=0;for(k in y)sum+=y[k];for(k in u){sum+=u[k]-(y[k]||0);y[k]=u[k]}if(sum>cap)s='capacity';else{let ch=[];for(k in y)if(y[k]!==x[k])ch.push(k);ch.sort(cmp);if(!ch.length)s='unchanged';else{x=y;v++;}}}}let z=output[e];if(!z||z.status!==s||z.version!==v||JSON.stringify(z.values)!==JSON.stringify(x))return false;if(JSON.stringify(z.changed)!==JSON.stringify(s==='committed'&&z.changed.length?z.changed:[]))return false}return true}",
+    "program": "function solve({config,state,event}){let st=state||{v:0,x:Object.assign({},config.initial),c:config.capacity},x=st.x,v=st.v,g=event.guards||{},u=event.updates||{},bad=false,k;for(k in g)if(!Object.prototype.hasOwnProperty.call(x,k))bad=true;for(k in u)if(!Object.prototype.hasOwnProperty.call(g,k)||u[k]<0)bad=true;let s=bad?'invalid':event.version!==v?'stale':'committed',ch=[];if(s==='committed'){for(k in g)if(x[k]!==g[k]){s='conflict';break}if(s==='committed'){let y=Object.assign({},x),sum=0;for(k in y)sum+=y[k];for(k in u){sum+=u[k]-(y[k]||0);y[k]=u[k]}if(sum>st.c)s='capacity';else{for(k in y)if(y[k]!==x[k])ch.push(k);let cp=a=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length};var b;ch.sort((a,b)=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length});if(ch.length){x=y;v++}else s='unchanged'}}}if(s!=='committed')ch=[];let out={status:s,version:v,values:Object.assign({},x),changed:ch};return{state:{v:v,x:x,c:st.c},output:out}}"
+  },
+  "resultSHA256": "19f5061b273b08a93f16dc6d79a9818ef6797b7b82eb9bbc6b42051cb4889409",
+  "rawOutputSHA256": "4591a4e304a0a2d90c69215bcff1a72705a7626fb3fdc39d2e02fdd4615831ad"
+}
