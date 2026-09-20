@@ -3,7 +3,7 @@
 
 This complements (does not replace) its strict provenance and checker replay.
 """
-import hashlib,json
+import hashlib,json,itertools,math
 from collections import Counter
 from pathlib import Path
 ROOT=Path(__file__).resolve().parents[2]
@@ -37,6 +37,13 @@ def main():
             gate=r['developmentGate'];assert gate['floor']==(d<=.1) and gate['ceiling']==(d>=.95) and gate['readyForMain']==(.1<d<.95)
         else:
             assert r['primary']['difference']==result['R']['mean']-d
+            diffs=[t['arms']['R']['passCount']-t['arms']['D']['passCount'] for t in r['perTask']];nonzero=[v for v in diffs if v]
+            if len(nonzero)<=20:
+                threshold=abs(sum(nonzero));total=2**len(nonzero)
+                exact=sum(abs(sum(v*sign for v,sign in zip(nonzero,signs)))>=threshold for signs in itertools.product((-1,1),repeat=len(nonzero)))/total
+                observed=r['primary']['test']['p'];se=math.sqrt(exact*(1-exact)/1000000)
+                assert abs(observed-exact)<=5*se+1e-6
+                report['exactSignFlipCrossCheck']={'nonzeroPairs':len(nonzero),'enumeratedAssignments':total,'exactP':exact,'registeredMonteCarloP':observed,'scope':'Independent enumeration cross-check only; does not replace registered analysis.'}
         report['cohorts'][cohort]={'arms':result,'deliveredResponses':len(calls),'statuses':statuses,'readyForMain':r.get('developmentGate'),'resultsFileSHA256':hashlib.sha256((path/'results.json').read_bytes()).hexdigest()}
     report['passed']=True
     print(json.dumps(report,indent=2))

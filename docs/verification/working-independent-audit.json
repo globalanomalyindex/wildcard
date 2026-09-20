@@ -98,5 +98,12 @@
       "resultsFileSHA256": "e8d2641c698edadcfa3d38812459a0be0f0d7e3a054cede0e5297d08a0cb8ce6"
     }
   },
+  "exactSignFlipCrossCheck": {
+    "nonzeroPairs": 6,
+    "enumeratedAssignments": 64,
+    "exactP": 0.28125,
+    "registeredMonteCarloP": 0.2813877186122814,
+    "scope": "Independent enumeration cross-check only; does not replace registered analysis."
+  },
   "passed": true
 }
