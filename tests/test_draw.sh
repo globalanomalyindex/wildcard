@@ -9,8 +9,8 @@ DRAW="$ROOT/plugin/scripts/draw.sh"
 # roll would otherwise send ~half the draws to the concept pool).
 
 echo "Task 2: seeded determinism + output shape"
-out1="$(WILDCARD_DOMAINS="$FIX" bash "$DRAW" --mode specialist --seed 42)"
-out2="$(WILDCARD_DOMAINS="$FIX" bash "$DRAW" --mode specialist --seed 42)"
+out1="$(WILDCARD_DOMAINS="$FIX" bash "$DRAW" --sampler legacy-crc-v1 --mode specialist --seed 42)"
+out2="$(WILDCARD_DOMAINS="$FIX" bash "$DRAW" --sampler legacy-crc-v1 --mode specialist --seed 42)"
 assert_eq "$out1" "$out2" "same seed is deterministic"
 
 dom="$(printf '%s\n' "$out1" | sed -n 's/^domain=//p')"
@@ -22,31 +22,31 @@ assert_ok grep -qF "$dom" "$FIX"
 # the domain must NOT carry the axis tags (field 1 only)
 assert_eq "${dom%% | *}" "$dom" "domain has no pipe/tags"
 # lens must be from the set draw.sh itself declares (single source of truth, no drift)
-allowed="$(sed -n 's/^LENSES="\(.*\)"$/\1/p' "$DRAW")"
+allowed="$(sed -n 's/^LENSES="\(.*\)"$/\1/p' "$ROOT/plugin/scripts/draw-legacy.sh")"
 assert_ne "$allowed" "" "draw.sh declares a LENSES set"
 case " $allowed " in
   *" $lens "*) PASS=$((PASS+1)); echo "  ok: lens in draw.sh's declared set";;
   *) echo "  FAIL: lens '$lens' not in draw.sh's set [$allowed]"; exit 1;; esac
 
 echo "Task 3: entropy mode, robustness, coverage"
-# no --seed: still well-formed, domain from file
-e="$(WILDCARD_DOMAINS="$FIX" bash "$DRAW" --mode specialist)"
+# Historical seedless path is characterized only through the frozen source; new defaults have separate v2 tests.
+e="$(WILDCARD_DOMAINS="$FIX" bash "$ROOT/plugin/scripts/draw-legacy.sh" --mode specialist)"
 edom="$(printf '%s\n' "$e" | sed -n 's/^domain=//p')"
 assert_ne "$edom" "" "entropy-mode domain non-empty"
 assert_ok grep -qF "$edom" "$FIX"
 
 # missing file -> non-zero exit, message on stderr
-assert_fail bash "$DRAW" --mode specialist --file /no/such/domains.txt --seed 1
-err="$(bash "$DRAW" --mode specialist --file /no/such/domains.txt --seed 1 2>&1 >/dev/null || true)"
+assert_fail bash "$DRAW" --sampler legacy-crc-v1 --mode specialist --file /no/such/domains.txt --seed 1
+err="$(bash "$DRAW" --sampler legacy-crc-v1 --mode specialist --file /no/such/domains.txt --seed 1 2>&1 >/dev/null || true)"
 assert_contains "$err" "no usable pool" "missing file explains itself"
 
 # unknown arg -> exit 2
-assert_fail bash "$DRAW" --bogus
+assert_fail bash "$DRAW" --sampler legacy-crc-v1 --bogus
 
 # seeded coverage: across many seeds we hit ALL 12 fixture leaves and none dominates.
 tmp="$(mktemp)"
 i=1; while [ $i -le 360 ]; do
-  WILDCARD_DOMAINS="$FIX" bash "$DRAW" --mode specialist --seed "$i" | sed -n 's/^domain=//p' >> "$tmp"
+  WILDCARD_DOMAINS="$FIX" bash "$DRAW" --sampler legacy-crc-v1 --mode specialist --seed "$i" | sed -n 's/^domain=//p' >> "$tmp"
   i=$((i+1))
 done
 distinct="$(sort -u "$tmp" | grep -c .)"
