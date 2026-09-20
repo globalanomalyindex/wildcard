@@ -1,0 +1,10 @@
+{
+  "id": "x03-a",
+  "phase": "diagnostic",
+  "task_id": "x03",
+  "variant": "a",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Exclusive versus shareable access\",\n  \"brief\": \"Two users A and B request the same digital resource in that order. Neither releases it during the observation window. The resource follows exactly the supplied allocation relation. Propose the admission rule and trace the result of each request as GRANT or WAIT.\",\n  \"constraints\": [\n    \"Do not add resource copies.\",\n    \"Apply the supplied rights contract without pretending that a waiting request was granted.\"\n  ]\n}\nDonor label: Synthetic access marker\nRelation: The resource is exclusive: at most one user holds it, and another request waits until that user releases it.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "fddec3ccf7104825ac8a72696a7f004d256ae0c5921a22d4c685434534646662"
+}

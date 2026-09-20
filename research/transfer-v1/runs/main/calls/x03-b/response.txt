@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Grant each requester a concurrent read-only right to the same resource, regardless of existing holders.","trace":["A: GRANT","B: GRANT"],"explanation":"The supplied relation permits concurrent read-only rights; A's holding does not consume B's right or require a resource copy."}

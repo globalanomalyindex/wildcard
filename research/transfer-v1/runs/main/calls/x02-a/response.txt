@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Apply RESET to clear only the notice display, preserving all drafts; retain the two subsequent arrivals.","trace":["4","6"],"explanation":"The supplied relation states that RESET leaves queued contents unchanged, so all six drafts are retained without deletion or submission."}

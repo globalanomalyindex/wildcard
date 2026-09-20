@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "i04-judge-1",
+  "request_sha256": "b21cf37fb01bc0436d6b1186553f8e5d8d7df69dfdd7c492e52d5d85c9194f70",
+  "prompt_sha256": "63605de048f7cc052402b87d50f90972acf45a6d8407e79585bffe4755999602",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:05.702122+00:00",
+  "finished_at": "2026-09-20T20:18:45.920052+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 40.215523083,
+      "usage": {
+        "input_tokens": 10955,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1218,
+        "reasoning_output_tokens": 94
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "13089cf0d91f93489e876e103cbb69a2ae43f317412791206418efb4b4bd5663",
+      "stderr_sha256": "753308c850f5d2ff018718ee1847bd040e60c9e7c4662fd1abaa297f6880c0e3"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "399cf4903c192207",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8a001c0414db06e",
+        "mechanism_group": "override_provenance",
+        "reason": "Protected overrides and explicit replacement preserve brand provenance while allowing aliases to follow references."
+      },
+      {
+        "id": "6cce7d7f823790fc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a8966c3526d6e87",
+        "mechanism_group": "revision_bound_review",
+        "reason": "Draft states and invalidated reviews prevent publication with unreviewed changes or unresolved cycles."
+      },
+      {
+        "id": "91bbb20ee2ad6d5c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1cf87ed2bc227ff6",
+        "mechanism_group": "revision_bound_review",
+        "reason": "The gate binds publication to reviewed values and supplies numeric comparisons independent of color."
+      },
+      {
+        "id": "2205b4e571f94ab1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "69169124c402afd9",
+        "mechanism_group": "dependency_impact",
+        "reason": "Context-specific dependency traversal exposes changed consumers and tests multi-level aliases and cycle diagnostics."
+      },
+      {
+        "id": "eb6e714ca024e001",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8a001c0414db06e",
+        "mechanism_group": "override_provenance",
+        "reason": "Explicit override operations preserve literal values and alias definitions without concealing resolved changes."
+      },
+      {
+        "id": "208c898eb0ce32de",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "69169124c402afd9",
+        "mechanism_group": "dependency_impact",
+        "reason": "Reverse-dependency recomputation exposes actual resolved differences and tests aliases, cycles, and dual-role uses."
+      },
+      {
+        "id": "c5a8d72183ca76aa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "56fd37f6dfd88b65",
+        "mechanism_group": "constrained_repairs",
+        "reason": "Scoped semantic-token repair candidates protect brand values and are checked against all affected pairs before acceptance."
+      },
+      {
+        "id": "ab481c1fe32b6a88",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "69169124c402afd9",
+        "mechanism_group": "dependency_impact",
+        "reason": "Per-context dependency resolution maps downstream changes to pairs with numeric comparisons and explicit cycle diagnostics."
+      },
+      {
+        "id": "a1d9a6255ac19a6f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1cf87ed2bc227ff6",
+        "mechanism_group": "revision_bound_review",
+        "reason": "Immutable revision binding and invalidation after edits prevent stale review decisions from authorizing publication."
+      },
+      {
+        "id": "9d760356acaa1367",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a8966c3526d6e87",
+        "mechanism_group": "pair_review_gate",
+        "reason": "A mandatory affected-pair checklist blocks publication until flagged uses are reviewed and cycles resolved."
+      },
+      {
+        "id": "154266697d0c7f7b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7103449eba24790",
+        "mechanism_group": "override_provenance",
+        "reason": "Separately recorded override modifications and inspectable provenance protect intentional brand differences."
+      },
+      {
+        "id": "1fcda82ce5ea629d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bb46c2bbdec49dcd",
+        "mechanism_group": "rendered_pair_evaluation",
+        "reason": "Usage-specific contrast checks distinguish dual-role tokens and expose failures or unknown results through numbers and text."
+      },
+      {
+        "id": "c64087d0d6359273",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8a001c0414db06e",
+        "mechanism_group": "override_provenance",
+        "reason": "Protected override definitions retain source paths while distinguishing literal preservation from inherited alias effects."
+      },
+      {
+        "id": "a50578e424c60c03",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "be59d1823ed9e344",
+        "mechanism_group": "dependency_impact",
+        "reason": "Draft dependency traversal resolves brand/theme contexts, respects override boundaries, and reports cycle paths."
+      },
+      {
+        "id": "dc6cf95698f76bdc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bb46c2bbdec49dcd",
+        "mechanism_group": "rendered_pair_evaluation",
+        "reason": "Affected-pair contrast evaluation exposes failures and indeterminate results in a text-and-number review queue before publishing."
+      },
+      {
+        "id": "3be683352eac4d3a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5bb9e3dd2960297b",
+        "mechanism_group": "noncolor_comparison",
+        "reason": "Labeled value tables and linked previews support comparison without swatch discrimination, checked in grayscale and keyboard-only use."
+      }
+    ]
+  },
+  "result_sha256": "34761fef6d1eb597abe533d645b980ab061cc6ebe978299f12c50b4550d7c2d4",
+  "raw_output_sha256": "363c32460e89b213c4ae404637171b1f78cb037a3d0a30076262137968a03437"
+}

@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "i07-judge-1",
+  "request_sha256": "0841a901bdc99d8061d52cac4815b3975061b5f1052036f2f04a2d8e9c92da1b",
+  "prompt_sha256": "eff5547ccc6c2986af46d13ef6f245eeec756da5b3e548fc72f54aa6f8b88492",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:22:36.511089+00:00",
+  "finished_at": "2026-09-20T20:23:15.274703+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 38.75903616599999,
+      "usage": {
+        "input_tokens": 11121,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1159,
+        "reasoning_output_tokens": 55
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "6f82b80c349814fe80fe83d95e6c12cb3c21b0776313e86b90ad35dd6a8491c4",
+      "stderr_sha256": "e3efc74ef969ea2fa0d5c2f3f469171ec7d1f7de3e92c3d6c2a91f4ae642b10d"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "acc6088f51c72573",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364e4f772b7856d3",
+        "mechanism_group": "availability_states",
+        "reason": "Typed availability and completeness checks distinguish missing evidence from measured zero."
+      },
+      {
+        "id": "836ed5faba00be45",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "review_queue_backpressure",
+        "reason": "Coalescing versioned review events and blocking unchecked overflow adds explicit review-capacity management."
+      },
+      {
+        "id": "17ad3e64d80f6ddb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "21cec50f5bbdde0e",
+        "mechanism_group": "revision_materiality",
+        "reason": "Before-and-after evidence comparisons distinguish harmless revisions from changed conclusions using tolerances."
+      },
+      {
+        "id": "21c013bacb6f2ac2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "297a3afda9d6d8f8",
+        "mechanism_group": "availability_states",
+        "reason": "Separate absent, missing, and zero states prevent unavailable evidence from satisfying numeric claims."
+      },
+      {
+        "id": "cd03c15b5c5a2392",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "review_queue_backpressure",
+        "reason": "Persistent coalescing and overflow blockers manage refresh bursts without treating unchecked evidence as reviewed."
+      },
+      {
+        "id": "d206d3835f5d01cc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b806ab3f7d71f7d1",
+        "mechanism_group": "revision_materiality",
+        "reason": "Tolerance-based revision classification preserves review for changed scope and failed predicates."
+      },
+      {
+        "id": "f0155404f4338aaa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1418abd219917a20",
+        "mechanism_group": "version_bound_export_review",
+        "reason": "A frozen export snapshot couples explicit callout resolution with identifiable data-version metadata."
+      },
+      {
+        "id": "3a9747991fae0ad4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364e4f772b7856d3",
+        "mechanism_group": "availability_states",
+        "reason": "Typed missing states and visible gaps prevent absent observations from becoming measured zeros."
+      },
+      {
+        "id": "73e7cd8ccf86c466",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d8b7bc03ae72b0b1",
+        "mechanism_group": "claim_predicate_revalidation",
+        "reason": "Stored descriptive predicates are reevaluated against stable references, with checks for reversal, scope change, and harmless revision."
+      },
+      {
+        "id": "ce86dcbe441e359d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1418abd219917a20",
+        "mechanism_group": "version_bound_export_review",
+        "reason": "Pinned evidence checks and required resolution prevent unreviewed changes from entering a traceable export."
+      },
+      {
+        "id": "dd4dcaf8d96cc6bd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364e4f772b7856d3",
+        "mechanism_group": "availability_states",
+        "reason": "Coverage requirements and distinct availability states make insufficient evidence indeterminate rather than zero."
+      },
+      {
+        "id": "62d5cd9d5355a1b4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "95f78d8147a9ce5f",
+        "mechanism_group": "claim_predicate_revalidation",
+        "reason": "Analyst-confirmed descriptive predicates detect ranking reversals without inventing causation."
+      },
+      {
+        "id": "4446b189087286c0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d8b7bc03ae72b0b1",
+        "mechanism_group": "claim_predicate_revalidation",
+        "reason": "Stored comparison tests detect reversals and scope changes while unsupported claims receive manual review."
+      },
+      {
+        "id": "4a48e9b48daaa1db",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d8b7bc03ae72b0b1",
+        "mechanism_group": "claim_predicate_revalidation",
+        "reason": "Explicit predicates and recorded scope trigger review while tolerances preserve claims unaffected by small revisions."
+      },
+      {
+        "id": "020fb0831432e484",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1418abd219917a20",
+        "mechanism_group": "version_bound_export_review",
+        "reason": "Atomic preflight requires correction or visible qualification and preserves the rendered dataset's provenance."
+      },
+      {
+        "id": "c3a020aefbb409fc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1418abd219917a20",
+        "mechanism_group": "version_bound_export_review",
+        "reason": "Pinned data and annotation versions prevent export races, while unresolved callouts are excluded or qualified."
+      }
+    ]
+  },
+  "result_sha256": "3321f6370c52e5c9f2ef0ec3b5839061541f38eca8db1c6d14a4f8ed72ce50f8",
+  "raw_output_sha256": "19cdec9160f560fd30a6803c47bda3f7d1581dedef45cff05fb120bed9e39a03"
+}

@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "p08-judge-2",
+  "request_sha256": "afa41ed8467618ae5cc02352fc2d6a0f7821ba1d97466bb9ff914e18384a4e35",
+  "prompt_sha256": "21245e329f19edb94840ca80758fb1a758ce136001e82a0119c12b91047c85ee",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:21:38.944285+00:00",
+  "finished_at": "2026-09-20T20:22:09.927576+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 30.980633124999997,
+      "usage": {
+        "input_tokens": 8286,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1522,
+        "reasoning_output_tokens": 306
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "0d4117c1618c618874f97604efbd44c91a3d80d5930aadd50a54ea5e3ebbed85",
+      "stderr_sha256": "9d54c661dee7cbb8bdd600821268f2dd00db17c1aee3bb139799bcef13cd16ed"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "0d0c171dfd120c4b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8d968a1f05d3b923",
+        "mechanism_group": "outcome_retry_ledger",
+        "reason": "A confirmed-ID ledger with per-record outcomes and idempotent retry recovers failures without reapplying successes or adding unconfirmed IDs."
+      },
+      {
+        "id": "afb3699df4210ef9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c43cb5a297d1a5a5",
+        "mechanism_group": "version_conflict_guard",
+        "reason": "Atomic version preconditions prevent records changed after confirmation from being overwritten and return per-record conflicts."
+      },
+      {
+        "id": "62365c96cb0ca8e0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9ab140d4142027d3",
+        "mechanism_group": "reversal_eligibility",
+        "reason": "Per-record deadline and resulting-version checks enforce the ten-minute reversal policy and explain unavailable reversals accessibly."
+      },
+      {
+        "id": "64b89484cd4be615",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9ab140d4142027d3",
+        "mechanism_group": "reversal_eligibility",
+        "reason": "It atomically checks both reversal conditions and reports textual reasons when a record cannot be reversed."
+      },
+      {
+        "id": "382308ca50043b58",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c43cb5a297d1a5a5",
+        "mechanism_group": "version_conflict_guard",
+        "reason": "Capturing revisions and conditionally writing each record avoids overwriting intervening changes while producing per-record outcomes."
+      },
+      {
+        "id": "320a2c18917994a5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c43cb5a297d1a5a5",
+        "mechanism_group": "version_conflict_guard",
+        "reason": "Per-record atomic version comparison is a plausible backend guard against long-running operations overwriting changed records."
+      },
+      {
+        "id": "e5397c35a6c36d85",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "94932f9c04bf376b",
+        "mechanism_group": "outcome_retry_ledger",
+        "reason": "The operation ledger and failed-only retry exclude successes and unconfirmed IDs while supporting keyboard-accessible recovery."
+      },
+      {
+        "id": "bcb68986f53e4e08",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8d968a1f05d3b923",
+        "mechanism_group": "outcome_retry_ledger",
+        "reason": "Retry IDs are derived from confirmed unsuccessful records, with unresolved outcomes reconciled before retry."
+      },
+      {
+        "id": "61489d68973fd48e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66e548f8058e7945",
+        "mechanism_group": "reversal_eligibility",
+        "reason": "Storing prior status, resulting revision, and deadline per success makes reversal eligibility enforceable and explainable per record."
+      },
+      {
+        "id": "c6b940a4c303d2d6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b4fcf24844c072",
+        "mechanism_group": "freeze_confirmed_scope",
+        "reason": "Explicit scope choices plus a frozen ID manifest make the confirmed 600-record scope unambiguous and prevent live-filter expansion."
+      },
+      {
+        "id": "c3affe054bccdf6b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8d968a1f05d3b923",
+        "mechanism_group": "outcome_retry_ledger",
+        "reason": "A durable per-ID results ledger with idempotency supports recovery without repeating successful writes or adding outside IDs."
+      },
+      {
+        "id": "aa34ae02777f9fe7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c43cb5a297d1a5a5",
+        "mechanism_group": "version_conflict_guard",
+        "reason": "Conditional writes on captured versions reject concurrent changes and require explicit reconfirmation before retrying conflicts."
+      },
+      {
+        "id": "103bb01e457acd4d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b4fcf24844c072",
+        "mechanism_group": "freeze_confirmed_scope",
+        "reason": "Keyboard-operable page-vs-all selection bound to an immutable ID list satisfies the confirmed-scope and no-absent-ID constraints."
+      },
+      {
+        "id": "4a1645a60e065c51",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b4fcf24844c072",
+        "mechanism_group": "freeze_confirmed_scope",
+        "reason": "Resolving IDs before confirmation and persisting the count and scope prevents confusing visible rows with all matching rows."
+      },
+      {
+        "id": "d122ea48e8d93d28",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9ab140d4142027d3",
+        "mechanism_group": "reversal_eligibility",
+        "reason": "Atomic deadline and version checks implement the limited reversal rule and provide screen-reader-readable rejection reasons."
+      },
+      {
+        "id": "62e48eebe306c301",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b4fcf24844c072",
+        "mechanism_group": "freeze_confirmed_scope",
+        "reason": "Freezing explicit IDs after choosing page or all-matching scope keeps submitted IDs within the confirmed set despite later filter changes."
+      }
+    ]
+  },
+  "result_sha256": "d4db428f91de0ca584a37c5c3a553469ee8258ce52481937424e036e9b4ed937",
+  "raw_output_sha256": "d056aaf97d71bca0a642f2e425a25256d968d79d5bff8f80d2ba66f9f27d3263"
+}

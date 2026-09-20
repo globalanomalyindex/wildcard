@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "o04-judge-2",
+  "request_sha256": "7e598999262d8849d7f91b1e6fdcb080e35d2abaf2a8137cdb4c27cbe55ee7c9",
+  "prompt_sha256": "1172ba5f4fa174945bb03cb45e35a130547ca912efe165bf54a38d9ab3375c9b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:23:40.879778+00:00",
+  "finished_at": "2026-09-20T20:24:11.910972+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 31.029017874999965,
+      "usage": {
+        "input_tokens": 8308,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1467,
+        "reasoning_output_tokens": 259
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d3a161b514e67c1ae9f1005d40fdab81074a990b844ab064515c74a11c74a69f",
+      "stderr_sha256": "2c5c3f39dfcd7313fd4c9499e5caba17026223c72f5b984dd6fd94f009925bb4"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "c36d40348ab09bdb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "tag_review_batch",
+        "reason": "Bounded evidence-based tag review preserves timestamps and qualification checks, but its batch throttling mechanism is not the same as the reference tag-correction mechanisms."
+      },
+      {
+        "id": "b4673febef739909",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "deba146f350b43f8",
+        "mechanism_group": "separate_blockers",
+        "reason": "It independently tracks skill and information blockers and verifies clearing one does not bypass qualifications."
+      },
+      {
+        "id": "e22b851ae4ef08fb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e256a6bc9630626",
+        "mechanism_group": "preserve_arrival_priority",
+        "reason": "It uses immutable arrival time plus a stable tie-breaker so reroutes and simultaneous arrivals retain fair order among eligible cases."
+      },
+      {
+        "id": "45761e5471099696",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5ff8e55844ff2ac9",
+        "mechanism_group": "assignment_eligibility_gate",
+        "reason": "It transactionally gates assignment on language, product, urgent qualification, roster capacity, and explicit non-commercial urgency criteria."
+      },
+      {
+        "id": "88e86f27a86e8004",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5ff8e55844ff2ac9",
+        "mechanism_group": "assignment_eligibility_gate",
+        "reason": "It applies one atomic gate for automated and manual assignments using required skills, urgent qualification, and live shift capacity."
+      },
+      {
+        "id": "9fc3e2c22b95e12e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9b2336d6f70608ad",
+        "mechanism_group": "assignment_eligibility_gate",
+        "reason": "It revalidates eligibility and reserves roster capacity atomically while holding uncovered urgent cases rather than relaxing requirements."
+      },
+      {
+        "id": "a1ae0fd003916c17",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "dfda53769beee5cf",
+        "mechanism_group": "verify_uncertain_tags",
+        "reason": "It separates uncertain routing labels from verified requirements and blocks assignment until language, product, and urgency criteria are confirmed."
+      },
+      {
+        "id": "236245d712b31a16",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "deba146f350b43f8",
+        "mechanism_group": "separate_blockers",
+        "reason": "It maintains separate missing-information and unavailable-skill states, including urgent coverage as a skill wait, without changing arrival priority."
+      },
+      {
+        "id": "0d4af2abc8b08fc7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ad4172b5cf9c0c8e",
+        "mechanism_group": "preserve_arrival_priority",
+        "reason": "It keeps one case identity with immutable arrival and intake sequence so team transfers do not reset queue age."
+      },
+      {
+        "id": "6b4e8109a2e21fa3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e256a6bc9630626",
+        "mechanism_group": "preserve_arrival_priority",
+        "reason": "It reroutes the existing case instead of recreating it and orders by write-once arrival plus sequence."
+      },
+      {
+        "id": "24aedfa74aa1c7e9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "deba146f350b43f8",
+        "mechanism_group": "separate_blockers",
+        "reason": "It exposes skill and information blockers independently and restores dispatch eligibility by original arrival after information is received."
+      },
+      {
+        "id": "1c91bfbc10a3a228",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ad4172b5cf9c0c8e",
+        "mechanism_group": "preserve_arrival_priority",
+        "reason": "It orders eligible cases within urgency classes by write-once arrival and stable sequence, not transfer time."
+      },
+      {
+        "id": "6395a402e5965fa4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "tag_review_batch",
+        "reason": "It proposes roster-throttled review of rerouted cases while preserving timestamps, a batch-review intervention not present as the reference mechanism."
+      },
+      {
+        "id": "e36c4ec2d3d1bc2d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "tag_review_batch",
+        "reason": "It uses limited mistag review batches with audit and backlog pausing while retaining arrival priority and qualification gates."
+      },
+      {
+        "id": "577177a44e2f8efc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27a5cc3db9a77a6e",
+        "mechanism_group": "scarce_skill_matching",
+        "reason": "It uses roster-constrained assignment to avoid wasting scarce qualifications while still enforcing language, product, urgent qualification, and capacity."
+      },
+      {
+        "id": "99d0f57609c7bf4f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d6e5c60de878e768",
+        "mechanism_group": "separate_blockers",
+        "reason": "It shows missing staffing and missing information as distinct waiting states with owners, ages, and separate resolution checks."
+      }
+    ]
+  },
+  "result_sha256": "e20d97b434d0d933d33979347d283e5747a31ee84a276d85aa6d7a561b44520d",
+  "raw_output_sha256": "276b036358726e55a4e3eb748975bc99c53a9afee15bf8ffb83e8f89366383cb"
+}

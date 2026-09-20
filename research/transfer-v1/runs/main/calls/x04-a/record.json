@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "x04-a",
+  "request_sha256": "fd5dec2325713a7628b60d08557fd2aa92d6458a41443df34b958ae308ff8944",
+  "prompt_sha256": "429221df4d8681a3a08b2dbe141809b2e15b704530816a9080887d33882e7a8b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:13.397795+00:00",
+  "finished_at": "2026-09-20T20:18:19.999339+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 6.596650167,
+      "usage": {
+        "input_tokens": 6988,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 94,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "881e937c398a7ce712470722f29b55020f89e2d5213bc1b7abccddafab854514",
+      "stderr_sha256": "ee69d6c702e32d9b014370a6ba2e3034b36cf58c67399df232221d33fec20885"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Label the record VALID only while verification is less than five time units old and no explicit revocation has occurred; otherwise label it UNKNOWN. Reset verification age only upon an actual refresh.",
+    "trace": [
+      "time 6: UNKNOWN",
+      "time 8: UNKNOWN"
+    ],
+    "explanation": "Without refresh, verification expires at time 5; the explicit revocation at time 8 also requires UNKNOWN."
+  },
+  "result_sha256": "7bf5e70a82b4a79d333544d300ca33468ace47ca8033c281a2b965b0febea936",
+  "raw_output_sha256": "3e8d54f9d94624301589e2c79cda08b31086165ba928ad5a8e223448971dd754"
+}

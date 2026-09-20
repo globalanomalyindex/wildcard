@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "id": "i03-judge-1",
+  "request_sha256": "ffcad4ae3de3b6b555faf5820e17ea21cd04422e85aebefae2f8d974864c43f2",
+  "prompt_sha256": "93cd742a1f05b54485b536d075b61b71874b9d46ea0072cc26ed1b2167b27836",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:00.390838+00:00",
+  "finished_at": "2026-09-20T20:19:42.427275+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 42.033349167,
+      "usage": {
+        "input_tokens": 11101,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1274,
+        "reasoning_output_tokens": 168
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "3565477059a8e092d8a58d93a96f65b7923017f8a29515a161a693b24396cbff",
+      "stderr_sha256": "85377934f050966e2d26eb737e5eec67643465b4cd5c51172f26076b4c4de4c9"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "7db01532b0a00fc3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "2b91db91db2e2f4a",
+        "mechanism_group": "attribution_verification",
+        "reason": "Recorded audio review and separate attribution status prevent wording review from verifying an unknown speaker."
+      },
+      {
+        "id": "0bbb8fd65ebe3640",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "080204a4c7edf885",
+        "mechanism_group": "ordered_quote_spans",
+        "reason": "Ordered source spans and playback links preserve boundary-crossing provenance without assigning one speaker to the entire quote."
+      },
+      {
+        "id": "3c711fc718645af2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "702d4137ed27666c",
+        "mechanism_group": "verification_aware_search",
+        "reason": "Separating confirmed, imported-label, and unresolved matches prevents speaker filtering from endorsing imported attribution."
+      },
+      {
+        "id": "c5acc0bd6080b236",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1828cc9a8830a139",
+        "mechanism_group": "attribution_verification",
+        "reason": "Independent verification states and recorded reviewer confirmation keep imported or unknown identities from appearing verified."
+      },
+      {
+        "id": "257c3ce67196f7c8",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e14997af9b969155",
+        "mechanism_group": "review_conflict_resolution",
+        "reason": "Preserved conflicting reviews block verified attribution until explicit adjudication while allowing identity to remain unknown."
+      },
+      {
+        "id": "3f3e277af1a6ef66",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4e7463691c19e49d",
+        "mechanism_group": "reviewed_audio_alignment",
+        "reason": "Adjustable, revisioned audio bounds address unreliable timestamps independently of speaker identity and provide export playback routes."
+      },
+      {
+        "id": "a80aff9c734bfb55",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d41ebc36b8e8898e",
+        "mechanism_group": "versioned_correction_propagation",
+        "reason": "Reviewer-attributed append-only corrections update collections while retaining imports and previously saved revisions."
+      },
+      {
+        "id": "d295fea7342e1c35",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "2b91db91db2e2f4a",
+        "mechanism_group": "attribution_verification",
+        "reason": "Separate identity confirmation and explicit unknown-speaker exports prevent verified wording from implying verified attribution."
+      },
+      {
+        "id": "79f872196c5abde7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5b29e7f8ca9dc62b",
+        "mechanism_group": "versioned_correction_propagation",
+        "reason": "Stable quote references propagate corrections while immutable imports, saved snapshots, and reviewer events preserve history."
+      },
+      {
+        "id": "31299c13e72923df",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4e7463691c19e49d",
+        "mechanism_group": "reviewed_audio_alignment",
+        "reason": "Contextual playback and reviewer-attributed boundary repairs provide a testable manual remedy for incorrect timestamps."
+      },
+      {
+        "id": "aee9da33966260aa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "2b91db91db2e2f4a",
+        "mechanism_group": "attribution_verification",
+        "reason": "Independent review states require audio evidence for attribution rather than inheriting verification from wording or timing."
+      },
+      {
+        "id": "42f5be86f468d4d9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4e7463691c19e49d",
+        "mechanism_group": "reviewed_audio_alignment",
+        "reason": "Manual interval review preserves imported evidence and reviewer-attributed timing revisions while exporting a route to the reviewed audio."
+      },
+      {
+        "id": "c6da15439183e9a9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d41ebc36b8e8898e",
+        "mechanism_group": "versioned_correction_propagation",
+        "reason": "Immutable reviewer-attributed revisions propagate current corrections without overwriting imported text or collection history."
+      },
+      {
+        "id": "f2d80b015d2b6d63",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d41ebc36b8e8898e",
+        "mechanism_group": "versioned_correction_propagation",
+        "reason": "Separate saved and current revision references update collections while preserving imports and reviewer audit trails."
+      },
+      {
+        "id": "a92c3bf97f2b0962",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4e7463691c19e49d",
+        "mechanism_group": "reviewed_audio_alignment",
+        "reason": "Versioned quote-level intervals and manual playback handles correct unreliable boundaries and retain an exported audio route."
+      }
+    ]
+  },
+  "result_sha256": "460cf6909015bd66afa883050d3fbb692be5e65994062cad33e48c4eb9663a94",
+  "raw_output_sha256": "8c3225118c17a524f685fbb9526c7d8e7e01fcd867d2f30fec0543662a6988e9"
+}

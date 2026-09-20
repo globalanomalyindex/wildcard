@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "x08-b",
+  "request_sha256": "64594767cf2fce8303ee6bf47fcbebf561147758c49e9ec14b861f96bfe6647a",
+  "prompt_sha256": "b44869ad3769f00cf5fa8367dded6c81896a40088d9a999cdf81e635d6b31578",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:00.443353+00:00",
+  "finished_at": "2026-09-20T20:19:05.912804+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 5.467940250000005,
+      "usage": {
+        "input_tokens": 6992,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 71,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "8b898f1db1137f4fa4c7163de6fe952ac25f0039c4e650c979dab14f8c4c07af",
+      "stderr_sha256": "8d350272e44829fb12e34400c9004e234dd253f4294f10a10deb7abec7186288"
+    }
+  ],
+  "result": {
+    "decision": "abstain",
+    "action": "Mark the record UNRESOLVED and retain it visibly for later repair without requesting retransmission.",
+    "trace": [
+      "UNRESOLVED"
+    ],
+    "explanation": "The check detects corruption, but A and B are equally supported, so neither original can be uniquely recovered."
+  },
+  "result_sha256": "b0fd925f3e70572b7ba89de99c0fbc059c8de18b975d29a0444c0c5573b16d63",
+  "raw_output_sha256": "045f42cc2d826f1976acd44ddb0c47ed7a9b111a753357617d97d4bc9fc50022"
+}

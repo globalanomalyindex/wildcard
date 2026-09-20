@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Apply each edit only to its own step, then restore the underlying level on the next step.","trace":["20","10","10"],"explanation":"The step 1 edit is local only; without further edits, steps 2 and 3 use the underlying level 10."}

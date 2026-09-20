@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "p03-judge-2",
+  "request_sha256": "4a9c35346f7b0432778442bda8d638d2d41da96501689b3c4d5f4e86c6f7ad66",
+  "prompt_sha256": "477126a7b4960392317a4d4ad36112f04cf6e00eddb7f7c5906ec2fce377110d",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:28:52.550501+00:00",
+  "finished_at": "2026-09-20T20:29:17.539224+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 24.985943499999962,
+      "usage": {
+        "input_tokens": 7944,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1207,
+        "reasoning_output_tokens": 233
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "6cbdb03794af44ec7a01113ea1c0931d7139dd8de5581bf005872f2ea6820c2b",
+      "stderr_sha256": "97b7b3fbd548bbf0d36d2c504bb33650fed6a10c7db9cb7880e5bae9e10cb327"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "cc7bb9e7b6fb286f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0bb140cc2dd71986",
+        "mechanism_group": "receipt_reopen_recovery",
+        "reason": "It stores only opaque receipts for 24 hours and explains that unaccepted files must be reselected, matching receipt-based reopen recovery."
+      },
+      {
+        "id": "8ecd5ec4b7785171",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0f58f4f18c544979",
+        "mechanism_group": "per_file_retry_reconcile",
+        "reason": "It keeps accepted receipt rows, retries only failed rows, and reconciles unconfirmed attempts before reuploading."
+      },
+      {
+        "id": "bddf924e0923d39a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "02e36c5840fe015e",
+        "mechanism_group": "reviewed_idempotent_submission",
+        "reason": "It combines explicit review with a server-side idempotent submission token so repeated or uncertain submits recover one case."
+      },
+      {
+        "id": "be106c780c7fb578",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a8b32e857ce3201f",
+        "mechanism_group": "receipt_reopen_recovery",
+        "reason": "It restores accepted attachments from unexpired opaque receipts and requests reselection for lost browser selections."
+      },
+      {
+        "id": "a7cb332c5a0b7a9f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d5d3ada883a4743d",
+        "mechanism_group": "per_file_retry_status",
+        "reason": "It tracks per-row states and retries only failed rows while preserving accepted receipt-backed attachments."
+      },
+      {
+        "id": "0f5f86c36ce74288",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0f58f4f18c544979",
+        "mechanism_group": "per_file_retry_reconcile",
+        "reason": "It excludes accepted files from retry and uses receipt-status reconciliation for unconfirmed uploads."
+      },
+      {
+        "id": "e9c262fc683430b8",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f98dd09a08010f58",
+        "mechanism_group": "final_list_review",
+        "reason": "It requires a receipt-backed final review, invalidates review after edits, and caps the list at five files."
+      },
+      {
+        "id": "133b1ab76bdee678",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "02e36c5840fe015e",
+        "mechanism_group": "reviewed_idempotent_submission",
+        "reason": "It submits an explicitly reviewed receipt snapshot with a server-issued commitment token that makes retries recover one case."
+      },
+      {
+        "id": "d170ae87245eb975",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a8b32e857ce3201f",
+        "mechanism_group": "receipt_reopen_recovery",
+        "reason": "It uses 24-hour receipt storage without file bytes to restore accepted attachments and explain required reselection."
+      },
+      {
+        "id": "6b2cd68898107f0c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8f0c2f991388a25d",
+        "mechanism_group": "final_list_review",
+        "reason": "It makes submission depend on an approved snapshot and requires unresolved rows to be resolved or explicitly omitted."
+      },
+      {
+        "id": "dc545bc35aac5e0b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bd979e0ec10ea067",
+        "mechanism_group": "slot_capacity_replacement",
+        "reason": "It counts accepted, uploading, and uncertain slots toward the five-file limit and requires explicit removal or replacement."
+      },
+      {
+        "id": "b72cd71fd825ea9f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0bb140cc2dd71986",
+        "mechanism_group": "receipt_reopen_recovery",
+        "reason": "It persists only opaque receipts for 24 hours, validates them on reopen, and never stores raw file bytes."
+      },
+      {
+        "id": "e9b25b4ce4aada13",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "30ae214e88b56364",
+        "mechanism_group": "per_file_retry_reconcile",
+        "reason": "It adds attempt-status lookup to recover receipts after lost acceptance responses before retrying any bytes."
+      }
+    ]
+  },
+  "result_sha256": "55bfc88455d131a83e21c3ce3fe6cc8e8bc2a491718ab9c1537092fd696877fb",
+  "raw_output_sha256": "3be9efdfdaa884ea06fb7b78b6042c0b024658072519972f24f492a6935c71f0"
+}

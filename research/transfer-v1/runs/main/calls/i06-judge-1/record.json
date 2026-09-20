@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "i06-judge-1",
+  "request_sha256": "d8652f94496f3c19f939627191719626628fee65139a72ada54cdbd35bce3f6d",
+  "prompt_sha256": "1119090c3263ce53423eaf1844ede5fdac4310983b75219d9aa184041acea789",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:22:00.855577+00:00",
+  "finished_at": "2026-09-20T20:22:39.605242+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 38.746031542,
+      "usage": {
+        "input_tokens": 11057,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1179,
+        "reasoning_output_tokens": 37
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "327ba9b1268b7174e2eaa1d38050911667e514d566068189012adc0d481d3d4b",
+      "stderr_sha256": "537eeaf31d38c8b42a5b745d7c49cb694ff2d974504f56164dc1cee555898ba6"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "8d65ce67e84a11b1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "06e45e6feccd5a16",
+        "mechanism_group": "versioned_rejections",
+        "reason": "Linked constraint edits flag dependent rejections for human reconsideration while preserving explanations and history."
+      },
+      {
+        "id": "ade37875f7cacaa3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ece38e6cf7ebecb5",
+        "mechanism_group": "versioned_rejections",
+        "reason": "Version-linked rejections enter human review after requirement changes without erasing prior decisions."
+      },
+      {
+        "id": "c25b0ce660fbb595",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f9fd25c10d803769",
+        "mechanism_group": "anonymous_review_queue",
+        "reason": "A randomized first-review queue masks identity and endorsements while preserving access-controlled authorship."
+      },
+      {
+        "id": "6a2e47cf66e5362f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_grouping",
+        "reason": "Rationale-based multiple memberships preserve distinct directions, immutable originals, and private authorship."
+      },
+      {
+        "id": "c487b79fdbab6a94",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "461b5419c8e54dd9",
+        "mechanism_group": "visible_constraint_conflicts",
+        "reason": "Evidence-backed hard-constraint warnings persist across views without automatically eliminating names or selecting a winner."
+      },
+      {
+        "id": "1cf8ce78bf42aa60",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f9fd25c10d803769",
+        "mechanism_group": "anonymous_review_queue",
+        "reason": "An explicit review queue provides late submissions anonymous assessment independent of reactions while retaining private attribution."
+      },
+      {
+        "id": "a48540877ac21011",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "06e45e6feccd5a16",
+        "mechanism_group": "versioned_rejections",
+        "reason": "Constraint-version dependencies trigger reconsideration flags without automatic acceptance or loss of rejection history."
+      },
+      {
+        "id": "351c652ff0381056",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f9fd25c10d803769",
+        "mechanism_group": "anonymous_review_queue",
+        "reason": "Anonymous queued review suppresses social signals and requires rationale comparison before duplicate dismissal."
+      },
+      {
+        "id": "a6e68060bdfc3085",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "461b5419c8e54dd9",
+        "mechanism_group": "visible_constraint_conflicts",
+        "reason": "Visible constraint evidence remains independent of reactions, with manual revisiting that preserves parked directions and records."
+      },
+      {
+        "id": "c98672feebf214bd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_grouping",
+        "reason": "Reversible rationale-based grouping keeps direction headers visible and preserves originals and private author links."
+      },
+      {
+        "id": "0c50896d23eeb9fa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ece38e6cf7ebecb5",
+        "mechanism_group": "versioned_rejections",
+        "reason": "Changed constraint dependencies reopen review of affected rejections without reinstating names or altering unrelated decisions."
+      },
+      {
+        "id": "0be418cfc865c392",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "461b5419c8e54dd9",
+        "mechanism_group": "visible_constraint_conflicts",
+        "reason": "Evidence-backed conflict warnings remain visible despite endorsements, with explained overrides retaining dissent rather than automatic selection."
+      },
+      {
+        "id": "bafc9046e6991756",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f9fd25c10d803769",
+        "mechanism_group": "anonymous_review_queue",
+        "reason": "Coverage-based anonymous review allocation hides social signals while retaining private authorship; review counts are not popularity rankings."
+      },
+      {
+        "id": "626dffe328170a89",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_grouping",
+        "reason": "Reversible purpose-based grouping supports multiple directions and singletons while preserving submissions and private attribution."
+      },
+      {
+        "id": "b0cd1abdbaf8d56e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_grouping",
+        "reason": "Rationale-based multiple memberships and original-record retrieval preserve distinct directions while authors remain hidden during first review."
+      },
+      {
+        "id": "40db087799650dc6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "461b5419c8e54dd9",
+        "mechanism_group": "visible_constraint_conflicts",
+        "reason": "User-explained constraint assessments keep popular names' conflicts visible without automatic removal or winner selection."
+      }
+    ]
+  },
+  "result_sha256": "1f1b87c84f9c7838fa25148c4f334e97a11e78a0d50ad230d06e6c0a3640e2b3",
+  "raw_output_sha256": "07ee1f46420d4d10bf9c39eda57e3740c9bf361c59dabaec99a5b57da68bed38"
+}

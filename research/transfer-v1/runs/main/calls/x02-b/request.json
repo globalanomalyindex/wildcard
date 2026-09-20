@@ -1,0 +1,10 @@
+{
+  "id": "x02-b",
+  "phase": "diagnostic",
+  "task_id": "x02",
+  "variant": "b",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Masking a notice versus deleting its contents\",\n  \"brief\": \"A draft queue contains four unsent drafts. An operator requests RESET to clear a distracting notice; two new drafts arrive afterward. The queue offers RESET and HIDE_NOTICE. HIDE_NOTICE changes only display. Implement the request without losing any draft. Trace must contain the first operation's result, followed by the final number of retained drafts. The first trace entry is the retained-draft count if RESET is applied, or BLOCKED if RESET is blocked.\",\n  \"constraints\": [\n    \"No draft may be deleted or submitted.\",\n    \"Use RESET only if its stated effect respects that constraint.\",\n    \"For a blocked RESET, emit BLOCKED as the first trace entry.\"\n  ]\n}\nDonor label: Synthetic maintenance marker\nRelation: RESET clears the notice by deleting every queued item.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "f4b6edc11dde6ac2ad61db84183ee2a88284529b31d73b21306acff52be61445"
+}

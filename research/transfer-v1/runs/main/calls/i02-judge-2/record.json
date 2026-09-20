@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "id": "i02-judge-2",
+  "request_sha256": "e47a8043afb28bbac833e1009d0cca582f3a64929cd88b697d23f776edf9b278",
+  "prompt_sha256": "873ab98605e0f5c288ed399de71da6f3be7ee9f7bc17a55e8d48302efa5f03ee",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:36.792059+00:00",
+  "finished_at": "2026-09-20T20:19:00.366962+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 23.571697542,
+      "usage": {
+        "input_tokens": 7968,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1105,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "63213cef7df8515d3c3d95e24c2d6f1377a582574ca331a736109d83af5fd5fa",
+      "stderr_sha256": "f51e811f1b9a3a31f6c6aaeba7fa7355882a110799897d9f37895cd8b5927678"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "e8cdd326e9447c6d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "134aadcfcf738217",
+        "mechanism_group": "precomputed_index_grouping",
+        "reason": "It uses precomputed index fields and on-demand expansion to meet the under-one-second first-page constraint without deleting files."
+      },
+      {
+        "id": "f48ceb0ece70c13e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "12ef4b15641a1a4a",
+        "mechanism_group": "explicit_variant_relationships",
+        "reason": "It records typed relationships while preserving separate searchable entries, matching the allowed explicit relationship constraint."
+      },
+      {
+        "id": "f9abd1f367aaa3a4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea3f1354d5d1aa6",
+        "mechanism_group": "precomputed_index_grouping",
+        "reason": "It keeps grouping computation off the first-page request using existing-index fields and benchmarks the one-second requirement."
+      },
+      {
+        "id": "eaf87a4d3c2b60ee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a37df766e18792e0",
+        "mechanism_group": "project_usage_ledger",
+        "reason": "It preserves the exact selected file and license record per project and forbids silent substitution."
+      },
+      {
+        "id": "0a230e6834fcca46",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "78a214b1cd78ca64",
+        "mechanism_group": "license_equivalent_exact_duplicate_condense",
+        "reason": "It condenses only hash-matching duplicates with the same license while keeping different licenses and intentional variants separate."
+      },
+      {
+        "id": "f17a78d16e2763a7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "2857d020cc437dc1",
+        "mechanism_group": "project_usage_ledger",
+        "reason": "It creates append-only usage records tying project use to a specific file hash and license revision."
+      },
+      {
+        "id": "605927b0e4cab972",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "67ae8f19e6497e1c",
+        "mechanism_group": "license_equivalent_exact_duplicate_condense",
+        "reason": "It conservatively collapses only verified exact duplicates with matching license-related metadata and exposes all original files."
+      },
+      {
+        "id": "8876d32e7eabfb8a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a37df766e18792e0",
+        "mechanism_group": "project_usage_ledger",
+        "reason": "It records project usage against a specific asset and license snapshot so licensed-file provenance is recoverable."
+      },
+      {
+        "id": "2f248dd972d4986d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "2857d020cc437dc1",
+        "mechanism_group": "project_usage_ledger",
+        "reason": "It binds project usage to asset ID, hash, and license version independently of search grouping."
+      },
+      {
+        "id": "bf184ea9d0829940",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "134aadcfcf738217",
+        "mechanism_group": "precomputed_index_grouping",
+        "reason": "It precomputes grouping in the existing index and loads member details only on expansion to protect first-page latency."
+      },
+      {
+        "id": "334b1554821d9025",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7adebf367589305d",
+        "mechanism_group": "explicit_variant_relationships",
+        "reason": "It uses human-entered crop and annotation links without collapsing variants or inferring license inheritance."
+      },
+      {
+        "id": "f223932bbe5ed8ae",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "12ef4b15641a1a4a",
+        "mechanism_group": "explicit_variant_relationships",
+        "reason": "It organizes crops and annotations through explicit reversible links while leaving each file independently searchable."
+      },
+      {
+        "id": "1cf4fac98bfb2ade",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "67ae8f19e6497e1c",
+        "mechanism_group": "license_equivalent_exact_duplicate_condense",
+        "reason": "It groups only exact duplicates with matching license and creator metadata, preserves files, and tests licensed copies and crops."
+      },
+      {
+        "id": "c8fdeca301d7b4ae",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7adebf367589305d",
+        "mechanism_group": "explicit_variant_relationships",
+        "reason": "It provides reversible typed asset links while keeping linked variants individually discoverable."
+      },
+      {
+        "id": "1f609a6cddc206eb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "78a214b1cd78ca64",
+        "mechanism_group": "license_equivalent_exact_duplicate_condense",
+        "reason": "It keys duplicate groups by hash and license record, keeps differing licenses separate, and retains every file identifier."
+      }
+    ]
+  },
+  "result_sha256": "ea3bf3c71681aa55aa0c48294118d367f0656e79e5d259efa0b4e49c83083f9a",
+  "raw_output_sha256": "33cef98e5442f57b0248c2216999b5059acbe82e6ea502dd71626a6d5cf1d275"
+}

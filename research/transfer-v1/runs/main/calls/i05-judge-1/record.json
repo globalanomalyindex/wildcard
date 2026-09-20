@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "i05-judge-1",
+  "request_sha256": "afe58f6f629ed6274b4ed82dcb3cc25cc35206b43b69e733c130ab1d29854810",
+  "prompt_sha256": "c913efe51f035b53783c0a8f3f9994835c858a820cc31a1c46c92e154c2a3016",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:25:35.827161+00:00",
+  "finished_at": "2026-09-20T20:26:19.412113+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 43.581948582999985,
+      "usage": {
+        "input_tokens": 11268,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1239,
+        "reasoning_output_tokens": 84
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "2947cfa2e8b7e8f041815bb4b5a25b2b8aa8caad670c92da1804d43595f4a7d8",
+      "stderr_sha256": "cde3dd52a60af7bce95d9739b18505652595d1cfa1fdf65ed3b2574bc6f08bcd"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "ade66c1e8a06027c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8baebc83d8121150",
+        "mechanism_group": "state_reachability",
+        "reason": "State-aware classification separates proof from budget exhaustion and provides replayable witnesses or inspectable proofs."
+      },
+      {
+        "id": "b1e7ba9ee6e82623",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7bac33e00dbae815",
+        "mechanism_group": "backward_constraints",
+        "reason": "Backward constraint propagation supplies blocking proofs while leaving unresolved obligations unknown."
+      },
+      {
+        "id": "fcf66336e2f7f808",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8e51ceb01ca6de0f",
+        "mechanism_group": "differential_replay",
+        "reason": "Comparing modeled and actual transitions detects semantic mismatches without claiming replay proves unreachability."
+      },
+      {
+        "id": "14a95913fb266192",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8baebc83d8121150",
+        "mechanism_group": "state_reachability",
+        "reason": "Explicit budgets, predecessor witnesses, and proof requirements distinguish unreachable scenes from unexplored scenes."
+      },
+      {
+        "id": "c82375b6a88c4d8d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "81a51355a62eac30",
+        "mechanism_group": "scoped_exceptions",
+        "reason": "Finding-specific exceptions and dependency invalidation preserve unrelated warnings and require review after relevant edits."
+      },
+      {
+        "id": "df9bbe5fb363c3a0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "36b5fa84f94b835c",
+        "mechanism_group": "closed_state_traps",
+        "reason": "Closed configuration analysis distinguishes the three-visit escape from an impossible exit and leaves incomplete analysis unresolved."
+      },
+      {
+        "id": "4e988a9db6b01dcf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8baebc83d8121150",
+        "mechanism_group": "state_reachability",
+        "reason": "Transition-checked exhaustion certificates support unreachability while reduced budgets and unsupported code yield unknown results."
+      },
+      {
+        "id": "ea852793fbfbc935",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "81a51355a62eac30",
+        "mechanism_group": "scoped_exceptions",
+        "reason": "State-scoped finding annotations record intent without suppressing a separate trap in the same scene."
+      },
+      {
+        "id": "1eb98f7205a00452",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8e51ceb01ca6de0f",
+        "mechanism_group": "differential_replay",
+        "reason": "Versioned playtest replay exposes model divergences and does not treat missing observations as unreachability proofs."
+      },
+      {
+        "id": "8c4a1effe4e4cd67",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "14d19a0ee181a9b3",
+        "mechanism_group": "state_reachability",
+        "reason": "Bounded scene-and-state exploration retains replayable witnesses and explicitly labels scenes missed within limits."
+      },
+      {
+        "id": "5ab3ff5b06e68d84",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "81a51355a62eac30",
+        "mechanism_group": "scoped_exceptions",
+        "reason": "Specific acknowledgments retain evidence, reopen after dependency changes, and leave unrelated impossible exits visible."
+      },
+      {
+        "id": "f94eb516879010bf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "81a51355a62eac30",
+        "mechanism_group": "scoped_exceptions",
+        "reason": "Individual finding acknowledgments fingerprint semantic dependencies so changed behavior and unrelated traps remain reviewable."
+      },
+      {
+        "id": "89836f4a509394fc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "36b5fa84f94b835c",
+        "mechanism_group": "closed_state_traps",
+        "reason": "Reachable closed regions without terminals establish traps, unlike repeated scenes or merely optional looping."
+      },
+      {
+        "id": "6976a441500c50de",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "36b5fa84f94b835c",
+        "mechanism_group": "closed_state_traps",
+        "reason": "Requiring resolved outgoing transitions prevents truncated exploration from falsely proving closure and supports both required loop tests."
+      },
+      {
+        "id": "b6a89bb4977689c9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "36b5fa84f94b835c",
+        "mechanism_group": "closed_state_traps",
+        "reason": "State-aware escape proofs distinguish a counter reaching three from one capped at two, with entry traces and blocked-exit evidence."
+      },
+      {
+        "id": "929d9350bc61d7c0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d44ba2780ad39f4d",
+        "mechanism_group": "executable_contracts",
+        "reason": "Saved state and exit assertions provide observable regression checks while capped executions remain inconclusive."
+      }
+    ]
+  },
+  "result_sha256": "d95dd0c430e5896365e26b9c9ed0ccc6d7acdf49c3764a513f4824e4c4cf4b4f",
+  "raw_output_sha256": "7af3a9ca3cc3da122c276f0602c021a239f8b665397c6a2eabd22abc4f24e901"
+}

@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "s01-judge-1",
+  "request_sha256": "7782e342516b14737e226b2a5cc1061a74aa4eb409a0406c21dbd73418cc8c38",
+  "prompt_sha256": "0bafdea6ce130edc45e0907361c74ea9bd2e78e7ddd8f0da9fe2318682371a22",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:20:15.354505+00:00",
+  "finished_at": "2026-09-20T20:20:47.448724+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.091134332999985,
+      "usage": {
+        "input_tokens": 10212,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 956,
+        "reasoning_output_tokens": 63
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f2f65bb51dc571005c3c5682b2abe47546cc39a471235076515bc1e1df760da0",
+      "stderr_sha256": "1a6cb31bad3b33555c02ab3ba6b4dfe0ee53382580c3f9cca79f1c67afafea6f"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "51a9f075ed4880a9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cfab74980c854deb",
+        "mechanism_group": "bounded_receipt_retention",
+        "reason": "Strict first-receipt expiry preserves the seven-day boundary, with measured storage and backpressure enforcing the 2 GB limit."
+      },
+      {
+        "id": "51bfa915ce044e3a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cfab74980c854deb",
+        "mechanism_group": "bounded_receipt_retention",
+        "reason": "Serialized cleanup and strict seven-day expiry provide implementable boundary protection, with storage measurements and backpressure."
+      },
+      {
+        "id": "5d5bf4bdd7275af2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ac5d956c5ad12029",
+        "mechanism_group": "atomic_receipt_update",
+        "reason": "A unique receipt and mutation commit atomically before acknowledgement, and crash/replay tests check that committed updates do not repeat."
+      },
+      {
+        "id": "1150af3bd976708d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ac5d956c5ad12029",
+        "mechanism_group": "atomic_receipt_update",
+        "reason": "Transactional receipt insertion prevents duplicate mutations while keeping partner acknowledgement outside the transaction."
+      },
+      {
+        "id": "bbd44ff21b3c75d7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b80b0bc81bd9580e",
+        "mechanism_group": "atomic_receipt_update",
+        "reason": "Only the successful unique-receipt inserter updates state, with crash and concurrent replay checks covering acknowledgement loss."
+      },
+      {
+        "id": "3ca4eb760af39ff0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "dd44bafd420b412a",
+        "mechanism_group": "atomic_revision_fence",
+        "reason": "Atomic higher-revision updates and deletion tombstones prevent stale or equal revisions from changing newer state."
+      },
+      {
+        "id": "82890680e8b8fb36",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cfab74980c854deb",
+        "mechanism_group": "bounded_receipt_retention",
+        "reason": "Fixed receipt expiry retains keys at seven-day equality, while measured storage and admission backpressure avoid premature eviction."
+      },
+      {
+        "id": "f816f85d5d3afc0e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f959089e553b7c2a",
+        "mechanism_group": "atomic_revision_fence",
+        "reason": "Transactional revision comparisons reject stale and equal updates, with concurrent and post-expiry replay checks."
+      },
+      {
+        "id": "2e4dffa8c4b832ca",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b80b0bc81bd9580e",
+        "mechanism_group": "atomic_receipt_update",
+        "reason": "Unique receipt insertion and business changes share a durable commit, leaving acknowledgement outside and testing replay after crashes."
+      },
+      {
+        "id": "7fcb3be20c6e9678",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cfab74980c854deb",
+        "mechanism_group": "bounded_receipt_retention",
+        "reason": "Strict seven-day retention uses revision fences after cleanup and includes tombstones in the enforced storage budget."
+      },
+      {
+        "id": "00bd0befab688d3f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f959089e553b7c2a",
+        "mechanism_group": "atomic_revision_fence",
+        "reason": "Atomic revision gating protects replacement state, while rejecting unprocessed delta gaps avoids incorrectly recording them as complete."
+      },
+      {
+        "id": "08d525c7f88e66bc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "dd44bafd420b412a",
+        "mechanism_group": "atomic_revision_fence",
+        "reason": "Durable revision fences survive deletion and atomically reject older or equal revisions, checked through concurrent reordered deliveries."
+      }
+    ]
+  },
+  "result_sha256": "4f76453b1ce8d60199ce17c0942d1bfa693a7a2fc52bf5509737e88729d49f6d",
+  "raw_output_sha256": "9eed581f2a81affcee2b2a805e119828beacb178f2e9465fed4e7772e77f3891"
+}

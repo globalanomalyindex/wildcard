@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "x01-a",
+  "request_sha256": "edd108be940f9ced6de74b29b7569c6cab4bba1e189f33610beb043f3a663b1d",
+  "prompt_sha256": "c2a9c72ab18de7fe828ca34c28cec968fff48df85e2dda03557a5e6cd71d29e8",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:33.916423+00:00",
+  "finished_at": "2026-09-20T20:18:41.277071+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 7.358824291999998,
+      "usage": {
+        "input_tokens": 6976,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 63,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "96413a9efc9e15f38d1d696fbd273c2fcc8ef688ad23ce49ac147b046dadf59d",
+      "stderr_sha256": "b47963b99a538063b630a0d6967d56536f11aa26828ea2c0fff6b09ef8381500"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Store each explicit level edit and carry it forward until another explicit edit overrides it.",
+    "trace": [
+      "20",
+      "20",
+      "20"
+    ],
+    "explanation": "The step 1 edit sets level 20, and no later edit overrides it."
+  },
+  "result_sha256": "466ca2086b790527cab831046938add96de21c301a79a65def0aea7ed5320e67",
+  "raw_output_sha256": "cebb24c98092cd34b82ac8d8943fd7cd7dc2a52d45f7b9e09299f37a4a3e625f"
+}

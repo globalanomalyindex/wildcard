@@ -1,0 +1,1 @@
+{"decision":"adapt","action":"Block the second arrival until storage is freed by an explicitly changed service schedule; preserve its units outside the processor pending admission.","trace":["3","OVERFLOW"],"explanation":"With no recovery, all 3 stored units remain; the second arrival would raise storage to 6, exceeding capacity 4."}

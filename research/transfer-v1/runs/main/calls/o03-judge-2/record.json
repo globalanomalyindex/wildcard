@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "id": "o03-judge-2",
+  "request_sha256": "c488b325e29e37317d467430de44acd9073da36fc65d079b87cefb202e0fe1e1",
+  "prompt_sha256": "66864cbbdcbe272cbab582ec9045133740e3dedacb9c653e319153f774ec3772",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:28:21.055084+00:00",
+  "finished_at": "2026-09-20T20:28:52.525159+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 31.46683100000007,
+      "usage": {
+        "input_tokens": 8130,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1576,
+        "reasoning_output_tokens": 455
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "26b582ac1f2d11c3da78bf3daa8bf562f184ec72adda23b052ae93f34b9aa510",
+      "stderr_sha256": "d07f48040ed24d6921751b0dd269c79891dea37ceadebf4ace82e65ee2078af3"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "5934c9959c0c36a4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "26f5b3c3dffc45ae",
+        "mechanism_group": "missing_owned_task",
+        "reason": "It creates an owned next action and deadline for each missing ID without charging or hardware, matching the missing-component recovery-task mechanism."
+      },
+      {
+        "id": "74e34ec467116c0c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "daca4e10493a721c",
+        "mechanism_group": "component_level_evidence",
+        "reason": "It replaces the misleading complete checkbox with ID-level presence, condition, inspector, and time fields that preserve unknown versus verified good."
+      },
+      {
+        "id": "04f265673035b925",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9e59c2c70802510b",
+        "mechanism_group": "shift_transfer_acceptance",
+        "reason": "It records outgoing/incoming staff, unresolved IDs, and acceptance so responsibility survives shift change without certifying condition."
+      },
+      {
+        "id": "bf35d9e9f2d804b5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "944189830166070b",
+        "mechanism_group": "receipt_not_readiness",
+        "reason": "It separates custody transfer from readiness to lend and keeps unresolved condition checks pending within the three-minute handoff."
+      },
+      {
+        "id": "fb771f1582997c5d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9e59c2c70802510b",
+        "mechanism_group": "shift_transfer_acceptance",
+        "reason": "It preserves inspection authorship while transferring unresolved work to a named receiving staff member with a next review time."
+      },
+      {
+        "id": "324c1ff293c42abf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "26f5b3c3dffc45ae",
+        "mechanism_group": "missing_owned_task",
+        "reason": "It makes each missing ID an owned recovery task with next action, due time, and closure evidence."
+      },
+      {
+        "id": "35cf792610e2b235",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "944189830166070b",
+        "mechanism_group": "receipt_not_readiness",
+        "reason": "It marks counted-only returns as received but condition pending, preserving unknowns and blocking reissue until checks are done."
+      },
+      {
+        "id": "cad48fe02b9e9794",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "26f5b3c3dffc45ae",
+        "mechanism_group": "missing_owned_task",
+        "reason": "It requires a missing-item row with owner, next action, and deadline that remains visible across shift change."
+      },
+      {
+        "id": "db67e958db42b9d9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1493d5f3d8c63051",
+        "mechanism_group": "missing_owned_task",
+        "reason": "It uses a persistent exception list to carry missing IDs, owners, deadlines, and next actions across shifts."
+      },
+      {
+        "id": "5b37865991ec12f3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "944189830166070b",
+        "mechanism_group": "receipt_not_readiness",
+        "reason": "It transfers custody within three minutes while keeping conditions unknown and the kit inspection-pending until checks resolve."
+      },
+      {
+        "id": "eb867136ef5e95e0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "944189830166070b",
+        "mechanism_group": "receipt_not_readiness",
+        "reason": "It accepts counted returns but blocks clearance for another loan while pending inspections remain visible to the next shift."
+      },
+      {
+        "id": "683cd5f1f81722ce",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cf1573fcb3fc7faf",
+        "mechanism_group": "component_level_evidence",
+        "reason": "It records each component’s presence and condition separately so a count cannot become verified-good evidence."
+      },
+      {
+        "id": "e40f41499c8b6bbc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "daca4e10493a721c",
+        "mechanism_group": "component_level_evidence",
+        "reason": "It starts each transaction with unknown condition and records ID-level presence, condition, inspector, and time to prevent false completion."
+      },
+      {
+        "id": "b8cac1287791f3cb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "daca4e10493a721c",
+        "mechanism_group": "component_level_evidence",
+        "reason": "It uses ten ID rows with explicit unknown condition and no inspection initials for unchecked returns, preserving unknown versus verified good."
+      },
+      {
+        "id": "4402f9a3ee3b83d3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9e59c2c70802510b",
+        "mechanism_group": "shift_transfer_acceptance",
+        "reason": "It records an acknowledged transfer of unresolved IDs and responsibility while distinguishing prior inspections from pending work."
+      }
+    ]
+  },
+  "result_sha256": "c6e65f0dd470133c92beb4ae2d5fec3022001bda171c5a0355b118b2d4a1392c",
+  "raw_output_sha256": "26e585e3dd8f304401a064d54e0784fc94208c00c861077d9584c9af6ded123a"
+}

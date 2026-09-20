@@ -1,0 +1,10 @@
+{
+  "id": "x07-a",
+  "phase": "diagnostic",
+  "task_id": "x07",
+  "variant": "a",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Unique marker versus ambiguous repeated marker\",\n  \"brief\": \"A text editor must attach a note to a revised passage. The original contains marker K. The revised document has candidate passages P and Q. The supplied relation describes marker evidence. Propose a safe anchoring rule. Trace is a single selected passage ID or UNRESOLVED.\",\n  \"constraints\": [\n    \"No silent attachment when more than one candidate satisfies the evidence.\",\n    \"Do not choose based on which candidate is presented first.\",\n    \"The note and original text must be retained.\"\n  ]\n}\nDonor label: Synthetic alignment marker\nRelation: K is a unique stable identity marker, and only candidate P carries K; Q has a different marker.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "985169c9a8231f7c8839cfe58482a80578673c732186b0b0c4ce7db4a8bf3116"
+}

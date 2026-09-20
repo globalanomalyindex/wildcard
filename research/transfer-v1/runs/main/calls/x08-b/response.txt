@@ -1,0 +1,1 @@
+{"decision":"abstain","action":"Mark the record UNRESOLVED and retain it visibly for later repair without requesting retransmission.","trace":["UNRESOLVED"],"explanation":"The check detects corruption, but A and B are equally supported, so neither original can be uniquely recovered."}

@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Grant a request only when the resource is unheld; otherwise make the requester wait until the holder releases it.","trace":["A: GRANT","B: WAIT"],"explanation":"The supplied relation permits only one holder, and A does not release the resource during observation."}
