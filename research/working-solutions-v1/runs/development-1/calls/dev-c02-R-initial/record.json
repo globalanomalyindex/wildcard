@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-c02-R-initial",
+  "requestSHA256": "56004c0c6b080f96b6885d8f992d00fb76f4da975613ee4238c57f9e8d5bce61",
+  "promptSHA256": "2ce3d639ac596bea07d0936f7ec188d4632ac269f6b56a85b9eda185ab2bec53",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:30:19.396711+00:00",
+  "finishedAt": "2026-09-20T22:30:35.524101+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.125156291993335,
+      "usage": {
+        "input_tokens": 21478,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 716,
+        "reasoning_output_tokens": 112
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "2a5c828b9f7ec53f91131dad08a65a605969e2c77a5a1201e9d428a7836e883a",
+      "stderrSHA256": "3a8282c96ddc51261e5cd95cae5b92b3438b45691c8cea6418f417347b5750c4"
+    }
+  ],
+  "result": {
+    "explanation": "Revision-guarded state machine: accepted writes and rollbacks advance the current revision; saves capture immutable value/revision snapshots, while retention evicts only the oldest retained snapshot. Snapshot IDs remain permanently used after first save.",
+    "mapping": "config.initial initializes value; config.keep bounds retained snapshots. State tracks value, revision, retained snapshots in oldest-to-newest order, and permanently used IDs.",
+    "assumptions": "Inputs satisfy the stated schema and safe-integer limits. Event types are write, save, rollback, or drop; IDs are lowercase ASCII letters.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Number.isInteger(input.config.initial)&&Number.isInteger(input.config.keep)&&input.config.keep>=1&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x.status!==\"string\"||!Number.isSafeInteger(x.value)||!Number.isSafeInteger(x.revision)||!Array.isArray(x.snapshots)||!x.saved||typeof x.saved!==\"object\")return false;if(x.snapshots.length>input.config.keep)return false;for(const id of x.snapshots){if(typeof id!==\"string\"||!Object.prototype.hasOwnProperty.call(x.saved,id))return false;const q=x.saved[id];if(!q||!Number.isSafeInteger(q.value)||!Number.isSafeInteger(q.revision))return false}}return true}",
+    "program": "function solve({config,state,event}){let s=state||{v:config.initial,r:0,a:[],u:{},m:{}};let t=event.type,id=event.id,status;if(t==='write'){if(event.expect===s.r){s.v=event.value;s.r++;status='written'}else status='conflict'}else if(t==='save'){if(s.u[id])status='exists';else{s.u[id]=1;s.m[id]={value:s.v,revision:s.r};s.a.push(id);while(s.a.length>config.keep){let z=s.a.shift();delete s.m[z]}status='saved'}}else if(t==='drop'){let i=s.a.indexOf(id);if(i<0)status='missing';else{s.a.splice(i,1);delete s.m[id];status='dropped'}}else if(t==='rollback'){if(event.expect!==s.r)status='conflict';else if(!Object.prototype.hasOwnProperty.call(s.m,id))status='missing';else{s.v=s.m[id].value;s.r++;status='rolled_back'}}let saved={};for(let k of s.a)saved[k]={value:s.m[k].value,revision:s.m[k].revision};return{state:s,output:{status,value:s.v,revision:s.r,snapshots:s.a.slice(),saved}}}"
+  },
+  "resultSHA256": "d41ae8e512db5f6ae6780cc888a661f6bac986fcf2713c6bd8b8f61a1a8c404c",
+  "rawOutputSHA256": "f993932ec5dc239b1cc73876de314dd7447055b0353dc81b0117d3a06aab6c24"
+}

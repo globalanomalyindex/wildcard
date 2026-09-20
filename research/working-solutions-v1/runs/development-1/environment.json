@@ -1,0 +1,9 @@
+{
+  "role": "Observed host environment; not a model snapshot or performance claim",
+  "python": "3.12.14 (main, Aug 25 2026, 13:50:33) [Clang 22.1.3 ]",
+  "platform": "macOS-26.4-arm64-arm-64bit",
+  "machine": "arm64",
+  "quickjsNgDistribution": "0.16.2.1",
+  "node": "v26.0.0",
+  "codex": "codex-cli 0.154.0-alpha.6.2"
+}

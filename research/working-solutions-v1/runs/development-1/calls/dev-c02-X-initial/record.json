@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-c02-X-initial",
+  "requestSHA256": "dd1bf7e075ac5546aa6e90bccb0377fcb4e45facbe66d1de3ceacadbb5968fc4",
+  "promptSHA256": "e40eca34a2220040c2103b34d857bafca760d6178e1c7bcb29bf622bbbb82434",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:33:18.163788+00:00",
+  "finishedAt": "2026-09-20T22:33:32.688338+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.523701166035607,
+      "usage": {
+        "input_tokens": 21475,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 611,
+        "reasoning_output_tokens": 83
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "93156ff4799763d7da421733a96b908101b30feede747a7399713806aa61d0da",
+      "stderrSHA256": "6afd383fa559b2860bff58d185dd9fc7b303b6bd966aea195ca1e7e5fc15abf3"
+    }
+  ],
+  "result": {
+    "explanation": "The rule is revision-guarded mutable state with immutable, non-reusable snapshot identities and FIFO retention. Writes and successful rollbacks advance the current revision; save and drop do not.",
+    "mapping": "config.initial initializes value; config.keep bounds retained snapshot IDs; state stores value, revision, retained IDs, immutable snapshots, and permanently used IDs; event.type selects save, write, rollback, or drop.",
+    "assumptions": "Inputs satisfy the stated legal schema and safe-integer bounds. Snapshot IDs are lowercase strings and keep is at least one.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let s=null;for(let i=0;i<output.length;i++){let r=solve({config:input.config,state:s,event:input.events[i]});if(JSON.stringify(r.output)!==JSON.stringify(output[i]))return false;s=r.state}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={v:config.initial,r:0,q:[],m:{},u:{}};let t=event.type,id=event.id,status;if(t==='write'){if(event.expect!==s.r)status='conflict';else{s.v=event.value;s.r++;status='written'}}else if(t==='save'){if(s.u[id])status='exists';else{s.u[id]=1;s.m[id]={value:s.v,revision:s.r};s.q.push(id);if(s.q.length>config.keep){let x=s.q.shift();delete s.m[x]}status='saved'}}else if(t==='rollback'){if(event.expect!==s.r)status='conflict';else if(!s.m[id])status='missing';else{s.v=s.m[id].value;s.r++;status='rolled_back'}}else if(t==='drop'){if(!s.m[id])status='missing';else{delete s.m[id];let i=s.q.indexOf(id);if(i>=0)s.q.splice(i,1);status='dropped'}}let saved={};for(let i=0;i<s.q.length;i++){let x=s.q[i],z=s.m[x];saved[x]={value:z.value,revision:z.revision}}return{state:s,output:{status:status,value:s.v,revision:s.r,snapshots:s.q.slice(),saved:saved}}}"
+  },
+  "resultSHA256": "f2f529ed797a8363e112c757b2fb1cb1ff3a18ee6dfee630b7988012ada5a65d",
+  "rawOutputSHA256": "f759584007f2211d4a2b28eefd95fb9e1e3dda06a07573cbac9ab0385eb4ccd4"
+}

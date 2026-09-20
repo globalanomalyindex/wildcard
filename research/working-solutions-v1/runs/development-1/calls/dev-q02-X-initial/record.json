@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q02-X-initial",
+  "requestSHA256": "be25a68c30b9cc4c05e26b9ed8708a2928ffeb75221128a23e9b69cfc8867673",
+  "promptSHA256": "2d088e7e414a4197ab75a9d661cd1638498b0007942f03b449239dbc6f3c6fe8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:32:11.658928+00:00",
+  "finishedAt": "2026-09-20T22:32:29.791776+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.132275708019733,
+      "usage": {
+        "input_tokens": 16266,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 855,
+        "reasoning_output_tokens": 166
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "24b5f374aa11333c8bab98038dbc50eac4b19aae49169c9e49931290b0d33d52",
+      "stderrSHA256": "201256289f08a5afb1f9379e0d5433fee7ce685551f6c175147e22896af77815"
+    }
+  ],
+  "result": {
+    "explanation": "Implement a renewable lease state machine. Time advances before expiry checks for advance events; every operation then expires leases at or before now. Generation increases only on successful acquisition and is never reused.",
+    "mapping": "State stores now, owner, generation, and expires. The active lease is represented by non-null owner and expires; null owner and expires represent vacancy.",
+    "assumptions": "config.ttl is present and valid. Events are valid contract events with safe integer values. The optional archival source does not transfer: lease behavior depends on current event order and state, not provenance.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&input.config.ttl>=1}",
+    "holds": "function holds(input,out){if(!applies(input)||!Array.isArray(out)||out.length!==input.events.length)return false;let s={now:0,owner:null,generation:0,expires:null},t=input.config.ttl;for(let i=0;i<out.length;i++){let e=input.events[i],x=e.type,status;if(x==='advance')s.now+=e.dt;if(s.expires!==null&&s.expires<=s.now){s.owner=null;s.expires=null}if(x==='advance')status='advanced';else if(x==='acquire'){if(s.owner===null){s.generation++;s.owner=e.owner;s.expires=s.now+t;status='acquired'}else status='busy'}else if(x==='renew'){if(s.owner!==null&&s.owner===e.owner&&s.generation===e.generation){s.expires=s.now+t;status='renewed'}else status='ignored'}else if(x==='release'){if(s.owner!==null&&s.owner===e.owner&&s.generation===e.generation){s.owner=null;s.expires=null;status='released'}else status='ignored'}else return false;let q={status,owner:s.owner,generation:s.generation,expires:s.expires,now:s.now};if(JSON.stringify(q)!==JSON.stringify(out[i]))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state?{now:state.now,owner:state.owner,generation:state.generation,expires:state.expires}:{now:0,owner:null,generation:0,expires:null};let status;if(event.type==='advance'){s.now+=event.dt;status='advanced'}if(s.expires!==null&&s.expires<=s.now){s.owner=null;s.expires=null}if(event.type==='acquire'){if(s.owner===null){s.generation++;s.owner=event.owner;s.expires=s.now+config.ttl;status='acquired'}else status='busy'}else if(event.type==='renew'){if(s.owner!==null&&s.owner===event.owner&&s.generation===event.generation){s.expires=s.now+config.ttl;status='renewed'}else status='ignored'}else if(event.type==='release'){if(s.owner!==null&&s.owner===event.owner&&s.generation===event.generation){s.owner=null;s.expires=null;status='released'}else status='ignored'}return{state:s,output:{status,owner:s.owner,generation:s.generation,expires:s.expires,now:s.now}}}"
+  },
+  "resultSHA256": "b9db0bbddd9a18e82c6aac992db6e31beb349ef42a3681865f0841008ea6a7cc",
+  "rawOutputSHA256": "3fa5a45cc993c1609eb44afcb02b38b7bf814fb66bdb94fab4c8e12ee47571aa"
+}

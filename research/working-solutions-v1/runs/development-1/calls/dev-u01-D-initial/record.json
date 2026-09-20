@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u01-D-initial",
+  "requestSHA256": "1832573ba2f1ed06501ac514a8613adb6817280fc39c533cbb0a701c915e9f66",
+  "promptSHA256": "367a8727f43e86fc0983280e840b9fb2ce467928bb1568b07d98164f3b4f4f06",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:32:52.635649+00:00",
+  "finishedAt": "2026-09-20T22:33:18.143152+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 25.50622758292593,
+      "usage": {
+        "input_tokens": 11659,
+        "cached_input_tokens": 11008,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 783,
+        "reasoning_output_tokens": 165
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "3ca671fac1b2ee6305631e071a10d5e10521b30022b4cc9855f6bdd801cfbe63",
+      "stderrSHA256": "56b4d408ed7179adb607d1097fb50c453ad4b8110a695d9580975628e6b7650b"
+    }
+  ],
+  "result": {
+    "explanation": "Conditional rule: enabled edits affect only draft/error; enabled commits and steps update the committed lattice value and canonical draft; cancel always restores the committed value. Disabled mode blocks input, commit, and step but still permits cancel and mode changes. A tempting alternative is to let disabled cancel be ignored, contradicted by the specification and examples.",
+    "mapping": "State variables are committed value v, draft text d, error e, disabled flag x, and immutable config c. Output derives value=v, draft=d, dirty=(d!==String(v)), error=e, disabled=x.",
+    "assumptions": "Inputs satisfy the stated legal contract, including safe integer configuration arithmetic and ASCII input text. Numeric parsing rejects syntax outside optional sign plus digits and rejects non-safe results.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const o of output){if(!o||Object.keys(o).length!==5||typeof o.value!=='number'||typeof o.draft!=='string'||typeof o.dirty!=='boolean'||(o.error!==null&&o.error!=='invalid')||typeof o.disabled!=='boolean')return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={c:config,v:config.initial,d:String(config.initial),e:null,x:false};let t=event,k=t.type;if(k==='mode'){s.x=t.disabled}else if(k==='cancel'){s.d=String(s.v);s.e=null}else if(!s.x&&k==='input'){s.d=t.text;s.e=null}else if(!s.x&&k==='commit'){let m=/^[+-]?\\d+$/.test(s.d),n=m?Number(s.d):NaN;if(!m||!Number.isSafeInteger(n)){s.e='invalid'}else{s.v=near(s.c,n);s.d=String(s.v);s.e=null}}else if(!s.x&&k==='step'){let c=s.c,q=Math.floor((s.v-c.min)/c.step)+(t.direction>0?1:-1);let z=Math.floor((c.max-c.min)/c.step);if(q<0)q=0;if(q>z)q=z;s.v=c.min+q*c.step;s.d=String(s.v);s.e=null}return{state:s,output:{value:s.v,draft:s.d,dirty:s.d!==String(s.v),error:s.e,disabled:s.x}}}function near(c,n){if(n<=c.min)return c.min;if(n>=c.max)return c.min+Math.floor((c.max-c.min)/c.step)*c.step;let q=(n-c.min)/c.step,l=Math.floor(q),a=c.min+l*c.step,b=a+c.step;return n-a<=b-n?a:b}"
+  },
+  "resultSHA256": "1702525f2833476158b7e108ca36dd4968e606b63b79e88bfa64d62cd896c13a",
+  "rawOutputSHA256": "d01489d74d9b2a11d5bce1fdb08fbdce27f01f3f3915731d826f9e2c4df45c1c"
+}

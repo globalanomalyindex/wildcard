@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-c01-X-initial",
+  "requestSHA256": "6ed3ebc4332328c11ae51ba175e32dd28c642dfd52b0855d7030f0c59d3c6f07",
+  "promptSHA256": "a93c2ad42983e31f1fe32066a7f24beaea24e0c56f02ab8bc849b20fd59aae1c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:33:35.866882+00:00",
+  "finishedAt": "2026-09-20T22:34:10.497284+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 34.63043379201554,
+      "usage": {
+        "input_tokens": 18403,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1118,
+        "reasoning_output_tokens": 435
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fb618516fec79d5a04acce592a85706e038046d24e4166c97904ab8c4778b55a",
+      "stderrSHA256": "0e78905a587c0df96590fe94497bda046f116397a44b66e7cc8d9be459621e81"
+    }
+  ],
+  "result": {
+    "explanation": "Pinned FIFO residents retain insertion order. Live replacement preserves position; invalidation either removes an unpinned resident or creates a tombstone until all pins are released.",
+    "mapping": "State records map each resident key to value, pin count, and tombstone status; array order is FIFO. Capacity limits records, and admission may evict only the oldest unpinned record.",
+    "assumptions": "Inputs follow the stated event schema and safe-integer constraints. Output object property ordering is not semantically significant.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var e=input.events[0];if(e&&e.type==='put'&&output[0]&&output[0].order&&output[0].order[0]!==e.key)return false;return true}",
+    "program": "function solve(x){var c=x.config.capacity,s=x.state||[],e=x.event,k=e.key,t=e.type,i,r,o=null,status='ignored';function find(q){for(var j=0;j<s.length;j++)if(s[j][0]===q)return j;return -1}function remove(j){s.splice(j,1)}if(t==='put'){i=find(k);if(i>=0){if(!s[i][3]){s[i][1]=e.value;status='stored'}else{for(var z=0;z<s.length;z++)if(!s[z][2]){remove(z);s.push([k,e.value,0,false]);status='stored';break}if(status==='ignored')status='blocked'}}else if(s.length<c){s.push([k,e.value,0,false]);status='stored'}else{for(i=0;i<s.length;i++)if(!s[i][2]){remove(i);s.push([k,e.value,0,false]);status='stored';break}if(status==='ignored')status='blocked'}}else if(t==='pin'){i=find(k);if(i>=0&&!s[i][3]){s[i][2]++;status='pinned'}}else if(t==='unpin'){i=find(k);if(i>=0&&s[i][2]>0){s[i][2]--;status='released';if(s[i][2]===0&&s[i][3])remove(i)}}else if(t==='invalidate'){i=find(k);if(i<0)status='missing';else if(s[i][2]===0){remove(i);status='invalidated'}else if(!s[i][3]){s[i][3]=true;status='invalidated'}}else if(t==='get'){i=find(k);if(i>=0&&!s[i][3]){o=s[i][1];status='hit'}else status='miss'}r=[];var p={},tb=[];for(i=0;i<s.length;i++){r.push(s[i][0]);p[s[i][0]]=s[i][2];if(s[i][3])tb.push(s[i][0])}tb.sort();return{state:s,output:{order:r,pins:p,status:status,tombstones:tb,value:o}}}"
+  },
+  "resultSHA256": "e14af1e2840474c8c9a1fed7ba4f2ed40599136ba979cfc065ee257c316aaa5f",
+  "rawOutputSHA256": "9b36b662a2650825d2ea1ac0726a9ed95941e4305a72627029895625fc44fc31"
+}

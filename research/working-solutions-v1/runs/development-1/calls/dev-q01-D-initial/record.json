@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q01-D-initial",
+  "requestSHA256": "89fdf8b0cf9bac8705c5f85f34aa3340d1b03fbe962ecc2a326b1e08c4068db8",
+  "promptSHA256": "7b715cb12c717121767e1b0a5b2b5bf747d41b7a5c3bd91bfe65184e9fc3edfc",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:31:50.941095+00:00",
+  "finishedAt": "2026-09-20T22:32:15.186834+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 24.24536491697654,
+      "usage": {
+        "input_tokens": 20817,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 932,
+        "reasoning_output_tokens": 255
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "356b417ace239f95586dd67bb418ca4d8c4e90acbed68e67e156cf0375e8884a",
+      "stderrSHA256": "c15f1e5590576afae6a6de99fcfbe3eeeac196da58ec28cb5c82ee7c3df5cf0d"
+    }
+  ],
+  "result": {
+    "explanation": "The scheduler is a deterministic state machine. A pending job's priority is recomputed from its unchanged arrival time; selection compares effective priority first, then insertion rank. A run consumes only the selected job and discards unused budget after completion. Counterexample: changing the initial clock from zero violates the required initial state.",
+    "mapping": "config controls capacity, ceiling, and quantum; state stores now, insertion sequence, and pending jobs; events transform that state; output is a complete projection after each event.",
+    "assumptions": "Inputs satisfy all stated validity and safe-integer constraints. State is supplied exactly as previously returned by solve.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.capacity>=1&&input.config.quantum>=1&&input.config.ceiling>=1}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;return output.length===0||output[0]&&output[0].now===0}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={now:0,seq:0,jobs:[]};var j=s.jobs,i,k,b,p,q,u,served=[];if(e.type==='add'){for(i=0;i<j.length;i++)if(j[i].id===e.id)break;if(i===j.length&&j.length<c.capacity){j.push({id:e.id,w:e.work,p:e.priority,a:s.now,n:s.seq++});q='queued'}else q='rejected'}else if(e.type==='advance'){s.now+=e.dt;q='advanced'}else if(e.type==='cancel'){for(i=0;i<j.length;i++)if(j[i].id===e.id)break;if(i<j.length){j.splice(i,1);q='cancelled'}else q='missing'}else if(e.type==='run'){if(!j.length)q='empty';else{ k=0;for(i=1;i<j.length;i++){p=Math.min(c.ceiling,j[i].p+Math.floor((s.now-j[i].a)/c.quantum));b=Math.min(c.ceiling,j[k].p+Math.floor((s.now-j[k].a)/c.quantum));if(p>b||p===b&&j[i].n<j[k].n)k=i}u=Math.min(e.budget,j[k].w);j[k].w-=u;served=[{id:j[k].id,units:u,complete:j[k].w===0}];if(j[k].w===0)j.splice(k,1);q='served'}}var ids=[],r={},pr={};for(i=0;i<j.length;i++){ids.push(j[i].id);r[j[i].id]=j[i].w;pr[j[i].id]=Math.min(c.ceiling,j[i].p+Math.floor((s.now-j[i].a)/c.quantum))}if(e.type!=='run')served=[];return{state:s,output:{now:s.now,pending:ids,priorities:pr,remaining:r,served:served,status:q}}}"
+  },
+  "resultSHA256": "b3603acfb59730e4f1b1c38f08897db9dd904703cd75fd6d22f3c4c9c6279fe5",
+  "rawOutputSHA256": "351dc0f34602e6ca702882023c3907d4e5a9090b95f1827f858c15b4b3c32b0e"
+}

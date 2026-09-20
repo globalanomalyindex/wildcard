@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-R-initial",
+  "requestSHA256": "13e3a66f4ac92cd1c297a762f15894c97c8d2b3a7b8483bb797d6e746df304e1",
+  "promptSHA256": "d281624d3228c65a6409928e8bdafb5a9f947a6d38291c065037e74ac7a45b28",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:32:57.363590+00:00",
+  "finishedAt": "2026-09-20T22:33:35.846699+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 38.48334370809607,
+      "usage": {
+        "input_tokens": 14515,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1173,
+        "reasoning_output_tokens": 444
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "c59dd43366661706734c98651000a8cfd2e536220057ecb28c528cebb059af74",
+      "stderrSHA256": "21bedf89f335aebcee027f71f8fbd02d1ebd2406933dd3830c4ff34a837e5496"
+    }
+  ],
+  "result": {
+    "explanation": "Atomic guarded batches use validation, then version, guard, and capacity checks in that precedence. Successful updates apply together; only changed committed values are listed.",
+    "mapping": "The state maps register names to current nonnegative values plus capacity and version. Each event maps guards and updates to one conditional candidate transition.",
+    "assumptions": "Inputs satisfy the stated legal JSON bounds and shapes. The optional provenance analogy is not needed because register identity and event order are explicit.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.every(function(x){return x&&Array.isArray(x.changed)&&x.changed.every(function(k){return k!==\"a__changed\"})})}",
+    "program": "function solve({config,state,event}){\n  function own(o,k){return Object.prototype.hasOwnProperty.call(o,k)}\n  function put(o,k,v){Object.defineProperty(o,k,{value:v,writable:true,enumerable:true,configurable:true})}\n  function copy(o){var r={};Object.keys(o).forEach(function(k){put(r,k,o[k])});return r}\n  function cmp(a,b){var x=Array.from(a),y=Array.from(b),n=Math.min(x.length,y.length),i;for(i=0;i<n;i++){var p=x[i].codePointAt(0),q=y[i].codePointAt(0);if(p!==q)return p-q}return x.length-y.length}\n  if(state===null){state={v:0,cap:config.capacity,values:copy(config.initial)}}\n  var v=state.v, old=state.values, g=event.guards, u=event.updates, keys=Object.keys(old), invalid=false, k;\n  Object.keys(g).forEach(function(x){if(!own(old,x))invalid=true})\n  Object.keys(u).forEach(function(x){if(!own(old,x)||!own(g,x)||u[x]<0)invalid=true})\n  var status;\n  if(invalid)status=\"invalid\";\n  else if(event.version!==v)status=\"stale\";\n  else{status=\"unchanged\";Object.keys(g).forEach(function(x){if(old[x]!==g[x])status=\"conflict\"})\n    if(status===\"unchanged\"){var cand=copy(old),sum=0;Object.keys(u).forEach(function(x){put(cand,x,u[x])});keys.forEach(function(x){sum+=cand[x]});if(sum>state.cap)status=\"capacity\";else{var changed=[];keys.forEach(function(x){if(cand[x]!==old[x])changed.push(x)});changed.sort(cmp);if(changed.length){old=cand;v++;state={v:v,cap:state.cap,values:old};status=\"committed\"}else state={v:v,cap:state.cap,values:old}}}\n  }\n  var ch=[];if(status===\"committed\")Object.keys(old).forEach(function(x){if(old[x]!==state.values[x])ch.push(x)});\n  if(status!==\"committed\")ch=[];\n  return {state:state,output:{status:status,version:v,values:copy(state.values),changed:ch}}\n}"
+  },
+  "resultSHA256": "408c6fec00a978f3bff8627a40601289ba4800cb367b0fd85361d9df70c83fda",
+  "rawOutputSHA256": "cb577a5833a5fcb143cb7950e9929ff1f2c839ac7a039128387359f0fb9aa093"
+}

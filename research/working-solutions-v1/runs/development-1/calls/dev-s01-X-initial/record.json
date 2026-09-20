@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-X-initial",
+  "requestSHA256": "c7bb7540fdeb6fd73ac68508529d6dd64a08dbfc8bc0123df5d00582c2db2e52",
+  "promptSHA256": "0b31929ca40b44da8b3bf7de8979e8927a85d820018a4dd1682d69e1026387c5",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:30:35.545560+00:00",
+  "finishedAt": "2026-09-20T22:31:00.596008+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 25.0477686249651,
+      "usage": {
+        "input_tokens": 14749,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1074,
+        "reasoning_output_tokens": 371
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "de2f1efcbd5b55d1483fbb2c3db66a622f9cfcf6261b90a3d8db2d71298a4a1e",
+      "stderrSHA256": "52d06fedb4dcf58073190c0f1163d63a23506dad7ee77b3f8f66e42ef0d09a60"
+    }
+  ],
+  "result": {
+    "explanation": "The state stores current time, token, deadline, approvals, and connection. Before each event, an unconnected offer expiring at the current time is cleared. Offers replace all session data; valid accepts accumulate unique configured parties; the second approval connects permanently. Cancels clear only a matching current session.",
+    "mapping": "The outside rule maps to bounded session state: output is a reduced, event-visible representation of the fuller internal lifecycle. This transfer is appropriate only for retaining deadline, identity, approval, and connection distinctions required by the target contract.",
+    "assumptions": "Inputs satisfy the stated legal JSON constraints. Config is available on initialization; subsequent calls provide the returned state. Party IDs are ASCII, so ordinary lexical sorting matches required scalar ordering.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.parties&&input.config.parties.length===2}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||x.connected==='__changed'||!Array.isArray(x.approved)||typeof x.status!=='string'||typeof x.now!=='number'||typeof x.expired!=='boolean'||!('token'in x)||!('expires'in x))return false}return true}",
+    "program": "function solve({config,state,event}){\n  let s=state;\n  if(s===null)s={ttl:config.ttl,ps:[config.parties[0],config.parties[1]],now:0,token:null,expires:null,approved:[],connected:null};\n  let expired=false;\n  if(s.expires!==null&&s.now>=s.expires){s.token=null;s.expires=null;s.approved=[];s.connected=null;expired=true}\n  let status='ignored',t=event&&event.type;\n  if(t==='advance'){\n    s.now+=event.dt;\n    if(s.expires!==null&&s.now>=s.expires){s.token=null;s.expires=null;s.approved=[];s.connected=null;expired=true}\n    status='advanced';\n  }else if(t==='offer'){\n    s.token=event.token;s.expires=s.now+s.ttl;s.approved=[];s.connected=null;status='offered';\n  }else if(t==='accept'){\n    if(s.token!==null&&s.connected===null&&event.token===s.token&&(event.party===s.ps[0]||event.party===s.ps[1])){\n      if(s.approved.indexOf(event.party)>=0)status='duplicate';\n      else{s.approved.push(event.party);s.approved.sort();status='accepted';if(s.approved.length===2){s.connected=s.token;s.expires=null;status='connected'}}\n    }\n  }else if(t==='cancel'){\n    if(s.token!==null&&event.token===s.token){s.token=null;s.expires=null;s.approved=[];s.connected=null;status='cancelled'}\n  }\n  return {state:s,output:{status:status,now:s.now,token:s.token,expires:s.expires,approved:s.approved.slice(),connected:s.connected,expired:expired}};\n}"
+  },
+  "resultSHA256": "d1625c0e551b486060bdc13c78d197590a3fdf187881f21042911216ede2f939",
+  "rawOutputSHA256": "2a401ef09904942662d7bd03e03f2aa40fdea8805515c9a9e19f2b42b586b4a0"
+}

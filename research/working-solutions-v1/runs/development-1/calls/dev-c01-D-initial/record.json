@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-c01-D-initial",
+  "requestSHA256": "6ac1da91654702d5c1cbd7d8c92499cb68dd8c35c6ecc9659828d407f9919322",
+  "promptSHA256": "7bd5adb4cb9a2f701ef2b5c7748d61910894d6c3f61afe73e51892bafc8e6c20",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:30:19.394389+00:00",
+  "finishedAt": "2026-09-20T22:30:48.474856+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 29.078376207966357,
+      "usage": {
+        "input_tokens": 18180,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1090,
+        "reasoning_output_tokens": 431
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "938b5e0528e27e5dff53b1657806013465d02b99d98ee72c840e0c1216050071",
+      "stderrSHA256": "db5e44d90a085ce049df9e862b1f257b7eec1b7c45fb7f3c4e62b36640fa350e"
+    }
+  ],
+  "result": {
+    "explanation": "Use a bounded FIFO resident list. A live replacement preserves position and pins; tombstones block replacement. Admission evicts the oldest unpinned resident, while pinning, invalidation, and final unpinning update or remove entries.",
+    "mapping": "Each resident is [key,value,pins,tombstone]. The list is FIFO order; values are readable only when tombstone is false. Capacity applies to list length, and output is derived directly from the list.",
+    "assumptions": "Events are legal per the specification and config.capacity is available on each call or preserved in state. Keys are strings and values are safe integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.length===input.events.length&&output.every(function(x){return x&&Array.isArray(x.order)&&x.pins&&Array.isArray(x.tombstones)&&Object.prototype.hasOwnProperty.call(x,'value')})}",
+    "program": "function solve(a){var c=a.config||{},s=a.state||{cap:c.capacity||1,r:[]},r=s.r,e=a.event,k=e.key,t=e.type,i=-1,j;for(j=0;j<r.length;j++)if(r[j][0]===k){i=j;break}var z='ignored',v=null;if(t==='put'){if(i>=0){if(r[i][3])z='blocked';else{r[i][1]=e.value;z='stored'}}else{if(r.length>=(s.cap||c.capacity)){for(j=0;j<r.length&&r[j][2]>0;j++);if(j===r.length)z='blocked';else{r.splice(j,1);r.push([k,e.value,0,false]);z='stored'}}else{r.push([k,e.value,0,false]);z='stored'}}}else if(t==='pin'){if(i>=0&&!r[i][3]){r[i][2]++;z='pinned'}}else if(t==='unpin'){if(i>=0&&r[i][2]>0){r[i][2]--;z='released';if(r[i][2]===0&&r[i][3])r.splice(i,1)}}else if(t==='invalidate'){if(i<0)z='missing';else if(r[i][2]===0){r.splice(i,1);z='invalidated'}else{r[i][3]=true;z='invalidated'}}else if(t==='get'){if(i>=0&&!r[i][3]){z='hit';v=r[i][1]}else z='miss'}var o={order:[],pins:{},status:z,tombstones:[],value:v};for(j=0;j<r.length;j++){o.order.push(r[j][0]);o.pins[r[j][0]]=r[j][2];if(r[j][3])o.tombstones.push(r[j][0])}o.tombstones.sort();return{state:{cap:s.cap||c.capacity,r:r},output:o}}"
+  },
+  "resultSHA256": "0da752ea70aa5c1600f55d7d037ee1e8107765609c1ebd880c244b6e06e2caa1",
+  "rawOutputSHA256": "99f128934d04c6438f30258ceec76f023ee8e43649ffe73ecd613f8c10298da9"
+}

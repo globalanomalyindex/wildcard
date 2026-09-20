@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q02-R-initial",
+  "requestSHA256": "d8d40f4f5d548e839040bbc6ba48599a93df913af64cdad921f4b39e801c7adf",
+  "promptSHA256": "e10a4938018b1b7979fb0fbafef19bee37e6a1be2e627c8ef3db5dce042d6c02",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:32:55.493170+00:00",
+  "finishedAt": "2026-09-20T22:33:14.345012+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.85134462499991,
+      "usage": {
+        "input_tokens": 16269,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 817,
+        "reasoning_output_tokens": 231
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "51e1f25c54ffb0034ff20f954083e685789517381bde2663d23b9d93d008783c",
+      "stderrSHA256": "9aeb6ba5a3e1145113464e5a601175d04dbcbd9f49eaae67bf8e467d52020e89"
+    }
+  ],
+  "result": {
+    "explanation": "A lease is identified by its owner and monotonically issued generation. Time advances first, then expiration is applied before each operation; renewal replaces the deadline from the current time.",
+    "mapping": "config.ttl maps to lease duration; state stores now, owner, generation, and expires; event.type selects advance, acquire, renew, or release.",
+    "assumptions": "Inputs satisfy the stated validity constraints. Null denotes no active owner or expiration.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let t=0,o=null,g=0,x=null,L=input.config.ttl;for(let i=0;i<output.length;i++){let e=input.events[i];if(e.type==='advance')t+=e.dt;if(x!==null&&x<=t){o=null;x=null}let s='ignored';if(e.type==='advance')s='advanced';else if(e.type==='acquire'){if(o===null){g++;o=e.owner;x=t+L;s='acquired'}else s='busy'}else if(e.type==='renew'){if(o!==null&&o===e.owner&&g===e.generation){x=t+L;s='renewed'}}else if(e.type==='release'){if(o!==null&&o===e.owner&&g===e.generation){o=null;x=null;s='released'}}let z=output[i];if(!z||z.status!==s||z.now!==t||z.owner!==o||z.generation!==g||z.expires!==x)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,owner:null,generation:0,expires:null},t=s.now,o=s.owner,g=s.generation,x=s.expires;if(event.type==='advance')t+=event.dt;if(x!==null&&x<=t){o=null;x=null}let status='ignored';if(event.type==='advance')status='advanced';else if(event.type==='acquire'){if(o===null){g++;o=event.owner;x=t+config.ttl;status='acquired'}else status='busy'}else if(event.type==='renew'){if(o!==null&&o===event.owner&&g===event.generation){x=t+config.ttl;status='renewed'}}else if(event.type==='release'){if(o!==null&&o===event.owner&&g===event.generation){o=null;x=null;status='released'}}let ns={now:t,owner:o,generation:g,expires:x};return{state:ns,output:{status:status,owner:o,generation:g,expires:x,now:t}}}"
+  },
+  "resultSHA256": "7d5372c470d7516ae43b71d0c2b4fc30a4753e223d3fe0966a91b8f81a086a3a",
+  "rawOutputSHA256": "4bc35ee7b90763a0170552503627fd67ea9f0adb52373946ff32fef3e009e8f4"
+}
