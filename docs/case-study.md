@@ -1,11 +1,11 @@
 # Wildcard: make the connection earn its place
 
-**christopher robin fiore · globalanomalyindex**  
+**christopher robin fiore**
 Product design, research direction, and an AI-assisted implementation.
 
 Wildcard began with a practical question: can an outside reference help a language model propose a useful move that a direct brainstorm misses? The product supplies a cue, asks for a relationship that matters to the task, and gives the model permission to leave it unused. The difficult part is deciding whether the connection adds an action or only an appealing story.
 
-This case study follows the product and evidence together. The historical experiments have been reproduced and audited. A new study separates the source name from the relation it describes. **Its main results are pending in this draft; no new effectiveness claim is available yet.** The [research manuscript](../research/transfer-v1/paper.md) carries the detailed methods and, after acquisition, the measured results.
+This case study follows the product and evidence together. The historical experiments have been reproduced and audited. A new study separates the source name from the relation it describes. **Its original primary analysis halted after one invalid judge response. A separately declared measurement amendment is underway; its results remain pending in this draft.** The [research manuscript](../research/transfer-v1/paper.md) carries the methods, failure record, and measured results when available.
 
 ## The design problem
 
@@ -39,7 +39,7 @@ The corrected sampler uses versioned, separately named SHA-256 streams and recor
 
 This distinction structures the product. The live interaction demonstrates how a cue is selected. The evidence view describes recorded research. A reader should always be able to tell which one they are looking at, which sampler version produced the draw, and which study supports a numerical claim.
 
-## The next test: does the name contribute anything?
+## The component test: does the name contribute anything?
 
 The new materials contain 32 designed briefs across accessibility and interaction, software systems, operational workflows, and information or creative tooling. Sixteen cards describe source-backed relations and their limits. Each task is assigned a card and receives four kinds of prompt:
 
@@ -50,17 +50,27 @@ The new materials contain 32 designed briefs across accessibility and interactio
 | Correctly named relation | Adds the real donor name to the same relation |
 | Mismatched name | Adds a different donor name to the same relation |
 
-The primary comparison is the correctly named relation against relation only. That asks what a name adds to the model's prompt after the relationship is already present. It does not test whether people prefer seeing the name in the interface.
+The primary comparison is the correctly named relation against relation only. That asks what a name adds to the model's prompt after the relationship is already present. It does not test whether people prefer seeing the name in the interface. The sixteen cards are a research set, separate from the deployed skill's 378 specialists and 461 concepts. This experiment does not validate the revised full skill or establish the creative benefit of its sampler.
 
-Before these responses, two fresh direct-prompt calls build a reference bank for each task. Two model-judge configurations then inspect masked candidate actions. An action must respect the brief, be plausible with the available resources, and name an intervention with an observable check. Equivalent mechanisms count once. A mechanism matching the reference bank does not count as new, even if its wording or metaphor differs.
+Before these responses, two fresh direct-prompt calls built a reference bank for each task: 64 calls produced 448 actions. All 128 candidate-generation calls then passed validation. Two model-judge configurations inspect masked candidate actions. An action must respect the brief, be plausible with the available resources, and name an intervention with an observable check. Equivalent mechanisms count once. A mechanism matching the reference bank does not count as new, even if its wording or metaphor differs.
 
-The resulting measure is deliberately limited: qualified mechanisms absent from a finite reference bank. It does not certify that an idea has never existed. The two judges share a provider, the briefs were authored by an AI assistant aware of the question, and no new human user study is included. Eight separate paired toy cases check whether changing a relation changes the proposed operation appropriately. Passing them would show sensitivity to those stated rules, not explain the model's internal process. [Study protocol](../research/transfer-v1/protocol.md).
+The resulting measure is deliberately limited: qualified mechanisms absent from a finite reference bank. It does not certify that an idea has never existed. The two judges share a provider, the briefs were authored by an AI assistant aware of the question, and no new human user study is included. Eight separate paired toy cases check whether changing a relation changes the proposed operation appropriately. Six pairs passed the exact contract. Two pairs failed because their traces added actor or time labels, although their operational choices matched the expected decisions. Those failures remain failures. This checks sensitivity to stated rules and format, not the model's internal process. [Study protocol](../research/transfer-v1/protocol.md) and [diagnostic detail](../research/transfer-v1/paper.md#54-strict-operational-diagnostics-six-of-eight-pairs).
 
 Development caught another practical failure: five of sixteen candidate responses exceeded the shared length contract. Before any main-study calls, the common prompt was clarified to aim below the unchanged hard limit. One declared rerun passed all 32 development calls. Both versions remain visible. That check shows the collection process worked on the development briefs; it provides no new effectiveness result. Main failures will still count in the primary result instead of disappearing from the sample. [Development record](../research/transfer-v1/runs/development/README.md).
 
+## A validation failure stopped the original analysis
+
+The original panel returned all 64 judge blocks. One used a candidate's identity where a reference-bank identity was required, twice, including a self-reference. The validator rejected it. The frozen rule required complete valid judging and forbade regenerating a delivered invalid response, so the original primary analysis halted. The response remains unchanged and visible. [Failed record](../research/transfer-v1/runs/main/calls/i07-judge-2/record.json).
+
+The response led to a bounded instrument change: constrain those fields to the identities actually supplied, then acquire one complete new panel of 64 blocks. The generated ideas, reference bank, prompt wording, judge configurations, criteria, and scoring stay fixed. No valid original blocks are mixed into the new panel, and neither panel can be selected because its results look better. This [amendment](../research/transfer-v1/amendment.md) was chosen before calculating aggregate effects, but after inspecting the failure and individual outputs. It is not the original untouched test or an independent replication.
+
+A separate audit found that every legal assignment to the two invalid references would produce the same mechanism counts if all other original judgments stayed fixed. That is a useful limit on the error's numerical consequences. It does not recover the intended references, establish that the other judgments are correct, or lift the original halt. [All 256 hypothetical assignments](../research/transfer-v1/runs/original-sensitivity/invariance-proof.json).
+
+The product consequence is direct: the evidence view needs room for a stopped analysis and its subsequent amendment. A single success badge would hide the most consequential part of this record. The amended estimates remain pending here until the complete panel validates.
+
 ## What a reader can inspect
 
-The public work is organized around a trace from a claim to its evidence. The [historical audit](../research/audit-2026-09/README.md) identifies corrected claims and preserves the originals. The [cards](../research/transfer-v1/cards.json) link donor facts to primary sources. The [task set](../research/transfer-v1/tasks.json), [literal prompts](../research/transfer-v1/prompts.py), and [analysis](../research/transfer-v1/analyze.mjs) expose the intended test. Completed run artifacts will add requests, outputs, judgments, failures, timing, and paired results without rewriting weak responses.
+The public work is organized around a trace from a claim to its evidence. The [historical audit](../research/audit-2026-09/README.md) identifies corrected claims and preserves the originals. The [cards](../research/transfer-v1/cards.json) link donor facts to primary sources. The [task set](../research/transfer-v1/tasks.json), [literal prompts](../research/transfer-v1/prompts.py), and [analysis](../research/transfer-v1/analyze.mjs) expose the intended test. [Retained calls](../research/transfer-v1/runs/main/calls/) contain requests, outputs, judgments, failures, timing, and usage. The [research entry point](../research/transfer-v1/README.md) explains what each artifact establishes and how to reproduce the analysis offline.
 
 The central design choice is to make that trail usable without asking a visitor to read the whole methodology first. Start with the question and the result's limits. Let the reader inspect an example, then the source and evaluation behind it. Keep the live draw's appeal, but give the evidence the same care as the visual interaction.
 
@@ -68,4 +78,4 @@ The central design choice is to make that trail usable without asking a visitor 
 
 christopher robin fiore directs the project and its research-to-product presentation. AI assistants contributed literature review, historical auditing, synthetic task authoring, engineering, analysis, and interface implementation. The earlier record contains a small author-rated human anchor; the new benchmark uses model judgments and adds no human evaluation. These are disclosed roles, not implied customer research.
 
-The next product decision will use the measured name-ablation result, its costs, disagreements, and failures. A positive result would support further testing of the named prompt component under these conditions. An inconclusive or negative result would still help simplify the prompt and identify what requires external validation. The value of this iteration is an inspectable decision process whose evidence can constrain the story.
+The next product decision will use the amended name-ablation result, its costs, disagreements, and failures. A positive result would support further testing of the named prompt component under these conditions. An inconclusive or negative result would still help decide which prompt complexity earns further testing. Neither licenses a promise of better creativity from the full plugin. The current product implication is to help people inspect relations, boundaries, and concrete actions, while making the evidence and its limits easy to find.

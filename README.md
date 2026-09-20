@@ -16,7 +16,9 @@ in Study 3, the recorded Wildcard configuration scored **+0.725 novelty points**
 
 the later audit found a dependent legacy sampler, incomplete grading matrices, and a normalization change affecting a flagged output. plain brainstorming had six positive model-judge flags across two of thirty outputs; Wildcard had none in thirty outputs. these are observed flags, not proof of factual safety. the [dated audit](research/audit-2026-09/README.md) retains the historical analyses and reports the corrections and sensitivity checks.
 
-the current **v2 sampler and revised prompt have not inherited those experimental results**. the [next research protocol](research/transfer-v1/protocol.md) is a separate study specification, with results to be reported only after acquisition and validation. the website's live interaction draws a cue locally; it does not run an AI model or demonstrate improved downstream work by itself.
+the new [component study](research/transfer-v1/README.md) acquired four prompt conditions across 32 authored briefs using 16 curated relation cards. it asks whether an explicit donor name adds qualified mechanisms once the relation is already supplied. all 64 reference-bank calls and 128 candidate calls passed validation, but one of 64 judge blocks contained invalid reference identities. **the original primary analysis is halted.** a separate [measurement amendment](research/transfer-v1/amendment.md) declares one full new judge panel; its estimates remain pending. the separate operational diagnostics passed 6 of 8 pairs under their exact contract.
+
+the current **v2 sampler and revised prompt have not inherited experimental effectiveness results**. the component study does not test the full 378-specialist/461-concept skill or sampler's creative benefit. the website's live interaction draws a cue locally; it does not run an AI model or demonstrate improved downstream work by itself.
 
 ## install
 
@@ -70,6 +72,6 @@ tests establish the properties they check: deterministic replay, specified sampl
 - `site/`: static draw interface and evidence presentation.
 - `experiment/`, `experiment/v2/`, `experiment/v3/`: preserved historical studies.
 - `research/audit-2026-09/`: new validation and post-hoc reanalysis of those observations.
-- `research/transfer-v1/`: separate next-study protocol and execution artifacts.
+- `research/transfer-v1/`: component-study protocol, preserved acquisition, original analysis halt, and measurement amendment.
 
 existing license declarations and unresolved asset provenance are recorded in [the notices inventory](THIRD_PARTY_NOTICES.md). this README adds no license grant.

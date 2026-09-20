@@ -2,15 +2,15 @@
 
 ## An auditable component study of creative transfer in Wildcard
 
-**christopher robin fiore**  
-globalanomalyindex · 20 September 2026  
+**christopher robin fiore**
+20 September 2026
 Research manuscript draft. AI assistance and author roles are disclosed below.
 
-**Acquisition status:** Main-cohort acquisition is in progress after completed development validation; no new efficacy estimate is reported in this draft. Materials were committed before the [main manifest](runs/main/manifest.json), frozen at 19:54:24 UTC on 20 September 2026. The attempt ledger and completed analysis, when available, determine the final acquisition status.
+**Analysis status:** The original preregistered primary analysis is **halted**: one of 64 judge blocks failed validation. All bank, candidate-generation, and diagnostic calls completed successfully. A separately declared [measurement amendment](amendment.md) authorizes one new 64-block panel with constrained reference identities; amended estimates remain pending in this draft. The original failure is preserved and will not be relabeled as a completed preregistered primary. Materials preceded the [main manifest](runs/main/manifest.json), frozen at 19:54:24 UTC on 20 September 2026.
 
 ## Abstract
 
-Wildcard supplies outside cues to a language model attempting a design or engineering task. Its original studies evaluated bundled prompts and label selection, leaving a component question unresolved: does explicitly naming a donor domain add useful mechanisms after its relation and transfer boundary are already supplied? We specify a paired four-arm study on 32 synthetic briefs, with a strong direct baseline, relation only, correctly named relation, and a mismatched-name control. The primary outcome counts model-judged qualified mechanism groups absent from a separately acquired finite direct-baseline bank. Two requested judge configurations evaluate masked, verbatim candidate actions. The primary contrast holds relational content fixed and changes the presence of the donor name. Eight separate paired diagnostics test response to changes in a supplied operational relation. We also report a new audit of the historical evidence: a previously unidentified duplicate and missing Study 2 judgment, exhaustive finite-bootstrap sensitivity for Study 3, and dependence in the legacy sampler and shuffle. These findings motivate strict identity validation, preserved raw outputs, explicit sampling versions, and bounded public claims. The contribution is a specific, inspectable prompt-component study and evidence interface. It is not a claim to invent random-cue prompting, establish historical originality of generated ideas, or validate human creativity.
+Wildcard supplies outside cues to a language model attempting a design or engineering task. Earlier studies evaluated bundled prompts and label selection, leaving a component question unresolved: does explicitly naming a donor domain add useful mechanisms after its relation and transfer boundary are supplied? We acquired responses for a paired four-arm study on 32 synthetic briefs: strong direct prompting, relation only, correctly named relation, and a mismatched-name control. The prespecified outcome counts model-judged qualified mechanism groups absent from a separately acquired finite direct-baseline bank. The original 64-block judge panel contained one invalid reference-identity block, halting its primary analysis under the frozen rule. A declared amendment authorizes one complete replacement measurement panel with constrained IDs, retaining the generated sample, rubric, and statistical contrast. Amended estimates are pending. Separate operational diagnostics passed six of eight pairs under their strict contract. We also report new historical audits: a previously unidentified duplicate and missing Study 2 judgment, exhaustive finite-bootstrap sensitivity for Study 3, and dependence in the legacy sampler and shuffle. These findings motivate explicit identity validation, raw-output preservation, and bounded public claims. The contribution is an inspectable prompt-component study and evidence interface, not a claim to invent random-cue prompting, establish historical originality of generated ideas, or validate human creativity.
 
 ## 1. The problem: an interesting reference is not an implemented idea
 
@@ -19,6 +19,8 @@ A distant reference can change a brainstorm while adding little that can be used
 Wildcard's practical premise is to supply a cue from outside the immediate task and ask the model to turn any useful relationship into a concrete target-domain action. This is inference-time context conditioning. It does not modify weights, retrieve identified training examples, inspect activations, or reproduce a human default mode network. The historical skill bundles external selection, source elaboration, mapping, output constraints, and permission to abstain. A comparison of that bundle with a plain prompt cannot attribute an effect to one component.
 
 The present question is narrower: **when an authored relation and its limitations are held fixed, what does its explicit donor name contribute to qualified candidate mechanisms beyond a finite direct-baseline bank?** The name might activate relevant background associations, add decorative vocabulary, encourage an inappropriate transfer, or have little effect once the relation is explicit. Each possibility is compatible with the general usefulness of analogy. The intervention measures behavior without identifying an internal cognitive process.
+
+The study uses sixteen curated relation cards and thirty-two authored briefs. It does not sample the deployed plugin's full corpus of 378 specialists and 461 concepts, execute its complete skill, or compare sampler versions. Its results cannot validate the revised full skill or the creative benefit of the live sampler. [Runtime corpus](../../plugin/references/corpus-v2.json).
 
 ## 2. Related work and contribution boundary
 
@@ -44,7 +46,7 @@ Study 2 compared revised and earlier skill prompts. The recorded differences fav
 
 ### 3.2 A new Study 2 integrity finding
 
-Study 2 stores 240 grading rows but only 239 unique grader/output pairs. The pair `g3/out-35` occurs twice identically; `g3/out-48` is absent. The idmap identifies these outputs as `v2-p26-r1` and `v2-p14-r3`. Consequently, the historical analyzer averages five rows for one output and three for another. A row-count check alone concealed this defect. There is no evidence that the duplicate belongs to the missing output, so the original data remain untouched. [Historical grades](https://github.com/globalanomalyindex/wildcard/blob/04ff0a546d4e55038fa75881ec245662ac5765e9/experiment/v2/grades.json) and [idmap](https://github.com/globalanomalyindex/wildcard/blob/04ff0a546d4e55038fa75881ec245662ac5765e9/experiment/v2/normalized/idmap.json).
+Study 2 stores 240 grading rows but only 239 unique grader/output pairs. The pair `g3/out-35` occurs twice identically; `g3/out-48` is absent. The manifest/idmap identifies these outputs as `v2-p26-r1` and `v2-p14-r3`. Consequently, the historical analyzer averages five rows for one output and three for another. A row-count check alone concealed this defect. There is no evidence that the duplicate belongs to the missing output, so the original data remain untouched. [Historical grades](https://github.com/globalanomalyindex/wildcard/blob/04ff0a546d4e55038fa75881ec245662ac5765e9/experiment/v2/grades.json) and [idmap](https://github.com/globalanomalyindex/wildcard/blob/04ff0a546d4e55038fa75881ec245662ac5765e9/experiment/v2/normalized/idmap.json).
 
 A separate audit sensitivity removes the duplicated pair once and leaves the missing pair absent. The resulting genuineness difference is +0.805556 and the conditional signed-rank p remains .001953125. Considering all seven hypothetical scale values for the missing judgment gives differences from +0.766667 to +0.816667. The original direction is stable in these checks, but matrix completeness is false. Hypothetical values are sensitivity bounds, not recovered observations. [New Study 2 audit](../audit-2026-09/README.md#new-finding-study-2-contains-a-duplicate-and-a-missing-judgment).
 
@@ -129,17 +131,64 @@ Eight [paired fixtures](diagnostics.json) hold a toy target and synthetic donor 
 
 These cases distinguish some forms of operational sensitivity from simply copying a donor name. They can also be solved through literal instruction-following. They do not establish broad analogical ability, explain the main contrast by causal mediation, or constitute an independent creativity benchmark. Qualitative explanation review cannot override the exact diagnostic score.
 
-## 5. Current results status and reporting requirements
+## 5. Acquisition outcome and measurement amendment
 
-The historical audit above is completed work on preserved observations. The main component study has no measured result in this draft. No main-cohort effect size, completed-call total, diagnostic pass rate, judge agreement, or new success claim is inferred from the protocol or development outputs.
+### 5.1 The original primary analysis halted
 
-The final report will derive its main table and uncertainty intervals from immutable run artifacts. It will include all 32 paired task scores, per-arm realized action counts and failures, the primary contrast, both Holm-adjusted secondary contrasts, QDM, judge-specific effects, qualification and mechanism-group agreement, matching contradictions, realized bank sizes, diagnostic traces, and observed usage/latency. Missing measurement will be reported as an incomplete study, not hidden by a smaller denominator. Prefreeze amendments, abandoned development runs, and later deviations will be disclosed with their timing and reason.
+The original cohort completed all 272 scheduled calls in 272 transport attempts. All 64 bank calls, 128 candidate calls, and 16 diagnostic calls passed validation. The bank contains 448 realized actions. Of the 64 judge blocks, 63 passed and one failed. These are acquisition outcomes, not a completed primary efficacy analysis. [Original call records](runs/main/calls/) and [judge manifest](runs/main/judge-manifest.json).
+
+| Original phase | Completed calls | Valid responses | Validation failures | Transport attempts |
+|---|---:|---:|---:|---:|
+| Reference bank | 64 | 64 | 0 | 64 |
+| Candidate generation | 128 | 128 | 0 | 128 |
+| Operational diagnostics | 16 | 16 | 0 | 16 |
+| Judge panel | 64 | 63 | 1 | 64 |
+
+The invalid block, `i07-judge-2`, returned all sixteen candidate ratings but placed candidate ID `73e7cd8ccf86c466` in two `baseline_match` fields. It was not any of the fifteen permitted bank IDs; one occurrence was a self-reference. The original structured-output schema allowed arbitrary strings in those fields, while the subsequent validator correctly rejected the references. Transport had completed, so the frozen no-regeneration rule applied. The original status remains `validation_error`, and its primary analysis remains halted. We neither converted the links to null nor inferred their intended targets. [Failed record](runs/main/calls/i07-judge-2/record.json), [raw response](runs/main/calls/i07-judge-2/response.txt), and [request](runs/main/calls/i07-judge-2/request.json).
+
+No aggregate main effect estimate, interval, or hypothesis test was calculated before choosing the amendment. The failed block, individual examples, and raw diagnostic outputs had been inspected. This is therefore a post-failure instrument amendment, not an outcome-blind change or an untouched preregistration.
+
+### 5.2 One new panel under constrained identities
+
+The [amendment](amendment.md) authorizes exactly one new panel of all 64 judge blocks, frozen and published before amended acquisition. Per-block output schemas restrict candidate IDs to the supplied candidate set and bank references to the actual bank IDs or null. Prompt bytes, bank and candidate texts, presentation order, requested models, reasoning settings, rubric, and scoring remain unchanged. No generated candidate, bank action, or diagnostic response is reacquired.
+
+All 64 blocks are measured again under the same amended interface. The 63 valid original blocks are not pooled with the new panel, and panels cannot be selected according to their results. The amended panel alone determines its primary estimate using the already prespecified LR−R contrast and statistical procedures. Delivered invalid responses are still not regenerated, and any missing or invalid required block halts the amended analysis. The amendment authorizes no additional panel.
+
+The new panel is a changed measurement procedure applied to the same generated sample. It is not an independent generator replication or a second set of 32 problems. Constraining IDs prevents this reference-domain error but does not establish semantic reliability. The extra evaluation calls and the amendment's timing will be reported with the final results. **Amended panel completion counts and effect estimates remain pending in this draft.**
+
+### 5.3 A separate post-hoc metric-invariance sensitivity
+
+The two invalid links belong to the same mechanism group, which also contains valid bank matches in the original response. An independent diagnostic enumerated all 256 hypothetical assignments of fifteen valid bank IDs or null to those two fields, holding all other ratings and group assignments fixed. Every assignment yields the same per-arm QNM and QDM vector under the frozen global propagation rule. A second implementation check reproduced that invariance without changing any source record.
+
+This establishes score invariance to that narrowly defined missing-identity choice. It does not establish that the remaining matching or grouping judgments are semantically correct. No intended link was recovered, and the original response remains invalid. Any aggregate estimate using this invariance must be labeled **post-hoc original-panel sensitivity**, reported separately, and cannot reinstate the halted primary or replace the amended panel. The [exhaustive proof](runs/original-sensitivity/invariance-proof.json), [sensitivity implementation](original_sensitivity.py), and [amendment](amendment.md#analysis-and-reporting) expose the assumptions and boundary.
+
+After the amendment manifest was frozen, the separately labeled original-panel sensitivity was computed for all 32 tasks. Original-panel mean QNM was 0.03125 for S, 0.15625 for R, and 0.140625 for both LR and XR. The following estimates are conditional on the unchanged original qualification and grouping judgments. They are not the amended panel's results. [Post-hoc sensitivity artifact](runs/original-sensitivity/results.json).
+
+| Original-panel sensitivity contrast | Mean QNM difference | 95% percentile interval | Two-sided mean sign-flip p | Holm-adjusted p |
+|---|---:|---|---:|---:|
+| LR−R | −0.015625 | [−0.09375, 0.03125] | 1.0000 | Not applicable |
+| R−S | +0.125000 | [0.015625, 0.25000] | 0.093939 | 0.187878 |
+| XR−LR | 0.000000 | [−0.09375, 0.09375] | 1.0000 | 1.0000 |
+
+The R−S bootstrap interval excludes zero while its paired mean sign-flip test and Holm-adjusted p do not meet .05. These procedures are not inversions of each other, especially with sparse, discrete differences and stratified resampling. This sensitivity supplies no restored primary decision or significant secondary claim. The name contrast's interval includes zero; it does not establish equivalence or demonstrate that names never matter. The new panel remains the sole source of amended estimates.
+
+### 5.4 Strict operational diagnostics: six of eight pairs
+
+All sixteen diagnostic calls returned valid structured responses. Twelve of sixteen variants, forming **six of eight complete pairs**, matched the frozen exact decision-and-trace contract. Both variants of x03 and x04 failed because their traces added actor or time labels. For example, x03-a returned `A: GRANT` and `B: WAIT` instead of `GRANT` and `WAIT`; x04-a returned time-prefixed `UNKNOWN` values. The decisions matched their expected choices, and the prefixed state values are consistent with the intended operations. This descriptive observation does not change the strict score. No labels were stripped to turn failures into passes. [x03-a response](runs/main/calls/x03-a/response.txt), [x04-a response](runs/main/calls/x04-a/response.txt), and [frozen expectations](diagnostics.json).
+
+These designed cases can be solved by literal instruction-following. Six passing pairs therefore do not establish general analogical ability or explain the mechanism behind any eventual main contrast. Their failures also illustrate sensitivity to an exact trace-format contract, which must remain visible alongside operational interpretation.
+
+### 5.5 Pending numerical reporting
+
+The amended report will include all 32 paired task scores, per-arm action counts, its primary contrast and interval, both Holm-adjusted secondary contrasts, QDM, judge-specific effects, qualification and mechanism-group agreement, matching contradictions, bank sizes, and observed usage/latency. Both original and amended acquisition ledgers, the original halt, and all development versions will remain public. A missing amended measurement will be reported as a halted analysis, not hidden by a smaller denominator. No amended effect size or efficacy claim is inferred from generation validity or diagnostic performance.
 
 ## 6. Limitations and product implications
 
 The synthetic tasks favor explicit constraints, state, verification, and plausible implementation. Their author knew the intended construct. A result on this set does not generalize to visual taste, unconstrained art, expert professional judgment, natural user projects, or long-term team creativity. Curated relations can favor mechanisms already natural to such tasks, and two uses per card do not support broad card-specific conclusions.
 
 The bank-relative score depends on reference coverage and matching granularity. A larger bank may reduce apparent newness; a broad cluster may merge meaningful alternatives, while a narrow cluster may inflate diversity. Same-provider judges can share preferences and blind spots, particularly when one requested alias is also the generator. Conservative rules reduce some obvious inconsistencies but do not make model judgments objective. No new human ratings or implementation trials are included.
+
+The measurement amendment adds a further limitation: the output interface changed after an observed validation failure. Exact prompt content and criteria are preserved, but constraining the available reference strings can still affect model behavior. Agreement with any original-panel sensitivity would be measurement consistency on the same outputs, not independent replication. Disagreement must be reported rather than resolved by selecting a favorable panel.
 
 The primary intervention adds text to a model prompt. It does not test whether showing a donor name to a person improves their decisions or interface comprehension. A product can expose source provenance for accountability regardless of the model-level effect. Likewise, a draw receipt demonstrates selection and replay; it cannot certify that a resulting suggestion is useful.
 
@@ -149,6 +198,6 @@ The historical audit supports a design principle with a narrower basis than a cr
 
 christopher robin fiore directs this project and its research-to-product presentation. AI assistants helped review prior work, audit historical artifacts, author the synthetic materials, implement acquisition and analysis, and build the interface. Task authorship was not blinded. The new benchmark is designed to use two recorded model-judge configurations; it contains no new human rating or user study. Human authorship of the project should not be confused with human adjudication of generated candidates.
 
-The repository preserves historical sources separately from the new audit and acquisition. The [protocol](protocol.md), [prompts](prompts.py), [tasks](tasks.json), [cards and primary sources](cards.json), [diagnostics](diagnostics.json), [collector](run.py), [analysis entry point](analysis.py), and [statistical analysis](analyze.mjs) make the procedure inspectable. The run manifest and retained source snapshots identify the exact version actually executed. Public attribution is christopher robin fiore under globalanomalyindex.
+The repository preserves historical sources separately from the new audit and acquisition. The [protocol](protocol.md), [prompts](prompts.py), [tasks](tasks.json), [cards and primary sources](cards.json), [diagnostics](diagnostics.json), [collector](run.py), [original validator](analysis.py), [statistical analysis](analyze.mjs), and [measurement amendment](amendment.md) make the procedure inspectable. Each run manifest and retained source snapshot identifies the version actually executed; the amendment does not overwrite the original record. Public attribution is christopher robin fiore; the repository is hosted at [globalanomalyindex/wildcard](https://github.com/globalanomalyindex/wildcard).
 
 The manuscript's eventual empirical claim is limited to what those records show. A positive, negative, or inconclusive result is equally reportable. The historical audit already shows why that discipline matters: reproducible arithmetic, complete measurement, valid constructs, and a useful product are separate achievements.
