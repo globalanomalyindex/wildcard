@@ -1,0 +1,286 @@
+{
+  "initialRecordSHA256": "e6d7bc9cccd44c595c88402ff63669ad31df7f828c037255f33e548900de11ea",
+  "firstShown": {
+    "explanation": "Use a revision-guarded state machine. Writes and successful rollbacks advance the current revision; saves and drops do not. Snapshot IDs are permanently consumed, while retention evicts only stored snapshots.",
+    "mapping": "config.initial maps to value; config.keep maps to retention capacity; state tracks value, revision, retained order, immutable snapshots, and used IDs. Event outcomes map directly to status, value, revision, snapshots, and saved.",
+    "assumptions": "Inputs satisfy the stated public schema and safe-integer constraints. Only save, write, rollback, and drop events occur.",
+    "applies": "function applies(input){return !!(input&&input.config&&Number.isSafeInteger(input.config.initial)&&Number.isInteger(input.config.keep)&&input.config.keep>=1&&Array.isArray(input.events));}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,s={v:c.initial,r:0,o:[],m:{},u:{}};for(var i=0;i<output.length;i++){var e=input.events[i],st='';if(e.type==='write'){if(e.expect===s.r){s.v=e.value;s.r++;st='written'}else st='conflict'}else if(e.type==='save'){if(s.u[e.id])st='exists';else{s.u[e.id]=1;s.m[e.id]={value:s.v,revision:s.r};s.o.push(e.id);while(s.o.length>c.keep)delete s.m[s.o.shift()];st='saved'}}else if(e.type==='rollback'){if(e.expect!==s.r)st='conflict';else if(!s.m[e.id])st='missing';else{s.v=s.m[e.id].value;s.r++;st='rolled_back'}}else if(e.type==='drop'){if(!s.m[e.id])st='missing';else{delete s.m[e.id];s.o.splice(s.o.indexOf(e.id),1);st='dropped'}}else return false;var z=output[i],q={status:st,value:s.v,revision:s.r,snapshots:s.o.slice(),saved:{}};for(var j=0;j<s.o.length;j++)q.saved[s.o[j]]=s.m[s.o[j]];if(JSON.stringify(z)!==JSON.stringify(q))return false}return true;}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={v:c.initial,r:0,o:[],m:{},u:{}};var t='';if(e.type==='write'){if(e.expect===s.r){s.v=e.value;s.r++;t='written'}else t='conflict'}else if(e.type==='save'){if(s.u[e.id])t='exists';else{s.u[e.id]=1;s.m[e.id]={value:s.v,revision:s.r};s.o.push(e.id);while(s.o.length>c.keep)delete s.m[s.o.shift()];t='saved'}}else if(e.type==='rollback'){if(e.expect!==s.r)t='conflict';else if(!s.m[e.id])t='missing';else{s.v=s.m[e.id].value;s.r++;t='rolled_back'}}else if(e.type==='drop'){if(!s.m[e.id])t='missing';else{delete s.m[e.id];s.o.splice(s.o.indexOf(e.id),1);t='dropped'}}var a=[],m={};for(var i=0;i<s.o.length;i++){a.push(s.o[i]);m[s.o[i]]=s.m[s.o[i]]}return{state:s,output:{status:t,value:s.v,revision:s.r,snapshots:a,saved:m}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 0,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 2,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 2,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 5,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 5,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": -3,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": -3,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

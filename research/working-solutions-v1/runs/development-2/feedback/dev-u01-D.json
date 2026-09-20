@@ -1,0 +1,216 @@
+{
+  "initialRecordSHA256": "b6ef358f541df2cfabd10d1acd2d6b96eee387bdfc6ae7298c6a090999ddbbd5",
+  "firstShown": {
+    "explanation": "The direct rule is that dirty is true exactly when draft differs from the committed value's canonical decimal text. Input edits draft only; valid commits snap to the nearest legal lattice value, with ties downward. Invalid commits preserve all value and draft data while setting error.",
+    "mapping": "Committed value maps to value; editable text maps to draft; validation status maps to error; mode maps to disabled; dirty maps to draft !== String(value).",
+    "assumptions": "config is available on every call, events are legal per the public contract, and state is only the previously returned opaque state.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&Number.isInteger(input.config.min)&&Number.isInteger(input.config.max)&&Number.isInteger(input.config.step)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output))return false;return output.every(function(o){return o&&Object.keys(o).length===5&&typeof o.value==='number'&&typeof o.draft==='string'&&typeof o.dirty==='boolean'&&(o.dirty===(o.draft!==String(o.value)))&&(typeof o.disabled==='boolean')&&(o.error===null||o.error==='invalid')})}",
+    "program": "function solve({config,state,event}){\n  if(state===null)state={v:config.initial,d:String(config.initial),e:null,x:false};\n  var s={v:state.v,d:state.d,e:state.e,x:state.x},t=event.type;\n  if(t==='mode')s.x=event.disabled;\n  else if(t==='cancel'){s.d=String(s.v);s.e=null}\n  else if(!s.x&&t==='input'){s.d=event.text;s.e=null}\n  else if(!s.x&&t==='commit'){\n    var z=s.d,m=/^[+-]?[0-9]+$/.test(z),n=m?Number(z):NaN;\n    if(!m||!Number.isSafeInteger(n))s.e='invalid';\n    else{\n      var q=(n-config.min)/config.step,k=Math.floor(q),r=k*config.step+config.min;\n      if(k<=0)r=config.min;\n      else if(r>=config.max)r=config.max;\n      else{var u=r+config.step;if(n-r>u-n)r=u}\n      s.v=r;s.d=String(r);s.e=null;\n    }\n  }else if(!s.x&&t==='step'){\n    var k=Math.round((s.v-config.min)/config.step)+(event.direction<0?-1:1),r=config.min+k*config.step;\n    if(r<config.min)r=config.min;if(r>config.max)r=config.max;\n    s.v=r;s.d=String(r);s.e=null;\n  }\n  return {state:s,output:{value:s.v,draft:s.d,dirty:s.d!==String(s.v),error:s.e,disabled:s.x}};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": -3,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  }
+}

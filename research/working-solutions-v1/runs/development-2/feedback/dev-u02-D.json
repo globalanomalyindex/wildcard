@@ -1,0 +1,246 @@
+{
+  "initialRecordSHA256": "9666c1aaddedeeb8c8f05e0c3d689b30b610d4bdad8d777bfc8819dd01406dd8",
+  "firstShown": {
+    "explanation": "A panel is open only as the current selection of its group. Toggle selects an enabled panel, or closes it only for an optional group. Every event then removes disabled selections and fills empty required groups using fixed panel order.",
+    "mapping": "Groups map to one nullable open panel; panels map to fixed-order eligibility and group membership; required groups map to automatic fallback and unsatisfied status.",
+    "assumptions": "Unknown references are ignored. Group and panel ordering is the supplied ordering, while unsatisfied IDs are lexicographically sorted as specified.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.groups)&&Array.isArray(input.config.panels)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,gs=c.groups,ps=c.panels,e={},r={},i,j;for(i=0;i<gs.length;i++){e[gs[i].id]=gs[i].required;r[gs[i].id]=null}function norm(){for(j=0;j<ps.length;j++){var p=ps[j];if(r[p.group]===p.id&&!p.enabled)r[p.group]=null}for(i=0;i<gs.length;i++)if(e[gs[i].id]&&r[gs[i].id]===null)for(j=0;j<ps.length;j++)if(ps[j].group===gs[i].id&&ps[j].enabled){r[gs[i].id]=ps[j].id;break}}function want(){var o={open:{},expanded:[],unsatisfied:[]};for(i=0;i<gs.length;i++)o.open[gs[i].id]=r[gs[i].id];for(j=0;j<ps.length;j++)if(r[ps[j].group]===ps[j].id)o.expanded.push(ps[j].id);for(i=0;i<gs.length;i++)if(e[gs[i].id]&&r[gs[i].id]===null)o.unsatisfied.push(gs[i].id);o.unsatisfied.sort();return o}norm();for(i=0;i<input.events.length;i++){var x=input.events[i],p=null;for(j=0;j<ps.length;j++)if(ps[j].id===x.id){p=ps[j];break}if(x.type==='toggle'&&p&&p.enabled){if(r[p.group]===p.id){if(!e[p.group])r[p.group]=null}else r[p.group]=p.id}else if(x.type==='enabled'&&p)p.enabled=x.value;else if(x.type==='close'&&e[x.group]===false)r[x.group]=null;else if(x.type==='mode'&&e[x.group]!==undefined)e[x.group]=x.required;norm();var z=want(),q=output[i];if(JSON.stringify(z)!==JSON.stringify(q))return false}return true}",
+    "program": "function solve({config,state,event}){var s=state,i,j,p,g;if(!s){s={req:{},en:{},open:{}};for(i=0;i<config.groups.length;i++){g=config.groups[i];s.req[g.id]=g.required;s.open[g.id]=null}for(i=0;i<config.panels.length;i++)s.en[config.panels[i].id]=config.panels[i].enabled}function norm(){for(i=0;i<config.panels.length;i++){p=config.panels[i];if(s.open[p.group]===p.id&&!s.en[p.id])s.open[p.group]=null}for(i=0;i<config.groups.length;i++){g=config.groups[i];if(s.req[g.id]&&s.open[g.id]===null)for(j=0;j<config.panels.length;j++){p=config.panels[j];if(p.group===g.id&&s.en[p.id]){s.open[g.id]=p.id;break}}}}var p=null;if(event.type==='toggle'){for(i=0;i<config.panels.length;i++)if(config.panels[i].id===event.id){p=config.panels[i];break}if(p&&s.en[p.id]){if(s.open[p.group]===p.id){if(!s.req[p.group])s.open[p.group]=null}else s.open[p.group]=p.id}}else if(event.type==='enabled'){for(i=0;i<config.panels.length;i++)if(config.panels[i].id===event.id){s.en[event.id]=event.value;break}}else if(event.type==='close'&&s.req[event.group]===false)s.open[event.group]=null;else if(event.type==='mode'&&s.req[event.group]!==undefined)s.req[event.group]=event.required;norm();var o={open:{},expanded:[],unsatisfied:[]};for(i=0;i<config.groups.length;i++){g=config.groups[i];o.open[g.id]=s.open[g.id];if(s.req[g.id]&&s.open[g.id]===null)o.unsatisfied.push(g.id)}for(i=0;i<config.panels.length;i++){p=config.panels[i];if(s.open[p.group]===p.id)o.expanded.push(p.id)}o.unsatisfied.sort();return{state:s,output:o}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null,
+              "i": "e"
+            },
+            "expanded": [
+              "a",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "a",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "c",
+              "e"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

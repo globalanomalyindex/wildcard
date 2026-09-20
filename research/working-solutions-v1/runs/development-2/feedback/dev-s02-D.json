@@ -1,0 +1,276 @@
+{
+  "initialRecordSHA256": "33b420e6e38c956d089e7f6dd9b25d4f5123ba021fb7c933eff1004141125871",
+  "firstShown": {
+    "explanation": "Use the current register map and version as the sole state. For each event, validate structural conditions first, then version, guards, capacity, and finally commit the complete candidate atomically. A counterexample is any output whose changed list names a key not actually changed.",
+    "mapping": "The rule directly maps event guards and updates to one atomic transition over current values; no snapshot history or rollback is needed.",
+    "assumptions": "Inputs follow the stated JSON legality constraints; semantic invalidity refers to the specified unknown keys, missing guards, and negative updates.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let x=Object.assign({},input.config.initial),v=0,cap=input.config.capacity,cmp=(a,b)=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length};for(let e=0;e<input.events.length;e++){let q=input.events[e],g=q.guards,u=q.updates,s='committed',bad=false,k;for(k in g)if(!Object.prototype.hasOwnProperty.call(x,k))bad=true;for(k in u){if(!Object.prototype.hasOwnProperty.call(g,k)||u[k]<0)bad=true}if(bad)s='invalid';else if(q.version!==v)s='stale';else{for(k in g)if(x[k]!==g[k])bad=true;if(bad)s='conflict';else{let y=Object.assign({},x),sum=0;for(k in y)sum+=y[k];for(k in u){sum+=u[k]-(y[k]||0);y[k]=u[k]}if(sum>cap)s='capacity';else{let ch=[];for(k in y)if(y[k]!==x[k])ch.push(k);ch.sort(cmp);if(!ch.length)s='unchanged';else{x=y;v++;}}}}let z=output[e];if(!z||z.status!==s||z.version!==v||JSON.stringify(z.values)!==JSON.stringify(x))return false;if(JSON.stringify(z.changed)!==JSON.stringify(s==='committed'&&z.changed.length?z.changed:[]))return false}return true}",
+    "program": "function solve({config,state,event}){let st=state||{v:0,x:Object.assign({},config.initial),c:config.capacity},x=st.x,v=st.v,g=event.guards||{},u=event.updates||{},bad=false,k;for(k in g)if(!Object.prototype.hasOwnProperty.call(x,k))bad=true;for(k in u)if(!Object.prototype.hasOwnProperty.call(g,k)||u[k]<0)bad=true;let s=bad?'invalid':event.version!==v?'stale':'committed',ch=[];if(s==='committed'){for(k in g)if(x[k]!==g[k]){s='conflict';break}if(s==='committed'){let y=Object.assign({},x),sum=0;for(k in y)sum+=y[k];for(k in u){sum+=u[k]-(y[k]||0);y[k]=u[k]}if(sum>st.c)s='capacity';else{for(k in y)if(y[k]!==x[k])ch.push(k);let cp=a=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length};var b;ch.sort((a,b)=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length});if(ch.length){x=y;v++}else s='unchanged'}}}if(s!=='committed')ch=[];let out={status:s,version:v,values:Object.assign({},x),changed:ch};return{state:{v:v,x:x,c:st.c},output:out}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      }
+    ]
+  }
+}

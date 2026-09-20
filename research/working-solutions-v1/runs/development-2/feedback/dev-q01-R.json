@@ -1,0 +1,322 @@
+{
+  "initialRecordSHA256": "e25bd0aba633495592ba5ff794bad4ee5431ae919177d31691bb6362ec0199ca",
+  "firstShown": {
+    "explanation": "A pending job has fixed arrival and insertion order. Aging increases effective priority only when time advances; service never advances time. Capacity counts pending jobs, and completion frees the identifier for reuse.",
+    "mapping": "config controls capacity, ceiling, and quantum; state stores now and pending jobs; events mutate time, queue membership, remaining work, and service output.",
+    "assumptions": "Inputs satisfy the stated validity and safe-integer constraints. State is trusted only as previously returned by this function.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={n:0,j:[],z:0},eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b),mk=(status,served)=>{let p={},r={},ids=[];for(let x of s.j){ids.push(x.id);r[x.id]=x.w;p[x.id]=Math.min(c.ceiling,x.p+Math.floor((s.n-x.a)/c.quantum))}return {status,served,pending:ids,remaining:r,priorities:p,now:s.n}},e;for(let i=0;i<input.events.length;i++){e=input.events[i];let k=e.type,st='missing',sv=[];if(k==='advance'){s.n+=e.dt;st='advanced'}else if(k==='add'){if(s.j.length<c.capacity&&!s.j.some(x=>x.id===e.id)){s.j.push({id:e.id,w:e.work,p:e.priority,a:s.n,o:s.z++});st='queued'}else st='rejected'}else if(k==='cancel'){let q=s.j.findIndex(x=>x.id===e.id);if(q>=0){s.j.splice(q,1);st='cancelled'}}else if(k==='run'&&s.j.length){let q=0;for(let x=1;x<s.j.length;x++){let a=s.j[x],b=s.j[q],pa=Math.min(c.ceiling,a.p+Math.floor((s.n-a.a)/c.quantum)),pb=Math.min(c.ceiling,b.p+Math.floor((s.n-b.a)/c.quantum));if(pa>pb||pa===pb&&a.o<b.o)q=x}let x=s.j[q],u=Math.min(e.budget,x.w);x.w-=u;let done=x.w===0;sv=[{id:x.id,units:u,complete:done}];if(done)s.j.splice(q,1);st='served'}else if(k==='run')st='empty';if(!eq(mk(st,sv),output[i]))return false}return true}",
+    "program": "function solve({config:c,state,event:e}){let s=state||{n:0,j:[],z:0},k=e.type,st='missing',sv=[];if(k==='advance'){s.n+=e.dt;st='advanced'}else if(k==='add'){if(s.j.length<c.capacity&&!s.j.some(x=>x.id===e.id)){s.j.push({id:e.id,w:e.work,p:e.priority,a:s.n,o:s.z++});st='queued'}else st='rejected'}else if(k==='cancel'){let q=s.j.findIndex(x=>x.id===e.id);if(q>=0){s.j.splice(q,1);st='cancelled'}}else if(k==='run'&&s.j.length){let q=0;for(let i=1;i<s.j.length;i++){let x=s.j[i],y=s.j[q],px=Math.min(c.ceiling,x.p+Math.floor((s.n-x.a)/c.quantum)),py=Math.min(c.ceiling,y.p+Math.floor((s.n-y.a)/c.quantum));if(px>py||px===py&&x.o<y.o)q=i}let x=s.j[q],u=Math.min(e.budget,x.w),d=x.w===u;x.w-=u;sv=[{id:x.id,units:u,complete:d}];if(d)s.j.splice(q,1);st='served'}else if(k==='run')st='empty';let p={},r={},ids=[];for(let x of s.j){ids.push(x.id);r[x.id]=x.w;p[x.id]=Math.min(c.ceiling,x.p+Math.floor((s.n-x.a)/c.quantum))}return{state:s,output:{status:st,served:sv,pending:ids,remaining:r,priorities:p,now:s.n}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 0
+            },
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 3
+            },
+            "now": 9
+          },
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a",
+              "b"
+            ],
+            "remaining": {
+              "a": 3,
+              "b": 1
+            },
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "now": 9
+          },
+          {
+            "status": "served",
+            "served": [
+              {
+                "id": "a",
+                "units": 2,
+                "complete": false
+              }
+            ],
+            "pending": [
+              "a",
+              "b"
+            ],
+            "remaining": {
+              "a": 1,
+              "b": 1
+            },
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "now": 9
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 0
+            },
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 3
+            },
+            "now": 3
+          },
+          {
+            "status": "rejected",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 3
+            },
+            "now": 3
+          },
+          {
+            "status": "served",
+            "served": [
+              {
+                "id": "a",
+                "units": 2,
+                "complete": false
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 1
+            },
+            "priorities": {
+              "a": 3
+            },
+            "now": 3
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 0
+            },
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 3
+            },
+            "now": 9
+          },
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a",
+              "b"
+            ],
+            "remaining": {
+              "a": 3,
+              "b": 1
+            },
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "now": 9
+          },
+          {
+            "status": "rejected",
+            "served": [],
+            "pending": [
+              "a",
+              "b"
+            ],
+            "remaining": {
+              "a": 3,
+              "b": 1
+            },
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "now": 9
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 0
+            },
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "served": [],
+            "pending": [
+              "a"
+            ],
+            "remaining": {
+              "a": 3
+            },
+            "priorities": {
+              "a": 3
+            },
+            "now": 6
+          },
+          {
+            "status": "queued",
+            "served": [],
+            "pending": [
+              "a",
+              "b"
+            ],
+            "remaining": {
+              "a": 3,
+              "b": 1
+            },
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "now": 6
+          },
+          {
+            "status": "served",
+            "served": [
+              {
+                "id": "a",
+                "units": 2,
+                "complete": false
+              }
+            ],
+            "pending": [
+              "a",
+              "b"
+            ],
+            "remaining": {
+              "a": 1,
+              "b": 1
+            },
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "now": 6
+          }
+        ]
+      }
+    ]
+  }
+}

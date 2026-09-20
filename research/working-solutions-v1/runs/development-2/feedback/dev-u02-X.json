@@ -1,0 +1,288 @@
+{
+  "initialRecordSHA256": "05ccb6d5779dd9722f90e3f68d83123ada130351f0ad33051c93a509d472b7f0",
+  "firstShown": {
+    "explanation": "Maintain each group's currently open panel and each panel's enabled status. Apply the event, remove ineligible selections, then fill empty required groups using fixed panel order. Render open, globally ordered expanded panels, and sorted unsatisfied required groups.",
+    "mapping": "The target variables map directly to group requirement, panel eligibility, group-to-panel selection, and fixed panel ordering. No outside-rule transfer is needed.",
+    "assumptions": "Inputs satisfy the stated identity, membership, scalar, and size constraints. IDs are ASCII, so ordinary lexical sorting gives the required sorted group order.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){const c=input.config,e=input.events;if(!Array.isArray(output)||output.length!==e.length)return false;const gs=c.groups,ps=c.panels,oi={};ps.forEach((p,i)=>oi[p.id]=i);const gi={};gs.forEach((g,i)=>gi[g.id]=i);let en=ps.map(p=>p.enabled),op=gs.map(g=>null);function norm(){for(let i=0;i<gs.length;i++){if(op[i]!==null&&!en[oi[op[i]]])op[i]=null;if(op[i]===null&&gs[i].required)for(const p of ps)if(p.group===gs[i].id&&en[oi[p.id]]){op[i]=p.id;break}}}norm();for(let z=0;z<e.length;z++){const x=e[z],pi=oi[x.id],q=gi[x.group];if(x.type==='toggle'&&pi!==undefined&&en[pi]){let k=gi[ps[pi].group];if(op[k]===x.id){if(!gs[k].required)op[k]=null}else op[k]=x.id}else if(x.type==='enabled'&&pi!==undefined)en[pi]=x.value;else if(x.type==='close'&&q!==undefined&&!gs[q].required)op[q]=null;else if(x.type==='mode'&&q!==undefined)gs[q].required=x.required;norm();let ex=ps.filter(p=>op[gi[p.group]]===p.id).map(p=>p.id),u=gs.filter((g,i)=>g.required&&op[i]===null).map(g=>g.id).sort();let oo={};gs.forEach((g,i)=>oo[g.id]=op[i]);let want={open:oo,expanded:ex,unsatisfied:u};if(JSON.stringify(output[z])!==JSON.stringify(want))return false}return true}",
+    "program": "function solve({config,state,event}){\n  let s=state;\n  if(s===null){\n    s={g:config.groups.map(x=>({id:x.id,required:x.required,open:null})),p:config.panels.map(x=>({id:x.id,group:x.group,enabled:x.enabled}))};\n    for(let i=0;i<s.g.length;i++) if(s.g[i].required) for(const p of s.p) if(p.group===s.g[i].id&&p.enabled){s.g[i].open=p.id;break}\n  }\n  const gs=s.g,ps=s.p,gi={},pi={};\n  gs.forEach((g,i)=>gi[g.id]=i);ps.forEach((p,i)=>pi[p.id]=i);\n  const e=event;\n  if(e.type==='toggle'&&pi[e.id]!==undefined){\n    const p=ps[pi[e.id]],k=gi[p.group];\n    if(p.enabled){if(gs[k].open===p.id){if(!gs[k].required)gs[k].open=null}else gs[k].open=p.id}\n  }else if(e.type==='enabled'&&pi[e.id]!==undefined) ps[pi[e.id]].enabled=e.value;\n  else if(e.type==='close'&&gi[e.group]!==undefined){let k=gi[e.group];if(!gs[k].required)gs[k].open=null}\n  else if(e.type==='mode'&&gi[e.group]!==undefined) gs[gi[e.group]].required=e.required;\n  for(const g of gs){if(g.open!==null&&!ps[pi[g.open]].enabled)g.open=null;if(g.open===null&&g.required)for(const p of ps)if(p.group===g.id&&p.enabled){g.open=p.id;break}}\n  const open={},expanded=[],unsatisfied=[];\n  for(const g of gs)open[g.id]=g.open;\n  for(const p of ps)if(open[p.group]===p.id)expanded.push(p.id);\n  for(const g of gs)if(g.required&&g.open===null)unsatisfied.push(g.id);\n  unsatisfied.sort();\n  return {state:s,output:{open,expanded,unsatisfied}};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null,
+              "i": "e"
+            },
+            "expanded": [
+              "a",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "a",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "c",
+              "e"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}

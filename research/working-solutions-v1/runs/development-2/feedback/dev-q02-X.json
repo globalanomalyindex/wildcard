@@ -1,0 +1,216 @@
+{
+  "initialRecordSHA256": "e67d8bc324ee195e1933004fdb23fb71d942f4f270fa32e428fd88e1df5d0b6b",
+  "firstShown": {
+    "explanation": "Maintain a logical clock, monotonically increasing generation, and at most one active lease. Advance updates time before expiration is checked; every other operation checks expiration first. Renew replaces the deadline from the current time.",
+    "mapping": "state stores now, owner, generation, and expires. config.ttl controls each new deadline. event.type selects advance, acquire, renew, or release.",
+    "assumptions": "Inputs satisfy the stated schema and safe-integer constraints. Unknown event types are not supplied.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){let t=0,o=null,g=0,x=null,L=input.config.ttl;let eq=(a,b)=>JSON.stringify(a)===JSON.stringify(b);let r=[];for(let e of input.events){if(e.type==='advance'){t+=e.dt;if(o!==null&&x<=t){o=null;x=null}r.push({status:'advanced',owner:o,generation:g,expires:x,now:t});continue}if(o!==null&&x<=t){o=null;x=null}let s='ignored';if(e.type==='acquire'){if(o===null){g++;o=e.owner;x=t+L;s='acquired'}else s='busy'}else if(e.type==='renew'){if(o!==null&&o===e.owner&&g===e.generation){x=t+L;s='renewed'}}else if(e.type==='release'){if(o!==null&&o===e.owner&&g===e.generation){o=null;x=null;s='released'}}r.push({status:s,owner:o,generation:g,expires:x,now:t})}return eq(r,output)}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,owner:null,generation:0,expires:null},t=s.now,o=s.owner,g=s.generation,x=s.expires,L=config.ttl;if(event.type==='advance'){t+=event.dt;if(o!==null&&x<=t){o=null;x=null}return {state:{now:t,owner:o,generation:g,expires:x},output:{status:'advanced',owner:o,generation:g,expires:x,now:t}}}if(o!==null&&x<=t){o=null;x=null}let status='ignored';if(event.type==='acquire'){if(o===null){g++;o=event.owner;x=t+L;status='acquired'}else status='busy'}else if(event.type==='renew'){if(o!==null&&o===event.owner&&g===event.generation){x=t+L;status='renewed'}}else if(event.type==='release'){if(o!==null&&o===event.owner&&g===event.generation){o=null;x=null;status='released'}}return {state:{now:t,owner:o,generation:g,expires:x},output:{status,owner:o,generation:g,expires:x,now:t}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 3,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 6,
+            "now": 3
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 1,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 1
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 2,
+            "now": 1
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 3,
+            "now": 0
+          },
+          {
+            "status": "busy",
+            "owner": "a",
+            "generation": 1,
+            "expires": 3,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 6
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 5,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 5
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 10,
+            "now": 5
+          }
+        ]
+      }
+    ]
+  }
+}

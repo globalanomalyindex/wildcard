@@ -1,0 +1,286 @@
+{
+  "initialRecordSHA256": "35a428844d4354aad41c3884fae4d00d427ffb36d7108cfd26c49b6b8b0f428e",
+  "firstShown": {
+    "explanation": "A pinned FIFO resident remains in place while live; invalidation converts pinned residents to tombstones, which retain capacity until their final pin is released. Unpinned residents are removed immediately on invalidation. Admission evicts only the oldest unpinned resident.",
+    "mapping": "State maps each resident key to value, pin count, and tombstone flag, while order stores FIFO resident keys. Outputs expose order, pin counts, sorted tombstones, status, and only successful get values.",
+    "assumptions": "Statuses use stored, replaced, evicted, blocked, pinned, released, invalidated, missing, hit, and miss. A put targeting a tombstone is blocked; ordinary replacement preserves FIFO position and pins.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.capacity>=1}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||!Array.isArray(x.order)||!x.pins||!Array.isArray(x.tombstones)||typeof x.status!==\"string\"||!(x.value===null||Number.isInteger(x.value)))return false;for(const k of x.order)if(typeof k!==\"string\"||k.includes(\"__\"))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{o:[],r:{}};let k=event.key,t=event.type,rec=s.r[k],status=\"missing\",value=null;if(t===\"put\"){if(rec&&rec.t){status=\"blocked\"}else if(rec){rec.v=event.value;status=\"replaced\"}else{if(s.o.length>=config.capacity){let i=s.o.findIndex(x=>s.r[x].p===0);if(i<0)status=\"blocked\";else{let z=s.o.splice(i,1)[0];delete s.r[z];status=\"evicted\"}}if(status!==\"blocked\"){s.o.push(k);s.r[k]={v:event.value,p:0,t:false};status=\"stored\"}}}else if(t===\"pin\"){if(rec&&!rec.t){rec.p++;status=\"pinned\"}}else if(t===\"unpin\"){if(rec&&rec.p>0){rec.p--;status=\"released\";if(rec.t&&rec.p===0){s.o.splice(s.o.indexOf(k),1);delete s.r[k]}}}else if(t===\"invalidate\"){if(!rec)status=\"missing\";else if(rec.p>0){rec.t=true;status=\"invalidated\"}else{s.o.splice(s.o.indexOf(k),1);delete s.r[k];status=\"invalidated\"}}else if(t===\"get\"){if(rec&&!rec.t){value=rec.v;status=\"hit\"}else status=\"miss\"}let pins={},ts=[];for(const x of s.o){pins[x]=s.r[x].p;if(s.r[x].t)ts.push(x)}ts.sort();return{state:s,output:{status,value,order:s.o.slice(),pins,tombstones:ts}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": []
+          },
+          {
+            "status": "invalidated",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": [
+              "a"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": []
+          },
+          {
+            "status": "invalidated",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": [
+              "a"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 3
+            },
+            "tombstones": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "tombstones": []
+          },
+          {
+            "status": "pinned",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": []
+          },
+          {
+            "status": "invalidated",
+            "value": null,
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "tombstones": [
+              "a"
+            ]
+          }
+        ]
+      }
+    ]
+  }
+}
