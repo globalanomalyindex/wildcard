@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "explanation": {
+      "type": "string"
+    },
+    "mapping": {
+      "type": "string"
+    },
+    "assumptions": {
+      "type": "string"
+    },
+    "applies": {
+      "type": "string"
+    },
+    "holds": {
+      "type": "string"
+    },
+    "program": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "explanation",
+    "mapping",
+    "assumptions",
+    "applies",
+    "holds",
+    "program"
+  ],
+  "additionalProperties": false
+}
