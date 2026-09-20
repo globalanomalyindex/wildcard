@@ -4,9 +4,10 @@ No source-card or condition information enters this module. The acceptance model
 below is a separate implementation and never calls the reference entry point.
 """
 import json
+import math
 from .common import cloned, rng_for, result, check_count, REGIMES
 
-_COMMON = " Return one JSON output per event; state is opaque JSON, initially null. Objects in outputs have exactly the documented keys; map keys are unordered, arrays are ordered. Numeric inputs/values are safe integers, and strings contain Unicode scalar values (no unpaired surrogates). Decoded imported values outside these limits are invalid frames. There are at most 48 events. Unknown/invalid operations have the behavior below. Each instance starts fresh. Hidden ordinary cases vary legal values; boundary cases emphasize equality, empty data and duplicates; adversarial cases reorder and conflict; shift cases use longer traces and more identities within the same contract. "
+_COMMON = " Return one JSON output per event; state is opaque JSON, initially null. Objects in outputs have exactly the documented keys; map keys are unordered, arrays are ordered. Sorted/lexicographic string order compares Unicode scalar values (code points), with a shorter prefix first. Numeric inputs/values and intermediate arithmetic are safe integers. Integral JSON number notations such as 1 and 1.0 denote the same number, while booleans are distinct. Strings contain Unicode scalar values (no unpaired surrogates). Decoded imported values outside these limits are invalid frames. There are at most 48 events. Unknown/invalid operations have the behavior below. Each instance starts fresh. Hidden ordinary cases vary legal values; boundary cases emphasize equality, empty data and duplicates; adversarial cases reorder and conflict; shift cases use longer traces and more identities within the same contract. "
 
 _SPECS = {
 "s01": ("Causal idempotent inbox", ["identity", "ordering", "causality", "conservation"], "config={} . Every event is {id:string,seq:positive integer,delta:integer}. The inbox starts value=0,next=1. First-seen IDs with a free sequence at or above next are recorded permanently for this instance. Reuse of an ID with exactly its original seq/delta is duplicate; changed reuse is conflict. A new ID at a sequence already reserved is conflict, and a new ID below next is stale. Otherwise status=accepted; immediately apply every consecutively available sequence beginning at next, adding its delta exactly once. Output {status,value,next,pending}, where pending is ascending unapplied sequence numbers. Deduplication covers the complete instance, including applied operations; there is no time-based cleanup."),
@@ -125,7 +126,7 @@ def make_case(task_id, regime, seed):
     if task_id!="s04":
         names={};reserved={"receive","send","spend","ack","cancel","delta","snapshot","begin","chunk","finish","offer","accept","reset"}
         def name(x):
-            if x in reserved:return x
+            if x=="" or x in reserved:return x
             if x not in names:names[x]="v%06d"%r.randrange(1000000)+"_"+str(len(names))
             return names[x]
         def visit(x,user_map=False):
@@ -147,8 +148,23 @@ def _walk(head, graph):
     return chain, None if head is None else head
 
 _MISSING=object()
+def _json_equal(a,b):
+    """JSON typed equality: integral number notation is irrelevant, bool is not a number."""
+    def number(x):
+        return (type(x) is int and abs(x)<=9007199254740991 or
+                type(x) is float and math.isfinite(x) and x.is_integer() and abs(x)<=9007199254740991)
+    if a is None or b is None:return a is None and b is None
+    if type(a) is bool or type(b) is bool:return type(a) is bool and type(b) is bool and a==b
+    if type(a) in (int,float) or type(b) in (int,float):return number(a) and number(b) and a==b
+    if type(a) is str or type(b) is str:return type(a) is str and type(b) is str and a==b
+    if type(a) is list and type(b) is list:return len(a)==len(b) and all(_json_equal(x,y) for x,y in zip(a,b))
+    if type(a) is dict and type(b) is dict:
+        return (all(type(k) is str for k in a) and all(type(k) is str for k in b) and
+                a.keys()==b.keys() and all(_json_equal(a[k],b[k]) for k in a))
+    return False
+
 def _merge_ref(base,left,right,path):
-    eq=lambda a,b: a is b or (a is not _MISSING and b is not _MISSING and json.dumps(a,sort_keys=True,separators=(",",":"))==json.dumps(b,sort_keys=True,separators=(",",":")))
+    eq=lambda a,b: a is b or (a is not _MISSING and b is not _MISSING and _json_equal(a,b))
     if eq(left,right): return left,[]
     if eq(left,base): return right,[]
     if eq(right,base): return left,[]
@@ -418,7 +434,7 @@ def _audit(task, c, events):
     if task == "s08":
         x=events[-1];conflicts=[]
         # Tagged optional values avoid relying on the reference's missing sentinel.
-        def equal(a,b):return a[0]==b[0] and (not a[0] or json.dumps(a[1],sort_keys=True,separators=(",",":"))==json.dumps(b[1],sort_keys=True,separators=(",",":")))
+        def equal(a,b):return a[0]==b[0] and (not a[0] or _json_equal(a[1],b[1]))
         def visit(b,l,r,path):
             choices=[(equal(l,r),l),(equal(b,l),r),(equal(b,r),l)]
             for match,val in choices:
@@ -451,7 +467,7 @@ def check(task_id, case, outputs):
     if task_id not in _SPECS:raise ValueError("unknown task")
     for i,actual in enumerate(outputs):
         expected=_audit(task_id,case["config"],case["events"][:i+1])
-        if json.dumps(actual,sort_keys=True,separators=(",",":"),ensure_ascii=False)!=json.dumps(expected,sort_keys=True,separators=(",",":"),ensure_ascii=False):errors.append("event_%d_contract"%i)
+        if not _json_equal(actual,expected):errors.append("event_%d_contract"%i)
     return result(errors)
 
 _FAULTS={
@@ -476,9 +492,10 @@ def fault_cases(task_id):
     return out
 
 _JS_COMMON=r'''
+const lex=(a,b)=>{const x=Array.from(a),y=Array.from(b);for(let i=0;i<Math.min(x.length,y.length);i++){const d=x[i].codePointAt(0)-y[i].codePointAt(0);if(d)return d;}return x.length-y.length;};
 const own=(o,k)=>Object.prototype.hasOwnProperty.call(o,k);
 const put=(o,k,v)=>Object.defineProperty(o,k,{value:v,writable:true,enumerable:true,configurable:true});
-const canon=x=>x===undefined?'!absent':x===null?'null':Array.isArray(x)?'['+x.map(canon).join(',')+']':typeof x==='object'?'{'+Object.keys(x).sort().map(k=>JSON.stringify(k)+':'+canon(x[k])).join(',')+'}':JSON.stringify(x);
+const canon=x=>x===undefined?'!absent':x===null?'null':Array.isArray(x)?'['+x.map(canon).join(',')+']':typeof x==='object'?'{'+Object.keys(x).sort(lex).map(k=>JSON.stringify(k)+':'+canon(x[k])).join(',')+'}':JSON.stringify(x);
 const eq=(a,b)=>canon(a)===canon(b);
 '''
 
@@ -486,16 +503,16 @@ _JS={
 "s01":r'''if(!state)state={seen:{},slots:{},next:1,value:0};let status;const k=event.id,q=event.seq;
 if(own(state.seen,k))status=eq(state.seen[k],event)?'duplicate':'conflict';else if(own(state.slots,q))status='conflict';else if(q<state.next)status='stale';else{status='accepted';put(state.seen,k,event);put(state.slots,q,event.delta);while(own(state.slots,state.next)){state.value+=state.slots[state.next];delete state.slots[state.next++];}}
 return {state,output:{status,value:state.value,next:state.next,pending:Object.keys(state.slots).map(Number).sort((a,b)=>a-b)}};''',
-"s02":r'''if(!state)state={};const rank=x=>[x.version,x.deleted?1:0,x.actor,x.value];let newer=!own(state,event.key);if(!newer){const a=rank(event),b=rank(state[event.key]);for(let i=0;i<4;i++){if(a[i]!==b[i]){newer=a[i]>b[i];break;}}}if(newer)put(state,event.key,event);const visible={},tombstones=[];for(const k of Object.keys(state).sort()){if(state[k].deleted)tombstones.push(k);else put(visible,k,state[k].value);}return {state,output:{visible,tombstones}};''',
-"s03":r'''if(!state)state={graph:{},head:null};const g=JSON.parse(JSON.stringify(state.graph));let bad=false;for(const r of event.records){if(own(g,r.id)&&!eq(g[r.id],r))bad=true;else put(g,r.id,r);}if(!bad)state.graph=g;const walk=h=>{const p=[];while(h!==null&&own(state.graph,h)){p.push(h);h=state.graph[h].parent;}p.push(h);return p;};const a=walk(state.head),b=walk(event.head);const missing=[...new Set([a[a.length-1],b[b.length-1]].filter(x=>x!==null))].sort();let decision;if(bad)decision='conflict';else if(state.head===event.head)decision='same';else if(b.includes(state.head)){decision='advance';state.head=event.head;}else if(a.includes(event.head))decision='ahead';else decision=missing.length?'unknown':'fork';return {state,output:{head:state.head,decision,missing}};''',
+"s02":r'''if(!state)state={};const rank=x=>[x.version,x.deleted?1:0,x.actor,x.value];let newer=!own(state,event.key);if(!newer){const a=rank(event),b=rank(state[event.key]);for(let i=0;i<4;i++){if(a[i]!==b[i]){newer=a[i]>b[i];break;}}}if(newer)put(state,event.key,event);const visible={},tombstones=[];for(const k of Object.keys(state).sort(lex)){if(state[k].deleted)tombstones.push(k);else put(visible,k,state[k].value);}return {state,output:{visible,tombstones}};''',
+"s03":r'''if(!state)state={graph:{},head:null};const g=JSON.parse(JSON.stringify(state.graph));let bad=false;for(const r of event.records){if(own(g,r.id)&&!eq(g[r.id],r))bad=true;else put(g,r.id,r);}if(!bad)state.graph=g;const walk=h=>{const p=[];while(h!==null&&own(state.graph,h)){p.push(h);h=state.graph[h].parent;}p.push(h);return p;};const a=walk(state.head),b=walk(event.head);const missing=[...new Set([a[a.length-1],b[b.length-1]].filter(x=>x!==null))].sort(lex);let decision;if(bad)decision='conflict';else if(state.head===event.head)decision='same';else if(b.includes(state.head)){decision='advance';state.head=event.head;}else if(a.includes(event.head))decision='ahead';else decision=missing.length?'unknown':'fork';return {state,output:{head:state.head,decision,missing}};''',
 "s04":r'''if(!state)state={visible:{},open:null,staged:{},buf:[],drop:false,errors:0};const fail=()=>{state.open=null;state.staged={};state.errors++;};
 const utf8=bs=>{let s='';for(let i=0;i<bs.length;){let b=bs[i++],cp,n,min;if(b<128){cp=b;n=0;min=0;}else if(b>=194&&b<=223){cp=b&31;n=1;min=128;}else if(b>=224&&b<=239){cp=b&15;n=2;min=2048;}else if(b>=240&&b<=244){cp=b&7;n=3;min=65536;}else throw Error('utf8');for(let j=0;j<n;j++){if(i>=bs.length||bs[i]<128||bs[i]>191)throw Error('utf8');cp=cp*64+(bs[i++]&63);}if(cp<min||cp>1114111||(cp>=55296&&cp<=57343))throw Error('utf8');s+=String.fromCodePoint(cp);}return s;};
-const text=x=>typeof x==='string'&&Array.from(x).every(ch=>{const n=ch.codePointAt(0);return n<55296||n>57343;});const scalar=x=>x===null||typeof x==='boolean'||Number.isSafeInteger(x)||text(x);const frame=()=>{try{const f=JSON.parse(utf8(state.buf));state.buf=[];if(!f||Array.isArray(f)||typeof f!=='object')throw Error();const keys=Object.keys(f).sort().join(',');if(f.op==='begin'&&keys==='id,op'&&text(f.id)&&state.open===null){state.open=f.id;state.staged={};}else if(f.op==='put'&&keys==='key,op,value'&&text(f.key)&&scalar(f.value)&&state.open!==null)put(state.staged,f.key,f.value);else if(f.op==='commit'&&keys==='id,op'&&text(f.id)&&state.open===f.id){for(const k of Object.keys(state.staged))put(state.visible,k,state.staged[k]);state.open=null;state.staged={};}else if(f.op==='abort'&&keys==='op'){state.open=null;state.staged={};}else throw Error();}catch(e){state.buf=[];fail();}};
+const text=x=>typeof x==='string'&&Array.from(x).every(ch=>{const n=ch.codePointAt(0);return n<55296||n>57343;});const scalar=x=>x===null||typeof x==='boolean'||Number.isSafeInteger(x)||text(x);const frame=()=>{try{const f=JSON.parse(utf8(state.buf));state.buf=[];if(!f||Array.isArray(f)||typeof f!=='object')throw Error();const keys=Object.keys(f).sort(lex).join(',');if(f.op==='begin'&&keys==='id,op'&&text(f.id)&&state.open===null){state.open=f.id;state.staged={};}else if(f.op==='put'&&keys==='key,op,value'&&text(f.key)&&scalar(f.value)&&state.open!==null)put(state.staged,f.key,f.value);else if(f.op==='commit'&&keys==='id,op'&&text(f.id)&&state.open===f.id){for(const k of Object.keys(state.staged))put(state.visible,k,state.staged[k]);state.open=null;state.staged={};}else if(f.op==='abort'&&keys==='op'){state.open=null;state.staged={};}else throw Error();}catch(e){state.buf=[];fail();}};
 if(event.type==='finish'){if(state.buf.length)fail();state.buf=[];state.drop=false;if(state.open!==null)fail();}else for(const b of event.bytes){if(state.drop){if(b===10)state.drop=false;continue;}if(b===10)frame();else{state.buf.push(b);if(state.buf.length>config.maxBytes){state.buf=[];state.drop=true;fail();}}}return {state,output:{visible:state.visible,open:state.open,buffered:state.buf.length,errors:state.errors}};''',
-"s05":r'''if(!state)state={available:config.initial,spent:0,spends:{},sends:{},received:{}};const t=event.type,k=event.id;let status='ignored';if(t==='receive'){if(!own(config.grants,k)||config.grants[k]!==event.amount)status='invalid';else if(own(state.received,k))status='duplicate';else{put(state.received,k,true);state.available+=event.amount;status='accepted';}}else if(t==='spend'||t==='send'){const book=t==='spend'?state.spends:state.sends;if(own(book,k))status=book[k].amount===event.amount?'duplicate':'conflict';else if(state.available<event.amount)status='insufficient';else{put(book,k,{amount:event.amount,status:'pending'});state.available-=event.amount;if(t==='spend')state.spent+=event.amount;status='accepted';}}else if(own(state.sends,k)&&state.sends[k].status==='pending'){state.sends[k].status=t;status='accepted';if(t==='cancel')state.available+=state.sends[k].amount;}return {state,output:{status,available:state.available,spent:state.spent,pending:Object.keys(state.sends).filter(k=>state.sends[k].status==='pending').sort(),received:Object.keys(state.received).sort()}};''',
+"s05":r'''if(!state)state={available:config.initial,spent:0,spends:{},sends:{},received:{}};const t=event.type,k=event.id;let status='ignored';if(t==='receive'){if(!own(config.grants,k)||config.grants[k]!==event.amount)status='invalid';else if(own(state.received,k))status='duplicate';else{put(state.received,k,true);state.available+=event.amount;status='accepted';}}else if(t==='spend'||t==='send'){const book=t==='spend'?state.spends:state.sends;if(own(book,k))status=book[k].amount===event.amount?'duplicate':'conflict';else if(state.available<event.amount)status='insufficient';else{put(book,k,{amount:event.amount,status:'pending'});state.available-=event.amount;if(t==='spend')state.spent+=event.amount;status='accepted';}}else if(own(state.sends,k)&&state.sends[k].status==='pending'){state.sends[k].status=t;status='accepted';if(t==='cancel')state.available+=state.sends[k].amount;}return {state,output:{status,available:state.available,spent:state.spent,pending:Object.keys(state.sends).filter(k=>state.sends[k].status==='pending').sort(lex),received:Object.keys(state.received).sort(lex)}};''',
 "s06":r'''if(!state)state={version:config.version,value:config.value,acknowledged:-1,latch:false};let need=false,effects=[];if(event.type==='delta'){if(event.base===state.version&&event.version>event.base){state.version=event.version;state.value+=event.delta;state.latch=false;}else if(event.version>state.version)need=true;}else if(event.type==='snapshot'){if(event.version>state.version){state.version=event.version;state.value=event.value;state.latch=false;}else if(event.version===state.version&&event.value!==state.value)need=true;}else if(event.version===state.version)state.acknowledged=state.version;if(need&&!state.latch){effects=[{type:'snapshot',base:state.version}];state.latch=true;}return {state,output:{version:state.version,value:state.value,acknowledged:state.acknowledged,effects}};''',
 "s07":r'''if(!state)state={id:null,length:0,bytes:{}};let status='ignored',data=null;if(event.type==='begin'){if(!Number.isInteger(event.length)||event.length<0||event.length>config.maxLength)status='invalid';else if(state.id===event.id&&state.length!==event.length)status='conflict';else{if(state.id!==event.id)state={id:event.id,length:event.length,bytes:{}};status='ok';}}else if(state.id!==null&&state.id===event.id){if(event.type==='finish'){status=Object.keys(state.bytes).length===state.length?'complete':'incomplete';if(status==='complete')data=Array.from({length:state.length},(_,i)=>state.bytes[i]);}else{const b=event.bytes,o=event.offset;if(!Number.isInteger(o)||o<0||o+b.length>state.length||b.some(x=>!Number.isInteger(x)||x<0||x>255)||b.reduce((a,x)=>a+x,0)%251!==event.checksum)status='invalid';else if(b.some((x,i)=>own(state.bytes,o+i)&&state.bytes[o+i]!==x))status='conflict';else{b.forEach((x,i)=>put(state.bytes,o+i,x));status='ok';}}}return {state,output:{status,id:state.id,received:Object.keys(state.bytes).length,data}};''',
-"s08":r'''const conflicts=[];const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);const merge=(b,l,r,p)=>{if(eq(l,r))return l;if(eq(l,b))return r;if(eq(r,b))return l;if(obj(l)&&obj(r)&&(b===undefined||obj(b))){const out={},base=b||{};for(const k of [...new Set([...Object.keys(base),...Object.keys(l),...Object.keys(r)])].sort()){const value=merge(own(base,k)?base[k]:undefined,own(l,k)?l[k]:undefined,own(r,k)?r[k]:undefined,p.concat(k));if(value!==undefined)put(out,k,value);}return out;}conflicts.push(p);return b;};return {state:null,output:{merged:merge(event.base,event.local,event.remote,[]),conflicts}};''',
+"s08":r'''const conflicts=[];const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);const merge=(b,l,r,p)=>{if(eq(l,r))return l;if(eq(l,b))return r;if(eq(r,b))return l;if(obj(l)&&obj(r)&&(b===undefined||obj(b))){const out={},base=b||{};for(const k of [...new Set([...Object.keys(base),...Object.keys(l),...Object.keys(r)])].sort(lex)){const value=merge(own(base,k)?base[k]:undefined,own(l,k)?l[k]:undefined,own(r,k)?r[k]:undefined,p.concat(k));if(value!==undefined)put(out,k,value);}return out;}conflicts.push(p);return b;};return {state:null,output:{merged:merge(event.base,event.local,event.remote,[]),conflicts}};''',
 "dev-s01":r'''if(!state)state={pending:null,connected:null};if(event.type==='offer')state={pending:event.token,connected:null};else if(event.type==='reset')state={pending:null,connected:null};else if(state.pending===event.token)state={pending:null,connected:event.token};return {state,output:state};''',
 "dev-s02":r'''if(!state)state={pair:[config.a,config.b]};const accepted=eq(state.pair,event.expect);if(accepted)state.pair=event.replace;return {state,output:{accepted,pair:state.pair}};'''}
 

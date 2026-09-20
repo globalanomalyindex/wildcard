@@ -1,8 +1,9 @@
 """Pure controller traces: executable behavior, not rendered or user-tested UX."""
 import json
+import math
 from .common import cloned, rng_for, result, check_count, REGIMES
 
-_COMMON=" Return one output per event. State is opaque JSON, initially null. Output objects have exactly the documented keys; object key order is irrelevant, array order is significant. IDs are nonempty ASCII strings. Values are JSON scalars unless stated otherwise. Inputs have at most 48 events and eight simultaneous identities. Ordinary instances vary values; boundary instances emphasize empty/disabled/equality/no-op states; adversarial instances reorder callbacks and interleave edits; shift instances use longer traces/more identities within the same rules. These tasks test controller state/effects only, not visual quality, browser integration or screen-reader usability. "
+_COMMON=" Return one output per event. State is opaque JSON, initially null. Output objects have exactly the documented keys; object key order is irrelevant, array order is significant. IDs are nonempty ASCII strings. Values are JSON scalars unless stated otherwise. Numeric values and intermediate arithmetic are safe integers; integral JSON notations such as 1 and 1.0 denote the same number, while booleans are distinct. Strings contain Unicode scalar values without unpaired surrogates. Inputs have at most 48 events and eight simultaneous identities. Ordinary instances vary values; boundary instances emphasize empty/disabled/equality/no-op states; adversarial instances reorder callbacks and interleave edits; shift instances use longer traces/more identities within the same rules. These tasks test controller state/effects only, not visual quality, browser integration or screen-reader usability. "
 _SPECS={
 "u01":("Latest-request search controller",["identity","ordering","visibility","causality"],"config={} . Initially mounted=true,query='',current=null,loading=false,result=null,error=null. search={type:'search',id,query} while mounted cancels a loading current request (effect {type:'cancel',id}), sets the new query/current, loading=true,error=null and emits {type:'request',id,query}; prior result remains visible. Issued IDs are unique within an instance, queries may repeat. success={type:'success',id,result} or failure={type:'failure',id,error} only settles a mounted, loading, matching current request. Success replaces result and clears error; failure sets error and retains result. Both stop loading. cancel stops a loading request and emits its cancel effect, clears current and error, retaining query/result. dispose does the same cancellation then resets all data to initial values except mounted=false. mount resets to initial mounted state only when previously disposed. All other events while disposed are ignored. Output {mounted,query,current,loading,result,error,effects}; effects occur only on the current event, in cancel-before-request order. Late errors after success are ignored."),
 "u02":("Scoped timeline state editing",["propagation","visibility","ordering","isolation"],"config={frames:[unique IDs],initial:object}. Maintain each frame's persistent patch, one-frame patch and optional full snapshot. edit={type:'edit',id,scope:'persistent'|'one',key,value} sets that patch field; snapshot={type:'snapshot',id,values:object} replaces that frame with a full snapshot and clears BOTH patches. insert={type:'insert',after:null|ID,id:new ID} inserts an empty frame at start when after=null, otherwise immediately after a known frame; missing after or duplicate new ID is ignored. Edits to unknown IDs are ignored. Expand in current frame order from initial: apply a frame's snapshot if present, then its persistent patch to the carried state; display a copy with its one-frame patch applied. Carry does NOT include the one-frame patch. A snapshot is the boundary of earlier persistent scope. Output {frames:[{id,values}]} in current order. Explicit 0 and null are stored values; object edits never delete fields. Insertions inherit the then-current preceding carried state."),
@@ -107,7 +108,7 @@ def make_case(task_id,regime,seed):
         events.insert(r.randrange(len(events)+1),extra)
     names={};reserved={"search","success","failure","cancel","dispose","mount","edit","snapshot","insert","persistent","one","element","open","close","complete","observe","ack","mode","options","key","click","ArrowDown","ArrowUp","Home","End","Enter","submit","set","delete","begin","commit","undo","redo","view","step","toggle"}
     def name(x):
-        if x in reserved:return x
+        if x=="" or x in reserved:return x
         if x not in names:names[x]="v%06d"%r.randrange(1000000)+"_"+str(len(names))
         return names[x]
     def visit(x,user_map=False):
@@ -120,7 +121,22 @@ def make_case(task_id,regime,seed):
 
 def public_cases(task_id):return [{"id":"p"+str(i+1),**make_case(task_id,x,201+i)} for i,x in enumerate(REGIMES)]
 
-def _equal(a,b):return json.dumps(a,sort_keys=True,separators=(",",":"))==json.dumps(b,sort_keys=True,separators=(",",":"))
+def _json_equal(a,b):
+    """JSON typed equality: integral number notation is irrelevant, bool is not a number."""
+    def number(x):
+        return (type(x) is int and abs(x)<=9007199254740991 or
+                type(x) is float and math.isfinite(x) and x.is_integer() and abs(x)<=9007199254740991)
+    if a is None or b is None:return a is None and b is None
+    if type(a) is bool or type(b) is bool:return type(a) is bool and type(b) is bool and a==b
+    if type(a) in (int,float) or type(b) in (int,float):return number(a) and number(b) and a==b
+    if type(a) is str or type(b) is str:return type(a) is str and type(b) is str and a==b
+    if type(a) is list and type(b) is list:return len(a)==len(b) and all(_json_equal(x,y) for x,y in zip(a,b))
+    if type(a) is dict and type(b) is dict:
+        return (all(type(k) is str for k in a) and all(type(k) is str for k in b) and
+                a.keys()==b.keys() and all(_json_equal(a[k],b[k]) for k in a))
+    return False
+
+def _equal(a,b):return _json_equal(a,b)
 def reference(task_id,case):
     if task_id not in _SPECS:raise ValueError("unknown task")
     c=case["config"];outputs=[];s={}

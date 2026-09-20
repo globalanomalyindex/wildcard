@@ -102,6 +102,87 @@ class SyncUIBenchmarkTests(unittest.TestCase):
         self.assertTrue(sync.check("s08",case,expected)["passed"])
         self.assertEqual(run_cases(sync.reference_source("s08"),[case])[0]["outputs"],expected)
 
+    def test_sync_unicode_sorting_uses_scalar_code_points(self):
+        # U+E000 precedes U+1F642 by scalar value. JavaScript's default sort
+        # instead compares UTF-16 code units and puts the surrogate pair first.
+        keys = ["\ue000", "🙂"]
+        cases = {
+            "s02": {"config": {}, "events": [
+                {"key": key, "version": 1, "actor": "a", "deleted": True, "value": ""}
+                for key in reversed(keys)
+            ]},
+            "s05": {"config": {"initial": 0, "grants": {key: 1 for key in keys}}, "events": [
+                {"type": "receive", "id": key, "amount": 1} for key in reversed(keys)
+            ]},
+            "s08": {"config": {}, "events": [{
+                "base": {key: 0 for key in keys},
+                "local": {key: 1 for key in keys},
+                "remote": {key: 2 for key in keys},
+            }]},
+        }
+        expected_fields = {
+            "s02": ("tombstones", keys),
+            "s05": ("received", keys),
+            "s08": ("conflicts", [[key] for key in keys]),
+        }
+        for task_id, case in cases.items():
+            with self.subTest(task=task_id):
+                expected = sync.reference(task_id, case)
+                key, value = expected_fields[task_id]
+                self.assertEqual(expected[-1][key], value)
+                self.assertTrue(sync.check(task_id, case, expected)["passed"])
+                execution = run_cases(sync.reference_source(task_id), [case])[0]
+                self.assertEqual(execution["status"], "success", execution)
+                self.assertEqual(execution["outputs"][-1][key], value)
+                self.assertTrue(sync.check(task_id, case, execution["outputs"])["passed"])
+
+    def test_tombstone_generator_preserves_required_empty_value(self):
+        cases = sync.public_cases("s02") + [
+            sync.make_case("s02", regime, seed)
+            for regime in REGIMES for seed in range(32)
+        ]
+        for case in cases:
+            for event in case["events"]:
+                self.assertIs(type(event["deleted"]), bool)
+                self.assertGreaterEqual(event["version"], 0)
+                self.assertTrue(event["actor"].isascii())
+                self.assertTrue(event["value"].isascii())
+                if event["deleted"]:
+                    self.assertEqual(event["value"], "")
+
+    def test_integral_json_number_notation_does_not_create_a_change(self):
+        cases = [
+            (ui, "u07", {"config": {"initial": {"x": 1}, "limit": 2},
+                          "events": [{"type": "set", "key": "x", "value": 1.0}]},
+             [{"document": {"x": 1}, "canUndo": False, "canRedo": False, "depth": 0}]),
+            (sync, "s08", {"config": {}, "events": [
+                {"base": {"x": 1}, "local": {"x": 1.0}, "remote": {"x": 2}},
+                {"base": {"x": False}, "local": {"x": 0}, "remote": {"x": True}}]},
+             [{"merged": {"x": 2}, "conflicts": []}, {"merged": {"x": False}, "conflicts": [["x"]]}]),
+        ]
+        for family, task_id, case, expected in cases:
+            with self.subTest(task=task_id):
+                self.assertEqual(family.reference(task_id, case), expected)
+                self.assertTrue(family.check(task_id, case, expected)["passed"])
+                execution = run_cases(family.reference_source(task_id), [case])[0]
+                self.assertEqual(execution["status"], "success", execution)
+                self.assertEqual(execution["outputs"], expected)
+                self.assertTrue(family.check(task_id, case, execution["outputs"])["passed"])
+
+    def test_output_json_numbers_stay_distinct_from_booleans(self):
+        for family, task_id, case in [
+            (sync, "s06", {"config": {"version": 0, "value": 1.0}, "events": [{"type": "ack", "version": 0}]}),
+            (ui, "dev-u01", {"config": {"min": 0, "max": 2, "value": 1}, "events": [{"type": "step", "amount": 0}]}),
+        ]:
+            correct = family.reference(task_id, case)
+            equivalent = cloned(correct)
+            equivalent[0]["value"] = 1.0
+            self.assertTrue(family.check(task_id, case, equivalent)["passed"])
+            for wrong_value in (True, 1.25, float("nan"), float("inf")):
+                wrong = cloned(correct)
+                wrong[0]["value"] = wrong_value
+                self.assertFalse(family.check(task_id, case, wrong)["passed"])
+
     def test_byte_import_split_unicode_and_atomic_conflicting_chunk(self):
         frames=[{"op":"begin","id":"a"},{"op":"put","key":"🦊","value":"café"},{"op":"commit","id":"a"}]
         blob=sum((sync._line(f) for f in frames),[])
