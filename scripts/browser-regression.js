@@ -21,8 +21,15 @@ async (page) => {
     if (!nativeClipboard) Object.defineProperty(navigator, 'clipboard', { configurable: true,
       value: { writeText: async value => { window.__regressionClipboard = value; } } });
   }, { nativeClipboard });
-  const go = async path => { await page.goto(options.base+path); };
+  const go = async path => {
+    await page.goto(options.base+path);
+    // Same-document hash navigation can resolve before the router runs,
+    // particularly in Firefox. Wait for the requested view before probing it.
+    if (path.startsWith('/case-study/')) await page.locator('#'+(path.split('#')[1]||'overview')).waitFor({state:'visible'});
+  };
   const ready = () => page.waitForFunction(() => document.querySelector('#draw-copy') && !document.querySelector('#draw-copy').disabled);
+  const studyReady = () => page.waitForFunction(() => !document.querySelector('#experiment-workbench').hidden);
+  const expand = async summary => { if (!await summary.evaluate(el=>el.parentElement.open)) await summary.click(); };
   const receipt = () => page.locator('#receipt-text').textContent().then(JSON.parse);
   const urlSeed = () => page.evaluate(() => new URL(location.href).searchParams.get('seed'));
   const clipboard = () => page.evaluate(native => native ? navigator.clipboard.readText() : window.__regressionClipboard, nativeClipboard);
@@ -89,6 +96,7 @@ async (page) => {
     for (const view of ['landing','overview','methods','install','evidence','experiment']) {
       await go(view === 'landing' ? '/?seed=42&sampler=sha256-counter-v2' : '/case-study/#'+view);
       if (view === 'landing') await ready();
+      else if (options.hasStudy) await studyReady();
       const geometry = await page.evaluate(() => ({w:document.documentElement.scrollWidth, client:document.documentElement.clientWidth}));
       check(geometry.w <= geometry.client+1, view+' has no document overflow at '+width);
       if (width === 320) {
@@ -116,7 +124,7 @@ async (page) => {
       const query = '?spacing-qa='+width+'-'+height+'-'+view;
       await go(view === 'landing' ? '/'+query+'&seed=42&sampler=sha256-counter-v2' : '/case-study/'+query+'#'+view);
       if (view === 'landing') await ready();
-      else if (view === 'experiment' && options.hasStudy) await page.locator('#experiment-workbench').waitFor({state:'visible'});
+      else if (options.hasStudy) await studyReady();
       await page.evaluate(() => {
         const sheet = [...document.styleSheets].find(s=>s.href?.includes('tokens.css'));
         sheet.insertRule('* {line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important}',sheet.cssRules.length);
@@ -153,11 +161,28 @@ async (page) => {
     await go('/case-study/#experiment');
     await page.locator('#experiment-workbench').waitFor({state:'visible'});
     const study = await page.evaluate(async () => (await fetch('../data/transfer-study.json')).json());
-    check(study.complete && study.cohort === 'main' && study.nTasks === 32, 'actual main artifact is complete');
+    check(study.complete && study.cohort === 'main' && study.nTasks === 32 && study.perProblem.length === 32 && study.measurementPanel === 'remeasurement' && study.originalPrimaryStatus === 'halted', 'actual main artifact preserves the amended panel and original halt');
     const arms = ['S','R','LR','XR'];
+    await page.evaluate(task=>{
+      const replace=history.replaceState;
+      window.__urlWrites=[];window.__restoreHistory=()=>{history.replaceState=replace;};
+      history.replaceState=function(...args){window.__urlWrites.push(performance.now());return replace.apply(this,args);};
+      const select=document.querySelector('#condition-left');
+      for(let i=0;i<160;i++){select.value=i%2?'R':'S';select.dispatchEvent(new Event('change',{bubbles:true}));}
+      select.value='XR';select.dispatchEvent(new Event('change',{bubbles:true}));
+      const right=document.querySelector('#condition-right');right.value='S';right.dispatchEvent(new Event('change',{bubbles:true}));
+      const tasks=document.querySelector('#task-select');tasks.value=task;tasks.dispatchEvent(new Event('change',{bubbles:true}));
+      location.hash='methods';
+    },study.perProblem.at(-1).taskId);
+    check(await page.locator('#task-title').textContent() === study.perProblem.at(-1).task.title, 'rapid selections render the latest task immediately');
+    await page.waitForFunction(task=>{const p=new URL(location.href).searchParams;return p.get('task')===task && p.get('left')==='XR' && p.get('right')==='S' && location.hash==='#methods';},study.perProblem.at(-1).taskId);
+    check(await page.evaluate(()=>window.__urlWrites.length<=2), 'rapid selections coalesce history and preserve the current view');
+    await page.evaluate(()=>window.__restoreHistory());
+    await go('/case-study/#experiment');await studyReady();
     for (const row of study.perProblem) {
       await page.locator('#task-select').selectOption(row.taskId);
       check(await page.locator('#task-title').textContent() === row.task.title, 'actual task title '+row.taskId);
+      check(await page.locator('#task-source-fact').textContent() === 'source fact: '+row.assignedCard.source_fact && await page.locator('#task-source-note').textContent() === row.assignedCard.source_note, 'source facts preserve recorded text '+row.taskId);
       for (const [index,arm] of arms.entries()) {
         await page.locator('#condition-left').selectOption(arm);
         const other = arms[(index+1)%arms.length];
@@ -167,6 +192,10 @@ async (page) => {
           titles:[...document.querySelectorAll('#'+side+'-actions>li>h3')].map(el=>el.textContent),
           text:document.querySelector('#'+side+'-actions').textContent
         }])));
+        // The interface renders immediately and coalesces URL writes at 150ms.
+        // Wait for real convergence rather than adding an arbitrary test delay.
+        await page.waitForFunction(({task,arm,other})=>{const p=new URL(location.href).searchParams;return p.get('task')===task && p.get('left')===arm && p.get('right')===other;},{task:row.taskId,arm,other});
+        check(true, 'comparison URL matches rendered selection '+row.taskId+'/'+arm);
         for (const [side,selected] of [['left',arm],['right',other]]) {
           const expected = row.arms[selected], actual = rendered[side];
           check(actual.score.startsWith(expected.score.qnm.toFixed(1)+' QNM@4'), 'actual score adapter '+row.taskId+'/'+selected+'/'+side);
@@ -179,6 +208,45 @@ async (page) => {
     await page.locator('.case-nav a[href="#evidence"]').click();
     check(!(await page.locator('#primary-result').textContent()).includes('p=0.0000'), 'positive p-value never rounded tozero');
     check(await page.locator('#primary-chart title').count() === 1, 'result chart has accessible explanation');
+    check((await page.locator('#primary-result').textContent()).includes('original primary halted'), 'result discloses original measurement halt');
+    check(await page.locator('#brief-effects button').count() === study.nTasks, 'all task effects have an inspectable button');
+    await page.locator('#brief-effects button').last().click();
+    check(await page.locator('#task-select').inputValue() === study.perProblem.at(-1).taskId && await page.locator('#condition-left').inputValue() === 'R' && await page.locator('#condition-right').inputValue() === 'LR', 'task effect opens the matching named comparison');
+    await page.locator('.case-nav a[href="#methods"]').click();
+    check((await page.locator('#diagnostic-summary').textContent()).includes(study.diagnosticSummary.passedPairs+'/'+study.diagnosticSummary.pairs), 'diagnostic summary matches the exact contract count');
+    await expand(page.locator('#diagnostic-summary'));
+    check(await page.locator('#diagnostic-results>details').count() === study.diagnostics.length, 'all diagnostic pairs are inspectable');
+    for (const [i,fixture] of study.diagnostics.entries()) {
+      const detail=page.locator('#diagnostic-results>details').nth(i);
+      await expand(detail.locator('summary'));
+      const text=await detail.textContent();
+      check(fixture.variants.every(v=>text.includes('expected trace: '+JSON.stringify(v.expectedTrace)) && text.includes('observed trace: '+JSON.stringify(v.result?.trace ?? null))), 'diagnostic expected and observed traces '+fixture.id);
+    }
+    // The longest recorded source explanation exercises expanded reading flow,
+    // rather than assuming the initially selected brief has the largest content.
+    const longest=study.perProblem.reduce((a,b)=>JSON.stringify(a.assignedCard).length>JSON.stringify(b.assignedCard).length?a:b);
+    for (const width of [1440,320]) {
+      await page.setViewportSize({width,height:width===320?800:1024});
+      for (const view of ['evidence','methods','experiment']) {
+        await go('/case-study/?task='+longest.taskId+'&left=R&right=LR#'+view); await studyReady();
+        if (view === 'experiment') {
+          await expand(page.locator('.relation-card summary'));
+          await expand(page.locator('#left-actions>li>details>summary').first());
+          await expand(page.locator('#right-actions>li>details>summary').first());
+          check(await page.locator('#task-source-fact').isVisible() && await page.locator('#task-source-note').isVisible(), 'expanded source evidence is visible at'+width);
+        } else if (view === 'methods') {
+          await expand(page.locator('#diagnostic-summary'));
+          await expand(page.locator('#diagnostic-results>details>summary').first());
+        }
+        check(await page.evaluate(() => document.documentElement.scrollWidth<=innerWidth+1), 'expanded actual '+view+' has no overflow at'+width);
+        await page.locator('.case-footer').scrollIntoViewIfNeeded();
+        check(await page.locator('.case-footer').evaluate(el=>{const b=el.getBoundingClientRect();return b.top>=-1 && b.bottom<=innerHeight+1;}), 'expanded actual '+view+' footer reachable at'+width);
+        if (options.browser !== 'webkit') {
+          await page.evaluate(()=>window.scrollTo(0,0));
+          await page.screenshot({path:options.output+'/actual-'+view+'-'+width+'.png',fullPage:true});
+        }
+      }
+    }
     studyStatus = 'all 32 actual tasks and four arms checked in both comparison columns';
   } else {
     await go('/case-study/#experiment');
@@ -190,7 +258,7 @@ async (page) => {
   check(cspErrors.length === 0, 'CSP permits required assets: '+cspErrors.join('; '));
   const result = {passed:true,browser:options.browser,version:page.context().browser().version(),checks,study:studyStatus,
     accessibility:'CSSOM text spacing and viewport reflow emulation; not native browser zoom or assistive-technology certification',
-    screenshots:options.browser === 'webkit'?'omitted: Playwright screenshot injection conflicts with restrictive CSP':'landing and overview at four sizes',
+    screenshots:options.browser === 'webkit'?'omitted: Playwright screenshot injection conflicts with restrictive CSP':'landing and overview at four sizes; actual results, expanded methods and expanded comparison at desktop and mobile when data exists',
     clipboard:nativeClipboard?'native Chromium clipboard read/write':'export-value shim; native OS clipboard not tested'};
   return result;
 }

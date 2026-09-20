@@ -1,4 +1,5 @@
 import historical from './evidence-data.js';
+import {createSelectionUrlCommitter} from './selection-url.js';
 
 const $ = id => document.getElementById(id);
 const views = ['overview','experiment','evidence','methods','install'];
@@ -36,6 +37,7 @@ const signed = (n, digits=3) => (n>0?'+':'')+n.toFixed(digits);
 const pValue = p => p < .0001 ? '<0.0001' : '='+p.toFixed(4);
 const github = path => 'https://github.com/globalanomalyindex/wildcard/blob/main/'+path.split('/').map(encodeURIComponent).join('/');
 let study, index = 0;
+const commitSelectionUrl = createSelectionUrlCommitter();
 
 function renderAction(action) {
   const item = node('li');
@@ -50,7 +52,10 @@ function renderAction(action) {
     const matched = action.globallyBankMatched[judge];
     const description = `${judge} · ${qualified?'qualified':'not qualified'} · ${matched?'mechanism found in baseline bank':'no baseline match recorded'}`;
     const report = node('div',undefined,'rating-note');
-    report.append(node('p',description),node('p',rating.reason)); details.append(report);
+    report.append(node('p',description),node('p',rating.reason));
+    report.append(node('p',`mechanism group: ${rating.mechanism_group}. direct bank reference: ${rating.baseline_match ?? 'none'}.`));
+    if (matched && rating.baseline_match === null) report.append(node('p','another candidate in this judge’s same mechanism group matches the bank, so the group is counted as non-new throughout this brief.'));
+    details.append(report);
   }
   item.append(details); return item;
 }
@@ -80,13 +85,15 @@ function renderTask() {
   $('task-constraints').replaceChildren(...[...task.constraints,...(task.success_criteria || []).map(v=>'success check: '+v)].map(v=>node('li',v)));
   $('task-relation').textContent = row.assignedCard.relation;
   $('task-boundary').textContent = row.assignedCard.boundary;
+  $('task-source-fact').textContent = 'source fact: '+row.assignedCard.source_fact;
+  $('task-source-note').textContent = row.assignedCard.source_note;
   $('task-sources').replaceChildren(...row.assignedCard.source_urls.map((url,i)=>{
     const a=node('a',`source ${i+1}: ${new URL(url).hostname}`);a.href=url;return a;
   }));
   $('bank-summary').textContent = `inspect the independent reference bank · ${row.bank.realizedActions} actions`;
   $('bank-actions').replaceChildren(...row.bank.actions.map(action=>{
     const item=node('li');item.append(node('h3',action.action),node('p',action.mechanism));
-    const details=node('details');details.append(node('summary','implementation, check & risk'));
+    const details=node('details');details.append(node('summary','implementation, check & risk'),node('p','reference id: '+action.id));
     for (const key of ['implementation','check','risk']) details.append(node('p',key+': '+action[key]));
     item.append(details);return item;
   }));
@@ -97,7 +104,7 @@ function renderTask() {
     const a=node('a',`${judge} complete evaluation ↗`,'mono-link');a.href=github(sources.find(s=>s.path.endsWith('/response.txt')).path);return a;
   }));
   renderCondition('left',row);renderCondition('right',row);
-  const url = new URL(location.href);url.searchParams.set('task',row.taskId);url.searchParams.set('left',$('condition-left').value);url.searchParams.set('right',$('condition-right').value);history.replaceState(null,'',url);
+  commitSelectionUrl({task:row.taskId,left:$('condition-left').value,right:$('condition-right').value});
 }
 function chart(primary) {
   const ns = 'http://www.w3.org/2000/svg';
@@ -119,13 +126,14 @@ function renderResults() {
   const p=study.analysis.primary;
   const verdict=p.directionalEvidence==='positive'?'the named relation produced more baseline-relative new mechanisms.':p.directionalEvidence==='negative'?'the named relation produced fewer baseline-relative new mechanisms.':'the study did not resolve an advantage from naming the donor.';
   const result=$('primary-result'); result.replaceChildren(node('p',verdict));
+  result.append(node('p','amended measurement: the original primary halted after an invalid judge block. all 64 blocks were remeasured under a published instrument correction.','result-details'));
   result.append(node('p',`${signed(p.difference)} QNM@4 · 95% interval [${signed(p.ci95[0])}, ${signed(p.ci95[1])}] · paired mean sign-flip p${pValue(p.test.p)}`,'result-details'));
   result.append(node('p',`named relation: ${p.meanX.toFixed(3)} · relation only: ${p.meanY.toFixed(3)}. ${study.nTasks} paired briefs. a null result is not evidence of equivalence.`,'result-details'));
   chart(p);
   const table=node('table');table.append(node('caption','all four conditions · mean mechanisms per set of up to four actions'));
   const head=node('thead'),tr=node('tr');for(const title of ['condition','QNM@4','QDM@4','valid sets']){const th=node('th',title);th.scope='col';tr.append(th);}head.append(tr);table.append(head);
   const body=node('tbody');for(const arm of ['S','R','LR','XR']){const row=node('tr'),th=node('th',arm);th.scope='row';const valid=study.perProblem.filter(r=>['success','abstention'].includes(r.arms[arm].status)).length;row.append(th,node('td',study.analysis.descriptive[arm].means.qnm.toFixed(3)),node('td',study.analysis.descriptive[arm].means.qdm.toFixed(3)),node('td',`${valid}/${study.nTasks}`));body.append(row);}table.append(body);result.append(table);
-  result.append(node('p','invalid responses score zero in the main estimate. valid sets include explicit abstentions; they are not a quality guarantee.','result-details'));
+  result.append(node('p','invalid generation responses score zero in the main estimate. valid sets include explicit abstentions; they are not a quality guarantee.','result-details'));
   const effects=$('brief-effects');effects.replaceChildren(node('h2','every brief. the same comparison.'),node('p','named relation minus relation only, in QNM@4. each value averages the two judges. select a brief to inspect its actions; individual differences are descriptive.'));
   const groups=node('div',undefined,'brief-families');
   for (const family of [...new Set(study.perProblem.map(r=>r.task.family))]) {
@@ -141,13 +149,26 @@ function renderResults() {
     group.append(list);groups.append(group);
   }
   effects.append(groups);effects.hidden=false;
+  $('diagnostic-summary').textContent = `separate counterfactual checks · ${study.diagnosticSummary.passedPairs}/${study.diagnosticSummary.pairs} pairs passed the exact contract`;
+  $('diagnostic-results').replaceChildren(...study.diagnostics.map(fixture=>{
+    const details=node('details');details.append(node('summary',`${fixture.id} · ${fixture.title} · ${fixture.pairPassed?'pass':'exact-match failure'}`));
+    for (const variant of fixture.variants) {
+      details.append(node('h3',`variant ${variant.variant} · ${variant.passed?'pass':'exact-match failure'}`));
+      details.append(node('p',`expected decision: ${variant.expectedDecision}. expected trace: ${JSON.stringify(variant.expectedTrace)}`));
+      details.append(node('p',`observed decision: ${variant.result?.decision ?? variant.status}. observed trace: ${JSON.stringify(variant.result?.trace ?? null)}`));
+      if (variant.result) details.append(node('p',variant.result.action),node('p',variant.result.explanation));
+      const link=node('a','open recorded diagnostic ↗','mono-link');link.href=github(variant.source.path);details.append(link);
+    }
+    return details;
+  }));
+  $('diagnostic-inspector').hidden=false;
 }
 async function loadStudy() {
   try {
     const response = await fetch('../data/transfer-study.json');
     if (!response.ok) throw new Error('study artifact unavailable');
     const value=await response.json();
-    if (!value.complete || value.cohort!=='main' || value.nTasks!==32 || value.perProblem.length!==32) throw new Error('study artifact is incomplete');
+    if (!value.complete || value.cohort!=='main' || value.nTasks!==32 || value.perProblem.length!==32 || value.measurementPanel!=='remeasurement' || value.originalPrimaryStatus!=='halted') throw new Error('study artifact is incomplete');
     study=value;
     for (const row of study.perProblem) {const option=node('option',`${row.taskId} · ${row.task.title}`);option.value=row.taskId;$('task-select').append(option);}
     const params=new URLSearchParams(location.search);
