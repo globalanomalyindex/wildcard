@@ -107,7 +107,7 @@ def execute_case(source,case):
             if time.process_time()-cpu_start>.2: raise ValueError('trace CPU limit')
         return {'status':'success','outputs':outputs,'elapsedSeconds':round(time.monotonic()-start,6)}
     except (Exception,MemoryError) as error:
-        return {'status':'runtime_error','outputs':None,'processedEvents':len(outputs),'error':str(error)[:1200],'elapsedSeconds':round(time.monotonic()-start,6)}
+        return {'status':'runtime_error','outputs':outputs,'processedEvents':len(outputs),'error':str(error)[:1200],'elapsedSeconds':round(time.monotonic()-start,6)}
 
 
 def contract_probe(when_source,property_source,pair):

@@ -38,8 +38,8 @@ function renderEvent(){
   $('event-previous').disabled=eventIndex===0;$('event-next').disabled=eventIndex===count-1;
   $('event-input').textContent=pretty(trace.input.events[eventIndex]);$('event-expected').textContent=pretty(trace.expected[eventIndex]);
   for(const [side,key] of [['direct','D'],['relation',arm]]){
-    const result=trace.arms[key];$('trace-'+side+'-status').textContent=statusLabel(result);
-    $('event-'+side).textContent=eventIndex<result.outputs.length?pretty(result.outputs[eventIndex]):'No recorded output for this event. '+(result.error || result.status);
+    const result=trace.arms[key],outputs=Array.isArray(result.outputs)?result.outputs:[];$('trace-'+side+'-status').textContent=statusLabel(result);
+    $('event-'+side).textContent=eventIndex<outputs.length?pretty(outputs[eventIndex]):'No recorded output for this event. '+(result.error || result.status);
   }
   $('trace-relation-title').textContent=labels[arm];
   const failures=[['D',trace.arms.D],[arm,trace.arms[arm]]].filter(([,result])=>!result.passed).map(([key,result])=>labels[key]+': '+result.violations.join(', '));

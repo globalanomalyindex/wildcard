@@ -34,7 +34,7 @@ A source card contains donor facts, assumptions, a failure boundary and primary-
 
 The primary outcome is each task's mean correctly solved hidden-instance rate over four equally weighted regimes: ordinary, boundary, adversarial combinations and a specified within-contract distribution shift. There are 64 cases per regime. Every case requires legal execution and all mandatory behavioral and progress requirements. Hidden case counts do not inflate the independent N beyond 32 task blocks. Full-suite program acceptance is reported separately.
 
-Before main generation, freeze the task specifications, generators, reference/checker code, scoring, protocol, prompts, card matching, run schedule, runtime dependencies and analysis. Validate known-correct implementations and named requirement-breaking mutants. Commit a private hidden-seed hash before collection; keep the seed and all oracle access outside model contexts. Reveal and materialize the complete main corpus only after all final programs are immutable. Public examples are the only feedback during solving.
+Before main generation, freeze the task specifications, generators, reference/checker code, scoring, protocol, prompts, card matching, run schedule, runtime dependencies and analysis. Validate known-correct implementations and named incorrect-output controls and hand-derived boundary traces. Commit a private hidden-seed hash before collection; keep the seed and all oracle access outside model contexts. Reveal and materialize the complete main corpus only after all final programs are immutable. Public examples are the only feedback during solving.
 
 ## Development and decision rules
 
@@ -49,3 +49,7 @@ This sample is a bounded benchmark, with limited power for modest gains. Complet
 Keep the current plugin and published study intact. Add the experimental contract workflow, complete executable records and a case-study view that can follow a task, outside assumption, proposed rule, gate decision, implementation and actual failing or passing trace. Recorded behavior must be identified as recorded; a local cue draw must not masquerade as live model inference. Present unfavorable examples as well as favorable ones. Public authorship remains christopher robin fiore.
 
 The implementation plan sequences benchmark/oracle validation, source/contract design, isolated acquisition, development, main freeze, fixed main collection, independent analysis, product integration and verified release. No main result exists at this design stage.
+
+## Pre-acquisition configuration decision
+
+Before any working-solutions model call, the generator was fixed to gpt-5.6-luna at low reasoning to preserve the remaining account capacity for the full experiment and release. This replaces the initial Astra planning assumption without using any arm outcomes. The result will be configuration-specific. All other call, feedback and inference controls remain in the prospective protocol. Independent review also replaced eight overly simple development smoke tasks with eight distinct contracts containing interacting rules before calibration.

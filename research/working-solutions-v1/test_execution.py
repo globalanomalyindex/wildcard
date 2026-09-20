@@ -47,6 +47,13 @@ class ExecutionTests(unittest.TestCase):
         self.assertEqual(results[0]['status'],'runtime_error')
         self.assertEqual(results[1]['outputs'],[7])
 
+    def test_error_retains_only_outputs_completed_before_failure(self):
+        source='function solve(x){if(x.event.fail)throw new Error("stopped");return {state:null,output:x.event.value};}'
+        result=run_cases(source,[{'config':{},'events':[{'value':7},{'fail':True},{'value':9}]}])[0]
+        self.assertEqual(result['status'],'runtime_error')
+        self.assertEqual(result['outputs'],[7])
+        self.assertEqual(result['processedEvents'],1)
+
     def test_host_io_and_ambient_entropy_are_unavailable(self):
         for source in ['function solve(x) { return {state:null,output:require("fs").readFileSync("/etc/passwd","utf8")}; }', 'function solve(x) { return {state:null,output:Math.random()}; }', 'function solve(x) { return {state:null,output:Date.now()}; }','function solve(x) { return {state:null,output:performance.now()}; }']:
             with self.subTest(source=source):

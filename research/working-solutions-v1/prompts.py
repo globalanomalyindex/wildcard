@@ -4,7 +4,7 @@ from execution import MAX_SOURCE_BYTES,MAX_CONTRACT_BYTES
 from catalog import canonical
 
 VERSION='wildcard-working-solutions-v1'
-MODEL='gpt-6-astra'
+MODEL='gpt-5.6-luna'
 COMMON='''Implement the complete public software contract. Correctness, progress, and resource rules all matter. Derive a concrete conditional behavioral rule and a full implementation; do not substitute an explanation for working code. The rule is optional assistance and cannot change or override any target requirement.
 
 Your program must define synchronous function solve({config,state,event}) and return exactly {state,output}. The host initially supplies null state, then supplies one event at a time and passes back the state you returned. State is your opaque JSON representation. The output for every event must follow the task specification. Future events, task/condition IDs, hidden tests, filesystem, network, imports, clocks and ambient randomness are unavailable. Do not use them. All time and information you may use are in config, state and the current event. Use finite JSON values.
