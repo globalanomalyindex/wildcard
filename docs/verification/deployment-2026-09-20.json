@@ -1,0 +1,101 @@
+{
+  "verifiedAtUTC": "2026-09-20T21:23:57.699512+00:00",
+  "sourceRevision": "f84e3415729dfe72986c3174f5dcaf681f623110",
+  "baseURL": "https://globalanomalyindex.github.io/wildcard/",
+  "checks": [
+    {
+      "path": "./",
+      "status": 200,
+      "bytes": 3935,
+      "sha256": "b8cedb0566c48f197c2211ed067780a078d08ef47916ebfdd5b9442b19c09a42",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Sun, 20 Sep 2026 21:22:41 GMT",
+        "Strict-Transport-Security": "max-age=31556952",
+        "ETag": "\"6ab04ea1-f5f\"",
+        "Cache-Control": "max-age=600",
+        "X-GitHub-Request-Id": "6CF4:386D79:19EE97D:213CC45:6AB04EE8"
+      },
+      "matchesLocal": true
+    },
+    {
+      "path": "case-study/",
+      "status": 200,
+      "bytes": 17698,
+      "sha256": "2f8b6db865cf22437fb6f99d297b7f3618c9a0313ea024cdee851e781b33db40",
+      "headers": {
+        "Content-Type": "text/html; charset=utf-8",
+        "Last-Modified": "Sun, 20 Sep 2026 21:22:41 GMT",
+        "Strict-Transport-Security": "max-age=31556952",
+        "ETag": "\"6ab04ea1-4522\"",
+        "Cache-Control": "max-age=600",
+        "X-GitHub-Request-Id": "C8E6:8B353:1927827:207561D:6AB04EE9"
+      },
+      "matchesLocal": true
+    },
+    {
+      "path": "data/transfer-study.json",
+      "status": 200,
+      "bytes": 2636299,
+      "sha256": "5b3a97c5b4d7adb84955623dae16042dd496920243d81b829cfaf65f9176bbf7",
+      "headers": {
+        "Content-Type": "application/json; charset=utf-8",
+        "Last-Modified": "Sun, 20 Sep 2026 21:22:41 GMT",
+        "Strict-Transport-Security": "max-age=31556952",
+        "ETag": "\"6ab04ea1-283a0b\"",
+        "Cache-Control": "max-age=600",
+        "X-GitHub-Request-Id": "4EBC:1B4031:1B84F38:22D21CD:6AB04EE8"
+      },
+      "matchesLocal": true
+    },
+    {
+      "path": "js/transfer-summary.js",
+      "status": 200,
+      "bytes": 482,
+      "sha256": "6a335b3e60eccb796de0105bd2445af5dd9b98c81bff697da1cd951923f0f222",
+      "headers": {
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Last-Modified": "Sun, 20 Sep 2026 21:22:40 GMT",
+        "Strict-Transport-Security": "max-age=31556952",
+        "ETag": "\"6ab04ea0-1e2\"",
+        "Cache-Control": "max-age=600",
+        "X-GitHub-Request-Id": "C92C:30CE81:1BF8476:2346145:6AB04EEC"
+      },
+      "matchesLocal": true
+    },
+    {
+      "path": "js/selection-url.js",
+      "status": 200,
+      "bytes": 699,
+      "sha256": "6a8a73cc0bf12ab7a52c2d0b8b8ab76eb77b776d17710918bfa67b18ba7b03aa",
+      "headers": {
+        "Content-Type": "application/javascript; charset=utf-8",
+        "Last-Modified": "Sun, 20 Sep 2026 21:22:40 GMT",
+        "Strict-Transport-Security": "max-age=31556952",
+        "ETag": "\"6ab04ea0-2bb\"",
+        "Cache-Control": "max-age=600",
+        "X-GitHub-Request-Id": "6D0E:1CC1:D4BAD9:1146D3A:6AB04EEC"
+      },
+      "matchesLocal": true
+    },
+    {
+      "path": "research-paper.pdf",
+      "status": 200,
+      "bytes": 148027,
+      "sha256": "8f3f0e2842eaace128422934c034040ddec9ebbb353709a5b76d16f764e6f080",
+      "headers": {
+        "Content-Type": "application/pdf",
+        "Last-Modified": "Sun, 20 Sep 2026 21:22:40 GMT",
+        "Strict-Transport-Security": "max-age=31556952",
+        "ETag": "\"6ab04ea0-2423b\"",
+        "Cache-Control": "max-age=600",
+        "X-GitHub-Request-Id": "21F6:2FDB7D:190DC5B:205B792:6AB04EEC"
+      },
+      "matchesLocal": true
+    }
+  ],
+  "limits": [
+    "HTTP byte parity and browser checks apply to the checked release and time",
+    "No exhaustive accessibility or external-link availability certification"
+  ]
+}
