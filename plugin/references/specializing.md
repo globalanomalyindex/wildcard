@@ -1,70 +1,28 @@
-# Specializing the draw into a person
+# Develop the specialist perspective
 
-`scripts/draw.sh` hands you two tokens, e.g.:
+A v2 receipt supplies `mode: "specialist"`, a `value` naming the discipline and a `lens`. Use the drawn value exactly. Selection happens outside model generation; the practitioner description is generated context and still needs factual care.
 
-```
-domain=varve chronology reading annual glacial-lake layers
-lens=signals-and-noise
-```
+## Make the perspective specific
 
-Your job is to turn that coordinate into a **specific practitioner with a real toolkit** - not a
-generic figure. The draw guarantees fairness (it happened outside you); your job is richness.
+Use one or two relevant dimensions: instrument, material, scale, working constraint, failure mode or historical setting. The lens helps choose what to examine first. Do not replace the field with a familiar neighbor, invent a subdiscipline, or imply that an actual specialist has joined the conversation.
 
-## Anti-mode-collapse
+A useful perspective identifies:
 
-Left to free improvisation, you will drift toward the prototypical, creativity-adjacent version
-of any field. Resist it two ways:
+- a tool or process the field uses;
+- a constraint or tradeoff that shapes its work;
+- a failure mode worth checking;
+- a possible relationship to the frozen target brief.
 
-1. **Honor the draw exactly.** Do not swap the drawn domain for a more familiar neighbor. If the
-   dice said "municipal storm-drain network design," you are a drainage engineer, not a poet.
-2. **Use the lens to pick a non-obvious sub-niche.** The `lens` token (failure-modes, materials,
-   time-and-rhythm, constraints-and-limits, energy-and-flow, structure-and-form, measurement,
-   signals-and-noise - the canonical list lives in `scripts/draw.sh`) steers you into a specific
-   corner of the field. "Varve chronology" + lens
-   "signals-and-noise" → someone who fights to separate a true annual layer from a storm-deposit
-   artifact, not a generic geologist.
+Check any unfamiliar causal claim on which the suggestion depends. Prefer the user's supplied references or reliable primary documentation. If the source is unavailable, state the limitation and keep the thought hypothetical. Do not generate a fictional factual biography to make the perspective convincing.
 
-## Build the toolkit, then look
+## Build context, then return to the brief
 
-Before you study the user's problem, spend a moment *being* the practitioner. Name, in their
-voice:
+For example, a cue about inspecting annual sediment layers with a signals-and-noise lens might direct attention toward distinguishing a measurement from an artifact. This is a proposed line of inquiry, not an assertion that every layer is annual or that the user's data has the same error process. Verify those claims separately before making them load-bearing.
 
-- The **mechanism** they think about daily (what causes what in their field).
-- A characteristic **failure mode** they fear.
-- A **constraint** that shapes everything they do.
-- The **aesthetic** of good work in their craft.
+The perspective can be introduced as “drawing on the concerns of someone who works with…” or “through this field's lens…”. It does not need first-person credentials. Specific language makes the prompt inspectable; it does not demonstrate that generation moved to a measurable region of latent space.
 
-That toolkit is the conditioning. It is what re-points generation toward a coherent, distant
-region - structured divergence, not noise. Only *then* turn to the user's structural sketch and
-ask what genuinely rhymes (see structure-mapping.md).
+## Spend the perspective on the user's task
 
-## Introduce yourself specifically
+A donor explanation is scaffolding for a proposal. Keep only the shortest gloss needed to show where the idea came from. State the concrete action in the user's vocabulary, anchored in actual files, processes, constraints or artifacts. Name any assumption you are testing and an observable check.
 
-A vague intro wastes the mechanism. Two or three sentences: who you are, the exact corner of your
-field, and the one obsession that defines how you see. Specificity *is* the seeding.
-
-## Axes to spin a niche from
-
-The lens picks a corner; these axes find a *room* inside it. When a draw lands on something broad,
-turn one or two of these dials until "a generic figure" becomes "a person with one obsession":
-
-- **era** - which period's tools and constraints (a pre-radar navigator, not "a navigator").
-- **scale** - the magnitude they work at (a microns-and-tolerances machinist; a watershed-scale
-  hydrologist).
-- **instrument** - the one tool they live inside (a mass-spectrometry chemist, not "a chemist").
-- **material** - the specific stuff they fight (a green-oak timber framer; a brackish-water ecologist).
-- **failure-mode** - the disaster they exist to prevent (a fatigue-crack metallurgist).
-- **sub-sub-specialty** - drill past the obvious sub-field into its narrowest live corner.
-
-One-line transform: "a mathematician" -> (sub-sub-specialty + failure-mode + scale) -> "a specialist
-in the numerical stability of long-horizon orbit integrators." Pick the dials that the lens already
-points at; do not crank all six.
-
-## Spend the persona, do not wear it
-
-The practitioner's voice is for the *search*, not the offering. By the time a strand ships, your
-field's vocabulary appears in at most a one-clause gloss ("in my vat, the failure I fear is...")
-and never as the load-bearing noun phrase of the move. The move itself is stated in the user's
-nouns and must stand with your introduction deleted; any term a layperson in the user's field
-would not recognize is either cut or immediately defined by the concrete action it maps to. You
-were summoned to steer the thinking somewhere new, not to teach the user your trade.
+Do not teach the whole trade, invent a target measurement, or imply that a borrowed technique is validated for the target. If deleting the practitioner introduction leaves no relevant action, refine once or release the strand. The move remains optional, and implementing it requires the user's chosen task scope.

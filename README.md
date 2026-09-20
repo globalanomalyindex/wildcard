@@ -1,128 +1,75 @@
 # wildcard
 
-an experimental skill for claude code that, at random, summons a wildcard from outside your
-problem to seed fresh, non-linear thinking on whatever you are working on. the draw lands in one
-of two modes: a hyper-specific niche **specialist** from a completely unrelated field, or a general
-**concept** to connect against. in doing so, the token pool is seeded with unorthodox directions
-for standard chain-of-thought systems to work with, influencing more creative thinking,
-problem-solving, and idea generation in large language models.
+a small tool for thinking from somewhere else. wildcard is a Claude Code skill that samples an outside cue, explores what it brings to the problem, and offers concrete moves the user can accept or ignore.
 
-an llm's chain of thought has no default mode: it is relentlessly task-locked and never wanders, so
-the human "pop-in", the remote associate surfacing from the subconscious, cannot happen; the
-architecture forbids it. wildcard externalizes that missing faculty: a **synthetic default-mode
-network** that injects the remote associate the on-task reasoner would never wander to.
+the cue can be a niche specialist from a curated pool of 378 disciplines or a concept from a pool of 461. the skill first records the problem's structure, then uses the sampled cue and lens to explore possible transfers. it asks whether a useful action remains when the donor explanation is removed.
 
-the wildcard is a seed, not a subject. you do not force your problem to map onto it; you let it
-steer your thinking somewhere new and bring back the genuinely good idea it seeds, stated in your
-own terms. it never invents a connection, and it abstains honestly when the draw leads nowhere
-good.
+this is **inference-time context conditioning**: the model receives different text in its context. wildcard does not change model weights, access a parameter or token pool, retrieve identifiable training examples, or implement a neural default-mode network. the sampler selects a cue; the model generates the interpretation. those are separate operations.
 
-live site: https://globalanomalyindex.github.io/wildcard/
+by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Inspect the evidence audit](research/audit-2026-09/README.md).
 
-and yes, i tested whether it actually works, three times. a pre-registered, blind, three-arm study
-(the model's own "random" picks collapse and hug the problem; the external draw does not), an honest
-result that went against me at first, a diagnosis, a fix, and a re-test on fresh problems that
-confirmed the fix out of sample. then the arm i had been missing: the shipped skill against a plain
-brainstorm with no wildcard at all. it wins on novelty by **+0.72** (p=0.037, ahead on 8 of 10
-problems), and it does not win on usefulness or genuineness. so it buys you distance, not polish,
-and that is the claim i make for it. the whole write-up, with every number regenerable, is the case
-study: https://globalanomalyindex.github.io/wildcard/case-study/
+## what has been measured
+
+three historical studies record an iteration story: externally selected cues reached a broader range of labels, the first skill's distant mappings scored worse, and a rewritten skill improved some judged qualities while reducing novelty. the studies compare bundled prompt configurations, not isolated cognitive mechanisms.
+
+in Study 3, the recorded Wildcard configuration scored **+0.725 novelty points** relative to one plain brainstorming prompt across ten problems. its original paired bootstrap 95% interval was **[+0.2167, +1.2083]**, and signed-rank p was **0.0371**. the point prediction and positive-interval decision rule were met; the result does not establish a minimum +0.30 effect with 95% confidence. usefulness and genuineness had negative point differences.
+
+the later audit found a dependent legacy sampler, incomplete grading matrices, and a normalization change affecting a flagged output. plain brainstorming had six positive model-judge flags across two of thirty outputs; Wildcard had none in thirty outputs. these are observed flags, not proof of factual safety. the [dated audit](research/audit-2026-09/README.md) retains the historical analyses and reports the corrections and sensitivity checks.
+
+the current **v2 sampler and revised prompt have not inherited those experimental results**. the [next research protocol](research/transfer-v1/protocol.md) is a separate study specification, with results to be reported only after acquisition and validation. the website's live interaction draws a cue locally; it does not run an AI model or demonstrate improved downstream work by itself.
 
 ## install
 
-in any claude code session, two commands:
+requires **Bash and Node.js 22 or newer on PATH**, plus a Claude Code version supporting plugins. install and generation use the host's normal network/model access; the cue sampler itself makes no network calls.
 
-```
+in Claude Code:
+
+```text
 /plugin marketplace add globalanomalyindex/wildcard
 /plugin install wildcard@globalanomalyindex
-```
-
-that's it. the plugin pulls the skill, its `draw.sh`, and both pools; updates arrive when you run
-`/plugin marketplace update`. then, in any session:
-
-```
 /wildcard:wildcard
 ```
 
-plugin skills are namespaced `plugin-name:skill-name`, which is why the name says itself twice.
-you can also just ask for an outside perspective in plain language and claude will reach for the
-skill on its own; the slash form is the explicit way to summon it.
+the repository uses the documented single-skill plugin layout, with `plugin/SKILL.md` at its root. see the official [plugin reference](https://code.claude.com/docs/en/plugins-reference) and [installation guide](https://code.claude.com/docs/en/discover-plugins) for host-specific installation scopes, updates and removal. a clean-profile host installation has not been certified by this repository's local tests.
 
-prefer a manual install? drop the skill folder into your personal skills directory, and it becomes
-plain `/wildcard` (personal skills are not namespaced):
+## use and replay
 
-```bash
-git clone https://github.com/globalanomalyindex/wildcard
-ln -s "$(pwd)/wildcard/plugin" ~/.claude/skills/wildcard
-```
-
-it needs bash and a readable `/dev/urandom`, which is to say any mac or linux box. it makes no
-network calls. the only thing it ever writes to your project is `.wildcard/seedbank.md`, and only
-when you say yes to being asked. to remove it, run `/plugin uninstall wildcard@globalanomalyindex`,
-or delete the symlink above.
-
-## how it works
-
-1. **detect, then freeze** - distill a structural sketch of your project (moving parts, flows,
-   tensions) from its files and the live conversation, and commit to it before drawing. structure,
-   not stack: it works on code, writing, design, or research alike.
-2. **draw, outside the model** - `draw.sh` first rolls a mode, then rejection-samples one of 378
-   niche disciplines or 461 concepts with real os entropy, so every choice is exactly equiprobable
-   and comes from outside the model's own distribution. (`--seed N` for reproducible draws; the
-   live site reproduces any seed in your terminal.)
-3. **become it** - inhabit the wildcard and think *from* it, not *about* it. that inhabiting is the
-   conditioning that does the seeding.
-4. **harvest what the seed surfaces** - keep only what passes the removability test: delete the
-   sentence that names the wildcard, and an executable move in your own words must still stand, one
-   the plainest reading of the problem would not already produce. structure-mapping (gentner:
-   relations, not nouns) is the sharpest tool here and the check against decoration, not a cage.
-5. **present seeds** - a few tight, optional seeds, each ending in a concrete move with a falsifiable
-   specific, with an offer to pull one thread further. optionally banked to `.wildcard/seedbank.md`
-   in your project.
-
-guarantees, and how each one is actually held. **no favoritism** is mechanical: the dice live in a
-shell script, not in the model's associations, so it holds whether or not the model cooperates. the
-other four are rules the skill holds itself to, and the model has to honor them: **no fabrication**
-(only genuine, usable ideas; honest abstention is honorable), **no decoration** (the removability
-test rejects a visible-but-undischarged analogy even when the mapping is real), **no derailment**
-(seeds are additive and optional, never prescriptive), and **inspiration only** (a drawn title or
-concept is a pointer, never content to reproduce). i test those instead of assuming them: no
-fabrication held under both AI and human grading in the study, and no derailment failed a cold
-adversarial review once, which is how i know the check works. the case study reports that failure
-and the rule that fixed it.
-
-## layout
-
-```
-.claude-plugin/marketplace.json    # marketplace catalog (one plugin)
-plugin/                            # the installable plugin
-  .claude-plugin/plugin.json       # plugin manifest
-  SKILL.md                         # orchestration the model follows
-  scripts/draw.sh                  # the dice outside the model (mode roll + rejection-sampled entropy)
-  scripts/audit_domains.sh         # breadth/format gate for the discipline map
-  scripts/screen_concepts.sh       # logged safety filter for the concept pool
-  scripts/audit_concepts.sh        # format/tier/denylist gate for the concept pool
-  references/domains.txt           # 378 niche disciplines, axis-tagged for coverage auditing
-  references/concepts.txt          # 461 safety-screened concepts (wikipedia vital articles snapshot)
-  references/specializing.md       # persona growth, anti-mode-collapse
-  references/structure-mapping.md  # the honesty bar (servant, not gate)
-  references/connecting.md         # the loose-to-genuine refinement protocol for concept mode
-tests/run_all.sh                   # full suite (draw, audits, real-pool diversity, experiment libs)
-site/                              # the landing page (globalanomalyindex.github.io/wildcard)
-experiment/                        # three pre-registered studies, frozen data (v3 = vs plain brainstorm)
-docs/                              # case study, methods colophon, design specs + plans
-```
-
-## verify
+1. **freeze the brief.** record the goal, constraints and moving parts before drawing.
+2. **draw a cue.** the script issues a fresh OS-backed seed and uses the versioned `sha256-counter-v2` sampler. a supplied seed replays the same versioned corpus.
+3. **explore the relation.** use the cue's tools, constraints or behavior to look for a useful direction. distinguish donor facts from transfer hypotheses.
+4. **check the move.** remove the donor explanation. does a concrete, relevant action remain? then check its factual dependencies and fit with the actual task.
+5. **offer, then let the user choose.** fewer useful moves are better than a quota. abstain when none withstand review. implementing a suggestion is a separate task.
 
 ```bash
-bash tests/run_all.sh   # expect: ALL GREEN
+# fresh draw: three output lines on stdout, complete receipt on stderr
+bash plugin/scripts/draw.sh
+
+# deterministic v2 draw with a JSON receipt
+bash plugin/scripts/draw.sh --sampler sha256-counter-v2 --seed '42' --json
+
+# historical website/study replay
+bash plugin/scripts/draw.sh --sampler legacy-crc-v1 --seed '42'
 ```
 
-the suite proves the load-bearing properties: seeded draws are deterministic and reproduce the
-website's live draw byte-for-byte; entropy draws are rejection-sampled to exact uniformity; both
-pools pass their breadth and safety audits; and many draws over the real pools stay widely varied
-with no dominance. ci gates the live-site deploy on this same suite, so the page can never ship a
-claim the mechanism fails. the experiment's numbers regenerate too: `node
-scripts/analyze_experiment.mjs experiment`, `node scripts/analyze_retest.mjs experiment/v2`, and
-`node scripts/analyze_v3.mjs experiment/v3`.
+v2 preserves equal mode probability, then selects within the chosen pool. under the uniform-word model, the corresponding entry probabilities are 1/756 for a specialist and 1/922 for a concept. hash-derived selection is pseudorandom; arbitrary chosen seed banks are not guaranteed uniform. it is not uniform over all 839 entries or all possible ideas. see the [sampler contract](docs/sampler-v2.md) for framing, rejection, corpus identity and compatibility.
+
+the prompt asks for grounded claims, relevant optional suggestions and bounded refinement. these are behavioral instructions, not guarantees of truth, originality or usefulness. a removability check is an actionability filter, not factual verification. the skill may offer to save an exact receipt and selected moves to `.wildcard/seedbank.md`; writing requires the user's authorization, and no source edits are part of a draw.
+
+## verify and inspect
+
+```bash
+bash tests/run_all.sh
+node scripts/verify-history.mjs
+node scripts/build-evidence.mjs --check
+bash scripts/gen_site_data.sh --check
+```
+
+tests establish the properties they check: deterministic replay, specified sampler behavior, corpus validation, source failures and historical artifact integrity. they do not make every prose claim true or establish creative benefit. current claims and limitations come from [the evidence audit](research/audit-2026-09/README.md); the [audit resolution ledger](docs/audit-resolution.md) separates implemented changes from outstanding work.
+
+- `plugin/`: self-contained skill, runtime, corpus snapshot and reference instructions.
+- `site/`: static draw interface and evidence presentation.
+- `experiment/`, `experiment/v2/`, `experiment/v3/`: preserved historical studies.
+- `research/audit-2026-09/`: new validation and post-hoc reanalysis of those observations.
+- `research/transfer-v1/`: separate next-study protocol and execution artifacts.
+
+existing license declarations and unresolved asset provenance are recorded in [the notices inventory](THIRD_PARTY_NOTICES.md). this README adds no license grant.

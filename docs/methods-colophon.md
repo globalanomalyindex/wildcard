@@ -1,111 +1,47 @@
-# how this study was run, and why the pipeline earns trust
+# Methods, authorship and the evidence boundary
 
-a companion to the case study. it records, plainly, why the experiment's numbers can be
-trusted further than a typical hand-run evaluation, and exactly where they cannot. the short
-version: **blinding and isolation here are enforced by architecture, not by promise.**
+This companion to the case study separates the recorded protocol from what the repository can independently establish. The historical studies are inspectable artifacts, not a guarantee that every collection safeguard worked as described.
 
-## the claim
+## Authorship and assistance
 
-a human-run study asks you to trust that graders were kept blind, that raters did not compare
-notes, that the problems were not quietly chosen to flatter the method, and that nobody peeked
-at outcomes before fixing the analysis. you take those on faith. in this pipeline each of those
-is a property of how the machinery is wired, and the wiring is in the git history:
+Wildcard is presented by **christopher robin fiore**. It was developed with AI assistance across writing, design, implementation, review and evaluation. Historical notes describe agent-assisted orchestration, problem authoring, skill revision and model grading. Those notes do not establish a precise division of manual labor or time spent, and this colophon does not invent one.
 
-- the problem author was a separate process that **never saw the hypothesis**. its prompt is
-  committed verbatim in `experiment/preregistration.md` and contains no mention of wildcard,
-  randomness, draws, or arms. it could not have written problems that favor a method it did not
-  know existed.
-- the **master seed was drawn from OS entropy and committed before any data existed** (the
-  freeze commit predates the problem pool, every transcript, and every grade). problem
-  selection, the draws, the grader shuffles, and the human-anchor subset all derive from it, so
-  no one - including me - could have steered the randomness toward a result. the whole draw
-  replays byte for byte from the repo.
-- raw transcripts and the id map were **quarantined in a temp directory outside the
-  repository** until grading finished. graders received only anonymized, normalized text, each
-  in its own seeded order, in a fresh context, with no channel to the arms, the raw files, the
-  other graders, or the pre-registration.
-- every transcript, grade, seed, and prompt is committed. the **chain of custody is a git
-  history**, not a claim in a methods paragraph.
-- the draws were verified: all **30 of 30** treatment-arm transcripts used their
-  pre-registered seed (an automated fidelity check, not a spot read).
+Requested model names in committed protocols are metadata about the intended setup. Where returned provider model IDs and complete request/response envelopes are absent, they cannot establish the actual serving model. Avoid capability rankings or claims about a model family's internal architecture. In Study 3, the recorded requested subject is `claude-sonnet-4-6`, normalizer `claude-haiku-4-5`, and grader `claude-opus-5`; older public prose named a different grader. See the [dated audit](../research/audit-2026-09/README.md).
 
-## the stack, truthfully
+## Recorded design and verified chronology
 
-designed and orchestrated by Claude - Opus 4.8 (`claude-opus-4-8`) with the 1m-token context,
-across sessions - with the blind problem pool authored by Fable 5 (`claude-fable-5`), Anthropic's
-most capable generally available model and the first of its mythos-class intelligence made general.
-the **subjects** under test - the model actually doing the brainstorming in all three arms and the
-self-pick probe - were pinned to **Sonnet 4.6** (`claude-sonnet-4-6`). the **four blind graders**
-were pinned to **Opus 4.8** (`claude-opus-4-8`), a more
-capable, different-tier model than the subjects, so the panel judging the work is not the same
-system that produced it. fan-out ran through a deterministic workflow orchestrator that capped
-concurrency, retried failed agents, and logged every call. this is not "i asked an LLM if it
-liked the output." it is 90 protocol passes and 360 independent blind gradings, run as isolated
-processes, reconciled by committed code.
+The protocols describe separately prompted problem generation, selected problem subsets, repeated outputs, masked/normalized judge materials and multiple labeled judge runs. A prompt that omits the hypothesis reduces one route to bias; it does not prove neutral problem selection, perfect blindness or independent judgments.
 
-## what the scale buys
+Git records preregistration before collection-artifact commits. That verifies repository chronology. It does not independently timestamp model execution or recover missing collection logs. Saved arm labels do not prove that judges saw those labels; without actual request envelopes, blind exposure and cross-context isolation cannot be certified either way.
 
-a solo human evaluator cannot grade 90 outputs four times each without fatigue, drift, and
-memory of earlier items leaking into later ones. the panel gives **four independent reads per
-output with zero cross-talk**, and the agreement among them is measured, not assumed
-(krippendorff's alpha, reported per scale in the results). the **human anchor** - fifteen
-outputs graded blind by a person - is the cross-check that keeps the panel honest rather than
-self-certifying.
+The new historical-file manifest pins 478 research/analyzer artifacts to audited commit `04ff0a546d4e55038fa75881ec245662ac5765e9`. The [read-only verifier](../scripts/verify-history.mjs) checks integrity. The three preserved analyzers reproduce their committed result objects. Reproduction establishes what those algorithms compute, not completeness or scientific validity.
 
-## the re-test (the same machine, run a second time)
+## What the audit changed
 
-the first study found a real weakness: the wildcard's distant connections were judged less
-genuine than the model's own near picks. i did not stop at reporting it. three independent
-graders diagnosed the cause from the 90 frozen transcripts; Fable 5 authored a revised
-skill from that diagnosis, with a separate Opus 4.8 pass reviewing it for honesty-preservation; and i
-re-ran the whole pipeline as a head-to-head: the old skill and the new skill on ten fresh problems
-the fix had never seen, with the wildcards held identical between versions so only the prose could
-differ, blind-graded by four Opus 4.8 graders. the prediction (a half-point genuineness gain) was
-written into a committed pre-registration before any re-test output existed. the new skill won by
-+0.81 (p = 0.002), out of sample, with fabrication flat and draw distance controlled by
-construction. that the number was named in advance and then confirmed on unseen problems, with the
-draws held identical, is what makes it evidence rather than anecdote.
+| Study | Stored rows | Unique grader/output pairs | Scheduled pairs | Observed issue |
+|---|---:|---:|---:|---|
+| 1 | 360 | 360 | 360 | Complete grading matrix |
+| 2 | 240 | 239 | 240 | One duplicated pair and one missing pair |
+| 3 | 238 | 238 | 240 | Two missing pairs |
 
-## the third study (the arm i had been missing)
+Study 2 duplicates `g3/out-35` and omits `g3/out-48`. Study 3 omits `g4/P-p48-r3` and `g3/P-p47-r2`. These observations remain unchanged. Separate sensitivity analyses describe the impact of explicit hypothetical treatments; they do not recover real missing judgments.
 
-after two studies i went looking for the weakest point in my own argument. study 1 had a plain
-brainstorm arm with no wildcard at all, and that arm beat the wildcard on every quality scale.
-study 2 fixed the skill and showed the new version beats the old one, but both of its arms were
-wildcard versions, and its problems differ from study 1's, so the two cannot be subtracted.
+The legacy seeded sampler couples mode, cue index and lens. Every Study 3 treatment seed is 22 bytes; the fixed-length probe reaches only half of specialist entries conditionally on specialist mode and four of eight lenses per mode. The historical estimate therefore applies to its complete prompt/sampler configuration. The new SHA-256 sampler is a different configuration and has not inherited its creative-effect evidence.
 
-study 3 runs the missing arm. ten problems entropy-selected from the thirty neither prior study
-used, the master seed and the prediction and the decision rule all committed before collection,
-and, importantly, arm P reuses study 1's baseline prompt **word for word** rather than a fresh one
-i could have tuned to lose. the primary endpoint was novelty with a committed +0.30 bar, chosen
-because that is the scale carrying the project's actual claim, and flagged in the pre-registration
-as the prediction i was least confident in.
+Normalization also changed technical content in a flagged output. A raw PostgreSQL/TimescaleDB distinction became compressed in the normalized version. Judge flags cannot therefore be automatically attributed to the subject's original response. The audit has not fact-checked every assertion in every output.
 
-it came in at **+0.72** (95% CI 0.22 to 1.21, exact wilcoxon p = 0.037), ahead on eight of ten
-problems, with the strongest inter-rater agreement of any scale across all three studies
-(alpha 0.78). genuineness came in a wash and usefulness a small cost, both reported. fabrication
-flags ran wildcard 0, plain brainstorm 6, which i did not predict and would not have thought to
-claim. the point of naming the endpoint, the threshold, and the losing condition in advance is that
-none of those three outcomes could be reinterpreted after the fact.
+## Interpreting the result
 
-## what it does not guarantee (the honest residuals)
+Study 3's original judged-novelty difference is +0.725 points across ten problem-level units, with paired bootstrap 95% interval [+0.2167, +1.2083] and signed-rank p=0.0371. It met its point-estimate/positive-interval rule. It did not establish a lower-bound benefit of +0.30. Usefulness and genuineness have negative point estimates; non-significance or an interval crossing zero is not evidence of equality.
 
-the architecture removes the *procedural* failure modes. it does not make the graders right.
-the study is candid about four limits, and the data names them:
+Plain responses received six positive fabrication judgments across two of thirty outputs (6/118 observed judgments). Wildcard received none across thirty outputs (0/120). These are repeated model-judge flags, not six independent factual errors, adjudicated truth or a safety guarantee.
 
-- **the LLM panel is a blunt instrument.** the human anchor correlated only weakly with the
-  panel item by item (pooled spearman about 0.29; on the primary genuineness scale, near zero).
-  the panel also compressed its scores into a narrow band where a human used the full range. the
-  panel is useful for aggregate, arm-level direction and nearly useless for ranking individual
-  outputs. that is a finding, surfaced *by* the anchor, not hidden from it.
-- **blinding leaked.** an adversarial checker, shown only normalized outputs, guessed which arm
-  produced each one about 64% of the time against a 33% chance baseline. "blind" is therefore
-  qualified: the normalization stripped the obvious tells, not the deep ones.
-- **same vendor.** subjects and graders are both anthropic models, of different families and
-  tiers, but not independent organizations.
-- **ten problems.** the design supports effect sizes and confidence intervals, not broad
-  generalization. it is a small study, run carefully, and reported as such.
+Four labeled runs of one requested grader model do not create four independent expert populations. Outputs, graders and suggestions are not extra independent task units. Study 1's fifteen-output human anchor had weak item-level association with model judgments, including novelty correlation near 0.01. The arm-recognition check identified 58/90 arms, above the 33.3% chance baseline. These findings constrain “blind” and “validated” language.
 
-nothing above is an apology. it is the point: a result you can trust is one whose construction
-you can inspect and whose weaknesses are stated in the same breath as its strengths. the
-numbers that survive all of this - the divergence result and the zero-fabrication result - are
-stronger for it.
+Different problem IDs within one agent-authored pool are not a broad out-of-sample guarantee. The studies do not establish better deployed artifacts, faster implementation, user satisfaction, cost efficiency, a neural mechanism or superiority over every prompting baseline. A bundled skill revision can support a comparison between versions; it does not isolate one causal instruction.
+
+## Current and future work
+
+The correctness release introduces versioned cue receipts, stronger corpus validation, safer display/copy behavior and source-linked claim presentation. These are engineering changes with their own tests. The [transfer-v1 protocol](../research/transfer-v1/protocol.md) separately proposes controlled tests of donor labels, relations and transfer boundaries. No new study result is asserted here.
+
+Use the [audit resolution ledger](audit-resolution.md) for implementation status and remaining limitations. Read the [historical evidence audit](../research/audit-2026-09/README.md) for full denominators, primary decision rules, sensitivity analyses, source hashes and reproducible commands. Negative results and unresolved checks belong next to the favorable result, because they define what the tool is ready to support.

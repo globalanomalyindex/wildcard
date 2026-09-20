@@ -1,3 +1,5 @@
+> Historical snapshot, captured 2026-06-12. This document is retained as a development record, not the current source of truth or an instruction to continue old tasks. Its legacy sampler, safety and verification language has been superseded by [the dated audit](../research/audit-2026-09/README.md), [sampler v2](sampler-v2.md), and generated evidence. The body below is historical and may contain claims the audit corrected.
+
 # wildcard v2 - measured results (durable record)
 
 Single source of truth for every number cited on the site/case study. All regenerable from
