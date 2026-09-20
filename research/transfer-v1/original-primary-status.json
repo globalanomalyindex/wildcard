@@ -1,0 +1,13 @@
+{
+  "schemaVersion": 1,
+  "status": "halted",
+  "cohort": "main",
+  "reason": "Missing or invalid required judge block prevents primary analysis",
+  "validJudgeBlocks": 63,
+  "requiredJudgeBlocks": 64,
+  "failedRequest": "i07-judge-2",
+  "failedRecordSHA256": "27363e3d3f7f46e4615a7ce7e0e0bb60e46879147b17fb2955efc0b7b186f688",
+  "analysisExitCode": 1,
+  "primaryEstimateCalculated": false,
+  "resolution": "See amendment.md. Original records and primary halt remain unchanged."
+}
