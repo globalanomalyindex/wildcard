@@ -1,0 +1,5691 @@
+{
+  "schemaVersion": 1,
+  "analysisType": "post-hoc-original-panel-metric-invariance-sensitivity",
+  "originalPrimaryStatus": "halted",
+  "eligibleAsOriginalPrimary": false,
+  "interpretation": "Conditional sensitivity using fixed original qualification/group judgments. No corrected identities are inserted; this does not reinstate the original primary or select the amended panel.",
+  "amendmentFreeze": "2026-09-20T20:42:49.017204+00:00",
+  "amendmentSource": {
+    "path": "research/transfer-v1/runs/remeasurement/manifest.json",
+    "sha256": "a4eb6defbbf86bc725afecdad5e714d9f789c9cadf47bc2408da335003cf99a8"
+  },
+  "originalSource": {
+    "path": "research/transfer-v1/runs/main/manifest.json",
+    "sha256": "30b1ebc62656b3ad14849d238daccbd5558ef9a4a7a3438ceca91adc14b4b5b0"
+  },
+  "sensitivitySource": {
+    "path": "research/transfer-v1/original_sensitivity.py",
+    "sha256": "f81f2bf505f764a062d54de0451f6deaa1447185aa8440bc6a7f30adb9e64565"
+  },
+  "proofSource": {
+    "path": "research/transfer-v1/runs/original-sensitivity/invariance-proof.json",
+    "sha256": "98c1e2a554f378b8f9d9c3320d5814bb2a2a921b0d14a3627cc5239b1b9644a4"
+  },
+  "nTasks": 32,
+  "postHocContrasts": [
+    {
+      "id": "LR-R",
+      "metric": "QNM@4",
+      "armX": "LR",
+      "armY": "R",
+      "nPairs": 32,
+      "meanX": 0.140625,
+      "meanY": 0.15625,
+      "difference": -0.015625,
+      "ci95": [
+        -0.09375,
+        0.03125
+      ],
+      "bootstrap": {
+        "meanDifference": -0.015625,
+        "ci95": [
+          -0.09375,
+          0.03125
+        ],
+        "iterations": 50000,
+        "seed": "wildcard-transfer-analysis-v1:bootstrap:LR-R",
+        "method": "paired-task-percentile-bootstrap-within-fixed-family-strata",
+        "familySizes": {
+          "interaction_accessibility": 8,
+          "software_systems": 8,
+          "operational_workflows": 8,
+          "information_creative_tooling": 8
+        }
+      },
+      "test": {
+        "p": 1,
+        "extremeCount": 100000,
+        "iterations": 100000,
+        "seed": "wildcard-transfer-analysis-v1:signflip:LR-R",
+        "method": "two-sided-paired-mean-sign-flip-monte-carlo-plus-one",
+        "tieTolerance": 1e-12
+      },
+      "signedRankSensitivity": {
+        "n": 2,
+        "wPlus": 1,
+        "wMinus": 2,
+        "p": 1,
+        "rankBiserial": -0.3333333333333333,
+        "method": "exact-conditional-signed-rank-dp",
+        "tieTolerance": 1e-12
+      },
+      "perProblem": [
+        {
+          "taskId": "p01",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p02",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p03",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p04",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p05",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p06",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p07",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p08",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "s01",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s02",
+          "family": "software_systems",
+          "difference": 0.5
+        },
+        {
+          "taskId": "s03",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s04",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s05",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s06",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s07",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s08",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "o01",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o02",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o03",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o04",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o05",
+          "family": "operational_workflows",
+          "difference": -1
+        },
+        {
+          "taskId": "o06",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o07",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o08",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "i01",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i02",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i03",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i04",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i05",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i06",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i07",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i08",
+          "family": "information_creative_tooling",
+          "difference": 0
+        }
+      ],
+      "judgeSpecific": {
+        "j1": {
+          "difference": 0,
+          "nPairs": 32
+        },
+        "j2": {
+          "difference": -0.03125,
+          "nPairs": 32
+        }
+      },
+      "perFamily": {
+        "information_creative_tooling": {
+          "difference": 0,
+          "nPairs": 8
+        },
+        "interaction_accessibility": {
+          "difference": 0,
+          "nPairs": 8
+        },
+        "operational_workflows": {
+          "difference": -0.125,
+          "nPairs": 8
+        },
+        "software_systems": {
+          "difference": 0.0625,
+          "nPairs": 8
+        }
+      },
+      "successfulOnlySensitivity": {
+        "criterion": "Both contrasted main requests have success status; valid abstentions and failed acquisitions are excluded.",
+        "nPairs": 32,
+        "difference": -0.015625,
+        "descriptiveOnly": true
+      },
+      "postHocOnly": true
+    },
+    {
+      "id": "R-S",
+      "metric": "QNM@4",
+      "armX": "R",
+      "armY": "S",
+      "nPairs": 32,
+      "meanX": 0.15625,
+      "meanY": 0.03125,
+      "difference": 0.125,
+      "ci95": [
+        0.015625,
+        0.25
+      ],
+      "bootstrap": {
+        "meanDifference": 0.125,
+        "ci95": [
+          0.015625,
+          0.25
+        ],
+        "iterations": 50000,
+        "seed": "wildcard-transfer-analysis-v1:bootstrap:R-S",
+        "method": "paired-task-percentile-bootstrap-within-fixed-family-strata",
+        "familySizes": {
+          "interaction_accessibility": 8,
+          "software_systems": 8,
+          "operational_workflows": 8,
+          "information_creative_tooling": 8
+        }
+      },
+      "test": {
+        "p": 0.0939390606093939,
+        "extremeCount": 9393,
+        "iterations": 100000,
+        "seed": "wildcard-transfer-analysis-v1:signflip:R-S",
+        "method": "two-sided-paired-mean-sign-flip-monte-carlo-plus-one",
+        "tieTolerance": 1e-12
+      },
+      "signedRankSensitivity": {
+        "n": 6,
+        "wPlus": 19.5,
+        "wMinus": 1.5,
+        "p": 0.09375,
+        "rankBiserial": 0.8571428571428571,
+        "method": "exact-conditional-signed-rank-dp",
+        "tieTolerance": 1e-12
+      },
+      "perProblem": [
+        {
+          "taskId": "p01",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p02",
+          "family": "interaction_accessibility",
+          "difference": 1
+        },
+        {
+          "taskId": "p03",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p04",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p05",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p06",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p07",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p08",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "s01",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s02",
+          "family": "software_systems",
+          "difference": -0.5
+        },
+        {
+          "taskId": "s03",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s04",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s05",
+          "family": "software_systems",
+          "difference": 0.5
+        },
+        {
+          "taskId": "s06",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s07",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s08",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "o01",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o02",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o03",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o04",
+          "family": "operational_workflows",
+          "difference": 1
+        },
+        {
+          "taskId": "o05",
+          "family": "operational_workflows",
+          "difference": 1
+        },
+        {
+          "taskId": "o06",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o07",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o08",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "i01",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i02",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i03",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i04",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i05",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i06",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i07",
+          "family": "information_creative_tooling",
+          "difference": 1
+        },
+        {
+          "taskId": "i08",
+          "family": "information_creative_tooling",
+          "difference": 0
+        }
+      ],
+      "judgeSpecific": {
+        "j1": {
+          "difference": 0.125,
+          "nPairs": 32
+        },
+        "j2": {
+          "difference": 0.125,
+          "nPairs": 32
+        }
+      },
+      "perFamily": {
+        "information_creative_tooling": {
+          "difference": 0.125,
+          "nPairs": 8
+        },
+        "interaction_accessibility": {
+          "difference": 0.125,
+          "nPairs": 8
+        },
+        "operational_workflows": {
+          "difference": 0.25,
+          "nPairs": 8
+        },
+        "software_systems": {
+          "difference": 0,
+          "nPairs": 8
+        }
+      },
+      "successfulOnlySensitivity": {
+        "criterion": "Both contrasted main requests have success status; valid abstentions and failed acquisitions are excluded.",
+        "nPairs": 32,
+        "difference": 0.125,
+        "descriptiveOnly": true
+      },
+      "holmAdjustedP": 0.1878781212187878,
+      "postHocOnly": true
+    },
+    {
+      "id": "XR-LR",
+      "metric": "QNM@4",
+      "armX": "XR",
+      "armY": "LR",
+      "nPairs": 32,
+      "meanX": 0.140625,
+      "meanY": 0.140625,
+      "difference": 0,
+      "ci95": [
+        -0.09375,
+        0.09375
+      ],
+      "bootstrap": {
+        "meanDifference": 0,
+        "ci95": [
+          -0.09375,
+          0.09375
+        ],
+        "iterations": 50000,
+        "seed": "wildcard-transfer-analysis-v1:bootstrap:XR-LR",
+        "method": "paired-task-percentile-bootstrap-within-fixed-family-strata",
+        "familySizes": {
+          "interaction_accessibility": 8,
+          "software_systems": 8,
+          "operational_workflows": 8,
+          "information_creative_tooling": 8
+        }
+      },
+      "test": {
+        "p": 1,
+        "extremeCount": 100000,
+        "iterations": 100000,
+        "seed": "wildcard-transfer-analysis-v1:signflip:XR-LR",
+        "method": "two-sided-paired-mean-sign-flip-monte-carlo-plus-one",
+        "tieTolerance": 1e-12
+      },
+      "signedRankSensitivity": {
+        "n": 4,
+        "wPlus": 5,
+        "wMinus": 5,
+        "p": 1,
+        "rankBiserial": 0,
+        "method": "exact-conditional-signed-rank-dp",
+        "tieTolerance": 1e-12
+      },
+      "perProblem": [
+        {
+          "taskId": "p01",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p02",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p03",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p04",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p05",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p06",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p07",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "p08",
+          "family": "interaction_accessibility",
+          "difference": 0
+        },
+        {
+          "taskId": "s01",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s02",
+          "family": "software_systems",
+          "difference": 0.5
+        },
+        {
+          "taskId": "s03",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s04",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s05",
+          "family": "software_systems",
+          "difference": -0.5
+        },
+        {
+          "taskId": "s06",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s07",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "s08",
+          "family": "software_systems",
+          "difference": 0
+        },
+        {
+          "taskId": "o01",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o02",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o03",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o04",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o05",
+          "family": "operational_workflows",
+          "difference": 1
+        },
+        {
+          "taskId": "o06",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o07",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "o08",
+          "family": "operational_workflows",
+          "difference": 0
+        },
+        {
+          "taskId": "i01",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i02",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i03",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i04",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i05",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i06",
+          "family": "information_creative_tooling",
+          "difference": 0
+        },
+        {
+          "taskId": "i07",
+          "family": "information_creative_tooling",
+          "difference": -1
+        },
+        {
+          "taskId": "i08",
+          "family": "information_creative_tooling",
+          "difference": 0
+        }
+      ],
+      "judgeSpecific": {
+        "j1": {
+          "difference": -0.03125,
+          "nPairs": 32
+        },
+        "j2": {
+          "difference": 0.03125,
+          "nPairs": 32
+        }
+      },
+      "perFamily": {
+        "information_creative_tooling": {
+          "difference": -0.125,
+          "nPairs": 8
+        },
+        "interaction_accessibility": {
+          "difference": 0,
+          "nPairs": 8
+        },
+        "operational_workflows": {
+          "difference": 0.125,
+          "nPairs": 8
+        },
+        "software_systems": {
+          "difference": 0,
+          "nPairs": 8
+        }
+      },
+      "successfulOnlySensitivity": {
+        "criterion": "Both contrasted main requests have success status; valid abstentions and failed acquisitions are excluded.",
+        "nPairs": 32,
+        "difference": 0,
+        "descriptiveOnly": true
+      },
+      "holmAdjustedP": 1,
+      "postHocOnly": true
+    }
+  ],
+  "descriptive": {
+    "S": {
+      "nTasks": 32,
+      "means": {
+        "qnm": 0.03125,
+        "qdm": 3.671875,
+        "qualified_actions": 3.671875,
+        "total_actions": 3.6875
+      },
+      "judgeMeans": {
+        "j1": {
+          "qnm": 0.03125,
+          "qdm": 3.6875
+        },
+        "j2": {
+          "qnm": 0.03125,
+          "qdm": 3.65625
+        }
+      },
+      "qdmCeilingSetsByJudge": {
+        "j1": 23,
+        "j2": 23
+      }
+    },
+    "R": {
+      "nTasks": 32,
+      "means": {
+        "qnm": 0.15625,
+        "qdm": 3.765625,
+        "qualified_actions": 3.765625,
+        "total_actions": 3.78125
+      },
+      "judgeMeans": {
+        "j1": {
+          "qnm": 0.15625,
+          "qdm": 3.75
+        },
+        "j2": {
+          "qnm": 0.15625,
+          "qdm": 3.78125
+        }
+      },
+      "qdmCeilingSetsByJudge": {
+        "j1": 25,
+        "j2": 26
+      }
+    },
+    "LR": {
+      "nTasks": 32,
+      "means": {
+        "qnm": 0.140625,
+        "qdm": 3.734375,
+        "qualified_actions": 3.734375,
+        "total_actions": 3.75
+      },
+      "judgeMeans": {
+        "j1": {
+          "qnm": 0.15625,
+          "qdm": 3.75
+        },
+        "j2": {
+          "qnm": 0.125,
+          "qdm": 3.71875
+        }
+      },
+      "qdmCeilingSetsByJudge": {
+        "j1": 25,
+        "j2": 25
+      }
+    },
+    "XR": {
+      "nTasks": 32,
+      "means": {
+        "qnm": 0.140625,
+        "qdm": 3.71875,
+        "qualified_actions": 3.71875,
+        "total_actions": 3.71875
+      },
+      "judgeMeans": {
+        "j1": {
+          "qnm": 0.125,
+          "qdm": 3.71875
+        },
+        "j2": {
+          "qnm": 0.15625,
+          "qdm": 3.71875
+        }
+      },
+      "qdmCeilingSetsByJudge": {
+        "j1": 23,
+        "j2": 23
+      }
+    }
+  },
+  "perProblem": [
+    {
+      "taskId": "p01",
+      "task": {
+        "id": "p01",
+        "family": "interaction_accessibility",
+        "title": "Shared kiosk interruption",
+        "brief": "Design a museum ticket kiosk flow for visitors who may need several minutes to read each screen. A session currently clears after 90 seconds, losing selected tickets. The next visitor must not see the previous visitor's selections. Staff can help but cannot monitor every kiosk.",
+        "constraints": [
+          "No accounts, camera, phone, or biometric identification.",
+          "Kiosk has a touch screen, physical Back/Confirm buttons, and a screen reader.",
+          "A purchase is not submitted until the visitor explicitly confirms; abandoned personal details must not be shown to a new visitor.",
+          "Must work without a network for up to ten minutes."
+        ],
+        "success_criteria": [
+          "A slow visitor can complete without repeatedly reconstructing selections.",
+          "A new visitor can start safely after abandonment.",
+          "Describe an observable way to test the tradeoff between interruption and privacy."
+        ],
+        "non_goals": [
+          "Changing ticket prices or adding staffed kiosks."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p02",
+      "task": {
+        "id": "p02",
+        "family": "interaction_accessibility",
+        "title": "Changing result list with stable focus",
+        "brief": "A catalog updates results after each filter change. Keyboard and screen-reader users lose their place when matching products reorder. Sighted users want the result count quickly while browsing a grid of 200 items.",
+        "constraints": [
+          "Do not require pointer input, drag actions, or color perception.",
+          "The latest count should be available within one second after results arrive.",
+          "A focused item may disappear because it no longer matches.",
+          "The catalog must still expose every matching item."
+        ],
+        "success_criteria": [
+          "Users can predict where focus goes when results change.",
+          "A person can distinguish a loading state from zero results.",
+          "Specify tests for both a retained focused item and one removed by filtering."
+        ],
+        "non_goals": [
+          "Replacing the catalog with a separate accessible site."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p03",
+      "task": {
+        "id": "p03",
+        "family": "interaction_accessibility",
+        "title": "Recoverable upload decisions",
+        "brief": "A community portal lets people submit five attachments with one form. Uploads sometimes fail individually; people currently resubmit everything and create duplicate cases. Some users return after closing the tab.",
+        "constraints": [
+          "Maximum five files per case; server provides a stable receipt for every accepted file.",
+          "No account is required and no raw file content may be kept in persistent browser storage.",
+          "Local storage may keep opaque receipt identifiers for 24 hours.",
+          "Users must explicitly review the final attachment list before submitting the case."
+        ],
+        "success_criteria": [
+          "Accepted files are not needlessly uploaded again.",
+          "A person can resolve a partially accepted batch without guessing.",
+          "A reopened tab explains what remains available and what must be selected again."
+        ],
+        "non_goals": [
+          "Changing server-side file processing or asking users to install an app."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p04",
+      "task": {
+        "id": "p04",
+        "family": "interaction_accessibility",
+        "title": "Appointment slot changes during selection",
+        "brief": "A booking interface displays a week of workshop slots. Capacity updates every five seconds and can invalidate a slot while someone is reviewing it. People with motor impairments need time to reach the confirmation control.",
+        "constraints": [
+          "Selecting a slot does not reserve capacity; only the existing atomic confirmation endpoint can reserve it.",
+          "Do not fabricate a hold or guarantee availability.",
+          "No time limit may require faster motor input to gain an advantage.",
+          "Support keyboard navigation and a 320-pixel viewport."
+        ],
+        "success_criteria": [
+          "A changed slot does not silently become a different booking.",
+          "A person can recover from an unavailable slot while retaining preferences.",
+          "Measure an error state without rewarding speed over access."
+        ],
+        "non_goals": [
+          "Changing capacity policy or the reservation API."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p05",
+      "task": {
+        "id": "p05",
+        "family": "interaction_accessibility",
+        "title": "Understandable plan comparison",
+        "brief": "A design-tool comparison page has six plans, each with storage, editors, guests, export limits, and optional charges. People select the apparently cheapest plan and discover a required add-on after checkout.",
+        "constraints": [
+          "All required and optional charges are available as structured input.",
+          "The page must show all six plans without hiding an unavailable capability.",
+          "Do not collect personal income or infer affordability.",
+          "The solution must work with screen readers and without relying on color."
+        ],
+        "success_criteria": [
+          "A visitor can compare total cost for their stated usage.",
+          "An optional charge cannot be confused with a mandatory one.",
+          "Describe a comprehension check involving two superficially similar plans."
+        ],
+        "non_goals": [
+          "Changing prices, discounting, or ranking users by ability to pay."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p06",
+      "task": {
+        "id": "p06",
+        "family": "interaction_accessibility",
+        "title": "Permission setup without opaque defaults",
+        "brief": "A workspace owner invites a new teammate who needs to review drafts but must not publish them. The current invite form has 18 toggles and an undocumented preset. Existing teams use custom combinations.",
+        "constraints": [
+          "Do not remove any existing permission combination.",
+          "Publishing and billing privileges require explicit owner selection.",
+          "The system can calculate effective permissions before saving.",
+          "Setup must remain usable entirely by keyboard."
+        ],
+        "success_criteria": [
+          "The owner can predict what the invitee can do.",
+          "A custom role is not silently replaced by a preset.",
+          "Provide a test that catches an unintended privilege before the invite is sent."
+        ],
+        "non_goals": [
+          "Changing the authorization backend or adding a new approval role."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p07",
+      "task": {
+        "id": "p07",
+        "family": "interaction_accessibility",
+        "title": "Conflicting edits in several tabs",
+        "brief": "A web form editor is often open in two tabs. A save in one tab can overwrite newer work in the other, while the current warning modal gives no clue which fields differ. Fields include long text and single-choice values.",
+        "constraints": [
+          "Server exposes a document revision number and rejects a stale save.",
+          "Never silently discard text from either tab.",
+          "Users must be able to finish without dragging or copying between windows.",
+          "Do not auto-publish the merged draft."
+        ],
+        "success_criteria": [
+          "A user can identify and resolve only conflicting fields.",
+          "Nonconflicting edits do not require retyping.",
+          "A test covers a stale tab whose last edit happened after the other tab saved."
+        ],
+        "non_goals": [
+          "Implementing real-time collaborative editing."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.5,
+            "qualified_actions": 3.5,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "p08",
+      "task": {
+        "id": "p08",
+        "family": "interaction_accessibility",
+        "title": "Bulk changes with intelligible scope",
+        "brief": "A volunteer coordinator bulk-edits statuses for 600 records across filtered pages. People confuse the 25 visible rows with all 600 matching rows, and some records change before the operation finishes.",
+        "constraints": [
+          "The backend accepts explicit record IDs and returns per-record outcomes.",
+          "No operation may include an ID absent from the user's confirmed set.",
+          "Support a screen reader and no pointer.",
+          "Reversal is possible for ten minutes only when the record has not subsequently changed."
+        ],
+        "success_criteria": [
+          "The confirmed scope is visible and unambiguous.",
+          "Partial failures can be recovered without reapplying successful changes.",
+          "Users can understand why a particular reversal is unavailable."
+        ],
+        "non_goals": [
+          "Changing the ten-minute policy or using a blocking review of 600 individual rows."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s01",
+      "task": {
+        "id": "s01",
+        "family": "software_systems",
+        "title": "Duplicate webhook delivery with bounded retention",
+        "brief": "A service receives partner webhook events. A partner can redeliver the same event ID for seven days, and a crash may occur between applying an update and acknowledging delivery. The service currently sometimes applies an update twice.",
+        "constraints": [
+          "The database supports atomic transactions and unique keys.",
+          "Keep durable deduplication data within 2 GB; event IDs average 64 bytes and at most one million unique events arrive in seven days.",
+          "Events for the same entity can arrive out of order and contain a monotonic entity revision.",
+          "No transaction can include the partner's acknowledgement operation."
+        ],
+        "success_criteria": [
+          "Redeliveries do not repeat the business update.",
+          "An old revision does not overwrite a newer state.",
+          "Specify a crash/replay test and retention behavior at the seven-day boundary."
+        ],
+        "non_goals": [
+          "Assuming exactly-once transport or changing the partner protocol."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s02",
+      "task": {
+        "id": "s02",
+        "family": "software_systems",
+        "title": "Consistent browse over a changing dataset",
+        "brief": "An API paginates 80,000 records while records are inserted and deleted. Clients currently see duplicates and miss records between pages. A user usually reads six pages over two minutes.",
+        "constraints": [
+          "No database transaction may stay open across client requests.",
+          "Records have immutable IDs, creation timestamps, and monotonically increasing change versions.",
+          "Server may retain tombstones for 24 hours.",
+          "Each request must return within 300 ms on the existing indexed store."
+        ],
+        "success_criteria": [
+          "Specify precisely which dataset a browsing session promises to traverse.",
+          "Deletion and insertion between requests have explicit behavior.",
+          "Provide a test that checks both duplicated and skipped IDs."
+        ],
+        "non_goals": [
+          "Adding a new database or promising unlimited historical snapshots."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 2,
+              "qualified_actions": 2,
+              "total_actions": 2
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 1,
+              "qualified_actions": 1,
+              "total_actions": 2
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 1.5,
+            "qualified_actions": 1.5,
+            "total_actions": 2.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 2,
+              "qualified_actions": 2,
+              "total_actions": 2
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 2,
+              "qualified_actions": 2,
+              "total_actions": 2
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 2.0,
+            "qualified_actions": 2.0,
+            "total_actions": 2.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 2,
+              "qualified_actions": 2,
+              "total_actions": 2
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 1,
+              "qualified_actions": 1,
+              "total_actions": 2
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 1.5,
+            "qualified_actions": 1.5,
+            "total_actions": 2.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s03",
+      "task": {
+        "id": "s03",
+        "family": "software_systems",
+        "title": "Offline notes merge without losing authorship",
+        "brief": "A two-device note application permits offline edits to paragraphs for up to 48 hours. Both devices may alter the same paragraph, reorder paragraphs, and reconnect in either order. The existing merge replaces the older complete document.",
+        "constraints": [
+          "Every paragraph has a stable ID, and each edit has an author/device ID and logical revision.",
+          "Keep the original text of conflicting edits until a user resolves them.",
+          "No external synchronization service can be added.",
+          "A note contains at most 500 paragraphs; individual paragraphs are at most 8 KB."
+        ],
+        "success_criteria": [
+          "Independent paragraph edits survive either reconnect order.",
+          "A conflict remains explainable to the user.",
+          "Describe a deterministic replay test including a deletion versus an edit."
+        ],
+        "non_goals": [
+          "Requiring constant connectivity or automatically deciding whose prose is better."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s04",
+      "task": {
+        "id": "s04",
+        "family": "software_systems",
+        "title": "Configuration freshness during connectivity loss",
+        "brief": "A fleet of display devices caches a configuration that governs which public announcements appear. Devices can lose connectivity for six hours. Some announcements expire, while others remain valid until explicitly removed.",
+        "constraints": [
+          "Each item has a unique ID, revision, and either an expiry timestamp or an explicit-until-revoked flag.",
+          "Devices have a clock whose error is bounded by 30 seconds.",
+          "Emergency removal cannot be guaranteed on an offline device; do not claim otherwise.",
+          "Configuration bundles must stay below 100 KB."
+        ],
+        "success_criteria": [
+          "The device never displays an already expired item beyond the declared clock-error allowance.",
+          "A reconnect does not resurrect a removed older revision.",
+          "The visible offline behavior states what freshness can and cannot be guaranteed."
+        ],
+        "non_goals": [
+          "Assuming an always-online fallback channel."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s05",
+      "task": {
+        "id": "s05",
+        "family": "software_systems",
+        "title": "Prevent large jobs from starving small jobs",
+        "brief": "A single worker pool processes image transforms. Jobs require between one and sixty seconds. A few customers submit hundreds of long jobs, delaying occasional short jobs from other customers.",
+        "constraints": [
+          "Twelve workers are fixed; no autoscaling or preemption of an in-progress transform.",
+          "Runtime estimates based on file size are imperfect.",
+          "Each customer must eventually make progress even under sustained arrivals from others.",
+          "Queue metadata may store per-customer counters and the last 100 completed runtimes."
+        ],
+        "success_criteria": [
+          "Bound a fairness objective and distinguish it from mean latency.",
+          "Small jobs gain opportunities without permanently blocking large jobs.",
+          "Specify a workload test with inaccurate estimates and a continuous heavy customer."
+        ],
+        "non_goals": [
+          "Changing transform quality or rejecting every long job."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s06",
+      "task": {
+        "id": "s06",
+        "family": "software_systems",
+        "title": "Telemetry during a bounded outage",
+        "brief": "A desktop application writes diagnostics to a 20 MB local buffer while a collector is unreachable for at most 30 minutes. Ordinary events can fill that space in five minutes. Critical events are at most 2 MB over 30 minutes.",
+        "constraints": [
+          "No network alternative and no expansion of disk quota.",
+          "Never store message bodies, credentials, or user content.",
+          "Critical events include sequence numbers and must not be discarded during the stated outage bound.",
+          "After reconnection, uploads can be retried and duplicated."
+        ],
+        "success_criteria": [
+          "Critical history survives a maximum-duration outage.",
+          "The recipient can tell where ordinary-event detail was reduced.",
+          "A replay test distinguishes missing data from duplicated uploads."
+        ],
+        "non_goals": [
+          "Promising lossless capture of all ordinary events or unlimited outages."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s07",
+      "task": {
+        "id": "s07",
+        "family": "software_systems",
+        "title": "Large import with traceable partial failure",
+        "brief": "A web service imports a 4 GB CSV file. Some rows have invalid references, and the connection may drop halfway through. Currently a restart creates duplicates and a bad row aborts the whole file.",
+        "constraints": [
+          "Process in bounded memory below 128 MB.",
+          "The user supplies a file digest; every row has a source line number and natural key.",
+          "The target database supports transactional batches but not a transaction over the whole file.",
+          "No invalid row may be silently converted to a plausible value."
+        ],
+        "success_criteria": [
+          "A restart resumes or safely replays accepted work.",
+          "A user can locate and correct rejected rows without guessing.",
+          "State whether the accepted result is partial and how reconciliation is verified."
+        ],
+        "non_goals": [
+          "Requiring users to split files manually or making the entire import atomic."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "s08",
+      "task": {
+        "id": "s08",
+        "family": "software_systems",
+        "title": "Compatible rollout across mixed client versions",
+        "brief": "A feature flag enables a new document format. Thirty percent of clients may remain on an older binary for a month. A new client can create documents that an old client cannot parse.",
+        "constraints": [
+          "The server knows each client's declared capability set.",
+          "Old clients must retain read access to documents they could previously read.",
+          "Do not silently down-convert content in a lossy way.",
+          "A flag rollback must not destroy documents already created."
+        ],
+        "success_criteria": [
+          "Define eligibility for creating and opening the new format.",
+          "Rollback has an explicit safe behavior for existing new documents.",
+          "Test a mixed-version collaboration and an incorrectly cached capability."
+        ],
+        "non_goals": [
+          "Forcing immediate upgrades or changing the old binary."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o01",
+      "task": {
+        "id": "o01",
+        "family": "operational_workflows",
+        "title": "Repair workshop intake with uncertain duration",
+        "brief": "A community repair workshop has two workbenches, one electrical specialist, and four general volunteers. Visitors arrive with items that take unknown time to diagnose; some need a part not available that day.",
+        "constraints": [
+          "No additional staff or workbenches.",
+          "Only the specialist may open electrical equipment.",
+          "Visitors may leave an item but each item must retain an owner receipt and location.",
+          "No promised completion time without an explicit uncertainty range."
+        ],
+        "success_criteria": [
+          "Short safe jobs are not blocked indefinitely by uncertain repairs.",
+          "Items waiting for parts are distinguishable from active work.",
+          "A shift handoff preserves responsibility and next action."
+        ],
+        "non_goals": [
+          "Giving repair instructions or increasing workshop capacity."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o02",
+      "task": {
+        "id": "o02",
+        "family": "operational_workflows",
+        "title": "Translation changes after review",
+        "brief": "A small publisher prepares a guide in six languages. The source text changes after several translations have been reviewed, and reviewers cannot tell which changes invalidate their approvals.",
+        "constraints": [
+          "Each source paragraph and translation paragraph has a stable ID.",
+          "Only two volunteer reviewers are available per language.",
+          "Published paragraphs need approval for the exact source revision they represent.",
+          "Do not assume automated translation can establish accuracy."
+        ],
+        "success_criteria": [
+          "Review effort follows affected content rather than restarting every language.",
+          "A changed source cannot inherit an old approval silently.",
+          "Test a moved paragraph, an unchanged paragraph, and a substantive edit."
+        ],
+        "non_goals": [
+          "Hiring professional reviewers or replacing translation with a summary."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o03",
+      "task": {
+        "id": "o03",
+        "family": "operational_workflows",
+        "title": "Equipment handoff with incomplete evidence",
+        "brief": "A makerspace lends kits of ten components. Staff switch shifts during pickup and return. A checkbox currently says complete even when no one recorded which components were inspected.",
+        "constraints": [
+          "Each component has an ID and a visible condition category.",
+          "A handoff may take at most three minutes.",
+          "Do not require photographs or personal devices.",
+          "Unknown condition must remain distinguishable from verified good condition."
+        ],
+        "success_criteria": [
+          "Responsibility and inspection evidence survive a shift change.",
+          "A missing component has an explicit next action and owner.",
+          "Demonstrate handling of a return that was counted but not condition-checked."
+        ],
+        "non_goals": [
+          "Automatically charging borrowers or adding tracking hardware."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o04",
+      "task": {
+        "id": "o04",
+        "family": "operational_workflows",
+        "title": "Support triage without resetting wait time",
+        "brief": "A small team routes support cases by language and product expertise. Cases bounce between teams when tags are wrong, losing their original waiting position. Urgent cases require one of two trained staff.",
+        "constraints": [
+          "Keep the original arrival timestamp permanently.",
+          "No case may be assigned to a worker without the required language or urgent-case qualification.",
+          "Staff capacity changes by shift and is available in a roster.",
+          "Do not infer urgency from customer status or spending."
+        ],
+        "success_criteria": [
+          "A rerouted case retains a fair claim on service.",
+          "Workers can distinguish waiting-for-skill from waiting-for-information.",
+          "Test simultaneous arrivals, wrong tags, and a shift with no eligible urgent-case worker."
+        ],
+        "non_goals": [
+          "Promising every case an immediate response."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o05",
+      "task": {
+        "id": "o05",
+        "family": "operational_workflows",
+        "title": "Tool-library reservations when returns slip",
+        "brief": "A tool library reserves items for specific pickup windows. Borrowers sometimes return late, making the next reservation impossible. Several interchangeable items exist, but condition and accessories differ.",
+        "constraints": [
+          "No more stock may be purchased.",
+          "A substitution requires the next borrower's consent.",
+          "Only inspected returned items may be marked available.",
+          "Contact is permitted only through the contact preference already supplied by each borrower."
+        ],
+        "success_criteria": [
+          "A late return causes an explicit recovery path for affected reservations.",
+          "Reservations do not become promises unsupported by inspected stock.",
+          "Measure preventable failed pickups without rewarding cancellation of difficult bookings."
+        ],
+        "non_goals": [
+          "Penalties, credit scoring, or collecting additional personal information."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o06",
+      "task": {
+        "id": "o06",
+        "family": "operational_workflows",
+        "title": "Workshop seating with changing access needs",
+        "brief": "A free workshop seats 48 people at eight tables. Some attendees need aisle access, some arrive as pairs, and cancellations continue until the session starts. The seating spreadsheet currently exposes private accommodation notes.",
+        "constraints": [
+          "Do not reveal reasons for an accommodation to other attendees.",
+          "A pair is a stated preference, while accessible aisle placement is a hard requirement.",
+          "Only four seats have the required clear route.",
+          "A confirmed accessible placement must not be removed without contacting that attendee."
+        ],
+        "success_criteria": [
+          "Seating changes respect hard needs before preferences.",
+          "Public lists contain only necessary placement information.",
+          "Test a late pair request when only separated seats remain."
+        ],
+        "non_goals": [
+          "Diagnosing attendees or requiring them to disclose medical details."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o07",
+      "task": {
+        "id": "o07",
+        "family": "operational_workflows",
+        "title": "Rotating exhibition permissions",
+        "brief": "A local exhibition uses prints licensed by contributors for selected dates and locations. A contributor can withdraw future display permission, while a delivered print may already be packed for another venue.",
+        "constraints": [
+          "Every print has an asset ID and a venue/date permission record.",
+          "Withdrawals affect future display, not a claim that past authorized display never occurred.",
+          "Packing staff may be offline for one workday.",
+          "No contributor contact information may be printed on the public label."
+        ],
+        "success_criteria": [
+          "A venue can verify permission before display.",
+          "An offline packing decision is reconciled before installation.",
+          "A withdrawal remains traceable without erasing the historical record."
+        ],
+        "non_goals": [
+          "Providing legal advice or changing contributors' agreement terms."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "o08",
+      "task": {
+        "id": "o08",
+        "family": "operational_workflows",
+        "title": "Small-team purchase reconciliation",
+        "brief": "A three-person studio orders materials using purchase requests, supplier confirmations, and delivery receipts. Partial deliveries and substitutions make staff unsure whether a request is finished or still needs action.",
+        "constraints": [
+          "The requester may not approve their own substitution.",
+          "A request can have several deliveries; receipts identify quantities and item IDs.",
+          "Do not treat a supplier confirmation as evidence of physical delivery.",
+          "No accounting platform replacement or new employee."
+        ],
+        "success_criteria": [
+          "Partial completion is visible at item level.",
+          "A substitution has a named decision owner and preserved rationale.",
+          "Test duplicate receipts and a delivery that exceeds the requested quantity."
+        ],
+        "non_goals": [
+          "Making tax or legal determinations."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.5,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i01",
+      "task": {
+        "id": "i01",
+        "family": "information_creative_tooling",
+        "title": "Research board with contradictory evidence",
+        "brief": "A research board stores claims linked to passages from reports. Multiple reports disagree, and a polished summary currently hides this disagreement. Users need to prepare a short evidence-backed briefing.",
+        "constraints": [
+          "Every claim must link to exact stored source passage IDs.",
+          "The tool may summarize only the supplied passages; no web retrieval.",
+          "Missing evidence must not be represented as evidence against a claim.",
+          "A user can inspect the original passages without leaving the workspace."
+        ],
+        "success_criteria": [
+          "Contradictory and differently scoped findings remain distinguishable.",
+          "A briefing statement can be traced to the evidence supporting its scope.",
+          "Test two similar claims with different populations and opposing findings."
+        ],
+        "non_goals": [
+          "Automatically deciding which source is true or generating new research results."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i02",
+      "task": {
+        "id": "i02",
+        "family": "information_creative_tooling",
+        "title": "Asset search that preserves intentional variants",
+        "brief": "A design team has 12,000 image assets, including exact duplicates, crops, annotated versions, and distinct licensed copies. Search results are cluttered, but deleting similar-looking files could destroy useful work.",
+        "constraints": [
+          "File hashes, dimensions, creator IDs, license records, and folder paths are available.",
+          "No automatic file deletion or license substitution.",
+          "People can record explicit relationships between versions.",
+          "The first search result page must load in under one second from the existing index."
+        ],
+        "success_criteria": [
+          "Exact duplicates can be condensed without hiding meaningful variants.",
+          "A user can recover which licensed file a project used.",
+          "Test identical pixels with different license records and different crops of one original."
+        ],
+        "non_goals": [
+          "Training an image model or redesigning storage infrastructure."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i03",
+      "task": {
+        "id": "i03",
+        "family": "information_creative_tooling",
+        "title": "Transcript search with uncertain attribution",
+        "brief": "An interview tool imports transcript segments whose speaker labels and timestamps can be wrong. Researchers search for quotations and later discover they attributed a sentence to the wrong person.",
+        "constraints": [
+          "Audio playback and segment IDs exist; no new transcription model may be added.",
+          "Speaker identity may remain unknown.",
+          "Corrections must retain the imported text and the identity of the reviewer.",
+          "A quote export must include a route back to its audio interval."
+        ],
+        "success_criteria": [
+          "Unverified attribution cannot masquerade as a verified quote.",
+          "A correction propagates to saved quote collections without rewriting their history.",
+          "Test a quote crossing a segment boundary and an unresolved speaker."
+        ],
+        "non_goals": [
+          "Claiming automated certainty from a confidence score alone."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 3,
+              "qualified_actions": 3,
+              "total_actions": 3
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 3.0,
+            "qualified_actions": 3.0,
+            "total_actions": 3.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i04",
+      "task": {
+        "id": "i04",
+        "family": "information_creative_tooling",
+        "title": "Palette editing across many design tokens",
+        "brief": "A design system has 180 color tokens used in light and dark themes. A designer changes one base color and unknowingly makes some text illegible. Some tokens intentionally differ between brands.",
+        "constraints": [
+          "Token references and rendered foreground/background pairs are available.",
+          "Brand overrides cannot be silently replaced.",
+          "The tool must show which pairs require review before publishing.",
+          "Designers must be able to compare proposed and current values without relying on color alone."
+        ],
+        "success_criteria": [
+          "A base-token edit exposes its actual downstream effects.",
+          "An intentionally different brand value stays traceable.",
+          "Test a multi-level alias, a cycle, and a token used as both text and background."
+        ],
+        "non_goals": [
+          "Declaring complete accessibility from color checks alone."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i05",
+      "task": {
+        "id": "i05",
+        "family": "information_creative_tooling",
+        "title": "Branching story editor with unreachable scenes",
+        "brief": "A writer builds an interactive story with 120 scenes and choices gated by state variables. Some paths loop intentionally; others trap the player or lead to scenes that cannot be reached.",
+        "constraints": [
+          "The tool knows choice conditions and state updates.",
+          "Authors may keep deliberate loops and hidden scenes.",
+          "Do not rewrite prose or remove branches automatically.",
+          "Analysis must distinguish proven unreachable from not explored within a declared limit."
+        ],
+        "success_criteria": [
+          "The writer can inspect a concrete path or counterexample behind a warning.",
+          "Intentional exceptions can be recorded without suppressing unrelated warnings.",
+          "Test a loop that exits after three visits and one whose exit is impossible."
+        ],
+        "non_goals": [
+          "Guaranteeing exhaustive analysis for arbitrary embedded code."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i06",
+      "task": {
+        "id": "i06",
+        "family": "information_creative_tooling",
+        "title": "Idea workspace that does not lose dissent",
+        "brief": "A team explores names for a neighborhood project. Early popular suggestions dominate the shared board, while late alternatives are repeatedly dismissed as already considered even when they solve a different naming constraint.",
+        "constraints": [
+          "No automatic winner and no hidden popularity ranking.",
+          "Users can state constraints and explain a rejection.",
+          "Names may be grouped, but original suggestions and authorship must remain recoverable.",
+          "The board must support anonymous first review while retaining private authorship records."
+        ],
+        "success_criteria": [
+          "Different underlying directions remain visible alongside wording variants.",
+          "A rejection can be revisited when its stated constraint changes.",
+          "Test two similar names with different rationales and a popular name that violates a hard constraint."
+        ],
+        "non_goals": [
+          "Generating a legally cleared trademark or manipulating votes."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i07",
+      "task": {
+        "id": "i07",
+        "family": "information_creative_tooling",
+        "title": "Chart annotations tied to evidence",
+        "brief": "An analyst adds callouts to charts, then refreshes the underlying dataset. A callout can remain confidently stated even when the cited pattern disappeared or the date range changed.",
+        "constraints": [
+          "Each chart series and annotation can reference stable metric and filter IDs.",
+          "Data refreshes may contain missing values and revised historical observations.",
+          "Do not invent causal explanations from a trend.",
+          "Exports must preserve enough metadata to identify the data version."
+        ],
+        "success_criteria": [
+          "An annotation whose evidence changed is surfaced before export.",
+          "A missing series is distinguishable from a zero value.",
+          "Test a ranking reversal, a date-range change, and a revision with no material effect."
+        ],
+        "non_goals": [
+          "Building a new analytics platform or certifying statistical significance automatically."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 1,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 1.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    },
+    {
+      "taskId": "i08",
+      "task": {
+        "id": "i08",
+        "family": "information_creative_tooling",
+        "title": "Highlights after a document revision",
+        "brief": "A reading tool stores highlights and notes in technical documents. When the document is edited, character offsets point to the wrong passages. Some deleted passages remain important to the reader's notes.",
+        "constraints": [
+          "Keep a copy of the originally highlighted text and its document revision.",
+          "Do not silently attach a note to a merely similar passage.",
+          "The user can compare old and new passages.",
+          "Documents can contain repeated boilerplate and moved sections."
+        ],
+        "success_criteria": [
+          "A moved passage can retain its notes with traceable evidence.",
+          "Ambiguous or deleted matches remain explicit.",
+          "Test identical repeated sentences, a moved paragraph, and a small meaning-changing edit."
+        ],
+        "non_goals": [
+          "Rewriting user notes or guaranteeing a match for every highlight."
+        ]
+      },
+      "arms": {
+        "S": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "R": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "LR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        },
+        "XR": {
+          "status": "success",
+          "judges": {
+            "j1": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            },
+            "j2": {
+              "qnm": 0,
+              "qdm": 4,
+              "qualified_actions": 4,
+              "total_actions": 4
+            }
+          },
+          "score": {
+            "qnm": 0.0,
+            "qdm": 4.0,
+            "qualified_actions": 4.0,
+            "total_actions": 4.0
+          }
+        }
+      }
+    }
+  ],
+  "sourceRecords": [
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-XR/record.json",
+      "sha256": "ca713f16e03ef20cee3e68209ce71bb855e18709d189e2a2869f950e05b7200e"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-S/record.json",
+      "sha256": "75ee12d2bd4757bc300e77eb13bf1024750f93e9188c7152fc09c786df219544"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-R/record.json",
+      "sha256": "a283881da9425682982db8e993326e540f148e501ca867397740a1aa8eb2b48f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x07-b/record.json",
+      "sha256": "a1d5339b3bda7c6e496ae8e6d20a6aa4eef8fac01300a60a9e1549d701f613e1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-S/record.json",
+      "sha256": "ee4f40d0d3252511bb1e1cd5cf6759055a74f15606f731fdb81ceadf838c6702"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-bank-2/record.json",
+      "sha256": "b1e6778c42f0ac8f0758cc389fa004ef320d1d16520330426873761276087636"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-bank-1/record.json",
+      "sha256": "9cd8ad309b8218dc9b705a13b5d259140fa07878ab2333344f69c98ec02e860f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-R/record.json",
+      "sha256": "5a936ce3cc8af93cf208e90c836665f1b4ce5cced1bafe88dca404b4337f0ddd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-S/record.json",
+      "sha256": "925d032cebfa851b8c9ca3b47ab860e4c134666307d462d65f2b850562b707da"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-S/record.json",
+      "sha256": "a912d087d3bdf86aab15870de0ae06d73d02d1cf817f711410ab28e26cc53906"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x04-a/record.json",
+      "sha256": "269bbd6616a0ac713a5ebc18f6d52c5e5802d83a1381cd8f84a536b2017bad3c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-S/record.json",
+      "sha256": "9f2a2439eca3ea0efc0d7277201afade1a204af7b52bd63ba48180267e775897"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-R/record.json",
+      "sha256": "acb2cbb728cd0d32c5108e611f28beccfbe267c7aa3c1bf6d212dce052b3625b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-bank-2/record.json",
+      "sha256": "ba9c31d7f9ca70c9f824ea19ead897ab62558657ae3fafecd0472f04a7d8c16d"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-LR/record.json",
+      "sha256": "e53657b999a6ede82f30478b1e458d2e31b974d9b6fc6b76fbfff501ff3fc383"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-LR/record.json",
+      "sha256": "4652b1b4847481fbdd718c18b59f46d33b14fbb190102b2018a1b49296fa3e65"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-XR/record.json",
+      "sha256": "436947bbc1a6f5dc28ebb0cf4b7fbe54c4e07e0b6232497e88af42b2ad9b0d11"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x08-a/record.json",
+      "sha256": "678a54a4d77b101292e86f54dba6583ff0d8e326747150f3408c19b4ccdef00e"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x03-a/record.json",
+      "sha256": "c0914058330cf2aa6cf50ed568b173e9ac6023f4ab5771e6c426ceb7d8878176"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x01-a/record.json",
+      "sha256": "a5e49e71285579acda6ee8f0370a87f329a2dc23ea81b5825933a6b9debbdcfb"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-bank-1/record.json",
+      "sha256": "15116b6f46721bbcb4952beef4ff3030cf2933d4a6a3b79338ce412863529dd1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-bank-1/record.json",
+      "sha256": "fb5ba7459697f9048c397c4ee9ea402fa183e691668a62e980e076451eaef957"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-LR/record.json",
+      "sha256": "c6ab00bb78f881088cf417a01b39e15e3f17860d3cdcd6f264f55926343f07c3"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-S/record.json",
+      "sha256": "089baff10d4e893cc30b1841ae7907cb5b6f2be53d4b1da2791d23d791aec487"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x06-a/record.json",
+      "sha256": "79318867e423e3853a6e28e2d19672dc0352a77dfa9a4fdb5304085593dca221"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-R/record.json",
+      "sha256": "3efd45ec7768bef78fc711d4b6825c4ee3ab281bc42cccf3d8e31db3c29982b9"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-bank-2/record.json",
+      "sha256": "efe0ff084c0b5d74e36f3dfccb32840930407c56ae99a6601f76f60eddda7273"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-bank-1/record.json",
+      "sha256": "b0518517856ecd19a1474d17f4533c87faccb4635817f918bca07aa119b45f81"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-XR/record.json",
+      "sha256": "a9f372567d83226c55e05831077efd7ba3d5f1c77454073178c5055a80c983db"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-LR/record.json",
+      "sha256": "3e1cd48f0b1b6ac1ae574fed669438585bd060e3969fb8191278e060b3476328"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-bank-2/record.json",
+      "sha256": "05d700609ae77e6975854745799d55013a22359690466a7c691b7db4d2f71e61"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-bank-2/record.json",
+      "sha256": "40c35c342c8998026b7b531d98d046398b18793b260efd04c77c592bafc92daf"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-R/record.json",
+      "sha256": "a0912be9c25ee758ce47f279151491939234b30d95265873ff667323b8026c00"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-R/record.json",
+      "sha256": "829eae3d4cbf0dd10aa99cbfa68a8efd5284f37ff7c527f67f6026d0c2bce65c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-S/record.json",
+      "sha256": "838c9b9fde5fd1111e27fb1669fc2ace2661848f57a6b4945dc8520881107956"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-R/record.json",
+      "sha256": "a3a4be4756c5e34dabaae4bcfc9e28fc0e4aa10ee8fcfd82763bf0572575d034"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-XR/record.json",
+      "sha256": "eeae6bdb1829b334680021d44b1893d196c015aa7be6b217c6d2ba0b46e3fc5e"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-bank-2/record.json",
+      "sha256": "2abbc11e23b913cea9d5b614e66c928d7155c2175326a78e303abf87934c3030"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-LR/record.json",
+      "sha256": "cbffd7719f8896d3d497ffa4d4544cc388f458984c84dfeea8db2db3548e77a6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-LR/record.json",
+      "sha256": "46eddac73c03fa323cbfeef1f6cabe4e6e2854a3a862b7b42ffed69dfad4cb90"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-LR/record.json",
+      "sha256": "ca586b8a79bc741bf6364fedadc6c13e2eec91b0a7d7288b11280b8a8d7c44e0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-S/record.json",
+      "sha256": "f34aec7658e21b02946f5416d18dd917bbc97491416a1e40471ecbb7d34f0df7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-XR/record.json",
+      "sha256": "26044d9754abf07659958bbe3398c8c30a6400af8182b4f94758388a197c8ab7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-LR/record.json",
+      "sha256": "cebca0c6f71b1caccb7986fbb6b73350d89b574a532e6695b898ff85c6e38696"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x02-b/record.json",
+      "sha256": "bd3a0e9ad90511e6638229c256543cd9be61fcd315b8a55e1e1fa668be3d5163"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-bank-2/record.json",
+      "sha256": "a0e643cbc03fc3f4b7aa7463c11ff8fb1473095caf36ecfafcdbd8d62b4c458d"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-bank-2/record.json",
+      "sha256": "44567951b511135425e5f43a044269a8f79d1cda8013d46f6081c6f6521b365d"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x06-b/record.json",
+      "sha256": "4dc280a12b172a511f20bc229b9a6251dc07aed63159578873b040a1ec66d29b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-LR/record.json",
+      "sha256": "b9bf4d1fe5b68d5c92fe8e09046690506f31ad16edf069b815b77cc0424ade1b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-R/record.json",
+      "sha256": "e3529387323e89de90d2220a57c1bd143d686b921c130b0ed040488dcd5d8305"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-S/record.json",
+      "sha256": "25a825f0a1b0dc720dbe01bce1748695d78f3c06a691a3c58f4a599244f34f39"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-S/record.json",
+      "sha256": "a34e4dded8ce411c53b05a215dbb0a8724c1cbb2bca9449b0987de7fdb3106f2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-R/record.json",
+      "sha256": "2b0392571b4c877c82a37277ccb9ec04c934fa8d6a02409fbdd130402c02a5f8"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-LR/record.json",
+      "sha256": "aedd953a83b78e21846acf4151fdbb3dea2a35db85c23f43dfe95c34c78132c0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-XR/record.json",
+      "sha256": "4a44c453a6f1c432c260972558f67ac85dce733ad32c28131e10c9b3eddf5842"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-bank-1/record.json",
+      "sha256": "460f17629a9f4d313d331a452ab5b5a697a7bc2670757411f9a942ddec82c4be"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-XR/record.json",
+      "sha256": "59424df0a2b6a8b853a8e71f981b9dbc14c70006326517e97b8d6d7a1d2afc5a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-S/record.json",
+      "sha256": "ff673cbfb6edc7ed8c577a3ccb66f7a7e925d033dcc30220d4661e0569f6f87f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-bank-2/record.json",
+      "sha256": "d9e54162c2402c42c49e04f445a3383b4ce8d5c389d9e51163d4e9fb18f999aa"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-XR/record.json",
+      "sha256": "3c8a3ec65f09f0f5e3e3174e3368eae1697390f4d23a97bc7eecc0debce62050"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-XR/record.json",
+      "sha256": "ad84104af92ef43807e80a12bc7ea11990f270c01f34714e69055c45baf373f4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-R/record.json",
+      "sha256": "15a69cdd4943751c27a024dca3cd08a797c37544c0d707d25f77656fbb6c6b9e"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-LR/record.json",
+      "sha256": "2eefb464e6dd5e55ebd37b8d24f73d5bef779a752fecdbb0aea8afde8b8571fe"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-bank-1/record.json",
+      "sha256": "aa3b887c29ac10d5d56a2c1eac74fa7de1c39ad963c9c8bdd045eabedd5ab4d6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-XR/record.json",
+      "sha256": "4d37a04e2f86a365ad6eeeae62fe6af13b245e50aae0d795d3639b1a48770ba9"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-bank-2/record.json",
+      "sha256": "8058914508c88559fa1c57c90a7f762c5dc41bc3d59490e3da6a67ce160d3f37"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x08-b/record.json",
+      "sha256": "c325d63bb58b5e0e6619898ec7130f4cae46bdbe85d1230d7aeef4dc4c6f37b2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-R/record.json",
+      "sha256": "92d0166b8b63430efc1bdfa3a05fa230666c6882cf10431ac0207bc16a2c34cf"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-bank-1/record.json",
+      "sha256": "eae16c5455f54a20e315b030ef8f5331830ed73207fbfd3b0a1d202d724f28b1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-LR/record.json",
+      "sha256": "9954af634c58a24b1856d5a2ef5b5042590c5779faf8dd7165265582a0a0e4b4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x07-a/record.json",
+      "sha256": "58ba2f701e29853049bc26179121ef110640ecd0e6b4a2e4ea1740b5920a7af2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-XR/record.json",
+      "sha256": "8c7ae67378c974a9bcc618268b63479c2377aeea16acc1839b395541d57bfa39"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-bank-1/record.json",
+      "sha256": "16500cd4a169f9c22202591cd5574b3a5451880c225553b96d737023f50dfbf1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-bank-1/record.json",
+      "sha256": "0e82cf1a68fc8075feeadba00ecf1cfb55aaa68ebad2ab4bf5c067cefd376321"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-XR/record.json",
+      "sha256": "5bc5adaa189ec7f1ec49bf199a26ca0bafd517a969a55ade51b61e135f65017a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-R/record.json",
+      "sha256": "f7e09c3fa37571cf0ca3772d487d1e6f8186863e103fbe67540db80def8c3a08"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-R/record.json",
+      "sha256": "d88f83d58e0340efe431c6dd336651ed57f9ddff9ea45694c3294bd5ad488fdd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-bank-1/record.json",
+      "sha256": "d600e7714f197feb6e043e4ab0b2777a5dff677849dfdefc71c2129c9876fab9"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-bank-1/record.json",
+      "sha256": "9f33d9710af3096f61148c1c4c343d2c0a80c2ff7b7095fc903494b868e2954a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-R/record.json",
+      "sha256": "6022ebf0ffd1bf55907929c17708dfef409cc9958f328573602113ec71fbccb1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-LR/record.json",
+      "sha256": "6ebad14ce1756d7f4156fe50858593672bbcd7fbfa35ed8d6556fe8cca055eac"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-R/record.json",
+      "sha256": "06863c75f409a7a9c8ff4d82bb50d860715d3a484113d4793150835e687d0c1a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x05-b/record.json",
+      "sha256": "af8f356bec0b4cb655daf2534e72c4a3c7ebe49b8e87bbb857bd20f44372764c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-LR/record.json",
+      "sha256": "42c5d7b39b163e7d853ad97429d6e020c020291c2fa33b7c9d37ce56e1c4ffb0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-R/record.json",
+      "sha256": "67639f3c6c4c320a69ef7748140e032d89f727e558d0ed5967a22ed6f22b8426"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-S/record.json",
+      "sha256": "408241b2b822506330880c7524e0517c06a100d882d28c7b34f215d4a4931272"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-R/record.json",
+      "sha256": "13a03eea7d527252fefeba7daec94af1355b337c90c16efac5e925fe018ddab3"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-LR/record.json",
+      "sha256": "ca940525602192c1edb2af834078f92fe0230ed000c2c2beba698292c5f7b103"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x03-b/record.json",
+      "sha256": "52473f13a3f5f3bda9c6f08c1ed4599ff28ffb9dce22025ac5048b05fd852008"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-LR/record.json",
+      "sha256": "b3c306239b0afa580356e73a93bc76d7c41b2ed62d663d69ab0829da59b8b1f5"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-bank-2/record.json",
+      "sha256": "efeb66c75234ed6949d53a29618a34be2212663fcd65ede9018bd5cc617395e7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-R/record.json",
+      "sha256": "431f23e55f31c52279e8ca89038e83f65c8f26cccb52cbd058595f64270b0d13"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-LR/record.json",
+      "sha256": "e722befb11da1e83d2fcea8759bad6387bfc42248961ea97c938fe67428aa1de"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-S/record.json",
+      "sha256": "353dff3c1f6b5260d6adac1ad409981e4a6f9dc1c7145aec7fc0665a4e9e703c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x05-a/record.json",
+      "sha256": "4acc02ead3ad3b8b2f50f07ba949d5e162e03989e40b94eafade673723c4c3b8"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x01-b/record.json",
+      "sha256": "aeca2e9227d1045534d92697086b36fbbfc41f4f9f91d8cd921d9a306f10e592"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-bank-1/record.json",
+      "sha256": "81c0cb2e301789ff34a6c51aa7b274ec254396c22e07d71e1c53d1bb35d572cd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-S/record.json",
+      "sha256": "ec2fecdcec4f01a74723766d58503049cbb7c5ebaca138f68a8c70650397f5d9"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-bank-1/record.json",
+      "sha256": "edddfc8ba6840aa0d156aa235633fd6331452e36948bd35e28cda48d8d6a1766"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-S/record.json",
+      "sha256": "4547d8ade7cce19ebc085a3497da111c6b3d3a36914cfe5e6176b60a3565a99b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-S/record.json",
+      "sha256": "ea17bbf5ae832832486a5f8173e90923e612f332ca050af237cdf3edc565acc1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-bank-1/record.json",
+      "sha256": "cecb30e9bce1571d752efd4f282b3667eb2ebbfc8e6c21b57fcfccf744c6cd6b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-XR/record.json",
+      "sha256": "622253add6d8b04761ea51ed46a04e2343204dfefb9a14e8f59aff108746bfb6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-R/record.json",
+      "sha256": "862f6c275f5ac83cac07a9231c450dbca45f50c8119bcdd7afb76cf00c6293a3"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-bank-1/record.json",
+      "sha256": "6d61bdffd5b7f46861af317c7989c185a5a71095ba681889d9c8960abe5b71f7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-bank-2/record.json",
+      "sha256": "5b37405f08a9eab55ad573ecfac06ebf29ff9ff9cd1af1f315478b5ec242dd81"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-LR/record.json",
+      "sha256": "9ee864ee5d3aaf34cfe8abfdf67677fb2d275725b2bb9542abc8a406dbdf5999"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-S/record.json",
+      "sha256": "88fec0e26fa6c31ec5a9c7b408a17a84426bb4282057df96f1efb3ada12be4a4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-bank-2/record.json",
+      "sha256": "a0fc2ebbd8bf3f47ecdbb72ceb82ea8fea8ab10d38bb4b5536f27620bba79853"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-XR/record.json",
+      "sha256": "683b98ed4d23029711057e9e9bb4c68957e098693b7bf9c8127ecf8e664a8e4f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-LR/record.json",
+      "sha256": "988c0602b6cebe33b541a1bd29d9c6c5d203bf4f21e90cfd3e9c847ef54e8ed6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-bank-1/record.json",
+      "sha256": "74eac75fe8f1d33d070e6ac1be98851091a0d25d39c19ae11b10995e6749f006"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-XR/record.json",
+      "sha256": "21e0be3dad70aa3da0709b52a2d5421fd43c263874951f62e6a6b449357cc999"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-XR/record.json",
+      "sha256": "0da5c6eb2dd710b62127b0125a447d1901351f8caf9c972030c9f1857661f361"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-XR/record.json",
+      "sha256": "6c589c42dfacfe946499b04be600e756b17f34fa0b4f1bcdf16fd1bbcae66933"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-R/record.json",
+      "sha256": "c6afe9b7cc6f2a78223e648a16c5f083a6ef61f4dd2f8978a30006079477f6f0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-LR/record.json",
+      "sha256": "34aef69915fd5e93080d6040469daab110f3d8b39eceb1e43d434ffc0ec7f3e5"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-S/record.json",
+      "sha256": "135ba2e4d461314f1322efc9d0df0bf53e3a9d4dea26698a8e2dcc3be101fc98"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x04-b/record.json",
+      "sha256": "7d048e1e3922a7119b162fb8d2df97706f72209c6acc8a2748d27d4464763e94"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-XR/record.json",
+      "sha256": "f43bb2197eee5c38ce8297bfdc9bbab3200ac7ca24dfd1b2c236cc8dba5d8242"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-LR/record.json",
+      "sha256": "d5f4ecdd2d831618f31fa9bd97f0a974902cac19a5503b9a010a03ab7fbc7ad7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-bank-2/record.json",
+      "sha256": "c7abd59821ea731a20c72ec68355f261e028a44f56c433a5029a4c059685289a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-XR/record.json",
+      "sha256": "b5b8aa0ebf72c09f11c95fb99b836576e46c9475c0e63f15cf9e84b482a4d665"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-bank-1/record.json",
+      "sha256": "a43ff8ca4d5fd9378def5fc3acee12f078480a0cbcb3d1606f60068a884a10c8"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-bank-1/record.json",
+      "sha256": "620704564c9e8cf0d6437a1d449d6db263892c2e3da3585b8930897745515ac2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-XR/record.json",
+      "sha256": "9e2df9206620780cd91d233a26d2ac7db8c82d0ab7a8b37291b21bd3f9048a68"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-bank-1/record.json",
+      "sha256": "df2877f3f5a5014e5490b25c4998f7d7d5c8a197d0f814facffa8a5c5ce5b58b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-XR/record.json",
+      "sha256": "a6ff673808e38658d5a93d7b41ebb1b5c52e19814211d14aadd2e032012b7088"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-R/record.json",
+      "sha256": "284fa202d2e7870b09717678e563e5a573c7899afe96398402f01f33ca1f9aa1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-bank-2/record.json",
+      "sha256": "fed67947e801fe2c3064226429f25ee626fb042497d3f8563b7a021c190d2e58"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-LR/record.json",
+      "sha256": "e480c5aca196b12f5f85ff3eb1113d0c8c765b27caf8bde3eaa1ed8dc33e8707"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-bank-2/record.json",
+      "sha256": "ca411e210f5bbb376e3afabf8c44dfb23c819ad6604df7dcc5921c4e48b0a0ed"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-bank-2/record.json",
+      "sha256": "cdd9659d4324e3e7ab738d7531bfbfcb8ad07f2cf6b2e8ec650616df2aaef5e2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-S/record.json",
+      "sha256": "9fb76763668386b8594161b612a9ea537ae0b6e07d6ffc4d96d59c7b397241e4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-S/record.json",
+      "sha256": "67cebda712bc28236c78a172c7a9338a71faec0ae118015d3e24a3f63922620a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-XR/record.json",
+      "sha256": "b77f2de1547e0314c968ab5431b6aa97412e5c4595eb3ea96acb8ff5bbd77600"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-S/record.json",
+      "sha256": "1f8db25427dc50f6302b45285b273154781baeeecb32a35617f379547c1d8cb5"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-S/record.json",
+      "sha256": "4337b68f22c335471af7cfad7f0e20591393feecc4608eb3a926ca6630ffc2d1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-bank-2/record.json",
+      "sha256": "3479ba48fed79e0393cda5b1d9f80464ddd50249b894486bf8f3984f3e4ea7a6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-bank-2/record.json",
+      "sha256": "a7a818039fc007f23037b04c09c4e28905c4a72ecec7221eed7a8561fa6ab2e1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-R/record.json",
+      "sha256": "e8497a7c1e60a4807c8a1ad5258daa0e44fa2def178e135998cbd049a6a913d5"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-LR/record.json",
+      "sha256": "8e3495e2345d71f3af12b07c35d39113c013a996ddb19b03dbe983f89f810bfb"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-bank-1/record.json",
+      "sha256": "8086479007ef8aa6cd253f811718c5241b4418f1af86c028e2e678092c1488b5"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-R/record.json",
+      "sha256": "fc7a555c0d039c7e4c57ac59c0e71a88a0b2e68c5dae702872b09c93ef4c3b0d"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-bank-2/record.json",
+      "sha256": "4225fc2ccabbf8ce576eadcca46875d4a8531a01629fec39a7742afb4259d377"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-LR/record.json",
+      "sha256": "f7633d7effc78fab61c0d72987c33cbf4b59551424c74890c7f99838ee5aa5fb"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-S/record.json",
+      "sha256": "15d295cba1084376749930c25ca38bf71cce5a8f87c4ed2c35a591429cbd2644"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-S/record.json",
+      "sha256": "73820a600bfe7fd043f36e03a032dd13c5868a1d1d1edccd050be244ee601ba0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-LR/record.json",
+      "sha256": "304bb0352ca5fb32fb1080eeb2778521fc8368a8d467f31e25e458eaf7692dd8"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-S/record.json",
+      "sha256": "aff40776dfa6d2aa9974da09a2f6be722e4b4561a3b5cc40af36cb7b17bc4d7c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-bank-1/record.json",
+      "sha256": "58044b685d0703c691dff99904415686e1a9683afa5be81fdf7aa007827f7dc6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-S/record.json",
+      "sha256": "a6a36aada4473926290a10fc137308b0a673b31f321abe675a2e1c94c7e9a9c7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-bank-1/record.json",
+      "sha256": "b4f1015637b8db4295841a584307fec5003a7b5231805518ab71bd18a71df373"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-bank-1/record.json",
+      "sha256": "50f8422bb7496d39a733a76b60af1a4945d2eb5fec1f78f3e9dcffe4fefaea25"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-R/record.json",
+      "sha256": "3c59f200145050699acfde34c7f1f47f8e8b38119e2d77e8a052589c46c9ab24"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-bank-2/record.json",
+      "sha256": "20e9ef17a0a408794652c997ec9bdef6a1e5dea373cca9c8f47143dbdc64efb2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-LR/record.json",
+      "sha256": "ccd483560cb02067f883ab59e1fc72322adf73866cbd7d06c3f4d6db78169f75"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-bank-1/record.json",
+      "sha256": "ca07ce1cbc46dd6c37a24b2a7141c2c241c5af9c9d986e50a0167dec7fe84ead"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-XR/record.json",
+      "sha256": "d4dd49f5678ec5d9469c07e64ede04c1f3c7bed870f6395f6463edb8ba0c15fe"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-bank-2/record.json",
+      "sha256": "64dbae181af1306a5faf09ff13b62768c43fd89345ded69119eb01223d5582c8"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-R/record.json",
+      "sha256": "7a271923a05d33ad8cb1558b041f700e270fbaeb6da6d0265a49f9be6fa5dafc"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-R/record.json",
+      "sha256": "591ae9570ad0071e2e0efa16f20bd8bc14196b40cb2bac2724e874a12ee8be04"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-XR/record.json",
+      "sha256": "8154495de11573b7fee7db4856ab419056a7c741d5998e667761828cf315993c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-bank-1/record.json",
+      "sha256": "dd3bdfe8e8457cb169cd2b0a6364f342a42f9a08b8df6d671463790f906a551f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-XR/record.json",
+      "sha256": "521598d8e852df1a38eb66c39d43d8f11bd502c53052841312c3a586baeab479"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-XR/record.json",
+      "sha256": "9e827c7918ae03e5ea6431b84123995bf0fd88528d33f2bb0b12fdd97bb0adb1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-bank-2/record.json",
+      "sha256": "eceabb40e657d16dee2a30c39d5fde957260f20d6e13e14ec0858c20b0e96ef7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-LR/record.json",
+      "sha256": "7548b35455bad2c92f8c64386290cc9e7406610f8b1670511c839d81bf6c0b15"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-bank-1/record.json",
+      "sha256": "ace846852c4bfc2137bec23d279342c26fc811d2a298199ec3dcb0a61ac3850a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-bank-1/record.json",
+      "sha256": "5cd34db70827bf7e6f5cc47c12621a012084d610517faa3cb641db868bcaeaa2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-LR/record.json",
+      "sha256": "f848533d8e05e9287f041004a8169ebc9342d12f1301b1818a8c3d512a049e36"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-LR/record.json",
+      "sha256": "0cc75173c8cea65190d9455c6e04e7e0261fbb7da65d4e03e215401a76fced22"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-bank-2/record.json",
+      "sha256": "da74bd1c2cc676475aa871851c32de94b7138190d99bb468b3b23c2a4be32648"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-R/record.json",
+      "sha256": "5429e28162c14aab4aa7b4e7899731e7a3751bde6f1f8c832b1c09a86ed77e96"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-bank-2/record.json",
+      "sha256": "fe4a391b880118ac465a0a72cb6ebdf47558277ca998632c4de6f2790a9ee868"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-S/record.json",
+      "sha256": "cf58cfa839ba6f8b1fe3b602d1298a2f5c3b39a71b1cbc39686c7b9470d01550"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-bank-1/record.json",
+      "sha256": "10f91697ae37f6ed39499761f5649cf22b77e520c5e53083d5666f7254dcf448"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-R/record.json",
+      "sha256": "399e628eb3e4ee4177a0c54a835c55757ce74e55bd05b119d972531460cc8060"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-XR/record.json",
+      "sha256": "69f420ebdf2eb158b16f3d4d15220a844d27f7ba0b069c2f739f02614d86f61c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-bank-2/record.json",
+      "sha256": "1828336f51d9a7352987cc48f01ce3fa83973bf2a29648d28c80bc7bd53fabe4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-XR/record.json",
+      "sha256": "65cfc422a546ca90b4a459a890be6d08fd2b03a3d1bd7b5f81f4883181739ba4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-bank-2/record.json",
+      "sha256": "ff47edfc66b98b5924b9588e04011c08c9035778db6cf21067d510404ab76e4a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-bank-1/record.json",
+      "sha256": "b00d17666d4657bfce418dd4d1e4f6e38c07eabd4fa5224b872271843e99de33"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-XR/record.json",
+      "sha256": "67e7e106f8e56870adddb755114f5ccc65476d5d482ef3864945bfc29f954898"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-R/record.json",
+      "sha256": "20d7baa5a78191d3c61d0120a8f8cf441408b4982bbe4cdc153b84fec5e651ae"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-bank-1/record.json",
+      "sha256": "bbe231c281cb95bad9adcc089c51412181fd7c9ecba5fe0daf70678f95c4b4fd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-bank-1/record.json",
+      "sha256": "4bf2ebd295d53b117cc2e8f482de0badbfb6a9817f670abe060ff1010ef47a2b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-XR/record.json",
+      "sha256": "2465f6082d9656155fa96f3a0fdb62981e797363f025e3c0b0c0bc4af450c6fa"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-XR/record.json",
+      "sha256": "e3cec9c5f325c994316149f14b6e6f32c8b2e0d7645984fc4fa89e88f842597b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-LR/record.json",
+      "sha256": "0d4a36cff4c71d8ea41476f40708570a2dfe284901b865da1b3c64a6bd7399bf"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-S/record.json",
+      "sha256": "f367d034dcbe9422478d0e2ad080eddc1f8e9eca8e8d02c766617e9e8f215832"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-bank-1/record.json",
+      "sha256": "a0a6c2ca9bb31bd376fb2c1e5ac6c5d0269c41c976f62d940fbde27ee7467c44"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-LR/record.json",
+      "sha256": "4f8902bf263682d42fe7262e27d9ba9f4bb01cbaf620f85349c6693e811ccd2d"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-S/record.json",
+      "sha256": "5bd881c508615626d85881ffae162ae6666abba6bd83da97b236fa454e895763"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-LR/record.json",
+      "sha256": "b7734d13251cb7f84f8a8d7a3f75b4ad9956f2d59788643c98327310d3668c94"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-S/record.json",
+      "sha256": "591218d5a98954eefec3f3fb876bc2d377d30e6f87f6285e1b32a7cb753c18a7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-R/record.json",
+      "sha256": "8fe1cd661e6f5695cee55f994689b70c1290f73d72b3c1b0cec1134e916c7966"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-S/record.json",
+      "sha256": "e6ecb2b9d43f5adea2833630044a18db31975f72452b5114ca8ad37993861491"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-bank-2/record.json",
+      "sha256": "228d794a19d25e380f096ff1bf67b6fd022c18576ee3d798474c156b4b8e652c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-S/record.json",
+      "sha256": "a62c3fe630929fac3c6a201ce1d2025e3e9d9bddb5cfed650dbc1ee49afe15c0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-bank-2/record.json",
+      "sha256": "f43deef53da8fdf5c2f46a3f2a09f7bd2dadf4b533a7600685fe4b43009f9ae2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-bank-2/record.json",
+      "sha256": "7520be0d09a32b8a1abaf665b42d82a0b69851b9ba0cc47406a3891e113134e7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-bank-2/record.json",
+      "sha256": "caa3a71fd33cec8270785e8e2eef059f9013dcfe1a99fdfcf030ce37c6ddc2bb"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-bank-2/record.json",
+      "sha256": "192014fe6663afcfecdce8c88d88b9df97ea6c8263aa430cb7e8a42fc6e8ace0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/x02-a/record.json",
+      "sha256": "53d0227a3355fc86d6a7b02b9677065eecab3949018a74540a40f62fd0a70020"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-R/record.json",
+      "sha256": "b9faf4c5634cd073a67f3ab7e54e04a287bca07ec16c9fdac255b4d6441b6a0f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-XR/record.json",
+      "sha256": "20ab632c02b09715de9e0ba3093b56de67b895aa46b932082dd4b6f5d470d00a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-R/record.json",
+      "sha256": "a4e57e3577dbafdc919b4d232b647765eb31d189e1d33f9001b91f456cad758b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-judge-2/record.json",
+      "sha256": "136e508508dcd3e01015c563906fbc7784c4c72f4d7de9e05ebb415470113ddf"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-judge-1/record.json",
+      "sha256": "41aa2e7e600631dcd29a5985fb31d9e355ba75113c8a3abf30a0f488426d70d0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-judge-2/record.json",
+      "sha256": "1621a99fdcbc8c70790f663913b0a5ebfcd3507dfdaa71b6dd90c74cf1b196a0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-judge-1/record.json",
+      "sha256": "1004db4b45e0ee612a5dff2b1529b35d7a29b4269e35ec30d37a2495d1df5200"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-judge-2/record.json",
+      "sha256": "199ee66569ae8f104db65cf46ef4e034e54c35806d42d131fc2e34c0faac7d50"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-judge-1/record.json",
+      "sha256": "99490cddee13c14618496187fcada5e52678c51936fc2abe4fed0151617a82ac"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-judge-1/record.json",
+      "sha256": "2806f6c18599953ba480455d4f9025166a4de2d28dffd912c68750226e093bbd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-judge-2/record.json",
+      "sha256": "6292b7ba64d97deb325fd3255135ac24830ab2c3284d24e2d1803bc91614312a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-judge-1/record.json",
+      "sha256": "da4be68b103b4b6fc9340413a9cda14233fc7b4cd7be94cab84bd85a819ee204"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-judge-1/record.json",
+      "sha256": "8b5f25a2ac5ea0d0db1c8623ffc2925e52b64254a7a458ee7ef8f750918c0993"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-judge-1/record.json",
+      "sha256": "b66b89a5042d5d8327dbb552f325e4f8ba71ee29b29925591a58cdd8c5b25564"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-judge-2/record.json",
+      "sha256": "4dfacb5ce129610cbdbd73aec87ad0e115651572afb9c69f095e5d37392d8f47"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-judge-1/record.json",
+      "sha256": "4f6c886a545c56bfec7bb68677a1ba626430b865e7b937e6587d98379152e75b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-judge-1/record.json",
+      "sha256": "6a2cb4e6725bd7018c848af33d12c532e5cadad5dbb615eaec1d4f7d83216782"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-judge-1/record.json",
+      "sha256": "9b4ae52fabba96c8e4fcb3afa5d88b0b741ce16d9418eb9e83e1e79d9b19d836"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-judge-1/record.json",
+      "sha256": "d46c5faf5ee096003bc9c071e2a35b33c5238959db6e7768f59ec1e1ec7a3c92"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-judge-2/record.json",
+      "sha256": "4ea7c46273f2444e5047730e94485baf9c3cf3c338f6ca0cc0d0f7f60b44a0bb"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-judge-2/record.json",
+      "sha256": "1907bf211402ac08b3689e0474b8201b64849b9f4a59315f6233da277abecf74"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-judge-1/record.json",
+      "sha256": "f7cece0faa345f40f9c22c5f351634bd36ce0b71aba24fb3dd6dc7e562b76331"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i03-judge-2/record.json",
+      "sha256": "5f01e245db38dc98c230b3dc4e12f6c6ad7af862e76649839330716a1aa6c647"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-judge-2/record.json",
+      "sha256": "6a9290ff3f54092f60c5a797ee90285a944b73b629b3fc36cf8f90e4e61065af"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-judge-1/record.json",
+      "sha256": "70152963395c4e12e66a47ac04d9f873f3228fc2f63a19ee5d687e42453f60bd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p04-judge-2/record.json",
+      "sha256": "a6eb23ac6b23c4819a71797b5cf2a1bdef1ff278d5b711ff040a036fbb752e38"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-judge-1/record.json",
+      "sha256": "ef04c9fc13ecd24aad2885cdaa06137942aed10ab7effe12e9d6d65f11c51d53"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-judge-1/record.json",
+      "sha256": "6bf3693aff56783341e91c35e66b6baea8ca20071e03a58a182331e779b39b32"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-judge-1/record.json",
+      "sha256": "771c7e3bc5ab38b90a272ffd4a88c07ff31770c15dff1bec961bfc30e07f15d1"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s05-judge-1/record.json",
+      "sha256": "f83ca3540a7268463b05337f480ef283efd681e8a4862e7ce122802b8ff5f046"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-judge-2/record.json",
+      "sha256": "7373c3785b86a1ed6dd028a26f07147aaaad62ebc11e55dec2370dcec5c4016f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-judge-2/record.json",
+      "sha256": "63d4719f466f13c49893619936be1cf0d525cd919a028517e922314621ae9655"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p07-judge-1/record.json",
+      "sha256": "d77a4d90b7ddf050b7cc2f5781d2b5998eb098fa7ea97de28687508a6bc74bcd"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o04-judge-2/record.json",
+      "sha256": "496c6af9a90d9a989845fa3b61d1a61cc4102467f127c23639df21ccd29fbcb3"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i04-judge-2/record.json",
+      "sha256": "7dd108eab7bd4e25acd9d048c00a45100255c2efb381926b675e4a7eb55578a8"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i08-judge-2/record.json",
+      "sha256": "a97fd4640b7707b0161fb0efe2710992dfbd0f87525b53ba1b5d05806871b6e4"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o06-judge-1/record.json",
+      "sha256": "11407540f88993cb0e3ed83590c5d3e7351b1e7d336a4aac9779f4f7a217c690"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i02-judge-1/record.json",
+      "sha256": "cab7bd222d7e12233ef21c17d206e52e86e70abf9a4f8a2df29006c02b7b8b26"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-judge-1/record.json",
+      "sha256": "2b0d0d87aacf216111378a034b004f8ee4eafb2ca03d9e1450e510ab351873f7"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-judge-2/record.json",
+      "sha256": "fc0f7963d0705921ea6e2af6d00c77d9342aa08eed8cfcd29530727149ad177a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-judge-1/record.json",
+      "sha256": "8c35917672b9a415b22d56bf0ba7ff7024b9d5778e063576cf9d3303b9b704fa"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s01-judge-2/record.json",
+      "sha256": "aed0b8884871f2ca74ce4a5f5450b6410c84eba5035c000ef96611e56cea90c0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i06-judge-2/record.json",
+      "sha256": "2e2a35da8e5c1f85a2745344bf934e653107e6b4550fd1e433914b73f0d2365d"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i05-judge-1/record.json",
+      "sha256": "36c4e5a9e9e8e0d0f836ba099ff22bb3af56d305fb20305c36fc38beeb96e8b6"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s02-judge-2/record.json",
+      "sha256": "353a41fa8ac596320ed21de30f23d481f0b3e082c02cb7a2b998565fe833bd01"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i07-judge-2/record.json",
+      "sha256": "27363e3d3f7f46e4615a7ce7e0e0bb60e46879147b17fb2955efc0b7b186f688"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o01-judge-2/record.json",
+      "sha256": "295b76e9b0a48e9553e9cebc879fa0eac0e8597ded32c749dad3eb9d5028f46f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s07-judge-2/record.json",
+      "sha256": "1798431c847fb684419a5b083c79a0ed6debe669040b4640a600f0989547db66"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-judge-2/record.json",
+      "sha256": "cfff7ae8a3e6be84327b50e470709e203b279e12521e9c9318b2db3e8e7e1610"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p01-judge-2/record.json",
+      "sha256": "f95598187d2a998c90ffb8d76719b471467229bb954b874ad11884741ca64b34"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p08-judge-1/record.json",
+      "sha256": "0687f2a70c13d0a553596ba93acad8df3017398997a870b6ea6a709cbb1ce886"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o07-judge-2/record.json",
+      "sha256": "f70b529c601bf0a6c0f589c175b3e985677fe17ed70e60afe8a6c0eb34578fc5"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s08-judge-1/record.json",
+      "sha256": "279768c9d2fc0bef4761880df25804b37fd98c403b92b2316d56ac0592dbd9f2"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o08-judge-2/record.json",
+      "sha256": "b9fe7ab48c3a432eb07f3a7bbe4d9576f60df733d534f155d7a415d2ac78182c"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-judge-1/record.json",
+      "sha256": "40d904740b94112d364e516807f88c6180463bdaff72e22ccce763d33c2900ac"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-judge-1/record.json",
+      "sha256": "b84bbf5483ad626e0e961594943234ab966ffd1aeae1e7f92c702f9998ced972"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p05-judge-2/record.json",
+      "sha256": "3f5d1887104eb891bcf8e13f1da8359e5a7d24159d0eda4f57316a25675be6f0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o02-judge-1/record.json",
+      "sha256": "261e996946be607d43fe9707d47fb69cae3a854b23e6f20c126f629e4e042bcf"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p06-judge-1/record.json",
+      "sha256": "ad8450062a2ef5cc96925eaffc0410e7cef51697b9ed33a66e0c0fab0b0e6538"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p02-judge-2/record.json",
+      "sha256": "39b529db064ec2e02e396506cd24ba5fc3be101ce04db8f819a7651c7a256b0f"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o03-judge-2/record.json",
+      "sha256": "d0604b3b0978c1e625c5cef114d177f267e95ac20e75b9511a4429d9bd435d9b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/i01-judge-1/record.json",
+      "sha256": "db0b6b914cdc8af9315f07bf070d900df438d893a81bb78d7c77601d9ecc40ba"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s03-judge-1/record.json",
+      "sha256": "32254a2fa81c6fd8115e616eefa30ca50c82609739eea6dc7118bad19cf5a2e0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/p03-judge-2/record.json",
+      "sha256": "8bc77f450fb63f0baef0ab2109c449882d2b81516d81b0f8b156d4de2229e943"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/o05-judge-1/record.json",
+      "sha256": "4822a97ec054aeefa5ef57150a9acdc06e9c65dd47cc19b05ad45ae5a9f0518a"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s06-judge-2/record.json",
+      "sha256": "56c10715f8a92f8920ca6dc76da621f6e0355f67da125b2d1207aa662c5c9455"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/calls/s04-judge-2/record.json",
+      "sha256": "8552ed84114731438f7c7d3d2db628428ac3855d5cdfa6c1e3a960d59ac33483"
+    }
+  ]
+}
