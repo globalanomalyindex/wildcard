@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s05-D-initial",
+  "requestSHA256": "959831bb9d6c84bf9ef3a8490f5ab89e688c1dc61692a36582cebdb04cb41c89",
+  "promptSHA256": "a8d1e36394ed94737935f15372c7e47e98c80037bf59c7b62cc6b49ce56a6286",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:14:18.513108+00:00",
+  "finishedAt": "2026-09-20T23:14:46.908335+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 28.395534582901746,
+      "usage": {
+        "input_tokens": 7144,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1317,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fb5a3d0c67bd868547dbb350d97333e0aa021695ba07e91301a75b44d570ee7a",
+      "stderrSHA256": "bcb0a2faed00aac2961d872b577a34915bfded070e0609a7ae90cafd0172cb6c"
+    }
+  ],
+  "result": {
+    "explanation": "Rule: every accepted debit lowers available exactly once; every accepted receive raises it exactly once; only a pending send cancellation refunds its debit. I use this conservation rule while preserving independent ID namespaces. A counterexample is a duplicate spend changing available again, which violates one-time debit.",
+    "mapping": "available, spent, pending, received, and operation records map directly to the ledger state; pending sends are refundable records, while delivered sends remain permanently debited.",
+    "assumptions": "Malformed operations are invalid; malformed acknowledgments/cancellations are ignored only when structurally valid IDs are absent from pending sends. IDs are strings and amounts are safe positive integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let s=null;for(let i=0;i<output.length;i++){let r=solve({config:input.config,state:s,event:input.events[i]});if(!eq(r.output,output[i]))return false;s=r.state}return true}function eq(a,b){if(typeof a!==typeof b)return false;if(a===null||b===null)return a===b;if(Array.isArray(a)){if(!Array.isArray(b)||a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(!eq(a[i],b[i]))return false;return true}if(typeof a==='object'){let x=Object.keys(a),y=Object.keys(b);if(x.length!==y.length)return false;for(let k of x)if(!Object.prototype.hasOwnProperty.call(b,k)||!eq(a[k],b[k]))return false;return true}return a===b}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={a:c.initial,sp:0,r:[],g:[],t:[]};var st='invalid',id=e&&e.id,ty=e&&e.type,amt=e&&e.amount,validId=typeof id==='string',pos=Number.isSafeInteger(amt)&&amt>0;function idx(a,k){for(var i=0;i<a.length;i++)if(a[i].id===k)return i;return -1}function grant(k){return Object.prototype.hasOwnProperty.call(c.grants,k)}if(ty==='receive'&&validId&&pos){var gi=grant(id),rv=s.g.indexOf(id);if(rv>=0)st=(amt===c.grants[id]?'duplicate':'invalid');else if(gi&&amt===c.grants[id]){s.g.push(id);s.a+=amt;st='accepted'}}else if((ty==='send'||ty==='spend')&&validId&&pos){var j=idx(s.t,id);if(j>=0)st=s.t[j].amt===amt?'duplicate':'conflict';else if(s.a<amt)st='insufficient';else{s.a-=amt;s.t.push({id:id,amt:amt,p:ty==='send'});if(ty==='spend')s.sp+=amt;st='accepted'}}else if((ty==='ack'||ty==='cancel')&&validId){var q=idx(s.t,id);if(q>=0&&s.t[q].p){s.t[q].p=false;if(ty==='cancel')s.a+=s.t[q].amt;st='accepted'}else st='ignored'}var p=[],r=s.g.slice();for(var z=0;z<s.t.length;z++)if(s.t[z].p)p.push(s.t[z].id);p.sort();r.sort();return{state:s,output:{available:s.a,spent:s.sp,pending:p,received:r,status:st}}}"
+  },
+  "resultSHA256": "8e54279dc175147430eba95771dbbdbabeb72f3228ef0e6df6a4059df7268ca7",
+  "rawOutputSHA256": "c180fce9cf3176a7e2d2863771013eb1c1282cdd79e63af7d6f92ce4044f93fc"
+}

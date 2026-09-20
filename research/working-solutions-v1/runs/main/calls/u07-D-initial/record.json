@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u07-D-initial",
+  "requestSHA256": "644683bec7213486cd15992d9ccf8c7ceb6d67a6e98b866ffe48bd2a2ce8e7e5",
+  "promptSHA256": "53147a2b4d6f4d2a05d08afdd781d6fe2e51ed803d1ce5a3d6d630146e036662",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:15:23.693684+00:00",
+  "finishedAt": "2026-09-20T23:15:53.517176+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 29.822545500006527,
+      "usage": {
+        "input_tokens": 7144,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1019,
+        "reasoning_output_tokens": 354
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a0bb20cc1d96429c8278c0167da4868b3a969a4c8db979f2a04e2de7ec9a936d",
+      "stderrSHA256": "4d3f4b75c169c1f897248ce86791b70aa5c0cc388b64d12e484a00a3b6f15934"
+    }
+  ],
+  "result": {
+    "explanation": "The conditional rule is: after the first event, redo is unavailable whenever the initial redo history is empty. More generally, redo changes only through successful undo/redo or changed history-recording edits; no-op edits, group operations, and unavailable commands preserve it. I implement full nested transactional history semantics.",
+    "mapping": "Document d, undo u, redo r, and group stack g are the target variables. Each group stores its saved document. History arrays store snapshots oldest-to-newest.",
+    "assumptions": "Inputs are valid under the stated contract. Document values are plain objects with scalar values, and JSON parsing has already normalized equivalent numeric forms.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||typeof x.canUndo!==\"boolean\"||typeof x.canRedo!==\"boolean\"||!Number.isInteger(x.depth)||x.depth<0||!x.document||Array.isArray(x.document))return false}return output.length===0||output[0].canRedo===false}",
+    "program": "function solve({config,state,event}){function cp(x){const y={};for(const k in x)y[k]=x[k];return y}function eq(a,b){const ak=Object.keys(a),bk=Object.keys(b);if(ak.length!==bk.length)return false;for(const k of ak)if(!Object.prototype.hasOwnProperty.call(b,k)||a[k]!==b[k])return false;return true}function trim(a){while(a.length>config.limit)a.shift()}let s=state;if(!s)s={d:cp(config.initial),u:[],r:[],g:[]};const e=event,t=e.type;if(t==='begin')s.g.push(cp(s.d));else if(t==='set'||t==='delete'){let n=cp(s.d),has=Object.prototype.hasOwnProperty.call(n,e.key);if(t==='set')n[e.key]=e.value;else if(has)delete n[e.key];if(!eq(n,s.d)){if(!s.g.length){s.u.push(cp(s.d));trim(s.u);s.r=[]}s.d=n}}else if(t==='commit'&&s.g.length){let old=s.g.pop();if(!s.g.length&&!eq(old,s.d)){s.u.push(old);trim(s.u);s.r=[]}}else if(t==='cancel'&&s.g.length)s.d=s.g.pop();else if(!s.g.length&&t==='undo'&&s.u.length){s.r.push(cp(s.d));trim(s.r);s.d=s.u.pop()}else if(!s.g.length&&t==='redo'&&s.r.length){s.u.push(cp(s.d));trim(s.u);s.d=s.r.pop()}return{state:s,output:{document:cp(s.d),canUndo:!s.g.length&&s.u.length>0,canRedo:!s.g.length&&s.r.length>0,depth:s.g.length}}}"
+  },
+  "resultSHA256": "f7d19777e5a27092060922437bd6e88f237958339f2ff73ad708f16e7a6a51d0",
+  "rawOutputSHA256": "9f398bd1351c54f1e6b26a0d1cc1947d02f7dea891059d50e6171e4abde02bf2"
+}

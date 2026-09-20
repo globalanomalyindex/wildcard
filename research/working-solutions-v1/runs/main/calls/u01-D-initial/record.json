@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u01-D-initial",
+  "requestSHA256": "f09af23451a8a105abdad0e5d545eddbc5c3120ea7e1009b975cfd2da4076d2d",
+  "promptSHA256": "9320ca601d59ab37205e412dd2b0c331e8f916e509edb947868ecf29ef725c89",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:14:55.627928+00:00",
+  "finishedAt": "2026-09-20T23:15:18.449885+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 22.8209273328539,
+      "usage": {
+        "input_tokens": 8153,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1093,
+        "reasoning_output_tokens": 343
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b41b0cc5e79be4d9fa617a9d4a5b98f4fd6ead01758e60fa95e2c7cc92817b5d",
+      "stderrSHA256": "798d66c8c144a18e4b72968396c43e6232c7ed54578375498b6b8627db6d4e39"
+    }
+  ],
+  "result": {
+    "explanation": "The conditional rule is: callbacks affect state only when the controller is mounted, still loading, and the callback ID equals the current request ID. A new search cancels the prior loading request before issuing its request; disposed instances ignore everything except mount.",
+    "mapping": "The rule maps request identity and lifecycle state to visible state transitions and ordered effects: current identifies the sole settleable request, loading gates settlement, mounted gates all activity, and effects records only cancellations and requests from the current event.",
+    "assumptions": "Events use the documented types and fields. State is trusted only as the state previously returned by this function; null means the documented initial mounted state. JSON values are finite and directly reusable.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){function eq(a,b){if(a===b)return true;if(!a||!b||typeof a!==typeof b)return false;if(Array.isArray(a))return Array.isArray(b)&&a.length===b.length&&a.every((v,i)=>eq(v,b[i]));if(typeof a==='object'){let ka=Object.keys(a),kb=Object.keys(b);if(ka.length!==kb.length)return false;return ka.every(k=>Object.prototype.hasOwnProperty.call(b,k)&&eq(a[k],b[k]))}return false} let s=null,r=[];for(let e of input.events){let x=solve({config:input.config,state:s,event:e});s=x.state;r.push(x.output)}return eq(r,output)}",
+    "program": "function solve({config,state,event}){\n  let s=state||{mounted:true,query:'',current:null,loading:false,result:null,error:null};\n  let e=event||{}, f=[];\n  const reset=()=>({mounted:true,query:'',current:null,loading:false,result:null,error:null});\n  if(!s.mounted){\n    if(e.type==='mount')s=reset();\n    return {state:s,output:{mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects:f}};\n  }\n  if(e.type==='search'){\n    if(s.loading)f.push({type:'cancel',id:s.current});\n    s={mounted:true,query:e.query,current:e.id,loading:true,result:s.result,error:null};\n    f.push({type:'request',id:e.id,query:e.query});\n  }else if(e.type==='success'){\n    if(s.loading&&s.current===e.id)s={mounted:true,query:s.query,current:s.current,loading:false,result:e.result,error:null};\n  }else if(e.type==='failure'){\n    if(s.loading&&s.current===e.id)s={mounted:true,query:s.query,current:s.current,loading:false,result:s.result,error:e.error};\n  }else if(e.type==='cancel'){\n    if(s.loading)f.push({type:'cancel',id:s.current});\n    s={mounted:true,query:s.query,current:null,loading:false,result:s.result,error:null};\n  }else if(e.type==='dispose'){\n    if(s.loading)f.push({type:'cancel',id:s.current});\n    s={mounted:false,query:'',current:null,loading:false,result:null,error:null};\n  }\n  return {state:s,output:{mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects:f}};\n}"
+  },
+  "resultSHA256": "b51d4ffe161973dd6555692a0129dd9009b56baac820675a7530c38e993eae82",
+  "rawOutputSHA256": "dc3233c4d02a6c54cfba8497020656fdef290796fc8336e477f01c05bfb6197c"
+}

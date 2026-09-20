@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c05-R-initial",
+  "requestSHA256": "81bda7c901dc7fd76fcc4f4770bc75df2b694ccf8706b92741b4ca26ebba2633",
+  "promptSHA256": "f6eb2a7c45112d6696399a712506b09d8166a4affc2f676f398e0c14455d79e8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:07:56.101731+00:00",
+  "finishedAt": "2026-09-20T23:08:14.674144+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.570867458125576,
+      "usage": {
+        "input_tokens": 6892,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 644,
+        "reasoning_output_tokens": 233
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b7b0f0bcfefd9f41e9bc1abaf7a4046d7806e38dffff53c9386a804a14b85bbf",
+      "stderrSHA256": "1824110ded787260874c63b33198b5daf3ae972efd678892d680faa89b9b065c"
+    }
+  ],
+  "result": {
+    "explanation": "For every encode event, recursively serialize the supplied JSON value canonically: object keys are lexically sorted, arrays retain order, and primitive spellings follow ECMAScript JSON.stringify. Return that string under key and preserve no meaningful state.",
+    "mapping": "The event value maps to output.key through recursive canonical encoding; state is intentionally irrelevant.",
+    "assumptions": "Inputs satisfy the stated JSON-value, depth, key, and numeric restrictions. JSON.stringify provides the specified scalar and string escaping behavior.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)&&input.events.every(function(e){return e&&e.type==='encode'&&Object.prototype.hasOwnProperty.call(e,'value')})}",
+    "holds": "function holds(input,output){function c(v){if(v===null||typeof v!=='object')return JSON.stringify(v);if(Array.isArray(v))return '['+v.map(c).join(',')+']';return '{'+Object.keys(v).sort().map(function(k){return JSON.stringify(k)+':'+c(v[k])}).join(',')+'}'}return Array.isArray(output)&&output.length===input.events.length&&output.every(function(o,i){return o&&Object.keys(o).length===1&&o.key===c(input.events[i].value)})}",
+    "program": "function solve(x){function c(v){if(v===null||typeof v!=='object')return JSON.stringify(v);if(Array.isArray(v)){var a=new Array(v.length);for(var i=0;i<v.length;i++)a[i]=c(v[i]);return '['+a.join(',')+']'}var k=Object.keys(v).sort(),a=new Array(k.length);for(var j=0;j<k.length;j++)a[j]=JSON.stringify(k[j])+':'+c(v[k[j]]);return '{'+a.join(',')+'}'}return {state:null,output:{key:c(x.event.value)}}}"
+  },
+  "resultSHA256": "738ebbb99f0acd8ad455d2c446bb3c145e8eea1a57d43011d23d559c9df38376",
+  "rawOutputSHA256": "c66933d59b6624289ceb147aa29a65fd4f2bb5b6593ba022c62e206b66575a13"
+}

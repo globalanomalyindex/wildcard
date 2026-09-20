@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s07-R-initial",
+  "requestSHA256": "5c0452f2877dd17e12d2e27824aaefae16824aebebb831d96fee251c05ce3df5",
+  "promptSHA256": "0a2e443d97df5a0d697979298d7300249a1f203f14f19eaa9e6c9d6be4dfb083",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:15:53.537987+00:00",
+  "finishedAt": "2026-09-20T23:16:19.482181+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 25.943034125026315,
+      "usage": {
+        "input_tokens": 7469,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 973,
+        "reasoning_output_tokens": 317
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "67539c7f3482d19f24e167657a06d12975ae0a68ea773db42ed65fcdbcb6732a",
+      "stderrSHA256": "410bb790f8ed92b15e7bfc0c8b356c785f71960a0c11bdec0d6d5a9dedbface2"
+    }
+  ],
+  "result": {
+    "explanation": "A resumable receiver stores one active transfer, its declared length, and known byte positions. Valid chunks are checked before mutation; conflicting overlaps reject the entire chunk. Finishing exposes data only when all positions are known.",
+    "mapping": "The active transfer maps to state.id and state.len; byte conservation maps to state.b, where null means unknown and non-null entries are retained across events.",
+    "assumptions": "Inputs follow the stated JSON limits. Invalid operations produce invalid status while preserving active state; mismatched IDs produce ignored status.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||x.data!==null&&x.status!==\"complete\")return false;if(![\"ok\",\"ignored\",\"invalid\",\"conflict\",\"incomplete\",\"complete\"].includes(x.status))return false;if(typeof x.received!==\"number\"||x.received<0)return false}return true}",
+    "program": "function solve({config,state,event}){const max=config.maxLength;let s=state||{id:null,len:0,b:[]};const out=st=>({data:null,id:s.id,received:s.b.reduce((n,x)=>n+(x!==null),0),status:st});const same=(a,b)=>a===b;let t=event&&event.type;if(t==='begin'){let n=event.length;if(!Number.isInteger(n)||n<0||n>max)return{state:s,output:out('invalid')};if(s.id===null||!same(s.id,event.id)){s={id:event.id,len:n,b:Array(n).fill(null)};return{state:s,output:out('ok')}}if(s.len!==n)return{state:s,output:out('conflict')};return{state:s,output:out('ok')}}if(s.id===null||!same(event&&event.id,s.id))return{state:s,output:out('ignored')};if(t==='finish'){let complete=s.b.every(x=>x!==null);let o=out(complete?'complete':'incomplete');if(complete)o.data=s.b.slice();return{state:s,output:o}}if(t!=='chunk')return{state:s,output:out('invalid')};let a=event.bytes,o=event.offset;if(!Array.isArray(a)||!Number.isInteger(o)||o<0||o+a.length>s.len||!Number.isInteger(event.checksum)||a.some(x=>!Number.isInteger(x)||x<0||x>255)||a.reduce((q,x)=>q+x,0)%251!==event.checksum)return{state:s,output:out('invalid')};for(let i=0;i<a.length;i++)if(s.b[o+i]!==null&&s.b[o+i]!==a[i])return{state:s,output:out('conflict')};for(let i=0;i<a.length;i++)s.b[o+i]=a[i];return{state:s,output:out('ok')}}"
+  },
+  "resultSHA256": "6b71d02399a4ef9a4d39768c263ccc8cc2d09cf27e4f70aeeac435b2edaf69ec",
+  "rawOutputSHA256": "2ee65fe11d454606c3a145e7285ee1ed9d22cd4429cf9c6977ad7efdd6219ab0"
+}

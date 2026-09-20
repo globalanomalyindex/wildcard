@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c05-X-initial",
+  "requestSHA256": "35153a36f2cd149cfafc4f8de13f16cddde842017fe00af0c094ccc2cd2e6857",
+  "promptSHA256": "7588a36f5b05f948b87b47e0ba93dac19f9b0832c7e5bb7833beaaa55abcf257",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:08:14.697261+00:00",
+  "finishedAt": "2026-09-20T23:08:31.283595+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.58486745809205,
+      "usage": {
+        "input_tokens": 6892,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 710,
+        "reasoning_output_tokens": 245
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "8c1552e0672ba68abe6c4755b9cc69d94300215d80fe2dd4f9b7d93192d2b17c",
+      "stderrSHA256": "a123b36957dd561767b1f38bf3b225781383fe25fda3f02a3267aded172b79da"
+    }
+  ],
+  "result": {
+    "explanation": "Canonicalize each event value recursively: arrays retain order, objects sort keys lexically, and scalar JSON types remain distinct. This directly satisfies the encoding contract.",
+    "mapping": "The input value maps to output.key. State is unused and remains null.",
+    "assumptions": "Inputs obey the stated JSON-value, depth, safe-number, and string restrictions. No external data or mutable history is needed.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)&&input.events.some(function(e){return e&&e.type==='encode';});}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;return output.every(function(x){return x&&typeof x.key==='string';});}",
+    "program": "function esc(s){var r='\"';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c===34)r+='\\\\\"';else if(c===92)r+='\\\\\\\\';else if(c===8)r+='\\\\b';else if(c===12)r+='\\\\f';else if(c===10)r+='\\\\n';else if(c===13)r+='\\\\r';else if(c===9)r+='\\\\t';else if(c<32){var h=c.toString(16);r+='\\\\u'+('0000'+h).slice(-4);}else r+=s[i];}return r+'\"';}function enc(v){if(v===null)return'null';var t=typeof v;if(t==='string')return esc(v);if(t==='boolean'||t==='number')return JSON.stringify(v);if(Array.isArray(v)){var a=[];for(var i=0;i<v.length;i++)a.push(enc(v[i]));return'['+a.join(',')+']';}var k=Object.keys(v).sort(),a=[];for(var j=0;j<k.length;j++)a.push(esc(k[j])+':'+enc(v[k[j]]));return'{'+a.join(',')+'}';}function solve(x){return{state:null,output:{key:enc(x.event.value)}};}"
+  },
+  "resultSHA256": "66fc8b393d4d2e48f6c4b1b3f662c0b0ec937482d6bcc31f207538ae2a93b169",
+  "rawOutputSHA256": "0ed84bae352798f91dd436096e9da8145a9a7c4f26bc8c2011f1627f917ec3bc"
+}

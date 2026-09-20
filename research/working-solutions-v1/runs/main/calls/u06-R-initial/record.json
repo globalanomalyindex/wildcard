@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u06-R-initial",
+  "requestSHA256": "eb51b9bdc48260b6e80f7351143f18c6f1a4544471e3c529aa042ad25d646205",
+  "promptSHA256": "a5f6473835d968c2fe3e1e916de66d3c5fbd9d18d23085886bd6b1ece466a35a",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:05:25.792591+00:00",
+  "finishedAt": "2026-09-20T23:06:14.909461+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 49.117327915970236,
+      "usage": {
+        "input_tokens": 8224,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1251,
+        "reasoning_output_tokens": 664
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "581eb8c2adca8b33da12a690755f2ec44424af00ea69b5d31269ba578a3fe47a",
+      "stderrSHA256": "748e8757fa18b752a7315b6969e2dd7a0b57b2c4e6b1c398832b62de8a25dc4c"
+    }
+  ],
+  "result": {
+    "explanation": "Each submission owns the revision it creates and stores a pre-submit snapshot. Outcomes may settle their own pending record, but only the current owner at the same revision may alter fields. Edits and newer submissions therefore protect newer values.",
+    "mapping": "The controller maps fields, revision, status, pending records, submission history, and current owner directly to the specified form state and causal guards.",
+    "assumptions": "Inputs are valid JSON under the stated contract; field values are scalar JSON values and IDs are nonempty ASCII strings.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var s=null;for(var i=0;i<input.events.length;i++){var x=solve({config:input.config,state:s,event:input.events[i]});if(JSON.stringify(x.output)!==JSON.stringify(output[i]))return false;s=x.state}return true}",
+    "program": "function cp(o){var r={};for(var k in o)if(Object.prototype.hasOwnProperty.call(o,k))r[k]=o[k];return r}\nfunction patch(f,e){var r=cp(f),a=e.remove||[],k;for(var i=0;i<a.length;i++)delete r[a[i]];var z=e.set||{};for(k in z)if(Object.prototype.hasOwnProperty.call(z,k))r[k]=z[k];return r}\nfunction solve(q){var e=q.event,s=q.state;if(s===null)s={f:cp(q.config.fields),r:0,st:'idle',o:null,p:{},h:{}};var t=e.type,k,id,x;\nif(t==='edit'){s.f=patch(s.f,e);s.r++;s.st='idle'}\nelse if(t==='submit'){id=e.id;if(!Object.prototype.hasOwnProperty.call(s.h,id)){s.h[id]=1;s.p[id]={pre:cp(s.f),rev:s.r+1};s.f=patch(s.f,e);s.r++;s.o=id;s.st='saving'}}\nelse if(t==='success'||t==='failure'){id=e.id;if(Object.prototype.hasOwnProperty.call(s.p,id)){x=s.p[id];delete s.p[id];if(s.o===id&&x.rev===s.r){if(t==='success'){s.f=cp(e.fields);s.r++;s.st='saved'}else{s.f=cp(x.pre);s.r++;s.st='error'}s.o=null}}}\nvar a=Object.keys(s.p).sort(),o={fields:cp(s.f),revision:s.r,status:s.st,pending:a};return {state:s,output:o}}"
+  },
+  "resultSHA256": "00b1338cd6df7deda5ac2a533c5c2c910cacafa4ddf756c213857ce8fdbc51da",
+  "rawOutputSHA256": "8e6ff8e2b33911aaff707fcccbbb0063d2a77fd8a7964723feebd9693e9c9737"
+}

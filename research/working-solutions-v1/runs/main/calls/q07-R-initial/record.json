@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q07-R-initial",
+  "requestSHA256": "ee9cde127c778c903a4a4f142422ec40114a540e21564e6c75d2b5c2acb7b3a0",
+  "promptSHA256": "4ae32d694e720854b0de193c39938c7392e4a5bde5012192a20db388451b24ee",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:04:16.617602+00:00",
+  "finishedAt": "2026-09-20T23:04:33.331730+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.712875250028446,
+      "usage": {
+        "input_tokens": 7480,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 767,
+        "reasoning_output_tokens": 120
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a496d7cdcbcfcf358518fad3e50cc2eff075d9e8ed96ad688eb07c8b5df7bf52",
+      "stderrSHA256": "6af95fc634b7efc453c6e7be3dd69568154a557eaa8f3b4fe7753395d79ba8ad"
+    }
+  ],
+  "result": {
+    "explanation": "Apply a single-job state machine: only the current pending attempt accepts responses; waiting retries become pending exactly once when due. Terminal jobs ignore responses and can be restarted.",
+    "mapping": "config.attempts and delay map to retry limits and waiting deadlines; state tracks now, phase, id, attempt, and due; event responses map to status and optional send.",
+    "assumptions": "Inputs satisfy the stated schema, safe-integer bounds, and event limits. No event other than the current event is inspected.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x.status!==\"string\"||typeof x.phase!==\"string\"||typeof x.attempt!==\"number\"||typeof x.now!==\"number\"||!Array.isArray(x.send))return false;if(!(\"id\"in x)||!(\"due\"in x))return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={now:0,phase:\"idle\",id:null,attempt:0,due:null};else s={now:s.now,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due};var st=\"ignored\",send=[];if(e.type===\"start\"){if(s.phase===\"pending\"||s.phase===\"waiting\")st=\"busy\";else{s.id=e.id;s.attempt=1;s.phase=\"pending\";s.due=null;st=\"started\";send=[{id:s.id,attempt:1}]}}else if(e.type===\"fail\"){if(s.phase===\"pending\"&&e.id===s.id&&e.attempt===s.attempt){if(s.attempt>=c.attempts){s.phase=\"failed\";s.due=null;st=\"failed\"}else{s.phase=\"waiting\";s.due=s.now+Math.max(c.delay,e.after);st=\"waiting\"}}}else if(e.type===\"success\"){if(s.phase===\"pending\"&&e.id===s.id&&e.attempt===s.attempt){s.phase=\"succeeded\";s.due=null;st=\"succeeded\"}}else if(e.type===\"cancel\"){if(s.phase===\"pending\"||s.phase===\"waiting\"){s.phase=\"cancelled\";s.due=null;st=\"cancelled\"}}else if(e.type===\"advance\"){s.now+=e.dt;st=\"advanced\";if(s.phase===\"waiting\"&&s.now>=s.due){s.attempt++;s.phase=\"pending\";s.due=null;send=[{id:s.id,attempt:s.attempt}]}}return{state:s,output:{status:st,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due,now:s.now,send:send}}}"
+  },
+  "resultSHA256": "13cad56b5afb1946b612d407a6b83366cf72e453fd9c4c73b2e2192ea3414c58",
+  "rawOutputSHA256": "7e7d1a152bf215d2224a46079f78c3a50f29272e8d3cf10f49eab1b66dc3101e"
+}

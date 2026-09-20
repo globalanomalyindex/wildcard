@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u08-X-initial",
+  "requestSHA256": "e795775a39982d9fa2caa200cb97b53eae92be2b795dfb11ec571019c723a65d",
+  "promptSHA256": "9b90335c982172d6e67b05b9336346604aed6462fb69ad8662cee5405e0e46a7",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:06:14.930208+00:00",
+  "finishedAt": "2026-09-20T23:06:50.656020+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 35.72595529188402,
+      "usage": {
+        "input_tokens": 7865,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1276,
+        "reasoning_output_tokens": 283
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a728920c77ae777888d7f82cf30a4e0646c223038a6f8713412e798cdd8458fc",
+      "stderrSHA256": "2fe2a1d758243d044759fea62a387efb0beba58ec43ff060cfb29c42f312bbf2"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain the current ordered view, selected IDs, and anchor. Views filter selection and invalidate unavailable anchors. Clicks use enabled IDs only; shift ranges follow the current view and skip disabled entries, while ctrl+shift unions.",
+    "mapping": "The optional rule maps ordered options to the current view, selected to retained identities, and anchor to the range-selection endpoint. The seed-banking analogy is not transferred because this task concerns interactive selection, not preservation or viability.",
+    "assumptions": "IDs are unique nonempty ASCII strings as specified. JavaScript string ordering is sufficient for the required lexicographic ID ordering.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)&&!!input.config&&Array.isArray(input.config.options)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var o=input.config.options.map(function(x){return {id:x.id,disabled:!!x.disabled}}),s=[],a=null;function valid(id){for(var i=0;i<o.length;i++)if(o[i].id===id)return !o[i].disabled;return false}function clean(){s=s.filter(valid);if(a!==null&&!valid(a))a=null}function result(){return {selected:s.slice().sort(),anchor:a}}for(var k=0;k<input.events.length;k++){var e=input.events[k];if(e.type==='view'){o=(e.options||[]).map(function(x){return {id:x.id,disabled:!!x.disabled}});clean()}else if(e.type==='click'&&valid(e.id)){if(!e.shift){if(e.ctrl){var q=s.indexOf(e.id);if(q<0)s.push(e.id);else s.splice(q,1);a=e.id}else{s=[e.id];a=e.id}}else{var start=a;if(start===null||!valid(start)){start=e.id;a=e.id}var i=-1,j=-1;for(var z=0;z<o.length;z++){if(!o[z].disabled&&o[z].id===start)i=z;if(!o[z].disabled&&o[z].id===e.id)j=z}var lo=Math.min(i,j),hi=Math.max(i,j),r=[];for(z=lo;z<=hi;z++)if(!o[z].disabled)r.push(o[z].id);if(e.ctrl)s=s.concat(r.filter(function(x){return s.indexOf(x)<0}));else s=r}}var got=output[k],want=result();if(!got||got.anchor!==want.anchor||JSON.stringify(got.selected)!==JSON.stringify(want.selected)||Object.keys(got).length!==2||Object.keys(got).some(function(x){return x!=='selected'&&x!=='anchor'}))return false}return true}",
+    "program": "function solve(x){var st=x.state,e=x.event;if(st===null){st={o:x.config.options.map(function(q){return{id:q.id,d:!!q.disabled}}),s:[],a:null}}function ok(id){for(var i=0;i<st.o.length;i++)if(st.o[i].id===id)return !st.o[i].d;return false}function clean(){st.s=st.s.filter(ok);if(st.a!==null&&!ok(st.a))st.a=null}if(e.type==='view'){st.o=e.options.map(function(q){return{id:q.id,d:!!q.disabled}});clean()}else if(e.type==='click'&&ok(e.id)){if(!e.shift){if(e.ctrl){var n=st.s.indexOf(e.id);if(n<0)st.s.push(e.id);else st.s.splice(n,1);st.a=e.id}else{st.s=[e.id];st.a=e.id}}else{var base=st.a;if(base===null||!ok(base)){base=e.id;st.a=e.id}var i=-1,j=-1,z;for(z=0;z<st.o.length;z++){if(!st.o[z].d&&st.o[z].id===base)i=z;if(!st.o[z].d&&st.o[z].id===e.id)j=z}var lo=Math.min(i,j),hi=Math.max(i,j),r=[];for(z=lo;z<=hi;z++)if(!st.o[z].d)r.push(st.o[z].id);if(e.ctrl)for(z=0;z<r.length;z++)if(st.s.indexOf(r[z])<0)st.s.push(r[z]);else st.s=r}}var out={selected:st.s.slice().sort(),anchor:st.a};return{state:st,output:out}}"
+  },
+  "resultSHA256": "016c2f56fc82236c65b24dcaae784e072a303ee83b395d6e01305005c5e31294",
+  "rawOutputSHA256": "7bfbcdef7cdf89c345e6749049bc3718a7652024ee9a76b22b57def7ac9574d0"
+}

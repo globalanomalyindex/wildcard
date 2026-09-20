@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q06-X-initial",
+  "requestSHA256": "cfc964627b37fd29ae5628f9661b365340329b0c413f5467fad604a3eb3321ff",
+  "promptSHA256": "79da893c0727f4eab0eae2aadd38a56ccb6cae5da2ce8fe1d84e040fe86aa091",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:16:19.506748+00:00",
+  "finishedAt": "2026-09-20T23:16:40.897022+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.388961291173473,
+      "usage": {
+        "input_tokens": 6868,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 935,
+        "reasoning_output_tokens": 284
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "dce43fa640462d007f5af33ba7850faeb10a96c214666b05b25d37eb6f03d8cd",
+      "stderrSHA256": "73632828086f4c0e4145584bcecc776826fb09928657ef26168b590229f8411b"
+    }
+  ],
+  "result": {
+    "explanation": "Apply the credit-accounting rule directly: advances convert elapsed-rate units through the denominator, while reservations consume and eligible refunds restore credits without altering carry.",
+    "mapping": "config.capacity, rate, and denom map to bounded credits and fractional carry; reservation records map IDs to accepted costs and refund status.",
+    "assumptions": "Inputs satisfy the stated presence, safety, identifier, and event-count constraints. State is opaque and may retain configuration and reservation records.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,C=c.capacity,r=c.rate,d=c.denom,cr=C,ca=0,rec=[];for(var i=0;i<input.events.length;i++){var e=input.events[i],s='';if(e.type==='advance'){var n=ca+e.dt*r;cr=Math.min(C,cr+Math.floor(n/d));ca=n%d;s='advanced'}else if(e.type==='take'){var x=null;for(var j=0;j<rec.length;j++)if(rec[j].id===e.id)x=rec[j];if(!x&&e.cost<=cr){cr-=e.cost;rec.push({id:e.id,cost:e.cost,ref:false});s='taken'}else s='rejected'}else{var y=null;for(var k=0;k<rec.length;k++)if(rec[k].id===e.id)y=rec[k];if(y&&!y.ref){cr=Math.min(C,cr+y.cost);y.ref=true;s='refunded'}else s='ignored'}var o=output[i];if(!o||o.status!==s||o.credits!==cr||o.carry!==ca)return false}return true}",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={C:config.capacity,R:config.rate,D:config.denom,c:config.capacity,b:0,q:[]};var e=event,t=e.type,status;if(t==='advance'){var n=s.b+e.dt*s.R;s.c=Math.min(s.C,s.c+Math.floor(n/s.D));s.b=n%s.D;status='advanced'}else if(t==='take'){var found=false;for(var i=0;i<s.q.length;i++)if(s.q[i].id===e.id){found=true;break}if(!found&&e.cost<=s.c){s.c-=e.cost;s.q.push({id:e.id,cost:e.cost,ref:false});status='taken'}else status='rejected'}else{var z=null;for(var j=0;j<s.q.length;j++)if(s.q[j].id===e.id){z=s.q[j];break}if(z&&!z.ref){s.c=Math.min(s.C,s.c+z.cost);z.ref=true;status='refunded'}else status='ignored'}return {state:s,output:{status:status,credits:s.c,carry:s.b}}}"
+  },
+  "resultSHA256": "6c3039d12d325a17314f1ff1625846c91f88747c52112ed1b5e46aec12b01ba8",
+  "rawOutputSHA256": "885439eadeb0617af6ad853f5a84c05a4e01cfdbbb6767063675d1593a7d6ee4"
+}

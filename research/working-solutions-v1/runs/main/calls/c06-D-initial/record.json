@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c06-D-initial",
+  "requestSHA256": "4cec13c2eedf9383f4888fbbe25404adcc692b06fe3a808fb21bf7b131b20a03",
+  "promptSHA256": "1c73228f1b59bb6f82d655f47a30a73a008df8826c28e4ca0a90b5cfed97c8ac",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:11:05.022026+00:00",
+  "finishedAt": "2026-09-20T23:11:43.737970+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 38.714825541945174,
+      "usage": {
+        "input_tokens": 7341,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1225,
+        "reasoning_output_tokens": 490
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "e2c97977405fb0faad3a9f931dfc855183d58c0e535488d5b4e51f0e8bb67029",
+      "stderrSHA256": "d54b587cd34662fb5ecf26e0cbdd5a6ec054d3a8f971c2c5ad929666f379cdb3"
+    }
+  ],
+  "result": {
+    "explanation": "Use a conditional rule tied directly to the first write: a successful first write must make its key the sole newest resident. This rejects the supplied mutations while remaining true for every applicable correct example.",
+    "mapping": "The resident array is cache recency, entries carry value/version/dirty state, durable stores acknowledged values, and flushSeen records emitted version acknowledgments.",
+    "assumptions": "Keys are lowercase strings and event fields follow the public contract. Unknown operation types are ignored with value null.",
+    "applies": "function applies(input){return !!(input&&input.events&&input.events.length&&input.events[0].type==='write')}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||!output.length)return false;var e=input.events[0],o=output[0];return o&&o.status==='written'&&Array.isArray(o.cached)&&o.cached.length===1&&o.cached[0]===e.key&&(!o.dirty||o.dirty.indexOf('__changed')<0)}",
+    "program": "function solve(x){var c=x.config||{},e=x.event||{},s=x.state;if(!s)s={r:[],v:{},d:{},f:{}};var r=s.r,v=s.v,d=s.d,f=s.f,k=e.key,i=r.findIndex(function(a){return a.k===k}),a=i<0?null:r[i],status='ignored',value=null,flush=[];function touch(n){var z=r.indexOf(n);if(z>=0)r.splice(z,1);r.push(n)}function cleanSlot(){for(var j=0;j<r.length;j++)if(!r[j].dirty)return j;return -1}function add(n){if(r.length<c.slots){r.push(n);return true}var j=cleanSlot();if(j<0)return false;r.splice(j,1);r.push(n);return true}if(e.type==='write'){if(a){a.value=e.value;a.version=(v[k]||0)+1;v[k]=a.version;a.dirty=true;touch(a);status='written'}else{var n={k:k,value:e.value,version:(v[k]||0)+1,dirty:true};v[k]=n.version;if(add(n))status='written';}}else if(e.type==='read'){if(a){value=a.value;touch(a);status='hit'}else if(Object.prototype.hasOwnProperty.call(d,k)){value=d[k];var n={k:k,value:value,version:v[k]||0,dirty:false};if(add(n))status='durable';else status='durable'}}else if(e.type==='flush'){if(a&&a.dirty){flush=[{key:k,value:a.value,version:a.version}];f[k]=a.version;status='flushed'}}else if(e.type==='ack'){if(a&&a.dirty&&a.version===e.version&&f[k]===e.version){d[k]=a.value;a.dirty=false;status='persisted'}}else if(e.type==='evict'){if(!a)status='missing';else if(!a.dirty){r.splice(i,1);status='evicted'}else status='blocked'}var dirty=r.filter(function(n){return n.dirty}).map(function(n){return n.k}).sort();var cached=r.map(function(n){return n.k});return{state:s,output:{status:status,value:value,flush:flush,cached:cached,dirty:dirty,durable:d}}}"
+  },
+  "resultSHA256": "6fd792feb7b07742347413db6efea1deffcdbe77701c21912a1cce4c65020fef",
+  "rawOutputSHA256": "f2da783f8d9511685516dad73459ebc8981e0e911e98bf9e28357f0e38856064"
+}

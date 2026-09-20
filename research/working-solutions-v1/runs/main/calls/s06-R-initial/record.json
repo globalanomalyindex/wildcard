@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s06-R-initial",
+  "requestSHA256": "01aa4f12c85b0a48789e1ea417040a9da5632d76be7b223a29acaf5c87491e6e",
+  "promptSHA256": "752f7010d6b03e698f9764740f1af8eea9c00ec37ddefbdcda8030c75108cf79",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:07:10.267182+00:00",
+  "finishedAt": "2026-09-20T23:07:33.006155+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 22.73832279094495,
+      "usage": {
+        "input_tokens": 7224,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 847,
+        "reasoning_output_tokens": 298
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "17fa0b2b1f693530856fe1b218f061ea1c0d3d6df216a2aa336aee42f9a77759",
+      "stderrSHA256": "f32a74935b5969fb06691a16228f4d2cc801229822ca94cd16470a0a6ae6fcc6"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain the current version/value, historical acknowledgement, and a snapshot-request latch. Valid newer deltas and snapshots advance state and rearm the latch; conflicting newer information requests one snapshot until recovery.",
+    "mapping": "State fields v and x are current version/value, a is the historical acknowledged version, and l is the request latch. Each event produces the current fields plus zero or one snapshot effect.",
+    "assumptions": "Unknown or malformed events are ignored. Inputs satisfy the stated safe-integer and JSON constraints.",
+    "applies": "(input)=>true",
+    "holds": "(input,output)=>{let c=input.config,s={v:c.version,x:c.value,a:-1,l:false},e=input.events||[],r=[];for(let q of e){let f=[];if(q&&q.type==='delta'){if(q.base===s.v&&q.version>s.v){s.v=q.version;s.x+=q.delta;s.l=false}else if(q.version>s.v&&!s.l){f=[{type:'snapshot',base:s.v}];s.l=true}}else if(q&&q.type==='snapshot'){if(q.version>s.v){s.v=q.version;s.x=q.value;s.l=false}else if(q.version===s.v&&q.value!==s.x&&!s.l){f=[{type:'snapshot',base:s.v}];s.l=true}}else if(q&&q.type==='ack'&&q.version===s.v)s.a=s.v;r.push({version:s.v,value:s.x,acknowledged:s.a,effects:f})}return JSON.stringify(r)===JSON.stringify(output)}",
+    "program": "function solve({config,state,event}){let s=state?{v:state.v,x:state.x,a:state.a,l:state.l}:{v:config.version,x:config.value,a:-1,l:false},f=[];if(event&&event.type==='delta'){if(event.base===s.v&&event.version>s.v){s.v=event.version;s.x+=event.delta;s.l=false}else if(event.version>s.v&&!s.l){f=[{type:'snapshot',base:s.v}];s.l=true}}else if(event&&event.type==='snapshot'){if(event.version>s.v){s.v=event.version;s.x=event.value;s.l=false}else if(event.version===s.v&&event.value!==s.x&&!s.l){f=[{type:'snapshot',base:s.v}];s.l=true}}else if(event&&event.type==='ack'&&event.version===s.v)s.a=s.v;return{state:s,output:{version:s.v,value:s.x,acknowledged:s.a,effects:f}}}"
+  },
+  "resultSHA256": "b63ba77a7ec78e710608122b369ad15eb5477e48b5a7c498d4daefcc4aced8d4",
+  "rawOutputSHA256": "6ac1f021d026448ec71cb991504349b471675a294f878870e8d5c19715f1c702"
+}

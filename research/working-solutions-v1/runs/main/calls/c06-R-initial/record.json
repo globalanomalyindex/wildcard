@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c06-R-initial",
+  "requestSHA256": "5040d3bdb9ad073fb8d891524239b06afdc6856b534eb2adbaf70458f9345fa2",
+  "promptSHA256": "58c05823d15b4dcb1309b853a60bb18ffdf38f0456e227adfe9a3120395a187a",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:12:03.319581+00:00",
+  "finishedAt": "2026-09-20T23:12:35.750332+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 32.429873042041436,
+      "usage": {
+        "input_tokens": 7567,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1150,
+        "reasoning_output_tokens": 282
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fa97c6e313d02290843904255c9d342819d7452ae85cd9bfb159dfe7076caaa2",
+      "stderrSHA256": "350328ca1f676dfb51170f93b52484d0108be6044c605ed43f37bb59f524c440"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain an LRU resident cache, durable map, lifetime versions, and the set of emitted flush versions. Writes dirty entries; acknowledgments persist only the currently flushed version. Reads promote durable values only when a clean slot is available.",
+    "mapping": "Cache entries map keys to value, version, and dirty state; order is oldest-to-newest. Durable stores acknowledged values. Versions survive eviction, and emitted flush versions authorize matching acknowledgments.",
+    "assumptions": "Event values are finite JSON values and keys are strings. Unknown event types are treated as no-ops. The supplied slot count is a positive integer.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.slots>=1}",
+    "holds": "function holds(input,output){if(!Array.isArray(output))return false;for(const o of output){if(!o||!Array.isArray(o.cached)||!Array.isArray(o.dirty)||!Array.isArray(o.flush)||!o.durable||o.cached.some(k=>typeof k!==\"string\"||k.includes(\"__changed\")))return false}return true}",
+    "program": "function solve({config,state,event}){\n  let s=state||{c:{},o:[],d:{},v:{},f:{}};\n  let t=event.type,k=event.key,status=\"ignored\",value=null,flush=[];\n  const has=(o,x)=>Object.prototype.hasOwnProperty.call(o,x);\n  const touch=x=>{let i=s.o.indexOf(x);if(i>=0)s.o.splice(i,1);s.o.push(x)};\n  const cleanSlot=()=>{for(let i=0;i<s.o.length;i++){let x=s.o[i];if(!s.c[x].dirty){s.o.splice(i,1);delete s.c[x];return true}}return false};\n  if(t===\"write\"){\n    let n=(s.v[k]||0)+1;s.v[k]=n;\n    if(has(s.c,k)){s.c[k]={v:event.value,n:n,dirty:true};touch(k);status=\"written\"}\n    else if(s.o.length<config.slots||cleanSlot()){s.c[k]={v:event.value,n:n,dirty:true};s.o.push(k);status=\"written\"}\n    else status=\"blocked\";\n  }else if(t===\"read\"){\n    if(has(s.c,k)){value=s.c[k].v;touch(k);status=\"hit\"}\n    else if(has(s.d,k)){value=s.d[k];if(s.o.length<config.slots||cleanSlot()){s.c[k]={v:value,n:s.v[k]||0,dirty:false};s.o.push(k);status=\"durable\"}else status=\"durable\"}\n    else status=\"miss\";\n  }else if(t===\"flush\"){\n    if(has(s.c,k)&&s.c[k].dirty){let e=s.c[k];flush=[{key:k,value:e.v,version:e.n}];if(!s.f[k])s.f[k]={};s.f[k][e.n]=true;status=\"flushed\"}\n  }else if(t===\"ack\"){\n    if(has(s.c,k)){let e=s.c[k];if(e.dirty&&event.version===e.n&&s.f[k]&&s.f[k][e.n]){s.d[k]=e.v;e.dirty=false;status=\"persisted\"}}\n  }else if(t===\"evict\"){\n    if(!has(s.c,k))status=\"missing\";else if(s.c[k].dirty)status=\"blocked\";else{delete s.c[k];s.o.splice(s.o.indexOf(k),1);status=\"evicted\"}\n  }\n  let dirty=s.o.filter(x=>s.c[x].dirty).sort();\n  return {state:s,output:{status:status,value:value,flush:flush,cached:s.o.slice(),dirty:dirty,durable:Object.assign({},s.d)}};\n}"
+  },
+  "resultSHA256": "2b4795c670c34c6f6d407bc8fe74770880e4ca9e11bf6b886fc24f89ac2007b8",
+  "rawOutputSHA256": "fd1d2bedcb793d2512e6a3302aadd72e30460de7157932c0a794f5f985310fcf"
+}

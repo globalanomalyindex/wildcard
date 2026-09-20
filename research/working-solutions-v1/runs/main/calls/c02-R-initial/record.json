@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c02-R-initial",
+  "requestSHA256": "b697515c8561ddbf231a2c74f1f71b692292bca88963b40899a3889bac6b557c",
+  "promptSHA256": "1f08e108f5e1c35a966a19b18f4b1ecd8d2414369713156709b6bcaba642844e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:05:47.820822+00:00",
+  "finishedAt": "2026-09-20T23:06:07.661052+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.838925166986883,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 898,
+        "reasoning_output_tokens": 323
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "41cb42a3c5163a43411abc39797f4fdbdfb01703132f75722fb0443afbe1fdc9",
+      "stderrSHA256": "087f6d2e6a30f552ca3b57999e351003a9224a40a426f763c73720979f082d65"
+    }
+  ],
+  "result": {
+    "explanation": "Implement a single-flight cache with fresh and stale visibility windows. Cached entries remain stored after expiry; refreshes are deduplicated by pending key, and only matching responses affect state.",
+    "mapping": "The cache maps keys to {value,time}; pending maps keys to tokens; now is logical time and next is the monotonic token counter. Get computes age against ttl and ttl+stale.",
+    "assumptions": "Inputs obey the stated event, numeric, and JSON constraints. Values are preserved exactly, including false, zero, empty strings, objects, arrays, and null.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var keys={};for(var i=0;i<input.events.length;i++){var e=input.events[i];if(e.type==='get')keys[e.key]=1;var o=output[i];if(!o||!Array.isArray(o.fetch)||!Array.isArray(o.pending)||typeof o.now!=='number'||!('value'in o))return false;for(var j=0;j<o.fetch.length;j++){var f=o.fetch[j];if(!f||!keys[f.key]||typeof f.token!=='number')return false}for(var k=1;k<o.pending.length;k++)if(o.pending[k-1]>o.pending[k])return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={now:0,next:1,cache:{},pending:{}};var out={value:null,fetch:[],pending:[],now:s.now};if(e.type==='advance')s.now+=e.dt;else if(e.type==='get'){var z=s.cache[e.key],age=z===undefined?Infinity:s.now-z.t;if(z!==undefined&&age<c.ttl+c.stale)out.value=z.v;if((z===undefined||age>=c.ttl)&&s.pending[e.key]===undefined){var tok=s.next++;s.pending[e.key]=tok;out.fetch.push({key:e.key,token:tok})}}else if(e.type==='resolve'){if(s.pending[e.key]===e.token){s.cache[e.key]={v:e.value,t:s.now};delete s.pending[e.key]}}else if(e.type==='reject'){if(s.pending[e.key]===e.token)delete s.pending[e.key];}else if(e.type==='invalidate'){delete s.cache[e.key];delete s.pending[e.key]}out.now=s.now;var p=Object.keys(s.pending);p.sort();out.pending=p;return{state:s,output:out}}"
+  },
+  "resultSHA256": "111f08385f96a8d40aaec0881574a84ddd43bd8eba678ab725afb95d2cfbb490",
+  "rawOutputSHA256": "5da404d8ebac861b1b5b52a765a939f80c6079e22a14e013701517c0a9cf335c"
+}

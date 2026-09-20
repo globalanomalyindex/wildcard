@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-X-initial",
+  "requestSHA256": "0c1c84114cdb16d0430a4a0025421e2328cde3d2f7845d87585e15203e747f52",
+  "promptSHA256": "9d2361d2eccf60cbc235a42d4af42c81e0e88852385950b0d5441fa1f692a214",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:10:40.800654+00:00",
+  "finishedAt": "2026-09-20T23:11:05.797115+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 24.996316542150453,
+      "usage": {
+        "input_tokens": 7075,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1175,
+        "reasoning_output_tokens": 479
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "e8fabdf3053f4dd80d09fc6b16482c9a98ba474aebc113ddfd0df2efdfae5666",
+      "stderrSHA256": "2ba8c1f4dffe885259855b7a692d43a35af19bab4ed629488012eb1395f71349"
+    }
+  ],
+  "result": {
+    "explanation": "A causal inbox reserves each accepted sequence permanently, applies contiguous sequences once, and retains identity records for idempotent duplicate/conflict detection.",
+    "mapping": "The inbox value is the accumulated delta of applied sequence records; next is the first unapplied sequence; pending contains reserved unapplied sequences; identity records provide permanent deduplication.",
+    "assumptions": "New IDs below next are stale before sequence-reservation checks. Existing IDs are classified as duplicate only when both sequence and delta match; otherwise they conflict.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)&&input.events.length>0}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let r={v:0,n:1,a:[]};for(let i=0;i<input.events.length;i++){let e=input.events[i],status='accepted',old=null;for(let x of r.a)if(x[0]===e.id){old=x;break}if(old){status=old[1]===e.seq&&old[2]===e.delta?'duplicate':'conflict'}else if(e.seq<r.n)status='stale';else{for(let x of r.a)if(x[1]===e.seq){status='conflict';break}if(status==='accepted')r.a.push([e.id,e.seq,e.delta])}if(status==='accepted'){for(;;){let k=-1;for(let j=0;j<r.a.length;j++)if(r.a[j][1]===r.n){k=j;break}if(k<0)break;r.v+=r.a[k][2];r.n++}}let p=[];for(let x of r.a)if(x[1]>=r.n)p.push(x[1]);p.sort((a,b)=>a-b);let z=output[i];if(!z||z.status!==status||z.value!==r.v||z.next!==r.n||JSON.stringify(z.pending)!==JSON.stringify(p))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{v:0,n:1,a:[]},e=event,status='accepted',old=null;for(let x of s.a)if(x[0]===e.id){old=x;break}if(old)status=old[1]===e.seq&&old[2]===e.delta?'duplicate':'conflict';else if(e.seq<s.n)status='stale';else{for(let x of s.a)if(x[1]===e.seq){status='conflict';break}if(status==='accepted')s.a.push([e.id,e.seq,e.delta])}if(status==='accepted'){for(;;){let k=-1;for(let i=0;i<s.a.length;i++)if(s.a[i][1]===s.n){k=i;break}if(k<0)break;s.v+=s.a[k][2];s.n++}}let p=[];for(let x of s.a)if(x[1]>=s.n)p.push(x[1]);p.sort((a,b)=>a-b);return{state:s,output:{status:status,value:s.v,next:s.n,pending:p}}}"
+  },
+  "resultSHA256": "b36cb5242307d017786c9f2654dee5b0863e4f8b2890bb7950ca943e1e818215",
+  "rawOutputSHA256": "eeb55568439386536f4916720ce4932258c5270ef46191fb07da48953aa14294"
+}

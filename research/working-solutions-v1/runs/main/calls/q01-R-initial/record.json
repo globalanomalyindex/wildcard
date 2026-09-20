@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q01-R-initial",
+  "requestSHA256": "69c56184c770303cc8df7cf0d29c65655730a798b3f14f453e163b9daa0d3809",
+  "promptSHA256": "904a60cab7570b375a6b5261619f26ed07044ca87df5a20ff2aac78bdd33eeda",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:06:00.534767+00:00",
+  "finishedAt": "2026-09-20T23:06:33.251904+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 32.71624970785342,
+      "usage": {
+        "input_tokens": 7196,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1066,
+        "reasoning_output_tokens": 244
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "1d4c5a590e508ed08c91fdeeab085ae08848e09ee9739ab67b49752531d56785",
+      "stderrSHA256": "34b3fb4e8e05b376881ff57063a0099c7dd367960c6c92c91f6da1d0132fc213"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain the current clock and queued jobs. Before each event, discard expired jobs; advancing also discards jobs after increasing the clock. Accepted jobs consume capacity, cancellation and execution release their sizes, and execution selects earliest deadline then insertion order.",
+    "mapping": "config.capacity maps to maximum queued bytes; state.now maps to time; state.jobs stores id, size, deadline, and insertion order; output.pending and output.bytes summarize queued jobs; output.ran identifies only a job executed by run.",
+    "assumptions": "Inputs satisfy the stated event and numeric validity constraints. JSON state is private to this implementation and is returned unchanged in meaning between calls.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config.capacity,n=0,j=[],t=0;function x(){j=j.filter(q=>q.d>t)}for(let k=0;k<output.length;k++){let e=input.events[k],o=output[k];x();let r=null,s='';if(e.type==='add'){if(j.some(q=>q.id===e.id)||n+e.size>c||e.deadline<=t)s='rejected';else{s='accepted';j.push({id:e.id,size:e.size,d:e.deadline,ix:k});n+=e.size}}else if(e.type==='cancel'){let z=j.findIndex(q=>q.id===e.id);if(z<0)s='missing';else{s='cancelled';n-=j[z].size;j.splice(z,1)}}else if(e.type==='advance'){s='advanced';t+=e.dt;x()}else{s='empty';if(j.length){let z=0;for(let i=1;i<j.length;i++)if(j[i].d<j[z].d||j[i].d===j[z].d&&j[i].ix<j[z].ix)z=i;r=j[z].id;n-=j[z].size;j.splice(z,1);s='ran'}}if(o.status!==s||o.now!==t||o.bytes!==n||o.ran!==r||o.pending.length!==j.length) return false;for(let i=0;i<j.length;i++)if(o.pending[i]!==j[i].id)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,jobs:[]},now=s.now,j=s.jobs.slice();function exp(){j=j.filter(q=>q.d>now)}exp();let status,ran=null;if(event.type==='add'){if(j.some(q=>q.id===event.id)||event.deadline<=now||j.reduce((a,q)=>a+q.size,0)+event.size>config.capacity)status='rejected';else{status='accepted';j.push({id:event.id,size:event.size,deadline:event.deadline,order:s.jobs.length+1})}}else if(event.type==='cancel'){let i=j.findIndex(q=>q.id===event.id);if(i<0)status='missing';else{status='cancelled';j.splice(i,1)}}else if(event.type==='advance'){status='advanced';now+=event.dt;exp()}else{if(!j.length)status='empty';else{let i=0;for(let k=1;k<j.length;k++)if(j[k].deadline<j[i].deadline||j[k].deadline===j[i].deadline&&j[k].order<j[i].order)i=k;ran=j[i].id;j.splice(i,1);status='ran'}}let bytes=j.reduce((a,q)=>a+q.size,0);return{state:{now,jobs:j},output:{status,ran,pending:j.map(q=>q.id),bytes,now}}}"
+  },
+  "resultSHA256": "2ad7fe4cab5995163b218102d851f5cbd8538e9e530ca15a84c7f4a2addc74ce",
+  "rawOutputSHA256": "20473fc611b340e6ff696ef73f3e7e81ad6af850bf270157a2d9eb9daa5f6a44"
+}

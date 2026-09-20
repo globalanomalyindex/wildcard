@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q03-X-initial",
+  "requestSHA256": "b6ad4da8aad28f00137c00e4aa886097b425fb5cc6cc315a9ab6fa5cb1eaaa9e",
+  "promptSHA256": "e3a0b1c3d9eea9e05bd1dc605e61f6b3f2de3bc81bc5e7aea4b647d62cff8f35",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:18:15.272782+00:00",
+  "finishedAt": "2026-09-20T23:18:31.800785+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.527674124808982,
+      "usage": {
+        "input_tokens": 6986,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 783,
+        "reasoning_output_tokens": 168
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "cdc51b28e570386469e49a4884c05af3a18147afb9c20bb2bdd8fa12028f923f",
+      "stderrSHA256": "7eca17869551fdc7c0135656429787221f9f8b0819187236f00439d94a46b702"
+    }
+  ],
+  "result": {
+    "explanation": "Optional assistance: batching is useful only while pending entries remain temporally relevant; a deadline forces emission. This corresponds directly to the keyed batching contract, without changing any target requirement.",
+    "mapping": "Keys map to pending batches, first pending time maps to age, limit maps to capacity, and delay maps to deadline. Required mode bypasses batching.",
+    "assumptions": "Keys are lowercase ASCII identifiers and all supplied fields satisfy the stated validity constraints. Lexical order is ordinary JavaScript string order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,n=0,m={},r=[];function keys(){return Object.keys(m).sort()}function emit(){var a=keys().map(function(k){return {key:k,value:m[k].v}});m={};return a}for(var e of input.events){var a=[];if(e.type==='put'){if(c.required){a=[{key:e.key,value:e.value}]}else{if(!(e.key in m))m[e.key]={v:e.value,t:n};else m[e.key].v=e.value;if(keys().length>=c.limit)a=emit()}}else if(e.type==='advance'){n+=e.dt;if(!c.required){var q=keys();for(var k of q)if(n-m[k].t>=c.delay){a=emit();break}}}else if(e.type==='cancel')delete m[e.key];else if(e.type==='flush')a=emit();var z={emitted:a,pending:keys(),now:n},o=output[r.length++];if(JSON.stringify(z)!==JSON.stringify(o))return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state||{n:0,m:{}};var n=s.n,m=s.m,a=[];function ks(){return Object.keys(m).sort()}function flush(){var q=ks();a=q.map(function(k){return {key:k,value:m[k].v}});m={}}if(e.type==='put'){if(c.required)a=[{key:e.key,value:e.value}];else{if(m[e.key]===undefined)m[e.key]={v:e.value,t:n};else m[e.key].v=e.value;if(ks().length>=c.limit)flush()}}else if(e.type==='advance'){n+=e.dt;if(!c.required){var q=ks();for(var i=0;i<q.length;i++)if(n-m[q[i]].t>=c.delay){flush();break}}}else if(e.type==='cancel'){delete m[e.key]}else if(e.type==='flush')flush();return {state:{n:n,m:m},output:{emitted:a,pending:ks(),now:n}}}"
+  },
+  "resultSHA256": "54cb73bb9692bee2a4f1db97885efeb63aed775ab213f2429ef8e46ea8e63e13",
+  "rawOutputSHA256": "ea80cb366db0734af0546b9468940d07086c98162e0e1991b26d52b80efd4690"
+}

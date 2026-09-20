@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s04-D-initial",
+  "requestSHA256": "f73b0c1a3b181379170df2d2d13ac06170f928d20b09532bb3238e79aafd295a",
+  "promptSHA256": "6ac6d7a7dae68a0703c901009bf28b4f87cb8ad21e57e691663b1ee7a7ee10c6",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:08:31.305495+00:00",
+  "finishedAt": "2026-09-20T23:09:03.641395+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 32.33481799997389,
+      "usage": {
+        "input_tokens": 7886,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1610,
+        "reasoning_output_tokens": 558
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "226129406474ec979895e46a3bfe871ab3dae1432d489f2a0b68b83a40ee8d3c",
+      "stderrSHA256": "41d1266311ba379b081a3fa567ac98f444124ee2c834d878858cd07b0a59effd"
+    }
+  ],
+  "result": {
+    "explanation": "Use a conditional invariant: retained buffered bytes are exactly the current unterminated line, excluding LF and excluding discarded overflow bytes. Complete lines are decoded and validated before transactional state changes; invalid lines increment errors and clear the open transaction.",
+    "mapping": "The rule maps each event to buffered length, while open, visible, and errors are updated only by validated frames, overflow, or finish recovery.",
+    "assumptions": "Inputs obey the public event and config domains. JSON frame objects must have exactly the documented keys; imported values are scalar and safe.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.events.length>0&&input.config&&Number.isInteger(input.config.maxBytes)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let b=0,d=false,m=input.config.maxBytes;for(let i=0;i<output.length;i++){let e=input.events[i];if(e.type==='chunk'){for(let x of e.bytes){if(d){if(x===10)d=false}else if(x===10)b=0;else if(++b>m){b=0;d=true}}}else if(e.type==='finish'){b=0;d=false}if(output[i].buffered!==b)return false}return true}",
+    "program": "function solve({config,state,event}){\n const M=config.maxBytes;\n let s=state||{v:{},o:null,t:{},b:[],d:false,e:0};\n const bad=()=>{s.e++;s.o=null;s.t={}};\n function utf(a){let z='',i=0;while(i<a.length){let c=a[i++],n=0,u=0;if(c<128)u=c;else if(c>=194&&c<=223){n=1;u=c&31}else if(c>=224&&c<=239){n=2;u=c&15}else if(c>=240&&c<=244){n=3;u=c&7}else return null;if(i+n>a.length)return null;for(let j=0;j<n;j++){let q=a[i++];if((q&192)!=128)return null;u=u*64+(q&63)}if((n==2&&u<2048)||(n==3&&u<65536)||(n==3&&u>0x10ffff)||u>=55296&&u<=57343)return null;z+=String.fromCodePoint(u)}return z}\n function sane(x){if(x===null||typeof x==='boolean'||typeof x==='string')return typeof x!=='string'||!/[\\ud800-\\udfff]/.test(x);if(typeof x==='number')return Number.isSafeInteger(x);return false}\n function frame(a){let q=utf(a),x;if(q===null)return null;try{x=JSON.parse(q)}catch(_){return null}if(!x||Array.isArray(x)||typeof x!=='object')return null;let k=Object.keys(x),op=x.op;\n  if(typeof op!=='string')return null;\n  if(op==='begin'){if(k.length!==2||!('id'in x)||typeof x.id!=='string')return null;return x}\n  if(op==='put'){if(k.length!==3||typeof x.key!=='string'||!('value'in x)||!sane(x.value))return null;return x}\n  if(op==='commit'){if(k.length!==2||typeof x.id!=='string')return null;return x}\n  if(op==='abort'){if(k.length!==1)return null;return x}return null}\n function line(){let x=frame(s.b);s.b=[];if(!x){bad();return}if(x.op==='begin'){if(s.o!==null)bad();else{s.o=x.id;s.t={}}}else if(x.op==='put'){if(s.o===null)bad();else s.t[x.key]=x.value}else if(x.op==='commit'){if(s.o===null||s.o!==x.id)bad();else{for(let k of Object.keys(s.t))s.v[k]=s.t[k];s.o=null;s.t={}}}else{s.o=null;s.t={}}}\n if(event.type==='chunk'){for(let x of event.bytes){if(s.d){if(x===10)s.d=false;continue}if(x===10)line();else{if(s.b.length<M)s.b.push(x);else{s.b=[];s.d=true;s.e++;s.o=null;s.t={}}}}}else{if(!s.d&&s.b.length){s.e++;s.b=[];s.o=null;s.t={}}else{s.b=[];s.d=false}if(s.o!==null){s.e++;s.o=null;s.t={}}}\n return {state:s,output:{visible:s.v,open:s.o,buffered:s.b.length,errors:s.e}}\n}"
+  },
+  "resultSHA256": "ed8e5871369793652e944075ad9179789976da774802623c6fcaf4b5b66e76a1",
+  "rawOutputSHA256": "04d9c6dde30f6c22ed75fd140f874ce378b017a602547270eb516e5c32c616e6"
+}

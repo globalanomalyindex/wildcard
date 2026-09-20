@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u02-X-initial",
+  "requestSHA256": "deb4f0a2302178a28c35cc263aeeab82f79f798dc44ad04f2952fe21baaa0bfd",
+  "promptSHA256": "fb076158c4b1645f860a0573892df8a830caecc2821d70df93fb2a6362087e94",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:12:13.681207+00:00",
+  "finishedAt": "2026-09-20T23:13:17.147507+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 63.467525207903236,
+      "usage": {
+        "input_tokens": 11112,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1206,
+        "reasoning_output_tokens": 677
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "aa7fbfffe8b49309269b2aa8cc124ca7c39e14f044b19378c36dd6147abd2348",
+      "stderrSHA256": "2da86fef101a3709b502b7a04393c8b0d4f5516197301f1f91ce23451db27176"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain ordered frame records with persistent, one-frame, and snapshot layers. Re-expand from the initial object after each event; one-frame edits affect display only, while snapshots reset both patches.",
+    "mapping": "The timeline maps to ordered frame records, carried values, persistent patches, transient patches, and snapshot boundaries.",
+    "assumptions": "Inserted empty frames inherit through ordinary expansion from their current predecessor. Inputs satisfy the stated legal-value constraints.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||!Array.isArray(x.frames))return false;for(const f of x.frames)if(!f||typeof f.id!=='string'||!f.values||Array.isArray(f.values))return false}return true}",
+    "program": "function cp(o){var r={};for(var k of Object.keys(o||{}))r[k]=o[k];return r}function solve(a){var s=a.state,e=a.event,c=a.config;if(s===null){s={initial:cp(c.initial),frames:c.frames.map(function(id){return{id:id,p:{},o:{},s:null}})}}var fs=s.frames,ix=-1;if(e.type==='insert'){if(e.id&&fs.every(function(f){return f.id!==e.id})){if(e.after===null)ix=0;else ix=fs.findIndex(function(f){return f.id===e.after})+1;if(ix>0||e.after===null)fs.splice(ix,0,{id:e.id,p:{},o:{},s:null})}}else{ix=fs.findIndex(function(f){return f.id===e.id});if(ix>=0){var f=fs[ix];if(e.type==='edit'){(e.scope==='persistent'?f.p:f.o)[e.key]=e.value}else if(e.type==='snapshot'){f.s=cp(e.values);f.p={};f.o={}}}}var carry=cp(s.initial),out=[];for(var f of fs){if(f.s!==null)carry=cp(f.s);for(var k of Object.keys(f.p))carry[k]=f.p[k];var v=cp(carry);for(var k of Object.keys(f.o))v[k]=f.o[k];out.push({id:f.id,values:v})}return{state:s,output:{frames:out}}}"
+  },
+  "resultSHA256": "1a8fbbde4c8e66fc3946280fe8a85e9ea81028847a97c381a648ef3a279a6cfd",
+  "rawOutputSHA256": "c3e7393d7338fe576cfe5a9b7cc8159e2ac10c9e163b0c57b53af06b28007745"
+}

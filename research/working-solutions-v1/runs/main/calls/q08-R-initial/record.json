@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q08-R-initial",
+  "requestSHA256": "be517401afd3772ff77a5163450deebd98fa285116e18ca6481c93bd13f4e216",
+  "promptSHA256": "9bf6c493352038ec3e79dd81fb660dc95aff0c093b9f57aad2f1b6edf2d7787c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:13:46.195916+00:00",
+  "finishedAt": "2026-09-20T23:14:10.868828+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 24.67187433387153,
+      "usage": {
+        "input_tokens": 7274,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1008,
+        "reasoning_output_tokens": 129
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "6fda458822b64aac31e6a05e8cbcb86a6f95cde61ea9c20f5111efe347ce11a7",
+      "stderrSHA256": "8def165b27dad52351ae08ad111f63eb1a357348019d0b41ae6fe1d3bffeb91e"
+    }
+  ],
+  "result": {
+    "explanation": "Track each node’s lifecycle in state. For each event, accept ok/fail only when the node is running, propagate blocked status transitively, then start all eligible pending nodes in lexical order. Roots start only after processing an event.",
+    "mapping": "Nodes map to pending, running, done, failed, or blocked. Event completion changes only the matching running node; prerequisites determine blocking and eligibility.",
+    "assumptions": "Config is a finite acyclic dependency map with valid IDs. Events contain valid types and IDs when applicable. JSON values are finite and within stated limits.",
+    "applies": "function applies(input){return !!(input&&input.config&&input.config.deps&&Array.isArray(input.events));}",
+    "holds": "function holds(input,output){var d=input.config.deps,k=Object.keys(d).sort(),s={};for(var i=0;i<k.length;i++)s[k[i]]='pending';if(!Array.isArray(output)||output.length!==input.events.length)return false;for(var e=0;e<output.length;e++){var ev=input.events[e],o=output[e];if(!o||!Array.isArray(o.started)||!o.states)return false;for(var i=0;i<k.length;i++){var id=k[i],st=s[id];if(ev.type==='ok'&&ev.id===id&&st==='running')s[id]='done';if(ev.type==='fail'&&ev.id===id&&st==='running')s[id]='failed';}var ch=true;while(ch){ch=false;for(var i=0;i<k.length;i++){var id=k[i];if(s[id]==='pending'&&d[id].some(function(x){return s[x]==='failed'||s[x]==='blocked';})){s[id]='blocked';ch=true;}}}for(var i=0;i<k.length;i++){var id=k[i];if(s[id]==='pending'&&d[id].every(function(x){return s[x]==='done';}))s[id]='running';}var exp=[];for(var i=0;i<k.length;i++)if((o.states[k[i]]||'')!==s[k[i]])return false;for(var i=0;i<k.length;i++)if(s[k[i]]==='running'&&(e===0||true)){var prior=true;for(var q=0;q<e;q++){} }for(var i=0;i<k.length;i++){var want=s[k[i]]==='running';if(want&&(!e||true)){} }if(Object.keys(o.states).length!==k.length)return false;}return true;}",
+    "program": "function solve(x){var d=x.config.deps,k=Object.keys(d).sort(),st=x.state?x.state.s:null;if(!st){st={};for(var i=0;i<k.length;i++)st[k[i]]='pending';}else{var z={};for(var i=0;i<k.length;i++)z[k[i]]=st[k[i]];st=z;}var e=x.event;if((e.type==='ok'||e.type==='fail')&&st[e.id]==='running')st[e.id]=e.type==='ok'?'done':'failed';var again=true;while(again){again=false;for(var i=0;i<k.length;i++){var id=k[i];if(st[id]==='pending'){var bad=false;for(var j=0;j<d[id].length;j++){var q=st[d[id][j]];if(q==='failed'||q==='blocked'){bad=true;break;}}if(bad){st[id]='blocked';again=true;}}}}var a=[];for(var i=0;i<k.length;i++){var id=k[i];if(st[id]==='pending'){var ok=true;for(var j=0;j<d[id].length;j++)if(st[d[id][j]]!=='done'){ok=false;break;}if(ok){st[id]='running';a.push(id);}}}var states={};for(var i=0;i<k.length;i++)states[k[i]]=st[k[i]];return {state:{s:st},output:{started:a,states:states}};}"
+  },
+  "resultSHA256": "ecc7ef10d3406cb7420d17d6c93aef3ba097e16ce9a126b70b6290655f840972",
+  "rawOutputSHA256": "43c85940f1d561e64f0febbde5b9d49499bd859ae2cd8fc95ca0fe6e31635cd1"
+}

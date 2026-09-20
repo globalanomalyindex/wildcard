@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q06-D-initial",
+  "requestSHA256": "3fe1892507eae146d768edd5071fcd942d6ac3347b7e23c407e4fcc554a0ec8b",
+  "promptSHA256": "7059e438fc3d897312d07e36a5e0276652df37ca55657690e09ae5878aae7ff5",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:15:50.070702+00:00",
+  "finishedAt": "2026-09-20T23:16:09.049333+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.977432290790603,
+      "usage": {
+        "input_tokens": 6665,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 888,
+        "reasoning_output_tokens": 303
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4b25b243c90662b10c103c34aed563a141b92cffc8eb5fb565f4ea39c2a19b7a",
+      "stderrSHA256": "fd253e25b553ed83ce6e46df79ebfdd8b66ff6ef15e0429aefdf14cc51f0928a"
+    }
+  ],
+  "result": {
+    "explanation": "Use the event type as the conditional rule: advance converts carry plus elapsed-rate units into whole credits; take conditionally records and debits a new affordable ID; refund conditionally restores an accepted, unrefunded cost. Other cases leave balances unchanged.",
+    "mapping": "State variables map directly to capacity-limited credits, fractional carry, and an ID ledger storing each accepted cost plus refund status.",
+    "assumptions": "Inputs satisfy the stated validity and safe-integer constraints. IDs are consumed permanently, including after refund; refund capping applies only to restored credits.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output))return false;var q=input.config,C=q.capacity,R=q.rate,D=q.denom,c=C,k=0,m={},e,o,i,x;for(i=0;i<input.events.length;i++){e=input.events[i];if(e.type==='advance'){x=k+e.dt*R;c=Math.min(C,c+Math.floor(x/D));k=x%D;o={status:'advanced',credits:c,carry:k}}else if(e.type==='take'){if(m[e.id]===undefined&&e.cost<=c){c-=e.cost;m[e.id]={cost:e.cost,ref:false};o={status:'taken',credits:c,carry:k}}else o={status:'rejected',credits:c,carry:k}}else{if(m[e.id]&& !m[e.id].ref){m[e.id].ref=true;c=Math.min(C,c+m[e.id].cost);o={status:'refunded',credits:c,carry:k}}else o={status:'ignored',credits:c,carry:k}}if(JSON.stringify(o)!==JSON.stringify(output[i]))return false}return output.length===input.events.length}",
+    "program": "function solve(a){var q=a.config,s=a.state,e=a.event,c,k,m,x,r;if(s==null){c=q.capacity;k=0;m={}}else{c=s.c;k=s.k;m=s.m}if(e.type==='advance'){x=k+e.dt*q.rate;c=Math.min(q.capacity,c+Math.floor(x/q.denom));k=x%q.denom;r='advanced'}else if(e.type==='take'){if(m[e.id]===undefined&&e.cost<=c){c-=e.cost;m[e.id]={cost:e.cost,ref:false};r='taken'}else r='rejected'}else{if(m[e.id]!==undefined&&!m[e.id].ref){m[e.id].ref=true;c=Math.min(q.capacity,c+m[e.id].cost);r='refunded'}else r='ignored'}return{state:{c:c,k:k,m:m},output:{status:r,credits:c,carry:k}}}"
+  },
+  "resultSHA256": "e5adef17851865ab5ae842f731b740b66e7ad141c3e96374f563affc0c0a5ae9",
+  "rawOutputSHA256": "10f870aec04d0cfc672b0eab86afc3cdda34c591db285db1a94ef59e2da68c93"
+}

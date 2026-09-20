@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c08-X-initial",
+  "requestSHA256": "2fd4e9f716a0709661e7963863fc76c1abd46ef0a71a4852b47778cd7ee60cb9",
+  "promptSHA256": "cd9e0f966cbcc16156cc9ff86b1958761ca0faf5d8f24df7602aeb7a9c709fb1",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:17:58.304094+00:00",
+  "finishedAt": "2026-09-20T23:18:27.401201+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 29.095756083959714,
+      "usage": {
+        "input_tokens": 7095,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1005,
+        "reasoning_output_tokens": 334
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fe256a76b1b78b186358251c7914cafbea604590d5fe39d5159149a57ba8a6dd",
+      "stderrSHA256": "93c67c98bcdf3fef154a9ab4877e872897a18e9cd7f576a1ef4848d18bbf60bc"
+    }
+  ],
+  "result": {
+    "explanation": "Track each byte as either unknown or a known numeric value. Puts are transactional: validate bounds and all known overlaps before writing. Reads report maximal unknown runs; clears erase the selected range.",
+    "mapping": "The buffer positions are the target state, known count is derived from them, and each event maps directly to one state transition and output status. Comparator hysteresis is not applicable.",
+    "assumptions": "Inputs follow the stated legal JSON contract and use the specified event shapes, safe integers, and byte ranges.",
+    "applies": "function(input){return !!(input&&input.config&&Array.isArray(input.events)&&input.config.length>=1)}",
+    "holds": "function(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(var i=0;i<output.length;i++){var o=output[i];if(!o||!('status'in o)||!('data'in o)||!('missing'in o)||!('known'in o)||!Array.isArray(o.missing)||typeof o.known!=='number')return false;if((o.status==='stored'||o.status==='cleared')&&o.data!==null)return false;if(o.status==='invalid'&&(o.data!==null||o.missing.length))return false;if(o.status==='complete'&&o.data===null)return false;if(o.status==='incomplete'&&o.data!==null)return false}return true}",
+    "program": "function solve(x){var c=x.config,n=c.length,s=x.state;if(s===null){s={v:Array(n).fill(null)};}var v=s.v,e=x.event,t=e.type,o=null,m=[],d=null,i,a,b,ok;if(t==='put'){a=e.start;d=e.data;ok=Number.isInteger(a)&&a>=0&&a+d.length<=n;for(i=0;ok&&i<d.length;i++)if(d[i]<0||d[i]>255||!Number.isInteger(d[i])||(v[a+i]!==null&&v[a+i]!==d[i]))ok=false;if(ok){for(i=0;i<d.length;i++)v[a+i]=d[i];o='stored';}else o='invalid';}else if(t==='read'||t==='clear'){a=e.start;b=e.end;ok=Number.isInteger(a)&&Number.isInteger(b)&&a>=0&&a<=b&&b<=n;if(!ok)o='invalid';else if(t==='clear'){for(i=a;i<b;i++)v[i]=null;o='cleared';}else{for(i=a;i<b;i++)if(v[i]===null){var q=i;while(i<b&&v[i]===null)i++;m.push([q,i]);}if(m.length){o='incomplete';}else{o='complete';d=[];for(i=a;i<b;i++)d.push(v[i]);}}}else o='invalid';var k=0;for(i=0;i<n;i++)if(v[i]!==null)k++;if(o==='invalid')d=null;if(o==='stored'||o==='cleared'){d=null;m=[];}return{state:s,output:{status:o,data:d,missing:m,known:k}}}"
+  },
+  "resultSHA256": "13cd674fcd532cd12442d08fea89ebaf98d6acae8a727fe1174a4e979dc9265a",
+  "rawOutputSHA256": "2cef6ddce833b937a08e3d8e2cd9a304b0b7a71ee26d2ec2f1e2dc50652bea37"
+}

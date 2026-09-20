@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u04-R-initial",
+  "requestSHA256": "0d4b1bee6539761d34717389031230cb1f86dca349864b5592269c6c1f3f7c9d",
+  "promptSHA256": "5db1f26b293c6822ef73f71a5247eef0281db586f5092d2d593f29485cde0e32",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:09:03.662163+00:00",
+  "finishedAt": "2026-09-20T23:09:35.517809+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 31.855719208018854,
+      "usage": {
+        "input_tokens": 7308,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1284,
+        "reasoning_output_tokens": 498
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "0a7cce3b283c1ccdae31eb111ae875d5722d38851bd909c219f6c683e316d5d4",
+      "stderrSHA256": "bea365be5a27f566c8a7bdca5c6f79c7441f0769aa0c6fb153fe20733bd722b1"
+    }
+  ],
+  "result": {
+    "explanation": "Use timestamp ordering, acknowledgement identity, critical precedence, mode state, and directional hysteresis counters. The optional lighthouse analogy is not needed because this is a deterministic event controller.",
+    "mapping": "lastTime maps observation ordering; ack maps permanently acknowledged IDs; criticalId maps the currently visible critical identity; enabled maps mode; dir/count map consecutive high or low normal observations; kind/visible map rendered warning state.",
+    "assumptions": "Inputs satisfy the stated schema and limits. Configuration remains valid for the trace. State is returned unchanged in meaning but may use a compact JSON object.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={t:-1,e:true,d:0,n:0,k:null,id:null,a:[]};function o(){return{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}for(let i=0;i<input.events.length;i++){let x=input.events[i];if(x.type==='ack'){if(s.a.indexOf(x.id)<0)s.a.push(x.id);if(s.k==='critical'&&s.id===x.id){s.k=null;s.id=null;s.d=0;s.n=0}}else if(x.type==='mode'){s.e=x.enabled;s.d=0;s.n=0;if(!s.e&&s.k==='normal')s.k=null}else if(x.type==='observe'&&x.t>s.t){s.t=x.t;if(x.critical&&s.a.indexOf(x.id)<0){s.k='critical';s.id=x.id;s.d=0;s.n=0}else if(!x.critical&&s.k!=='critical'&&s.e){let q=x.level>=c.high?1:x.level<=c.low?-1:0;if(q===0||q!==s.d){s.d=q;s.n=q?1:0}else s.n++;if(s.n>=c.dwell){if(q===1)s.k='normal';else if(q===-1)s.k=null;s.n=0}}}let z=o(),y=output[i];if(!y||y.visible!==z.visible||y.kind!==z.kind||y.id!==z.id)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{t:-1,e:true,d:0,n:0,k:null,id:null,a:[]};let c=config,x=event;if(x.type==='ack'){if(s.a.indexOf(x.id)<0)s.a.push(x.id);if(s.k==='critical'&&s.id===x.id){s.k=null;s.id=null;s.d=0;s.n=0}}else if(x.type==='mode'){s.e=x.enabled;s.d=0;s.n=0;if(!s.e&&s.k==='normal')s.k=null}else if(x.type==='observe'&&x.t>s.t){s.t=x.t;if(x.critical&&s.a.indexOf(x.id)<0){s.k='critical';s.id=x.id;s.d=0;s.n=0}else if(!x.critical&&s.k!=='critical'&&s.e){let q=x.level>=c.high?1:x.level<=c.low?-1:0;if(q===0||q!==s.d){s.d=q;s.n=q?1:0}else s.n++;if(s.n>=c.dwell){if(q===1)s.k='normal';else if(q===-1)s.k=null;s.n=0}}}return{state:s,output:{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}}"
+  },
+  "resultSHA256": "cfebd3be66c4e601150e1205a7214e070797131df12e8b86ec73e19d04b316e3",
+  "rawOutputSHA256": "c1c877f2e63fbc6945f8014a8ef9cd7af428317ddfa49eb5bdfd552c0e4d098d"
+}

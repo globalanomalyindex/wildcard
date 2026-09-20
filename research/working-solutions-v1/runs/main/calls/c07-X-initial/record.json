@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c07-X-initial",
+  "requestSHA256": "161eea569a76c6b12ffdab872911b1e68de6a0b0184b589d8e95c99426918d61",
+  "promptSHA256": "29cda22c288d244aa72fbc81481a996ffa8d02766e40451dda128173c3f101ce",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:16:09.073779+00:00",
+  "finishedAt": "2026-09-20T23:16:38.330716+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 29.2563877501525,
+      "usage": {
+        "input_tokens": 7072,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1054,
+        "reasoning_output_tokens": 459
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "6b0a776f215cf19e3c6116402c90b20a941de7ecbff79ed22c92c9efed1ce8ad",
+      "stderrSHA256": "948c9e484249f07fc864f0b71bea8a33c277fe30bcec70366d2e2a736f802f3b"
+    }
+  ],
+  "result": {
+    "explanation": "Memoize each evaluated node. A leaf reads its current value; a nonleaf sums dependencies in listed order. Setting a leaf invalidates it and all reverse-reachable dependents, while setting a nonleaf does nothing.",
+    "mapping": "Nodes map to memo entries and reverse dependency reachability; leaf values map to current values, with configuration values as initial values.",
+    "assumptions": "Inputs satisfy the stated DAG, node, integer, and event constraints. State is retained exactly as returned between events.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.events.length>0&&input.events[0].type==='evaluate'&&input.config.deps&&input.config.deps[input.events[0].node]&&input.config.deps[input.events[0].node].length===0}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(let i=0;i<output.length;i++){let o=output[i];if(!o||typeof o.value!=='number'&&o.value!==null||!Number.isInteger(o.computed)||!Array.isArray(o.valid)||o.valid.some(x=>typeof x!=='string'))return false}let n=input.events[0].node;return output[0].computed===1&&output[0].value===input.config.values[n]}",
+    "program": "function solve({config,state,event}){let s=state||{m:{},v:{}};if(!s.m)s.m={};if(!s.v)s.v={};let d=config.deps, vals=config.values, type=event.type, node=event.node;let rev={};for(let k in d)rev[k]=[];for(let k in d)for(let x of d[k])rev[x].push(k);let out={value:null,computed:0,valid:[]};if(type==='set'){if(d[node].length===0){s.v[node]=event.value;let q=[node],seen={};while(q.length){let x=q.pop();if(seen[x])continue;seen[x]=1;delete s.m[x];for(let y of rev[x])q.push(y)}}}else if(type==='evaluate'){let made=0;function ev(x){if(Object.prototype.hasOwnProperty.call(s.m,x))return s.m[x];let z;if(d[x].length===0)z=Object.prototype.hasOwnProperty.call(s.v,x)?s.v[x]:vals[x];else{z=0;for(let y of d[x])z+=ev(y)}s.m[x]=z;made++;return z}out.value=ev(node);out.computed=made}out.valid=Object.keys(s.m).sort();return{state:s,output:out}}"
+  },
+  "resultSHA256": "f3ca6350a0dbb8ee84bd60d432182334f35e18fcdb139bab771e30005e218dec",
+  "rawOutputSHA256": "2ac1e9effed9d5d629bc4060cbb3dac444a9425054f5678bba0232d7f279011a"
+}

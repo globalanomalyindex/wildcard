@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q01-D-initial",
+  "requestSHA256": "934b8661b6ba8c072c62fd6bcfc4af325b29fd9f7a3a162f09e1092becdfbbbf",
+  "promptSHA256": "20e3a20329679079123a9e6afd4d9ba32b4890df08121bb678c95e5eb9654cd9",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:05:29.139064+00:00",
+  "finishedAt": "2026-09-20T23:06:00.512652+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 31.37309041712433,
+      "usage": {
+        "input_tokens": 6953,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1262,
+        "reasoning_output_tokens": 321
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b506916c64a1cca5cd70d0a140f731fb7e9f653c1a57a8ab25b29631ff68fdf8",
+      "stderrSHA256": "d83f402576e4c75c32eec561e52def5471d5a913d2aecf18d71608743c00bacb"
+    }
+  ],
+  "result": {
+    "explanation": "The rule is: before each event, discard queued jobs whose deadline is at or before now; an advance also discards after increasing now. Add accepts exactly when the ID is absent, its deadline is later than now, and capacity remains sufficient. Run selects minimum deadline, then insertion order. For example, changing the first accepted add's bytes from 1 to 2 violates conservation and capacity accounting.",
+    "mapping": "now is the clock; jobs contain id, size, deadline, and insertion sequence; bytes is the sum of queued sizes; pending is queued IDs in sequence order. Status and ran describe only the current event.",
+    "assumptions": "Inputs satisfy the stated legal-event and safe-integer constraints. State is trusted only as state previously returned by this function.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config.capacity,n=0,q=[],seq=0,eq=()=>{q=q.filter(x=>x.deadline>n)},mk=(s,r)=>({status:s,ran:r==null?null:r,pending:q.map(x=>x.id),bytes:q.reduce((a,x)=>a+x.size,0),now:n});for(let i=0;i<input.events.length;i++){let e=input.events[i];eq();let s,r=null;if(e.type==='add'){if(q.some(x=>x.id===e.id)||e.deadline<=n||q.reduce((a,x)=>a+x.size,0)+e.size>c)s='rejected';else{q.push({id:e.id,size:e.size,deadline:e.deadline,seq:seq++});s='accepted'}}else if(e.type==='cancel'){let k=q.findIndex(x=>x.id===e.id);if(k<0)s='missing';else{q.splice(k,1);s='cancelled'}}else if(e.type==='advance'){n+=e.dt;eq();s='advanced'}else{if(!q.length)s='empty';else{let k=0;for(let j=1;j<q.length;j++)if(q[j].deadline<q[k].deadline||q[j].deadline===q[k].deadline&&q[j].seq<q[k].seq)k=j;r=q[k].id;q.splice(k,1);s='ran'}}let z=mk(s,r),o=output[i];if(JSON.stringify(z)!==JSON.stringify(o))return false}return true}",
+    "program": "function solve({config,state,event}){\n  let s=state||{now:0,jobs:[],next:0}, now=s.now, jobs=s.jobs.slice(), next=s.next||0;\n  const expire=()=>{jobs=jobs.filter(j=>j.deadline>now)};\n  expire();\n  let status,ran=null;\n  if(event.type==='add'){\n    let bytes=jobs.reduce((a,j)=>a+j.size,0);\n    if(jobs.some(j=>j.id===event.id)||event.deadline<=now||bytes+event.size>config.capacity)status='rejected';\n    else{jobs.push({id:event.id,size:event.size,deadline:event.deadline,seq:next++});status='accepted'}\n  }else if(event.type==='cancel'){\n    let k=jobs.findIndex(j=>j.id===event.id);\n    if(k<0)status='missing';else{jobs.splice(k,1);status='cancelled'}\n  }else if(event.type==='advance'){\n    now+=event.dt;expire();status='advanced'\n  }else{\n    if(!jobs.length)status='empty';\n    else{let k=0;for(let i=1;i<jobs.length;i++)if(jobs[i].deadline<jobs[k].deadline||jobs[i].deadline===jobs[k].deadline&&jobs[i].seq<jobs[k].seq)k=i;ran=jobs[k].id;jobs.splice(k,1);status='ran'}\n  }\n  let bytes=jobs.reduce((a,j)=>a+j.size,0);\n  return {state:{now:now,jobs:jobs,next:next},output:{status:status,ran:ran,pending:jobs.map(j=>j.id),bytes:bytes,now:now}};\n}"
+  },
+  "resultSHA256": "231449e39123a4ca72494c0fb1c27a376888a69f41f0c4062564d772f8db61ad",
+  "rawOutputSHA256": "ed87f9242ac66d1e992edcd5170e31eb53dd68c653176cd23eb909c0775a1d6b"
+}
