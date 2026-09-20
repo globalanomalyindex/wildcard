@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "d02-judge-1",
+  "request_sha256": "41e5c9b76601092c76b4b7bdb17807f1bd71d75be891fb60a0d0b3f51f9baa0c",
+  "prompt_sha256": "b91bf86e0ea88d6fe9a1de690dc5b7c5c0b921c5d769feff64fec28961412d37",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:45:59.230683+00:00",
+  "finished_at": "2026-09-20T19:46:34.280599+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.04769775,
+      "usage": {
+        "input_tokens": 10938,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1039,
+        "reasoning_output_tokens": 141
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "12b7ce38cb24af1e96c0784a2b4a6b1044e33d3be77f0bd7560b51a5fc40c80a",
+      "stderr_sha256": "d6753e6ed51adf9b40b5575f63fdb9b94ac1d300cca78a2c38681ae096c4a79a"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "6c8be0005b8e23fc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "60cd18eeecf2d6b9",
+        "mechanism_group": "public_allowlist",
+        "reason": "Public-source validation and field allowlisting enforce the no-private-data constraint, with rejection and leakage checks."
+      },
+      {
+        "id": "eddddda48f3e7580",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66283422bee7ff6d",
+        "mechanism_group": "atomic_capacity",
+        "reason": "Serialized cleanup and pre-insertion LRU eviction enforce cache capacity, although its check does not cover total in-flight record residency."
+      },
+      {
+        "id": "1f2155e2843cb0bb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "60cd18eeecf2d6b9",
+        "mechanism_group": "public_allowlist",
+        "reason": "Approved sources and strict field validation prevent private payloads from entering cache, responses, or logs."
+      },
+      {
+        "id": "9f5a53b7df72d6b4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "fe5e16f109c8db98",
+        "mechanism_group": "timeout_response",
+        "reason": "A finite deadline produces an explicit timeout response, discards late results, and preserves unrelated unexpired entries."
+      },
+      {
+        "id": "e1909e4a954f9f88",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "34bf64f12844d383",
+        "mechanism_group": "outage_circuit_breaker",
+        "reason": "A failure-triggered circuit breaker limits outage calls while retaining normal expiration and providing explicit timeout errors."
+      },
+      {
+        "id": "c8d6f5bf4006505f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8fa690453e167823",
+        "mechanism_group": "absolute_expiry",
+        "reason": "A fixed five-minute deadline checked before responses prevents delayed cleanup or outages from making expired records fresh."
+      },
+      {
+        "id": "22967383a43322c1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4b8b80e625ab2f04",
+        "mechanism_group": "absolute_expiry",
+        "reason": "Read-time checks and deletion enforce an absolute deadline within 300 seconds of retrieval start without renewal on failures."
+      },
+      {
+        "id": "260cda7a0c0155ad",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "334aeb01ba771d69",
+        "mechanism_group": "reserved_capacity",
+        "reason": "Atomic reservations count incoming records against the 100-slot limit, with failure release and concurrent invariant checks."
+      },
+      {
+        "id": "2babb5b10f96b2cb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4b8b80e625ab2f04",
+        "mechanism_group": "absolute_expiry_with_lru",
+        "reason": "Absolute read-time expiry combines with pre-admission LRU eviction, testing both deadline enforcement and capacity behavior."
+      },
+      {
+        "id": "61895a4ff21a1d0e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "34bf64f12844d383",
+        "mechanism_group": "outage_circuit_breaker",
+        "reason": "A deadline and failure-triggered breaker define outage responses, preserve unexpired hits, and continue expired-entry deletion."
+      },
+      {
+        "id": "4d1c02c63cc0bfe1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "334aeb01ba771d69",
+        "mechanism_group": "reserved_capacity",
+        "reason": "Shared fetches and atomic incoming-record reservations enforce the combined 100-record memory budget under concurrency."
+      },
+      {
+        "id": "980d7584e83ea14d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "03b3cff883fe2a31",
+        "mechanism_group": "public_allowlist",
+        "reason": "Credential-free approved endpoints and allowlisted parsing restrict retained and exposed data to approved public fields."
+      }
+    ]
+  },
+  "result_sha256": "a2fb88093a25c3f21faf5eca73c2577e32cb2357bbd55f460091f95632b81e45",
+  "raw_output_sha256": "8ddedb2dbe1dea55c30b032f2504c55a5d34762a58584119a42312358e6c9475"
+}

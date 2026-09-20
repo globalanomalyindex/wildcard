@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "d01-bank-2",
+  "request_sha256": "8224b14b39b82cbdacfee6d622632cfca3428f6f5953f04c4ef014fe0294feff",
+  "prompt_sha256": "533a046e1664f92c04ff6b910fc18bc4026430b33bb3e032bb8fd7068c4490f8",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:26:50.078395+00:00",
+  "finished_at": "2026-09-20T19:27:20.822189+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 30.741838875,
+      "usage": {
+        "input_tokens": 7002,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 886,
+        "reasoning_output_tokens": 207
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a24e2ee209f9bcb7f767b56dd303b56ba546b05701d4c64e0b47d0e67333ad8b",
+      "stderr_sha256": "a488dd3e7cffd264c0e8ab6d991a7f565c3f22ff97f998c68c8b13b117242572"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Add a keyboard-accessible “Move to position” command.",
+        "mechanism": "Direct position entry avoids traversing 40 items.",
+        "implementation": "Give each item a native “Move” button. Open a labeled dialog showing its current position and an integer field accepting 1–40. Define the number as the final position. Enter confirms; Escape cancels without changes. Restore focus to the item's Move button.",
+        "check": "Using only the keyboard, move item 38 to position 3. Verify its final position; reject blank, fractional, and out-of-range input without changing order.",
+        "risk": "Users may confuse insertion boundaries with final positions; label the field “Final position.”"
+      },
+      {
+        "action": "Offer moving relative to another item's title.",
+        "mechanism": "Destination selection lets users reorder without knowing position numbers.",
+        "implementation": "As an alternative in the Move dialog, provide native controls for “Before” or “After” and a destination selector containing the other 39 items. Include current positions to distinguish duplicate titles. Compute placement after removing the source item.",
+        "check": "Using only the keyboard, place an item before and after destinations on either side of its original position. Verify adjacency and allow undo for every committed change.",
+        "risk": "Duplicate titles can cause incorrect selection unless destinations are clearly distinguished."
+      },
+      {
+        "action": "Keep a page-lifetime undo history for every committed move.",
+        "mechanism": "Prior ID sequences make reordering reversible across multiple moves.",
+        "implementation": "Before each order-changing commit, push the current ID sequence and moved item's ID onto an in-memory stack. Provide a persistent native “Undo move” button. Undo restores the last sequence and consumes that history entry. Do not expire or cap history while the page remains open; exclude cancellations and no-ops.",
+        "check": "Perform 100 moves through both controls, then undo all 100 using the keyboard. Verify every intermediate order and the original order.",
+        "risk": "History grows with usage; silently truncating it would violate reversibility."
+      },
+      {
+        "action": "Preserve focus and announce the result of moves and undo.",
+        "mechanism": "Stable keyboard context and explicit feedback expose changes without visual tracking.",
+        "implementation": "Keep item controls keyed by immutable IDs. After a move, focus the moved item's Move button; after undo, focus the restored item's button. Use a polite live region to announce its title and “position X of 40,” including whether the move was undone.",
+        "check": "With keyboard and a screen reader, move the first item to position 40 and undo. Verify focus follows that same item and each resulting position is announced.",
+        "risk": "Replacing focused DOM nodes or issuing duplicate announcements can disrupt navigation."
+      },
+      {
+        "action": "Implement ordering as an atomic permutation of existing IDs.",
+        "mechanism": "Separating item identity from position prevents reordering from recreating or losing items.",
+        "implementation": "Store item records by immutable ID and maintain a separate ordered ID array. Route both move controls and undo through one transaction function. Before committing, verify exactly 40 unique IDs and the same ID set as before. Render using IDs, never positions, as keys.",
+        "check": "Test all 1,600 source/destination position pairs and their undo operations. Assert correct order, unchanged ID membership, and unchanged item content.",
+        "risk": "Position-based keys or partially applied updates can transfer item state or corrupt order."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "b62ebfae8c38205ad4ce96a95cca055b8e20bec85aa79f5cbe5fa6eb5a2d0c7a",
+  "raw_output_sha256": "959cf263f741209649f4f0733d5f8f348595df606887ede60a66dec32b349a00"
+}

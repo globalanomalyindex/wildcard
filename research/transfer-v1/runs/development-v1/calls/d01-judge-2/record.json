@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "d01-judge-2",
+  "request_sha256": "900088350780f744a07bc786a58745a70a8c503672da5dc86837a01be89ac264",
+  "prompt_sha256": "db0f16e4690eea652dfcff2a8d17dffe33457fe63940ec24bc478cd66f9cd5cb",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:45:34.258959+00:00",
+  "finished_at": "2026-09-20T19:45:45.104424+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 10.8431605,
+      "usage": {
+        "input_tokens": 6760,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 342,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c3bfff55d0f7f5d4db4443dbae60c115a9937e973f77da5bb9e99b28ff6506de",
+      "stderr_sha256": "2aa92258ddf36a76043e3f62bddc5f9435bd323b1033aaf843fd3d76f536cfd4"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "ef56753bce9b17dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "be5ef1a15f40b185",
+        "mechanism_group": "page_lifetime_undo_history",
+        "reason": "It uses an uncapped page-lifetime stack of ordered ID snapshots and a keyboard-focusable undo control, satisfying reversibility and ID preservation."
+      },
+      {
+        "id": "90e56e7e51bd40a6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7284ab448df5efc9",
+        "mechanism_group": "relative_named_destination",
+        "reason": "It provides keyboard-searchable before/after placement by stable destination ID, matching the named relative-placement mechanism and making the move undoable."
+      },
+      {
+        "id": "3739a26091fa6ddc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e00c1301f24c3371",
+        "mechanism_group": "keyboard_reorder_mode",
+        "reason": "It defines an explicit keyboard mode where arrows/Home/End preview movement, Enter commits, Escape cancels, and undo reverses the committed transaction."
+      },
+      {
+        "id": "d0006bc7bcfc82ce",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ecf6d80f53218116",
+        "mechanism_group": "move_to_position",
+        "reason": "It adds a keyboard dialog for one-based final-position entry, preserves the existing item ID, records undo history, and includes an observable keyboard-only undo check."
+      }
+    ]
+  },
+  "result_sha256": "81f9b4285581d01e7e0d327246bd39e69a64f04f4af7acb08adfb5552f6892c0",
+  "raw_output_sha256": "419265f642d5af377134bb1867773c35c5137ecfb9debe35c7532dda9a14df3c"
+}

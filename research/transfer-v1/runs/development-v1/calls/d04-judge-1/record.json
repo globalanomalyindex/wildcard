@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "d04-judge-1",
+  "request_sha256": "b958f82c83f5c84ec5aaeb3b735efcd4a4e4a59bfc89344d8f31cd7ca1f69aad",
+  "prompt_sha256": "77eb58833836f1becb34c28be9d3115655e5d868986bd10018b2985fb126c4b4",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:45:55.375685+00:00",
+  "finished_at": "2026-09-20T19:46:26.466851+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 31.087023416999997,
+      "usage": {
+        "input_tokens": 10724,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 922,
+        "reasoning_output_tokens": 50
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "655a3c74df10978a73e5112e2bf57bef0f39a27ed3a03e0739850242be580189",
+      "stderr_sha256": "d0ae70438d5c07619822a4535e2774167a4aa974756de05f8aae51ff2901e29b"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "cee300ed34a0c751",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b38f087a9bf42c",
+        "mechanism_group": "preserved_definition_variants",
+        "reason": "Source-linked, append-only variants preserve competing wording, with a check that revisions and disputes remain inspectable."
+      },
+      {
+        "id": "3a786fbdcc02fecd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a78ea515240e9cf5",
+        "mechanism_group": "source_reference_integrity",
+        "reason": "Registry validation and deletion protection enforce supplied-source linkage, while tests cover invalid references and retained evidence."
+      },
+      {
+        "id": "c1c3b3fb50b4daac",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a78ea515240e9cf5",
+        "mechanism_group": "source_reference_integrity",
+        "reason": "Required foreign keys and deletion protection enforce source binding, with observable save failures and passage access checks."
+      },
+      {
+        "id": "0af8a78c301e6971",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "299ae676f7930fa2",
+        "mechanism_group": "preserved_definition_variants",
+        "reason": "Separate source-linked variants and explicit dispute links preserve disagreement even when preferred wording is selected."
+      },
+      {
+        "id": "452084cb3482b71c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b38f087a9bf42c",
+        "mechanism_group": "preserved_definition_variants",
+        "reason": "Append-only source-linked variants preserve competing and revised wording, tested by retaining all three versions and their conflict."
+      },
+      {
+        "id": "18cd299febb2e48e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "passage_to_definition_backlinks",
+        "reason": "Reverse passage links expose all associated interpretations and disputes, a distinct navigation mechanism with a concrete two-variant check."
+      },
+      {
+        "id": "3096667ae3f88849",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "73ebf94666b44c64",
+        "mechanism_group": "disagreement_evidence_comparison",
+        "reason": "An entry-level comparison panel brings competing wording, source passages, and dispute explanations together for inspection."
+      },
+      {
+        "id": "73635adc1f738926",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "bounded_editorial_review",
+        "reason": "Bounded review with validation gates, stop conditions, and reversible status changes preserves alternatives and has a concrete failure-injection check."
+      },
+      {
+        "id": "b2d2290b727e3c22",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "73ebf94666b44c64",
+        "mechanism_group": "disagreement_evidence_comparison",
+        "reason": "Side-by-side wording, complete passages, and dispute explanations implement evidence comparison with a keyboard-access check."
+      },
+      {
+        "id": "5abdc8cb56a0a913",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "298dc57998c59aca",
+        "mechanism_group": "source_change_dependency_review",
+        "reason": "Immutable corrected passages and dependency flags identify definitions needing review without silently changing their evidence or disagreement."
+      },
+      {
+        "id": "33267b09024733d4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9cdb299c60ec1d63",
+        "mechanism_group": "immutable_revision_history",
+        "reason": "Immutable revisions and a readable history preserve prior wording, source bindings, and dispute links through edits."
+      },
+      {
+        "id": "290950197432817b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a78ea515240e9cf5",
+        "mechanism_group": "source_reference_integrity",
+        "reason": "Mandatory registry references, deletion protection, and exclusion of external imports enforce supplied-source binding with invalid-save tests."
+      }
+    ]
+  },
+  "result_sha256": "8dcf7c89fea7b19725127418d728401a33a3cf10cb7fe8ad111dabc5d2ca7391",
+  "raw_output_sha256": "9b6f710624a96d389f41fce43e93abc3f381e92414df1d1f875dfbe34e6b9c2c"
+}

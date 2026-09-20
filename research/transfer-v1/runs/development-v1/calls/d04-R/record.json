@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d04-R",
+  "request_sha256": "6d78f3a1d4c323d616a75c5c3c53034a727f0f7119dc35875ebc39131818a6b9",
+  "prompt_sha256": "e46f3b66c215a313193586179f4c3df6e135f1d8b2ab08ba8b4079c9706d869c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:41:27.135077+00:00",
+  "finished_at": "2026-09-20T19:41:50.837406+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 23.699647625000004,
+      "usage": {
+        "input_tokens": 7118,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 679,
+        "reasoning_output_tokens": 176
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e6c2812a09a7f80381994bc78aaf35d57887f00d1e166e1101018083edcd237d",
+      "stderr_sha256": "ae56fcff1b4aa7cb4f2c54d8fce95ac0cf6c24deb7da42bf269ad009432d87f7"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require a supplied source passage for every definition.",
+        "mechanism": "Enforced references prevent unsourced definitions and broken source links.",
+        "implementation": "Store supplied passages with immutable passage IDs. Make source_passage_id mandatory on every definition record, with a foreign-key constraint. Reject deletion of referenced passages and provide no external-source import path.",
+        "check": "Attempt to save a definition with a missing or unknown passage ID; both must fail. Verify every saved definition resolves to a supplied passage.",
+        "risk": "A valid reference does not prove that the passage supports the wording."
+      },
+      {
+        "action": "Preserve competing wording as separate, linked definitions.",
+        "mechanism": "Append-only variants prevent edits or editorial preferences from erasing disagreement.",
+        "implementation": "Give each variant its own ID, wording, and source passage ID. Record disputes between variant IDs with an explanation. Save revisions as new variants; mark superseded or preferred versions without deleting alternatives.",
+        "check": "Create two conflicting variants, revise one, and mark a preferred version. Confirm all three wordings, their sources, and the dispute remain inspectable.",
+        "risk": "Variant proliferation can make navigation difficult; group variants by term without merging their text."
+      },
+      {
+        "action": "Show definitions, passages, and disagreements together.",
+        "mechanism": "A comparison view lets readers examine the evidence rather than relying on an editorial status label.",
+        "implementation": "For each term, display competing wording side by side, each with its passage ID and an expandable full supplied passage. Show dispute explanations and distinguish editorial preference from resolution. Keep alternatives accessible when a preferred definition is displayed.",
+        "check": "For a disputed test term, verify a reader can reveal both complete passages and the disagreement using keyboard navigation alone.",
+        "risk": "Highlighting excerpts can hide relevant context; always retain access to the complete supplied passage."
+      },
+      {
+        "action": "Flag affected definitions when supplied passages are replaced or corrected.",
+        "mechanism": "Dependency tracking exposes potentially stale wording without silently rewriting definitions or resolving disputes.",
+        "implementation": "Store corrected passages under new IDs with explicit predecessor links. Traverse references to the predecessor and flag affected definitions for review. Keep original wording and passage links intact; any revised definition must cite its selected passage ID.",
+        "check": "Replace a passage referenced by two definitions. Both must receive review flags, unrelated definitions must remain unchanged, and both original source links must still work.",
+        "risk": "Flags indicate a need for review, not that a definition is wrong; avoid automatically changing its dispute status."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "df16f167ef8306b2a754d4dcd60ec58cadffd0c2d99612dbc7bd63bef81b3ef8",
+  "raw_output_sha256": "16a5601f20b06ba63268bfc3baad15c0613e0fe48779be278ae250c0f48ede86"
+}

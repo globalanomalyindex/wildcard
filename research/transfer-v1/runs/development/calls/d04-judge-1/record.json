@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "d04-judge-1",
+  "request_sha256": "289945d186aa4ade38ec67f45df6ef92eb7e1431bb01c7f50d75f8ec9084d1dc",
+  "prompt_sha256": "e38880548c94a62da115fd53762050b1b1414c8ac712935883d8c3d8e6d3b20f",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:52:16.203956+00:00",
+  "finished_at": "2026-09-20T19:52:55.111695+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 38.905926667,
+      "usage": {
+        "input_tokens": 10776,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1160,
+        "reasoning_output_tokens": 57
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d5c62889ae12ec1ba8a12a83a2af7df45450e553ac7e2bfac84a025bf1c1158c",
+      "stderr_sha256": "60257efb6d7f0fd0b1f2b348035e0913abdcb6a969ed3289ba9a490afe4ffd52"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "de96989b797f9899",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "859314ac2c715cfc",
+        "mechanism_group": "contextual_comparison",
+        "reason": "The term view preserves competing wording and exposes each passage and objection for reader inspection."
+      },
+      {
+        "id": "c1c3b3fb50b4daac",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a9123de94b2c022",
+        "mechanism_group": "source_integrity",
+        "reason": "Required supplied-passage references and deletion protection enforce source attachment with observable save tests."
+      },
+      {
+        "id": "cee300ed34a0c751",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "859314ac2c715cfc",
+        "mechanism_group": "contextual_comparison",
+        "reason": "The comparison view exposes preserved variants, their supplied passages, and objections without editor-only access."
+      },
+      {
+        "id": "e288d6b1a51ff7e1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "bounded_dispute_review",
+        "reason": "A bounded review workflow uses evidence prerequisites and stop conditions while testing that interruptions preserve alternatives."
+      },
+      {
+        "id": "18cd299febb2e48e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "support_review_queue",
+        "reason": "Passage-only editorial review evaluates wording support separately from citation validity while retaining earlier wording and judgments."
+      },
+      {
+        "id": "ac290f7a74766c09",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a9123de94b2c022",
+        "mechanism_group": "source_integrity",
+        "reason": "Rejecting missing or unknown supplied-passage IDs enforces the required source binding for every variant."
+      },
+      {
+        "id": "73635adc1f738926",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "bounded_dispute_review",
+        "reason": "Small review batches stop on missing evidence or wording and test preservation through an annotation-only fallback."
+      },
+      {
+        "id": "3096667ae3f88849",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "73ebf94666b44c64",
+        "mechanism_group": "definition_revision_history",
+        "reason": "Append-only edits preserve wording and passage bindings while keeping competing interpretations separate from chronological revisions."
+      },
+      {
+        "id": "5abdc8cb56a0a913",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "fb9c1560246b3f13",
+        "mechanism_group": "variant_search",
+        "reason": "Indexing every variant prevents preferred wording from hiding alternatives and tests retrieval using a nonpreferred phrase."
+      },
+      {
+        "id": "452084cb3482b71c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a9123de94b2c022",
+        "mechanism_group": "source_integrity",
+        "reason": "Required existing supplied-passage IDs prevent unsourced saves and provide a directly testable reference check."
+      },
+      {
+        "id": "b2d2290b727e3c22",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9cdb299c60ec1d63",
+        "mechanism_group": "passage_version_review",
+        "reason": "New passage versions trigger dependent-definition review without silently changing original wording or evidence bindings."
+      },
+      {
+        "id": "8cbc03a19c2a50cc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9cdb299c60ec1d63",
+        "mechanism_group": "passage_version_review",
+        "reason": "Versioned source corrections preserve original evidence and flag only dependent definitions for renewed review."
+      },
+      {
+        "id": "33267b09024733d4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "859314ac2c715cfc",
+        "mechanism_group": "contextual_comparison",
+        "reason": "A keyboard-accessible inspection control exposes full passages, competing wording, and dispute reasons together."
+      },
+      {
+        "id": "3a786fbdcc02fecd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "859314ac2c715cfc",
+        "mechanism_group": "contextual_comparison",
+        "reason": "Side-by-side alternatives with expandable supplied passages make preserved wording and disagreement inspectable by readers."
+      },
+      {
+        "id": "0af8a78c301e6971",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a78ea515240e9cf5",
+        "mechanism_group": "separate_definition_variants",
+        "reason": "Independently sourced variant records prevent competing definitions from being overwritten and test preservation after revision."
+      },
+      {
+        "id": "290950197432817b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a9123de94b2c022",
+        "mechanism_group": "source_integrity",
+        "reason": "A supplied-source registry, mandatory valid references, and deletion restrictions enforce persistent source attachment."
+      }
+    ]
+  },
+  "result_sha256": "d18a108c8096b429dd53293200dc869f5dbab1defeeb25472614508b82f522eb",
+  "raw_output_sha256": "b1f10c574c44a8b8df645a006d2b8eab95ef9dcc26397169145cd5664559211e"
+}

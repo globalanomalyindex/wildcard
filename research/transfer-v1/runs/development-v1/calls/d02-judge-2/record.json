@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "d02-judge-2",
+  "request_sha256": "cb6f03b1621a0c6a1992f06a3018a087f59cee9b88c4338e159828c74a0104e0",
+  "prompt_sha256": "7875b2d8781049e0f07c7f55480ee5feabb0f9730b894973a8b84c1a26276fc9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:45:34.257932+00:00",
+  "finished_at": "2026-09-20T19:46:01.775808+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 27.515463208,
+      "usage": {
+        "input_tokens": 8232,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 992,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "5b6a7d52fa4d707414240d0b0acc6dbafa4bd867eddd9de817ff172f902336e6",
+      "stderr_sha256": "f6c2d050ea41776c07f5bc362977ca924ce910fe837e6a5b08d16ffb0dd99839"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "980d7584e83ea14d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "60cd18eeecf2d6b9",
+        "mechanism_group": "public_field_allowlist",
+        "reason": "It enforces public-only endpoints and allowlisted stored fields with a concrete injection/logging check, matching the no-private-data schema allowlist mechanism."
+      },
+      {
+        "id": "4d1c02c63cc0bfe1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "334aeb01ba771d69",
+        "mechanism_group": "singleflight_reserved_capacity",
+        "reason": "It coalesces duplicate misses and counts reservations plus cached records against the 100-record limit before decoding/admission."
+      },
+      {
+        "id": "61895a4ff21a1d0e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "34bf64f12844d383",
+        "mechanism_group": "timeout_circuit_breaker",
+        "reason": "It gives misses explicit 503 timeout/outage responses, serves only unexpired hits, deletes expired entries, and uses a recovery-probe circuit breaker."
+      },
+      {
+        "id": "2babb5b10f96b2cb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66283422bee7ff6d",
+        "mechanism_group": "expiry_plus_atomic_lru_capacity",
+        "reason": "It combines absolute five-minute expiry checks with pre-insert expired cleanup and LRU eviction so expired records are not fresh and capacity stays at 100."
+      },
+      {
+        "id": "260cda7a0c0155ad",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "334aeb01ba771d69",
+        "mechanism_group": "reserved_atomic_capacity",
+        "reason": "It atomically counts pending reservations and completed cache entries against 100, evicting or rejecting before admission and releasing reservations on failure."
+      },
+      {
+        "id": "22967383a43322c1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4b8b80e625ab2f04",
+        "mechanism_group": "absolute_expiry_on_read",
+        "reason": "It uses a monotonic deadline checked on every read and deletes expired entries, including during source outage, preventing expired records from being fresh."
+      },
+      {
+        "id": "c8d6f5bf4006505f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8fa690453e167823",
+        "mechanism_group": "absolute_expiry_on_read",
+        "reason": "It enforces expiration at response time and scheduled deletion so expired records are misses even if the source later times out."
+      },
+      {
+        "id": "e1909e4a954f9f88",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66542ed57102dd4c",
+        "mechanism_group": "timeout_circuit_breaker",
+        "reason": "It combines bounded source timeouts with a fail-fast circuit breaker while preserving unexpired hits and normal expiry/eviction."
+      },
+      {
+        "id": "9f5a53b7df72d6b4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "fe5e16f109c8db98",
+        "mechanism_group": "timeout_singleflight_late_discard",
+        "reason": "It sets a finite source timeout with explicit 503, serves only unexpired hits, shares same-key retrievals, releases reservations, and discards late results."
+      },
+      {
+        "id": "1f2155e2843cb0bb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "60cd18eeecf2d6b9",
+        "mechanism_group": "public_field_allowlist",
+        "reason": "It restricts fetching and storage to validated public fields and verifies private fields do not enter cache, responses, or logs."
+      },
+      {
+        "id": "eddddda48f3e7580",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "041bf580bc5eed13",
+        "mechanism_group": "atomic_lru_capacity_singleflight",
+        "reason": "It serializes mutations with expired cleanup and LRU eviction before insert, plus coalesced/bounded fetch work, to keep resident records at 100."
+      },
+      {
+        "id": "6c8be0005b8e23fc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "03b3cff883fe2a31",
+        "mechanism_group": "public_source_visibility_allowlist",
+        "reason": "It requires a public-only source contract, visibility validation, and field allowlisting without payload logging to satisfy the no-private-data constraint."
+      }
+    ]
+  },
+  "result_sha256": "d3c5d0850818a7ab90808a4eba4d83208f78f8976dccb8ab93d68dbd1a2c1e45",
+  "raw_output_sha256": "6be9093a2c1c8ecf4d6b44f6577665991727f8b198c4c4e19345c811d300c891"
+}

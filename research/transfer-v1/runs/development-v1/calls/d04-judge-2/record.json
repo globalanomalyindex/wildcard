@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "d04-judge-2",
+  "request_sha256": "f159b28d32f0cc5a6b0cc3ccaf69677ba049cfce8c896db9758686477cb1caab",
+  "prompt_sha256": "07b1120376cec93cce0f82416dcc0359815a9d42f0594ddc540bd80f4019c23c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:45:34.257624+00:00",
+  "finished_at": "2026-09-20T19:45:55.356825+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.096769875,
+      "usage": {
+        "input_tokens": 8018,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 864,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "cd5345b7f5d7455b5a76daf42d5aa6fd3feec3c7cd75b699075db5bd152e1912",
+      "stderr_sha256": "8bbdebf6a7da711f6875fa4ae3932713a2fe3c805154a29281e799be5eed2913"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "290950197432817b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a78ea515240e9cf5",
+        "mechanism_group": "source_binding_invariant",
+        "reason": "It enforces supplied passage IDs for every definition, blocks external import, and has a concrete save/link check."
+      },
+      {
+        "id": "33267b09024733d4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9cdb299c60ec1d63",
+        "mechanism_group": "revision_history",
+        "reason": "It preserves wording and passage bindings through immutable definition revisions and makes earlier versions inspectable."
+      },
+      {
+        "id": "5abdc8cb56a0a913",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "298dc57998c59aca",
+        "mechanism_group": "passage_correction_review_flags",
+        "reason": "It treats corrected passages as new IDs, retains old citations, and flags dependent definitions for review."
+      },
+      {
+        "id": "b2d2290b727e3c22",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "73ebf94666b44c64",
+        "mechanism_group": "disagreement_comparison_view",
+        "reason": "It presents competing wording, dispute explanations, and complete supplied passages together for reader inspection."
+      },
+      {
+        "id": "73635adc1f738926",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "bounded_dispute_review_workflow",
+        "reason": "It proposes a batch review workflow that preserves wording and source checks, but this operational batching mechanism is not in the reference bank."
+      },
+      {
+        "id": "3096667ae3f88849",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "73ebf94666b44c64",
+        "mechanism_group": "disagreement_comparison_view",
+        "reason": "It uses an entry-level comparison panel to expose variants, passage IDs, full sources, and dispute explanations."
+      },
+      {
+        "id": "18cd299febb2e48e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "source_to_definition_reverse_links",
+        "reason": "It adds reverse passage-to-definition navigation so readers can inspect competing interpretations from the source passage."
+      },
+      {
+        "id": "452084cb3482b71c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "299ae676f7930fa2",
+        "mechanism_group": "separate_competing_variants",
+        "reason": "It stores each competing wording as its own source-linked variant and records dispute links without deleting alternatives."
+      },
+      {
+        "id": "0af8a78c301e6971",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "299ae676f7930fa2",
+        "mechanism_group": "separate_competing_variants",
+        "reason": "It explicitly preserves competing definitions as separate source-linked variants with dispute explanations and visible alternatives."
+      },
+      {
+        "id": "c1c3b3fb50b4daac",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a9123de94b2c022",
+        "mechanism_group": "source_binding_invariant",
+        "reason": "It requires a valid supplied passage foreign key for every definition and checks that published links resolve."
+      },
+      {
+        "id": "3a786fbdcc02fecd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a78ea515240e9cf5",
+        "mechanism_group": "source_binding_invariant",
+        "reason": "It enforces a local supplied-passage registry and required valid references, with added version retention for corrected passages."
+      },
+      {
+        "id": "cee300ed34a0c751",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "15b38f087a9bf42c",
+        "mechanism_group": "separate_competing_variants",
+        "reason": "It preserves competing wording as separate source-linked variants and keeps disputes and preferred status inspectable."
+      }
+    ]
+  },
+  "result_sha256": "292e5343e0138b1e6024eb1bca8b86af96714bb96ecfbd527f53daf6b7ff8494",
+  "raw_output_sha256": "cc0d3675c66dfac744b1978914495d8e55c4e14162c7dfbc251ace3dc967ad04"
+}

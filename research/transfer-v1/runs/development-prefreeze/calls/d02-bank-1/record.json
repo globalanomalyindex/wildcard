@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "d02-bank-1",
+  "request_sha256": "e408782d255a714c25426e5b2603bcae78ace5289b8bc9274a21308c844051c1",
+  "prompt_sha256": "87f86636f1cb93ae68c07a11a30611cf2e38382c2aad9ee8f8d85b89e88658ef",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:26:14.702636+00:00",
+  "finished_at": "2026-09-20T19:26:50.054519+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.348699917000005,
+      "usage": {
+        "input_tokens": 6989,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1025,
+        "reasoning_output_tokens": 108
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "07e79e111d25ed6addf9309e645a75fb3c7a4c9128c6d9c9bbfca7518d45c149",
+      "stderr_sha256": "f245cff8c7c20eb4e694ccaf4050ed049f68ec99eb297f60a9233ebe7b824887"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Expire records after five minutes, even during an outage.",
+        "mechanism": "Hard expiry separates usable cached records from unavailable records.",
+        "implementation": "Set expires_at using a monotonic clock when a successful source fetch completes. On every lookup, delete records whose deadline has passed before returning anything. Schedule deadline-based cleanup so idle records also expire. Reads never extend expiry.",
+        "check": "With a fake clock, verify a record is usable before 300 seconds and absent at 300 seconds, including while the source is unavailable.",
+        "risk": "Strict expiry sacrifices availability during prolonged outages."
+      },
+      {
+        "action": "Return an explicit unavailable response when the source times out.",
+        "mechanism": "A bounded source deadline prevents indefinite waiting without disguising expired data as fresh.",
+        "implementation": "Configure a source-request timeout. On timeout without a valid cached record, return HTTP 503 with code source_timeout; do not cache the error. Retain unrelated unexpired records, remove expired records, and never flush the whole cache merely because the source failed.",
+        "check": "Simulate a hanging source. Verify a bounded 503 response, no expired payload, no cached error, and continued access to unrelated unexpired records.",
+        "risk": "An overly short timeout rejects source requests that might otherwise succeed."
+      },
+      {
+        "action": "Enforce the 100-record limit with deterministic eviction.",
+        "mechanism": "Atomic admission and least-recently-used eviction bound cache size.",
+        "implementation": "Route all writes through one admission function. Remove expired entries first; when inserting a new key into a full cache, evict the least recently used live record before insertion. Replacing an existing key consumes no additional slot. Failed fetches never evict live entries.",
+        "check": "Insert 101 distinct records and verify exactly 100 remain with the expected victim. Repeat with concurrent insertions and assert occupancy never exceeds 100.",
+        "risk": "A scan through many unique keys can evict frequently needed records."
+      },
+      {
+        "action": "Admit only explicitly public records.",
+        "mechanism": "An allowlisted source and response schema prevent private fields from entering the cache.",
+        "implementation": "Use a public-only source endpoint without user credentials. Require its documented public-record designation, copy only allowlisted public fields, and reject responses lacking that designation. Exclude response bodies and credentials from logs and error messages.",
+        "check": "Supply a response containing private fields and verify none appear in cached values, returned payloads, or logs. Verify an unclassified record is rejected.",
+        "risk": "An incorrect source designation can defeat admission checks; schema filtering alone does not establish that a record is public."
+      },
+      {
+        "action": "Share concurrent fetches for the same missing record.",
+        "mechanism": "A bounded in-flight registry avoids duplicate source requests without creating another record cache.",
+        "implementation": "Maintain one shared fetch future per canonical record key. Bound distinct in-flight fetches to a configured limit; return 503 busy for additional misses. Store only control metadata in the registry and remove entries on success, timeout, or cancellation. Send successful results through normal cache admission.",
+        "check": "Issue concurrent misses for one key and verify one source request. Hang distinct requests and verify the registry stays bounded and releases entries after timeout.",
+        "risk": "Callers share the same source failure; one caller's cancellation must not cancel work needed by others."
+      },
+      {
+        "action": "Temporarily stop source calls after repeated failures.",
+        "mechanism": "A circuit breaker makes sustained outage handling explicit.",
+        "implementation": "Open the breaker after a configured consecutive-failure threshold. While open, serve only unexpired cached records; return 503 source_unavailable for misses. Continue expiry eviction unchanged. After a cooldown, allow one probe; close on success or reopen on failure.",
+        "check": "Force repeated timeouts and verify source calls stop during cooldown, expired records disappear, misses receive 503, and only one recovery probe runs.",
+        "risk": "Cooldown can delay recovery detection after the source becomes healthy."
+      },
+      {
+        "action": "Prevent late source responses from repopulating the cache.",
+        "mechanism": "Fetch generations fence off timed-out or superseded work.",
+        "implementation": "Assign each fetch a generation token. Invalidate it on timeout or cancellation. Before cache admission, atomically verify that the token is still current and the request remains active; otherwise discard the result. Perform this check together with capacity enforcement.",
+        "check": "Let fetch A time out, then complete fetch B successfully for the same key. Deliver A's response afterward and verify it cannot overwrite B or change B's expiry.",
+        "risk": "Non-atomic token checking and insertion leave a race that can admit obsolete results."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "bf092eee3409008093541c304effceffdd2b7998a3b117f0cb0995cd44376276",
+  "raw_output_sha256": "4e645bdce0b712ae98df2c2daf75f19c87f6392cd605833689cf5ffd3aa4e8ac"
+}

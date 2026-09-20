@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "action": "Require receipt confirmation before changing the holder",
+      "mechanism": "Separate a proposed transfer from confirmed receipt; unanswered requests remain visibly unresolved rather than silently changing ownership.",
+      "implementation": "Provide “Offer key” and “Received key” buttons for the two volunteers. Record offer time, actual handoff time, and confirmation time.",
+      "check": "Offer without acceptance: the last confirmed holder remains displayed beside a pending warning. Acceptance updates the holder and preserves handoff time.",
+      "risk": "An unconfirmed physical transfer makes the displayed holder provisional."
+    },
+    {
+      "action": "Replace chat searching with one checkout summary",
+      "mechanism": "A single authoritative summary exposes the latest confirmed holder and every unresolved transfer without interpreting conversational messages.",
+      "implementation": "Pin a shared checkout page in chat. Generate its holder and unresolved-handoff sections from timestamped records; retain corrections instead of overwriting history.",
+      "check": "Record two completed transfers and one pending transfer. Verify the summary identifies the last confirmed holder and pending transfer without opening chat history.",
+      "risk": "Parallel informal records could undermine the authoritative summary."
+    },
+    {
+      "action": "Reconcile stalled or disputed handoffs explicitly",
+      "mechanism": "An unresolved transfer triggers a possession check, not an automatic reassignment based on elapsed time.",
+      "implementation": "Let the volunteers choose a reminder interval. On expiry, ask both who physically has the key; record agreement and actual handoff time.",
+      "check": "Leave a transfer unanswered past the interval: it remains unresolved. Conflicting replies show “holder disputed”; matching replies resolve it with a timestamped record.",
+      "risk": "Resolution still depends on volunteers responding accurately."
+    }
+  ],
+  "abstention_reason": ""
+}

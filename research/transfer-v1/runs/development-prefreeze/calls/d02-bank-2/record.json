@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "d02-bank-2",
+  "request_sha256": "fda79645d039408809afbd56f85af56fcae3f4c392ec26eeb78f1e842b144466",
+  "prompt_sha256": "87f86636f1cb93ae68c07a11a30611cf2e38382c2aad9ee8f8d85b89e88658ef",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:26:44.044952+00:00",
+  "finished_at": "2026-09-20T19:27:21.584425+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.537505708000005,
+      "usage": {
+        "input_tokens": 6989,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1131,
+        "reasoning_output_tokens": 155
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "15d98f715c68a557d5790fb04ec9f4b737effdde0a35d7c7f1d3f23c8d2867ea",
+      "stderr_sha256": "9cb90bcf8620d267f3d00c5113cb3668332968c8e089d3aa30b9d788d1911fb2"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Expire and remove records after at most five minutes.",
+        "mechanism": "Enforce a fixed deadline rather than extending freshness on access.",
+        "implementation": "Set expires_at using a monotonic clock when a successful source response is accepted, capped at 300 seconds. Check the deadline before serving; delete expired entries immediately. Schedule deadline-based deletion even without reads. Never renew the deadline on hits or failed fetches.",
+        "check": "With a fake clock, verify a record is unavailable at its deadline, repeated hits do not extend it, and an outage does not preserve expired entries.",
+        "risk": "Process pauses can delay physical cleanup; read-time checks must still prevent expired responses."
+      },
+      {
+        "action": "Enforce the 100-record memory limit during fetches as well as caching.",
+        "mechanism": "Reserve bounded record slots before admitting source responses.",
+        "implementation": "Use a shared pool of 100 slots covering cached records and in-flight record buffers. Under an atomic admission operation, remove expired entries first, then evict the least-recently-used unreserved entry if needed. Reject admission when all slots are reserved. Release reservations on every failure path.",
+        "check": "Run concurrent misses, cancellations, and timeouts; assert occupied plus reserved slots never exceed 100 and all failed requests release reservations.",
+        "risk": "Counting only cache entries would miss temporary decoding copies; the implementation must account for these too."
+      },
+      {
+        "action": "Return an explicit unavailable response when the source times out.",
+        "mechanism": "Bound waiting and separate source failure from record absence.",
+        "implementation": "Set a configurable source timeout within the request deadline. Serve an existing unexpired record without contacting the source. On a miss or expired entry, attempt the fetch; on timeout return HTTP 503 with a stable source_timeout code. Remove expired entries, retain unrelated unexpired entries, and never cache the failure as a record.",
+        "check": "Simulate a hanging source: misses return 503 within the configured deadline, valid hits still work, and expired records are neither returned nor retained.",
+        "risk": "A timeout that is too short can reject source requests that would otherwise succeed."
+      },
+      {
+        "action": "Share concurrent fetches for the same record.",
+        "mechanism": "Use a bounded per-key in-flight operation instead of duplicate source calls.",
+        "implementation": "After a cache miss, atomically join or create a fetch keyed by the canonical public record identifier. Share its validated result or failure with waiting requests. Give waiters independent deadlines; cancel the shared fetch only when no waiters remain or its own deadline expires. Remove in-flight metadata on every completion path.",
+        "check": "Send concurrent requests for one missing key; verify one source call, consistent timeout responses, and no abandoned in-flight entry.",
+        "risk": "Incorrect key normalization can merge distinct records; slow waiters must not retain record buffers indefinitely."
+      },
+      {
+        "action": "Pause source calls during a sustained outage.",
+        "mechanism": "Use a circuit breaker with limited recovery probes.",
+        "implementation": "Configure a failure threshold and cooldown for source timeouts and availability failures. While open, serve only unexpired cache hits and return 503 source_unavailable for misses; continue ordinary expiration and eviction. After cooldown, allow one probe. Close on success or reopen on failure. Do not count legitimate not-found responses as outages.",
+        "check": "Inject enough failures to open the breaker; verify misses stop calling the source, expired entries disappear, and only one recovery probe runs concurrently.",
+        "risk": "An overly broad breaker can block healthy source operations; scope it to the actual failure boundary."
+      },
+      {
+        "action": "Reject private or unexpected fields before admitting a record.",
+        "mechanism": "Make public-data eligibility an explicit schema boundary.",
+        "implementation": "Restrict fetches to an approved public endpoint and identifier format. Validate source responses against a public-field allowlist before cache insertion; reject unexpected fields rather than caching raw responses. Disable response-body logging, tracing, and disk spill. Use synthetic records for tests and return a non-cacheable upstream-data error on validation failure.",
+        "check": "Inject an unexpected private field; verify rejection and its absence from cache, logs, traces, and client responses.",
+        "risk": "Validation cannot guarantee the source never sends private bytes; the endpoint's public-only contract is also necessary."
+      },
+      {
+        "action": "Prevent obsolete fetches from repopulating invalidated records.",
+        "mechanism": "Fence asynchronous completions with slot generations.",
+        "implementation": "Assign each reserved cache slot a generation. Increment it whenever the slot is invalidated, cancelled, or reassigned. Accept a source result only if its reservation and generation still match; otherwise discard it without caching. A failed or obsolete completion must not reset any expiration deadline.",
+        "check": "Delay a fetch, invalidate and reuse its slot, then release the old response; verify it cannot overwrite the replacement or consume an additional slot.",
+        "risk": "Every insertion and invalidation path must enforce the same generation check."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "5a844fd0ee14aea11f1715b92f95d02ba644c060e252af3d7757dd22e25fca59",
+  "raw_output_sha256": "69483dd3689f1c36dcc1743017e863b44f025bbfd104dd1dbc52b3ccee50a642"
+}

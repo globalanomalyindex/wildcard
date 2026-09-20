@@ -1,3 +1,7 @@
+__pycache__/
+*.pyc
 .wildcard/
 .DS_Store
+.playwright-cli/
 .playwright-mcp/
+node_modules/

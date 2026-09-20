@@ -1,0 +1,3 @@
+# Development transport preflight
+
+Eight baseline-bank requests completed successfully. No treatment or judge requests were acquired in this cohort. The working protocol received a complete-success sensitivity clarification during bank acquisition, and a donor-card source wording was subsequently narrowed before the main study. The source-drift check prevents silently continuing. The original manifest, all eight calls, and exact hash-verified source snapshots are retained here. This preflight contributes no efficacy estimate and is excluded from the main study. A separate final development cohort and main preregistration use the reviewed sources. No output was selected or discarded based on its quality.

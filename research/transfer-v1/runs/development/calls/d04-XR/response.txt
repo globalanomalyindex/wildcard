@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Require valid passage links before saving definitions",
+      "mechanism": "Local referential integrity prevents definitions from becoming detached from the supplied source material.",
+      "implementation": "Store supplied passages under stable IDs. Require each definition to reference at least one existing passage ID; reject missing or unknown IDs.",
+      "check": "Attempt saves with absent, unknown, and valid IDs. Only valid references should save, and each should open its exact passage.",
+      "risk": "A valid link does not establish that the passage supports the wording."
+    },
+    {
+      "action": "Show competing wording beside its source",
+      "mechanism": "An explicit disagreement view makes alternatives inspectable without collapsing them into a single preferred definition.",
+      "implementation": "Give each competing definition its own record and passage IDs. Display alternatives side by side with expandable passages and source-linked dispute notes.",
+      "check": "Create two conflicting definitions. Verify a reader can inspect both complete wordings, their passages, and the stated disagreement without editor permissions.",
+      "risk": "Visual prominence can imply endorsement; label editorial preference explicitly."
+    },
+    {
+      "action": "Preserve edits as inspectable definition revisions",
+      "mechanism": "Append-only revisions retain earlier wording and source bindings instead of silently replacing disputed material.",
+      "implementation": "Make edits create revisions containing wording, passage IDs, author, and change reason. Keep competing alternatives separate; expose revision history and restoration.",
+      "check": "Revise and restore a disputed definition. Confirm every revision retains resolvable passage IDs and that neither operation removes the competing alternative.",
+      "risk": "Revision history can become noisy; distinguish chronological edits from competing interpretations."
+    },
+    {
+      "action": "Review disputed entries in bounded batches",
+      "mechanism": "A small review scope and explicit stop conditions limit accidental loss during accumulated dispute cleanup.",
+      "implementation": "Review five entries per batch only when all passage links resolve. Monitor retained alternatives; stop on missing wording or links and switch to annotation-only review.",
+      "check": "Seed a batch with a broken link. Verify cleanup stops, all wording survives, and annotation-only review remains available.",
+      "risk": "Triage can postpone difficult disagreements; keep unresolved entries visibly queued."
+    }
+  ],
+  "abstention_reason": ""
+}

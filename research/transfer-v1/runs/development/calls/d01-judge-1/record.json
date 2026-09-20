@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "d01-judge-1",
+  "request_sha256": "4527c8b9556edbdab40873cd98377220c125ff3ea72eab301c2114bfd8a6c09e",
+  "prompt_sha256": "fde829ce511ce2359da2d20e3197a41a6e2b8fd960dccf2e46d1c9eb2674d3f1",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:51:49.616682+00:00",
+  "finished_at": "2026-09-20T19:52:24.673551+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.054583833,
+      "usage": {
+        "input_tokens": 10370,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1042,
+        "reasoning_output_tokens": 111
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "145a94bce52da4a4348f67fc5746b95476015aa72b05d131b1dd6e7e0b10df48",
+      "stderr_sha256": "2b1a7a1d5c49f0d16158f61d23848fcc24b1723d06e0da2cfaac66e3f12d91d4"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "ddd597bd446561fa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "keyboard_preview_commit",
+        "reason": "A keyboard-only preview mode groups arrow movements into one reversible commit and checks cancellation, focus, and boundaries."
+      },
+      {
+        "id": "5af171463984e9fd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6685fdad15c92b5d",
+        "mechanism_group": "numeric_destination",
+        "reason": "Direct keyboard position entry uses an undo journal and checks restoration of the exact ID sequence."
+      },
+      {
+        "id": "560cf31860cc5f6b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "keyboard_preview_commit",
+        "reason": "Arrow-key previews with explicit commit or cancellation differ operationally from separately committed step buttons."
+      },
+      {
+        "id": "d0006bc7bcfc82ce",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6685fdad15c92b5d",
+        "mechanism_group": "numeric_destination",
+        "reason": "Keyboard numeric placement preserves existing IDs and specifies a concrete check, although undo history must be supplied separately."
+      },
+      {
+        "id": "bb3fe01a2ca90182",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66f0c877a84b92ea",
+        "mechanism_group": "page_lifetime_history",
+        "reason": "Page-scoped ID snapshots and keyboard Undo preserve reversibility across remounts for every movement control."
+      },
+      {
+        "id": "3739a26091fa6ddc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66f0c877a84b92ea",
+        "mechanism_group": "page_lifetime_history",
+        "reason": "An uncapped page-lifetime snapshot stack supports keyboard reversal and checks exact restoration after fifty moves."
+      },
+      {
+        "id": "ccf7ed5ca6873fb4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "keyboard_preview_commit",
+        "reason": "Scoped keyboard movement with commit and cancellation creates one undoable transaction rather than independently committed steps."
+      },
+      {
+        "id": "90e56e7e51bd40a6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e00c1301f24c3371",
+        "mechanism_group": "relative_destination",
+        "reason": "Keyboard before/after selectors resolve destinations by ID and test adjacency; page-lifetime undo remains a separate requirement."
+      },
+      {
+        "id": "f0b5aa953f0ff326",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66f0c877a84b92ea",
+        "mechanism_group": "page_lifetime_history",
+        "reason": "Uncapped page-lifetime snapshots and persistent keyboard Undo preserve IDs and enable checking every restored order."
+      },
+      {
+        "id": "d58ee301fba1c11b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "66f0c877a84b92ea",
+        "mechanism_group": "page_lifetime_history",
+        "reason": "A nonexpiring ID-sequence journal keeps committed moves reversible until page closure and checks one hundred reversals."
+      },
+      {
+        "id": "f08d16e0458e8992",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6685fdad15c92b5d",
+        "mechanism_group": "numeric_destination",
+        "reason": "A keyboard position form reorders existing IDs, records undo, and tests destination, focus, and reversal."
+      },
+      {
+        "id": "cf34dc9733eee2e8",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6685fdad15c92b5d",
+        "mechanism_group": "numeric_destination",
+        "reason": "Numbered keyboard placement preserves IDs and records undo, with exact sequence restoration as its check."
+      },
+      {
+        "id": "ef56753bce9b17dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d4fb3e0c9bb3a5d4",
+        "mechanism_group": "focus_and_announcements",
+        "reason": "ID-keyed rendering, item-associated focus, and polite announcements make moves and undo observable to keyboard and screen-reader users."
+      }
+    ]
+  },
+  "result_sha256": "d5ebedd65377412c067eff79b660a00b79b47f8ad8100cc767409d28f20490bd",
+  "raw_output_sha256": "6927e9988ca496f3a3d4d5d2a195e5e54ef60472dbd3d930237321c6862cf2f5"
+}

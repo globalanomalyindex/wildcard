@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Store competing definitions as separate sourced records",
+      "mechanism": "Separate term identity from definition wording so disagreement never requires overwriting another definition.",
+      "implementation": "Create term, passage, and definition tables. Require each definition’s passage ID to resolve within the supplied passage collection.",
+      "check": "Save two conflicting definitions for one term; verify both survive. Reject saves with missing or unknown passage IDs.",
+      "risk": "Editors may mistakenly create duplicate terms instead of variants."
+    },
+    {
+      "action": "Show the source beside each definition",
+      "mechanism": "An inline source viewer lets readers inspect evidence without losing their place in the glossary.",
+      "implementation": "Add a source button displaying the linked passage ID and exact supplied text beside the definition; support keyboard opening and closing.",
+      "check": "Open every definition’s source button and compare displayed text with its stored passage. Verify keyboard focus returns correctly.",
+      "risk": "Long passages can overwhelm the reading layout."
+    },
+    {
+      "action": "Make disagreements explicit and inspectable",
+      "mechanism": "Dispute records connect competing definitions and explanations without selecting a winner or merging their wording.",
+      "implementation": "Attach disputes to definition IDs. Display a disagreement badge opening both wordings, their passage IDs, and editor-entered explanations.",
+      "check": "Create a dispute between two definitions; verify readers can inspect both sources and unchanged wordings from either definition.",
+      "risk": "An unexplained badge may imply more disagreement than documented."
+    },
+    {
+      "action": "Keep an append-only definition history",
+      "mechanism": "Versioned edits preserve earlier wording and its evidence instead of silently replacing a disputed definition.",
+      "implementation": "Write edits as new revisions carrying source passage IDs. Keep previous revisions readable; distinguish revising one definition from adding a competing definition.",
+      "check": "Revise a disputed definition twice; verify all wordings, source links, and the original dispute targets remain inspectable.",
+      "risk": "Revision history can become difficult to navigate."
+    },
+    {
+      "action": "Flag definitions when supplied passages change",
+      "mechanism": "Immutable passage versions prevent source corrections from silently changing the evidence behind existing wording.",
+      "implementation": "Assign corrected passages new IDs linked to their predecessors. Keep definitions bound to original IDs and queue affected definitions for editor review.",
+      "check": "Replace a supplied passage; verify existing definitions still open the original and show a review flag until explicitly reviewed.",
+      "risk": "Frequent corrections can accumulate unresolved review work."
+    },
+    {
+      "action": "Keep competing wording visible in search",
+      "mechanism": "Variant-aware retrieval prevents the default definition from hiding alternatives during term lookup.",
+      "implementation": "Index every retained definition’s wording. Group results by term, show disagreement counts, and expand matching variants with their passage IDs.",
+      "check": "Search a phrase appearing only in a competing definition; verify its term, wording, disagreement, and source are reachable.",
+      "risk": "Historical variants may clutter results unless clearly labeled."
+    },
+    {
+      "action": "Export a self-contained review package",
+      "mechanism": "Bundling definitions, competing wording, disputes, and supplied passages preserves inspectability outside the editor without external dependencies.",
+      "implementation": "Generate a static review page containing all current variants, dispute explanations, and linked passage sections. Block export on unresolved passage references.",
+      "check": "Open the package offline; verify every definition reaches its exact passage and every recorded disagreement exposes all participating wordings.",
+      "risk": "Exported packages become stale after subsequent edits."
+    }
+  ],
+  "abstention_reason": ""
+}

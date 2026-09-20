@@ -1,0 +1,207 @@
+{
+  "schema_version": "wildcard-transfer-cards-v1",
+  "purpose": "Frozen source-backed cue library for an explicit-label intervention; not a random sample of all domains.",
+  "show_to_subject": [
+    "relation",
+    "boundary"
+  ],
+  "label_rule": "LR adds label; XR adds a different card label under a fixed derangement; R omits label. Never expose source URLs, source facts, source notes, or card IDs to subjects or judges.",
+  "mismatch_warning": "Experimental label changes are not claims that the altered label factually describes the supplied relation. The relation is the operative hypothetical description; do not repeat source-domain claims as evidence.",
+  "cards": [
+    {
+      "id": "c01",
+      "label": "Canal locks",
+      "relation": "An intermediate chamber is isolated from two neighboring regions. It admits an item only after matching the entry region, closes that connection, changes its internal level, and opens the exit only after matching the destination. The surrounding regions need not change together.",
+      "boundary": "The transfer needs observable transition states and enforceable isolation. If both connections can remain open or state is unknown, the sequence does not establish safe separation.",
+      "source_urls": [
+        "https://www.swt.usace.army.mil/Missions/Navigation/Locking.aspx"
+      ],
+      "source_fact": "A navigation lock closes gates while its chamber fills or empties, then opens the gates on the equal-level side; the water moves without pumping.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c02",
+      "label": "Seed banking",
+      "relation": "A reserve is prepared for a low-activity storage state, then sampled at intervals to check whether it can still be reactivated. Merely retaining an item is different from retaining its usable capability. Copies held in different locations protect against a shared local loss.",
+      "boundary": "Some items cannot survive the preparation or storage treatment. A stored copy is not verified usable until a relevant recovery check succeeds; testing itself may consume part of a finite reserve.",
+      "source_urls": [
+        "https://www.kew.org/read-and-watch/seed-collecting-msb"
+      ],
+      "source_fact": "Kew dries and freezes suitable seeds, periodically tests samples for germination, and keeps duplicate collections. Some seeds cannot tolerate conventional drying or freezing.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c03",
+      "label": "Dendrochronology",
+      "relation": "Several partial sequences overlap. Shared patterns allow the sequences to be aligned so a missing or extra local observation can be detected instead of treating every local position as a complete clock. Confidence comes from agreement over a distinctive pattern, not one matching element.",
+      "boundary": "Alignment needs enough comparable shared structure. Repeated patterns, unrelated local conditions, or insufficient overlap can leave multiple plausible alignments; do not force a unique match.",
+      "source_urls": [
+        "https://oceanservice.noaa.gov/education/dyw-tree-detective.html"
+      ],
+      "source_fact": "Dendrochronologists use crossdating across tree-ring patterns to address missing or extra rings rather than relying only on a simple ring count.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c04",
+      "label": "Wetland flood storage",
+      "relation": "A distributed intermediate store accepts a surge, slows its movement, and releases it over time. This changes the timing and height of a downstream peak without claiming that the incoming quantity vanished. The receiving system gains time to process the released flow.",
+      "boundary": "Storage is finite and must recover capacity between surges. Delaying a flow cannot solve a permanent excess of average inflow over outflow; a capacity limit and overflow behavior remain necessary.",
+      "source_urls": [
+        "https://www.epa.gov/wetlands/incorporating-wetland-restoration-and-protection-planning-documents",
+        "https://www.epa.gov/report-environment/wetlands"
+      ],
+      "source_fact": "Wetlands can trap and slowly release water and reduce the momentum of floodwater. The application boundary is an explicit capacity-conservation inference.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c05",
+      "label": "Paper chromatography",
+      "relation": "A mixture passes through a fixed medium while another medium moves through it. Components interact with the two media differently and therefore travel at different rates. Separation exposes differences that were hidden when everything was inspected as one combined sample.",
+      "boundary": "The chosen comparison must actually distinguish the components. Items with similar responses can remain unresolved, and changing the medium can change the observed ordering; apparent proximity alone is not identity.",
+      "source_urls": [
+        "https://edu.rsc.org/resources/chromatography/11333.article"
+      ],
+      "source_fact": "Chromatographic constituents migrate at different rates because they interact differently with mobile and stationary phases; the choice of phases affects separation.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c06",
+      "label": "Astronomical adaptive optics",
+      "relation": "A nearby reference is repeatedly measured to estimate a changing disturbance. A corrector adjusts the signal path using that measured error while leaving the underlying target separate from the correction. The loop must run quickly enough to follow the disturbance it is meant to remove.",
+      "boundary": "The reference must experience a sufficiently similar disturbance. An old or unrepresentative reference can produce the wrong correction; a feedback loop does not make its measurement truthful.",
+      "source_urls": [
+        "https://elt.eso.org/telescope/adaptiveoptics/",
+        "https://www.eso.org/sci/facilities/develop/ao/ao_modes.html"
+      ],
+      "source_fact": "Adaptive optics uses guide-source measurements and deformable mirrors; correction quality depends on speed and on how closely the reference samples the target's atmospheric path.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c07",
+      "label": "Astronomical interferometry",
+      "relation": "Separated observers combine synchronized measurements to resolve detail unavailable to one observer. Different separations and orientations reveal different scales and directions. Wider spacing can reveal finer detail, while shorter spacing remains necessary for broader structure.",
+      "boundary": "Combination requires a valid common reference and compatible measurements. Greater separation does not automatically increase total collected signal or preserve large-scale structure; complementary coverage matters.",
+      "source_urls": [
+        "https://www.hq.eso.org/public/teles-instr/technology/interferometry/"
+      ],
+      "source_fact": "ESO describes resolution from telescope baselines, the need for multiple orientations and scales, and the distinction between resolution and collected light.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c08",
+      "label": "Boids flock simulation",
+      "relation": "Each moving agent balances three local tendencies: avoid crowding nearby agents, align its motion with neighbors, and remain near the local group. A coordinated larger pattern can arise without one central plan specifying every individual trajectory.",
+      "boundary": "Local rules can conflict and depend on neighborhood and weighting choices. This simulation pattern is not proof of biological reasoning or guaranteed global fairness, optimality, or collision avoidance in another setting.",
+      "source_urls": [
+        "https://www.red3d.com/cwr/boids/"
+      ],
+      "source_fact": "Craig Reynolds' Boids model uses separation, alignment, and cohesion to produce simulated flocking behavior.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c09",
+      "label": "Prescribed fire management",
+      "relation": "Accumulated material can increase the scale of a later uncontrolled disruption. A planned bounded intervention removes some of that material while predefined conditions permit control. Monitoring continues during the intervention; if the conditions are unsuitable, a different removal method is used.",
+      "boundary": "The intervention is not automatically beneficial. It needs a limited scope, a go/no-go condition, monitoring, and a feasible alternative. Do not transfer intentional destruction to irreplaceable target material.",
+      "source_urls": [
+        "https://www.nps.gov/orgs/1965/wildfires-prescribed-fires-fuels.htm"
+      ],
+      "source_fact": "NPS uses prescribed burns and other fuel treatments under management plans and go/no-go conditions; mechanical removal can be used when burning is not appropriate.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c10",
+      "label": "Tidal prediction",
+      "relation": "A repeatable component is predicted from recurring cycles. Actual observations are compared with that expectation, and deviations remain visible rather than being explained away as part of the normal pattern. A useful schedule separates the predictable component from irregular external disturbances.",
+      "boundary": "A cyclical prediction alone cannot guarantee the actual state when irregular forces dominate. Local observations, uncertainty, and the age of the estimate remain important.",
+      "source_urls": [
+        "https://tidesandcurrents.noaa.gov/faq.html"
+      ],
+      "source_fact": "NOAA tide prediction uses harmonic components; weather can change water levels substantially and can mask the astronomical tide at some locations.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c11",
+      "label": "Theatrical lighting cue tracking",
+      "relation": "A sequence can store only changes while unchanged values continue forward. Inserting one change can therefore affect later states until another explicit change overrides it. A local-only edit restores the former value at the next step, while a full state boundary can stop earlier changes propagating farther.",
+      "boundary": "Difference records and complete snapshots are not interchangeable. The intended scope of an edit must be explicit; changing one step does not imply every later state should change.",
+      "source_urls": [
+        "https://www.etcconnect.com/webdocs/Controls/HOG/HTML/en/sect-ww_tracking.htm"
+      ],
+      "source_fact": "ETC documents tracking values across cues, cue-only edits that restore later values, and blocking cues containing explicit state.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c12",
+      "label": "Cartographic generalization",
+      "relation": "A representation for a smaller viewing scale selects, simplifies, or combines details so the remaining structure is legible. What is shown depends on the purpose and available space. A compact view is a deliberate representation of a richer source, not evidence that omitted features do not exist.",
+      "boundary": "Simplification can erase distinctions that matter for another task. Keep access to the detailed source and choose what to retain according to the user's question rather than visual neatness alone.",
+      "source_urls": [
+        "https://www.usgs.gov/centers/cegis/science/science-topics/generalization"
+      ],
+      "source_fact": "USGS describes map generalization as reducing detail and selecting appropriate content for a given scale.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c13",
+      "label": "Deep-space error correction",
+      "relation": "A message includes structured redundancy so a receiver can detect some damaged transmissions and reconstruct some missing or corrupted content. Detection and correction are separate capabilities: recognizing an inconsistency is not always enough to recover the original.",
+      "boundary": "Recovery is limited by the code and error pattern. Redundancy consumes capacity and cannot justify guessing unrecoverable content; the receiver needs an explicit unresolved-error state.",
+      "source_urls": [
+        "https://deepspace.jpl.nasa.gov/dsndocs/810-005/208/208C.pdf",
+        "https://deepspace.jpl.nasa.gov/dsndocs/810-005/206/206E.pdf"
+      ],
+      "source_fact": "NASA DSN telemetry documentation distinguishes forward error-correction schemes from a CRC error-detecting code and documents code performance limits.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c14",
+      "label": "Comparator hysteresis",
+      "relation": "A state changes only when an input crosses an upper boundary in one direction or a lower boundary in the other. Between those boundaries it retains the preceding state. Separating the two transitions prevents small fluctuations around one threshold from repeatedly toggling the output.",
+      "boundary": "The gap must fit the expected noise and response needs. A larger gap can hide a real change for longer, and retaining state is unsuitable when every threshold crossing must be acted on immediately.",
+      "source_urls": [
+        "https://www.ti.com/tool/CIRCUIT060076"
+      ],
+      "source_fact": "Texas Instruments' comparator reference circuit uses upper and lower thresholds to reduce undesirable transitions caused by noise or slowly changing signals.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c15",
+      "label": "Archival provenance and original order",
+      "relation": "Records gain meaning from who created them and how they were grouped in the originating activity. Preserving those relationships supports interpretation even when a new arrangement would look tidier. Description can expose access paths without silently replacing the evidence of the original organization.",
+      "boundary": "An original order may be unknown, disrupted, or unsuitable for direct browsing. Do not invent one or treat historical organization as infallible; distinguish preserved evidence from a newly constructed access view.",
+      "source_urls": [
+        "https://www.archives.gov/research/alic/reference/archives-resources/principles-of-arrangement.html"
+      ],
+      "source_fact": "The National Archives describes provenance and preservation or restoration of original order, while allowing devised arrangements when order is lost.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    },
+    {
+      "id": "c16",
+      "label": "Lighthouse sector signals",
+      "relation": "One source presents different signals depending on the observer's direction relative to it. An observer can distinguish an ordinary navigational indication from a specifically marked hazardous sector when the directional signal is interpreted together with the surrounding map. Location determines which warning is relevant.",
+      "boundary": "The observer needs a reliable way to identify the source and interpret the sector. A signal is not universal permission; degraded visibility, boundaries, and other hazards remain outside what that one signal establishes.",
+      "source_urls": [
+        "https://trinityhouse.co.uk/news/trinity-house-completes-re-engineering-of-start-point-lighthouse"
+      ],
+      "source_fact": "Trinity House describes Start Point's white navigational flashes and a separate red sector marking the shallow Skerries Bank.",
+      "source_note": "Relation is an authored abstraction of the cited source, not a quotation. Boundary states limits on candidate transfer, not a tested product result.",
+      "checked_on": "2026-09-20"
+    }
+  ]
+}

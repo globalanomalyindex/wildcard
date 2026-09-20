@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "d04-bank-2",
+  "request_sha256": "bff67f90250776d2ea8de8f0933cb2195ee6bac9f3353ec9d27e06e2a8402af7",
+  "prompt_sha256": "d1dba66bdd5887d6c3f281a537fe092e32153414eeb9fb3f616bb9c559d58118",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:26:43.871725+00:00",
+  "finished_at": "2026-09-20T19:27:17.148792+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 33.274707332999995,
+      "usage": {
+        "input_tokens": 6983,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 994,
+        "reasoning_output_tokens": 117
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1adb3ff6b600351177042f917147a427334bd94ec29129c5e6ac32d8831ec77b",
+      "stderr_sha256": "3b3210653b0a7a53fcafdc1e6f45587e973d2bbdae5b6af1368188eacc938484"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require a valid supplied passage for every definition.",
+        "mechanism": "Enforce source binding as a storage invariant.",
+        "implementation": "Store supplied passages with stable IDs. Make each definition’s source_passage_id required and reference that registry. Reject saves with missing or unknown IDs; block deletion of referenced passages.",
+        "check": "Attempt saves with missing, unknown, and valid passage IDs. Only the valid case succeeds; deleting its passage fails.",
+        "risk": "A valid reference establishes traceability, not whether the passage supports the wording."
+      },
+      {
+        "action": "Keep competing definitions as separate, equally inspectable entries.",
+        "mechanism": "Represent disagreement without overwriting alternatives.",
+        "implementation": "Give each wording its own definition ID and source passage ID under a shared term. Add an 'Add competing wording' operation. Any preferred designation must leave alternatives visible and labeled.",
+        "check": "Add two conflicting definitions, designate one preferred, and verify that both exact wordings and their passage links remain visible.",
+        "risk": "Preference labels can imply consensus; distinguish editorial preference from agreement."
+      },
+      {
+        "action": "Show each definition beside its source passage.",
+        "mechanism": "Make evidence inspection immediate and contextual.",
+        "implementation": "Add a source control that opens the complete supplied passage beside the definition, displaying its ID. Optionally highlight a supporting span, but never substitute that excerpt for access to the full passage.",
+        "check": "Open sources for two competing definitions and verify each displays the correct passage, including text outside any highlighted span.",
+        "risk": "Highlights can steer interpretation; label them as editorial selections."
+      },
+      {
+        "action": "Record what is disputed, not just that a dispute exists.",
+        "mechanism": "Attach explicit objections and responses to particular wordings.",
+        "implementation": "Create dispute records containing targeted definition IDs, the disputed phrase, objection, response, and status. Require any passage citations to resolve to supplied IDs. Closing a dispute retains its text and competing wording.",
+        "check": "Create and close a dispute; verify readers can still inspect its objection, response, targeted definitions, and supplied evidence.",
+        "risk": "A closed status may be mistaken for agreement; display the closure reason."
+      },
+      {
+        "action": "Preserve definition and passage revisions.",
+        "mechanism": "Prevent later edits from silently changing the evidence behind earlier wording.",
+        "implementation": "Use append-only revisions for definitions and passages. Assign changed passages new IDs, retain old ones, and record explicit definition relinking. Offer a wording-and-source diff.",
+        "check": "Revise a passage and definition; verify the earlier definition still opens its original passage and the diff exposes both changes.",
+        "risk": "Historical versions can confuse readers; clearly distinguish current and superseded entries."
+      },
+      {
+        "action": "Review source support clause by clause.",
+        "mechanism": "Expose unsupported additions that a passage-level link alone cannot detect.",
+        "implementation": "Provide an editorial review checklist mapping each substantive definition clause to text within its supplied passage. Mark clauses supported, disputed, or not located. Flag unresolved clauses without deleting their wording or automatically declaring them false.",
+        "check": "Add a clause absent from the linked passage; verify review can flag that clause independently while preserving the definition and source link.",
+        "risk": "Support judgments remain interpretive; retain reviewer rationale."
+      },
+      {
+        "action": "Make search reveal disagreement rather than hide it.",
+        "mechanism": "Retrieve terms with their competing wording and dispute state.",
+        "implementation": "Index all retained definition wordings. Group results by term, show alternative and dispute counts, and expand to every matching wording with its passage ID. Mark historical matches explicitly.",
+        "check": "Search for a phrase occurring only in a nonpreferred definition; verify the term is found and that wording, its source, and disagreement are accessible.",
+        "risk": "Grouping can obscure which wording matched; highlight the actual matching text."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "990e9e61d74163477c8f2ce507e4e076cf3fdc8232849ea891c00232c624b002",
+  "raw_output_sha256": "c7b9636c09037e6f3381c680cc1f2f70dfe9313cf6ee9f7bd6ec647506db1a30"
+}

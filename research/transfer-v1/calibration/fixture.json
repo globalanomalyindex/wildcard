@@ -1,0 +1,109 @@
+{
+  "task": {
+    "title": "Offline workshop kiosk",
+    "brief": "A shared kiosk records workshop reservations while offline.",
+    "constraints": [
+      "No network access, user accounts, or personal identifiers.",
+      "Keep reservations on the same device. No new hardware."
+    ],
+    "success_criteria": [
+      "A visitor can see whether a reservation was saved."
+    ],
+    "non_goals": [
+      "Cross-device sync"
+    ]
+  },
+  "bank": [
+    {
+      "id": "b1",
+      "action": "Show saved confirmation",
+      "mechanism": "Visible confirmation after local write",
+      "implementation": "Display saved when local transaction commits.",
+      "check": "Simulate write failure; do not show saved.",
+      "risk": "Confirmation can disappear too fast."
+    }
+  ],
+  "candidates": [
+    {
+      "id": "c1",
+      "action": "Send reservations to a cloud server",
+      "mechanism": "Central remote storage",
+      "implementation": "POST to hosted database.",
+      "check": "Check server receives each booking.",
+      "risk": "Requires internet."
+    },
+    {
+      "id": "c2",
+      "action": "Show reservation stored banner",
+      "mechanism": "Visible confirmation after local write",
+      "implementation": "Show banner only after commit.",
+      "check": "Simulate disk failure.",
+      "risk": "Banner may be missed."
+    },
+    {
+      "id": "c3",
+      "action": "Make it feel like a beehive",
+      "mechanism": "The wisdom of swarms",
+      "implementation": "Make the experience harmonious.",
+      "check": "People should like it.",
+      "risk": "May be confusing."
+    },
+    {
+      "id": "c4",
+      "action": "Recover pending writes after reload",
+      "mechanism": "Transactional local outbox and replay",
+      "implementation": "Keep a local pending record with a random booking id; atomically mark committed; replay pending ids idempotently on restart.",
+      "check": "Interrupt between stages and reload; assert one committed booking per id.",
+      "risk": "Local storage deletion still loses the record."
+    },
+    {
+      "id": "c5",
+      "action": "Require visitor email",
+      "mechanism": "Personal identity as deduplication key",
+      "implementation": "Ask for email before reserving.",
+      "check": "Repeated email gets one reservation.",
+      "risk": "Collects personal identifiers."
+    },
+    {
+      "id": "c6",
+      "action": "Store reservations in photon memory without hardware changes",
+      "mechanism": "Photons inside standard LCDs persistently remember complete records without power",
+      "implementation": "Write reservation bits into LCD backlight photons.",
+      "check": "Power off and restore all records from photons.",
+      "risk": "Ambient light might interfere."
+    },
+    {
+      "id": "c7",
+      "action": "Replay pending local transactions",
+      "mechanism": "Transactional local outbox and replay",
+      "implementation": "Persist a random id and pending flag before commit; reconcile the same id after restart.",
+      "check": "Inject crash before commit and check no duplicate.",
+      "risk": "A cleared local store cannot recover."
+    }
+  ],
+  "expected": {
+    "invalid_constraints": [
+      "c1",
+      "c5"
+    ],
+    "infeasible": [
+      "c6"
+    ],
+    "not_actionable": [
+      "c3"
+    ],
+    "baseline_match": [
+      "c2"
+    ],
+    "qualified_new": [
+      "c4",
+      "c7"
+    ],
+    "same_mechanism": [
+      [
+        "c4",
+        "c7"
+      ]
+    ]
+  }
+}

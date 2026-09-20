@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d02-XR",
+  "request_sha256": "458601c3782fc5f02a43b9c6a69073d3a9ad0ae69ee4d0f707527c55ee6b7109",
+  "prompt_sha256": "d095b6de69e8db1c9ac7332738a3a93eaf8d778e0458c3601f0e07d4a9a98be9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:41:57.422308+00:00",
+  "finished_at": "2026-09-20T19:42:25.304505+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 27.880350000000007,
+      "usage": {
+        "input_tokens": 7136,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 692,
+        "reasoning_output_tokens": 163
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "0f28a926bf7d487c5b81450257e0ae4b7f60ce078cc4866bfef5cfd854f33f6a",
+      "stderr_sha256": "19479463fc05debf2af39138c6bd4f051bfb1e27aad327e7b245e343f16d0831"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Expire and delete records after at most five minutes.",
+        "mechanism": "Separate freshness checks from background cleanup so delayed cleanup cannot make expired records appear fresh.",
+        "implementation": "Set a monotonic expiry deadline no later than 300 seconds after retrieval starts. Check it on every read; delete expired entries before responding. Schedule deletion at expiry. Never extend expiry on hits or source failures.",
+        "check": "With a controlled clock, verify a record is unavailable at its deadline, including when cleanup is delayed and the source is down.",
+        "risk": "Strict expiry sacrifices availability during a prolonged outage."
+      },
+      {
+        "action": "Enforce a hard 100-record capacity with explicit eviction.",
+        "mechanism": "Bound admission rather than relying on periodic size checks.",
+        "implementation": "Use 100 cache slots, counting pending retrieval reservations against capacity. Under one lock, remove expired entries first; otherwise evict the least-recently-used completed entry when admitting a new key. If every slot is reserved, reject admission. Release reservations on failure; never restore an expired victim.",
+        "check": "Request 150 distinct keys concurrently. Assert occupied slots plus reservations never exceed 100 and verify the documented eviction order.",
+        "risk": "Unpopular requests can evict useful records; reservations temporarily reduce available capacity."
+      },
+      {
+        "action": "Return an explicit unavailable response when the source times out.",
+        "mechanism": "Bound waiting and share retrieval work for simultaneous requests for the same record.",
+        "implementation": "Configure a source timeout, such as two seconds. Serve only unexpired cache hits; otherwise share one in-flight retrieval per key. On timeout, cancel retrieval, release its reservation, and return HTTP 503 with code source_timeout. Discard late results and retain unrelated unexpired entries.",
+        "check": "Hold the source beyond the timeout. Verify same-key requests share one retrieval, receive 503, leave no reservation, and cannot receive an expired record.",
+        "risk": "A short timeout can reject a slow but functioning source."
+      },
+      {
+        "action": "Admit only explicitly approved public record fields.",
+        "mechanism": "Use a restricted record representation instead of retaining complete source responses.",
+        "implementation": "Restrict retrieval to approved public endpoints without user credentials. Stream-parse responses into an allowlisted schema with field-size limits; do not retain raw bodies or log payloads. Reject unexpected fields rather than silently caching them.",
+        "check": "Inject an unexpected sensitive field and an oversized value. Verify rejection and absence from cache, responses, and logs; verify an approved public record succeeds.",
+        "risk": "Schema changes can interrupt retrieval; an allowlist still requires verification that approved fields are genuinely public."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "dd2e978abbb3ca2c56fc39090ccf2927d47ed27ab5b8996042d7925fd5a80e81",
+  "raw_output_sha256": "28e71aabb1127894ae8917e4dc45bb0f1d35c395fe911c048b69d8e873f51c2d"
+}

@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "d02-bank-1",
+  "request_sha256": "b9efc63fd4a1e500a8baf02d8d232c7fd1eeff6ad6c04abf56f6e876787e2d3b",
+  "prompt_sha256": "52d80ab1a9b725486cf650d10f6dd0a21bb0c1cf8377bcde3a3be64d2d152b48",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:48:47.519656+00:00",
+  "finished_at": "2026-09-20T19:49:28.161137+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 40.639215958,
+      "usage": {
+        "input_tokens": 7044,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1237,
+        "reasoning_output_tokens": 268
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "818038ce0bc152055aab2d9a5b701c887b804ce41ca8c338b730d0d1c166c088",
+      "stderr_sha256": "7fea52c023c8ed449db9a9d295d4ab122898a79a664e832ecef5b06ecb31ea78"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce a hard five-minute expiry",
+        "mechanism": "Monotonic deadlines prevent clock changes or repeated reads from extending freshness.",
+        "implementation": "Set expiry to fetch-start time plus 300 seconds. Purge at expiry and before reads; discard responses arriving after their deadline.",
+        "check": "With a fake clock, verify a record is unavailable at exactly 300 seconds, including after repeated reads and wall-clock changes.",
+        "risk": "Conservative timing shortens useful lifetime for slow fetches."
+      },
+      {
+        "action": "Cap all resident records at 100",
+        "mechanism": "Slot reservations include cached records and incoming records, preventing concurrent fetches from exceeding capacity.",
+        "implementation": "Reserve a slot before fetching. Remove expired entries first, then least-recently-used entries. If every slot is reserved, reject new fetches explicitly.",
+        "check": "Run concurrent requests for 150 distinct records; assert occupied plus reserved slots never exceeds 100 and eviction order matches policy.",
+        "risk": "Counting incoming records reduces available cache capacity."
+      },
+      {
+        "action": "Define timeout responses and outage eviction",
+        "mechanism": "Bounded source waits produce explicit failures without treating expired records as usable cache hits.",
+        "implementation": "Set a two-second source timeout. Return 504 with source_timeout; return 503 for unavailable sources. Retain unexpired entries only until their original expiry.",
+        "check": "Simulate a hanging source: fresh hits succeed, misses return 504, and expired entries are removed rather than served.",
+        "risk": "Two seconds is an initial policy requiring operational review."
+      },
+      {
+        "action": "Coalesce simultaneous requests for one record",
+        "mechanism": "One bounded fetch per key avoids duplicate source calls and competing cache writes.",
+        "implementation": "Maintain a bounded in-flight key map. Share fetch results among waiters; clear entries on completion. Reject late writes using fetch-generation tokens.",
+        "check": "Issue 50 simultaneous misses for one key; observe one source call. Deliver a timed-out result late and verify no insertion.",
+        "risk": "Waiter counts also need limits to bound metadata."
+      },
+      {
+        "action": "Stop repeatedly calling a failing source",
+        "mechanism": "A circuit breaker temporarily rejects misses while allowing still-valid cache hits.",
+        "implementation": "After three consecutive source failures, open the circuit for 30 seconds. Return 503 with Retry-After; then allow one probe. Never modify cache deadlines.",
+        "check": "During an induced outage, verify no source calls occur while open, only one recovery probe runs, and expiry continues normally.",
+        "risk": "Recovery can remain undetected until the next probe."
+      },
+      {
+        "action": "Restrict ingestion to verified public fields",
+        "mechanism": "An explicit source and schema allowlist prevents private payloads from entering the cache.",
+        "implementation": "Use only approved public endpoints without user credentials. Disable redirects and raw-body logging. Stream allowed fields; reject unknown schemas and oversized responses.",
+        "check": "Inject forbidden fields, redirects, and oversized bodies; verify rejection without cache insertion, response disclosure, or payload logging.",
+        "risk": "Field filtering cannot establish whether a source is public."
+      },
+      {
+        "action": "Refresh active records before their expiry",
+        "mechanism": "Early refresh can obtain a replacement before a slow source makes the existing record unavailable.",
+        "implementation": "For recently accessed entries, schedule refresh between 240 and 270 seconds. Reserve replacement capacity and coalesce requests. Failures never extend the old deadline.",
+        "check": "Delay refresh beyond the old expiry; verify the old record disappears on time and replacement admission respects the 100-record limit.",
+        "risk": "Refresh traffic may worsen source overload; honor the circuit breaker."
+      },
+      {
+        "action": "Expose cache age and failure state",
+        "mechanism": "Explicit response metadata distinguishes valid cached records from source failures and downstream stale copies.",
+        "implementation": "Return fetched_at, expires_at, and cache status with successful records. Set Cache-Control: no-store on responses. Use stable machine-readable error codes without record bodies.",
+        "check": "Inspect hit, miss, timeout, and circuit-open responses; confirm accurate timestamps, distinct error codes, and no freshness label on failures.",
+        "risk": "Clients may ignore metadata; server-side expiry remains authoritative."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "2e5990fc464f6748a53f533a764e8cbe196d69a05683d338a69aa2ada967955d",
+  "raw_output_sha256": "ecd804c94c5ee50709132b30fc85f983953d8f9bac72b7f6062c92b8bd2fba2c"
+}

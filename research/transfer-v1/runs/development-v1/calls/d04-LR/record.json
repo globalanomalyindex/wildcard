@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "d04-LR",
+  "request_sha256": "1b98334cad531d44b8392133ade4f1c8ca87a5ce2acd8595338df120e2f86080",
+  "prompt_sha256": "70e1daf40a49f0ca18aa7bd6276b3030259e6e3b5fc40e01f6b814d176f0f4c6",
+  "status": "validation_error",
+  "error": "action exceeds 110-word contract",
+  "started_at": "2026-09-20T19:41:00.036422+00:00",
+  "finished_at": "2026-09-20T19:41:22.304344+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.26520775,
+      "usage": {
+        "input_tokens": 7127,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 640,
+        "reasoning_output_tokens": 89
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "0cdaaee5cdd0ce6ba3e3dd53333b306fd65d4ee86f4b9f40be52e892d98d809f",
+      "stderr_sha256": "e066d44c6d982cf77d079e0469a7e704bf24e350712857c2d2b5fdccebad723e"
+    }
+  ],
+  "result": null,
+  "result_sha256": null,
+  "raw_output_sha256": "c8971550a342d36d6049b1c9eac74673c7ec14d20c31621267123bbbee244fd1"
+}

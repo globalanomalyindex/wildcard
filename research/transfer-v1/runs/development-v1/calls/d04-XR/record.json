@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d04-XR",
+  "request_sha256": "e523f8f1836ca4946e7ecec989d5f6562908d2d50e745253ac8aaa00a90e1029",
+  "prompt_sha256": "ab19608448f66e25d652f12b97d3b73b2c79956c35350796ec1a45b93e959f94",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:41:04.129003+00:00",
+  "finished_at": "2026-09-20T19:41:27.112684+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.980427582999997,
+      "usage": {
+        "input_tokens": 7125,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 580,
+        "reasoning_output_tokens": 71
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "3db43bfa3ee47b0840bbb582b371a51b7ac57b6745c2f4d5bf180b47b88158a8",
+      "stderr_sha256": "d18f1202c311820a3b4071437639c9b83aabb2760235052641c68fb0c105c829"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Store competing definitions as separate, linked variants.",
+        "mechanism": "Append-only variants preserve disagreement instead of letting edits silently replace it.",
+        "implementation": "Give each variant an ID, term ID, wording, supplied source passage ID, and optional predecessor ID. Record disputes as links between variants with an explanation. Mark preferred wording without deleting alternatives.",
+        "check": "Enter two conflicting definitions, then revise one. Confirm all three wordings and their passage IDs remain inspectable, with the conflict still visible.",
+        "risk": "Variant proliferation can obscure differences; distinguish revision history from competing interpretations."
+      },
+      {
+        "action": "Block definitions with missing or invalid source links.",
+        "mechanism": "Referential integrity keeps every saved definition bound to supplied material.",
+        "implementation": "Import supplied passages into a local registry with stable IDs and retained text. Require every definition variant to reference an existing passage ID. Prevent deletion of referenced passages; retain earlier passage versions when corrections arrive.",
+        "check": "Attempt saves with absent and unknown passage IDs; both must fail. Correct a passage and verify older definitions still open their originally linked text.",
+        "risk": "A valid link does not prove that the passage supports the wording; editorial review remains necessary."
+      },
+      {
+        "action": "Show wording, source, and disagreement together.",
+        "mechanism": "A comparison view lets readers examine competing interpretations without reconstructing them from edit history.",
+        "implementation": "Add an expandable panel beside each definition containing its supplied source passage, linked competing variants, their passage IDs, and dispute explanations. Show unresolved disputes directly on the glossary entry; do not hide them behind preferred wording.",
+        "check": "For a disputed entry, verify a reader can open every competing wording and its source from that entry, including alternatives based on different passages.",
+        "risk": "Long passages can overwhelm the panel; allow expansion without removing access to the complete passage."
+      },
+      {
+        "action": "Review unresolved disputes in bounded batches.",
+        "mechanism": "Limited review scope and stop conditions constrain the impact of editorial mistakes while preserving all wording.",
+        "implementation": "Queue up to five disputed terms per review. Proceed only when every variant's source opens. Preview changes to preference and dispute status, checking source access and alternative visibility after each term. Stop on failure; fall back to single-term annotation without changing preference. Log status changes reversibly.",
+        "check": "Introduce a broken source link mid-batch. Confirm processing stops, remaining terms are unchanged, and all competing wording remains available.",
+        "risk": "Review status may imply consensus; label editorial preference separately from whether disagreement remains."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "7d0001bd7ab7bb16fb75d7ca2dc4319716b474915a64084f4eec4a2f6f42ac2c",
+  "raw_output_sha256": "94df1a6e0a44a11e39556537d83b54c244dd818567ec1c03742b380f094a3402"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d04-LR",
+  "request_sha256": "747ff86af562fab6b11eb0368e39c8e85e02cda6050dc9fac75a804b03495402",
+  "prompt_sha256": "7afc2184b9da253df97ef2d4dd0d7e1bff0fce879dacb48b9eb97f3e42b7809d",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:50:31.849830+00:00",
+  "finished_at": "2026-09-20T19:50:51.185712+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.334821458,
+      "usage": {
+        "input_tokens": 7182,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 518,
+        "reasoning_output_tokens": 38
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "6dad8f4c01c31cc8edf1bb02ee0ba68ae0ba3d8cdc30f9e8c3a7e370fa8f88e9",
+      "stderr_sha256": "ba5cf0a09dfcd054e783a421b8c8b5332b704fb76990289d1d81fc783978445b"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require valid passage links before saving definitions",
+        "mechanism": "Referential integrity prevents definitions from becoming detached from the supplied evidence.",
+        "implementation": "Store supplied passages by immutable ID. Require each definition variant to reference an existing passage; reject missing or unknown IDs.",
+        "check": "Attempt saves with missing, unknown, and valid passage IDs. Only the valid case must succeed and resolve to its passage.",
+        "risk": "A valid link does not establish that the passage supports the wording."
+      },
+      {
+        "action": "Show competing wording beside its evidence",
+        "mechanism": "An explicit dispute view exposes alternatives without merging their wording or implying consensus.",
+        "implementation": "Group variants under a term. Display each wording, passage ID, expandable source passage, and recorded objection; label editorial preference separately.",
+        "check": "Create two conflicting variants. A reader must access both exact wordings, their passages, and the objection from the term view.",
+        "risk": "Visual ordering can imply endorsement; label ordering and preference explicitly."
+      },
+      {
+        "action": "Flag definitions affected by source corrections",
+        "mechanism": "Versioned passages preserve historical evidence while dependency tracking identifies definitions needing renewed review.",
+        "implementation": "Give corrected supplied passages new IDs linked to predecessors. Preserve original links and wording; mark dependent definitions for review without automatically rebinding them.",
+        "check": "Correct one passage. Only its dependent definitions must be flagged; their original wording and cited passage must remain inspectable.",
+        "risk": "Repeated corrections can accumulate unresolved review flags."
+      },
+      {
+        "action": "Review disputed terms in bounded batches",
+        "mechanism": "Limited review scope and explicit stop conditions constrain accidental loss while retaining unresolved alternatives.",
+        "implementation": "Select five disputed terms. Start only when cited passages resolve; record proposed decisions without overwriting variants. Stop on missing evidence; retain individual review instead.",
+        "check": "Interrupt a batch after two decisions. All competing wording and links must survive; untouched terms must remain unresolved.",
+        "risk": "Batch decisions may flatten distinct objections; require a rationale per term."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "459ce2f2be2a6d5bb1c8cd898f4059c57c1eea6449a6107ae0b1bc4c81c17053",
+  "raw_output_sha256": "63bf4610508551ff7384fd73c099aee6a421744200b5f6bf0bf7c865dcf78c1e"
+}

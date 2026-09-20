@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d04-S",
+  "request_sha256": "cbb815c0cbcd7d1a0e11cb0516ab0a51792ef32d8d859bc389879e310008fcbb",
+  "prompt_sha256": "09a70a3167a9171b463813a4d179312cad90e4f35bd09aa0b3f0ce6cbd5c9373",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:40:42.781175+00:00",
+  "finished_at": "2026-09-20T19:41:00.021445+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 17.239196791999998,
+      "usage": {
+        "input_tokens": 6983,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 460,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "ff79e4a1d83dd809235f9997edc89df8772e7557535f465f59a52a8daeb2a5ae",
+      "stderr_sha256": "6aa61a524c8ad038c71c68dbd395133b3069cfdc23de534ee3bfa4a6b7a40ed8"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require a valid source passage ID for every definition.",
+        "mechanism": "Enforce source binding at storage and publication boundaries.",
+        "implementation": "Store supplied passages by stable ID. Make each definition's passage_id a required foreign key; reject missing or unknown IDs and block deletion of referenced passages. Link each displayed definition to its passage.",
+        "check": "Saving definitions with missing or unknown IDs fails; every published definition opens the referenced supplied passage.",
+        "risk": "A valid reference does not prove that the passage supports the wording."
+      },
+      {
+        "action": "Keep competing definitions visible as separate variants.",
+        "mechanism": "Represent disagreement explicitly rather than overwriting wording.",
+        "implementation": "Give each term multiple definition variants, each with its own source passage ID. Store disputes linking variants, including the editor's explanation. Display disputed variants together; label any preferred wording without hiding alternatives.",
+        "check": "Create two conflicting variants and select one as preferred; readers can still inspect both exact wordings, their passages, and the dispute explanation.",
+        "risk": "Preference labels may be mistaken for resolution; distinguish editorial preference from agreement."
+      },
+      {
+        "action": "Preserve the source and wording history through edits.",
+        "mechanism": "Use immutable revisions to prevent silent changes to evidence or competing wording.",
+        "implementation": "Create a new passage ID for each source revision and a new definition revision for each wording change. Retain old records and dispute links. Show a history view with wording differences and the passage attached to each revision.",
+        "check": "Revise a disputed definition and its source; the original wording, original passage, and dispute remain accessible.",
+        "risk": "Revision history adds interface complexity; keep current variants prominent without concealing older ones."
+      },
+      {
+        "action": "Let readers inspect definitions from the source passage.",
+        "mechanism": "Provide reverse links that expose different interpretations of the same evidence.",
+        "implementation": "Add a passage view listing all linked definition variants, grouped by term and marked when disputed. Offer an optional exact-text highlight validated against the stored passage; retain full-passage access.",
+        "check": "Link two competing variants to one passage; opening that passage reveals both and their dispute. A highlight that does not match the passage is rejected.",
+        "risk": "Highlights can omit qualifying context; display surrounding text and a clear full-passage control."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "aeaf29d3922760c4a10bda50b36cf0f29867ccbb02beece788c916840bda9ff6",
+  "raw_output_sha256": "71a4ada76dc283616e8dd9e6d0506f833ccc210d95bcaaac9d9a50c81d501cd3"
+}

@@ -1,0 +1,14 @@
+{
+  "number": 1,
+  "exit_code": 0,
+  "elapsed_seconds": 19.512992917,
+  "usage": {
+    "input_tokens": 7664,
+    "cached_input_tokens": 0,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 490,
+    "reasoning_output_tokens": 53
+  },
+  "completed": true,
+  "tool_violation": false
+}
