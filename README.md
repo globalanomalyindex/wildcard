@@ -30,7 +30,7 @@ in Claude Code:
 /wildcard:wildcard
 ```
 
-the repository uses the documented single-skill plugin layout, with `plugin/SKILL.md` at its root. see the official [plugin reference](https://code.claude.com/docs/en/plugins-reference) and [installation guide](https://code.claude.com/docs/en/discover-plugins) for host-specific installation scopes, updates and removal. a clean-profile host installation has not been certified by this repository's local tests.
+the repository uses the documented single-skill plugin layout, with `plugin/SKILL.md` at its root. see the official [plugin reference](https://code.claude.com/docs/en/plugins-reference) and [installation guide](https://code.claude.com/docs/en/discover-plugins) for host-specific installation scopes, updates and removal. a [recorded smoke test](docs/verification/claude-install-smoke.json) on Claude Code 2.1.228 for macOS used a new isolated configuration profile and a local marketplace source. marketplace/plugin validation, installation of version 2.0.0, skill recognition, a draw from the installed copy, an already-current update check, uninstallation, and marketplace removal passed. the normal profile was unchanged. this did not test a fresh GitHub download, a version migration, or model invocation; the test account was not signed in.
 
 ## use and replay
 
