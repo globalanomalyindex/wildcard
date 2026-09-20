@@ -967,5 +967,69 @@
     "Chromium native clipboard verified; Firefox and WebKit export values tested through an explicit shim.",
     "WebKit screenshots omitted to avoid Playwright screenshot instrumentation conflicting with strict CSP.",
     "No network throttling, native mobile device, or formal performance/accessibility certification."
-  ]
+  ],
+  "supplementaryPdfLinkCheck": {
+    "verifiedAtUTC": "2026-09-20T21:13:10.444462+00:00",
+    "scope": "Targeted final PDF-link check; full matrix not repeated after the HTML-only link addition.",
+    "browser": "153.0.8010.48",
+    "viewports": [
+      {
+        "text": "download the research paper \u00b7 PDF \u2197",
+        "href": "/research-paper.pdf",
+        "download": "Wildcard_Research_Paper_2026-09-20.pdf",
+        "width": 1440,
+        "documentWidth": 1440,
+        "targetHeight": 16.5,
+        "linkFitsCard": true,
+        "reachable": true,
+        "status": 200,
+        "contentType": "application/pdf",
+        "signature": "%PDF-",
+        "bytes": 148027
+      },
+      {
+        "text": "download the research paper \u00b7 PDF \u2197",
+        "href": "/research-paper.pdf",
+        "download": "Wildcard_Research_Paper_2026-09-20.pdf",
+        "width": 390,
+        "documentWidth": 390,
+        "targetHeight": 44,
+        "linkFitsCard": true,
+        "reachable": true,
+        "status": 200,
+        "contentType": "application/pdf",
+        "signature": "%PDF-",
+        "bytes": 148027
+      },
+      {
+        "text": "download the research paper \u00b7 PDF \u2197",
+        "href": "/research-paper.pdf",
+        "download": "Wildcard_Research_Paper_2026-09-20.pdf",
+        "width": 320,
+        "documentWidth": 320,
+        "targetHeight": 44,
+        "linkFitsCard": true,
+        "reachable": true,
+        "status": 200,
+        "contentType": "application/pdf",
+        "signature": "%PDF-",
+        "bytes": 148027
+      }
+    ],
+    "pageErrors": [],
+    "download": {
+      "filename": "Wildcard_Research_Paper_2026-09-20.pdf",
+      "failure": null
+    },
+    "downloadBytesEqualPublishedFile": true,
+    "pdfSHA256": "8f3f0e2842eaace128422934c034040ddec9ebbb353709a5b76d16f764e6f080",
+    "evidenceHTMLSHA256": "2f8b6db865cf22437fb6f99d297b7f3618c9a0313ea024cdee851e781b33db40",
+    "pdfParsing": {
+      "pages": 13,
+      "firstPageTextExtracted": true,
+      "title": "What does a donor name add after the relation is supplied?",
+      "author": "christopher robin fiore"
+    },
+    "limit": "Local HTTP check in Chromium only. Text extraction and card visual review do not certify PDF accessibility."
+  }
 }

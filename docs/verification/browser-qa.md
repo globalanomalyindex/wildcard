@@ -45,3 +45,9 @@ The driver serves the actual `site/` directory through a temporary localhost HTT
 The CLI pin bundles Playwright `1.64.0-alpha-1789764292000`. Its alpha WebKit incorrectly applied document CSP to native select styling in a minimal reproduction. The same minimal self-only policy passed under stable Playwright 1.63.0/WebKit 26.6, which is why WebKit uses the direct API fallback. Playwright screenshot preparation separately injects an inert style, so WebKit functional assertions omit screenshots. The application's restrictive CSP is retained, with no style exception or console-error exemption.
 
 Chromium exercises native clipboard read/write. Firefox and WebKit use a declared export-value shim, so their native OS clipboard integration is unverified. Browser checks supplement visual review; they do not certify assistive-technology behavior, native mobile devices, network performance, remote source-link availability or the final deployed site. Screenshot evidence remains local QA material rather than a published research observation.
+
+## Supplement: final PDF link
+
+After the full matrix, the only interface change was a PDF download link in the current-results card. A targeted Chromium 153.0.8010.48 check at widths 1440, 390 and 320 verified that the link remained readable, within the card and reachable without document overflow. Both mobile targets measured 44px high. The link returned HTTP 200 with `application/pdf`, 148,027 bytes and the `%PDF-` signature. An actual browser click downloaded `Wildcard_Research_Paper_2026-09-20.pdf` without error; its bytes matched the published file exactly.
+
+The PDF parsed as 13 pages, and first-page text extraction recovered the manuscript title, author and amended-analysis status. This targeted local check does not repeat the full three-engine matrix or certify PDF accessibility. The supplement in `browser-qa.json` records the final PDF and HTML hashes.
