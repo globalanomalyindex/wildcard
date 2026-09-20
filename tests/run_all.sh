@@ -15,4 +15,5 @@ echo "== diversity (real map) =="; bash "$HERE/test_diversity.sh" || fail=1
 echo "== palette contrast =="; node "$HERE/contrast.mjs" || fail=1
 echo "== site (parity, entropy, captions) =="; (cd "$ROOT/site" && node --test tests/*.test.js) || fail=1
 echo "== experiment libs =="; node --test "$ROOT"/experiment/tests/*.test.js || fail=1
+echo "== v2 sampler and corpus hardening =="; node --test "$ROOT"/tests/*.test.mjs || fail=1
 if [ "$fail" -eq 0 ]; then echo "ALL GREEN"; else echo "SOME FAILED"; exit 1; fi

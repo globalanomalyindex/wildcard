@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "p01-judge-1",
+  "request_sha256": "4538c589e632c193cb27c4013218aa760ee45ce1ffccee03e4b904e6124ad374",
+  "prompt_sha256": "4113ba2c8a4e25e5900660b3a3df9fce85b345df37603368cf0dfadfaff2adb7",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:25:03.466389+00:00",
+  "finished_at": "2026-09-20T20:25:35.814997+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.347077333000016,
+      "usage": {
+        "input_tokens": 10391,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 950,
+        "reasoning_output_tokens": 91
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c02e81fc0bfe044e3f5f0aa741c731fc842bdecfe2a7fca45d1a3ede86bb3186",
+      "stderr_sha256": "b8e0cf3c0161f6963840d3091a208530127fe9a70b1fadd1dcaff1241887ea79"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "b869f6247037d33e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46a615b6562a0fba",
+        "mechanism_group": "public_reading",
+        "reason": "Untimed generic reading separates reading time from private selections, with staged handovers testing exposure."
+      },
+      {
+        "id": "97d3770dbecbb092",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "protected_local_resume",
+        "reason": "A code-protected local cart replaces destructive clearing and supports observable recovery and privacy tests offline."
+      },
+      {
+        "id": "036ebc20823ce451",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "protected_local_resume",
+        "reason": "Encrypted local carts and code-based unlocking preserve selections across a ten-minute outage while testing unauthorized access."
+      },
+      {
+        "id": "2c4d9100c1807653",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3fb843ad23f54570",
+        "mechanism_group": "personal_data_separation",
+        "reason": "Deleting personal details separately from retained tickets limits abandonment disclosure without reconstructing selections."
+      },
+      {
+        "id": "61ff18a446cb709c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "33edf33739a352e0",
+        "mechanism_group": "isolated_new_visit",
+        "reason": "Starting fresh clears presentation, speech, and navigation state, with physical-control tests checking the privacy boundary."
+      },
+      {
+        "id": "dd40b1f62ec44dee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "protected_local_resume",
+        "reason": "A temporary recovery code protects locally retained selections after masking, without requiring identification or connectivity."
+      },
+      {
+        "id": "02d2cf122a9ad6d3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46a615b6562a0fba",
+        "mechanism_group": "public_reading",
+        "reason": "Selection-free reading remains available while the cart is locked, with visual and audible handover checks."
+      },
+      {
+        "id": "8663a0b99e7d677c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a5191845704db11",
+        "mechanism_group": "personal_data_separation",
+        "reason": "Checkout-only personal details are erased independently of offline ticket storage, and interrupted recovery is explicitly tested."
+      },
+      {
+        "id": "91151d30823d349a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a5191845704db11",
+        "mechanism_group": "personal_data_separation",
+        "reason": "Excluding personal fields from resumable drafts preserves tickets while preventing personal-data recovery and unconfirmed submission."
+      },
+      {
+        "id": "72536d956e21b9c0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46a615b6562a0fba",
+        "mechanism_group": "public_reading",
+        "reason": "Public reading screens decouple lengthy reading from private cart access, with interruption and disclosure measurements."
+      },
+      {
+        "id": "8c86e28234977207",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ed33e73f175f7651",
+        "mechanism_group": "offline_confirmation_gate",
+        "reason": "Local drafts and fresh explicit confirmation prevent reconnection from submitting purchases automatically; handover and outage tests are specified."
+      },
+      {
+        "id": "40dd671d83c52abe",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "protected_local_resume",
+        "reason": "Code-protected local retention replaces destructive timeout; selectable intervals change exposure duration, which the proposed walkaway tests measure."
+      }
+    ]
+  },
+  "result_sha256": "1538bc505b701638a0e00dd883e72564516eeaf2443b601ba3f70dbf7b852f37",
+  "raw_output_sha256": "7cb9f075c91700cb44ef707463b104fc069c5be4ad735d998630f96a820f3379"
+}

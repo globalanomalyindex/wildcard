@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "x07-b",
+  "request_sha256": "2ba2ddcc7cdc68613faf54937f52034c8f67690c468cc0a2f3a5dd5c5a9cc98f",
+  "prompt_sha256": "c04ed27ff50a890e1b5cdb08de8508df56c06cf2e3521318b74a15aa92d461c6",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:06.893692+00:00",
+  "finished_at": "2026-09-20T20:18:13.376631+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 6.481207709,
+      "usage": {
+        "input_tokens": 6991,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 69,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f08f3a119b797c48b2b626b1dc3758855643e5c62a648f359200934bbde4ff89",
+      "stderr_sha256": "239f77fb410c7cd3650739d8a430ae38c702b87fcc0f1c362edea7e56717109b"
+    }
+  ],
+  "result": {
+    "decision": "abstain",
+    "action": "Attach only when evidence uniquely identifies a passage; otherwise leave the note unresolved and retain both the note and original text.",
+    "trace": [
+      "UNRESOLVED"
+    ],
+    "explanation": "P and Q share repeated marker K, and no other evidence distinguishes them."
+  },
+  "result_sha256": "b4881aa97a9576f842753b4759a69af72b78861df1fa0b440b884e272f0c6303",
+  "raw_output_sha256": "9640333bde27dd81fc7cc2f18826a7049b75187674857efcd71dabfbc675b9bb"
+}

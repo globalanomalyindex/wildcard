@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "x03-b",
+  "request_sha256": "3c593cb416f4e23f95bb3b6ef8d57a7a8f84c36c6695927b9b12130930ae73b4",
+  "prompt_sha256": "37fc298c43df8bad73f301e8f0ff38ed6c4857b7ed0aa70b07c967de305d9078",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:17.699694+00:00",
+  "finished_at": "2026-09-20T20:19:23.949598+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 6.248804167000003,
+      "usage": {
+        "input_tokens": 6977,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 76,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "8f357be789fd9f1cebe1d1a5769d5df965563e9ffa27c3ae9b8c12689d6407a1",
+      "stderr_sha256": "f4cb46c50cda907a16c06e5f163a7949779847cd1ce9ae6cd1b84342075332ed"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Grant each requester a concurrent read-only right to the same resource, regardless of existing holders.",
+    "trace": [
+      "A: GRANT",
+      "B: GRANT"
+    ],
+    "explanation": "The supplied relation permits concurrent read-only rights; A's holding does not consume B's right or require a resource copy."
+  },
+  "result_sha256": "319fc28b31f7cb1ed1a040c13ceaf098e481a56bc250e473b06e498ff8d7a7c1",
+  "raw_output_sha256": "8993548d40660e3d70009062528ee9072a7c4885b36d49a3ed0ca2b96cefb6c1"
+}

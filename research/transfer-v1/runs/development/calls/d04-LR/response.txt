@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Require valid passage links before saving definitions",
+      "mechanism": "Referential integrity prevents definitions from becoming detached from the supplied evidence.",
+      "implementation": "Store supplied passages by immutable ID. Require each definition variant to reference an existing passage; reject missing or unknown IDs.",
+      "check": "Attempt saves with missing, unknown, and valid passage IDs. Only the valid case must succeed and resolve to its passage.",
+      "risk": "A valid link does not establish that the passage supports the wording."
+    },
+    {
+      "action": "Show competing wording beside its evidence",
+      "mechanism": "An explicit dispute view exposes alternatives without merging their wording or implying consensus.",
+      "implementation": "Group variants under a term. Display each wording, passage ID, expandable source passage, and recorded objection; label editorial preference separately.",
+      "check": "Create two conflicting variants. A reader must access both exact wordings, their passages, and the objection from the term view.",
+      "risk": "Visual ordering can imply endorsement; label ordering and preference explicitly."
+    },
+    {
+      "action": "Flag definitions affected by source corrections",
+      "mechanism": "Versioned passages preserve historical evidence while dependency tracking identifies definitions needing renewed review.",
+      "implementation": "Give corrected supplied passages new IDs linked to predecessors. Preserve original links and wording; mark dependent definitions for review without automatically rebinding them.",
+      "check": "Correct one passage. Only its dependent definitions must be flagged; their original wording and cited passage must remain inspectable.",
+      "risk": "Repeated corrections can accumulate unresolved review flags."
+    },
+    {
+      "action": "Review disputed terms in bounded batches",
+      "mechanism": "Limited review scope and explicit stop conditions constrain accidental loss while retaining unresolved alternatives.",
+      "implementation": "Select five disputed terms. Start only when cited passages resolve; record proposed decisions without overwriting variants. Stop on missing evidence; retain individual review instead.",
+      "check": "Interrupt a batch after two decisions. All competing wording and links must survive; untouched terms must remain unresolved.",
+      "risk": "Batch decisions may flatten distinct objections; require a rationale per term."
+    }
+  ],
+  "abstention_reason": ""
+}

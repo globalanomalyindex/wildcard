@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Replace the undocumented preset with inspectable templates",
+      "mechanism": "Templates offer visible starting combinations, never hidden authority or automatic replacements for custom selections.",
+      "implementation": "List each template’s enabled permissions before application. Add a review-drafts template validated against calculated permissions; exclude publishing and billing from automatic application.",
+      "check": "Apply the review template: draft review succeeds, publishing and billing remain unavailable, and every original combination remains manually selectable.",
+      "risk": "Template descriptions can drift unless generated from their definitions."
+    },
+    {
+      "action": "Require explicit selection of sensitive privileges",
+      "mechanism": "Publishing and billing require deliberate owner choices, including when another permission would indirectly enable them.",
+      "implementation": "Use separate, initially unchecked owner controls. Templates cannot select them. Before sending, block calculated publishing or billing access without the corresponding explicit selection.",
+      "check": "Exercise templates, copied combinations, and dependent toggles; none may send an invitation granting sensitive access without recorded owner selection.",
+      "risk": "Dependency conflicts need actionable explanations, not generic validation errors."
+    },
+    {
+      "action": "Preserve custom combinations as first-class configurations",
+      "mechanism": "The selected permission vector remains authoritative; template labels describe it rather than overwrite it.",
+      "implementation": "Mark edited templates as Custom. Retain all selections through navigation and validation failures. Require an explicit Apply action before another template replaces them.",
+      "check": "Load a custom combination, change one toggle, navigate back, and trigger validation; verify every unrelated permission remains unchanged.",
+      "risk": "Matching a template must not trigger automatic template application."
+    },
+    {
+      "action": "Show calculated capabilities beside permission controls",
+      "mechanism": "A live effective-permissions summary explains actual outcomes rather than expecting owners to interpret eighteen toggles.",
+      "implementation": "Recalculate after each change. Show Can review drafts, Can publish, and Billing access, with contributing controls linked. Mark pending results and prevent sending stale calculations.",
+      "check": "For known combinations, compare displayed capabilities with calculator results; changing dependencies must update the explanation before sending becomes available.",
+      "risk": "Overcompressed summaries can conceal less common effective privileges."
+    },
+    {
+      "action": "Organize controls without hiding custom choices",
+      "mechanism": "Task-based grouping reduces scanning while native controls preserve complete keyboard access to every permission.",
+      "implementation": "Group all eighteen toggles under descriptive headings. Use native checkboxes and keyboard-operable disclosure buttons; show selected counts and keep sensitive privileges directly discoverable.",
+      "check": "Using only the keyboard, recreate a custom combination, inspect all permissions, resolve errors, and send; verify visible focus and no traps.",
+      "risk": "Collapsed groups can conceal selections unless counts remain visible."
+    },
+    {
+      "action": "Test intended limits before sending",
+      "mechanism": "Owner-selected capability expectations become pre-send assertions against calculated effective permissions, not additional authorization rules.",
+      "implementation": "For this invitation, set expectations: review allowed, publish denied. Evaluate immediately before sending; block mismatches and link to responsible controls or explicit expectation revision.",
+      "check": "Introduce a combination that unexpectedly grants publishing. Confirm the denial assertion fails and no invitation is sent.",
+      "risk": "Expectations must be explicitly revisable to preserve legitimate combinations."
+    },
+    {
+      "action": "Preview permission changes before applying them",
+      "mechanism": "A permission difference view makes bulk template changes inspectable and reversible without discarding custom work.",
+      "implementation": "Before applying a template over selections, show added and removed permissions plus calculated capability changes. Offer keyboard-accessible Apply, Cancel, and Undo; preserve the prior combination.",
+      "check": "Apply a template over a custom combination, then undo; verify exact restoration and require fresh explicit selection for sensitive grants.",
+      "risk": "Undo must not restore sensitive authorization consent silently."
+    }
+  ],
+  "abstention_reason": ""
+}

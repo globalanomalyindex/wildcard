@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p04-XR",
+  "request_sha256": "18e964123e885db9c08bdbbf2f5875c50db28782989b87b8f1e6a05691e23b7d",
+  "prompt_sha256": "4afd0ad8e07eb9d77535901ab700d415fb8addc740c876d9f5af255603ba2d0f",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:08:19.360159+00:00",
+  "finished_at": "2026-09-20T20:08:40.126628+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.76632062500002,
+      "usage": {
+        "input_tokens": 7271,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 517,
+        "reasoning_output_tokens": 75
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "3dbc2a324b6136e3397031eac75480d4a142235ac00be379b20a233443365e99",
+      "stderr_sha256": "d5457c7372dc8b17f23e0f9b727e94c447b06fa5ca7e666baa34c4ebe0b6617a"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Keep the reviewed booking identity fixed",
+        "mechanism": "Capacity updates change availability, never the selected slot’s identity; selection carries no reservation or availability guarantee.",
+        "implementation": "Store the selected slot ID and displayed booking details. Confirm that ID through the existing atomic endpoint; require explicit review of changed details.",
+        "check": "Inject updates before confirmation: verify no different slot is submitted and endpoint rejection leaves the reviewed selection visible.",
+        "risk": "Review can become stale; clearly label unavailable or changed details."
+      },
+      {
+        "action": "Update availability without moving confirmation controls",
+        "mechanism": "Stable positions and focus let people reach controls without chasing a layout that changes every five seconds.",
+        "implementation": "Update availability in place; retain unavailable rows and keyboard focus. At 320 pixels, use a single-column agenda with confirmation in stable document order.",
+        "check": "During repeated updates, verify focused elements persist, confirmation never moves because rows disappear, and keyboard operation requires no horizontal scrolling.",
+        "risk": "Frequent announcements overwhelm; announce selected-slot changes politely, not every refresh."
+      },
+      {
+        "action": "Recover with preferences intact and alternatives unselected",
+        "mechanism": "Separate booking preferences from slot selection so an unavailable slot does not erase the person’s search context.",
+        "implementation": "After rejection, retain workshop, week, filters, and failed-slot details. Offer matching alternatives with explicit selection and confirmation; explain when no matches remain.",
+        "check": "Force an endpoint capacity rejection; verify preferences survive, no replacement is preselected, and recovery works by keyboard at 320 pixels.",
+        "risk": "Alternatives can also disappear; label availability as current, not guaranteed."
+      },
+      {
+        "action": "Measure recovery using input-independent capacity changes",
+        "mechanism": "Controlled error injection evaluates accessibility without making quick confirmation the route to a better result.",
+        "implementation": "In tests, reject the first confirmation regardless of elapsed time. Allow untimed recovery; record preference loss, wrong-slot submissions, focus loss, and recovery completion.",
+        "check": "Repeat with keyboard input and extended pauses: the same rejection must occur, with no automatic substitution or preference reset.",
+        "risk": "Synthetic rejection misses live-update behavior; separately test five-second updates without scoring speed."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "33e751c3644bee6113bbf48782b9b2bc924f775fe33cba6c6ea6fd8f5249aa28",
+  "raw_output_sha256": "f8bb977099535abe7fa5bad907a96d20ebcc6b5dfae811b71ef8e51cc2679023"
+}

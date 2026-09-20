@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s04-R",
+  "request_sha256": "63a87caa6d4c875545f730d475aeafb02bad58ea8c8b5e1880e52ac6c67f0098",
+  "prompt_sha256": "c485bc64ac7a0f0f60315add0073f8d544e303e9cdf982407147f22b65091159",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:04:48.830321+00:00",
+  "finished_at": "2026-09-20T20:05:11.697638+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.864828250000002,
+      "usage": {
+        "input_tokens": 7267,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 593,
+        "reasoning_output_tokens": 145
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d9a75dbe90f538bd6a2ccb50377b2b5730bc858b0a4ec8f8ff961aad0e089833",
+      "stderr_sha256": "a45e6126fc566d5df4d2534c9d6e89a5e2c7f693236681e1f0470834f0327f09"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce expiry independently of configuration refreshes",
+        "mechanism": "Gate every displayed item by local time, including announcements already on screen when connectivity disappears.",
+        "implementation": "Hide timestamped items when local time reaches expiry minus 30 seconds; schedule removal independently of playback. Exempt explicit-until-revoked items.",
+        "check": "Test six-hour outages at both clock-error bounds, including expiry during playback; verify no timestamped item remains visible after true expiry.",
+        "risk": "Conservative enforcement can hide items up to 60 seconds early."
+      },
+      {
+        "action": "Reject configurations that could resurrect removed revisions",
+        "mechanism": "Monotonic configuration generations and authoritative replacement prevent stale reconnect responses from restoring deleted items.",
+        "implementation": "Persist the accepted generation; reject older or conflicting equal-generation bundles. Replace complete item sets, never merge. Server-side deletion records forbid republishing removed revisions.",
+        "check": "Replay pre-removal bundles after removal, reconnect, and reboot; verify removed revisions remain absent and the accepted generation never decreases.",
+        "risk": "Generation resets or lost persistent state require explicit recovery handling."
+      },
+      {
+        "action": "Stage and commit complete bundles atomically",
+        "mechanism": "Keep incomplete reconnect transfers isolated from the active configuration; expose only fully validated replacements.",
+        "implementation": "Stage separately; reject bundles of 100 KB or larger, duplicate IDs, and invalid validity fields. Atomically commit contents with generation; keep expiry enforcement running.",
+        "check": "Interrupt downloads and cut power at each commit step; require either complete previous or complete new state, never mixed contents and generation.",
+        "risk": "Staging needs additional storage; oversized configurations require publication-time rejection."
+      },
+      {
+        "action": "Show the limits of offline freshness",
+        "mechanism": "Separate expiry enforcement from revocation knowledge so cached announcements are not presented as freshly confirmed.",
+        "implementation": "Display last successful synchronization time and: “Cached announcements; expiry enforced. Offline removals cannot be received; until-revoked announcements may remain.” Clear only after successful synchronization.",
+        "check": "Disconnect for six hours, revoke an item remotely, and reconnect without completing synchronization; verify the warning remains and accurately describes visible content.",
+        "risk": "Warnings need readable placement without obscuring public announcements."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "3003e934d73b221c7e496e535ae0cc85d870c53e17f981ba672e2ea369668ed0",
+  "raw_output_sha256": "5fa2a8d8f2e19f54d3fd9b24134f3978686cd00f29a0a031183b8c6dd562a8e5"
+}

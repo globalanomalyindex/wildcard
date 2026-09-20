@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i05-S",
+  "request_sha256": "00a5a46902a5b026b5ca6ac1a6421a1e5928d5cb0c45c120dcfdc09dc172146b",
+  "prompt_sha256": "9711e3e1d179bf0fdd41bae57610122d487e32a677fd42121433883ec75dadf4",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:13:06.808609+00:00",
+  "finished_at": "2026-09-20T20:13:29.236642+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.42445024999995,
+      "usage": {
+        "input_tokens": 7125,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 578,
+        "reasoning_output_tokens": 135
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b9451a78ea093416c5f4b1165fe5d39cf1c43b40bfe3950e1d7f117c0d161825",
+      "stderr_sha256": "d57c266a624955e3fe44b067d9f9c9aec7fed0db71576bb0a2e8f43d5dd9df33"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Explore paths with replayable state traces",
+        "mechanism": "Search scene-and-state pairs, retaining predecessor choices so every discovered scene has a concrete witness.",
+        "implementation": "Declare initial states and depth, state-count, and time limits. Display reached scenes separately from scenes not explored within those limits.",
+        "check": "Replay each witness against actual conditions and updates. Lower the depth limit and confirm missing scenes become unexplored, not proven unreachable.",
+        "risk": "Unbounded variables expand searches; unsupported code must produce explicit uncertainty."
+      },
+      {
+        "action": "Prove unreachable scenes through backward constraints",
+        "mechanism": "Propagate required states backward through choices, seeking contradictions with declared initial states.",
+        "implementation": "Use supported condition and update semantics; attach inspectable blocking conditions and proof dependencies. Report unresolved obligations as unknown, never unreachable.",
+        "check": "Create a scene requiring a flag no reachable update enables. Verify its proof; add a reachable enabling update and invalidate it.",
+        "risk": "Timeouts and unsupported code prevent proof; they do not establish unreachability."
+      },
+      {
+        "action": "Identify traps using complete state components",
+        "mechanism": "A reachable closed state component without an ending proves a trap; scene-level cycles alone do not.",
+        "implementation": "Analyze components only where all outgoing transitions are resolved. Show an entry trace, internal choices, and blocked exits; flag unfinished dead ends separately.",
+        "check": "Test a loop exiting after three visits and another with an impossible exit. Only the latter should receive a proven-trap warning.",
+        "risk": "Truncated exploration cannot establish closure; unknown transitions require an inconclusive result."
+      },
+      {
+        "action": "Record narrow, versioned author exceptions",
+        "mechanism": "Attach intent to individual diagnostic evidence, preserving visibility of unrelated findings and changed behavior.",
+        "implementation": "Let authors acknowledge a specific loop or hidden-scene finding with a rationale. Fingerprint relevant conditions, updates, and entry assumptions; retain the evidence.",
+        "check": "Acknowledge one deliberate loop, introduce another trap, then change the acknowledged loop’s exit. Verify the new warning remains and the acknowledgement becomes stale.",
+        "risk": "Overbroad exception scopes hide defects; never suppress every warning for a scene."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "992213efbca536b4a05629402544f043dd17f33d7b669215ca524d48016befae",
+  "raw_output_sha256": "f93199e7b215650d15a2226ab75ac8271b652b65834b064d44c4c87b5e67e57a"
+}

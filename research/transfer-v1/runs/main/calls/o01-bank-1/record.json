@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "o01-bank-1",
+  "request_sha256": "fccd162600e58f74423cabd524312c1d8b067b8b281943d48f82dca74573f529",
+  "prompt_sha256": "b41e07c5233d45ef6395cd2a763ec641238321cb505643b270ca9134f2503559",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:55:07.324042+00:00",
+  "finished_at": "2026-09-20T19:55:43.763372+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 36.437414916,
+      "usage": {
+        "input_tokens": 7120,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1058,
+        "reasoning_output_tokens": 70
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e03669bcfb63fefdbf2273030a3b306f8087021926b701036f956e92386fff45",
+      "stderr_sha256": "e72ca789a0e4316efb950a6bb4667896bc671d1b2b9eb3c7c2d810274f90622f"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Create a receipt-linked item record at intake",
+        "mechanism": "A persistent item identifier connects ownership, physical location, work status, and the responsible volunteer.",
+        "implementation": "Give the visitor a numbered receipt; attach the matching number to the item. Record owner contact, location, status, custodian, and next action.",
+        "check": "Sample five stored items each shift: every identifier must resolve to its receipt record and actual location.",
+        "risk": "Protect owner contact details from public view."
+      },
+      {
+        "action": "Timebox diagnosis, not repair completion",
+        "mechanism": "Mandatory review points prevent uncertain diagnosis from occupying a workbench without a deliberate continuation decision.",
+        "implementation": "Set a 15-minute initial diagnostic review. At review, record continue, safely pause, or await parts, plus next action. Only the specialist opens electrical equipment.",
+        "check": "Audit bench records: every diagnostic interval exceeding 15 minutes must have a recorded review and disposition.",
+        "risk": "Never rush safety work to meet the review interval."
+      },
+      {
+        "action": "Protect access for bounded jobs",
+        "mechanism": "One bench favors assessed, bounded work; aging prevents repeatedly bypassed jobs from becoming invisible.",
+        "implementation": "At safe release points, route assessed short jobs to one bench. Review jobs bypassed twice; when none qualify, admit uncertain work until its next review.",
+        "check": "Under mixed demand, verify the next qualifying job receives that bench after safe release, with bypass reviews documented.",
+        "risk": "Duration estimates can be wrong; retain diagnostic review points."
+      },
+      {
+        "action": "Separate parts waiting from active work",
+        "mechanism": "An explicit blocked state keeps unavailable-part jobs out of the ready queue and off benches when safely storable.",
+        "implementation": "Label safely storable items WAITING FOR PARTS in an existing storage area. Record location, needed part, procurement responsibility, and review date; require reassessment before reactivation.",
+        "check": "Inspect every parts-waiting item: none appears ready for work, and each has a location and named next-action owner.",
+        "risk": "If safe storage is unavailable, arrange owner collection."
+      },
+      {
+        "action": "Make specialist access an explicit work gate",
+        "mechanism": "A visible specialist queue prevents unauthorized opening and avoids occupying benches merely while awaiting specialist availability.",
+        "implementation": "General volunteers perform intake and external observation only on electrical equipment. Label it SPECIALIST REQUIRED; the specialist authorizes bench admission when available.",
+        "check": "Observe electrical admissions: only the specialist opens equipment, and no item occupies a bench solely awaiting specialist arrival.",
+        "risk": "Treat uncertain equipment classification as specialist-required until reviewed."
+      },
+      {
+        "action": "Require accepted responsibility at shift handoff",
+        "mechanism": "A receiving person's acknowledgment closes the gap between written notes and actual responsibility for unfinished work.",
+        "implementation": "Outgoing and incoming custodians reconcile item identifiers, locations, status, safety restrictions, and next actions. Record acceptance; if nobody accepts, pause work and escalate to the shift coordinator.",
+        "check": "After handoff, ask each custodian to locate assigned items and state their next actions without consulting outgoing volunteers.",
+        "risk": "A signature alone can conceal an incomplete transfer."
+      },
+      {
+        "action": "Separate update commitments from completion estimates",
+        "mechanism": "Visitors receive a reliable communication checkpoint without an unsupported promise about when uncertain work will finish.",
+        "implementation": "At intake and status changes, offer a next-update checkpoint. If giving a completion estimate, include an explicit uncertainty range and dependencies; otherwise state that completion is unknown.",
+        "check": "Audit visitor messages: every completion estimate includes a range, and elapsed update checkpoints have a recorded contact attempt.",
+        "risk": "Do not invent ranges where there is no defensible basis."
+      },
+      {
+        "action": "Limit accepted drop-offs to traceable storage",
+        "mechanism": "A storage-based admission gate prevents accumulation from defeating item tracking, safe bench release, and accountable handoff.",
+        "implementation": "Number existing safe storage positions. Accept a drop-off only with an assigned position, receipt, and custodian; otherwise ask the visitor to retain the item and offer a return visit.",
+        "check": "At shift close, verify every retained item has an authorized location and no overflow occupies benches or access routes.",
+        "risk": "Explain that a return visit does not guarantee completion."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "139e7f4462d07bcbb4220e32a35675b0c5c3ea3fcfd3b3545eb5a9566ec5203a",
+  "raw_output_sha256": "60bbb01205f5711d37fd3f0dd01da4a748e3180d8a746b2a266dd4938bfb18a7"
+}

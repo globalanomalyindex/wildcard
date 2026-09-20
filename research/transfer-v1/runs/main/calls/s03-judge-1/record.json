@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "s03-judge-1",
+  "request_sha256": "4b007bda1e6c70449c147df5c80049f8cca9617ae4089d85048fe8098e661283",
+  "prompt_sha256": "c91c8ad8c6289ddf63b12b695d5e92f1cb873636222b47652aaac164ff6e9351",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:28:39.334911+00:00",
+  "finished_at": "2026-09-20T20:29:18.202897+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 38.86596875000009,
+      "usage": {
+        "input_tokens": 11257,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1170,
+        "reasoning_output_tokens": 28
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b52e19da6e5b786ae705222bf17c24fd420d730873c1815928bd4d8e4bb5cd17",
+      "stderr_sha256": "57ba253464172d2f922f26dbd3a173d958888f7b8712090f68726dab6c3b081e"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "509c8d9fc681f9cf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7796a74c61c9d654",
+        "mechanism_group": "causal_paragraph_merge",
+        "reason": "Two-device causal vectors preserve attributed concurrent originals by paragraph ID, with arrival-order checks."
+      },
+      {
+        "id": "b99699ce630dc9dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6e95ca157e55b8b1",
+        "mechanism_group": "durable_operation_exchange",
+        "reason": "A durable, deduplicated journal uses existing transport and tests reconnects, crashes, and deletion/edit preservation."
+      },
+      {
+        "id": "779ad01cc7fd7440",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0b6173b156ddf6e3",
+        "mechanism_group": "attributed_resolution",
+        "reason": "Resolution references reviewed versions and tests that unseen concurrent edits remain conflicts."
+      },
+      {
+        "id": "411ab665b73c397d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "independent_position_merge",
+        "reason": "Separate sortable placement metadata preserves prose and exposes competing moves while testing deterministic ordering."
+      },
+      {
+        "id": "d172afd1cdff995f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cd4bb69be12aecdd",
+        "mechanism_group": "deterministic_replay_tests",
+        "reason": "A fixed offline history explicitly tests deletion/edit conflicts, attribution, reconnect order, duplicates, and restarts."
+      },
+      {
+        "id": "48249cb4c46980ee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "05242a34aaf30f98",
+        "mechanism_group": "causal_paragraph_merge",
+        "reason": "Immutable paragraph events with causal parents preserve concurrent text and deletion alternatives through existing synchronization."
+      },
+      {
+        "id": "c33a23633f902ccc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "42c0ac29199a7130",
+        "mechanism_group": "deletion_as_conflicting_version",
+        "reason": "Causal tombstones retain attributed concurrent edits for explicit resolution and opposite-order replay checks."
+      },
+      {
+        "id": "609630c9e620b992",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4c66e5bbf720af00",
+        "mechanism_group": "attributed_resolution",
+        "reason": "Authored resolutions name reviewed parents, preserve unseen alternatives, and reject over-limit results without truncation."
+      },
+      {
+        "id": "818e091de954aa20",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cd4bb69be12aecdd",
+        "mechanism_group": "deterministic_replay_tests",
+        "reason": "Seeded histories test delivery permutations and restarts with explicit checks for surviving edits and attributed originals."
+      },
+      {
+        "id": "2913a12b485b511d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "independent_position_merge",
+        "reason": "Fractional positions and deterministic concurrent-move tie-breaking separate ordering from text and test convergence."
+      },
+      {
+        "id": "82e91e2d0b9d34bf",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "cd4bb69be12aecdd",
+        "mechanism_group": "deterministic_replay_tests",
+        "reason": "Replay fixtures assert independent-edit survival, attributed originals, and unresolved deletion/edit alternatives across reconnect orders."
+      },
+      {
+        "id": "97c358a9995ee77b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "independent_position_merge",
+        "reason": "Causal position operations resolve concurrent placements deterministically without replacing retained paragraph text."
+      },
+      {
+        "id": "c34e12291de804b3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "42c0ac29199a7130",
+        "mechanism_group": "deletion_as_conflicting_version",
+        "reason": "Attributed tombstones compete with intact concurrent edits, with explicit resolution and reversed-reconnect checks."
+      },
+      {
+        "id": "e5eec67af6ce210e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "05242a34aaf30f98",
+        "mechanism_group": "causal_paragraph_merge",
+        "reason": "Causal parent links distinguish replacements from concurrent originals, and existing-path exchange tests independent-edit survival."
+      },
+      {
+        "id": "16c9ec48857dd1dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "31464187eafcaaf7",
+        "mechanism_group": "independent_position_merge",
+        "reason": "Causal fractional placements retain move alternatives and test deterministic order without overwriting prose."
+      },
+      {
+        "id": "d57123ce19ae4055",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7796a74c61c9d654",
+        "mechanism_group": "causal_paragraph_merge",
+        "reason": "A two-device causal multi-value register preserves concurrent originals and tests independent and conflicting edits in both reconnect orders."
+      }
+    ]
+  },
+  "result_sha256": "f3538d1976bf0443a3bcd755500673273c372a558c593d490dd32fcfa52f2689",
+  "raw_output_sha256": "172698344a765843b987f13af84c7f88d3f2fe5491c98d64ebd9958ad219bc0a"
+}

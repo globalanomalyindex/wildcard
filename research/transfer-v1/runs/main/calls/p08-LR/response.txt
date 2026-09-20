@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Confirm and freeze the exact selection",
+      "mechanism": "Separate visible-page selection from all-match selection, then bind confirmation to an immutable list of explicit IDs.",
+      "implementation": "Provide keyboard-operable “Select these 25” and “Select all 600 matching.” Confirm count, filter summary, and target status; retain that summary during execution.",
+      "check": "With a screen reader, confirm all matches, change filters, and verify every submitted ID belongs to the original confirmed set.",
+      "risk": "If selection resolution fails, disable confirmation rather than show an estimated count."
+    },
+    {
+      "action": "Reject records changed since confirmation",
+      "mechanism": "Atomic per-record version checks prevent intervening edits from being silently overwritten during a long-running operation.",
+      "implementation": "Capture versions alongside confirmed IDs. At each write, compare the current version atomically; return a conflict outcome on mismatch.",
+      "check": "Modify one selected record between confirmation and execution. Verify that record remains untouched while unchanged records receive their requested status.",
+      "risk": "Separate preflight reads cannot close the race; backend write guards are required."
+    },
+    {
+      "action": "Recover only unsuccessful records",
+      "mechanism": "A durable outcome ledger separates successes, retryable failures, conflicts, and unresolved requests without rebuilding selection from filters.",
+      "implementation": "Persist per-ID outcomes and idempotency keys. Offer keyboard-accessible “Retry failed”; reconcile unresolved requests first, and require renewed confirmation for conflicts.",
+      "check": "Inject mixed failures and a lost response. Verify retry excludes recorded successes, uses only confirmed IDs, and announces remaining failures.",
+      "risk": "Without server-side deduplication or outcome lookup, lost responses cannot be safely retried."
+    },
+    {
+      "action": "Explain reversal eligibility per record",
+      "mechanism": "Each successful change carries its prior status, reversal deadline, and resulting version, making eligibility independently explainable.",
+      "implementation": "Atomically reverse only before the deadline and when the resulting version still matches. Show keyboard-reachable reasons: “Ten minutes elapsed” or “Record changed afterward.”",
+      "check": "Test eligible, expired, subsequently changed, and deadline-crossing reversals. Verify outcomes and screen-reader-readable explanations, including when both restrictions apply.",
+      "risk": "Displayed eligibility can become stale; execution must recheck both conditions."
+    }
+  ],
+  "abstention_reason": ""
+}

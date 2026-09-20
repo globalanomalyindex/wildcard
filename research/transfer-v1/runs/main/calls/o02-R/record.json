@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "o02-R",
+  "request_sha256": "0ba26d473d038d3fa1f8dbf11f115591334c42558bb907ec5e33247324df6aa6",
+  "prompt_sha256": "4953da9af43f23489ec693beab4e1eeb5bbe8442eb1f9cdd0d68b7635d213ac0",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:47.077449+00:00",
+  "finished_at": "2026-09-20T20:13:06.788569+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.709248583999965,
+      "usage": {
+        "input_tokens": 7251,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 550,
+        "reasoning_output_tokens": 109
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "56bb74d856e8e32a84522576107f411e7bb6b72b336b5d4d1c37f2a3f2b6e93a",
+      "stderr_sha256": "4dc6b4d0f23b5ddae86beaef390dbc2139eafe646167747f0dfc481b243dd3a4"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind approvals to exact paragraph revisions",
+        "mechanism": "Approval records identify source and translation revisions; publication rejects mismatches rather than inheriting approval through stable IDs.",
+        "implementation": "Store immutable paragraph revisions and approval tuples containing both IDs, both revision IDs, and reviewer identity. Validate against the publication manifest.",
+        "check": "Edit an approved source paragraph: publication must block its translation. An unchanged paragraph must retain its matching approval.",
+        "risk": "Checks must run atomically with publication to prevent revision races."
+      },
+      {
+        "action": "Show reviewers precisely what changed",
+        "mechanism": "A compact change list directs attention; full before-and-after context remains available for judging accuracy.",
+        "implementation": "Group changes by stable paragraph ID. Display source differences, translation differences, approval status, and moves separately; link to full surrounding text.",
+        "check": "Test one move, one unchanged paragraph, and one substantive edit. Show the move without deletion/recreation, omit unchanged work, and flag the edit.",
+        "risk": "Small textual edits can change meaning; never classify accuracy automatically."
+      },
+      {
+        "action": "Track context that can invalidate neighboring translations",
+        "mechanism": "Explicit dependencies capture meaning affected by headings, references, terminology, or paragraph placement, even when paragraph text stays unchanged.",
+        "implementation": "Let reviewers attach dependency IDs to approvals. On dependency edits or moves, require context reapproval for linked paragraphs without resetting unrelated approvals.",
+        "check": "Move a paragraph containing “above” beneath its referent: its context approval must expire. Moving an independent paragraph must preserve its content approval.",
+        "risk": "Missing dependencies can hide indirect effects; reviewers must inspect move context."
+      },
+      {
+        "action": "Assign bounded review work across two volunteers",
+        "mechanism": "Exclusive assignments and revision-bound submissions prevent duplicate effort and stop obsolete review work from clearing newer changes.",
+        "implementation": "Maintain one pending item per affected paragraph per language. Assign either volunteer; reserve the other for uncertainty. Supersede pending items when revisions change.",
+        "check": "During an assigned review, edit its source again. Submitting the older review must leave the latest revision pending and unpublished.",
+        "risk": "Disputed paragraphs may remain blocked when both volunteers cannot agree."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "8d38e5bafe5c59e74472302d27aa590eb03ab6d24aa0d3f09e2e3e8dbec79765",
+  "raw_output_sha256": "f7a41926b45615b0d2caf3e9c271a3468c3e0528b76565056c533f8ae2350b99"
+}

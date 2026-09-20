@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "i05-bank-2",
+  "request_sha256": "e222722261f9c8a2820279adc7f0f8216a37b0929ec35edfc923b30978cc62d1",
+  "prompt_sha256": "05c19a95371b0e7103302e29f25b686e1a0f1ca63953acce396ba03054618139",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:00:09.501025+00:00",
+  "finished_at": "2026-09-20T20:00:47.942185+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 38.43810591699997,
+      "usage": {
+        "input_tokens": 7125,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1166,
+        "reasoning_output_tokens": 205
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "98dbfa7b9e7cdbadcea3715336010570a6e51d2f7728d811a71d8e0955bbf294",
+      "stderr_sha256": "b72ac0039bbfbf0b138a2476868baaf4c0380e05170861fbf34d292259437a9b"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Classify reachability without overstating search results",
+        "mechanism": "Analyze scene-and-state configurations; keep proof results separate from bounded exploration and unsupported code.",
+        "implementation": "Declare entry states and step, state-count, and time limits. Label scenes reachable, proven unreachable, or unresolved, with the stopping reason.",
+        "check": "A discovered path establishes reachability; exhausting a complete supported model can establish unreachability. Hitting any search limit cannot.",
+        "risk": "Incorrect entry assumptions invalidate otherwise sound conclusions."
+      },
+      {
+        "action": "Analyze whether loops can actually exit",
+        "mechanism": "State-aware cycle analysis distinguishes repeated scenes from recurring configurations and tests feasible exits.",
+        "implementation": "Find cyclic scene groups, then analyze their reachable states. Distinguish optional looping, forced eventual exit, and proven inescapable regions.",
+        "check": "A counter-incrementing loop exits after three visits; an impossible exit yields a closed-region proof, not merely a cycle warning.",
+        "risk": "A feasible exit does not guarantee players select it."
+      },
+      {
+        "action": "Find playable states with no available choices",
+        "mechanism": "A reachable non-ending configuration is stuck when every outgoing choice condition is false.",
+        "implementation": "Let authors mark intended endings. Search other scenes for reachable states satisfying the negation of every choice condition.",
+        "check": "Provide a replayable entry path and evaluate every disabled choice at the stuck state; marked endings should not trigger this warning.",
+        "risk": "External events must be modeled before declaring a dead end."
+      },
+      {
+        "action": "Make every warning inspectable",
+        "mechanism": "An evidence panel exposes executable traces or checkable explanations when no concrete path exists.",
+        "implementation": "Display choices, state changes, and condition evaluations. For proven unreachability, display the entry assumptions and blocking invariant or exhaustive reachable-state boundary.",
+        "check": "Replay each trace through runtime semantics. Independently validate proof evidence; unresolved findings must show their limit and partial exploration, not a fabricated counterexample.",
+        "risk": "Editor and runtime semantic differences can invalidate evidence."
+      },
+      {
+        "action": "Record narrowly scoped author intentions",
+        "mechanism": "Exceptions acknowledge a specific finding without hiding different problems in the same scene.",
+        "implementation": "Attach reasoned acknowledgments to finding type, scene or branch IDs, relevant state predicate, and analysis assumptions. Flag acknowledgments for review after relevant edits.",
+        "check": "Acknowledging an intentional loop leaves a dead-end warning visible there; acknowledging a hidden scene does not suppress unreachable warnings elsewhere.",
+        "risk": "Overbroad state predicates can conceal unintended cases."
+      },
+      {
+        "action": "Direct additional exploration toward unresolved scenes",
+        "mechanism": "Goal-directed constraint search prioritizes unexplored targets instead of repeatedly traversing already covered paths.",
+        "implementation": "Let writers select an unresolved scene and allocate another explicit budget. Search predecessor conditions backward, then replay candidate paths forward.",
+        "check": "A validated candidate changes the result to reachable. Budget exhaustion or an unsupported condition leaves it unresolved and records the stopping reason.",
+        "risk": "Backward constraints may expand rapidly across loops."
+      },
+      {
+        "action": "Prove blocking state invariants",
+        "mechanism": "Conservative ranges and value sets can rule out conditions without enumerating every concrete state.",
+        "implementation": "Propagate overapproximated variable values through updates; verify candidate invariants against entry states and all transitions. Treat unsupported updates as unknown effects.",
+        "check": "If a verified invariant gives keys at most two, an exit requiring three is impossible; approximation overlap alone cannot establish reachability.",
+        "risk": "Coarse approximations may leave many findings unresolved."
+      },
+      {
+        "action": "Keep executable regression stories",
+        "mechanism": "Small fixtures and saved witness replays detect semantic and warning-classification regressions.",
+        "implementation": "Create fixtures for three-visit exit, impossible exit, intentional hidden scene, optional endless looping, dead end, and budget exhaustion. Run them after analyzer changes.",
+        "check": "Assert exact expected statuses, replayable evidence, retained acknowledgments, and unrelated warnings. The budget-exhaustion fixture must never become proven unreachable solely from timing out.",
+        "risk": "Fixtures cover selected behaviors, not arbitrary embedded code."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "01b420cb73e16d6021fff8941d5c9a98bfdb2ed1b39993eccbe1ce6d51146aee",
+  "raw_output_sha256": "3dd199d63c3f021b16943ee57b07edd2b6ea81b164e860030383072a11e536a0"
+}

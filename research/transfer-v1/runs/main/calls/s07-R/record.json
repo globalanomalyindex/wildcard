@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s07-R",
+  "request_sha256": "a4216cc804a2e742c5e4b63d9555c6763b56a353de13db76f2344cd048e712f2",
+  "prompt_sha256": "567f90d044a8ef8520631c74fc94379ea24db4c0c24e89170fcc0f3c42c3357c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:14:38.667433+00:00",
+  "finished_at": "2026-09-20T20:15:01.287011+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.6168469590001,
+      "usage": {
+        "input_tokens": 7275,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 634,
+        "reasoning_output_tokens": 83
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "530a8c29840632e3b23de731535134dfa90cc158d2a43a4041aaaf6963d9c285",
+      "stderr_sha256": "946433e445cc78ac33f51a7f2f377bcc451d41c136eb88c6479103ac86401dfb"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Commit row outcomes with replay-safe batch checkpoints",
+        "mechanism": "Atomic batches couple accepted writes, row outcomes, and progress so retries cannot duplicate committed work.",
+        "implementation": "Uniquely identify outcomes by tenant, file digest, and source line. Transactionally commit outcomes, target writes, and record-boundary checkpoints. Reject conflicting natural keys explicitly.",
+        "check": "Disconnect before and after commits; replay repeatedly. Verify identical target contents, one outcome per row, and no checkpoint beyond committed work.",
+        "risk": "Concurrent imports require database-enforced natural-key uniqueness."
+      },
+      {
+        "action": "Quarantine invalid rows with actionable rejection reports",
+        "mechanism": "Explicit validation and isolated constraint failures preserve valid rows without coercing invalid references.",
+        "implementation": "Record source line, natural key, field, rejected value, and error code. Roll back and bisect failed batches to isolate row errors; retry infrastructure failures separately.",
+        "check": "Mix valid rows, missing references, and concurrent reference deletions. Verify valid rows commit and every rejection identifies its cause without substituted values.",
+        "risk": "Rejection reports need access controls and sensitive-value redaction."
+      },
+      {
+        "action": "Separate resumable upload from bounded-memory processing",
+        "mechanism": "A finite durable spool survives connection loss and decouples upload rate from database processing.",
+        "implementation": "Persist upload offsets and chunk checksums; verify the supplied digest before import. Enforce spool quotas, backpressure, and a 96 MB worker limit; stream CSV with bounded records.",
+        "check": "Interrupt a 4 GB upload, exhaust spool capacity, and submit oversized records. Verify resumability, explicit errors, digest verification, and peak memory below 128 MB.",
+        "risk": "Finite storage requires expiration and cleanup; sustained overload still needs admission control."
+      },
+      {
+        "action": "Publish partial status and reconcile linked corrections",
+        "mechanism": "A durable outcome ledger distinguishes incomplete processing from completed partial acceptance and tracks subsequent repairs.",
+        "implementation": "At verified EOF, reconcile parsed records against accepted and rejected outcomes. Publish counts and partial status. Link corrected submissions to original rejection IDs; retain history.",
+        "check": "Verify accepted plus rejected equals parsed records, accepted outcomes match target writes, and corrected rows resolve only their linked rejections. Interrupted parsing must remain incomplete.",
+        "risk": "Do not report complete reconciliation when malformed CSV prevents reliable record boundaries."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "64455e36eede241510e9eb1bcb6bb3fa8555ba453487d1d8f319254106d05c11",
+  "raw_output_sha256": "924c88c49c929357353a25216216fc2eae96f9fe3c8df6a38aa31d1800b1e4b0"
+}

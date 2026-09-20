@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p07-LR",
+  "request_sha256": "0bfd53f9c2a2f3baaeca0db46bbb23a49d32421a249816117300d6006bfb64e6",
+  "prompt_sha256": "0b29d7449b672ec91366eedc5cb825111e1ffc1f8b37539e4047baa272ba1ad7",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:10:45.118558+00:00",
+  "finished_at": "2026-09-20T20:11:05.053118+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.931753207999975,
+      "usage": {
+        "input_tokens": 7273,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 538,
+        "reasoning_output_tokens": 46
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f344c18a7c8e5a75ba10c3f995bc17f4d396c11726135b7a9533bcc89a1af223",
+      "stderr_sha256": "a236bb8ba82be20cbc91959d551c07c6f37dd2856434163ee4229783a16e33bc"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Compare both drafts against their shared revision",
+        "mechanism": "Three-way comparison separates independent edits from divergent changes without relying on edit timestamps.",
+        "implementation": "Retain the loaded baseline. After stale-save rejection, fetch the current revision; merge one-sided and identical changes, flagging divergent fields.",
+        "check": "Test a stale tab edited after the other tab saved: independent changes survive; divergent changes become conflicts.",
+        "risk": "Missing baselines must trigger explicit comparison, never guessed reconciliation."
+      },
+      {
+        "action": "Resolve conflicting fields inside the current tab",
+        "mechanism": "Field-specific comparisons show relevant differences while leaving automatically combined fields out of the required resolution flow.",
+        "implementation": "Show labeled local, saved, and baseline values. Provide expandable text differences, an editable result, and explicit single-choice selection; retain originals.",
+        "check": "Resolve long-text and single-choice conflicts without switching windows, dragging, copying, or retyping independent edits.",
+        "risk": "Truncated previews can conceal differences; full values must remain accessible."
+      },
+      {
+        "action": "Keep recoverable snapshots before resolving conflicts",
+        "mechanism": "Separate recovery history preserves both text versions even when users choose one or rewrite the result.",
+        "implementation": "Persist baseline, local text, fetched text, and resolution progress in per-tab recovery records before replacement; expose restore controls within the editor.",
+        "check": "Choose one version, reload, then restore the other text without another window; verify simultaneous tabs cannot overwrite recovery records.",
+        "risk": "Storage failure must block destructive replacement; retained text needs privacy safeguards."
+      },
+      {
+        "action": "Recheck the revision when saving resolved drafts",
+        "mechanism": "Revision-conditional draft saves prevent another intervening save from invalidating the user's completed resolution.",
+        "implementation": "Submit the resolved draft against its compared revision. On rejection, preserve it and repeat comparison against the newest document; keep publishing separate.",
+        "check": "Inject another save during resolution: stale submission is rejected, new conflicts appear, and no publish request occurs.",
+        "risk": "Repeated intervening saves may require another resolution pass."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "a2c1a713be6007e9b8ecf32d6d93cbab114c04ab1b7fb2341a1b0d1446abba0f",
+  "raw_output_sha256": "c032048eb9873c914bfda60a77927efb4ab199e069493436133132041a0fcb18"
+}

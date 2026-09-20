@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "p01-judge-2",
+  "request_sha256": "2b09b8c1c362de15db5b5041166f7ed2cac9d610d140fa694de76000a4c7cf4d",
+  "prompt_sha256": "bce3b07645d5ef00a2a4372315c82a6507d438b8cf0cd515d9bc924c33a08c32",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:26:23.600815+00:00",
+  "finished_at": "2026-09-20T20:26:43.470343+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.86773100000005,
+      "usage": {
+        "input_tokens": 7685,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 924,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "42e1bb1334492e68ebd7d7fe443f0ce22f556c6a55576c10bd2e02a11f78cb56",
+      "stderr_sha256": "58884387da005fa63c9deab8a7829b475bc7f4774fc02186672fa8da467c1ef4"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "40dd671d83c52abe",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "privacy_lock_code",
+        "reason": "It replaces deletion with a local encrypted draft masked after inactivity and resumed by an anonymous code, with tests for reconstruction, exposure, and offline operation."
+      },
+      {
+        "id": "8c86e28234977207",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d8071a0fbf3b646d",
+        "mechanism_group": "isolated_new_session",
+        "reason": "It creates an isolated Start new path that clears presentation state while preserving explicit confirmation and offline draft behavior."
+      },
+      {
+        "id": "72536d956e21b9c0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46a615b6562a0fba",
+        "mechanism_group": "public_untimed_reading",
+        "reason": "It separates generic reading material from private selections so slow reading can continue without exposing the cart."
+      },
+      {
+        "id": "91151d30823d349a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a5191845704db11",
+        "mechanism_group": "defer_purge_personal_details",
+        "reason": "It defers personal details to checkout, purges them on interruption, preserves tickets, and keeps confirmation explicit offline."
+      },
+      {
+        "id": "8663a0b99e7d677c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3fb843ad23f54570",
+        "mechanism_group": "defer_purge_personal_details",
+        "reason": "It retains non-identifying ticket choices while erasing personal details on lock or Start new, with checks across screen, speech, and logs."
+      },
+      {
+        "id": "02d2cf122a9ad6d3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46a615b6562a0fba",
+        "mechanism_group": "public_untimed_reading",
+        "reason": "It provides untimed generic reading screens with private selections hidden behind a resume code and observable handoff tests."
+      },
+      {
+        "id": "dd40b1f62ec44dee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "privacy_lock_code",
+        "reason": "It uses a local encrypted draft and recovery code to lock rather than delete selections after idle timeout."
+      },
+      {
+        "id": "61ff18a446cb709c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d8071a0fbf3b646d",
+        "mechanism_group": "isolated_new_session",
+        "reason": "It defines accessible Resume and Start new controls that clear visible, audio, and navigation state for safe handoff."
+      },
+      {
+        "id": "2c4d9100c1807653",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3fb843ad23f54570",
+        "mechanism_group": "defer_purge_personal_details",
+        "reason": "It separates cart recovery from personal-data retention and tests Back, resume, screen reader, and explicit purchase submission."
+      },
+      {
+        "id": "036ebc20823ce451",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "privacy_lock_code",
+        "reason": "It establishes a local resume code, hides the session on inactivity, retains encrypted carts, and tests recovery and Start new privacy offline."
+      },
+      {
+        "id": "97d3770dbecbb092",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5e33791a12faee91",
+        "mechanism_group": "privacy_lock_code",
+        "reason": "It locks abandoned sessions behind a visitor secret while locally retaining the cart and testing exposure to later visitors."
+      },
+      {
+        "id": "b869f6247037d33e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46a615b6562a0fba",
+        "mechanism_group": "public_untimed_reading",
+        "reason": "It keeps lengthy nonpersonal explanations untimed and excludes selections or personal details, with comparison tests for interruptions and exposure."
+      }
+    ]
+  },
+  "result_sha256": "0431641e512411acbe075c7f2912e1a532d825e0d118a85820df5327bc21f2bc",
+  "raw_output_sha256": "d3179f41fd65e4ec8bd361b8e23573d442e2d95214b15ab6803258fe0d079cf2"
+}

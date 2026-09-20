@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "i08-bank-1",
+  "request_sha256": "b0801b8e9fb90e5c4a1819d205e74074eef6f8667a118a834e8450660ecd8b6a",
+  "prompt_sha256": "47376a0f6b6abe1a9aadf214d5c35ad6d67a74aab926fe2ab0fa62f14fcc3390",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:57:39.839799+00:00",
+  "finished_at": "2026-09-20T19:58:15.705069+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.86405316700001,
+      "usage": {
+        "input_tokens": 7126,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1059,
+        "reasoning_output_tokens": 89
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a4bf26ff39269c62abee2852caf2bdf082bfbc36b30d4edb38e09500d3add2ff",
+      "stderr_sha256": "112644c2ba0b9768f94f92af89b3b2f02d63be3e2337e718294887fc07cc2109"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve an immutable highlight source",
+        "mechanism": "Separate the original selection from its current attachment so migration never overwrites the reader's source.",
+        "implementation": "Store original text, revision ID, range, surrounding context, and a reference to an immutable revision snapshot; keep later attachments separately.",
+        "check": "After successive edits and migrations, opening the original highlight must reproduce its original text and revision.",
+        "risk": "Revision retention increases storage and requires explicit deletion policies."
+      },
+      {
+        "action": "Track passage identity through editor operations",
+        "mechanism": "Persistent passage IDs and recorded edit operations distinguish moves from copies without relying on textual similarity.",
+        "implementation": "Preserve IDs on moves, assign new IDs on copies, and record split or merge ancestry. Flag edits intersecting highlighted text for review.",
+        "check": "Moving a paragraph preserves its note and operation history; duplicating it does not duplicate or redirect the attachment.",
+        "risk": "Imported revisions may lack trustworthy identity or operation history."
+      },
+      {
+        "action": "Find moved passages across the entire document",
+        "mechanism": "Whole-document exact search finds relocation candidates that a local offset search would miss, while preserving occurrence distinctions.",
+        "implementation": "Index exact selected text and surrounding blocks across sections. Record every occurrence, section path, and context comparison; require confirmation without reliable identity evidence.",
+        "check": "A moved paragraph appears among candidates; identical repeated sentences remain separate candidates rather than collapsing into one.",
+        "risk": "Textual uniqueness alone cannot prove historical passage identity."
+      },
+      {
+        "action": "Make uncertainty a first-class attachment state",
+        "mechanism": "Explicit states prevent a candidate ranking or search failure from masquerading as a verified attachment.",
+        "implementation": "Use verified, pending-review, ambiguous, unresolved, and deleted states. Similarity search may suggest candidates but cannot commit attachments; display competing candidates without a default selection.",
+        "check": "Repeated sentences yield ambiguity without identity evidence; changing 'must' to 'may' cannot silently produce a verified attachment.",
+        "risk": "Conservative rules can increase the reader's review workload."
+      },
+      {
+        "action": "Provide contextual comparison before accepting changed passages",
+        "mechanism": "Side-by-side revision views let readers inspect wording and context before deciding whether a note still applies.",
+        "implementation": "Show original and proposed passages with revision labels, section paths, surrounding paragraphs, and exact additions and deletions. Offer accept, choose another, or leave unattached.",
+        "check": "A one-word negation change remains visible; rejecting the proposal leaves the note and original source unchanged.",
+        "risk": "Narrow excerpts can conceal meaning changes in surrounding material."
+      },
+      {
+        "action": "Keep deleted passages as readable note anchors",
+        "mechanism": "An unattached historical anchor preserves useful notes without pretending their source still exists in the current document.",
+        "implementation": "Display an unavailable-source card containing the original passage, revision link, and unchanged notes. Mark deletion only with operation evidence or user confirmation; otherwise label unresolved.",
+        "check": "Deleting a highlighted passage leaves its notes searchable and readable, with no current-document attachment.",
+        "risk": "Incomplete matching could otherwise mislabel a moved passage as deleted."
+      },
+      {
+        "action": "Record and reverse every attachment decision",
+        "mechanism": "An append-only decision history makes retained notes traceable and permits correction without modifying their original source.",
+        "implementation": "Record old and new revision ranges, matching evidence, decision method, and user approval where applicable. Add undo that restores the previous attachment state.",
+        "check": "For a retained moved-paragraph note, inspect its evidence and undo the attachment; original text and note content must remain intact.",
+        "risk": "Evidence records must remain accessible alongside retained revisions."
+      },
+      {
+        "action": "Test attachment behavior with adversarial revision fixtures",
+        "mechanism": "Expected attachment states expose unsafe transfers independently of whether a search algorithm returns plausible-looking passages.",
+        "implementation": "Create fixtures for identical repeated sentences, paragraph moves, negation edits, deletion, and copy-then-delete. Assert candidate ranges, attachment states, preserved sources, and decision evidence.",
+        "check": "Run fixtures in continuous integration; fail on unexpected automatic attachment, lost notes, hidden ambiguity, or missing original revision data.",
+        "risk": "Passing fixtures does not establish reliability on every document."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d38f1d4c0825c14ab8a4da298f669108449ff13381db7e29c48d3663034ae24e",
+  "raw_output_sha256": "1f3db190dadfad902fe3dc15f452225074ca0fb9fe39412a184c98432c6b4981"
+}

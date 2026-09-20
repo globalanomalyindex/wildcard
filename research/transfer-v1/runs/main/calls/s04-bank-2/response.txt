@@ -1,0 +1,47 @@
+{
+  "actions": [
+    {
+      "action": "Enforce expiry at the display boundary",
+      "mechanism": "Check expiry locally on every display decision, independently of connectivity, refresh schedules, and configuration downloads.",
+      "implementation": "Hide timestamped items when device time reaches expiry; schedule removal of already-visible items. Recheck after wake and before presenting another frame.",
+      "check": "Disconnect for six hours with clocks offset by ±30 seconds. Verify no expired item remains visible after expiry plus 30 seconds.",
+      "risk": "Rendering delays must not extend the clock-error allowance."
+    },
+    {
+      "action": "Preserve clock confidence across restart and suspension",
+      "mechanism": "Expiry enforcement depends on a valid clock-error bound, including after reboot, suspension, and clock corrections.",
+      "implementation": "Track clock validity across lifecycle transitions. If the 30-second bound cannot be established, suppress timestamped items and show a timing-status warning.",
+      "check": "Restart offline, suspend across an expiry, and simulate clock rollback. Verify timestamped items disappear whenever clock confidence becomes invalid.",
+      "risk": "Failing closed can hide announcements that remain valid."
+    },
+    {
+      "action": "Persist revisioned removals before acknowledging synchronization",
+      "mechanism": "Durable per-ID revision watermarks prevent delayed updates from restoring an older removed announcement.",
+      "implementation": "Assign removals revisions in the same ordered sequence as updates. Persist tombstones atomically; reject lower revisions and let removal win equal-revision conflicts.",
+      "check": "Deliver an update, a newer removal, then replay the update after reboot. Verify the announcement stays absent.",
+      "risk": "Tombstones require safe compaction; revision counters must never reset."
+    },
+    {
+      "action": "Reconcile through atomic authoritative snapshots",
+      "mechanism": "A complete snapshot replaces ambiguous partial state and allows removal history to be compacted safely.",
+      "implementation": "Stage a complete snapshot with a monotonic generation and synchronization cursor. Atomically replace active state; reject older snapshots and changes predating its cursor.",
+      "check": "Interrupt installation at every persistence boundary, then replay pre-snapshot changes. Verify recovery uses one complete generation and absent items stay absent.",
+      "risk": "Incorrect snapshot completeness or cursor semantics can resurrect items."
+    },
+    {
+      "action": "Make offline freshness limitations visible",
+      "mechanism": "Separate local expiry guarantees from revocation freshness so cached announcements do not imply current authorization.",
+      "implementation": "Display offline status and last completed synchronization time. State: “Scheduled expiries remain enforced; removals, including emergency removals, cannot arrive while offline.” Keep until-revoked items eligible.",
+      "check": "During a six-hour outage, verify the notice remains visible, synchronization age advances, and until-revoked items are not falsely labeled freshly verified.",
+      "risk": "An unobtrusive notice may be overlooked by viewers."
+    },
+    {
+      "action": "Enforce the bundle limit before publication",
+      "mechanism": "Admission control prevents oversized configurations without silently truncating announcements, removal records, or synchronization metadata.",
+      "implementation": "Measure the final serialized bundle, including its envelope, and require fewer than 100,000 bytes. Reject oversized publications; use compact encoding and snapshot-based history compaction.",
+      "check": "Test bundles at 99,999 and 100,000 bytes. Verify only the former publishes and rejected updates leave the prior configuration intact.",
+      "risk": "Rejected publications delay changes; surface the failure to operators."
+    }
+  ],
+  "abstention_reason": ""
+}

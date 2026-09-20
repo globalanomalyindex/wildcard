@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "o04-S",
+  "request_sha256": "c66503602bbb61b51d237f51c903cfe8dee2cc0d45b86f901631eda75dbc17e7",
+  "prompt_sha256": "ba61e1f5c194c52b627fe386c870348ce9e1666badc4bebaa2d56087da698c8f",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:39.423928+00:00",
+  "finished_at": "2026-09-20T20:12:59.735315+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.309361999999965,
+      "usage": {
+        "input_tokens": 7131,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 546,
+        "reasoning_output_tokens": 124
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "13920c837cd10818002c23bc4ad40fa25ea0b47768e221080f7a73bda6ac8700",
+      "stderr_sha256": "cff97f5ebe20c6c6729a4f38ca85f0658cf3188e5f4b33375dca8427962313eb"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve queue age across every reroute",
+        "mechanism": "Order eligible cases by immutable original arrival time, using a stable sequence number to break ties.",
+        "implementation": "Make arrival time write-once. Reroute the existing case instead of recreating it; record tag changes separately from queue priority.",
+        "check": "Submit simultaneous arrivals, then correct wrong tags repeatedly. Verify timestamps remain unchanged and ordering follows arrival time and sequence.",
+        "risk": "Age preserves priority among eligible cases, not immediate service."
+      },
+      {
+        "action": "Assign against current qualifications and shift capacity",
+        "mechanism": "Use roster-constrained matching; preserve scarce qualifications when another eligible worker can serve the same case.",
+        "implementation": "Require language, product expertise, and explicit urgent qualification. Atomically recheck roster availability and capacity when committing each assignment.",
+        "check": "Test concurrent assignments, shift changes, and zero eligible urgent staff. Reject invalid assignments; keep uncovered urgent cases queued and alert coverage owners.",
+        "risk": "Roster errors can block service or permit unsuitable assignments."
+      },
+      {
+        "action": "Show separate skill and information waiting states",
+        "mechanism": "Track missing staffing and missing customer information independently, allowing both blockers without resetting case age.",
+        "implementation": "Display blocker reasons, original arrival time, and next-action owner. Request specific missing information; reevaluate staffing blockers whenever the roster changes.",
+        "check": "Create cases with each blocker and both together. Resolve them separately; verify accurate labels and restored arrival-based priority when service-ready.",
+        "risk": "Unnecessary information requests could conceal staffing delays; audit blocker changes."
+      },
+      {
+        "action": "Validate routing tags before handing cases off",
+        "mechanism": "Separate uncertain routing labels from verified requirements, preventing guessed tags from authorizing an ineligible assignment.",
+        "implementation": "Use structured language and product confirmation plus explicit urgency criteria excluding customer status and spending. Send uncertain cases to clarification without changing arrival time.",
+        "check": "Inject incorrect tags and ambiguous language. Verify confirmation before assignment; vary spending alone and confirm urgency remains unchanged.",
+        "risk": "Verification adds delay; keep clarification short and visibly tracked."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "55a7ec56c7364c07d86120e80801b766854acc734e839592def18115152ca4a5",
+  "raw_output_sha256": "81eac03b5b02e9b6364b5f5ed6b89561c6a5f037c17edb8bdfbf976040fd0a57"
+}

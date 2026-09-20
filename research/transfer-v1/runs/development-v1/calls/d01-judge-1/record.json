@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "d01-judge-1",
+  "request_sha256": "d6a0aeb6b5d4fd2fd8cc9f0ba1084e6209ad4a24b843d038d62f54dde70000c0",
+  "prompt_sha256": "423b2c828ac2e98ac44d87efb30b00da0479d6df539a20e283339ff0aa9aea07",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:45:45.127919+00:00",
+  "finished_at": "2026-09-20T19:45:59.209669+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 14.079787124999998,
+      "usage": {
+        "input_tokens": 9466,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 342,
+        "reasoning_output_tokens": 19
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f0139ea787af2f5b1020b04b11ee55f29da81f427f82af4e2ba0ba7cb0070376",
+      "stderr_sha256": "265984c6ac61d4215caff31fe91c42c18e2563cd194dce0bc709800c392b4059"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "d0006bc7bcfc82ce",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6685fdad15c92b5d",
+        "mechanism_group": "direct_numeric_placement",
+        "reason": "Keyboard-operated final-position entry reorders existing IDs with session undo history and checks restoration of the prior sequence."
+      },
+      {
+        "id": "3739a26091fa6ddc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e00c1301f24c3371",
+        "mechanism_group": "keyboard_reorder_mode",
+        "reason": "Explicit keyboard mode supports incremental placement, cancellation, and undoable commitment, with a check of all 40 original IDs."
+      },
+      {
+        "id": "90e56e7e51bd40a6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7284ab448df5efc9",
+        "mechanism_group": "relative_named_placement",
+        "reason": "Keyboard-searchable before/after placement resolves stable destination IDs and tests adjacency and complete sequence restoration through undo."
+      },
+      {
+        "id": "ef56753bce9b17dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "be5ef1a15f40b185",
+        "mechanism_group": "page_lifetime_snapshot_undo",
+        "reason": "Uncapped page-lifetime ID snapshots and a keyboard-accessible undo button preserve identities and permit reversal of every committed reorder."
+      }
+    ]
+  },
+  "result_sha256": "fe2d1c9972fa6fd2135ba823aa7008d4f4ef6d48b37772fedee50aca9cbf8de4",
+  "raw_output_sha256": "b1d18825b63aa8551df734b1c5345d86029f5588c37f07f72d78ede4fe12b5e7"
+}

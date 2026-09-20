@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "p07-judge-1",
+  "request_sha256": "3f1996fc4bdebc55100f93ee3b9d23c921f1473ff2d413aa9e44f226df188f83",
+  "prompt_sha256": "2f92fdbe30cd79d5cbef34f9e127254a27cf34073a3b7512a1bcad41415bf41e",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:23:25.488504+00:00",
+  "finished_at": "2026-09-20T20:24:09.171973+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 43.67998345799998,
+      "usage": {
+        "input_tokens": 10931,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1215,
+        "reasoning_output_tokens": 83
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "70ba781f139c37656e9c912f5bcf9b1332a67e78bae8f8e78f207522499e4f41",
+      "stderr_sha256": "3dbdbb4c50904f57195682fe05e395a9f8fc241525d5e994595a1223f69cb4ae"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "c2121063a35f72d1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a40f7dfeadb31a7d",
+        "mechanism_group": "field_resolution",
+        "reason": "Explicit field controls retain originals and enable same-tab resolution into an unpublished draft."
+      },
+      {
+        "id": "f6736d50abbd4ede",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b4631bd351587a3a",
+        "mechanism_group": "recovery_history",
+        "reason": "IndexedDB checkpoints and in-editor restoration preserve displaced text, with reload recovery explicitly tested."
+      },
+      {
+        "id": "18004227289eff64",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a40f7dfeadb31a7d",
+        "mechanism_group": "field_resolution",
+        "reason": "Labeled field comparisons and editable results isolate conflicts while retaining originals and avoiding window-to-window copying."
+      },
+      {
+        "id": "a6643e419193cf46",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c3acc7896202c66e",
+        "mechanism_group": "three_way_merge",
+        "reason": "Baseline-based comparison carries independent changes into a draft and tests late edits in an already stale tab."
+      },
+      {
+        "id": "864b451335db0542",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0577ba08170c94b9",
+        "mechanism_group": "advisory_revision_notifications",
+        "reason": "Advisory broadcasts leave drafts intact while server rejection remains authoritative even when messages are dropped."
+      },
+      {
+        "id": "f275a5d7fc56ae7d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a40f7dfeadb31a7d",
+        "mechanism_group": "field_resolution",
+        "reason": "Same-tab conflict controls retain alternatives, leave independent edits untouched, and require separate publishing."
+      },
+      {
+        "id": "76ed8aa7033ad87d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "eca1f41459a58692",
+        "mechanism_group": "conditional_resolution_save",
+        "reason": "Revision-conditional draft saving preserves reviewed text on rejection and tests another save during resolution."
+      },
+      {
+        "id": "8c718ec7114566ac",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "539ca08db9cf4706",
+        "mechanism_group": "conditional_resolution_save",
+        "reason": "Conditional submission detects intervening updates, preserves the resolved draft, and keeps publication separate."
+      },
+      {
+        "id": "6771d6390617a8e9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3e066ce3bc3a29ac",
+        "mechanism_group": "three_way_merge",
+        "reason": "Loaded, local, and server values distinguish independent edits from conflicts while preserving both drafts."
+      },
+      {
+        "id": "92d21f921918fc7f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b4631bd351587a3a",
+        "mechanism_group": "recovery_history",
+        "reason": "Per-tab durable snapshots support same-editor recovery after reload and test isolation between simultaneous tabs."
+      },
+      {
+        "id": "0cf19c38f3a2f001",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c3acc7896202c66e",
+        "mechanism_group": "three_way_merge",
+        "reason": "Three-way merging preserves originals and independent edits in an unpublished draft, including the required late-edit scenario."
+      },
+      {
+        "id": "532f8d92425e0846",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3e066ce3bc3a29ac",
+        "mechanism_group": "three_way_merge",
+        "reason": "Baseline comparison merges one-sided and identical changes while flagging divergence without relying on edit timestamps."
+      },
+      {
+        "id": "02c9e41b91700fb3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "81dcc9626a5afc4f",
+        "mechanism_group": "recovery_history",
+        "reason": "Durable checkpoints preserve both text alternatives, and the check blocks replacement when preservation fails."
+      },
+      {
+        "id": "72d3aa95f7b8203a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b4631bd351587a3a",
+        "mechanism_group": "recovery_history",
+        "reason": "Tab-specific archives and restore controls make displaced text recoverable after reload without cross-window copying."
+      },
+      {
+        "id": "9fcee8b5d9593306",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a40f7dfeadb31a7d",
+        "mechanism_group": "field_resolution",
+        "reason": "Explicit per-conflict confirmation and editable alternatives enable same-tab resolution without retyping independent edits."
+      },
+      {
+        "id": "283d42b1b61401fa",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": true,
+        "baseline_match": "a31601b579810f28",
+        "mechanism_group": "advisory_revision_notifications",
+        "reason": "Advisory notifications preserve drafts, but fetching the exact announced revision assumes historical-revision access not established by the task."
+      }
+    ]
+  },
+  "result_sha256": "c8cf8ee36c3a5570c341079c1107185cd4b00b3e81bf445efb05275ef53b5c78",
+  "raw_output_sha256": "3c7c02e03247696ee627a18f4e0c5f8d849c0487f9b6b26efeebd63cc66c4abf"
+}

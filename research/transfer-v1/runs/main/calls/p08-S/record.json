@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p08-S",
+  "request_sha256": "4e41d9e066e6f1cbc328cb8815a121a230961d857fa57729f00aa70b57de210b",
+  "prompt_sha256": "c2efa60f6776c1df3174eb4520474ed181d9d39828c49852193868f4a6ddcfbd",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:54.389389+00:00",
+  "finished_at": "2026-09-20T20:06:14.177205+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.78596912500001,
+      "usage": {
+        "input_tokens": 7134,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 496,
+        "reasoning_output_tokens": 67
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "4df54cfe1b9de8d54d25e28327f0ba3a804f0befa71125c9d62f3b6e4e702b0d",
+      "stderr_sha256": "e89eb034352d1d4d9d5bca747d7c115f81b4f58ad8b89fcf3086d1a54fe91c88"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Confirm and freeze the exact selected scope",
+        "mechanism": "Separate the 25 visible rows from all matching records; confirmation freezes membership rather than a live filter.",
+        "implementation": "Provide keyboard-accessible scope choices. Resolve explicit IDs before confirmation; show actual count, filter summary, and target status persistently afterward.",
+        "check": "Confirm 600 IDs, then change filters and matching records; assert every submitted ID belongs to that confirmed set.",
+        "risk": "Membership resolution can become stale; require reconfirmation for additions."
+      },
+      {
+        "action": "Skip records changed since scope confirmation",
+        "mechanism": "Conditional writes detect intervening edits instead of silently overwriting another person's changes.",
+        "implementation": "Capture record revisions alongside confirmed IDs. In the bulk handler, atomically compare each revision before updating; return conflicts as per-record outcomes.",
+        "check": "Modify a record after confirmation but before its write; verify it remains untouched and receives a readable conflict outcome.",
+        "risk": "Revision checks require backend work and may increase conflicts."
+      },
+      {
+        "action": "Recover failures through a per-record operation ledger",
+        "mechanism": "Persisted outcomes separate successes, failures, and unresolved requests so recovery does not repeat successful writes.",
+        "implementation": "Store confirmed IDs under an operation key. Deduplicate writes by operation and ID; offer keyboard-accessible failed-only retry and polite screen-reader progress announcements.",
+        "check": "Interrupt a mixed-result batch, reopen it, and retry; verify successful IDs are not rewritten and unconfirmed IDs never appear.",
+        "risk": "Unknown outcomes need reconciliation; conflicts need review rather than blind retry."
+      },
+      {
+        "action": "Explain reversal eligibility for each changed record",
+        "mechanism": "A timed, revision-checked reversal distinguishes expiration from subsequent edits and unsuccessful original changes.",
+        "implementation": "Store prior status, resulting revision, and policy deadline per success. Provide accessible eligibility reasons; atomically check deadline and revision when reversing explicit original IDs.",
+        "check": "Test unchanged, subsequently edited, expired, and originally failed records; verify only eligible records reverse and each rejection states why.",
+        "risk": "Eligibility can change after display; refresh reasons after attempted reversal."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "54371bf5b5a53524868f1d4557b95ad1ba4adf99368740f1cc129c66c147039b",
+  "raw_output_sha256": "4fc7f239d9b53fd4fa2c160ab9a9034bf823b9efe2bcf06ad08b7b043754608a"
+}

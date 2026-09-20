@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Rotate guaranteed dispatches across customers",
+      "mechanism": "A customer round-robin ring bounds dispatch opportunities independently of estimated runtime or mean latency.",
+      "implementation": "On worker release, dispatch the head customer's oldest job; append still-backlogged customers and newly active customers at the tail.",
+      "check": "With N customers present when a customer joins the tail, verify service within N dispatches. Report mean latency separately.",
+      "risk": "Dispatch fairness does not imply equal worker-seconds; running transforms remain nonpreemptible."
+    },
+    {
+      "action": "Interleave bounded shortest-job opportunities",
+      "mechanism": "Alternate guaranteed customer turns with globally shortest-estimated-job dispatches, preserving progress regardless of estimation errors.",
+      "implementation": "Maintain one global alternation bit. Bonus dispatches must not move a still-backlogged customer backward in the fairness ring.",
+      "check": "Verify each waiting customer receives a guaranteed turn within 2N total dispatches, and oldest long jobs continue starting.",
+      "risk": "Twelve running long transforms can still delay every short job until a worker finishes."
+    },
+    {
+      "action": "Calibrate estimates without weakening fairness",
+      "mechanism": "Observed prediction errors adjust bonus-job rankings; guaranteed turns never depend on prediction accuracy.",
+      "implementation": "Store the last 100 completed runtimes with original estimates and completion times. Apply their median actual-to-estimated ratio to customer estimates.",
+      "check": "Compare corrected and original prediction errors on subsequent completions; disable correction if errors worsen. Preserve raw residuals for inspection.",
+      "risk": "Sparse or stale histories and changing workloads can make corrections misleading."
+    },
+    {
+      "action": "Replay adversarial arrivals before rollout",
+      "mechanism": "An event-driven twelve-worker simulation separates bounded customer progress from improvements in short-job latency.",
+      "implementation": "Continuously replenish one customer's sixty-second jobs; inject occasional one-second jobs from others. Test accurate, inverted, and stale estimates.",
+      "check": "Assert dispatch bounds and continued long-job starts; compare short-job p95 waiting time and overall mean latency against FIFO.",
+      "risk": "Simulation results depend on arrival assumptions; repeat with production traces before claiming gains."
+    }
+  ],
+  "abstention_reason": ""
+}

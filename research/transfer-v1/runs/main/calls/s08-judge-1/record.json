@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "id": "s08-judge-1",
+  "request_sha256": "7400c590b1a9bff07487e0420d3b597de225dc957b59d7e9e1a064a327fffec0",
+  "prompt_sha256": "d831afaab02375f7bba229ed395c81ba65567d03eb765adf49c331d2f4c9baa4",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:26:43.492401+00:00",
+  "finished_at": "2026-09-20T20:27:21.304989+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.81101120800008,
+      "usage": {
+        "input_tokens": 10637,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1102,
+        "reasoning_output_tokens": 78
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "680ccef8e11cfea3836618e47ab9bb0d8f1ab346616cb8744477d16dd72fe6ad",
+      "stderr_sha256": "6c64665ca13b5666b06eb2bd9879423f7dbaf0ed3e5c3266aa1e631acf4d97ef"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "97cdbd921e551122",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a504ef9d83bb0caa",
+        "mechanism_group": "rollback_read_retention",
+        "reason": "Preserves stored content and compatible reads while explicitly disabling creation and writes, with rollback integrity checks."
+      },
+      {
+        "id": "dd8b0396c9b7115a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "52ab6656ba2f9427",
+        "mechanism_group": "server_format_eligibility",
+        "reason": "Separates flag-gated creation from capability-gated opening and tests installation-scoped cache isolation."
+      },
+      {
+        "id": "0d437919bf804e1a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a504ef9d83bb0caa",
+        "mechanism_group": "rollback_read_retention",
+        "reason": "Rollback retains bytes, permissions, and readers while rejecting writes and testing continued legacy access."
+      },
+      {
+        "id": "7a73ede258962c16",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b085653e9e64cd34",
+        "mechanism_group": "explicit_format_forks",
+        "reason": "Separate fork identities preserve legacy content, permissions, and identifiers, with an old-client read check."
+      },
+      {
+        "id": "600c8f4ab20b291f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b42036ac2ddb688e",
+        "mechanism_group": "legacy_format_preservation",
+        "reason": "Fixes existing documents to the legacy format and checks that mixed-version edits preserve old-client readability."
+      },
+      {
+        "id": "0f3c446868694914",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b085653e9e64cd34",
+        "mechanism_group": "explicit_format_forks",
+        "reason": "Routes incompatible edits into separate forks and tests that concurrent collaboration never contaminates legacy content."
+      },
+      {
+        "id": "53e5adc7c63e3510",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "729ada05845f0705",
+        "mechanism_group": "server_format_eligibility",
+        "reason": "Persists document capability requirements and rejects unsupported requests before payload delivery, with flag-and-binary checks."
+      },
+      {
+        "id": "e8f87595c9441022",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b085653e9e64cd34",
+        "mechanism_group": "explicit_format_forks",
+        "reason": "Explicit independent forks preserve the source and test continued old-client reads plus rejection of unsupported merges."
+      },
+      {
+        "id": "ccce2cfcfe730065",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "fe61543785b075a2",
+        "mechanism_group": "rollback_read_retention",
+        "reason": "Retains bytes and decoder support after rollback and tests read-only access without disrupting legacy documents."
+      },
+      {
+        "id": "2e0666d71cc40bd1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ca9e3b23a71d25d8",
+        "mechanism_group": "client_bound_capability_cache",
+        "reason": "Session-and-revision-bound decisions prevent cross-device cache confusion, tested with a deliberately incorrect cached allowance."
+      },
+      {
+        "id": "fbdc51c348e56dff",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "52ab6656ba2f9427",
+        "mechanism_group": "server_format_eligibility",
+        "reason": "Separately gates creation and opening using requesting-client capabilities and tests stale account-cache rejection while preserving legacy reads."
+      },
+      {
+        "id": "bb518fb1326dc33e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a504ef9d83bb0caa",
+        "mechanism_group": "rollback_read_retention",
+        "reason": "Rollback preserves content and read handlers, makes existing new documents read-only, and checks integrity and write rejection."
+      },
+      {
+        "id": "74541b2ef85bde49",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b085653e9e64cd34",
+        "mechanism_group": "explicit_format_forks",
+        "reason": "Prohibits in-place upgrades and tests independent editing of preserved originals and explicitly labeled forks."
+      },
+      {
+        "id": "9d3a0d2317cbe329",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ca9e3b23a71d25d8",
+        "mechanism_group": "client_bound_capability_cache",
+        "reason": "Keys capabilities by session and declaration revision and tests that another device's cached capabilities cannot authorize unsupported access."
+      }
+    ]
+  },
+  "result_sha256": "fbaa986f3e00b833ade739fd464fa5ca0d3c11850cf147734e0fb5d4ff79a66f",
+  "raw_output_sha256": "aa4f556859b4e6036defac5cb8c06c5fecc1d3b232282177ee0f71f5d02344db"
+}

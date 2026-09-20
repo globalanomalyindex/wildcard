@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p01-XR",
+  "request_sha256": "8651d7f2f2a25fb264b3d294d441d9e9ef6ff194cc64b0906efd2b4378098c35",
+  "prompt_sha256": "e389e7f864b5cd1b4ba44aefc1e81cce3ab608077e8431739ad431684d8ebc4a",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:16.557736+00:00",
+  "finished_at": "2026-09-20T20:15:50.798734+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 34.23905608300004,
+      "usage": {
+        "input_tokens": 7298,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 650,
+        "reasoning_output_tokens": 303
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "7988a4917a404a22d5ad55bb33401768e4da46118f22f908784bc516b686f23e",
+      "stderr_sha256": "69be0dae314f46fa2633b88502212f915c78723616dfcc33d3205283f872a8cb"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Lock abandoned sessions instead of deleting tickets.",
+        "mechanism": "A neutral screen hides selections; a visitor-chosen secret unlocks a locally retained cart without an account.",
+        "implementation": "Before selection, establish a masked recovery code. At inactivity lock, silence selection-related speech. Offer Resume or Start new; throttle guesses and expire carts.",
+        "check": "Offline for ten minutes, test three-minute reading pauses, successful recovery, and whether subsequent visitors can expose selections without the code.",
+        "risk": "Forgotten codes prevent recovery; visible codes compromise privacy."
+      },
+      {
+        "action": "Separate long reading from private ticket review.",
+        "mechanism": "Public information screens contain no selections or personal details, allowing uninterrupted reading while the cart remains locked.",
+        "implementation": "Add Read at my pace before ticket choices. Keep generic information and screen-reader navigation available indefinitely; require the recovery code before revealing saved selections.",
+        "check": "Compare ordinary and reading modes: record reading interruptions, reconstruction attempts, and information exposed during staged visitor handoffs.",
+        "risk": "Extra unlocking adds friction; personalized summaries must never enter public screens."
+      },
+      {
+        "action": "Retain tickets, but discard abandoned personal details.",
+        "mechanism": "Separate cart storage from short-lived personal-data entry limits what recovery can reveal and what abandonment leaves behind.",
+        "implementation": "Keep details out of cart checkpoints and logs. Clear them on locking or Start new; reset Back history and speech queues. Require explicit final purchase confirmation.",
+        "check": "Enter distinctive test details, abandon offline, then try Back, Resume, and screen-reader navigation. Verify details disappear, tickets recover, and no purchase submits.",
+        "risk": "Slow visitors may need to re-enter details after locking."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "0307f0a97df860b6bf4e0d1ae225ebf4821d0f5447f82a717362ad62fa52391e",
+  "raw_output_sha256": "c09aa73a6fb3c1c103e740ae079d7683ed66c601041e619deae702a7650aa4b7"
+}

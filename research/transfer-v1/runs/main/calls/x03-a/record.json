@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "x03-a",
+  "request_sha256": "84b792c20626fe75283d40c531786c32df96c915f2965309c133a6a226d74829",
+  "prompt_sha256": "fddec3ccf7104825ac8a72696a7f004d256ae0c5921a22d4c685434534646662",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:28.081449+00:00",
+  "finished_at": "2026-09-20T20:18:33.904901+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 5.822534083999997,
+      "usage": {
+        "input_tokens": 6972,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 73,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a2147361312c75364d5e017a69052c71c2496583f27e8179414a6198a72f1c72",
+      "stderr_sha256": "57e43d2230de479fdd870c5dd8a9cee968f23488bebb634af728b924f87e5b57"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Grant a request only when the resource is unheld; otherwise make the requester wait until the holder releases it.",
+    "trace": [
+      "A: GRANT",
+      "B: WAIT"
+    ],
+    "explanation": "The supplied relation permits only one holder, and A does not release the resource during observation."
+  },
+  "result_sha256": "8f399211b440f0c2ff995b7bdda47df9afdb1584cd689f50386a431da404a976",
+  "raw_output_sha256": "61cb7cdf4cec70685facf9223931443b7d7f58200ecb0ba6ceb39a388f4e9eb3"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "o02-S",
+  "request_sha256": "d4ee9803e5e06e4d5278c19d86dbb239d32b628c8250421568574e949ae455c5",
+  "prompt_sha256": "61cba956472917505616647920f201f1cc565fe4d9140a8f9ada397b077e1502",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:14:39.171537+00:00",
+  "finished_at": "2026-09-20T20:14:58.795479+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.62100904199997,
+      "usage": {
+        "input_tokens": 7114,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 500,
+        "reasoning_output_tokens": 79
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "62f50fbe1860044b6814484aee16356ea9412c89ae4ef63100e524f7ce4581c4",
+      "stderr_sha256": "22a258e8429cfd57cf97d4456c71ee2df6bdda15441d7b728e4aeaf29b6c7754"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind approvals to exact paragraph revisions",
+        "mechanism": "An approval covers one source paragraph revision and one translation revision, never just their stable IDs.",
+        "implementation": "Store immutable revisions and approval tuples containing language, both paragraph IDs, both revision IDs, and reviewer. Content edits create revisions; moves change placement only.",
+        "check": "Edit approved source text: publication must block. Leave another paragraph unchanged: its approval must remain valid.",
+        "risk": "Reusing revision IDs would silently defeat this protection."
+      },
+      {
+        "action": "Track context dependencies separately from paragraph text",
+        "mechanism": "A moved paragraph can retain its wording while losing the context that made its translation accurate.",
+        "implementation": "Record dependencies on headings, neighboring references, and defined terms. Placement or dependency changes trigger contextual review without modifying unrelated approvals.",
+        "check": "Move a paragraph beneath a different heading: flag its context for review while preserving an unrelated unchanged paragraph’s approval.",
+        "risk": "Missing dependencies can conceal context-sensitive translation errors."
+      },
+      {
+        "action": "Give reviewers focused change packets",
+        "mechanism": "Paragraph-level diffs concentrate human accuracy checks on affected content rather than restarting each language.",
+        "implementation": "For each language, queue stale or context-flagged paragraphs with old/new source, translation, and surrounding text. Split ownership between its two volunteers; route uncertainty to the other.",
+        "check": "Introduce one substantive edit: all six languages receive its packet, and approval requires a human decision against the new revision.",
+        "risk": "Overly narrow excerpts can hide meaning-changing context."
+      },
+      {
+        "action": "Publish from a validated immutable snapshot",
+        "mechanism": "A release snapshot prevents source edits arriving during publication from bypassing approval checks.",
+        "implementation": "Freeze source revisions, translations, ordering, and context-review status in a release manifest. Validate every approval against it; generate all six language editions exclusively from that manifest.",
+        "check": "Change source after validation begins: the build must use the frozen approved revision or fail, never include unapproved updated text.",
+        "risk": "A valid frozen release may omit newer changes; label its revision."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "764e46fc9bb6ac392079d6fabe2d70d7d3934c61457bda223b679f07b53cbbdc",
+  "raw_output_sha256": "7c2101166501708475c0987ab98b2cd9d49c0fec1ca139b8a477e25fcb2c077f"
+}

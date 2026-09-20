@@ -1,0 +1,57 @@
+{
+  "analysisVersion": "legacy-probe-2026-09-v1",
+  "sourceGitBlob": "db9c16347c63edea904e7ee8b700f857a5597ef6",
+  "diagnosticSeeds": 100000,
+  "fixedSeedByteLength": 22,
+  "modeLensCounts": [
+    [
+      12500,
+      0,
+      12500,
+      0,
+      12500,
+      0,
+      12500,
+      0
+    ],
+    [
+      0,
+      12500,
+      0,
+      12500,
+      0,
+      12500,
+      0,
+      12500
+    ]
+  ],
+  "conditionalUniqueLeaves": [
+    189,
+    461
+  ],
+  "permutations": {
+    "3": {
+      "diagnosticSeeds": 100000,
+      "seedByteLength": 6,
+      "tag": "audit",
+      "uniquePermutations": 6
+    },
+    "4": {
+      "diagnosticSeeds": 100000,
+      "seedByteLength": 6,
+      "tag": "audit",
+      "uniquePermutations": 12
+    },
+    "8": {
+      "diagnosticSeeds": 100000,
+      "seedByteLength": 6,
+      "tag": "audit",
+      "uniquePermutations": 2520
+    }
+  },
+  "study3": {
+    "draws": 30,
+    "modeLensParityCoupled": 30
+  },
+  "caveat": "These finite seed-bank diagnostics show legacy dependencies. They do not measure resulting output quality or establish actual grader exposure."
+}

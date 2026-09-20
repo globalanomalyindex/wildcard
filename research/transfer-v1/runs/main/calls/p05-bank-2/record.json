@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "p05-bank-2",
+  "request_sha256": "6b4db22ea0f3e127f4e284392ac3a02296af09d70710cab4e1b483b71dbf96c7",
+  "prompt_sha256": "b30fee3ba657f8d723e91726f750e683e930b289e76584df0522cd94ad753caa",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:57:58.793494+00:00",
+  "finished_at": "2026-09-20T19:58:32.383369+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 33.58730029200001,
+      "usage": {
+        "input_tokens": 7129,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1007,
+        "reasoning_output_tokens": 55
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "11a9fe1f55db9de12b0a26a0dc65cd16f32b75d5c40953e5b5d4ab9b78839950",
+      "stderr_sha256": "066bad2d2e5bbc6e081ccb69350fbbd3f8030cb9fca4cd9fd5a184794253c806"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Calculate all six totals from stated usage",
+        "mechanism": "A shared usage scenario exposes required add-ons instead of treating base prices as complete costs.",
+        "implementation": "Add labeled storage, editors, guests, and export inputs. Recalculate six itemized totals, including required charges and explicitly selected extras.",
+        "check": "For fixed usage fixtures, verify each total against an independently calculated bill; verify keyboard operation and screen-reader update announcements.",
+        "risk": "Unspecified usage must remain visibly unspecified, not silently become zero."
+      },
+      {
+        "action": "Separate required charges from elective extras",
+        "mechanism": "Explicit charge categories prevent a needed add-on from appearing discretionary merely because it is sold separately.",
+        "implementation": "Show Included, Required for your usage, and Optional sections per plan. Keep optional extras unchecked; explain each requirement's trigger.",
+        "check": "Ask participants to identify charges they can remove without losing their stated capabilities; compare answers with structured charge rules.",
+        "risk": "An optional extra can become required when usage changes."
+      },
+      {
+        "action": "Keep capability limits in one accessible matrix",
+        "mechanism": "Consistent rows expose differences and unavailable capabilities that scattered plan cards make difficult to compare.",
+        "implementation": "Use a semantic table covering all six plans and five capability categories. Write Included, Requires add-on, or Unavailable, with limits.",
+        "check": "Navigate every plan and capability with a screen reader; confirm unavailable features remain explicit at narrow widths and without color.",
+        "risk": "Dense tables need persistent labels and a usable narrow-screen layout."
+      },
+      {
+        "action": "Explain what changes between two plans",
+        "mechanism": "A pairwise difference summary distinguishes similar offers through usage-specific costs, limits, and required extras.",
+        "implementation": "Let visitors select two plans for a supplemental textual comparison. Show total difference, charge differences, and capability tradeoffs; retain all six plans.",
+        "check": "Compare two equal-base-price fixtures with different required add-ons; verify the summary explains their differing totals without omitting unavailable capabilities.",
+        "risk": "A difference-only summary must not replace the complete comparison."
+      },
+      {
+        "action": "Show the next cost-changing usage threshold",
+        "mechanism": "Boundary explanations reveal when a small usage increase triggers another seat, storage block, or export charge.",
+        "implementation": "Derive the next applicable threshold from charge rules and offer a labeled usage adjustment with before-and-after totals for every plan.",
+        "check": "Test usage immediately below, at, and above each threshold; verify charges and unavailable states match the rules.",
+        "risk": "Complex dependencies may require explaining several simultaneous changes."
+      },
+      {
+        "action": "Validate pricing rules before publishing",
+        "mechanism": "A validated dependency model prevents missing mandatory charges and impossible capability combinations from producing misleading totals.",
+        "implementation": "Encode applicability conditions, quantities, dependencies, billing periods, and charge categories. Reject missing references and contradictory rules; mark invalid quotes unavailable.",
+        "check": "Inject a missing required add-on, circular dependency, and incompatible capability into fixtures; each must block a valid-looking quote.",
+        "risk": "Valid structure alone cannot establish that business rules are correct."
+      },
+      {
+        "action": "Carry the comparison quote through checkout",
+        "mechanism": "A persistent itemized quote prevents selection and checkout from silently using different usage or charge assumptions.",
+        "implementation": "Pass usage, selected extras, and pricing-rule version to checkout. Revalidate server-side; show any changed total and explanation before confirmation.",
+        "check": "Run each plan through checkout using fixed scenarios; assert identical line items or an explicit change requiring renewed confirmation.",
+        "risk": "Expired pricing requires a visible refresh, not silent substitution."
+      },
+      {
+        "action": "Test comprehension with deceptively similar plans",
+        "mechanism": "Scenario-based questions measure understanding of total cost and necessity rather than preference or perceived visual clarity.",
+        "implementation": "Use two similar-base-price plans with different required add-ons. Specify usage; ask participants for totals, removable extras, and unavailable capabilities before revealing answers.",
+        "check": "Score against predetermined answers, including screen-reader sessions. Record errors by charge category and revise misunderstood labels before repeating.",
+        "risk": "Leading prompts or repeated scenarios can inflate apparent comprehension."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "8cd37bcb9e23678f922624e913957bf89b82e55f3612f49a9b707941ce7aa140",
+  "raw_output_sha256": "e76e73ddc16c4c5a7dd7af81104314d200675f78b4b1bbb40dffe99f3d1a3b71"
+}

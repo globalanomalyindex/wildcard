@@ -1,0 +1,717 @@
+{
+  "schema_version": "wildcard-transfer-tasks-v1",
+  "authorship": "Synthetic briefs authored by the research agent with knowledge of the study question, before any subject or judge outputs. Not a blind task-author design.",
+  "sampling_statement": "32 distinct designed briefs; four fixed strata, eight each. No claim of a random sample of real user tasks.",
+  "main": [
+    {
+      "id": "p01",
+      "family": "interaction_accessibility",
+      "title": "Shared kiosk interruption",
+      "brief": "Design a museum ticket kiosk flow for visitors who may need several minutes to read each screen. A session currently clears after 90 seconds, losing selected tickets. The next visitor must not see the previous visitor's selections. Staff can help but cannot monitor every kiosk.",
+      "constraints": [
+        "No accounts, camera, phone, or biometric identification.",
+        "Kiosk has a touch screen, physical Back/Confirm buttons, and a screen reader.",
+        "A purchase is not submitted until the visitor explicitly confirms; abandoned personal details must not be shown to a new visitor.",
+        "Must work without a network for up to ten minutes."
+      ],
+      "success_criteria": [
+        "A slow visitor can complete without repeatedly reconstructing selections.",
+        "A new visitor can start safely after abandonment.",
+        "Describe an observable way to test the tradeoff between interruption and privacy."
+      ],
+      "non_goals": [
+        "Changing ticket prices or adding staffed kiosks."
+      ]
+    },
+    {
+      "id": "p02",
+      "family": "interaction_accessibility",
+      "title": "Changing result list with stable focus",
+      "brief": "A catalog updates results after each filter change. Keyboard and screen-reader users lose their place when matching products reorder. Sighted users want the result count quickly while browsing a grid of 200 items.",
+      "constraints": [
+        "Do not require pointer input, drag actions, or color perception.",
+        "The latest count should be available within one second after results arrive.",
+        "A focused item may disappear because it no longer matches.",
+        "The catalog must still expose every matching item."
+      ],
+      "success_criteria": [
+        "Users can predict where focus goes when results change.",
+        "A person can distinguish a loading state from zero results.",
+        "Specify tests for both a retained focused item and one removed by filtering."
+      ],
+      "non_goals": [
+        "Replacing the catalog with a separate accessible site."
+      ]
+    },
+    {
+      "id": "p03",
+      "family": "interaction_accessibility",
+      "title": "Recoverable upload decisions",
+      "brief": "A community portal lets people submit five attachments with one form. Uploads sometimes fail individually; people currently resubmit everything and create duplicate cases. Some users return after closing the tab.",
+      "constraints": [
+        "Maximum five files per case; server provides a stable receipt for every accepted file.",
+        "No account is required and no raw file content may be kept in persistent browser storage.",
+        "Local storage may keep opaque receipt identifiers for 24 hours.",
+        "Users must explicitly review the final attachment list before submitting the case."
+      ],
+      "success_criteria": [
+        "Accepted files are not needlessly uploaded again.",
+        "A person can resolve a partially accepted batch without guessing.",
+        "A reopened tab explains what remains available and what must be selected again."
+      ],
+      "non_goals": [
+        "Changing server-side file processing or asking users to install an app."
+      ]
+    },
+    {
+      "id": "p04",
+      "family": "interaction_accessibility",
+      "title": "Appointment slot changes during selection",
+      "brief": "A booking interface displays a week of workshop slots. Capacity updates every five seconds and can invalidate a slot while someone is reviewing it. People with motor impairments need time to reach the confirmation control.",
+      "constraints": [
+        "Selecting a slot does not reserve capacity; only the existing atomic confirmation endpoint can reserve it.",
+        "Do not fabricate a hold or guarantee availability.",
+        "No time limit may require faster motor input to gain an advantage.",
+        "Support keyboard navigation and a 320-pixel viewport."
+      ],
+      "success_criteria": [
+        "A changed slot does not silently become a different booking.",
+        "A person can recover from an unavailable slot while retaining preferences.",
+        "Measure an error state without rewarding speed over access."
+      ],
+      "non_goals": [
+        "Changing capacity policy or the reservation API."
+      ]
+    },
+    {
+      "id": "p05",
+      "family": "interaction_accessibility",
+      "title": "Understandable plan comparison",
+      "brief": "A design-tool comparison page has six plans, each with storage, editors, guests, export limits, and optional charges. People select the apparently cheapest plan and discover a required add-on after checkout.",
+      "constraints": [
+        "All required and optional charges are available as structured input.",
+        "The page must show all six plans without hiding an unavailable capability.",
+        "Do not collect personal income or infer affordability.",
+        "The solution must work with screen readers and without relying on color."
+      ],
+      "success_criteria": [
+        "A visitor can compare total cost for their stated usage.",
+        "An optional charge cannot be confused with a mandatory one.",
+        "Describe a comprehension check involving two superficially similar plans."
+      ],
+      "non_goals": [
+        "Changing prices, discounting, or ranking users by ability to pay."
+      ]
+    },
+    {
+      "id": "p06",
+      "family": "interaction_accessibility",
+      "title": "Permission setup without opaque defaults",
+      "brief": "A workspace owner invites a new teammate who needs to review drafts but must not publish them. The current invite form has 18 toggles and an undocumented preset. Existing teams use custom combinations.",
+      "constraints": [
+        "Do not remove any existing permission combination.",
+        "Publishing and billing privileges require explicit owner selection.",
+        "The system can calculate effective permissions before saving.",
+        "Setup must remain usable entirely by keyboard."
+      ],
+      "success_criteria": [
+        "The owner can predict what the invitee can do.",
+        "A custom role is not silently replaced by a preset.",
+        "Provide a test that catches an unintended privilege before the invite is sent."
+      ],
+      "non_goals": [
+        "Changing the authorization backend or adding a new approval role."
+      ]
+    },
+    {
+      "id": "p07",
+      "family": "interaction_accessibility",
+      "title": "Conflicting edits in several tabs",
+      "brief": "A web form editor is often open in two tabs. A save in one tab can overwrite newer work in the other, while the current warning modal gives no clue which fields differ. Fields include long text and single-choice values.",
+      "constraints": [
+        "Server exposes a document revision number and rejects a stale save.",
+        "Never silently discard text from either tab.",
+        "Users must be able to finish without dragging or copying between windows.",
+        "Do not auto-publish the merged draft."
+      ],
+      "success_criteria": [
+        "A user can identify and resolve only conflicting fields.",
+        "Nonconflicting edits do not require retyping.",
+        "A test covers a stale tab whose last edit happened after the other tab saved."
+      ],
+      "non_goals": [
+        "Implementing real-time collaborative editing."
+      ]
+    },
+    {
+      "id": "p08",
+      "family": "interaction_accessibility",
+      "title": "Bulk changes with intelligible scope",
+      "brief": "A volunteer coordinator bulk-edits statuses for 600 records across filtered pages. People confuse the 25 visible rows with all 600 matching rows, and some records change before the operation finishes.",
+      "constraints": [
+        "The backend accepts explicit record IDs and returns per-record outcomes.",
+        "No operation may include an ID absent from the user's confirmed set.",
+        "Support a screen reader and no pointer.",
+        "Reversal is possible for ten minutes only when the record has not subsequently changed."
+      ],
+      "success_criteria": [
+        "The confirmed scope is visible and unambiguous.",
+        "Partial failures can be recovered without reapplying successful changes.",
+        "Users can understand why a particular reversal is unavailable."
+      ],
+      "non_goals": [
+        "Changing the ten-minute policy or using a blocking review of 600 individual rows."
+      ]
+    },
+    {
+      "id": "s01",
+      "family": "software_systems",
+      "title": "Duplicate webhook delivery with bounded retention",
+      "brief": "A service receives partner webhook events. A partner can redeliver the same event ID for seven days, and a crash may occur between applying an update and acknowledging delivery. The service currently sometimes applies an update twice.",
+      "constraints": [
+        "The database supports atomic transactions and unique keys.",
+        "Keep durable deduplication data within 2 GB; event IDs average 64 bytes and at most one million unique events arrive in seven days.",
+        "Events for the same entity can arrive out of order and contain a monotonic entity revision.",
+        "No transaction can include the partner's acknowledgement operation."
+      ],
+      "success_criteria": [
+        "Redeliveries do not repeat the business update.",
+        "An old revision does not overwrite a newer state.",
+        "Specify a crash/replay test and retention behavior at the seven-day boundary."
+      ],
+      "non_goals": [
+        "Assuming exactly-once transport or changing the partner protocol."
+      ]
+    },
+    {
+      "id": "s02",
+      "family": "software_systems",
+      "title": "Consistent browse over a changing dataset",
+      "brief": "An API paginates 80,000 records while records are inserted and deleted. Clients currently see duplicates and miss records between pages. A user usually reads six pages over two minutes.",
+      "constraints": [
+        "No database transaction may stay open across client requests.",
+        "Records have immutable IDs, creation timestamps, and monotonically increasing change versions.",
+        "Server may retain tombstones for 24 hours.",
+        "Each request must return within 300 ms on the existing indexed store."
+      ],
+      "success_criteria": [
+        "Specify precisely which dataset a browsing session promises to traverse.",
+        "Deletion and insertion between requests have explicit behavior.",
+        "Provide a test that checks both duplicated and skipped IDs."
+      ],
+      "non_goals": [
+        "Adding a new database or promising unlimited historical snapshots."
+      ]
+    },
+    {
+      "id": "s03",
+      "family": "software_systems",
+      "title": "Offline notes merge without losing authorship",
+      "brief": "A two-device note application permits offline edits to paragraphs for up to 48 hours. Both devices may alter the same paragraph, reorder paragraphs, and reconnect in either order. The existing merge replaces the older complete document.",
+      "constraints": [
+        "Every paragraph has a stable ID, and each edit has an author/device ID and logical revision.",
+        "Keep the original text of conflicting edits until a user resolves them.",
+        "No external synchronization service can be added.",
+        "A note contains at most 500 paragraphs; individual paragraphs are at most 8 KB."
+      ],
+      "success_criteria": [
+        "Independent paragraph edits survive either reconnect order.",
+        "A conflict remains explainable to the user.",
+        "Describe a deterministic replay test including a deletion versus an edit."
+      ],
+      "non_goals": [
+        "Requiring constant connectivity or automatically deciding whose prose is better."
+      ]
+    },
+    {
+      "id": "s04",
+      "family": "software_systems",
+      "title": "Configuration freshness during connectivity loss",
+      "brief": "A fleet of display devices caches a configuration that governs which public announcements appear. Devices can lose connectivity for six hours. Some announcements expire, while others remain valid until explicitly removed.",
+      "constraints": [
+        "Each item has a unique ID, revision, and either an expiry timestamp or an explicit-until-revoked flag.",
+        "Devices have a clock whose error is bounded by 30 seconds.",
+        "Emergency removal cannot be guaranteed on an offline device; do not claim otherwise.",
+        "Configuration bundles must stay below 100 KB."
+      ],
+      "success_criteria": [
+        "The device never displays an already expired item beyond the declared clock-error allowance.",
+        "A reconnect does not resurrect a removed older revision.",
+        "The visible offline behavior states what freshness can and cannot be guaranteed."
+      ],
+      "non_goals": [
+        "Assuming an always-online fallback channel."
+      ]
+    },
+    {
+      "id": "s05",
+      "family": "software_systems",
+      "title": "Prevent large jobs from starving small jobs",
+      "brief": "A single worker pool processes image transforms. Jobs require between one and sixty seconds. A few customers submit hundreds of long jobs, delaying occasional short jobs from other customers.",
+      "constraints": [
+        "Twelve workers are fixed; no autoscaling or preemption of an in-progress transform.",
+        "Runtime estimates based on file size are imperfect.",
+        "Each customer must eventually make progress even under sustained arrivals from others.",
+        "Queue metadata may store per-customer counters and the last 100 completed runtimes."
+      ],
+      "success_criteria": [
+        "Bound a fairness objective and distinguish it from mean latency.",
+        "Small jobs gain opportunities without permanently blocking large jobs.",
+        "Specify a workload test with inaccurate estimates and a continuous heavy customer."
+      ],
+      "non_goals": [
+        "Changing transform quality or rejecting every long job."
+      ]
+    },
+    {
+      "id": "s06",
+      "family": "software_systems",
+      "title": "Telemetry during a bounded outage",
+      "brief": "A desktop application writes diagnostics to a 20 MB local buffer while a collector is unreachable for at most 30 minutes. Ordinary events can fill that space in five minutes. Critical events are at most 2 MB over 30 minutes.",
+      "constraints": [
+        "No network alternative and no expansion of disk quota.",
+        "Never store message bodies, credentials, or user content.",
+        "Critical events include sequence numbers and must not be discarded during the stated outage bound.",
+        "After reconnection, uploads can be retried and duplicated."
+      ],
+      "success_criteria": [
+        "Critical history survives a maximum-duration outage.",
+        "The recipient can tell where ordinary-event detail was reduced.",
+        "A replay test distinguishes missing data from duplicated uploads."
+      ],
+      "non_goals": [
+        "Promising lossless capture of all ordinary events or unlimited outages."
+      ]
+    },
+    {
+      "id": "s07",
+      "family": "software_systems",
+      "title": "Large import with traceable partial failure",
+      "brief": "A web service imports a 4 GB CSV file. Some rows have invalid references, and the connection may drop halfway through. Currently a restart creates duplicates and a bad row aborts the whole file.",
+      "constraints": [
+        "Process in bounded memory below 128 MB.",
+        "The user supplies a file digest; every row has a source line number and natural key.",
+        "The target database supports transactional batches but not a transaction over the whole file.",
+        "No invalid row may be silently converted to a plausible value."
+      ],
+      "success_criteria": [
+        "A restart resumes or safely replays accepted work.",
+        "A user can locate and correct rejected rows without guessing.",
+        "State whether the accepted result is partial and how reconciliation is verified."
+      ],
+      "non_goals": [
+        "Requiring users to split files manually or making the entire import atomic."
+      ]
+    },
+    {
+      "id": "s08",
+      "family": "software_systems",
+      "title": "Compatible rollout across mixed client versions",
+      "brief": "A feature flag enables a new document format. Thirty percent of clients may remain on an older binary for a month. A new client can create documents that an old client cannot parse.",
+      "constraints": [
+        "The server knows each client's declared capability set.",
+        "Old clients must retain read access to documents they could previously read.",
+        "Do not silently down-convert content in a lossy way.",
+        "A flag rollback must not destroy documents already created."
+      ],
+      "success_criteria": [
+        "Define eligibility for creating and opening the new format.",
+        "Rollback has an explicit safe behavior for existing new documents.",
+        "Test a mixed-version collaboration and an incorrectly cached capability."
+      ],
+      "non_goals": [
+        "Forcing immediate upgrades or changing the old binary."
+      ]
+    },
+    {
+      "id": "o01",
+      "family": "operational_workflows",
+      "title": "Repair workshop intake with uncertain duration",
+      "brief": "A community repair workshop has two workbenches, one electrical specialist, and four general volunteers. Visitors arrive with items that take unknown time to diagnose; some need a part not available that day.",
+      "constraints": [
+        "No additional staff or workbenches.",
+        "Only the specialist may open electrical equipment.",
+        "Visitors may leave an item but each item must retain an owner receipt and location.",
+        "No promised completion time without an explicit uncertainty range."
+      ],
+      "success_criteria": [
+        "Short safe jobs are not blocked indefinitely by uncertain repairs.",
+        "Items waiting for parts are distinguishable from active work.",
+        "A shift handoff preserves responsibility and next action."
+      ],
+      "non_goals": [
+        "Giving repair instructions or increasing workshop capacity."
+      ]
+    },
+    {
+      "id": "o02",
+      "family": "operational_workflows",
+      "title": "Translation changes after review",
+      "brief": "A small publisher prepares a guide in six languages. The source text changes after several translations have been reviewed, and reviewers cannot tell which changes invalidate their approvals.",
+      "constraints": [
+        "Each source paragraph and translation paragraph has a stable ID.",
+        "Only two volunteer reviewers are available per language.",
+        "Published paragraphs need approval for the exact source revision they represent.",
+        "Do not assume automated translation can establish accuracy."
+      ],
+      "success_criteria": [
+        "Review effort follows affected content rather than restarting every language.",
+        "A changed source cannot inherit an old approval silently.",
+        "Test a moved paragraph, an unchanged paragraph, and a substantive edit."
+      ],
+      "non_goals": [
+        "Hiring professional reviewers or replacing translation with a summary."
+      ]
+    },
+    {
+      "id": "o03",
+      "family": "operational_workflows",
+      "title": "Equipment handoff with incomplete evidence",
+      "brief": "A makerspace lends kits of ten components. Staff switch shifts during pickup and return. A checkbox currently says complete even when no one recorded which components were inspected.",
+      "constraints": [
+        "Each component has an ID and a visible condition category.",
+        "A handoff may take at most three minutes.",
+        "Do not require photographs or personal devices.",
+        "Unknown condition must remain distinguishable from verified good condition."
+      ],
+      "success_criteria": [
+        "Responsibility and inspection evidence survive a shift change.",
+        "A missing component has an explicit next action and owner.",
+        "Demonstrate handling of a return that was counted but not condition-checked."
+      ],
+      "non_goals": [
+        "Automatically charging borrowers or adding tracking hardware."
+      ]
+    },
+    {
+      "id": "o04",
+      "family": "operational_workflows",
+      "title": "Support triage without resetting wait time",
+      "brief": "A small team routes support cases by language and product expertise. Cases bounce between teams when tags are wrong, losing their original waiting position. Urgent cases require one of two trained staff.",
+      "constraints": [
+        "Keep the original arrival timestamp permanently.",
+        "No case may be assigned to a worker without the required language or urgent-case qualification.",
+        "Staff capacity changes by shift and is available in a roster.",
+        "Do not infer urgency from customer status or spending."
+      ],
+      "success_criteria": [
+        "A rerouted case retains a fair claim on service.",
+        "Workers can distinguish waiting-for-skill from waiting-for-information.",
+        "Test simultaneous arrivals, wrong tags, and a shift with no eligible urgent-case worker."
+      ],
+      "non_goals": [
+        "Promising every case an immediate response."
+      ]
+    },
+    {
+      "id": "o05",
+      "family": "operational_workflows",
+      "title": "Tool-library reservations when returns slip",
+      "brief": "A tool library reserves items for specific pickup windows. Borrowers sometimes return late, making the next reservation impossible. Several interchangeable items exist, but condition and accessories differ.",
+      "constraints": [
+        "No more stock may be purchased.",
+        "A substitution requires the next borrower's consent.",
+        "Only inspected returned items may be marked available.",
+        "Contact is permitted only through the contact preference already supplied by each borrower."
+      ],
+      "success_criteria": [
+        "A late return causes an explicit recovery path for affected reservations.",
+        "Reservations do not become promises unsupported by inspected stock.",
+        "Measure preventable failed pickups without rewarding cancellation of difficult bookings."
+      ],
+      "non_goals": [
+        "Penalties, credit scoring, or collecting additional personal information."
+      ]
+    },
+    {
+      "id": "o06",
+      "family": "operational_workflows",
+      "title": "Workshop seating with changing access needs",
+      "brief": "A free workshop seats 48 people at eight tables. Some attendees need aisle access, some arrive as pairs, and cancellations continue until the session starts. The seating spreadsheet currently exposes private accommodation notes.",
+      "constraints": [
+        "Do not reveal reasons for an accommodation to other attendees.",
+        "A pair is a stated preference, while accessible aisle placement is a hard requirement.",
+        "Only four seats have the required clear route.",
+        "A confirmed accessible placement must not be removed without contacting that attendee."
+      ],
+      "success_criteria": [
+        "Seating changes respect hard needs before preferences.",
+        "Public lists contain only necessary placement information.",
+        "Test a late pair request when only separated seats remain."
+      ],
+      "non_goals": [
+        "Diagnosing attendees or requiring them to disclose medical details."
+      ]
+    },
+    {
+      "id": "o07",
+      "family": "operational_workflows",
+      "title": "Rotating exhibition permissions",
+      "brief": "A local exhibition uses prints licensed by contributors for selected dates and locations. A contributor can withdraw future display permission, while a delivered print may already be packed for another venue.",
+      "constraints": [
+        "Every print has an asset ID and a venue/date permission record.",
+        "Withdrawals affect future display, not a claim that past authorized display never occurred.",
+        "Packing staff may be offline for one workday.",
+        "No contributor contact information may be printed on the public label."
+      ],
+      "success_criteria": [
+        "A venue can verify permission before display.",
+        "An offline packing decision is reconciled before installation.",
+        "A withdrawal remains traceable without erasing the historical record."
+      ],
+      "non_goals": [
+        "Providing legal advice or changing contributors' agreement terms."
+      ]
+    },
+    {
+      "id": "o08",
+      "family": "operational_workflows",
+      "title": "Small-team purchase reconciliation",
+      "brief": "A three-person studio orders materials using purchase requests, supplier confirmations, and delivery receipts. Partial deliveries and substitutions make staff unsure whether a request is finished or still needs action.",
+      "constraints": [
+        "The requester may not approve their own substitution.",
+        "A request can have several deliveries; receipts identify quantities and item IDs.",
+        "Do not treat a supplier confirmation as evidence of physical delivery.",
+        "No accounting platform replacement or new employee."
+      ],
+      "success_criteria": [
+        "Partial completion is visible at item level.",
+        "A substitution has a named decision owner and preserved rationale.",
+        "Test duplicate receipts and a delivery that exceeds the requested quantity."
+      ],
+      "non_goals": [
+        "Making tax or legal determinations."
+      ]
+    },
+    {
+      "id": "i01",
+      "family": "information_creative_tooling",
+      "title": "Research board with contradictory evidence",
+      "brief": "A research board stores claims linked to passages from reports. Multiple reports disagree, and a polished summary currently hides this disagreement. Users need to prepare a short evidence-backed briefing.",
+      "constraints": [
+        "Every claim must link to exact stored source passage IDs.",
+        "The tool may summarize only the supplied passages; no web retrieval.",
+        "Missing evidence must not be represented as evidence against a claim.",
+        "A user can inspect the original passages without leaving the workspace."
+      ],
+      "success_criteria": [
+        "Contradictory and differently scoped findings remain distinguishable.",
+        "A briefing statement can be traced to the evidence supporting its scope.",
+        "Test two similar claims with different populations and opposing findings."
+      ],
+      "non_goals": [
+        "Automatically deciding which source is true or generating new research results."
+      ]
+    },
+    {
+      "id": "i02",
+      "family": "information_creative_tooling",
+      "title": "Asset search that preserves intentional variants",
+      "brief": "A design team has 12,000 image assets, including exact duplicates, crops, annotated versions, and distinct licensed copies. Search results are cluttered, but deleting similar-looking files could destroy useful work.",
+      "constraints": [
+        "File hashes, dimensions, creator IDs, license records, and folder paths are available.",
+        "No automatic file deletion or license substitution.",
+        "People can record explicit relationships between versions.",
+        "The first search result page must load in under one second from the existing index."
+      ],
+      "success_criteria": [
+        "Exact duplicates can be condensed without hiding meaningful variants.",
+        "A user can recover which licensed file a project used.",
+        "Test identical pixels with different license records and different crops of one original."
+      ],
+      "non_goals": [
+        "Training an image model or redesigning storage infrastructure."
+      ]
+    },
+    {
+      "id": "i03",
+      "family": "information_creative_tooling",
+      "title": "Transcript search with uncertain attribution",
+      "brief": "An interview tool imports transcript segments whose speaker labels and timestamps can be wrong. Researchers search for quotations and later discover they attributed a sentence to the wrong person.",
+      "constraints": [
+        "Audio playback and segment IDs exist; no new transcription model may be added.",
+        "Speaker identity may remain unknown.",
+        "Corrections must retain the imported text and the identity of the reviewer.",
+        "A quote export must include a route back to its audio interval."
+      ],
+      "success_criteria": [
+        "Unverified attribution cannot masquerade as a verified quote.",
+        "A correction propagates to saved quote collections without rewriting their history.",
+        "Test a quote crossing a segment boundary and an unresolved speaker."
+      ],
+      "non_goals": [
+        "Claiming automated certainty from a confidence score alone."
+      ]
+    },
+    {
+      "id": "i04",
+      "family": "information_creative_tooling",
+      "title": "Palette editing across many design tokens",
+      "brief": "A design system has 180 color tokens used in light and dark themes. A designer changes one base color and unknowingly makes some text illegible. Some tokens intentionally differ between brands.",
+      "constraints": [
+        "Token references and rendered foreground/background pairs are available.",
+        "Brand overrides cannot be silently replaced.",
+        "The tool must show which pairs require review before publishing.",
+        "Designers must be able to compare proposed and current values without relying on color alone."
+      ],
+      "success_criteria": [
+        "A base-token edit exposes its actual downstream effects.",
+        "An intentionally different brand value stays traceable.",
+        "Test a multi-level alias, a cycle, and a token used as both text and background."
+      ],
+      "non_goals": [
+        "Declaring complete accessibility from color checks alone."
+      ]
+    },
+    {
+      "id": "i05",
+      "family": "information_creative_tooling",
+      "title": "Branching story editor with unreachable scenes",
+      "brief": "A writer builds an interactive story with 120 scenes and choices gated by state variables. Some paths loop intentionally; others trap the player or lead to scenes that cannot be reached.",
+      "constraints": [
+        "The tool knows choice conditions and state updates.",
+        "Authors may keep deliberate loops and hidden scenes.",
+        "Do not rewrite prose or remove branches automatically.",
+        "Analysis must distinguish proven unreachable from not explored within a declared limit."
+      ],
+      "success_criteria": [
+        "The writer can inspect a concrete path or counterexample behind a warning.",
+        "Intentional exceptions can be recorded without suppressing unrelated warnings.",
+        "Test a loop that exits after three visits and one whose exit is impossible."
+      ],
+      "non_goals": [
+        "Guaranteeing exhaustive analysis for arbitrary embedded code."
+      ]
+    },
+    {
+      "id": "i06",
+      "family": "information_creative_tooling",
+      "title": "Idea workspace that does not lose dissent",
+      "brief": "A team explores names for a neighborhood project. Early popular suggestions dominate the shared board, while late alternatives are repeatedly dismissed as already considered even when they solve a different naming constraint.",
+      "constraints": [
+        "No automatic winner and no hidden popularity ranking.",
+        "Users can state constraints and explain a rejection.",
+        "Names may be grouped, but original suggestions and authorship must remain recoverable.",
+        "The board must support anonymous first review while retaining private authorship records."
+      ],
+      "success_criteria": [
+        "Different underlying directions remain visible alongside wording variants.",
+        "A rejection can be revisited when its stated constraint changes.",
+        "Test two similar names with different rationales and a popular name that violates a hard constraint."
+      ],
+      "non_goals": [
+        "Generating a legally cleared trademark or manipulating votes."
+      ]
+    },
+    {
+      "id": "i07",
+      "family": "information_creative_tooling",
+      "title": "Chart annotations tied to evidence",
+      "brief": "An analyst adds callouts to charts, then refreshes the underlying dataset. A callout can remain confidently stated even when the cited pattern disappeared or the date range changed.",
+      "constraints": [
+        "Each chart series and annotation can reference stable metric and filter IDs.",
+        "Data refreshes may contain missing values and revised historical observations.",
+        "Do not invent causal explanations from a trend.",
+        "Exports must preserve enough metadata to identify the data version."
+      ],
+      "success_criteria": [
+        "An annotation whose evidence changed is surfaced before export.",
+        "A missing series is distinguishable from a zero value.",
+        "Test a ranking reversal, a date-range change, and a revision with no material effect."
+      ],
+      "non_goals": [
+        "Building a new analytics platform or certifying statistical significance automatically."
+      ]
+    },
+    {
+      "id": "i08",
+      "family": "information_creative_tooling",
+      "title": "Highlights after a document revision",
+      "brief": "A reading tool stores highlights and notes in technical documents. When the document is edited, character offsets point to the wrong passages. Some deleted passages remain important to the reader's notes.",
+      "constraints": [
+        "Keep a copy of the originally highlighted text and its document revision.",
+        "Do not silently attach a note to a merely similar passage.",
+        "The user can compare old and new passages.",
+        "Documents can contain repeated boilerplate and moved sections."
+      ],
+      "success_criteria": [
+        "A moved passage can retain its notes with traceable evidence.",
+        "Ambiguous or deleted matches remain explicit.",
+        "Test identical repeated sentences, a moved paragraph, and a small meaning-changing edit."
+      ],
+      "non_goals": [
+        "Rewriting user notes or guaranteeing a match for every highlight."
+      ]
+    }
+  ],
+  "development": [
+    {
+      "id": "d01",
+      "family": "interaction_accessibility",
+      "title": "Development: reversible list ordering",
+      "brief": "A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.",
+      "constraints": [
+        "No pointer required.",
+        "Moving an item must be reversible until the page closes.",
+        "Preserve all item IDs."
+      ],
+      "success_criteria": [
+        "A user can move an item to a chosen position and undo it."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    },
+    {
+      "id": "d02",
+      "family": "software_systems",
+      "title": "Development: temporary cache",
+      "brief": "A small service caches public records for at most five minutes. A slow source can time out.",
+      "constraints": [
+        "An expired record cannot be labeled fresh.",
+        "No private data.",
+        "Memory holds at most 100 records."
+      ],
+      "success_criteria": [
+        "An outage has an explicit response and eviction behavior."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    },
+    {
+      "id": "d03",
+      "family": "operational_workflows",
+      "title": "Development: shared-room checkout",
+      "brief": "A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.",
+      "constraints": [
+        "Only two existing volunteers.",
+        "No tracking hardware.",
+        "A handoff must record its time."
+      ],
+      "success_criteria": [
+        "The current holder and unresolved handoffs can be identified."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    },
+    {
+      "id": "d04",
+      "family": "information_creative_tooling",
+      "title": "Development: source-bound glossary",
+      "brief": "An editor maintains definitions linked to supplied source passages. A definition may be disputed.",
+      "constraints": [
+        "No external sources.",
+        "Preserve competing wording.",
+        "Every definition needs a source passage ID."
+      ],
+      "success_criteria": [
+        "A reader can inspect the source and disagreement."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    }
+  ]
+}

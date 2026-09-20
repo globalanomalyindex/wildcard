@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Store each explicit level edit and carry it forward until another explicit edit overrides it.","trace":["20","20","20"],"explanation":"The step 1 edit sets level 20, and no later edit overrides it."}

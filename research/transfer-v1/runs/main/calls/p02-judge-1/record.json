@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "p02-judge-1",
+  "request_sha256": "71717df057e1c6c3051b1fe8a0a4722c0c065b54506971984a21ce3d47154cbd",
+  "prompt_sha256": "f31011947ae8ee5823d89764fdfd335fea4c3cbbee2f26725740ee2426c118be",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:24:44.047469+00:00",
+  "finished_at": "2026-09-20T20:25:17.921505+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 33.87165195899996,
+      "usage": {
+        "input_tokens": 10586,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 958,
+        "reasoning_output_tokens": 42
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "3df6886873f19fef1c926d87aa40519a3c52a2af85254c4667b93c217e65835a",
+      "stderr_sha256": "17705e4671cf04b66231f188fc51856885727b5046660380088acee06047f6c8"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "f159cbabcb4c6e35",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity",
+        "reason": "Stable product/control identity and a heading fallback provide predictable focus, with retained and removed item tests."
+      },
+      {
+        "id": "69f9713f0641fe9d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "count_and_loading_status",
+        "reason": "An external persistent status distinguishes loading from zero and explicitly tests count availability within one second."
+      },
+      {
+        "id": "5158b4a1754a58c2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity",
+        "reason": "Identity-based focus preservation and a focusable heading fallback include checks for retention, removal, and unchanged filter focus."
+      },
+      {
+        "id": "59483c83a0b8de04",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "compact_view",
+        "reason": "A keyboard-operable detail-reduction toggle preserves every match and tests coverage and non-color product distinctions."
+      },
+      {
+        "id": "a035c4476f7620d2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "count_and_loading_status",
+        "reason": "Immediate accepted-count publication outside busy results separates loading from confirmed totals and tests the one-second requirement."
+      },
+      {
+        "id": "7f5a29c8c7067c59",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "count_and_loading_status",
+        "reason": "Persistent visible and live status distinguishes pending from completed results, with timing and stale-response checks."
+      },
+      {
+        "id": "92545e6b07fc24ef",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "compact_view",
+        "reason": "Compact presentation reduces detail rather than coverage and tests all 200 products plus keyboard toggle focus."
+      },
+      {
+        "id": "76f32b9dd5fff756",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8ca91e836d39db6",
+        "mechanism_group": "latest_response_commit",
+        "reason": "Sequence-number gating and coordinated state commits prevent stale updates, tested through reversed response order."
+      },
+      {
+        "id": "6205ca9493295290",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8ca91e836d39db6",
+        "mechanism_group": "latest_response_commit",
+        "reason": "Request tokens reject superseded results while coordinated commits preserve coverage and enable observable out-of-order tests."
+      },
+      {
+        "id": "bdfda78986857745",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "compact_view",
+        "reason": "Keyboard-operated presentation switching preserves product coverage and tests identical IDs, details access, and filter state."
+      },
+      {
+        "id": "646b8b53fcce813e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "count_and_loading_status",
+        "reason": "Persistent count text and confirmed-zero messaging distinguish loading from empty results and provide a one-second availability check."
+      },
+      {
+        "id": "6ef46d703318ba97",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity",
+        "reason": "Keyed node reuse preserves retained controls, while removal uses a heading fallback without redirecting filter focus."
+      },
+      {
+        "id": "d8f0ae31051e72b4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity",
+        "reason": "Product/control identity recovery and a results-heading fallback specify observable retained-item and removed-item focus tests."
+      }
+    ]
+  },
+  "result_sha256": "f2b5b6955cb39e6c63486817927559eb6d2135ae1a9dd01fee4da3e0ced9e71d",
+  "raw_output_sha256": "7c3130ccdbe74b57ba3a6b2530904525fb5bca7f417f29ecf5fecafea64e0b78"
+}

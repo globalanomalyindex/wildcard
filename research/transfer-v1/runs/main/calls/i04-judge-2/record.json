@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "i04-judge-2",
+  "request_sha256": "fb1d140ced8d481edd0316da04e703b84b2a7f18ce0448b7708f749822e27cae",
+  "prompt_sha256": "d032279807b7321fedbd2afeb03f0c7c4a730749f5ed5c1156fd4725b47084ff",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:23:51.581223+00:00",
+  "finished_at": "2026-09-20T20:24:26.573710+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 34.98929554199998,
+      "usage": {
+        "input_tokens": 8249,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1714,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "ed807ff2242c3df8fd2063af55b411225fca409c8993617b4c9e84f205ea1e48",
+      "stderr_sha256": "c6636ec4757520f3d4b5f3b071533e28e3e79cac2c8ae57a921dd49cfe09a5e3"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "3be683352eac4d3a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ac52baa153291a66",
+        "mechanism_group": "non_color_comparison",
+        "reason": "It provides textual/numeric current-versus-proposed comparisons, override status, and grayscale/keyboard checks without relying on color alone."
+      },
+      {
+        "id": "dc6cf95698f76bdc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bb46c2bbdec49dcd",
+        "mechanism_group": "rendered_pair_review",
+        "reason": "It evaluates affected rendered foreground/background pairs with numeric contrast and flags failures or indeterminate cases before publishing."
+      },
+      {
+        "id": "a50578e424c60c03",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "69169124c402afd9",
+        "mechanism_group": "dependency_impact_preview",
+        "reason": "It stages edits, traverses reverse token references per brand/theme, preserves override boundaries, and reports cycles with paths."
+      },
+      {
+        "id": "c64087d0d6359273",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8a001c0414db06e",
+        "mechanism_group": "override_provenance",
+        "reason": "It treats brand overrides as protected, traceable resolution boundaries and distinguishes literal overrides from inherited alias effects."
+      },
+      {
+        "id": "1fcda82ce5ea629d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bb46c2bbdec49dcd",
+        "mechanism_group": "rendered_pair_review",
+        "reason": "It checks actual rendered pairs by role and requires review for failures or unknowns, including a token used as both text and background."
+      },
+      {
+        "id": "154266697d0c7f7b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7103449eba24790",
+        "mechanism_group": "override_provenance",
+        "reason": "It preserves brand overrides with provenance and requires explicit operations to change or remove intentional brand values."
+      },
+      {
+        "id": "9d760356acaa1367",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a8966c3526d6e87",
+        "mechanism_group": "publish_pair_review_gate",
+        "reason": "It gates publishing on review of actual affected foreground/background uses and blocks unresolved cycles or unreviewed flagged pairs."
+      },
+      {
+        "id": "a1d9a6255ac19a6f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1cf87ed2bc227ff6",
+        "mechanism_group": "revision_bound_publish_gate",
+        "reason": "It binds review to an immutable candidate revision and invalidates approval when token inputs change before publishing."
+      },
+      {
+        "id": "ab481c1fe32b6a88",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "69169124c402afd9",
+        "mechanism_group": "dependency_impact_preview",
+        "reason": "It resolves downstream dependencies per brand/theme, maps changed values to rendered pairs, and reports cycle diagnostics."
+      },
+      {
+        "id": "c5a8d72183ca76aa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a8d8e1131d9c0cc8",
+        "mechanism_group": "constrained_repair_suggestions",
+        "reason": "It offers opt-in, constrained repair candidates for failing pairs while previewing downstream impact and rejecting new failures."
+      },
+      {
+        "id": "208c898eb0ce32de",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "69169124c402afd9",
+        "mechanism_group": "dependency_impact_preview",
+        "reason": "It recomputes reverse dependencies, shows alias paths and resolved-value differences, and detects cycles while linking to rendered uses."
+      },
+      {
+        "id": "eb6e714ca024e001",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8a001c0414db06e",
+        "mechanism_group": "override_provenance",
+        "reason": "It distinguishes inherited values from brand-owned overrides and preserves literal and alias overrides with explicit provenance."
+      },
+      {
+        "id": "2205b4e571f94ab1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "be59d1823ed9e344",
+        "mechanism_group": "dependency_impact_preview",
+        "reason": "It resolves aliases separately by brand/theme, traverses multi-level dependencies, and reports cycle errors instead of partial results."
+      },
+      {
+        "id": "91bbb20ee2ad6d5c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1cf87ed2bc227ff6",
+        "mechanism_group": "revision_bound_publish_gate",
+        "reason": "It isolates proposed edits, blocks publishing on unresolved pair reviews or cycles, supports non-color comparison, and invalidates approvals after edits."
+      },
+      {
+        "id": "6cce7d7f823790fc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0a8966c3526d6e87",
+        "mechanism_group": "publish_pair_review_gate",
+        "reason": "It keeps changes in a draft and requires affected pair results and renewed review before publication."
+      },
+      {
+        "id": "399cf4903c192207",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8a001c0414db06e",
+        "mechanism_group": "override_provenance",
+        "reason": "It preserves explicit brand overrides as owned values while allowing brand aliases to continue following their references."
+      }
+    ]
+  },
+  "result_sha256": "4bd3e4161a657c7fa4d81787390362d440d0feb13b8ac3b8a8271645e86354a9",
+  "raw_output_sha256": "7400732e8081a6959a876596921491a50a0c6314cf1ef98e3e0a2827c031c027"
+}

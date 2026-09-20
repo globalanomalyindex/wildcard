@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "o04-LR",
+  "request_sha256": "6048914b53e06e26aedb0f4d779e50b444779841f8cc3f537c4e9df5ea2b6ee2",
+  "prompt_sha256": "bc4d1272890828a41df1bd274f459c67262227d88e5c07646e6130f0faaa5c04",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:54.608384+00:00",
+  "finished_at": "2026-09-20T20:13:12.042270+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 17.43291762499996,
+      "usage": {
+        "input_tokens": 7275,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 461,
+        "reasoning_output_tokens": 40
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d7f2905b8a703a66cd586315920a56211a0a2b3c906350cbb58f3934e10287b0",
+      "stderr_sha256": "6138e79bc4acf095991077679cf8b478c1765efa46cc4f383e04c082b41b7305"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve arrival-based priority across every reroute.",
+        "mechanism": "Keep one case identity and immutable arrival time; rank eligible waiting cases by arrival, not team-entry time.",
+        "implementation": "Store arrival time once, prohibit updates, and append routing history. Break simultaneous-arrival ties with an immutable intake sequence.",
+        "check": "Reroute an older mistagged case twice; verify it precedes newer cases eligible for the same worker. Repeat with simultaneous arrivals.",
+        "risk": "Old cases can dominate; monitor delays without resetting timestamps."
+      },
+      {
+        "action": "Gate assignments against qualifications and live roster capacity.",
+        "mechanism": "Assign only when language, product expertise, urgent-case qualification, and current shift capacity all permit service.",
+        "implementation": "Use one atomic assignment gate for automated routing and manual transfers. Determine urgency from documented case criteria, never status or spending.",
+        "check": "Test concurrent assignments, wrong tags, shift changes, and no eligible urgent worker; forbidden assignments must remain zero.",
+        "risk": "Incorrect qualification records can defeat otherwise correct checks."
+      },
+      {
+        "action": "Separate skill shortages from missing customer information.",
+        "mechanism": "Explicit blocker fields explain why cases wait without altering their original arrival-based claim.",
+        "implementation": "Track missing information and unavailable skills independently, allowing both. Show owners and next steps; resume ready cases using original arrival time.",
+        "check": "Remove each blocker separately; verify remaining blockers stay visible. With no eligible urgent worker, show skill waiting and notify the lead.",
+        "risk": "Unreviewed blocker labels can hide actionable cases indefinitely."
+      },
+      {
+        "action": "Run bounded reviews of repeatedly rerouted cases.",
+        "mechanism": "A small correction batch addresses routing errors while preserving capacity for ordinary service.",
+        "implementation": "Set a batch limit and roster-based go/no-go threshold. Review tag evidence without assignment; pause if coverage falls, leaving cases queued with original timestamps.",
+        "check": "Seed incorrect tags; audit corrected requirements and unchanged timestamps. Reduce roster capacity mid-review and verify the batch pauses.",
+        "risk": "Review can consume scarce expertise; unresolved requirements must block assignment."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "1efe0fee752b064df235494f7210ac8991c66190fc636d581019d0eda84780c5",
+  "raw_output_sha256": "9c06d8a787d97d5d6617f912401b7f09e4a37bc46c89f156f91917cebe79a4e2"
+}

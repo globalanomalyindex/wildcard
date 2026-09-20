@@ -1,0 +1,410 @@
+{
+  "schema_version": 1,
+  "study": "counterfactual-transfer-v1",
+  "cohort": "development",
+  "frozen_at": "2026-09-20T19:38:58.872796+00:00",
+  "source_commit": "0b34cb29fcd2ebe9b816fa4c52de40697b7c17ea",
+  "source_sha256": {
+    "tasks.json": "1fb11635f1ac5c2ed038d5a01157464f09ff481116265f9df85feb9c602eec35",
+    "cards.json": "eb6bf99adf933f1ee4464d4af8d0d9a0e19d8fa9327fa652ef76b5eed83218f7",
+    "diagnostics.json": "938d2fff2a0f0d123b56df44c7ef7a319090fe510400cbf2e50deb14bd51afc0",
+    "protocol.md": "ecda7a3168f9181fefaf2d45810fff283226a0a358f81c72cbdcdc09ce94b1f3",
+    "prompts.py": "47bc361ac5b717c60d8159cea30b04df500604dc6faca52806316b5dfba30938",
+    "run.py": "ad2ac2759f0dfbd3c86b5527a506b81ee54e95c5ef42cdefd50d4aa34462865e",
+    "system-instructions.txt": "52c13fcd9175f97e26384ab985ce5abeceb0e2a6e12092875a19ace6ee766f05",
+    "analysis.py": "f4b7ea3ce5099ed3bd71bbfcf0c4bde187c06ed60c8579a0924b47ad03839285",
+    "analyze.mjs": "32c51f741a9b6c708b092d10c797d6da46462faabb19e5b9bf1f8c519bc494cc",
+    "../lib/stats.mjs": "41abd78ea46d21a425dd162000f66277a1869d94845c66dece41ef1e55023213"
+  },
+  "source_snapshots": {
+    "tasks.json": "frozen-source/research/transfer-v1/tasks.json",
+    "cards.json": "frozen-source/research/transfer-v1/cards.json",
+    "diagnostics.json": "frozen-source/research/transfer-v1/diagnostics.json",
+    "protocol.md": "frozen-source/research/transfer-v1/protocol.md",
+    "prompts.py": "frozen-source/research/transfer-v1/prompts.py",
+    "run.py": "frozen-source/research/transfer-v1/run.py",
+    "system-instructions.txt": "frozen-source/research/transfer-v1/system-instructions.txt",
+    "analysis.py": "frozen-source/research/transfer-v1/analysis.py",
+    "analyze.mjs": "frozen-source/research/transfer-v1/analyze.mjs",
+    "../lib/stats.mjs": "frozen-source/research/lib/stats.mjs"
+  },
+  "tasks": [
+    {
+      "id": "d01",
+      "family": "interaction_accessibility",
+      "title": "Development: reversible list ordering",
+      "brief": "A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.",
+      "constraints": [
+        "No pointer required.",
+        "Moving an item must be reversible until the page closes.",
+        "Preserve all item IDs."
+      ],
+      "success_criteria": [
+        "A user can move an item to a chosen position and undo it."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    },
+    {
+      "id": "d02",
+      "family": "software_systems",
+      "title": "Development: temporary cache",
+      "brief": "A small service caches public records for at most five minutes. A slow source can time out.",
+      "constraints": [
+        "An expired record cannot be labeled fresh.",
+        "No private data.",
+        "Memory holds at most 100 records."
+      ],
+      "success_criteria": [
+        "An outage has an explicit response and eviction behavior."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    },
+    {
+      "id": "d03",
+      "family": "operational_workflows",
+      "title": "Development: shared-room checkout",
+      "brief": "A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.",
+      "constraints": [
+        "Only two existing volunteers.",
+        "No tracking hardware.",
+        "A handoff must record its time."
+      ],
+      "success_criteria": [
+        "The current holder and unresolved handoffs can be identified."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    },
+    {
+      "id": "d04",
+      "family": "information_creative_tooling",
+      "title": "Development: source-bound glossary",
+      "brief": "An editor maintains definitions linked to supplied source passages. A definition may be disputed.",
+      "constraints": [
+        "No external sources.",
+        "Preserve competing wording.",
+        "Every definition needs a source passage ID."
+      ],
+      "success_criteria": [
+        "A reader can inspect the source and disagreement."
+      ],
+      "non_goals": [
+        "Main-study reuse."
+      ]
+    }
+  ],
+  "assignments": [
+    {
+      "task_id": "d01",
+      "card_id": "c15",
+      "wrong_label_card_id": "c08"
+    },
+    {
+      "task_id": "d02",
+      "card_id": "c12",
+      "wrong_label_card_id": "c03"
+    },
+    {
+      "task_id": "d03",
+      "card_id": "c14",
+      "wrong_label_card_id": "c07"
+    },
+    {
+      "task_id": "d04",
+      "card_id": "c09",
+      "wrong_label_card_id": "c01"
+    }
+  ],
+  "requests": [
+    {
+      "id": "d01-S",
+      "phase": "main",
+      "task_id": "d01",
+      "arm": "S",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: reversible list ordering\",\n  \"brief\": \"A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.\",\n  \"constraints\": [\n    \"No pointer required.\",\n    \"Moving an item must be reversible until the page closes.\",\n    \"Preserve all item IDs.\"\n  ],\n  \"success_criteria\": [\n    \"A user can move an item to a chosen position and undo it.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "471f42a456e0aaef5b2e70906e9110019c1a66a6bb471b4297293e43355d2617"
+    },
+    {
+      "id": "d03-bank-1",
+      "phase": "bank",
+      "task_id": "d03",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: shared-room checkout\",\n  \"brief\": \"A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.\",\n  \"constraints\": [\n    \"Only two existing volunteers.\",\n    \"No tracking hardware.\",\n    \"A handoff must record its time.\"\n  ],\n  \"success_criteria\": [\n    \"The current holder and unresolved handoffs can be identified.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "22e18fc7edc201d402b0b0be4badb244787fd8dab0dedf6628d65020f7dc2adb"
+    },
+    {
+      "id": "d04-S",
+      "phase": "main",
+      "task_id": "d04",
+      "arm": "S",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: source-bound glossary\",\n  \"brief\": \"An editor maintains definitions linked to supplied source passages. A definition may be disputed.\",\n  \"constraints\": [\n    \"No external sources.\",\n    \"Preserve competing wording.\",\n    \"Every definition needs a source passage ID.\"\n  ],\n  \"success_criteria\": [\n    \"A reader can inspect the source and disagreement.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "09a70a3167a9171b463813a4d179312cad90e4f35bd09aa0b3f0ce6cbd5c9373"
+    },
+    {
+      "id": "d02-R",
+      "phase": "main",
+      "task_id": "d02",
+      "arm": "R",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: temporary cache\",\n  \"brief\": \"A small service caches public records for at most five minutes. A slow source can time out.\",\n  \"constraints\": [\n    \"An expired record cannot be labeled fresh.\",\n    \"No private data.\",\n    \"Memory holds at most 100 records.\"\n  ],\n  \"success_criteria\": [\n    \"An outage has an explicit response and eviction behavior.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nRelation: A representation for a smaller viewing scale selects, simplifies, or combines details so the remaining structure is legible. What is shown depends on the purpose and available space. A compact view is a deliberate representation of a richer source, not evidence that omitted features do not exist.\nBoundary: Simplification can erase distinctions that matter for another task. Keep access to the detailed source and choose what to retain according to the user's question rather than visual neatness alone.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "f310e3aafdfc751b30bf0f58eb7dc65a0ced3fec1b63162989801b1a082db02c"
+    },
+    {
+      "id": "d03-XR",
+      "phase": "main",
+      "task_id": "d03",
+      "arm": "XR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: shared-room checkout\",\n  \"brief\": \"A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.\",\n  \"constraints\": [\n    \"Only two existing volunteers.\",\n    \"No tracking hardware.\",\n    \"A handoff must record its time.\"\n  ],\n  \"success_criteria\": [\n    \"The current holder and unresolved handoffs can be identified.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Astronomical interferometry\nRelation: A state changes only when an input crosses an upper boundary in one direction or a lower boundary in the other. Between those boundaries it retains the preceding state. Separating the two transitions prevents small fluctuations around one threshold from repeatedly toggling the output.\nBoundary: The gap must fit the expected noise and response needs. A larger gap can hide a real change for longer, and retaining state is unsuitable when every threshold crossing must be acted on immediately.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "5699230b1fdc34895350909f1ba3e352592ed757a60657460e8f040fe5162769"
+    },
+    {
+      "id": "d04-bank-1",
+      "phase": "bank",
+      "task_id": "d04",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: source-bound glossary\",\n  \"brief\": \"An editor maintains definitions linked to supplied source passages. A definition may be disputed.\",\n  \"constraints\": [\n    \"No external sources.\",\n    \"Preserve competing wording.\",\n    \"Every definition needs a source passage ID.\"\n  ],\n  \"success_criteria\": [\n    \"A reader can inspect the source and disagreement.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "d1dba66bdd5887d6c3f281a537fe092e32153414eeb9fb3f616bb9c559d58118"
+    },
+    {
+      "id": "d02-bank-1",
+      "phase": "bank",
+      "task_id": "d02",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: temporary cache\",\n  \"brief\": \"A small service caches public records for at most five minutes. A slow source can time out.\",\n  \"constraints\": [\n    \"An expired record cannot be labeled fresh.\",\n    \"No private data.\",\n    \"Memory holds at most 100 records.\"\n  ],\n  \"success_criteria\": [\n    \"An outage has an explicit response and eviction behavior.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "87f86636f1cb93ae68c07a11a30611cf2e38382c2aad9ee8f8d85b89e88658ef"
+    },
+    {
+      "id": "d04-LR",
+      "phase": "main",
+      "task_id": "d04",
+      "arm": "LR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: source-bound glossary\",\n  \"brief\": \"An editor maintains definitions linked to supplied source passages. A definition may be disputed.\",\n  \"constraints\": [\n    \"No external sources.\",\n    \"Preserve competing wording.\",\n    \"Every definition needs a source passage ID.\"\n  ],\n  \"success_criteria\": [\n    \"A reader can inspect the source and disagreement.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Prescribed fire management\nRelation: Accumulated material can increase the scale of a later uncontrolled disruption. A planned bounded intervention removes some of that material while predefined conditions permit control. Monitoring continues during the intervention; if the conditions are unsuitable, a different removal method is used.\nBoundary: The intervention is not automatically beneficial. It needs a limited scope, a go/no-go condition, monitoring, and a feasible alternative. Do not transfer intentional destruction to irreplaceable target material.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "70e1daf40a49f0ca18aa7bd6276b3030259e6e3b5fc40e01f6b814d176f0f4c6"
+    },
+    {
+      "id": "d04-XR",
+      "phase": "main",
+      "task_id": "d04",
+      "arm": "XR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: source-bound glossary\",\n  \"brief\": \"An editor maintains definitions linked to supplied source passages. A definition may be disputed.\",\n  \"constraints\": [\n    \"No external sources.\",\n    \"Preserve competing wording.\",\n    \"Every definition needs a source passage ID.\"\n  ],\n  \"success_criteria\": [\n    \"A reader can inspect the source and disagreement.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Canal locks\nRelation: Accumulated material can increase the scale of a later uncontrolled disruption. A planned bounded intervention removes some of that material while predefined conditions permit control. Monitoring continues during the intervention; if the conditions are unsuitable, a different removal method is used.\nBoundary: The intervention is not automatically beneficial. It needs a limited scope, a go/no-go condition, monitoring, and a feasible alternative. Do not transfer intentional destruction to irreplaceable target material.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "ab19608448f66e25d652f12b97d3b73b2c79956c35350796ec1a45b93e959f94"
+    },
+    {
+      "id": "d03-bank-2",
+      "phase": "bank",
+      "task_id": "d03",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: shared-room checkout\",\n  \"brief\": \"A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.\",\n  \"constraints\": [\n    \"Only two existing volunteers.\",\n    \"No tracking hardware.\",\n    \"A handoff must record its time.\"\n  ],\n  \"success_criteria\": [\n    \"The current holder and unresolved handoffs can be identified.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "22e18fc7edc201d402b0b0be4badb244787fd8dab0dedf6628d65020f7dc2adb"
+    },
+    {
+      "id": "d01-XR",
+      "phase": "main",
+      "task_id": "d01",
+      "arm": "XR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: reversible list ordering\",\n  \"brief\": \"A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.\",\n  \"constraints\": [\n    \"No pointer required.\",\n    \"Moving an item must be reversible until the page closes.\",\n    \"Preserve all item IDs.\"\n  ],\n  \"success_criteria\": [\n    \"A user can move an item to a chosen position and undo it.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Boids flock simulation\nRelation: Records gain meaning from who created them and how they were grouped in the originating activity. Preserving those relationships supports interpretation even when a new arrangement would look tidier. Description can expose access paths without silently replacing the evidence of the original organization.\nBoundary: An original order may be unknown, disrupted, or unsuitable for direct browsing. Do not invent one or treat historical organization as infallible; distinguish preserved evidence from a newly constructed access view.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "e811ca9847b306fa14c7a55275e214e4312c76c2521974e5cad56bde50a51e91"
+    },
+    {
+      "id": "d01-bank-1",
+      "phase": "bank",
+      "task_id": "d01",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: reversible list ordering\",\n  \"brief\": \"A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.\",\n  \"constraints\": [\n    \"No pointer required.\",\n    \"Moving an item must be reversible until the page closes.\",\n    \"Preserve all item IDs.\"\n  ],\n  \"success_criteria\": [\n    \"A user can move an item to a chosen position and undo it.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "533a046e1664f92c04ff6b910fc18bc4026430b33bb3e032bb8fd7068c4490f8"
+    },
+    {
+      "id": "d03-S",
+      "phase": "main",
+      "task_id": "d03",
+      "arm": "S",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: shared-room checkout\",\n  \"brief\": \"A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.\",\n  \"constraints\": [\n    \"Only two existing volunteers.\",\n    \"No tracking hardware.\",\n    \"A handoff must record its time.\"\n  ],\n  \"success_criteria\": [\n    \"The current holder and unresolved handoffs can be identified.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "b02d6059b1d2a9c412b0e70c873ee8e2196facd17e62b6d4bdbf7ba8073e6db1"
+    },
+    {
+      "id": "d03-LR",
+      "phase": "main",
+      "task_id": "d03",
+      "arm": "LR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: shared-room checkout\",\n  \"brief\": \"A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.\",\n  \"constraints\": [\n    \"Only two existing volunteers.\",\n    \"No tracking hardware.\",\n    \"A handoff must record its time.\"\n  ],\n  \"success_criteria\": [\n    \"The current holder and unresolved handoffs can be identified.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Comparator hysteresis\nRelation: A state changes only when an input crosses an upper boundary in one direction or a lower boundary in the other. Between those boundaries it retains the preceding state. Separating the two transitions prevents small fluctuations around one threshold from repeatedly toggling the output.\nBoundary: The gap must fit the expected noise and response needs. A larger gap can hide a real change for longer, and retaining state is unsuitable when every threshold crossing must be acted on immediately.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "a76cf3c61ed4df44a19cba65f5a1b4e20485283eee1dbf1a606e2059fa587790"
+    },
+    {
+      "id": "d04-R",
+      "phase": "main",
+      "task_id": "d04",
+      "arm": "R",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: source-bound glossary\",\n  \"brief\": \"An editor maintains definitions linked to supplied source passages. A definition may be disputed.\",\n  \"constraints\": [\n    \"No external sources.\",\n    \"Preserve competing wording.\",\n    \"Every definition needs a source passage ID.\"\n  ],\n  \"success_criteria\": [\n    \"A reader can inspect the source and disagreement.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nRelation: Accumulated material can increase the scale of a later uncontrolled disruption. A planned bounded intervention removes some of that material while predefined conditions permit control. Monitoring continues during the intervention; if the conditions are unsuitable, a different removal method is used.\nBoundary: The intervention is not automatically beneficial. It needs a limited scope, a go/no-go condition, monitoring, and a feasible alternative. Do not transfer intentional destruction to irreplaceable target material.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "e46f3b66c215a313193586179f4c3df6e135f1d8b2ab08ba8b4079c9706d869c"
+    },
+    {
+      "id": "d03-R",
+      "phase": "main",
+      "task_id": "d03",
+      "arm": "R",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: shared-room checkout\",\n  \"brief\": \"A club lends a shared meeting room key between two volunteers. The current chat thread makes the location unclear.\",\n  \"constraints\": [\n    \"Only two existing volunteers.\",\n    \"No tracking hardware.\",\n    \"A handoff must record its time.\"\n  ],\n  \"success_criteria\": [\n    \"The current holder and unresolved handoffs can be identified.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nRelation: A state changes only when an input crosses an upper boundary in one direction or a lower boundary in the other. Between those boundaries it retains the preceding state. Separating the two transitions prevents small fluctuations around one threshold from repeatedly toggling the output.\nBoundary: The gap must fit the expected noise and response needs. A larger gap can hide a real change for longer, and retaining state is unsuitable when every threshold crossing must be acted on immediately.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "60eeefc30d74d1de3704c772372bc729b070221b52a5557796b652dbddc6fdfd"
+    },
+    {
+      "id": "d02-LR",
+      "phase": "main",
+      "task_id": "d02",
+      "arm": "LR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: temporary cache\",\n  \"brief\": \"A small service caches public records for at most five minutes. A slow source can time out.\",\n  \"constraints\": [\n    \"An expired record cannot be labeled fresh.\",\n    \"No private data.\",\n    \"Memory holds at most 100 records.\"\n  ],\n  \"success_criteria\": [\n    \"An outage has an explicit response and eviction behavior.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Cartographic generalization\nRelation: A representation for a smaller viewing scale selects, simplifies, or combines details so the remaining structure is legible. What is shown depends on the purpose and available space. A compact view is a deliberate representation of a richer source, not evidence that omitted features do not exist.\nBoundary: Simplification can erase distinctions that matter for another task. Keep access to the detailed source and choose what to retain according to the user's question rather than visual neatness alone.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "a7a262dc76975e132b6f71562694f2f6d7075a97cdc29687d29c9114bf6b5302"
+    },
+    {
+      "id": "d01-LR",
+      "phase": "main",
+      "task_id": "d01",
+      "arm": "LR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: reversible list ordering\",\n  \"brief\": \"A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.\",\n  \"constraints\": [\n    \"No pointer required.\",\n    \"Moving an item must be reversible until the page closes.\",\n    \"Preserve all item IDs.\"\n  ],\n  \"success_criteria\": [\n    \"A user can move an item to a chosen position and undo it.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Archival provenance and original order\nRelation: Records gain meaning from who created them and how they were grouped in the originating activity. Preserving those relationships supports interpretation even when a new arrangement would look tidier. Description can expose access paths without silently replacing the evidence of the original organization.\nBoundary: An original order may be unknown, disrupted, or unsuitable for direct browsing. Do not invent one or treat historical organization as infallible; distinguish preserved evidence from a newly constructed access view.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "56841207edd5bca6b367623793d8ffb607f0b3911c59ddf9ed4d3135c1499d96"
+    },
+    {
+      "id": "d02-S",
+      "phase": "main",
+      "task_id": "d02",
+      "arm": "S",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: temporary cache\",\n  \"brief\": \"A small service caches public records for at most five minutes. A slow source can time out.\",\n  \"constraints\": [\n    \"An expired record cannot be labeled fresh.\",\n    \"No private data.\",\n    \"Memory holds at most 100 records.\"\n  ],\n  \"success_criteria\": [\n    \"An outage has an explicit response and eviction behavior.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "cbe5d0738136578c6bc70da88001b13936a45af33f69f4bfed890a56fd68a682"
+    },
+    {
+      "id": "d01-R",
+      "phase": "main",
+      "task_id": "d01",
+      "arm": "R",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: reversible list ordering\",\n  \"brief\": \"A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.\",\n  \"constraints\": [\n    \"No pointer required.\",\n    \"Moving an item must be reversible until the page closes.\",\n    \"Preserve all item IDs.\"\n  ],\n  \"success_criteria\": [\n    \"A user can move an item to a chosen position and undo it.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nRelation: Records gain meaning from who created them and how they were grouped in the originating activity. Preserving those relationships supports interpretation even when a new arrangement would look tidier. Description can expose access paths without silently replacing the evidence of the original organization.\nBoundary: An original order may be unknown, disrupted, or unsuitable for direct browsing. Do not invent one or treat historical organization as infallible; distinguish preserved evidence from a newly constructed access view.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "1c07a9793bcc27bc447191aa90dc0dabe2f0f52567e380655286ca6f2f7b4223"
+    },
+    {
+      "id": "d04-bank-2",
+      "phase": "bank",
+      "task_id": "d04",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: source-bound glossary\",\n  \"brief\": \"An editor maintains definitions linked to supplied source passages. A definition may be disputed.\",\n  \"constraints\": [\n    \"No external sources.\",\n    \"Preserve competing wording.\",\n    \"Every definition needs a source passage ID.\"\n  ],\n  \"success_criteria\": [\n    \"A reader can inspect the source and disagreement.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "d1dba66bdd5887d6c3f281a537fe092e32153414eeb9fb3f616bb9c559d58118"
+    },
+    {
+      "id": "d02-bank-2",
+      "phase": "bank",
+      "task_id": "d02",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: temporary cache\",\n  \"brief\": \"A small service caches public records for at most five minutes. A slow source can time out.\",\n  \"constraints\": [\n    \"An expired record cannot be labeled fresh.\",\n    \"No private data.\",\n    \"Memory holds at most 100 records.\"\n  ],\n  \"success_criteria\": [\n    \"An outage has an explicit response and eviction behavior.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "87f86636f1cb93ae68c07a11a30611cf2e38382c2aad9ee8f8d85b89e88658ef"
+    },
+    {
+      "id": "d01-bank-2",
+      "phase": "bank",
+      "task_id": "d01",
+      "arm": "S",
+      "count": 8,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: reversible list ordering\",\n  \"brief\": \"A reading list supports manual reordering but currently requires dragging. Design a keyboard-accessible alternative for a list of 40 items.\",\n  \"constraints\": [\n    \"No pointer required.\",\n    \"Moving an item must be reversible until the page closes.\",\n    \"Preserve all item IDs.\"\n  ],\n  \"success_criteria\": [\n    \"A user can move an item to a chosen position and undo it.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "533a046e1664f92c04ff6b910fc18bc4026430b33bb3e032bb8fd7068c4490f8"
+    },
+    {
+      "id": "d02-XR",
+      "phase": "main",
+      "task_id": "d02",
+      "arm": "XR",
+      "count": 4,
+      "model": "gpt-6-astra",
+      "schema": "generation",
+      "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Each action must be at most 110 words across all fields.\n\nTask:\n{\n  \"title\": \"Development: temporary cache\",\n  \"brief\": \"A small service caches public records for at most five minutes. A slow source can time out.\",\n  \"constraints\": [\n    \"An expired record cannot be labeled fresh.\",\n    \"No private data.\",\n    \"Memory holds at most 100 records.\"\n  ],\n  \"success_criteria\": [\n    \"An outage has an explicit response and eviction behavior.\"\n  ],\n  \"non_goals\": [\n    \"Main-study reuse.\"\n  ]\n}\nOptional outside cue:\nDonor domain: Dendrochronology\nRelation: A representation for a smaller viewing scale selects, simplifies, or combines details so the remaining structure is legible. What is shown depends on the purpose and available space. A compact view is a deliberate representation of a richer source, not evidence that omitted features do not exist.\nBoundary: Simplification can erase distinctions that matter for another task. Keep access to the detailed source and choose what to retain according to the user's question rather than visual neatness alone.\nTreat the relation as an optional prompt for exploration. Transfer useful relationships, not surface nouns. The donor is not evidence that a target intervention will work. Ignore the cue if it cannot support a valid move.\n\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+      "prompt_sha256": "d095b6de69e8db1c9ac7332738a3a93eaf8d778e0458c3601f0e07d4a9a98be9"
+    }
+  ],
+  "generator": "gpt-6-astra",
+  "judges": [
+    "gpt-6-astra",
+    "gpt-5.5"
+  ],
+  "reasoning_effort": "low",
+  "model_sampling_seed": null,
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "output_budget": "At most 4 actions, each at most 110 whitespace-delimited words; bank at most 8 actions.",
+  "transport_timeout_seconds": 240,
+  "maximum_transport_attempts": 2,
+  "provider_returned_model": null,
+  "provider_snapshot": "Not exposed by this CLI transport",
+  "cost_basis": "Authenticated ChatGPT subscription; USD marginal cost unavailable; report observed token usage.",
+  "schema_sha256": {
+    "generation": "88add1f9c53ff1cadb6339c6b1da7c4f7817a6cff4eac76f7df6a64a339a21cd",
+    "judgment": "8617522279121f831c500a9de744da3f7187e598dc36b4416a9803d8c7b11132",
+    "diagnostic": "002de4a8d858ce0d65d5135f8b7408de877e29bb8cc9f84413bde63e27808c82"
+  }
+}

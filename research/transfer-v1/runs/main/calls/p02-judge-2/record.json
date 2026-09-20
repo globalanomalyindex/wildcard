@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "p02-judge-2",
+  "request_sha256": "55c2cb3799625b502359af27e3b62d5ecff0a7321c4db695f01ba3a18befe56d",
+  "prompt_sha256": "089596d2d3d801228aa615729f4d63b74c86d752747464a3eedff5b98f8a16a0",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:28:00.401694+00:00",
+  "finished_at": "2026-09-20T20:28:21.033954+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.629229874999965,
+      "usage": {
+        "input_tokens": 7880,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 980,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1d8efa14c3e10bf672ac93e1b7f2126be381b3ce57265f37c61e7e6f1f3d8aa5",
+      "stderr_sha256": "1421c2a41fd5d65f00406cb3c469d323b7785110ace0677a2c270eb468c1d8fc"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "d8f0ae31051e72b4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity_fallback",
+        "reason": "It uses stable product/control identity and a results-heading fallback for removed focused items, with tests for retained and removed focus."
+      },
+      {
+        "id": "6ef46d703318ba97",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7385302d0db54073",
+        "mechanism_group": "focus_identity_fallback",
+        "reason": "It preserves focus through keyed product identity and sends removed focused products to a predictable heading without stealing filter focus."
+      },
+      {
+        "id": "646b8b53fcce813e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "status_count_states",
+        "reason": "It separates loading, count, and confirmed empty states and requires the count to be visible and exposed within one second."
+      },
+      {
+        "id": "bdfda78986857745",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "compact_view_full_coverage",
+        "reason": "A keyboard-operable compact view can reduce scanning detail while keeping every matching item reachable, but this mechanism is not in the reference bank."
+      },
+      {
+        "id": "6205ca9493295290",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8ca91e836d39db6",
+        "mechanism_group": "latest_response_only",
+        "reason": "Versioned request tokens prevent stale products, counts, or focus decisions and include observable out-of-order and focus tests."
+      },
+      {
+        "id": "76f32b9dd5fff756",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b8ca91e836d39db6",
+        "mechanism_group": "latest_response_only",
+        "reason": "It commits items, count, loading state, and focus policy atomically only for the latest request, matching request sequencing."
+      },
+      {
+        "id": "92545e6b07fc24ef",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "compact_view_full_coverage",
+        "reason": "The keyboard view toggle preserves all matches and product identities while reducing detail, which is implementable but not a bank mechanism."
+      },
+      {
+        "id": "7f5a29c8c7067c59",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "status_count_states",
+        "reason": "It distinguishes pending, zero, and completed states and exposes the current count within one second without moving focus."
+      },
+      {
+        "id": "a035c4476f7620d2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "status_count_states",
+        "reason": "It publishes accepted totals in a persistent visible/live status outside the busy container and distinguishes zero, failure, and stale responses."
+      },
+      {
+        "id": "59483c83a0b8de04",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "compact_view_full_coverage",
+        "reason": "It provides a keyboard-operable compact mode while retaining every matching product and non-color distinguishing information."
+      },
+      {
+        "id": "5158b4a1754a58c2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity_fallback",
+        "reason": "It keys by product/control identity and defines a programmatically focusable heading fallback, with checks for retained, removed, and filter focus."
+      },
+      {
+        "id": "69f9713f0641fe9d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1f823c5f81f982d7",
+        "mechanism_group": "status_count_states",
+        "reason": "It keeps status outside the busy results, labels previous counts during loading, and tests that zero is not announced prematurely."
+      },
+      {
+        "id": "f159cbabcb4c6e35",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "6ea48e38251244b5",
+        "mechanism_group": "focus_identity_fallback",
+        "reason": "It tracks product/control identity across reordering and uses a persistent results heading only when the focused product disappears."
+      }
+    ]
+  },
+  "result_sha256": "2389739c3f3e76ed072927eb078a1a957cdbb7d490dbd458dcec475865ce54ad",
+  "raw_output_sha256": "6cfc34aef9fcf2d931744ef1700401e308c1c400ecc10d761fa570c11a5019e3"
+}

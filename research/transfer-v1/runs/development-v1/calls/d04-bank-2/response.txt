@@ -1,0 +1,61 @@
+{
+  "actions": [
+    {
+      "action": "Require a supplied source passage for every definition.",
+      "mechanism": "Enforce source binding as a storage invariant.",
+      "implementation": "Create a registry containing only supplied passages. Require each definition to reference at least one existing passage ID; reject saves with missing or unknown IDs. Block deletion of referenced passages.",
+      "check": "Attempt saves with absent, invented, and valid passage IDs. Only the valid reference succeeds.",
+      "risk": "A valid reference proves traceability, not that the passage supports the wording."
+    },
+    {
+      "action": "Store competing definitions as separate alternatives.",
+      "mechanism": "Represent disagreement without overwriting wording.",
+      "implementation": "Give each alternative its own definition ID, exact wording, and passage IDs under a shared term. Record explicit dispute links between alternatives. Any preferred wording remains a label, not a replacement.",
+      "check": "Add two conflicting definitions, select one as preferred, and verify both original wordings and their sources remain accessible.",
+      "risk": "A preferred label can imply stronger consensus than the editor intends."
+    },
+    {
+      "action": "Show the cited passage beside the definition.",
+      "mechanism": "Make source inspection immediate and contextual.",
+      "implementation": "Make every passage ID open the complete supplied passage in an adjacent panel, with optional supporting-span highlighting. Label highlights as selections and keep the rest of the passage available.",
+      "check": "Open every citation in a fixture glossary and verify its displayed text matches the registered passage exactly.",
+      "risk": "Highlighting alone can encourage readers to overlook qualifying context."
+    },
+    {
+      "action": "Provide a disagreement comparison view.",
+      "mechanism": "Expose differences in wording and evidence together.",
+      "implementation": "Place competing definitions side by side with their passage IDs and editor-entered dispute notes. Offer an optional word-level diff, but retain unmodified text. Distinguish wording differences from explicitly recorded substantive disputes.",
+      "check": "Use one paraphrase pair and one contradictory pair; verify neither receives an automatic substantive-dispute classification.",
+      "risk": "Textual differences do not reliably identify differences in meaning."
+    },
+    {
+      "action": "Keep an inspectable definition revision history.",
+      "mechanism": "Preserve prior wording through append-only revisions.",
+      "implementation": "Save edits as new revisions containing wording, passage IDs, editor, and change note. Make earlier revisions readable. Restore an earlier version by creating another revision rather than deleting intervening changes.",
+      "check": "Edit and restore a definition; verify every intermediate wording and its source binding remains inspectable.",
+      "risk": "Readers may mistake historical wording for an active competing definition unless clearly labeled."
+    },
+    {
+      "action": "Flag definitions when supplied passages are corrected.",
+      "mechanism": "Track source changes without silently changing evidence.",
+      "implementation": "Assign corrected passages new immutable IDs and link them to their predecessors. List affected definitions for review while retaining their original citations. Require an explicit revision to cite the corrected passage.",
+      "check": "Correct a passage and verify dependent definitions are flagged, their old citations still resolve, and none is silently rebound.",
+      "risk": "Unreviewed definitions may remain attached to superseded evidence."
+    },
+    {
+      "action": "Make disputed status visible wherever a term appears.",
+      "mechanism": "Prevent summaries and search results from hiding disagreement.",
+      "implementation": "Show an unresolved-dispute badge and alternative count in term lists, search results, and definition headers. Require a recorded reason to close a dispute, and retain its wording and notes after closure.",
+      "check": "Open a dispute and inspect every reader-facing entry point; each must expose a route to the alternatives.",
+      "risk": "Closing a dispute records an editorial decision, not necessarily agreement among contributors."
+    },
+    {
+      "action": "Export a self-contained, source-bound glossary.",
+      "mechanism": "Keep evidence and disagreement inspectable outside the editor.",
+      "implementation": "Build a static reading export containing active alternatives, dispute records, and every cited supplied passage. Use local passage anchors and fail export if any definition lacks a resolvable citation.",
+      "check": "Open the export offline and follow every citation and disagreement link; all must resolve without network access.",
+      "risk": "Exports become stale; display the export date and glossary revision."
+    }
+  ],
+  "abstention_reason": ""
+}

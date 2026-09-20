@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "p05-judge-1",
+  "request_sha256": "19f6ce62c50fdfccabf880c62db143beaa39ba85c720a84f597b29b3c7047e4c",
+  "prompt_sha256": "952847aa2a1bbcc01c8cee4d16fe9be0986a745aebfb2fe62553652728b675b7",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:22:39.626212+00:00",
+  "finished_at": "2026-09-20T20:23:19.100359+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 39.47008804200004,
+      "usage": {
+        "input_tokens": 11210,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1181,
+        "reasoning_output_tokens": 31
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "3c07e6c008c0fdf34353a84de8e8fd67b243ca2caeb8e6c1746821dcc12fc1cd",
+      "stderr_sha256": "6e3b1ed6fe22bb3f6a4c20ea503175b255c4ef7a51bf22c46bf506ce84b6348e"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "0277210f7047f881",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "aeec146d20f01719",
+        "mechanism_group": "checkout_reconciliation",
+        "reason": "Carries usage and extras into checkout and tests that unchanged configurations retain identical totals and required charges."
+      },
+      {
+        "id": "98cb3b95b49598ca",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bf6ca729905685bc",
+        "mechanism_group": "accessible_comparison_matrix",
+        "reason": "A semantic six-plan matrix makes capability availability and charge obligations explicit without relying on color."
+      },
+      {
+        "id": "78e694d97f884343",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27d3574f6550ece0",
+        "mechanism_group": "charge_classification",
+        "reason": "Separates usage-required charges from unchecked elective purchases and tests their effects on totals."
+      },
+      {
+        "id": "b2c5955f7cd4adc4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d146d81bb31f62f3",
+        "mechanism_group": "usage_boundary_preview",
+        "reason": "User-controlled boundary previews expose triggered charges and unsupported requirements, with accessible boundary tests."
+      },
+      {
+        "id": "08f5411f8fe188c5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d146d81bb31f62f3",
+        "mechanism_group": "usage_boundary_preview",
+        "reason": "Derives nearby usage thresholds from available rules and verifies resulting charges and unsupported states."
+      },
+      {
+        "id": "56016212219983bc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5a4042a11425bf6f",
+        "mechanism_group": "checkout_reconciliation",
+        "reason": "Revalidates the chosen configuration and exposes required charges before payment, testing mandatory-charge visibility and optionality."
+      },
+      {
+        "id": "9fd86e9b3f60359a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "aeec146d20f01719",
+        "mechanism_group": "checkout_reconciliation",
+        "reason": "Preserves stated usage through checkout and tests explicit, screen-reader-accessible reconfirmation when pricing rules change."
+      },
+      {
+        "id": "01b08923d71a44e3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1939bc2f829e83cf",
+        "mechanism_group": "usage_based_totals",
+        "reason": "Calculates all six plans from capability needs rather than income and checks required charges against independent fixtures."
+      },
+      {
+        "id": "a2f2419447b543e1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27e5a80ee16c522a",
+        "mechanism_group": "usage_based_totals",
+        "reason": "Recalculates six usage-specific totals while retaining unsupported plans and testing keyboard and screen-reader access."
+      },
+      {
+        "id": "cdf42e497dddc256",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bf6ca729905685bc",
+        "mechanism_group": "accessible_comparison_matrix",
+        "reason": "Uses semantic headers and textual obligation categories across all six plans, with a similar-plan comprehension check."
+      },
+      {
+        "id": "4bf485937e41298f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9f7887277a45ad28",
+        "mechanism_group": "usage_boundary_preview",
+        "reason": "Applies rule-derived threshold previews to two selected plans and tests cost ordering and eligibility around each boundary."
+      },
+      {
+        "id": "abcf2ceae236ae71",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27e5a80ee16c522a",
+        "mechanism_group": "usage_based_totals",
+        "reason": "Uses shared requirements to calculate six totals and verifies accessible retrieval of costs and unsupported capabilities."
+      },
+      {
+        "id": "6ea35c09b73a0742",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "759c51aa52534a2c",
+        "mechanism_group": "pairwise_difference_summary",
+        "reason": "Adds a usage-specific two-plan difference summary without removing the complete comparison and tests understanding of required add-ons."
+      },
+      {
+        "id": "5758e33d5936aa19",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bf6ca729905685bc",
+        "mechanism_group": "accessible_comparison_matrix",
+        "reason": "An accessible six-plan matrix retains capability rows and textual obligations, checked through similar-plan cost and optionality questions."
+      },
+      {
+        "id": "fd2dfd33e8a43903",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27e5a80ee16c522a",
+        "mechanism_group": "usage_based_totals",
+        "reason": "Computes itemized usage-based totals with explicitly selected extras and tests boundaries, unsupported states, and accessible updates."
+      },
+      {
+        "id": "4dc9122816cb7cb9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ba5f9ad897e22cce",
+        "mechanism_group": "accessible_comparison_matrix",
+        "reason": "Keeps all six plans and capability states in a semantic, color-independent table and checks comprehension using similarly priced plans."
+      }
+    ]
+  },
+  "result_sha256": "5dd5de39cf92b90efee037b8fba38c7416299d1073b6b61cecd2ffe1454c6d23",
+  "raw_output_sha256": "873ce71240afdc491dfaaf108d953a33594a2c6c42fe2f1b182fbc87440d5d66"
+}

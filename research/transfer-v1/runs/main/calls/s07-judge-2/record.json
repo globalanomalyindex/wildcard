@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "s07-judge-2",
+  "request_sha256": "8a525e2d2022407ff6ad31c1e7367305d26b6cc22c17ccfba98c9f491df22487",
+  "prompt_sha256": "0c6af22de7e5982116dc29d61f5b2e9ccfb0eec4ddb1be36ff119960ee7ee9a9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:26:14.145545+00:00",
+  "finished_at": "2026-09-20T20:26:39.242998+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 25.094189958000015,
+      "usage": {
+        "input_tokens": 8599,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1205,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "336f9ca517bff11096aff7231a4c36661deb4481efe596f231994051eeec53bf",
+      "stderr_sha256": "973750fc9ad7cdf2d43aabdffb933cd393aa45bb3a6e7188cbdcabbddbb7edae"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "26ec8104aae815dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d997e1311c05f80c",
+        "mechanism_group": "atomic_row_outcome_ledger",
+        "reason": "It atomically commits writes, row outcomes, and checkpoints keyed by digest/source line, making restart replay safe without whole-file transactions."
+      },
+      {
+        "id": "8f1ec01d1ad0cfd5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "38aa08307e435ed5",
+        "mechanism_group": "partial_reconciliation_manifest",
+        "reason": "It publishes EOF-based outcome accounting and reconciliation, including partial status and linked corrections."
+      },
+      {
+        "id": "80098eb3691a9779",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "399dba8503680084",
+        "mechanism_group": "partial_reconciliation_manifest",
+        "reason": "It records digest/EOF/outcome counts and reconciles accepted ledger entries to committed writes, addressing verifiable partial results."
+      },
+      {
+        "id": "e4534801ffa56517",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d98094fc8f25dfc3",
+        "mechanism_group": "durable_resumable_upload_staging",
+        "reason": "It durably stages resumable chunks and verifies the supplied digest before any database writes, handling connection drops."
+      },
+      {
+        "id": "33f38fc3b73f40d0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "399dba8503680084",
+        "mechanism_group": "partial_reconciliation_manifest",
+        "reason": "It uses an outcome ledger and write reconciliation to distinguish incomplete, partial, and fully accepted imports."
+      },
+      {
+        "id": "db4fea038577b8dd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "862090c79fadf506",
+        "mechanism_group": "invalid_row_quarantine",
+        "reason": "It validates without coercion, isolates row failures, records traceable rejection details, and retries infrastructure failures separately."
+      },
+      {
+        "id": "8245a03bd5bb94ee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d997e1311c05f80c",
+        "mechanism_group": "atomic_row_outcome_ledger",
+        "reason": "It transactionally couples target writes, per-row outcomes, and checkpoints so repeated replays do not duplicate accepted rows."
+      },
+      {
+        "id": "bca2963a6dca2117",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "862090c79fadf506",
+        "mechanism_group": "invalid_row_quarantine",
+        "reason": "It preserves invalid rows as durable rejection records with source identity while allowing valid rows to commit."
+      },
+      {
+        "id": "03bad06f642e71d5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d997e1311c05f80c",
+        "mechanism_group": "atomic_row_outcome_ledger",
+        "reason": "It makes bounded batch commits idempotent by storing writes, unique source-line receipts, and checkpoints atomically."
+      },
+      {
+        "id": "548211a5de7d8475",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e353ba500108a229",
+        "mechanism_group": "durable_resumable_upload_staging",
+        "reason": "It durably stages and resumes the 4 GB upload, verifies the digest before processing, and enforces bounded memory."
+      },
+      {
+        "id": "32324402f937afb4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "04f05a82ab930c1e",
+        "mechanism_group": "invalid_row_quarantine",
+        "reason": "It isolates invalid references via validation/savepoints or bisection and records locatable rejection evidence without coercion."
+      },
+      {
+        "id": "cd4631045c1b2cf0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "38aa08307e435ed5",
+        "mechanism_group": "partial_reconciliation_manifest",
+        "reason": "It reconciles accepted and rejected outcomes at verified EOF and reports incomplete processing separately."
+      },
+      {
+        "id": "a388ef5701ad7c92",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "862090c79fadf506",
+        "mechanism_group": "invalid_row_quarantine",
+        "reason": "It uses strict validation and row-level isolation to reject bad references with original input evidence while committing valid neighbors."
+      },
+      {
+        "id": "a1487a069b6dcf72",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e353ba500108a229",
+        "mechanism_group": "durable_resumable_upload_staging",
+        "reason": "It combines resumable durable staging, digest verification, and bounded streaming so connection loss and file size do not break import."
+      },
+      {
+        "id": "d00727f5e4a3fc5a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7de391e33bba297b",
+        "mechanism_group": "atomic_row_outcome_ledger",
+        "reason": "It streams bounded batches and transactionally records writes, receipts, and checkpoints for safe replay after crashes."
+      },
+      {
+        "id": "9610eb7621b6a386",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d98094fc8f25dfc3",
+        "mechanism_group": "durable_resumable_upload_staging",
+        "reason": "It uses a finite durable spool with offsets, checksums, digest verification, and memory limits to survive upload interruption."
+      }
+    ]
+  },
+  "result_sha256": "b76ad171f03c80c1e66ccc39b3f389050469d41d1701a06c02e9f16f576a139e",
+  "raw_output_sha256": "366d03492b73d8602090088a337f4399aa2f4d67754b7f9eb168019b039bb63e"
+}

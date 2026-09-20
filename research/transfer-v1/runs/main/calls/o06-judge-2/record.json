@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "id": "o06-judge-2",
+  "request_sha256": "50bd767d0d8fa5bcd54be4bf61d852141c34a79fd3344ad0cae00d6b1840ea21",
+  "prompt_sha256": "e1ac8a2c9ffef4101471469ef41ad0b268b0c405c56c284021295b893cc2c36b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:05.703946+00:00",
+  "finished_at": "2026-09-20T20:18:33.772401+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 28.067041665999998,
+      "usage": {
+        "input_tokens": 8129,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1319,
+        "reasoning_output_tokens": 173
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "6ff38d269b191a0b1850d90c29d1c65cad6ba08d1da19ecb6132c71b65877ab2",
+      "stderr_sha256": "642c3c1340e2ca17a7287c2109ba06d06ba02a4e9a7496c7d08373abb0423a22"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "6336ec4190d4eff3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f704765a519bef59",
+        "mechanism_group": "room_route_verification",
+        "reason": "It verifies the four qualifying routes in the room and avoids exposing accommodation reasons or moving confirmed placements without contact."
+      },
+      {
+        "id": "ab1d39e1f3a5da77",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d08aa1c6a2e1d1d3",
+        "mechanism_group": "protected_change_gate",
+        "reason": "It blocks cancellation, reshuffle, and stale-edit changes to confirmed accessible placements unless attendee contact is logged."
+      },
+      {
+        "id": "c42bace4acb222b2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ced1fe72ad063f0d",
+        "mechanism_group": "late_pair_separated_offer",
+        "reason": "It treats pair seating as a preference and offers separated seats without displacing hard access placements or promising adjacency."
+      },
+      {
+        "id": "a78940bd012e64ed",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1d9a8ef5b32caf92",
+        "mechanism_group": "public_private_separation",
+        "reason": "It replaces the exposed spreadsheet with a minimal attendee-facing export that excludes notes, flags, and hidden private data."
+      },
+      {
+        "id": "8d74710f521737ab",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46510c3297c6fee0",
+        "mechanism_group": "hard_before_pair_allocation",
+        "reason": "It allocates the four clear-route seats as hard requirements before pair preferences and leaves excess access demand unresolved for private follow-up."
+      },
+      {
+        "id": "bf9dcce2b0c8e224",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364303cf545c88e8",
+        "mechanism_group": "public_private_separation",
+        "reason": "It restricts the working sheet and publishes only placement data, addressing the constraint against revealing accommodation notes."
+      },
+      {
+        "id": "b26c8752a7c94190",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "64d74e14faa484df",
+        "mechanism_group": "room_route_verification",
+        "reason": "It physically checks and restores the four designated clear routes and requires contact rather than silent relocation if restoration fails."
+      },
+      {
+        "id": "749f5af783e7b731",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46510c3297c6fee0",
+        "mechanism_group": "hard_before_pair_allocation",
+        "reason": "It preserves confirmed accessible placements, assigns remaining qualified seats to hard needs, and treats pair seating as optional."
+      },
+      {
+        "id": "e38c88fe04d8c4ad",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1d9a8ef5b32caf92",
+        "mechanism_group": "public_private_separation",
+        "reason": "It generates a minimal public list from restricted records and excludes accommodation reasons, flags, comments, and revision history."
+      },
+      {
+        "id": "9f57b752817f8199",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "12f86c8617e3d86b",
+        "mechanism_group": "protected_change_gate",
+        "reason": "It locks confirmed accessible assignments so cancellations and pair requests cannot displace them without documented contact and compliant replacement."
+      },
+      {
+        "id": "0eea3045fbc85cef",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a5c0c64a6be33d2c",
+        "mechanism_group": "hard_before_pair_allocation",
+        "reason": "It marks the four eligible seats, assigns hard needs first, and explicitly refuses unsuitable placement for a fifth access request."
+      },
+      {
+        "id": "c8ead18a9019ab6b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46510c3297c6fee0",
+        "mechanism_group": "hard_before_pair_allocation",
+        "reason": "It treats accessible clear-route seats as scarce hard capacity and prevents pair preferences from overriding confirmed access placements."
+      },
+      {
+        "id": "95f052ee3bbc3b53",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364303cf545c88e8",
+        "mechanism_group": "public_private_separation",
+        "reason": "It publishes only identifiers and table/seat assignments while restricting access needs and contact details to coordinators."
+      },
+      {
+        "id": "9b4dd8c120baf66e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d08aa1c6a2e1d1d3",
+        "mechanism_group": "protected_change_gate",
+        "reason": "It stages and versions updates so confirmed accessible placements cannot be removed by stale imports or conflicts without recorded contact."
+      },
+      {
+        "id": "6053882e8a02590e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "12f86c8617e3d86b",
+        "mechanism_group": "protected_change_gate",
+        "reason": "It stores protected assignments and blocks reshuffling or cancellation changes until real contact is recorded and any replacement remains compliant."
+      }
+    ]
+  },
+  "result_sha256": "c6ae619be5ce2b72a2fdac160e97f94e8122d4c39d69cf95b2cd21b160221966",
+  "raw_output_sha256": "6cc80a0cdc9a21993b3c7ad2444d476a1daf6acf6c7791aa02f193535e96139f"
+}

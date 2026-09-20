@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d01-XR",
+  "request_sha256": "a8922bf5981b41b25f2dd9dd0e7f033eed8db2e41d3c1558abb125ec8cdd9291",
+  "prompt_sha256": "9b96db8091af42dc168d46ecec4fcaceb14a515f4cd9426d980f69b29bbc397b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:49:57.115810+00:00",
+  "finished_at": "2026-09-20T19:50:19.357556+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.240826416999997,
+      "usage": {
+        "input_tokens": 7201,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 575,
+        "reasoning_output_tokens": 63
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f3056d22e7406c37a042cfc8df088d8da0b6d31b3577ef466961f746e6c52225",
+      "stderr_sha256": "a5374c38ac75ef1679792827b20832b3a2e585e36dbbb4be458a2b1b4401b926"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Add a keyboard-operated “Move to position” command.",
+        "mechanism": "An explicit destination moves any item without dragging or repeatedly stepping through forty positions.",
+        "implementation": "Give each item a button opening a labeled integer field, accepting 1–40. Commit by splicing its existing ID into the requested final position.",
+        "check": "Using only Tab, typing, and Enter, move item 37 to position 2; verify all forty IDs remain unchanged.",
+        "risk": "Clearly label positions as one-based; reject invalid input."
+      },
+      {
+        "action": "Offer “Move before or after another item.”",
+        "mechanism": "A named destination lets users choose placement without knowing the target’s numerical position.",
+        "implementation": "Provide keyboard-accessible target and before/after selectors. Exclude the moving item; resolve the target by ID after removing the source from the order.",
+        "check": "Move an item before and after targets on either side; verify adjacent placement and an unchanged ID set.",
+        "risk": "Disambiguate duplicate titles with their current positions."
+      },
+      {
+        "action": "Keep every committed move undoable throughout the page.",
+        "mechanism": "A page-lifetime history restores prior ID sequences rather than attempting potentially ambiguous inverse movements.",
+        "implementation": "Before either move command commits, push the current ID order onto an uncapped session stack. Provide a keyboard-accessible Undo button; never expire entries by timer.",
+        "check": "Perform fifty mixed moves, wait, then undo all fifty; require exact restoration of the starting sequence.",
+        "risk": "Other list mutations require an explicit compatible history policy."
+      },
+      {
+        "action": "Preserve focus and announce each ordering change.",
+        "mechanism": "Stable focus and spoken status make committed moves and reversals observable without a pointer or visual tracking.",
+        "implementation": "Key rendered items by existing IDs. After moving or undoing, focus the affected item’s move button and announce its title and final position through a polite live region.",
+        "check": "With keyboard and screen reader, move and undo an item; verify focus follows its ID and each resulting position is announced.",
+        "risk": "Rerendering must not duplicate announcements or reset focus."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "0ef5cad1f93395476737529e2ce2c013c9edf716028a5aa4c9af7399923e866f",
+  "raw_output_sha256": "c397289c195b8f43c39824373735a9d739deeec3db17e055581320cca5d58b0e"
+}

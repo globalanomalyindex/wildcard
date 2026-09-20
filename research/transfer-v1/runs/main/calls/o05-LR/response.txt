@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Separate requested bookings from stock-backed pickup commitments",
+      "mechanism": "Only an inspected, compatible item held against overlapping allocations can support a confirmed pickup.",
+      "implementation": "Track requested, confirmed, at-risk, returned-awaiting-inspection, and available states. Label bookings dependent on future returns conditional; inspection must precede availability.",
+      "check": "Simulate a late return and overlapping bookings: neither an uninspected item nor a double allocation may produce confirmation.",
+      "risk": "Conditional bookings need clear wording to avoid implied guarantees."
+    },
+    {
+      "action": "Open a recovery case when returns threaten pickups",
+      "mechanism": "Explicit ownership and deadlines turn a late return into a tracked resolution rather than silent failure.",
+      "implementation": "Trigger at the return deadline or reported delay. Assign staff to offer consented substitution or rescheduling, contacting each borrower only through their supplied preference.",
+      "check": "Inject an overdue return: every affected reservation must receive an owner, decision deadline, and recorded outcome; unanswered cases remain unresolved.",
+      "risk": "Unanswered messages must never count as consent or resolution."
+    },
+    {
+      "action": "Match substitutes by condition and accessory requirements",
+      "mechanism": "Separate compatibility checks expose differences that a shared tool category would conceal.",
+      "implementation": "Record inspected condition, functionality, and accessories. Filter candidates by booking requirements; temporarily hold a candidate and disclose differences through the supplied contact preference before requesting consent.",
+      "check": "Test missing-accessory and differing-condition candidates: neither may be assigned without explicit consent; expired holds must release stock.",
+      "risk": "Category similarity alone does not establish suitability or safety."
+    },
+    {
+      "action": "Audit preventable pickup failures against original bookings",
+      "mechanism": "A fixed booking cohort prevents cancellation or rescheduling from erasing difficult cases.",
+      "implementation": "Preserve original pickup windows and event histories. Count library-caused cancellations and delayed fulfillment as disruptions; classify preventability against predefined feasible recovery steps and deadlines.",
+      "check": "Replay identical cases with cancellation versus missed pickup: the denominator and disruption count must match; report preventable counts alongside total disruptions.",
+      "risk": "Hindsight can overstate preventability; use information available before pickup."
+    }
+  ],
+  "abstention_reason": ""
+}

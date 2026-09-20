@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "s01-LR",
+  "request_sha256": "66d1563c1a5c7bfaa90333f0671fa2e8715bc086d6399ba92b1582fc7d3dfe8e",
+  "prompt_sha256": "5fd7d0e36868e2b4b23f4c4f230fa5c4e22fc692786775358fe67b78e795088c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:17.829012+00:00",
+  "finished_at": "2026-09-20T20:07:43.686737+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 25.85652354199999,
+      "usage": {
+        "input_tokens": 7292,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 595,
+        "reasoning_output_tokens": 252
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "8e66a8d91fdfc7f5a3076bdf2744e969930b741af11b8776f58360c0d7024274",
+      "stderr_sha256": "d7e5e7191ef033db2aa186c87d09f0adb53a4042cc8b032572c9eb5c4e9c7e4b"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Commit deduplication and business changes together",
+        "mechanism": "A unique event key and business update share one transaction; acknowledgement follows durable commit.",
+        "implementation": "Insert a partner-scoped event ID. Only the successful inserter applies the update. On duplicate conflict, acknowledge without reapplying.",
+        "check": "Crash before commit and after commit but before acknowledgement; replay concurrently. Verify exactly one committed business update.",
+        "risk": "External side effects require separate idempotency; this transaction protects database changes only."
+      },
+      {
+        "action": "Guard entity updates with durable revision checks",
+        "mechanism": "An atomic revision comparison prevents stale events and concurrent deliveries from overwriting newer state.",
+        "implementation": "Within the deduplication transaction, update only when incoming revision exceeds stored revision; record stale events without changing business state.",
+        "check": "Deliver revisions 12, 11, 12 concurrently and after deduplication expiry; verify revision 12 remains and its update never repeats.",
+        "risk": "Delta events need gap buffering rather than skipping missing revisions."
+      },
+      {
+        "action": "Expire event records without weakening replay protection",
+        "mechanism": "Seven-day event retention bounds storage; persistent entity revisions protect against replays after event-record deletion.",
+        "implementation": "Expire strictly after first receipt plus seven days, without refreshing duplicates. Measure total deduplication storage, including indexes and revision tombstones; enforce 2 GB.",
+        "check": "Replay immediately before, exactly at, and after expiry, including during cleanup. Load one million 64-byte-average IDs; verify allocated storage stays within budget.",
+        "risk": "Deleted entities need revision tombstones; reject new work before acknowledgement if storage cannot fit."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d74e30ae51fbbae6f9d42a1783e90564598a460824f55a7ff5440e633c91a223",
+  "raw_output_sha256": "f49d9858f195e2830dc5ac9e048399806b338b4879ac88034a46cc14bd01bc6d"
+}

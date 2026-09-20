@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "o06-bank-2",
+  "request_sha256": "ebd63dada16f7948cf81f92c7817e2c5fffe7d303bdbf52d19d9b27b20124b13",
+  "prompt_sha256": "3c0aba755fd6018a948064d8a9fc06aed4ded71e51b17f6fa608c2c2fc274021",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:03:10.814129+00:00",
+  "finished_at": "2026-09-20T20:03:46.150516+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 35.33225337499999,
+      "usage": {
+        "input_tokens": 7126,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1009,
+        "reasoning_output_tokens": 163
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "ba7fb4528581f705b178c106d2eee542c0e2b46778cb0948c703b1f608bb89a0",
+      "stderr_sha256": "1545c3b12ecb0d2fdfb13266505e5e759b41864dd30a3e02b1d3b51757a9b616"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate private requirements from public seat assignments",
+        "mechanism": "Generate the attendee list from an allowlist of placement fields, not a copy of the private spreadsheet.",
+        "implementation": "Keep access requirements in an organizer-only file. Publish only attendee booking codes, tables, and seats; exclude accommodation flags and notes.",
+        "check": "Open the published file as an attendee; verify private columns, comments, hidden sheets, and source-file links are absent.",
+        "risk": "Previously shared copies may remain accessible; revoke their access."
+      },
+      {
+        "action": "Allocate hard needs before pair preferences",
+        "mechanism": "Treat clear-route eligibility as a mandatory constraint and pair proximity as a secondary objective.",
+        "implementation": "Mark the four eligible seats. Assign required access first, preserve protected confirmations, then seat pairs together where feasible among the remaining seats.",
+        "check": "Test a layout where pairing would displace an access assignment; reject that pairing and retain every feasible hard requirement.",
+        "risk": "An impossible allocation must produce an exception, not silent compromise."
+      },
+      {
+        "action": "Protect confirmed accessible placements from automatic moves",
+        "mechanism": "A protected assignment cannot be removed by optimization, manual edits, or imports without a recorded contact step.",
+        "implementation": "Lock confirmed accessible assignments. Stage proposed changes separately; contact the attendee privately and obtain agreement before releasing their original placement.",
+        "check": "Attempt removal through each editing path; verify the original seat remains assigned when contact or agreement is missing.",
+        "risk": "Unanswered messages must not count as agreement."
+      },
+      {
+        "action": "Manage the four clear-route seats as limited inventory",
+        "mechanism": "Track hard-access demand separately from general vacancies so ordinary empty seats cannot imply accessible availability.",
+        "implementation": "Record each eligible seat as available, held, or confirmed. Keep unassigned eligible seats available for access requests; privately waitlist excess demand without requesting medical details.",
+        "check": "Submit five simultaneous access requests; no more than four receive confirmed placements, and the fifth receives an explicit capacity response.",
+        "risk": "Reserved inventory may leave seats temporarily unused."
+      },
+      {
+        "action": "Process cancellations as atomic assignment changes",
+        "mechanism": "One serialized update releases and reallocates a seat, preventing conflicting edits during last-minute changes.",
+        "implementation": "Use one designated editor or transactional script. Record attendee-initiated cancellations, release those seats, then offer eligible vacancies to unmet hard needs before pair improvements.",
+        "check": "Submit a cancellation and two competing requests concurrently; verify one occupant per seat and no protected assignment is silently removed.",
+        "risk": "Never treat a late arrival as a cancellation."
+      },
+      {
+        "action": "Offer separated seats for an infeasible late pair",
+        "mechanism": "A pair request changes preference scoring, not access eligibility or existing placement protections.",
+        "implementation": "When only separated seats remain, privately offer those seats and optional notification if adjacent seats open. Do not explain another attendee’s placement or move them automatically.",
+        "check": "Test a late pair request with exactly two separated vacancies; offer both without displacing access assignments or promising adjacency.",
+        "risk": "The pair may decline; record each person’s decision."
+      },
+      {
+        "action": "Verify clear routes in the actual room",
+        "mechanism": "Physical inspection catches mismatches between spreadsheet eligibility and furniture, bags, or equipment blocking access.",
+        "implementation": "Before opening, check all four marked seats and their routes against the workshop’s access requirements. Remove obstructions and keep those routes clear throughout arrivals.",
+        "check": "Deliberately obstruct one marked route during setup testing; confirm inspection detects it and the obstruction is cleared before seating.",
+        "risk": "If restoration fails, contact affected attendees before changing confirmed placements."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "34d3ffda5626c225f939d0712a92fcddc050394b8e45e448ae35cff1432243b7",
+  "raw_output_sha256": "1e8e381d45e105b65dfd12f13a692b02f58bf4a80fe0a0249bc578015adfba4f"
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p03-R",
+  "request_sha256": "584e66d303e68d9181ec9776bf441b424b855834e75b44aa7f636cfb9ff30734",
+  "prompt_sha256": "80ee169e48bec61b047273a08a3c25da4726ffdcd8ce1f21045106ed8a9e5761",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:02.652933+00:00",
+  "finished_at": "2026-09-20T20:15:28.788704+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 26.132169959000066,
+      "usage": {
+        "input_tokens": 7273,
+        "cached_input_tokens": 6912,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 652,
+        "reasoning_output_tokens": 226
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f80892dd58f9237c4ba71f06a6f63fbd86efe1083938b032a6a2b7bb3665dce5",
+      "stderr_sha256": "6bd5ed2cc941706a348551dc0b272f80b4b6200a6d201dff0b6693d73fc9cbbc"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Retry only attachments that need attention",
+        "mechanism": "Track each file independently; a stable receipt makes acceptance durable despite later network errors.",
+        "implementation": "Show accepted, failed, uploading, or unconfirmed per file. Retry failed files only; reconcile unconfirmed attempts before offering retry. Keep accepted rows unchanged.",
+        "check": "Accept three files and fail two. Retry must transmit only those two; a later connection error must not reset accepted rows.",
+        "risk": "Unconfirmed attempts require server reconciliation support; otherwise explain uncertainty instead of silently retrying."
+      },
+      {
+        "action": "Restore receipts, not local files",
+        "mechanism": "Receipt-based recovery preserves accepted attachments while clearly distinguishing unavailable browser-held selections.",
+        "implementation": "Persist only opaque receipts with a 24-hour expiry. On reopening, validate receipts and fetch display metadata; explain that unfinished uploads require reselection. Never persist file bytes.",
+        "check": "Close after partial acceptance, then reopen: accepted files remain available without uploading; unfinished selections require reselection. After expiry, no local recovery is promised.",
+        "risk": "Treat receipts as sensitive bearer references; unavailable validation must not imply missing files."
+      },
+      {
+        "action": "Make reviewed submission a single recoverable commitment",
+        "mechanism": "An explicit attachment snapshot prevents accidental omissions; server-side idempotency prevents repeated requests from creating duplicate cases.",
+        "implementation": "Require review of up to five accepted attachments. Invalidate approval after edits. Submit receipt references with a server-issued commitment token; expose completed-case status through associated receipts.",
+        "check": "Edit after approval: submission requires renewed review. Double-click, lose the response, then reopen within retention: exactly one case exists and its confirmation is recoverable.",
+        "risk": "Idempotency must identify the reviewed commitment, not globally prohibit legitimate reuse of attachments."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "9539e2ba5e7f1e81d0401269dcbc361030b505e7a77cce71ad2f7a54d465894e",
+  "raw_output_sha256": "0a997d4a4f3362a0b2fffbe926f5091b27cdfa5f230fb7dd7f49d65ec54136e8"
+}

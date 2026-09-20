@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Preserve original highlights as immutable records",
+      "mechanism": "Separate the original evidence from revision-specific placements so deleted text remains available with its notes.",
+      "implementation": "Store highlighted text, revision ID, original range, and surrounding context; retain that revision. Record subsequent placements separately.",
+      "check": "Delete a highlighted paragraph; verify its note still opens the original passage and reports no current placement.",
+      "risk": "Retaining revisions increases storage and requires explicit retention policies."
+    },
+    {
+      "action": "Track passage identity through edits and moves",
+      "mechanism": "Persistent block IDs and recorded edit operations distinguish moved content from identical text elsewhere.",
+      "implementation": "Preserve IDs on moves, assign new IDs on copies, and map ranges through edit operations. Automatically retain only verified unchanged selections.",
+      "check": "Move a paragraph containing a repeated sentence; verify its note follows the original block with a visible operation trail.",
+      "risk": "Imported revisions may lack identity evidence; changed selections require review."
+    },
+    {
+      "action": "Offer comparison without assuming a match",
+      "mechanism": "Candidate discovery stays separate from attachment; repetition and meaning-changing edits produce explicit review states.",
+      "implementation": "For unverified placements, list exact and approximate candidates with section context. Show original/new diffs; require confirmation or allow unresolved status.",
+      "check": "Test identical repeated sentences and an inserted “not”; neither may silently acquire the note, and both must support comparison.",
+      "risk": "Candidate ranking can bias choices; show alternatives and permit rejection."
+    },
+    {
+      "action": "Limit placement decisions to explicit revisions",
+      "mechanism": "Revision-scoped decisions prevent one manual reassignment from silently governing later or branched document versions.",
+      "implementation": "Record each accepted placement with source revision, target revision, evidence, and actor. Revalidate subsequent revisions rather than copying accepted status.",
+      "check": "Confirm a placement in revision two, then alter its meaning in revision three; verify review resumes and revision two remains unchanged.",
+      "risk": "Frequent edits may create repeated review work."
+    }
+  ],
+  "abstention_reason": ""
+}

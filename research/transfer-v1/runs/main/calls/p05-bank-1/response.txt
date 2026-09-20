@@ -1,0 +1,61 @@
+{
+  "actions": [
+    {
+      "action": "Calculate all six totals from stated usage",
+      "mechanism": "Shared usage inputs expose required add-ons before selection rather than presenting base prices as payable totals.",
+      "implementation": "Ask for storage, editors, guests, and export needs. Recalculate every plan with required charges and explicitly selected options; show billing period and amount due.",
+      "check": "Run usage fixtures across requirement thresholds; verify displayed totals against structured charges for all six plans.",
+      "risk": "Unanswered usage inputs must produce labeled estimates, not definitive totals."
+    },
+    {
+      "action": "Separate required charges from optional choices",
+      "mechanism": "Explicit charge categories distinguish unavoidable costs, usage-triggered requirements, and genuinely discretionary purchases without relying on color.",
+      "implementation": "Label line items “Included,” “Required for your usage,” or “Optional—not selected.” Explain requirement triggers; leave discretionary options unchecked.",
+      "check": "Ask visitors which charges they can decline without losing their stated requirements; compare answers with charge rules.",
+      "risk": "A conditionally required add-on must not retain an optional label."
+    },
+    {
+      "action": "Keep a complete, accessible comparison matrix",
+      "mechanism": "Consistent rows expose capability differences even when a plan cannot satisfy the visitor’s stated usage.",
+      "implementation": "Show all six plans with storage, editors, guests, exports, charges, and totals. Use semantic headers and explicit “Unavailable” or “Limit exceeded” text.",
+      "check": "Using a screen reader, locate each plan’s export limit and unavailable capabilities; verify header associations and keyboard access.",
+      "risk": "Never imply that purchasing an add-on resolves an unsupported capability."
+    },
+    {
+      "action": "Explain what changed each plan’s total",
+      "mechanism": "A traceable cost breakdown connects usage requirements to charges, making superficially similar base prices distinguishable.",
+      "implementation": "Under each total, show base charge, required add-ons, selected options, quantities, and arithmetic. Attach the triggering usage rule to each required item.",
+      "check": "Choose a plan with a required add-on; verify a visitor can explain its total using visible quantities and charges.",
+      "risk": "Dense breakdowns need concise summaries without concealing mandatory charges."
+    },
+    {
+      "action": "Preview the next usage threshold",
+      "mechanism": "Boundary previews reveal when a small usage change activates another charge or exceeds a hard capability limit.",
+      "implementation": "From structured rules, show the next relevant threshold for each plan and its cost consequence. Offer keyboard-operable usage adjustments without changing the original scenario silently.",
+      "check": "Test immediately below, at, and above each threshold; verify charges, unavailability messages, and announced total updates.",
+      "risk": "Do not present hypothetical growth as predicted visitor behavior."
+    },
+    {
+      "action": "Carry the compared configuration into checkout",
+      "mechanism": "A shared quote prevents checkout from introducing requirements absent from the comparison the visitor used.",
+      "implementation": "Persist usage, selected options, required charges, and pricing version. Before payment, show the same breakdown; require review if configuration or pricing changes.",
+      "check": "Compare comparison-page and checkout line items for identical scenarios; inject a version change and verify explicit review.",
+      "risk": "A review checkbox alone does not establish understanding."
+    },
+    {
+      "action": "Validate charge rules before publishing",
+      "mechanism": "Rule validation catches missing dependencies and contradictory classifications before they can generate misleading plan totals.",
+      "implementation": "Validate all six plans for charge identifiers, billing units, requirement predicates, dependency cycles, and capability limits. Block publication on unresolved required-charge references.",
+      "check": "Inject missing add-ons, cyclic dependencies, and incompatible billing units; verify validation rejects each fixture with a specific error.",
+      "risk": "Schema validity alone cannot establish that business rules are correct."
+    },
+    {
+      "action": "Test comprehension with two similar plans",
+      "mechanism": "A task-based comparison measures whether visitors understand payable totals and distinguish required purchases from optional extras.",
+      "implementation": "Within the six-plan page, test two similar base-price plans: one requires an add-on for the scenario; the other includes that capability.",
+      "check": "Ask participants to identify both totals, explain their difference, and name declinable extras. Record errors, including screen-reader sessions.",
+      "risk": "Correct plan selection without a correct explanation can mask guessing."
+    }
+  ],
+  "abstention_reason": ""
+}

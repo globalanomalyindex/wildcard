@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Reserve space exclusively for critical history",
+      "mechanism": "Ordinary writes cannot consume the capacity needed for the bounded critical volume and its storage overhead.",
+      "implementation": "Partition the 20 MB quota into critical, metadata, and ordinary budgets. Reserve 2 MB for critical bytes plus worst-case framing overhead.",
+      "check": "Fill the ordinary budget, then inject the maximum critical volume over 30 minutes; verify every critical sequence survives.",
+      "risk": "Sizing must include encoding, indexes, and temporary writes."
+    },
+    {
+      "action": "Replace exhausted ordinary detail with an explicit gap",
+      "mechanism": "Stopping ordinary capture at its budget produces one bounded, precisely described reduction interval rather than silently overwriting history.",
+      "implementation": "Assign ordinary sequence numbers before admission. Once full, retain only a reserved gap record containing first omitted sequence, last omitted sequence, and count.",
+      "check": "Replay a 30-minute outage; confirm retained ordinary records plus the declared gap account for every generated ordinary sequence.",
+      "risk": "Gap updates need crash-safe storage; counters must not overflow."
+    },
+    {
+      "action": "Make replay identifiable and acknowledgments durable",
+      "mechanism": "Stable record identities distinguish retransmission from sequence gaps, while durable acknowledgments prevent premature local deletion.",
+      "implementation": "Persist an installation identifier and sequence namespace; deduplicate at the recipient. Delete local records only after acknowledgment of durable receipt.",
+      "check": "Interrupt acknowledgments and replay batches twice; verify duplicates are identified. Remove one critical record and verify its missing sequence is reported.",
+      "risk": "Persist a final sequence watermark to expose missing tails."
+    },
+    {
+      "action": "Verify safe records remain recoverable",
+      "mechanism": "Allowlisted structured encoding excludes prohibited content; recovery tests establish usability rather than merely confirming stored bytes exist.",
+      "implementation": "Allow only bounded diagnostic codes, timestamps, and numeric fields. Use checksummed, crash-recoverable records; test decoding without consuming or deleting originals.",
+      "check": "Inject secret-bearing input and terminate during writes; confirm prohibited values are absent and every committed critical record recovers.",
+      "risk": "Do not acknowledge critical persistence before durable commit."
+    }
+  ],
+  "abstention_reason": ""
+}

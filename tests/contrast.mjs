@@ -31,9 +31,8 @@ const pale = parse(tok("pale"));
 const ink = parse(tok("ink"));
 const inkSoft = parse(tok("ink-soft"));
 
-// Every pairing that carries prose or a label the reader is meant to act on. The wordmark and
-// the case study h1 are pale-on-orange logotype at display size and are deliberately exempt;
-// see DESIGN.md. They are excluded here rather than quietly passed.
+// Every pairing that carries prose or an actionable label, including case-study headings.
+// Only the decorative landing wordmark uses the pale-on-orange logotype exception.
 const AA_NORMAL = 4.5;
 const checks = [
   ["--ink on --orange            (lede, demo, case study body)", ratio(ink.rgb, orange.rgb)],

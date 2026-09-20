@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "i06-judge-2",
+  "request_sha256": "3e3b2ed30010e02c3a3a8384bda88f71cc309e654924e1b35922843e10389e7c",
+  "prompt_sha256": "5e7fa57db7274b242551b30b2c7f2887624e8aface5d72aa7dd2695a06b27aaf",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:25:17.944167+00:00",
+  "finished_at": "2026-09-20T20:25:49.012101+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 31.06522962500003,
+      "usage": {
+        "input_tokens": 8351,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1342,
+        "reasoning_output_tokens": 178
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "cc5c2ecd0457dc46df6a7e82537e1010e951f26685cadef2191c659a1a0ab196",
+      "stderr_sha256": "53f091a40ec43f665da7ce6b4c5becb13af3098b81d254bca0228d9b3dc58fed"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "40db087799650dc6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "461b5419c8e54dd9",
+        "mechanism_group": "hard_constraint_visibility",
+        "reason": "It separates constraint compliance from support, keeps conflicts visible, and avoids an automatic winner."
+      },
+      {
+        "id": "b0cd1abdbaf8d56e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_direction_grouping",
+        "reason": "It groups by rationale and constraints while preserving originals, recoverability, and anonymous first review."
+      },
+      {
+        "id": "626dffe328170a89",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_direction_grouping",
+        "reason": "It uses rationale-based reversible grouping with original submissions and private author links retained."
+      },
+      {
+        "id": "bafc9046e6991756",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f9fd25c10d803769",
+        "mechanism_group": "anonymous_first_review_queue",
+        "reason": "It creates an anonymous first-review queue that hides reactions and authorship while retaining private author records."
+      },
+      {
+        "id": "0be418cfc865c392",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "461b5419c8e54dd9",
+        "mechanism_group": "hard_constraint_visibility",
+        "reason": "It keeps hard-constraint objections visible beside popular names without automatically selecting or eliminating them."
+      },
+      {
+        "id": "0c50896d23eeb9fa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ece38e6cf7ebecb5",
+        "mechanism_group": "versioned_rejection_reopen",
+        "reason": "It links rejection reasons to constraint versions so edited constraints flag affected rejections for review."
+      },
+      {
+        "id": "c98672feebf214bd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_direction_grouping",
+        "reason": "It groups by rationale and addressed constraint, retains immutable originals, and preserves private authorship."
+      },
+      {
+        "id": "a6e68060bdfc3085",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f65e2610a161fb30",
+        "mechanism_group": "hard_constraint_visibility",
+        "reason": "It makes hard-constraint conflicts independent of reactions and keeps histories recoverable without declaring a winner."
+      },
+      {
+        "id": "351c652ff0381056",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f4a4f744d42f20c6",
+        "mechanism_group": "late_review_with_duplicate_rationale",
+        "reason": "It gives late alternatives an anonymous review path and requires rationale comparison before duplicate dismissal."
+      },
+      {
+        "id": "a48540877ac21011",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "06e45e6feccd5a16",
+        "mechanism_group": "versioned_rejection_reopen",
+        "reason": "It stores rejection explanations with linked constraint versions and flags affected rejections when constraints change."
+      },
+      {
+        "id": "1cf8ce78bf42aa60",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f9fd25c10d803769",
+        "mechanism_group": "anonymous_first_review_queue",
+        "reason": "It routes late alternatives into author- and reaction-hidden first review while retaining private authorship."
+      },
+      {
+        "id": "c487b79fdbab6a94",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f65e2610a161fb30",
+        "mechanism_group": "hard_constraint_visibility",
+        "reason": "It records hard/preferred constraint assessments with evidence and displays hard failures despite popularity."
+      },
+      {
+        "id": "6a2e47cf66e5362f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c7b7930fd0b0b647",
+        "mechanism_group": "rationale_direction_grouping",
+        "reason": "It groups by rationale and constraints while preserving immutable originals and private authorship through grouping changes."
+      },
+      {
+        "id": "c25b0ce660fbb595",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f4a4f744d42f20c6",
+        "mechanism_group": "late_review_with_duplicate_rationale",
+        "reason": "It combines anonymous first review for unread suggestions with a linked-rationale requirement for already-considered dismissal."
+      },
+      {
+        "id": "ade37875f7cacaa3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ece38e6cf7ebecb5",
+        "mechanism_group": "versioned_rejection_reopen",
+        "reason": "It references specific constraint versions in rejections and queues reconsideration after linked edits while preserving history."
+      },
+      {
+        "id": "8d65ce67e84a11b1",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ece38e6cf7ebecb5",
+        "mechanism_group": "versioned_rejection_reopen",
+        "reason": "It records rejection reasons and constraint versions so dependent rejections are flagged, not automatically reversed, after edits."
+      }
+    ]
+  },
+  "result_sha256": "2ba31c20e4dfc19f619e84aeb3caa9ddc3448146de568ad7eb210fab21660089",
+  "raw_output_sha256": "0659d824dc2111f519c2658aaeed0d4a95ea6c0ef8bb803201a3d3a37a4d5119"
+}

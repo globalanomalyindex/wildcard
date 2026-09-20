@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Attach the note only to the sole candidate carrying stable marker K; otherwise return UNRESOLVED. Retain the note and original text.","trace":["P"],"explanation":"Only P carries the unique stable marker K; Q has a different marker."}

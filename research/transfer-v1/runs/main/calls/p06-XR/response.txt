@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Make presets optional, inspectable starting points",
+      "mechanism": "Separate preset application from custom editing so existing combinations never change through automatic role matching.",
+      "implementation": "Document each preset’s permissions. Retain all 18 controls under keyboard-operable groups. Applying a preset shows a difference preview requiring confirmation.",
+      "check": "Load and save every existing custom role; assert identical permission values. Editing one toggle must not reapply a preset.",
+      "risk": "Preset documentation can drift; generate it from permission definitions."
+    },
+    {
+      "action": "Preview what this teammate can actually do",
+      "mechanism": "Calculated effective permissions expose consequential capabilities that individual toggle states may obscure.",
+      "implementation": "Show a live “Can / Cannot” summary, prominently including draft review, publishing, and billing. Explain differences from selected toggles when calculation data permits.",
+      "check": "For representative custom combinations, compare every summary statement with calculated permissions. Verify updates are discoverable by keyboard and screen reader.",
+      "risk": "Unexplained results must remain visibly unresolved, not receive guessed explanations."
+    },
+    {
+      "action": "Require deliberate selection of sensitive privileges",
+      "mechanism": "Publishing and billing cannot enter an invitation solely through presets, copied roles, or inherited defaults.",
+      "implementation": "Require unchecked, owner-operated confirmations whenever calculated access includes publishing or billing. Invalidate confirmation when its relevant configuration changes; preserve the custom combination.",
+      "check": "Apply each privilege-granting preset and copied role; sending must remain blocked until the owner explicitly confirms each sensitive privilege using keyboard controls.",
+      "risk": "Broad confirmations can hide scope; name the exact privileges."
+    },
+    {
+      "action": "Check intended access against the final invitation",
+      "mechanism": "Independent capability expectations detect contradictions rather than silently correcting ambiguous permission choices.",
+      "implementation": "Let owners specify required and forbidden capabilities. Before sending, recalculate the exact submitted configuration; block mismatches with keyboard-linked controls for explicit resolution.",
+      "check": "Require draft review and forbid publishing; inject a publishing-granting toggle after preview. Assert a mismatch appears and no invitation is sent.",
+      "risk": "Expectations can be mistaken; permit deliberate edits without silently rewriting permissions."
+    }
+  ],
+  "abstention_reason": ""
+}

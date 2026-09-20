@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p04-LR",
+  "request_sha256": "ed8d7a73f5170790e4a88484b9970374ee8dcafc88c6989ecba5615676e8b216",
+  "prompt_sha256": "4ec9991c593debc6aea1566444c7a664fcd2af811569826cb7c059d05d771e5d",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:51.876124+00:00",
+  "finished_at": "2026-09-20T20:16:12.069001+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.191076000000066,
+      "usage": {
+        "input_tokens": 7273,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 559,
+        "reasoning_output_tokens": 42
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "ca5b324ef6011b1cec885bb0069add35a875c0efb61cef70ef7c74ae025f6e03",
+      "stderr_sha256": "2b795782420e085d03abf87f18d4ff2d03bfe6ed363e6d032c642f674d1eca66"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind confirmation to the explicitly reviewed slot",
+        "mechanism": "Keep selected identity separate from refreshed availability; never substitute another slot when capacity changes.",
+        "implementation": "Store the slot ID and reviewed details. Send that ID to the existing atomic endpoint; require renewed review if booking details change.",
+        "check": "Invalidate or reorder slots between selection and confirmation. Verify no different booking occurs and endpoint rejection produces an explicit error.",
+        "risk": "Displayed availability remains provisional, not a reservation."
+      },
+      {
+        "action": "Keep controls stationary through capacity refreshes",
+        "mechanism": "Update availability without removing focused elements, reordering choices, or moving confirmation away from the user.",
+        "implementation": "Use stable keyed controls and reserved status space. At 320 pixels, show vertically grouped days with keyboard-operable slots and a persistent confirmation area.",
+        "check": "Refresh every five seconds during keyboard and pointer traversal. Verify unchanged focus, stationary confirmation, no horizontal scrolling, and no obscured controls.",
+        "risk": "Persistent controls must clearly identify unavailable selections."
+      },
+      {
+        "action": "Provide an untimed, preference-preserving recovery path",
+        "mechanism": "An unavailable slot opens a recoverable decision rather than resetting the booking or automatically choosing a replacement.",
+        "implementation": "Retain workshop, week, filters, and entered details. Explain the failure inline; offer matching alternatives for explicit selection and subsequent atomic confirmation, without countdowns.",
+        "check": "Force confirmation rejection, then pause across several refreshes. Verify retained preferences, keyboard-accessible alternatives, and no automatic booking or reset.",
+        "risk": "Alternatives may also become unavailable before confirmation."
+      },
+      {
+        "action": "Measure recovery without scoring input speed",
+        "mechanism": "Evaluate correctness and retained intent under controlled invalidation, rather than rewarding faster confirmation or completion.",
+        "implementation": "Inject the same rejection at each participant’s first confirmation, regardless of elapsed time. Record wrong-slot bookings, preference loss, recovery completion, and abandonment.",
+        "check": "Repeat with keyboard-only use and a 320-pixel viewport, including motor-impaired participants. Report error counts and denominators; exclude completion speed from success scoring.",
+        "risk": "Scripted failures do not estimate real-world rejection frequency."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "f9d0a050d72c7c0f5967b9ca9590ba6081cfdde9ba1dfec808a080a0f534f1c1",
+  "raw_output_sha256": "41bca878dc80f479ae73869b046f506ec6657c7bd86e7cc8c7d44b4e7802eb34"
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "d01-LR",
+  "request_sha256": "e2aa12fd1b6d4c2beb1e8bce5f409f0568b1c9e9ed4110f8d7dfcba4188b1917",
+  "prompt_sha256": "829a659b5424b58901b94e8b751960b7e9390a79f2d13371f244d5e5e59c0ead",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:49:57.116892+00:00",
+  "finished_at": "2026-09-20T19:50:12.842332+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 15.722481625,
+      "usage": {
+        "input_tokens": 7203,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 400,
+        "reasoning_output_tokens": 62
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d09c04d6b847bc8243cd4df4b985eb5d05c0090c72283e3edf0b0feeee1d3147",
+      "stderr_sha256": "ee0e46510955086217f862802b49bdc94405609637a7007be5118c02f4b4c740"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Add a keyboard-accessible “Move to position” control.",
+        "mechanism": "Direct position entry avoids traversing up to 39 items to reach a chosen destination.",
+        "implementation": "Give each item a button opening a labeled integer input, 1–40. Enter commits through the undo journal; Escape cancels.",
+        "check": "Using only the keyboard, move item 37 to position 2, undo, and verify the exact original ID sequence.",
+        "risk": "Clarify that the number means position after moving."
+      },
+      {
+        "action": "Offer an explicit keyboard reorder mode.",
+        "mechanism": "Arrow-key movement lets users adjust placement while retaining context among neighboring reading-list items.",
+        "implementation": "Activate an item’s “Reorder” button; arrows adjust a preview, Enter commits through the undo journal, and Escape cancels. Announce positions and retain focus.",
+        "check": "Without a pointer, move position 20 to 23 and undo. Verify announcements, retained focus, and unchanged item IDs.",
+        "risk": "Capture arrows only during reorder mode; provide visible instructions."
+      },
+      {
+        "action": "Keep an undo journal until page close.",
+        "mechanism": "Retained order snapshots make every committed move reversible, rather than expiring reversal after a short notification.",
+        "implementation": "Before each commit, append the ID sequence to an uncapped page-session journal. Provide persistent keyboard-operable Undo; restore ordering without regenerating IDs.",
+        "check": "Commit 100 moves, dismiss notifications, then undo all 100. Compare every restored sequence with its snapshot and verify ID preservation.",
+        "risk": "Deletion or concurrent updates require explicit reconciliation before restoring snapshots."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "291dce0199b235ac97ed653647cd524c05fd06f04d60f2f4232313a9ee903b55",
+  "raw_output_sha256": "0b9d0607b625bb698edcab04b8255bf5998530dafa83094bb6934c655108e973"
+}

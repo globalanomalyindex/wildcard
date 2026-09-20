@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p02-LR",
+  "request_sha256": "e843c440fd29be5c8f20c67040ac91b47c8efcad6e377be16bf83ae33841bb4b",
+  "prompt_sha256": "4e9f11215361f0e42d7643df21acb71964f71c5a3ad097216066b08238bef7f9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:52.626979+00:00",
+  "finished_at": "2026-09-20T20:08:19.341904+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 26.716453875000013,
+      "usage": {
+        "input_tokens": 7274,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 661,
+        "reasoning_output_tokens": 182
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "cd0e4eea603488222d45dfb53cf35e77485b6911d4ecc9f14452a1a29eaaf62e",
+      "stderr_sha256": "3df4c1e15a01b483c5a2098ac150384309f40459f42f1ad3e34d98efa2867e6e"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve item focus; define a removal destination",
+        "mechanism": "Stable product and control identities preserve focus through reordering; removed items send focus to the results heading.",
+        "implementation": "Key elements by product ID and control role. Before updating, capture focus. Restore only if disrupted; use a programmatically focusable results heading when removed.",
+        "check": "Reorder a retained focused product: the same control stays focused. Filter it out: focus reaches the heading. Filter controls retain focus.",
+        "risk": "Unconditional restoration can steal focus after the user moves elsewhere."
+      },
+      {
+        "action": "Separate loading, count, and empty states",
+        "mechanism": "A persistent textual status exposes the latest count without moving focus; explicit loading text distinguishes pending results from zero.",
+        "implementation": "Keep status outside the busy results container. Show “Updating; previous count: N.” On arrival, update the visible count and polite live region within one second.",
+        "check": "Measure arrival-to-status latency. Test slow responses, zero matches, and nonzero matches with keyboard and screen reader; loading must never announce zero prematurely.",
+        "risk": "Assistive technology may delay speech despite timely live-region updates."
+      },
+      {
+        "action": "Commit only the newest complete result update",
+        "mechanism": "Versioned, atomic updates prevent stale responses from reversing the count, item order, or focus destination.",
+        "implementation": "Assign each filter request a sequence number. Ignore older responses. Commit items, count, loading state, and the focus policy together for the latest request.",
+        "check": "Resolve two requests in reverse order. Only the latest appears. Repeat with a retained focused item and a removed one; verify the defined destinations.",
+        "risk": "Rejecting stale responses must not leave loading active after failure."
+      },
+      {
+        "action": "Offer a compact view without hiding matches",
+        "mechanism": "Reducing card detail, rather than product coverage, gives users a less expansive way to browse the same results.",
+        "implementation": "Add a keyboard-operable compact-view toggle. Retain every matching product, its name, distinguishing variant labels, and details link; hide only supplementary previews.",
+        "check": "Compare product IDs and counts across views: they must match. Reach every details link by keyboard; verify variant distinctions remain readable without color.",
+        "risk": "Over-simplified labels can make distinct products indistinguishable; retain distinguishing information."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "cfc95c5962b4c352b8466b2eda0b79d39cf164091feb3b62a635bef09081d671",
+  "raw_output_sha256": "126cca265d49e6cc29bb0f7e495e615e71f9ea1cf6f8db9c891cd66b990d8d0e"
+}

@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "x02-a",
+  "request_sha256": "cf492f9b83c9c3eac5cd27d3cc235b144cec8e80efd8d4c392b63795a1960ff1",
+  "prompt_sha256": "961e1a2e82b16478ffc82ccb5dba3c8e9667a21879d6f3e0dce96eba6b851ca7",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:45.168221+00:00",
+  "finished_at": "2026-09-20T20:19:54.366198+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 9.196289209,
+      "usage": {
+        "input_tokens": 7022,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 69,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b20f863ec9e5253e16b35cd3cecc9127b3265e5b8ac80e83791e206643e89eee",
+      "stderr_sha256": "114b7e7f95c942880328716605b60ec8b9e2cf55d254a070402be14cc3f02212"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Apply RESET to clear only the notice display, preserving all drafts; retain the two subsequent arrivals.",
+    "trace": [
+      "4",
+      "6"
+    ],
+    "explanation": "The supplied relation states that RESET leaves queued contents unchanged, so all six drafts are retained without deletion or submission."
+  },
+  "result_sha256": "31c6556d8e9e96d27e8d955f23236603f4cf71fdee16835164da73350cd786ce",
+  "raw_output_sha256": "1655d90b54fe4155cfe03671f178a8c7db8b5b87a873520486b7049cad6c829b"
+}

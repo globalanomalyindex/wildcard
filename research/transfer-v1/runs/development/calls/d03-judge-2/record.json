@@ -1,0 +1,150 @@
+{
+  "schema_version": 1,
+  "id": "d03-judge-2",
+  "request_sha256": "deda6e41a1b0f69daea8640709ec81c248026cde69d7700444a39ccc0a4f1871",
+  "prompt_sha256": "5bc2a5e3d60e30a318b95274b0282900942796799a6d5c6bbbce7bc008534630",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:52:24.696041+00:00",
+  "finished_at": "2026-09-20T19:52:45.535452+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.838049458,
+      "usage": {
+        "input_tokens": 7562,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 873,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "fa66d870e390587b744cba7b8ca4d83c672f2a440bbd2c18909ca8f3e023d0cc",
+      "stderr_sha256": "46331b7f0e76ffe450039c609950b447e375756bf8d10c1c878095999d05ad5c"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "79ea19c3103610e3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8269a6a5952aad9e",
+        "mechanism_group": "status_summary",
+        "reason": "A pinned summary derived from timestamped records identifies the last confirmed holder and unresolved handoffs without adding volunteers or hardware."
+      },
+      {
+        "id": "b1ae4c167899d24c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8ce6e9f9770ea478",
+        "mechanism_group": "pending_reminder",
+        "reason": "An acknowledgment window with notifications surfaces unresolved handoffs while preserving custody until a timestamped resolution."
+      },
+      {
+        "id": "736bb19471b53266",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8269a6a5952aad9e",
+        "mechanism_group": "status_summary",
+        "reason": "A pinned record showing last confirmed holder and unresolved transfers is the same authoritative status-card mechanism with append-only history support."
+      },
+      {
+        "id": "a266adc81f3e485d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "457157f9f58a7f31",
+        "mechanism_group": "receipt_confirmation",
+        "reason": "Offer and receipt buttons keep proposed transfers pending until the recipient confirms and records the handoff time."
+      },
+      {
+        "id": "7742cb3c58502ec2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "457157f9f58a7f31",
+        "mechanism_group": "receipt_confirmation",
+        "reason": "The shared sheet separates a proposed handoff from recipient confirmation, leaving the prior confirmed holder visible until receipt."
+      },
+      {
+        "id": "e460656999d5c467",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8269a6a5952aad9e",
+        "mechanism_group": "status_summary",
+        "reason": "A pinned shared record with timestamped rows and a summary directly exposes confirmed holder and unresolved transfers."
+      },
+      {
+        "id": "e7d98db9261fa0a2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b4fc8421b5c951c1",
+        "mechanism_group": "receipt_confirmation",
+        "reason": "Recipient acknowledgment is required before changing the confirmed holder, with unresolved offers preserved and timed."
+      },
+      {
+        "id": "f4c626cefbdc120a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8f8a176b6ae7ce98",
+        "mechanism_group": "dispute_reconciliation",
+        "reason": "Expired unresolved handoffs trigger explicit possession checking and a disputed state instead of automatic reassignment."
+      },
+      {
+        "id": "b66d6fefa80727f6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8269a6a5952aad9e",
+        "mechanism_group": "status_summary",
+        "reason": "One pinned status view with last confirmed holder and unresolved queue matches the authoritative key-status card mechanism."
+      },
+      {
+        "id": "8b7658ed26e6a5cc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "457157f9f58a7f31",
+        "mechanism_group": "receipt_confirmation",
+        "reason": "Access is limited to the two volunteers and custody changes only after acknowledged receipt with a handoff time."
+      },
+      {
+        "id": "b28061654f5e7ed9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "885841da6cb2e691",
+        "mechanism_group": "append_only_history",
+        "reason": "An append-only log with handoff IDs and timestamped corrections preserves custody history instead of overwriting it."
+      },
+      {
+        "id": "4b4808e718721ca3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "8f8a176b6ae7ce98",
+        "mechanism_group": "dispute_reconciliation",
+        "reason": "A mismatch flag and timestamped responses expose disputed possession while preserving prior records until reconciliation."
+      }
+    ]
+  },
+  "result_sha256": "2c74a01b14c611ee8e2215c3eee675cd340634ff524760d8976559ee5f9e5632",
+  "raw_output_sha256": "33b682cf53635ecfb06f79c567824b479c8fe66b2c2f69c9d4967ecc724cd64d"
+}

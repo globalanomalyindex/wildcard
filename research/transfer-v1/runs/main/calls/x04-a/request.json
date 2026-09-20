@@ -1,0 +1,10 @@
+{
+  "id": "x04-a",
+  "phase": "diagnostic",
+  "task_id": "x04",
+  "variant": "a",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Timed evidence versus explicit revocation\",\n  \"brief\": \"At time 0 a service receives a verification record. At time 6 it must label that record VALID or UNKNOWN; at time 8 an explicit revocation arrives, and it labels the record again. The record follows exactly the supplied relation. Propose the state rule and return the two labels.\",\n  \"constraints\": [\n    \"No refresh occurs between time 0 and time 8.\",\n    \"Revocation makes the record UNKNOWN in either variant.\",\n    \"Do not infer a successful refresh from absence of an error.\"\n  ]\n}\nDonor label: Synthetic evidence marker\nRelation: Verification expires five time units after receipt unless refreshed.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "429221df4d8681a3a08b2dbe141809b2e15b704530816a9080887d33882e7a8b"
+}

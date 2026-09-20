@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d04-XR",
+  "request_sha256": "f460c7418fe372b59de339f903004e565bd81766da72e6c60c3d510b8fb50f90",
+  "prompt_sha256": "0380f5323b0a96ed6c6c9d6e6975f75b6b5b5dfafb816e7158da4a94948e635c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:50:19.370261+00:00",
+  "finished_at": "2026-09-20T19:50:41.906544+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.533175958000005,
+      "usage": {
+        "input_tokens": 7180,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 599,
+        "reasoning_output_tokens": 99
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b84bbd6e9931d0f7cab5d762aa217318a7776265a22eadfa638f76ecc821c744",
+      "stderr_sha256": "42a647b2970a083d0aa5a829462b3cc862df9bd13bfccf4d674ba89385725efe"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require valid passage links before saving definitions",
+        "mechanism": "Local referential integrity prevents definitions from becoming detached from the supplied source material.",
+        "implementation": "Store supplied passages under stable IDs. Require each definition to reference at least one existing passage ID; reject missing or unknown IDs.",
+        "check": "Attempt saves with absent, unknown, and valid IDs. Only valid references should save, and each should open its exact passage.",
+        "risk": "A valid link does not establish that the passage supports the wording."
+      },
+      {
+        "action": "Show competing wording beside its source",
+        "mechanism": "An explicit disagreement view makes alternatives inspectable without collapsing them into a single preferred definition.",
+        "implementation": "Give each competing definition its own record and passage IDs. Display alternatives side by side with expandable passages and source-linked dispute notes.",
+        "check": "Create two conflicting definitions. Verify a reader can inspect both complete wordings, their passages, and the stated disagreement without editor permissions.",
+        "risk": "Visual prominence can imply endorsement; label editorial preference explicitly."
+      },
+      {
+        "action": "Preserve edits as inspectable definition revisions",
+        "mechanism": "Append-only revisions retain earlier wording and source bindings instead of silently replacing disputed material.",
+        "implementation": "Make edits create revisions containing wording, passage IDs, author, and change reason. Keep competing alternatives separate; expose revision history and restoration.",
+        "check": "Revise and restore a disputed definition. Confirm every revision retains resolvable passage IDs and that neither operation removes the competing alternative.",
+        "risk": "Revision history can become noisy; distinguish chronological edits from competing interpretations."
+      },
+      {
+        "action": "Review disputed entries in bounded batches",
+        "mechanism": "A small review scope and explicit stop conditions limit accidental loss during accumulated dispute cleanup.",
+        "implementation": "Review five entries per batch only when all passage links resolve. Monitor retained alternatives; stop on missing wording or links and switch to annotation-only review.",
+        "check": "Seed a batch with a broken link. Verify cleanup stops, all wording survives, and annotation-only review remains available.",
+        "risk": "Triage can postpone difficult disagreements; keep unresolved entries visibly queued."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "a0bf17170a26c7e0cb688dc4548fdd75667a0520bf63a30e66941249e33c3dad",
+  "raw_output_sha256": "3a6d514121fce23fc51283f37778a970358ead9c5d50d27a68f1a314be3638cb"
+}

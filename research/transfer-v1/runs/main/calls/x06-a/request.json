@@ -1,0 +1,10 @@
+{
+  "id": "x06-a",
+  "phase": "diagnostic",
+  "task_id": "x06",
+  "variant": "a",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Finite buffer with and without recovery\",\n  \"brief\": \"A toy processor has storage capacity 4 units, begins empty, and receives 3 units in each of two periods. Each period records storage immediately after arrival and then performs the supplied recovery operation. A plan must avoid overflow and preserve every unit. Decide whether admitting both arrivals without changing the schedule is supported. Return the two arrival-time storage levels; if a level would exceed capacity, write OVERFLOW.\",\n  \"constraints\": [\n    \"No unit may be dropped or overwritten.\",\n    \"Capacity cannot be expanded.\",\n    \"An unsupported plan must be adapted by delaying admission or changing the explicitly stated service schedule, not called safe as written.\"\n  ]\n}\nDonor label: Synthetic reservoir marker\nRelation: After each arrival the processor completes and removes 3 stored units before the next period.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "b99ba36188f7057dad9433502c60d8227b11153dbd313e34a17c982676136da1"
+}

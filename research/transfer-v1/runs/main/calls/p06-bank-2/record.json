@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "p06-bank-2",
+  "request_sha256": "f005a24d824375b7993f341bcd884d44fa16b59271b329321ff2d004663aad97",
+  "prompt_sha256": "6b298386f766871919126ad9c5d66e0f4b0d54aee35ba2c025c9016f03c943f0",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:03:39.635843+00:00",
+  "finished_at": "2026-09-20T20:04:16.796684+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.15749833299992,
+      "usage": {
+        "input_tokens": 7117,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1080,
+        "reasoning_output_tokens": 107
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "661089026f9dcbf74400aead5f56c633426f724adcf362a82fd0bdad80f7c62b",
+      "stderr_sha256": "b61a6dba28513a47dc07523926c27c6b6af807f48312ad412e4bb832bb3e8e9d"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Offer a transparent draft-review starting point",
+        "mechanism": "A named starting point exposes its exact permission changes instead of concealing an undocumented preset.",
+        "implementation": "Add an optional “Review drafts” choice with a readable permission list. Apply it only after confirmation; retain access to all 18 toggles.",
+        "check": "Verify applying it enables draft review but not publishing or billing; canceling leaves every toggle unchanged.",
+        "risk": "A misleading label could conceal excessive access; validate effective permissions."
+      },
+      {
+        "action": "Require deliberate selection of privileged access",
+        "mechanism": "Publishing and billing cannot become granted merely through choosing a preset or copying another teammate.",
+        "implementation": "Require separate, initially unchecked owner selections for publishing and billing. Surface any calculated indirect grant and its controlling settings for explicit selection.",
+        "check": "Exercise every preset and copy path; neither privilege may become effective without the corresponding owner selection.",
+        "risk": "Do not remove privileged combinations; make them explicitly selectable."
+      },
+      {
+        "action": "Show effective access before sending",
+        "mechanism": "A live capability summary translates toggle combinations into concrete outcomes, including dependencies that change effective access.",
+        "implementation": "Calculate permissions after edits. Show “Can review drafts,” “Cannot publish,” and billing access, with links to controlling settings and explanations of indirect grants.",
+        "check": "Compare summary statements against calculated permissions across dependency-heavy combinations; stale or failed calculations must not appear current.",
+        "risk": "Simplified wording must not omit scope restrictions or conditional access."
+      },
+      {
+        "action": "Preserve custom combinations as first-class configurations",
+        "mechanism": "Preset labels describe exact matches; they never overwrite permissions simply because a configuration resembles a preset.",
+        "implementation": "Load existing combinations unchanged, label nonmatches “Custom,” and switch edited presets to “Custom.” Require confirmation before any explicit replacement.",
+        "check": "Round-trip all stored custom configurations without permission changes; verify opening, editing, and canceling preset selection never silently normalizes them.",
+        "risk": "Renaming or updating presets must not migrate existing custom configurations."
+      },
+      {
+        "action": "Test the invitee’s intended limits before sending",
+        "mechanism": "Scenario assertions catch unintended effective privileges rather than merely checking the visible toggle positions.",
+        "implementation": "For the draft-review task, run preflight assertions: draft review allowed, publishing denied, billing denied. On failure, return the owner to the implicated settings.",
+        "check": "Seed a fixture with publishing inherited through another setting; assert the test fails and no invitation is sent.",
+        "risk": "For other legitimate tasks, owners must explicitly revise expectations."
+      },
+      {
+        "action": "Organize controls for complete keyboard operation",
+        "mechanism": "Semantic groups and predictable focus make detailed permission editing manageable without hiding less-common combinations.",
+        "implementation": "Group all toggles by task using native fieldsets and checkboxes. Provide keyboard-operable disclosure controls, visible focus, and focus links from summary warnings.",
+        "check": "Using only a keyboard, create a custom combination, inspect effective access, resolve a warning, and send; verify no traps or inaccessible controls.",
+        "risk": "Collapsed groups can conceal selected permissions; display their selection counts."
+      },
+      {
+        "action": "Make permission changes visible and reversible",
+        "mechanism": "An explicit difference view reveals what a preset or bulk edit would add and remove.",
+        "implementation": "Before applying replacements, list added and removed effective capabilities, emphasizing publishing and billing. Offer cancel and an undo that restores the previous draft configuration.",
+        "check": "Replace a custom combination, inspect the difference, then undo; assert all 18 values return exactly to their previous state.",
+        "risk": "Undo must also invalidate obsolete privilege confirmations and preflight results."
+      },
+      {
+        "action": "Bind sending to the configuration actually checked",
+        "mechanism": "A versioned draft prevents a successful preview or test from authorizing a subsequently edited invitation.",
+        "implementation": "Associate calculations, assertions, and owner selections with a permission-draft revision. Invalidate them after relevant edits; send only the exact validated payload through the existing invite flow.",
+        "check": "Edit permissions while calculation is pending, then attempt sending; stale results must not enable submission or supply its payload.",
+        "risk": "This prevents UI staleness, not authorization-backend races."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "3347edd66ad056863fa658d6fbda5ec995000f94d6a11ed85eb9b8822788f54b",
+  "raw_output_sha256": "72e796295733f33f4ed35ee080136f3673a95b0bb67da862212b4b46672fde81"
+}

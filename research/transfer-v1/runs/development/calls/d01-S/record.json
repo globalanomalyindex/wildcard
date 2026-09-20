@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "d01-S",
+  "request_sha256": "927aa5a1b5c90f682a00ccc54da99dfb1a4bbf59d30cc6e1498277082e59f523",
+  "prompt_sha256": "708f8f714e7f2e0e066596eb8efc9bb6c5715fb41cdb8c4cc1e721b0fdf8f3ad",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:50:54.004824+00:00",
+  "finished_at": "2026-09-20T19:51:15.800713+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.794703583000008,
+      "usage": {
+        "input_tokens": 7057,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 509,
+        "reasoning_output_tokens": 151
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e25d25e956a86ad7c21cfc386a46a83cb1472f299b94ca372ee9f6603757d85c",
+      "stderr_sha256": "44e4d39de7c61fd2498cccd79ea4d8513f20ce6828a9d86dbc88406a8ee9f1d5"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Add a keyboard-operated “Move to position” command.",
+        "mechanism": "An explicit destination moves an item anywhere in the 40-item list without repeated dragging or stepping.",
+        "implementation": "Open a labeled form from each item’s button; accept positions 1–40. On confirmation, reorder existing IDs, record undo, and retain focus.",
+        "check": "Using only the keyboard, move item 37 to position 2; verify its ID, announced position, focus, and successful undo.",
+        "risk": "Clarify that positions describe the final order; reject invalid entries."
+      },
+      {
+        "action": "Offer a keyboard move mode for nearby adjustments.",
+        "mechanism": "A focused item moves one place per arrow press, with an explicit commit or cancel.",
+        "implementation": "Enter through a “Reorder” button. Use arrows to preview order, Enter to commit one undoable change, and Escape to cancel; preserve IDs.",
+        "check": "Move an item three places, commit, then undo. Separately cancel a preview; verify unchanged order and focus. Test both list boundaries.",
+        "risk": "Intercept arrows only in move mode; announce instructions and position."
+      },
+      {
+        "action": "Keep undo available throughout the page’s lifetime.",
+        "mechanism": "A page-scoped history restores earlier ID sequences rather than attempting to reverse drag coordinates or recreate items.",
+        "implementation": "Before every committed reorder, including dragging, save the ordered IDs. Provide a keyboard-accessible “Undo reorder” button; retain history across component remounts without expiry.",
+        "check": "Perform multiple moves through different controls, navigate within the page, then undo each; compare every restored sequence and ID set.",
+        "risk": "If deletion is supported, define reconciliation for IDs absent during undo."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "0224ca85323321f204fb26c64cd9a29eed5396f33ee76fe4df8ea296b71d4684",
+  "raw_output_sha256": "51ba8bfba40a9d48e7e02830a2cc1f24cc5adbe34890d1ce249768a85a9d6477"
+}

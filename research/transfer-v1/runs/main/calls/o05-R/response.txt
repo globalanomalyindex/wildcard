@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Separate requested pickups from stock-backed confirmations",
+      "mechanism": "Treat expected returns as contingent supply; confirm only against inspected stock held for that pickup.",
+      "implementation": "Add requested, awaiting-return, confirmed, and recovery-required states. Atomically allocate an inspected item before confirmation; prevent allocation to overlapping reservations.",
+      "check": "Simulate delayed returns and simultaneous bookings. Every confirmation must retain a unique, inspected allocation; unsupported requests must remain visibly contingent.",
+      "risk": "Holding inspected items can reduce circulation; measure this tradeoff."
+    },
+    {
+      "action": "Trigger a consent-based recovery workflow",
+      "mechanism": "A threatening delay creates an owned recovery case, rather than silently leaving the pickup unchanged.",
+      "implementation": "On an overdue dependency, assign staff and a deadline. Offer inspected alternatives with condition and accessory differences through the supplied contact preference only.",
+      "check": "Test acceptance, rejection, and silence. Acceptance must atomically secure the alternative; otherwise retain an unresolved case and offer a revised window without implying confirmation.",
+      "risk": "Alternatives may disappear before acceptance; never interpret silence as consent."
+    },
+    {
+      "action": "Inspect tools and detachable accessories separately",
+      "mechanism": "Component-level inspection can reveal usable combinations hidden by a whole-kit unavailable label.",
+      "implementation": "Track inspection and allocation per component. Assemble only manufacturer-compatible kits whose required parts passed inspection; obtain consent for any changed tool or accessory.",
+      "check": "Test a returned kit with one damaged accessory. Block the original configuration, prohibit shared-component double allocation, and release a rebuilt kit only after inspection and consent.",
+      "risk": "Compatibility errors can create unsafe kits; exclude uncertain combinations."
+    },
+    {
+      "action": "Audit failures against a fixed request cohort",
+      "mechanism": "Keeping difficult requests in the denominator prevents cancellation from making pickup reliability appear better.",
+      "implementation": "Log each requested window before allocation. Retain library cancellations and delay-driven withdrawals; classify preventability from inspection, availability, consent, and contact timestamps.",
+      "check": "Report original-window unmet requests, prevented failures, and unknown cases alongside preventable failures. Canceling a difficult request must not improve any original-window fulfillment measure.",
+      "risk": "Missing evidence means unknown preventability, not an unavoidable failure."
+    }
+  ],
+  "abstention_reason": ""
+}

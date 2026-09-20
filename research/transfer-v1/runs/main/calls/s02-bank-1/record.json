@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "s02-bank-1",
+  "request_sha256": "c62fea723f295fb2aa4940dbcc919f98c37156cf9f0f992f683d4a371946720a",
+  "prompt_sha256": "57334c332961cbe923122132ba0ae5812f5bc43385cfb2f4b73d362646679b19",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:02:47.394324+00:00",
+  "finished_at": "2026-09-20T20:03:23.579524+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 36.18287666699996,
+      "usage": {
+        "input_tokens": 7127,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1003,
+        "reasoning_output_tokens": 275
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "02e47c692c9013d891431213858bb077cf2b21f49e750710fb2fa8972d06e0ef",
+      "stderr_sha256": "51335971ef7ecd9600cec2e541b7dd19b6e5e08be837ad84320b39947a4f0ad7"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Freeze session membership at a committed watermark.",
+        "mechanism": "Promise exactly IDs created by watermark W and not deleted by W; payloads remain current, not historical.",
+        "implementation": "Persist birth and deletion versions; publish W only after all changes through W are visible. Restrict membership filters to immutable fields.",
+        "check": "Capture expected membership at W. Later inserts must be absent; later deletions must remain represented by their IDs.",
+        "risk": "Per-record versions alone cannot establish a global committed watermark."
+      },
+      {
+        "action": "Replace offsets with a stable seek cursor.",
+        "mechanism": "An exclusive creation-timestamp-and-ID boundary prevents position shifts; immutable IDs break timestamp ties.",
+        "implementation": "Index the ordering pair. Query membership at W strictly after the cursor pair, ordered ascending; advance using the last returned entry.",
+        "check": "Insert and delete around page boundaries, including equal timestamps. Concatenated pages must equal the expected ordered IDs without duplicates.",
+        "risk": "Mutable sorting fields invalidate this ordering guarantee."
+      },
+      {
+        "action": "Return deleted IDs as explicit browse entries.",
+        "mechanism": "Tombstone entries preserve frozen membership even when record bodies disappear between requests.",
+        "implementation": "Retain ID, ordering fields, birth version, deletion version, and immutable filter fields for 24 hours. Deleted entries consume page slots.",
+        "check": "Delete unread members after page one. Their IDs must appear once as deleted entries; pre-watermark deletions must never appear.",
+        "risk": "Clients must handle deleted entries rather than silently discarding them."
+      },
+      {
+        "action": "Expire cursors before required tombstones disappear.",
+        "mechanism": "Bounded session lifetimes make the membership promise compatible with finite deletion retention.",
+        "implementation": "Set a fixed ten-minute expiry at session creation. Sign W, boundary, filters, ordering, and expiry; reject expired cursors without silently restarting.",
+        "check": "A six-page, two-minute browse succeeds. Expired and modified cursors fail explicitly, including when deleted records have been purged.",
+        "risk": "Longer browsing requires an explicit restart, not seamless continuation."
+      },
+      {
+        "action": "Consider an existing-store ID manifest instead.",
+        "mechanism": "Alternative: an immutable ordered ID list freezes membership without repeated historical membership queries.",
+        "implementation": "Within one request-scoped consistent read, persist ordered IDs in the existing store. Page by manifest position; expire after ten minutes.",
+        "check": "Enable only if capture, persistence, and response meet 300 ms under load. Concurrent mutations must not alter manifest IDs.",
+        "risk": "Capturing 80,000 IDs may exceed latency or storage budgets."
+      },
+      {
+        "action": "Make duplicate and omission checks an executable oracle.",
+        "mechanism": "A reference membership set distinguishes correct browsing from merely duplicate-free output.",
+        "implementation": "Run randomized insert/delete schedules against captured membership. Compare six-page output with its expected prefix; also drain complete sessions against the full sequence.",
+        "check": "Assert ordered equality, unique ID count, and empty expected-minus-observed and observed-minus-expected sets for completed traversals.",
+        "risk": "Checking uniqueness alone misses omissions; partial sessions need prefix expectations."
+      },
+      {
+        "action": "Gate deployment on worst-case indexed query behavior.",
+        "mechanism": "Seek pagination can still scan many excluded inserts or tombstones; an index alone does not establish latency.",
+        "implementation": "Inspect query plans and load-test 80,000 records with concurrent writes and retained tombstones. Add covering indexes for ordering and membership metadata.",
+        "check": "Measure end-to-end requests, including session creation and late pages; reject designs producing responses above 300 ms in the defined workload.",
+        "risk": "Benchmarks cannot guarantee latency under unspecified load; define supported concurrency."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "18aa792e2e7c73dbfffe7023012aae4cbf3162141a483faf648ab71fc069c82b",
+  "raw_output_sha256": "4f6d63fc4ccbcf79a6957c70513a0a6696064cd80ff5d9d709523ddb5a9b269d"
+}

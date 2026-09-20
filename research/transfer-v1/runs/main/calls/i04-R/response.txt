@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Trace edits through resolved token dependencies.",
+      "mechanism": "Resolve aliases separately for each brand and theme, linking changed values to actual rendered foreground/background uses.",
+      "implementation": "Build reverse dependencies; recompute affected tokens; show alias paths, resolved-value differences, and affected pairs. Detect cycles and report unresolved values.",
+      "check": "Test a multi-level alias, a cycle, and one token used as both text and background; expose both roles.",
+      "risk": "Incomplete rendering coverage can hide affected uses."
+    },
+    {
+      "action": "Preserve brand overrides with explicit provenance.",
+      "mechanism": "Distinguish inherited values from brand-owned overrides so base edits cannot silently erase intentional differences.",
+      "implementation": "Record each override’s owner, source, and rationale. Preserve overrides during propagation; require an explicit, logged operation to replace or remove one.",
+      "check": "Edit a shared base: a literal brand override stays unchanged; an alias override retains its reference and exposes resulting changes.",
+      "risk": "Preserving an override does not guarantee sufficient contrast."
+    },
+    {
+      "action": "Show a non-color-dependent pair review queue.",
+      "mechanism": "Evaluate affected rendered pairs against applicable contrast targets while exposing current and proposed values through text and numbers.",
+      "implementation": "List brand, theme, component, foreground/background roles, numeric values, contrast ratios, textual status, and side-by-side labeled previews. Flag failures and indeterminate checks.",
+      "check": "Introduce a failing text pair; verify it appears before publishing and remains identifiable in grayscale.",
+      "risk": "Color checks alone cannot establish complete accessibility."
+    },
+    {
+      "action": "Publish only the exact reviewed palette revision.",
+      "mechanism": "Isolate proposed edits from published tokens and bind review decisions to an immutable candidate revision.",
+      "implementation": "Use draft, evaluated, reviewed, and published states. Require acknowledgment of flagged pairs; invalidate evaluation after edits; atomically publish only the reviewed revision.",
+      "check": "Modify an alias or override after review; publishing must stop until the new revision is evaluated and reviewed.",
+      "risk": "Acknowledgment records acceptance, not proof that a failure is safe."
+    }
+  ],
+  "abstention_reason": ""
+}

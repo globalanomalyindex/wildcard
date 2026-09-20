@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "i06-bank-2",
+  "request_sha256": "7f01cbef952dca668a8997fd358cd99188dc5f02d884b0a13b3d3c7816a5b89a",
+  "prompt_sha256": "0dea758c45d91cac8655bf3a32ba2b875f82395367841701481afd08a787f8ac",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:59:04.191848+00:00",
+  "finished_at": "2026-09-20T19:59:37.225808+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 33.03294541599999,
+      "usage": {
+        "input_tokens": 7131,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 912,
+        "reasoning_output_tokens": 168
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "82c91d2db674905f889c31160b5091f0e2dc0544a7856c9bf1e1f528d8e29131",
+      "stderr_sha256": "a98f2ef72d6e78588d591875edf699ecf36111f6d16e395c685514034de39e4a"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate naming directions from wording variants",
+        "mechanism": "Organize suggestions by their stated rationale and addressed constraints, not just textual similarity or early attention.",
+        "implementation": "Add rationale and constraint fields. Let contributors create direction lanes and place a suggestion in multiple lanes without duplicating it.",
+        "check": "Submit “Oak Commons” for tree identity and “Oak Common” for shared stewardship; verify both directions remain visible.",
+        "risk": "Mandatory categorization could discourage tentative ideas; allow unclassified submissions."
+      },
+      {
+        "action": "Reopen rejections when their constraints change",
+        "mechanism": "Bind each rejection to explicit, versioned constraints so its applicability can be checked after edits.",
+        "implementation": "Store rejection explanations with constraint versions. When a referenced constraint changes, mark the rejection “needs reconsideration” and notify reviewers without automatically accepting the name.",
+        "check": "Reject a name for exceeding two words; relax that limit and verify the rejection becomes reviewable with its original explanation intact.",
+        "risk": "Broad constraint edits may generate excessive reconsideration notices."
+      },
+      {
+        "action": "Show hard-constraint conflicts independently of popularity",
+        "mechanism": "Keep hard-constraint violations visible without selecting a winner or suppressing the violating suggestion.",
+        "implementation": "Give constraints hard or advisory status. Attach pass, fail, or unknown assessments with evidence to names; retain contested assessments and record constraint edits.",
+        "check": "Give a popular name three words under a two-word hard limit; verify its conflict remains visible despite support.",
+        "risk": "Subjective constraints need human assessment rather than automatic failure."
+      },
+      {
+        "action": "Protect authorship during anonymous first review",
+        "mechanism": "Separate private attribution records from review content and withhold identity until each reviewer submits their first assessment.",
+        "implementation": "Store author IDs behind restricted access. Serve anonymous review payloads without author metadata, avatars, or attribution history; make later disclosure explicit.",
+        "check": "Inspect first-review responses and exports for identity leaks; verify authorized custodians can still recover original authorship.",
+        "risk": "Distinctive rationale wording may reveal identity despite metadata protection."
+      },
+      {
+        "action": "Give late alternatives a fresh-review queue",
+        "mechanism": "Allocate attention by review coverage rather than popularity, ensuring late suggestions receive an independent reading.",
+        "implementation": "Maintain an explicit unreviewed queue with round-robin presentation. Hide support totals during first review; require a linked earlier suggestion and rationale comparison for “already considered.”",
+        "check": "Add a late, similar-sounding name addressing a new constraint; verify it enters review and cannot be dismissed with an unlinked duplicate label.",
+        "risk": "Queue obligations may slow large sessions; permit visible deferral."
+      },
+      {
+        "action": "Make every grouping reversible and traceable",
+        "mechanism": "Treat groups as references to intact suggestions rather than replacements that erase distinctions or attribution.",
+        "implementation": "Preserve immutable submission records and edit history. Record group membership changes; provide expandable originals and undoable split operations, respecting private-authorship permissions.",
+        "check": "Group two similar names, edit the group label, then split it; verify original wording, rationales, IDs, and authorized authorship remain recoverable.",
+        "risk": "Large histories can clutter the interface; collapse them by default."
+      },
+      {
+        "action": "Keep unresolved dissent beside team shortlists",
+        "mechanism": "Preserve objections as structured open issues rather than letting a shortlist imply unanimous agreement.",
+        "implementation": "Attach objections to names or directions with the disputed constraint, explanation, and resolution status. Show unresolved issues beside shortlists; require recorded reasons for closure and allow reopening.",
+        "check": "Shortlist a popular name with an unresolved hard-constraint objection; verify the objection stays visible and closure preserves its history.",
+        "risk": "Repeated objections can overwhelm discussion; link duplicates without deleting originals."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "a93217a31358e21faed7d399a220a9c2a032a51be3ca3453d3927ea2ec928c0f",
+  "raw_output_sha256": "4435edee326467f05635952b58e7886facc7efa124fc631ba36aedf66be87942"
+}

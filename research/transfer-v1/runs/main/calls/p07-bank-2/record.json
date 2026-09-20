@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "p07-bank-2",
+  "request_sha256": "b244469af362a8210d5013ceaecb1cad252e2f7fe6772dc0d5cbc586b42c90ac",
+  "prompt_sha256": "4cfc8aa4cb6ba38419ef04174194ab73ec833ec5bb5f2b5cb1ed59f659d6e5fa",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:00:07.178327+00:00",
+  "finished_at": "2026-09-20T20:00:36.375937+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.194062291999956,
+      "usage": {
+        "input_tokens": 7129,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 828,
+        "reasoning_output_tokens": 135
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1810732318807eb371f9f9af661aa21b3637001bd88a99499015ec9f4cacbffe",
+      "stderr_sha256": "7dda6c3b5c28e2aaa9f1abbf30e99766454a3e3819a3c217eb77c1ec82349224"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Merge drafts against their original revision",
+        "mechanism": "Compare the loaded baseline, local draft, and latest server document to distinguish independent edits from conflicts.",
+        "implementation": "Retain baseline values and revision. After stale-save rejection, carry forward one-sided changes; flag differing changes to the same field.",
+        "check": "Edits to separate fields survive without retyping; identical edits need no resolution; divergent edits are flagged.",
+        "risk": "Missing baseline data must trigger review, not guessed merges."
+      },
+      {
+        "action": "Replace the warning with field-level resolution",
+        "mechanism": "An inline resolution screen isolates conflicting fields while preserving automatically combined edits elsewhere.",
+        "implementation": "Show baseline, this-tab, and saved values. Provide labeled single-choice selectors and editable text results; require explicit conflict confirmation.",
+        "check": "Users resolve every conflict in one tab without dragging or copying between windows; merged results remain unpublished.",
+        "risk": "Truncated previews can conceal differences; provide expandable complete values."
+      },
+      {
+        "action": "Resolve long text at the changed passage",
+        "mechanism": "Three-way text comparison separates independent passage edits from overlapping changes within one field.",
+        "implementation": "Combine disjoint changes in a preview; show overlapping passages side by side with keep-either, keep-both, and edit controls. Retain originals.",
+        "check": "Separate-paragraph edits survive; overlapping deletions require review; keep-both inserts both passages without clipboard use.",
+        "risk": "Textually disjoint edits may conflict semantically; require preview confirmation."
+      },
+      {
+        "action": "Preserve recoverable versions before replacing text",
+        "mechanism": "A recovery history makes text excluded during resolution retrievable rather than silently lost.",
+        "implementation": "Before applying resolutions, persist baseline, local, fetched, and resolved text snapshots. Expose restore-as-draft controls; block replacement if preservation fails.",
+        "check": "Reload after resolution and recover either original text in the same tab without changing published content.",
+        "risk": "Stored text needs access controls and an explicit retention policy."
+      },
+      {
+        "action": "Recheck the revision when saving resolved drafts",
+        "mechanism": "Resolution uses conditional saving so another intervening save cannot be overwritten by an outdated merge.",
+        "implementation": "Submit the resolved draft against its fetched revision. On rejection, preserve it and repeat comparison using that fetched document as baseline.",
+        "check": "A third save during resolution causes another comparison, preserves reviewed edits, and never automatically publishes.",
+        "risk": "Repeated contention can require multiple review rounds; never force overwrite."
+      },
+      {
+        "action": "Warn other tabs without replacing their drafts",
+        "mechanism": "Same-browser save notifications reveal stale tabs early while server revisions remain authoritative.",
+        "implementation": "Broadcast document ID and saved revision after successful saves. Show a nonblocking review banner in other tabs; never replace their text automatically.",
+        "check": "A dirty receiving tab retains its input. With notifications disabled or missed, stale-save rejection still invokes full resolution.",
+        "risk": "Notifications are advisory and may expose document identifiers locally."
+      },
+      {
+        "action": "Test late edits in an already stale tab",
+        "mechanism": "Revision-based regression tests prevent last-edit timestamps from incorrectly determining which draft should win.",
+        "implementation": "Open two tabs at revision N. Save A, then edit stale B afterward and save B. Exercise text and single-choice conflicts.",
+        "check": "B is rejected as stale; both versions remain recoverable, independent edits survive, only conflicts require resolution, and nothing auto-publishes.",
+        "risk": "Timing-only tests are flaky; coordinate events with explicit barriers."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "f5c3e34db70d98a0559330d9c49353baa0a29d52dc01795509b831960b75db9c",
+  "raw_output_sha256": "a058cdd960ca46b73c54a22b72bfd9db3974f399e4b592a9a98415458d0afc81"
+}

@@ -1,0 +1,57 @@
+{
+  "schema_version": 1,
+  "id": "s02-LR",
+  "request_sha256": "159fd513795168afa37aa2808bdf8d0a173b3aa99edfe3d21e5423605e030a25",
+  "prompt_sha256": "f10f2736de74c72adef48a743d6d3852f17bc2d99a54857b1463dff2f80937bf",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:06:58.358341+00:00",
+  "finished_at": "2026-09-20T20:07:28.162704+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.803384625000007,
+      "usage": {
+        "input_tokens": 7266,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 664,
+        "reasoning_output_tokens": 408
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f7fc15707923cdfbfdd8020f7aba3f26f3ab93ced7caf32405d8c859449a13fb",
+      "stderr_sha256": "37519e1ad488e2b04aa5baff4340a4ce1d71a6e4ab8d47badbf81baa51980ef6"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Fence session membership with retained deletion markers.",
+        "mechanism": "Traverse IDs existing at a committed version fence; exclude subsequent inserts and represent subsequent deletions as tombstones.",
+        "implementation": "Add immutable birth versions, deletion versions, commit-ordered fences, and an ID index spanning tombstones. Sign fence/cursor tokens; expire after ten minutes. Bound scan batches.",
+        "check": "Under concurrent mutations, compare all emitted IDs with fence-time membership: zero duplicates or omissions. Verify every request finishes within 300 ms.",
+        "risk": "Filtering can yield short pages; return continuation tokens. Values are current, not historical."
+      },
+      {
+        "action": "Pin an immutable membership tree per session.",
+        "mechanism": "A pinned root defines exact starting membership without historical queries or transactions spanning requests.",
+        "implementation": "Store copy-on-write ID-tree nodes in the existing store; atomically publish roots with mutations. Pin roots for ten minutes; fetch current values or deletion markers.",
+        "check": "Traverse a pinned root during insert/delete churn; assert exact ID-set equality and uniqueness. Benchmark requests against 300 ms, including root publication contention.",
+        "risk": "Alternative architecture adds write amplification and node reclamation; expired sessions must restart."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "ec5013166f8d441da27aa96ef2f4ac1cccc2f02b7cb4aa97ae73d4a26e0c58de",
+  "raw_output_sha256": "cacb57230345a77c686a32380ceeec1ec4c7ca5fb676e14900d32b18afa6e030"
+}

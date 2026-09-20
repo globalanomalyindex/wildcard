@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "x01-b",
+  "request_sha256": "e256bf4e5a7ab733d50ab79666e0453d91505ded4295bb3c4db7f945542a3b64",
+  "prompt_sha256": "6bba44bdd3b75f295b38b8b993748a46ebe19a79e6a929360bc1eb1242351f2d",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:29.977107+00:00",
+  "finished_at": "2026-09-20T20:19:37.273122+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 7.2946792910000084,
+      "usage": {
+        "input_tokens": 6982,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 75,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c1313419f52ef01e3a93bdb5a7f77751a28b10ba2fb7161dc016d9ee70c38f85",
+      "stderr_sha256": "354c9ebfb0f16c29018e35ca231f8cc281a8f245699073d162f8032e090d0a8c"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Apply each edit only to its own step, then restore the underlying level on the next step.",
+    "trace": [
+      "20",
+      "10",
+      "10"
+    ],
+    "explanation": "The step 1 edit is local only; without further edits, steps 2 and 3 use the underlying level 10."
+  },
+  "result_sha256": "ec32fcee2b4155e70ed67d0ebf616aba1f0617056cd04cc3940013fa2ecb43a3",
+  "raw_output_sha256": "206dc001fc7f2ee9fc401d5106f3e8dcc003470fe12c77ef52c1f88f1e6fe4c8"
+}

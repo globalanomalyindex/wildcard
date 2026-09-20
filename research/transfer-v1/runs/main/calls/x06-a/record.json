@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "x06-a",
+  "request_sha256": "29dd22e4a3bd7f3564747b48b7622df85af4cfa1425ba96d4c51f59629833187",
+  "prompt_sha256": "b99ba36188f7057dad9433502c60d8227b11153dbd313e34a17c982676136da1",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:41.296856+00:00",
+  "finished_at": "2026-09-20T20:18:47.944495+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 6.646581208000001,
+      "usage": {
+        "input_tokens": 7017,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 74,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a55b45a33463fb69bd5915c51ca69b690add99f9a011638a9a4d78df8e226099",
+      "stderr_sha256": "0170ac97987b76b509ba025fcee1905aac1cc3a7d880b0401e3a440a38747b61"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Admit 3 units each period, then complete and remove all 3 before the next period.",
+    "trace": [
+      "3",
+      "3"
+    ],
+    "explanation": "Recovery empties storage between arrivals, so each arrival reaches only 3 of 4 units and no unit is dropped or overwritten."
+  },
+  "result_sha256": "1a84a5c5b6d8a9ea5d5c157de43d1227eafa645fdd6046ff9ffe21a8124534bb",
+  "raw_output_sha256": "02149b3d7a14b3f41c29e552fbb12044cd61e0852f0b11f6f52f88dcac14ffbc"
+}

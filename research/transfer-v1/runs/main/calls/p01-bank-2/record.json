@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "p01-bank-2",
+  "request_sha256": "78b4e5a0b6c7628ef4be81483a8310e927f911ad824fc3b15b40064da82d49ea",
+  "prompt_sha256": "035043dc0a7a4aa8b81ad92089906d8ece1ab8ad7e62faa65a73fd271baa87c9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:57:06.662890+00:00",
+  "finished_at": "2026-09-20T19:57:39.788056+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 33.12288991700001,
+      "usage": {
+        "input_tokens": 7154,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 851,
+        "reasoning_output_tokens": 209
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "d0ece69985fea4738f20760c79f046f1d4dccf4ed95a077e4747d9b8f3e28fcb",
+      "stderr_sha256": "8f965f07fa231e1d4de6be65c31dd6f05318fdf387a3ea9c7dcd426e41acf4c8"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Replace destructive timeout with a privacy lock",
+        "mechanism": "After inactivity, hide the session while retaining selections locally, rather than clearing the visitor's work.",
+        "implementation": "At 90 seconds, replace all content with a neutral locked screen; stop speech and clear navigation previews. Resume requires the session code.",
+        "check": "Leave distinctive selections idle: verify they disappear at timeout, remain inaccessible through Back, and return intact after authorized resume.",
+        "risk": "A visitor change before timeout can still expose visible selections."
+      },
+      {
+        "action": "Provide an anonymous session recovery code",
+        "mechanism": "A temporary secret lets returning visitors recover work without accounts or identifying information.",
+        "implementation": "Before ticket selection, let visitors create and verify a masked session code. Rate-limit failed unlocks; reveal neither selections nor code hints.",
+        "check": "Test recovery using touch, physical controls, and screen reader; wrong codes must never reveal session contents or existence.",
+        "risk": "Forgotten codes require restarting; observers may capture code entry."
+      },
+      {
+        "action": "Offer explicit reading-time extensions",
+        "mechanism": "A non-destructive warning distinguishes continued reading from inactivity without treating screen-reader playback as visitor presence.",
+        "implementation": "Before locking, offer a large 'Keep reading' control, also activated by physical Confirm. Preserve reading position; offer a longer timeout with an exposure warning.",
+        "check": "Compare default and extended timeouts: measure reading interruptions, reconstruction attempts, and seconds selections remain visible after scripted abandonment.",
+        "risk": "Longer visible intervals increase exposure; extensions must never confirm purchases."
+      },
+      {
+        "action": "Make starting fresh an isolated path",
+        "mechanism": "A neutral entry screen opens an empty session without exposing or resuming the previous visitor's work.",
+        "implementation": "Provide 'Start new visit' on the lock screen and an always-visible 'Finish and hide' control. Separate carts, history, speech queues, and form caches.",
+        "check": "Start a new visit after abandonment; exercise Back, Confirm, screen reader, and payment entry. No previous values should appear.",
+        "risk": "Hidden recoverable sessions need bounded storage and an explicit expiry policy."
+      },
+      {
+        "action": "Collect personal details only at checkout",
+        "mechanism": "Keeping identifying information out of browsing reduces what abandonment can expose or require retaining.",
+        "implementation": "Defer required personal fields until checkout. On lock, discard those fields while preserving ticket selections; require re-entry after resume and suppress spoken summaries.",
+        "check": "Abandon at every checkout field, then resume or start fresh. Verify ticket recovery without personal-field recovery, autofill, or audible disclosure.",
+        "risk": "Visitors interrupted during checkout must re-enter details, though not tickets."
+      },
+      {
+        "action": "Keep recovery and confirmation independent of connectivity",
+        "mechanism": "Local session storage supports offline reading and recovery; an explicit confirmation remains the sole purchase authorization.",
+        "implementation": "Store encrypted drafts locally with a disclosed expiry exceeding ten minutes. Never queue unconfirmed purchases; disable final confirmation offline if authorization requires connectivity.",
+        "check": "Disconnect for ten minutes, lock and recover selections, then reconnect. Verify no purchase occurs without explicit confirmation and retries cannot duplicate it.",
+        "risk": "Offline purchase completion depends on payment capability; draft preservation does not guarantee ticket issuance."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "225c35a54ba098233adf1d04108d0f8d65812019a2b3f63c81d8dab8fcefc04a",
+  "raw_output_sha256": "f4c73146df3c1e2909ce948fee4e23fb3235a98a1e058489dc6b4dfb05872c90"
+}

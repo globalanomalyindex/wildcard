@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Merge paragraph versions, not complete documents",
+      "mechanism": "Causal version tracking distinguishes successive edits from concurrent edits without treating logical revision numbers as timestamps.",
+      "implementation": "Store immutable operations with paragraph ID, author/device ID, revision, causal context, and text. Maintain concurrent heads separately for each paragraph.",
+      "check": "Replay independent and same-paragraph edits in both arrival orders; require identical heads, preserved independent edits, and both conflicting originals.",
+      "risk": "Revision numbers alone cannot establish causality across devices."
+    },
+    {
+      "action": "Keep deletion as an explainable conflicting version",
+      "mechanism": "A tombstone participates in causal merging instead of immediately erasing paragraph text or authorship.",
+      "implementation": "Record deletion against observed paragraph heads. Retain concurrent edit and deletion heads; present the edited text beside the deletion proposal.",
+      "check": "Delete a paragraph offline on one device and edit it on the other; both reconnect orders must expose the same unresolved conflict.",
+      "risk": "Hiding tombstoned paragraphs unconditionally would conceal concurrent edits."
+    },
+    {
+      "action": "Separate paragraph placement from paragraph content",
+      "mechanism": "Independent placement metadata allows moving a paragraph without overwriting edits to its text.",
+      "implementation": "Assign fractional position keys; moves update a causal placement register. Break concurrent-placement ties by revision/device tuple, and equal-position ties by paragraph ID.",
+      "check": "Replay concurrent moves, including moves of edited paragraphs, in reversed orders; require identical ordering and exactly one occurrence of every visible ID.",
+      "risk": "Position keys grow; retain alternative placements for inspection."
+    },
+    {
+      "action": "Make conflict resolution an attributed edit",
+      "mechanism": "Resolution explicitly supersedes reviewed versions while preserving their original text and author/device attribution.",
+      "implementation": "Display separate original variants and provenance. Save chosen or combined text as a resolution operation naming reviewed heads; retain originals.",
+      "check": "Deliver an unseen concurrent edit after resolution; it must remain a conflict rather than disappear beneath the resolution.",
+      "risk": "Combined text still needs an explicit resolver attribution."
+    },
+    {
+      "action": "Exchange durable operations with resumable acknowledgments",
+      "mechanism": "Idempotent operation exchange tolerates reconnect order, duplicate delivery, and interruptions without an additional service.",
+      "implementation": "Use the existing synchronization path. Atomically persist local edits and outbox entries; request missing operation ranges and acknowledge only durably stored operations.",
+      "check": "Interrupt transfer before and after acknowledgment, then reconnect in reverse order; require complete operation sets without duplicated paragraphs or versions.",
+      "risk": "A highest-seen revision acknowledgment can incorrectly skip gaps."
+    },
+    {
+      "action": "Compact history only behind explicit safety conditions",
+      "mechanism": "Both-device acknowledgment and conflict retention prevent cleanup from destroying evidence needed by a returning offline device.",
+      "implementation": "Checkpoint acknowledged state, including causal summaries and tombstones. Pin unresolved originals; never expire them merely because 48 hours elapsed. Store variants separately, not concatenated.",
+      "check": "Generate repeated 8 KB conflicts across 500 paragraphs, compact, and reconnect a stale device; verify originals, attribution, and deletions survive.",
+      "risk": "Paragraph limits do not bound accumulated history storage."
+    },
+    {
+      "action": "Build deterministic replay and crash tests",
+      "mechanism": "Fixed operation histories and varied delivery schedules expose order-dependent merging and unexplained data loss.",
+      "implementation": "Seed A, B, C. Offline, device one edits A, deletes B, moves C; device two edits A and B. Replay both reconnect orders, duplicates, and restarts.",
+      "check": "Require identical canonical state: both A originals, B deletion/edit conflict, C moved once, and correct attribution. Add independent edits as a survival control.",
+      "risk": "Compare conflict evidence and metadata, not rendered text alone."
+    }
+  ],
+  "abstention_reason": ""
+}

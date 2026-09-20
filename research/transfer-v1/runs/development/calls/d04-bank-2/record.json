@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "d04-bank-2",
+  "request_sha256": "c18bc04bac1ee22fcd83b9c185c34863b059969f80814bf12ae5d35ae02e13d1",
+  "prompt_sha256": "119c1b4d5ff50cd2c00cbc54e2ac557d8ce8fe0600b6a45c28aba57008151838",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:48:16.229790+00:00",
+  "finished_at": "2026-09-20T19:48:47.497469+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 31.263708125,
+      "usage": {
+        "input_tokens": 7038,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 863,
+        "reasoning_output_tokens": 70
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "121cfc0daa2ce798891e9fcccde629e69409d24db5b7fd768a674325481b9c8c",
+      "stderr_sha256": "2aabe4c90b2da0a122b6ef804ebcecf05efbff0b8129654f86b0df0f754082b0"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Store competing definitions as separate sourced records",
+        "mechanism": "Separate term identity from definition wording so disagreement never requires overwriting another definition.",
+        "implementation": "Create term, passage, and definition tables. Require each definition’s passage ID to resolve within the supplied passage collection.",
+        "check": "Save two conflicting definitions for one term; verify both survive. Reject saves with missing or unknown passage IDs.",
+        "risk": "Editors may mistakenly create duplicate terms instead of variants."
+      },
+      {
+        "action": "Show the source beside each definition",
+        "mechanism": "An inline source viewer lets readers inspect evidence without losing their place in the glossary.",
+        "implementation": "Add a source button displaying the linked passage ID and exact supplied text beside the definition; support keyboard opening and closing.",
+        "check": "Open every definition’s source button and compare displayed text with its stored passage. Verify keyboard focus returns correctly.",
+        "risk": "Long passages can overwhelm the reading layout."
+      },
+      {
+        "action": "Make disagreements explicit and inspectable",
+        "mechanism": "Dispute records connect competing definitions and explanations without selecting a winner or merging their wording.",
+        "implementation": "Attach disputes to definition IDs. Display a disagreement badge opening both wordings, their passage IDs, and editor-entered explanations.",
+        "check": "Create a dispute between two definitions; verify readers can inspect both sources and unchanged wordings from either definition.",
+        "risk": "An unexplained badge may imply more disagreement than documented."
+      },
+      {
+        "action": "Keep an append-only definition history",
+        "mechanism": "Versioned edits preserve earlier wording and its evidence instead of silently replacing a disputed definition.",
+        "implementation": "Write edits as new revisions carrying source passage IDs. Keep previous revisions readable; distinguish revising one definition from adding a competing definition.",
+        "check": "Revise a disputed definition twice; verify all wordings, source links, and the original dispute targets remain inspectable.",
+        "risk": "Revision history can become difficult to navigate."
+      },
+      {
+        "action": "Flag definitions when supplied passages change",
+        "mechanism": "Immutable passage versions prevent source corrections from silently changing the evidence behind existing wording.",
+        "implementation": "Assign corrected passages new IDs linked to their predecessors. Keep definitions bound to original IDs and queue affected definitions for editor review.",
+        "check": "Replace a supplied passage; verify existing definitions still open the original and show a review flag until explicitly reviewed.",
+        "risk": "Frequent corrections can accumulate unresolved review work."
+      },
+      {
+        "action": "Keep competing wording visible in search",
+        "mechanism": "Variant-aware retrieval prevents the default definition from hiding alternatives during term lookup.",
+        "implementation": "Index every retained definition’s wording. Group results by term, show disagreement counts, and expand matching variants with their passage IDs.",
+        "check": "Search a phrase appearing only in a competing definition; verify its term, wording, disagreement, and source are reachable.",
+        "risk": "Historical variants may clutter results unless clearly labeled."
+      },
+      {
+        "action": "Export a self-contained review package",
+        "mechanism": "Bundling definitions, competing wording, disputes, and supplied passages preserves inspectability outside the editor without external dependencies.",
+        "implementation": "Generate a static review page containing all current variants, dispute explanations, and linked passage sections. Block export on unresolved passage references.",
+        "check": "Open the package offline; verify every definition reaches its exact passage and every recorded disagreement exposes all participating wordings.",
+        "risk": "Exported packages become stale after subsequent edits."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "75533ff6b3c68b0053a8a8ea38120dfede032c554d803183384e63a68f427844",
+  "raw_output_sha256": "abec3f2765d9abd39aa559e7fb89a3d3cc43ea36dbafe172db801cbe4f9fc108"
+}

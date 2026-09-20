@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d02-S",
+  "request_sha256": "0bb3edb54afecd52fa444f19b631d69c32f495b3d2bd9dd2580674e1a4fb19b7",
+  "prompt_sha256": "cbe5d0738136578c6bc70da88001b13936a45af33f69f4bfed890a56fd68a682",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:41:45.702899+00:00",
+  "finished_at": "2026-09-20T19:42:09.308660+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 23.60282679099999,
+      "usage": {
+        "input_tokens": 6989,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 662,
+        "reasoning_output_tokens": 109
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "92f9ee72b6008156fc0a60e49e2bac4ac8d8e109f4eacfd91de35d07256627f6",
+      "stderr_sha256": "7d3900c318c9b65370ca7e5e6e022687d1c8139fdb9b8947dc9bc9dac703a760"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Delete records when their five-minute lifetime ends.",
+        "mechanism": "Enforce expiration independently of source availability.",
+        "implementation": "Set a monotonic expiration deadline when a record enters the cache; never extend it on reads. Schedule deletion at expiration and check the deadline before every response. Expired records are misses, never fresh responses.",
+        "check": "With a fake clock, verify a record is usable just before its deadline, absent at the deadline, and not returned when the source subsequently times out.",
+        "risk": "Clock and timer handling must remain consistent; delayed cleanup must not bypass the response-time check."
+      },
+      {
+        "action": "Keep the cache within 100 records during concurrent requests.",
+        "mechanism": "Use atomic admission and least-recently-used eviction.",
+        "implementation": "Serialize cache mutations. Before inserting a new key, remove expired entries, then evict the least recently used entry if 100 remain. Coalesce concurrent fetches for the same key and bound outstanding source requests; reject excess work without retaining response records.",
+        "check": "Insert 101 distinct records and verify the expected eviction. Repeat with concurrent completions and assert cache size never exceeds 100.",
+        "risk": "Least-recently-used eviction can discard useful records during scans; bounded concurrency can reject requests during bursts."
+      },
+      {
+        "action": "Return an explicit unavailable response when the source fails.",
+        "mechanism": "Combine a source deadline with a circuit breaker.",
+        "implementation": "Apply a two-second source deadline. On a miss followed by timeout, return HTTP 503 with Retry-After: 10 and a public error code. After three consecutive source failures, suspend fetches for ten seconds, then permit one recovery probe. Continue serving unexpired cache hits; delete expired entries normally, without flushing unexpired entries or caching errors as records.",
+        "check": "Simulate an outage: verify bounded responses, breaker transitions, expired-entry deletion, retained unexpired hits, and recovery after a successful probe.",
+        "risk": "These initial timing thresholds require tuning; a breaker can delay detection of recovery."
+      },
+      {
+        "action": "Admit only verified public record fields.",
+        "mechanism": "Validate data before cache insertion, response serialization, or logging.",
+        "implementation": "Restrict fetching to an approved public-record endpoint. Use a strict schema with explicitly allowed public fields; reject unexpected fields and invalid payloads. Cache and return only validated records. Log error codes and timing, not payloads or arbitrary request values.",
+        "check": "Inject a payload containing an unapproved private field; verify rejection and absence from cache, responses, and logs. Verify a valid public record still works.",
+        "risk": "An allowlisted free-text field may still contain private content; exclude it unless its public-only status can be established."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "f702bee91af83dbddc1dd254c6c31ca862c4827e987b1e55569e1f03690159c7",
+  "raw_output_sha256": "ed836efcc7420bcd668b3de21f093936225768c79ba58ff0f5061a4a4bd9b4c9"
+}

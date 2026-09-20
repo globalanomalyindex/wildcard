@@ -1,0 +1,32 @@
+{
+  "type": "object",
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": [
+        "apply",
+        "adapt",
+        "abstain"
+      ]
+    },
+    "action": {
+      "type": "string"
+    },
+    "trace": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "explanation": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "decision",
+    "action",
+    "trace",
+    "explanation"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Replace “complete” with component-level inspection evidence",
+      "mechanism": "Separate presence from condition so counting never implies inspection, and previous good condition cannot silently carry forward.",
+      "implementation": "Use a paper sheet listing ten IDs, presence, condition category or unknown, inspector initials, and time. Start each return’s condition fields as unknown.",
+      "check": "Record a counted-only return: all ten components show present, all conditions remain unknown, and no inspection initials appear.",
+      "risk": "Pre-filled condition values could recreate false assurance."
+    },
+    {
+      "action": "Make shift responsibility an acknowledged transfer",
+      "mechanism": "An explicit acceptance record transfers responsibility for unresolved work without pretending the incoming staff performed earlier inspections.",
+      "implementation": "Keep the kit sheet in a shared desk binder. Record outgoing owner, incoming owner, acceptance time, and unresolved IDs; transfer ownership only upon acknowledgment.",
+      "check": "After a simulated shift change, incoming staff must identify the responsible owner and distinguish recorded inspections from pending work.",
+      "risk": "An absent replacement requires a designated supervisor fallback."
+    },
+    {
+      "action": "Give every missing component an owned next step",
+      "mechanism": "A persistent exception record prevents missing items from disappearing inside an otherwise finished handoff.",
+      "implementation": "For each missing ID, record a named staff owner, concrete next action, and deadline. Close the exception only with resolution evidence and staff initials.",
+      "check": "Remove one component during rehearsal; verify its search or borrower-contact task remains open and owned after the next shift accepts responsibility.",
+      "risk": "Vague actions or unreviewed deadlines leave exceptions ineffective."
+    },
+    {
+      "action": "Timebox handoffs without clearing unresolved conditions",
+      "mechanism": "Separate custody acceptance from readiness to lend, allowing fast transfers while incomplete evidence keeps the kit unavailable.",
+      "implementation": "Reserve the final 30 seconds for recording pending IDs and their owner. Stop by three minutes; mark the kit inspection-pending until every required check resolves.",
+      "check": "Time a counted-only return: custody transfers within three minutes, conditions remain unknown, and attempted relending is blocked.",
+      "risk": "Deferred inspections can reduce kit availability and accumulate."
+    }
+  ],
+  "abstention_reason": ""
+}

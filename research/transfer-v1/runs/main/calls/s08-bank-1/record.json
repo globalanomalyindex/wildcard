@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "s08-bank-1",
+  "request_sha256": "89f93d42e0694e24c10c7313e622c5cf5a9b0a2c35552c0f7b5227001c690126",
+  "prompt_sha256": "a467e847273e19ac534555c73f935a0b82896460517423dec533f6db12e62c68",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:58:15.753860+00:00",
+  "finished_at": "2026-09-20T19:58:43.166110+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 27.410434500000008,
+      "usage": {
+        "input_tokens": 7122,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 797,
+        "reasoning_output_tokens": 180
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b7fd2fd40580475978d3c1867a89d833d76d3ba03314097ab46ca51eeb28629a",
+      "stderr_sha256": "49d14e29ffc2bef472e2f5ce180e79423c09c47befc5f64b7365a0d70715e100"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce format eligibility on the server",
+        "mechanism": "Creation requires the flag and declared format support; opening requires support for the document's stored format.",
+        "implementation": "Authorize each request, inspect the document format, and reject unsupported opens using existing client-compatible errors before returning content.",
+        "check": "Test flag-on and flag-off creation across both binaries; verify old clients never receive new-format payloads.",
+        "risk": "Declarations can be inaccurate; default missing capabilities to legacy-only."
+      },
+      {
+        "action": "Keep previously readable documents in the legacy format",
+        "mechanism": "Prevent incompatible in-place migration so old clients retain access to the same document and its ongoing compatible edits.",
+        "implementation": "Reject new-only features on legacy documents. Offer explicit creation of a separately identified new-format copy, preserving the original, permissions, and links.",
+        "check": "An old client reopens the original after copying and after subsequent compatible edits without parser failures.",
+        "risk": "Separate copies diverge; clearly identify their independent histories."
+      },
+      {
+        "action": "Separate creation rollback from existing-document support",
+        "mechanism": "The rollout flag controls new-format creation, not retention or the decoder needed for existing new documents.",
+        "implementation": "On rollback, disable creation and new-format writes; retain authorized reads for capable clients. Keep new documents and compatible reader infrastructure intact.",
+        "check": "Create a new document, roll back, and verify unchanged content remains readable while writes and new creation fail explicitly.",
+        "risk": "Binary rollback must retain a compatible reader service."
+      },
+      {
+        "action": "Scope capability caches to the requesting installation",
+        "mechanism": "Account-wide or stale capability entries must not authorize an older binary to receive an unsupported document format.",
+        "implementation": "Bind declarations to authenticated installation sessions and capability revisions. Key caches accordingly; reject mismatches and treat absent declarations as legacy-only.",
+        "check": "Seed an account cache with new capabilities, then connect its old binary; verify new-format access is rejected and legacy reads succeed.",
+        "risk": "A consistently false declaration cannot prove actual parser support."
+      },
+      {
+        "action": "Validate compatibility throughout collaborative editing",
+        "mechanism": "Server-side operation validation prevents newer collaborators from inserting unsupported constructs into a legacy document, including through stale sessions.",
+        "implementation": "Check every edit against the stored format and write policy before committing or broadcasting. Return explicit rejection rather than dropping unsupported fields.",
+        "check": "Run simultaneous old/new collaborators: compatible edits converge, new-only edits fail atomically, and the old client reconnects and parses the document.",
+        "risk": "Offline edits need visible rejection and recovery, not silent loss."
+      },
+      {
+        "action": "Commit format metadata and content atomically",
+        "mechanism": "Transactional publication prevents readers from observing a new-format payload labeled as legacy or a partially created document.",
+        "implementation": "Stage content durably; atomically publish its format, content reference, and permissions after rechecking creation policy. Make retries idempotent.",
+        "check": "Inject crashes and rollback between staging and publication; verify no mislabeled documents, duplicate creations, or loss of committed content.",
+        "risk": "Garbage collection must distinguish abandoned staging data from committed documents."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "2a46229ee97ffe80d09dda9a96956f4c8457b818da57dd4b22ab22185d34eb57",
+  "raw_output_sha256": "7a008ddf567a9d3f1fb0e224971b9ef4698f490b52257f6b8c540f3ed583a14a"
+}

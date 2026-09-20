@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i01-R",
+  "request_sha256": "c0c10b0366dea6cd3c5d47f8991f256b6800539771f6972d0cc2d6072a2b6d37",
+  "prompt_sha256": "4661434a49d17f6c214c4042c7db151e84589746e30a5ddf45a49f49be660093",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:58.380514+00:00",
+  "finished_at": "2026-09-20T20:06:18.813089+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.430347999999995,
+      "usage": {
+        "input_tokens": 7255,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 528,
+        "reasoning_output_tokens": 36
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "320ef34cf487d29ec81f1a7bcaa05eec11a52a424474d477efef704d522eb0c8",
+      "stderr_sha256": "61802e9b4c0a4f00917cc72a4d215838b1417b08c387738c347f2dd98bce215b"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate findings by population and scope",
+        "mechanism": "Structured scope prevents similar wording from collapsing findings about different populations into one apparent contradiction.",
+        "implementation": "Attach exact stored passage IDs, population, outcome, timeframe, and finding direction to each claim. Mark unstated scope as unspecified.",
+        "check": "Enter opposing findings for adults and adolescents; verify separate claims and a visible population difference survive summarization.",
+        "risk": "Inferred scope could misrepresent passages; require confirmation of extracted fields."
+      },
+      {
+        "action": "Expose disagreement in a passage comparison panel",
+        "mechanism": "Side-by-side evidence distinguishes opposing findings within matching scopes from findings whose scopes differ.",
+        "implementation": "Add claim-pair comparison showing scope differences and exact linked passages in an in-workspace drawer; allow users to mark relationships unresolved.",
+        "check": "Compare opposing adult and adolescent claims, then matching-population opposites; verify scope difference and disagreement remain distinguishable and originals open inline.",
+        "risk": "Automated pairing may miss relevant claims; retain manual comparison."
+      },
+      {
+        "action": "Keep missing evidence separate from opposing evidence",
+        "mechanism": "Explicit evidence states prevent an empty search or unfilled slot from becoming a negative finding.",
+        "implementation": "Separate supporting passages, opposing passages, and no linked evidence. Require exact passage IDs for either evidence-bearing category; restrict lookup to stored passages.",
+        "check": "Remove every opposing passage; verify the interface says no opposing evidence linked, not that the claim is confirmed.",
+        "risk": "Labels describe this board, not all available research."
+      },
+      {
+        "action": "Validate scope and citations before briefing export",
+        "mechanism": "Statement-level checks keep compression from silently broadening claims or deleting recorded disagreements.",
+        "implementation": "Build briefing statements from supplied passages with exact passage IDs. Flag omitted population qualifiers and linked opposing findings; require revision or explicit qualification.",
+        "check": "Draft a universal statement from opposing adult and adolescent findings; verify export requires scoped wording and accessible citations for both findings.",
+        "risk": "Semantic checks can miss overreach; preserve human review without ranking source truth."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "fc5c6c0738c4f5fe7ca5a016f99f09e82d51fdb2700e0201623208d2cfa630b6",
+  "raw_output_sha256": "d183de5c9b3e0e0025962f22390edf71fb34654ed3300b36f4cbaa3f31c7df0f"
+}

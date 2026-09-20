@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "d01-bank-2",
+  "request_sha256": "8224b14b39b82cbdacfee6d622632cfca3428f6f5953f04c4ef014fe0294feff",
+  "prompt_sha256": "533a046e1664f92c04ff6b910fc18bc4026430b33bb3e032bb8fd7068c4490f8",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:39:36.408286+00:00",
+  "finished_at": "2026-09-20T19:40:03.055076+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 26.645431041000002,
+      "usage": {
+        "input_tokens": 7002,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 783,
+        "reasoning_output_tokens": 78
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "40cc76369446aa196b915507d6f463ddd2021bbb664ab33966e4e07fa4a230c6",
+      "stderr_sha256": "89ad0a18daad90012f779bdcef5b6c2826d1d735cd0c33283e2f44efeddee9ca"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Add a keyboard-accessible “Move to position” command.",
+        "mechanism": "Direct numeric placement avoids dragging or stepping through 40 items.",
+        "implementation": "Give each item a native “Move” button that opens a dialog with a labeled integer field, current position, and valid range 1–40. Define the number as the final position. Enter confirms; Escape cancels without changes.",
+        "check": "Using only the keyboard, move item 37 to position 3. Verify its final position is 3; reject 0, 41, and nonintegers without changing order.",
+        "risk": "Ambiguous position numbering can cause mistakes; explicitly label positions as starting at 1."
+      },
+      {
+        "action": "Offer keyboard pickup and placement as an alternative.",
+        "mechanism": "Users can choose a destination while inspecting neighboring titles.",
+        "implementation": "Provide a “Reorder with keyboard” button. In reorder mode, Arrow Up/Down adjusts a preview position; Home/End selects first/last. Enter commits one move; Escape discards the preview. Keep these keys scoped to reorder mode and display instructions.",
+        "check": "Without a pointer, pick up item 20, preview several positions, and cancel: order remains unchanged. Repeat and commit at the end: the item becomes number 40.",
+        "risk": "Arrow keys can conflict with reading or scrolling; do not capture them outside the explicit mode."
+      },
+      {
+        "action": "Keep every committed move undoable for the page’s lifetime.",
+        "mechanism": "An uncapped, page-scoped order history supports reversing multiple moves rather than only the latest one.",
+        "implementation": "Before each committed move, push the current ordered ID array onto an in-memory undo stack. Provide a persistent native “Undo move” button. Undo restores and pops that snapshot. Do not expire history on timers, focus changes, saves, or component rerenders; canceled and no-op moves create no entry.",
+        "check": "Commit 60 moves, trigger an ordinary rerender, then undo all 60 using the keyboard. Verify the exact original order returns.",
+        "risk": "History consumes memory; store ID arrays rather than copies of item content."
+      },
+      {
+        "action": "Change order without changing item identity.",
+        "mechanism": "Separate stable item records from their ordered sequence of IDs.",
+        "implementation": "Represent items by immutable IDs and reorder only the ID array. Route both movement controls and undo through the same transaction function. Validate that every resulting sequence contains exactly the original 40 IDs once each; key rendered rows by ID, never position.",
+        "check": "After moves and undos, assert identical ID sets, length 40, no duplicates, and unchanged title-to-ID associations.",
+        "risk": "Position-based rendering keys or persistence code can silently associate item state with the wrong row."
+      },
+      {
+        "action": "Preserve keyboard context and announce results.",
+        "mechanism": "Stable focus and accessible status messages make movement and reversal perceivable without a pointer.",
+        "implementation": "After committing or canceling a move, return focus to that item’s Move button at its resulting location. Keep focus on Undo while more history remains. Use a polite status region to announce the item title and final position, including undo results. Render DOM order to match reading order.",
+        "check": "With keyboard and screen reader, move an item and undo it. Verify focus remains predictable, each result is announced, and sequential reading follows the displayed order.",
+        "risk": "Frequent preview announcements can overwhelm speech; announce concise updates and avoid repeating the entire list."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d80880cd52ffcbdb9d6f2f956e830f0f573b080b7aca352fd7fb2be40c3cee7c",
+  "raw_output_sha256": "28683c62446f1eea98479ec6a4dcba056a201a56b49467c2e7a85073cebdb2d8"
+}

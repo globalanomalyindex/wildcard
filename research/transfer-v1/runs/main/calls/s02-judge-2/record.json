@@ -1,0 +1,123 @@
+{
+  "schema_version": 1,
+  "id": "s02-judge-2",
+  "request_sha256": "e3ac383638d4feb58cd0f39cd20bc1f365c8323c898305f39d6b676d34579aa2",
+  "prompt_sha256": "74e1c3517f8155fbafe46922caeb5edc58a436001242dd631680e49d672379c9",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:25:36.597463+00:00",
+  "finished_at": "2026-09-20T20:25:54.169895+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 17.56960929099995,
+      "usage": {
+        "input_tokens": 7469,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 783,
+        "reasoning_output_tokens": 15
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "5ec49a9800c6734bdf8215c8a45bc50e57f6539c6f434f046ec296eb3ab9247d",
+      "stderr_sha256": "60161e7020b7ec93d328378599e2b49f6ed673d5a78e633bb1704075d3daaecd"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "e7f64545a7e6a3ac",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f433c149fe3ba8c4",
+        "mechanism_group": "oracle_adversarial_tests",
+        "reason": "It is a test-gating action using an independent oracle for duplicates, omissions, retries, and latency, not a browse mechanism that violates constraints."
+      },
+      {
+        "id": "19c5c3f7b14a507e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a077fe81a8aae9a",
+        "mechanism_group": "version_fenced_membership",
+        "reason": "It freezes membership at a committed version fence with birth/death versions, tombstones, signed expiry cursor, and keyset pagination while avoiding cross-request transactions."
+      },
+      {
+        "id": "6d1a11297a73adfa",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a077fe81a8aae9a",
+        "mechanism_group": "version_fenced_membership",
+        "reason": "It promises IDs existing at a committed fence, excludes later inserts, returns tombstones for later deletes, and adds bounded scans and expiry within retained history."
+      },
+      {
+        "id": "d20e34d13d536b9a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3a077fe81a8aae9a",
+        "mechanism_group": "version_fenced_membership",
+        "reason": "It defines the session dataset as committed-version S membership with later deletions represented by retained tombstones and tests exact equality and uniqueness."
+      },
+      {
+        "id": "5f8b3b65b1b24af6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "5468f57224179897",
+        "mechanism_group": "version_fenced_membership",
+        "reason": "It uses a committed watermark with creation/deletion versions and tombstones so eligible IDs are traversed exactly once with later inserts excluded."
+      },
+      {
+        "id": "295a1a01a60b0f5a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "deletion_sensitive_keyset",
+        "reason": "It precisely offers a weaker deletion-sensitive contract: excludes post-start inserts but intentionally omits records deleted before their page read, with keyset cursors and an oracle for that contract."
+      },
+      {
+        "id": "19beb1d7cb7a4923",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "cow_membership_tree",
+        "reason": "A copy-on-write ordered membership tree in the existing store could define a pinned root, but atomic root publication, retention, and 300 ms behavior are unsupported operational dependencies."
+      },
+      {
+        "id": "650f5fbd3feaea86",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "cow_membership_tree",
+        "reason": "The pinned copy-on-write ID tree is implementable in outline, but feasibility is conservative because write amplification, publication contention, reclamation, and latency are not established for the existing store."
+      },
+      {
+        "id": "872c6be1b488f589",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4099bba429608711",
+        "mechanism_group": "materialized_manifest",
+        "reason": "It materializes an expiring ordered ID manifest in the existing store from watermark membership, publishes only complete manifests, returns deletion markers, and tests equality, multiplicity, and latency."
+      }
+    ]
+  },
+  "result_sha256": "871b6791a53bcb18bd9a749cc9d002bedf4baab659ab674f4de8e1018d47a941",
+  "raw_output_sha256": "0c95bdf39a9af9141027d367e5d6a85fddb3857379e01e61b3186e2089b7bd2d"
+}

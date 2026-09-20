@@ -1,0 +1,330 @@
+{
+  "schema_version": 1,
+  "mappings": [
+    {
+      "task_id": "d01",
+      "candidates": [
+        {
+          "id": "d0006bc7bcfc82ce",
+          "request_id": "d01-XR",
+          "arm": "XR",
+          "action_index": 0
+        },
+        {
+          "id": "90e56e7e51bd40a6",
+          "request_id": "d01-XR",
+          "arm": "XR",
+          "action_index": 1
+        },
+        {
+          "id": "3739a26091fa6ddc",
+          "request_id": "d01-XR",
+          "arm": "XR",
+          "action_index": 2
+        },
+        {
+          "id": "ef56753bce9b17dc",
+          "request_id": "d01-XR",
+          "arm": "XR",
+          "action_index": 3
+        }
+      ],
+      "bank_ids": [
+        "be5ef1a15f40b185",
+        "61186e1e2288a913",
+        "6685fdad15c92b5d",
+        "df611e993966d9ef",
+        "6ecae9a47612ed35",
+        "164f317e6451e54d",
+        "7284ab448df5efc9",
+        "66f0c877a84b92ea",
+        "d4fb3e0c9bb3a5d4",
+        "ecf6d80f53218116",
+        "e00c1301f24c3371"
+      ]
+    },
+    {
+      "task_id": "d02",
+      "candidates": [
+        {
+          "id": "2babb5b10f96b2cb",
+          "request_id": "d02-R",
+          "arm": "R",
+          "action_index": 0
+        },
+        {
+          "id": "e1909e4a954f9f88",
+          "request_id": "d02-R",
+          "arm": "R",
+          "action_index": 1
+        },
+        {
+          "id": "4d1c02c63cc0bfe1",
+          "request_id": "d02-R",
+          "arm": "R",
+          "action_index": 2
+        },
+        {
+          "id": "6c8be0005b8e23fc",
+          "request_id": "d02-R",
+          "arm": "R",
+          "action_index": 3
+        },
+        {
+          "id": "c8d6f5bf4006505f",
+          "request_id": "d02-S",
+          "arm": "S",
+          "action_index": 0
+        },
+        {
+          "id": "eddddda48f3e7580",
+          "request_id": "d02-S",
+          "arm": "S",
+          "action_index": 1
+        },
+        {
+          "id": "61895a4ff21a1d0e",
+          "request_id": "d02-S",
+          "arm": "S",
+          "action_index": 2
+        },
+        {
+          "id": "1f2155e2843cb0bb",
+          "request_id": "d02-S",
+          "arm": "S",
+          "action_index": 3
+        },
+        {
+          "id": "22967383a43322c1",
+          "request_id": "d02-XR",
+          "arm": "XR",
+          "action_index": 0
+        },
+        {
+          "id": "260cda7a0c0155ad",
+          "request_id": "d02-XR",
+          "arm": "XR",
+          "action_index": 1
+        },
+        {
+          "id": "9f5a53b7df72d6b4",
+          "request_id": "d02-XR",
+          "arm": "XR",
+          "action_index": 2
+        },
+        {
+          "id": "980d7584e83ea14d",
+          "request_id": "d02-XR",
+          "arm": "XR",
+          "action_index": 3
+        }
+      ],
+      "bank_ids": [
+        "66283422bee7ff6d",
+        "66542ed57102dd4c",
+        "60cd18eeecf2d6b9",
+        "df28969cfa5c7210",
+        "4b8b80e625ab2f04",
+        "fe5e16f109c8db98",
+        "03b3cff883fe2a31",
+        "334aeb01ba771d69",
+        "787ed8ea00b260d0",
+        "34bf64f12844d383",
+        "103f793980fe556d",
+        "041bf580bc5eed13",
+        "8fa690453e167823"
+      ]
+    },
+    {
+      "task_id": "d03",
+      "candidates": [
+        {
+          "id": "8b7658ed26e6a5cc",
+          "request_id": "d03-XR",
+          "arm": "XR",
+          "action_index": 0
+        },
+        {
+          "id": "736bb19471b53266",
+          "request_id": "d03-XR",
+          "arm": "XR",
+          "action_index": 1
+        },
+        {
+          "id": "b1ae4c167899d24c",
+          "request_id": "d03-XR",
+          "arm": "XR",
+          "action_index": 2
+        },
+        {
+          "id": "e460656999d5c467",
+          "request_id": "d03-S",
+          "arm": "S",
+          "action_index": 0
+        },
+        {
+          "id": "e7d98db9261fa0a2",
+          "request_id": "d03-S",
+          "arm": "S",
+          "action_index": 1
+        },
+        {
+          "id": "4b4808e718721ca3",
+          "request_id": "d03-S",
+          "arm": "S",
+          "action_index": 2
+        },
+        {
+          "id": "a266adc81f3e485d",
+          "request_id": "d03-LR",
+          "arm": "LR",
+          "action_index": 0
+        },
+        {
+          "id": "79ea19c3103610e3",
+          "request_id": "d03-LR",
+          "arm": "LR",
+          "action_index": 1
+        },
+        {
+          "id": "f4c626cefbdc120a",
+          "request_id": "d03-LR",
+          "arm": "LR",
+          "action_index": 2
+        },
+        {
+          "id": "d571af315d8e0ddc",
+          "request_id": "d03-LR",
+          "arm": "LR",
+          "action_index": 3
+        },
+        {
+          "id": "7742cb3c58502ec2",
+          "request_id": "d03-R",
+          "arm": "R",
+          "action_index": 0
+        },
+        {
+          "id": "b28061654f5e7ed9",
+          "request_id": "d03-R",
+          "arm": "R",
+          "action_index": 1
+        },
+        {
+          "id": "b66d6fefa80727f6",
+          "request_id": "d03-R",
+          "arm": "R",
+          "action_index": 2
+        }
+      ],
+      "bank_ids": [
+        "b4fc8421b5c951c1",
+        "457157f9f58a7f31",
+        "8bae4e4d97c56d32",
+        "cdd7dc23b425dc3b",
+        "8ce6e9f9770ea478",
+        "3a288fea0ea9fae9",
+        "28907164186260a6",
+        "885841da6cb2e691",
+        "8269a6a5952aad9e",
+        "8f8a176b6ae7ce98",
+        "3ae9d8f85939ed81",
+        "fb3de3e29e66779a"
+      ]
+    },
+    {
+      "task_id": "d04",
+      "candidates": [
+        {
+          "id": "c1c3b3fb50b4daac",
+          "request_id": "d04-S",
+          "arm": "S",
+          "action_index": 0
+        },
+        {
+          "id": "0af8a78c301e6971",
+          "request_id": "d04-S",
+          "arm": "S",
+          "action_index": 1
+        },
+        {
+          "id": "33267b09024733d4",
+          "request_id": "d04-S",
+          "arm": "S",
+          "action_index": 2
+        },
+        {
+          "id": "18cd299febb2e48e",
+          "request_id": "d04-S",
+          "arm": "S",
+          "action_index": 3
+        },
+        {
+          "id": "452084cb3482b71c",
+          "request_id": "d04-XR",
+          "arm": "XR",
+          "action_index": 0
+        },
+        {
+          "id": "3a786fbdcc02fecd",
+          "request_id": "d04-XR",
+          "arm": "XR",
+          "action_index": 1
+        },
+        {
+          "id": "3096667ae3f88849",
+          "request_id": "d04-XR",
+          "arm": "XR",
+          "action_index": 2
+        },
+        {
+          "id": "73635adc1f738926",
+          "request_id": "d04-XR",
+          "arm": "XR",
+          "action_index": 3
+        },
+        {
+          "id": "290950197432817b",
+          "request_id": "d04-R",
+          "arm": "R",
+          "action_index": 0
+        },
+        {
+          "id": "cee300ed34a0c751",
+          "request_id": "d04-R",
+          "arm": "R",
+          "action_index": 1
+        },
+        {
+          "id": "b2d2290b727e3c22",
+          "request_id": "d04-R",
+          "arm": "R",
+          "action_index": 2
+        },
+        {
+          "id": "5abdc8cb56a0a913",
+          "request_id": "d04-R",
+          "arm": "R",
+          "action_index": 3
+        }
+      ],
+      "bank_ids": [
+        "4f1a7593546dedf1",
+        "859314ac2c715cfc",
+        "3a7d35e418f3f402",
+        "fb9c1560246b3f13",
+        "e656dd77aead4f4a",
+        "a78ea515240e9cf5",
+        "be5b89ee2d08c075",
+        "73ebf94666b44c64",
+        "f6812db93c7a36a8",
+        "299ae676f7930fa2",
+        "9cdb299c60ec1d63",
+        "64b3f3e978424d51",
+        "298dc57998c59aca",
+        "3a9123de94b2c022",
+        "15b38f087a9bf42c"
+      ]
+    }
+  ]
+}

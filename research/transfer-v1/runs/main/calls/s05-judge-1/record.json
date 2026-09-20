@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "s05-judge-1",
+  "request_sha256": "fb85d3010fb99774b955b1dd2505a782a745db9c2b53694a229e6fdfbb97895e",
+  "prompt_sha256": "921b7c0952c9f9313d7322acc469858b5ca9e7421fe8a83ff63552985178b0ba",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:22:47.614674+00:00",
+  "finished_at": "2026-09-20T20:23:25.463775+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.846344999999985,
+      "usage": {
+        "input_tokens": 10345,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1142,
+        "reasoning_output_tokens": 159
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "de5b00dd29063faf39ffa744d8837fce1eb2fc06c3e487d2b8b96921fac2945b",
+      "stderr_sha256": "ddab04ae8f8f8f027bf1155c2c2f4c2a139b09603ea75a081f44f6ed9a5bd324"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "9739df7b3d6d250b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "40ebb2798544cfce",
+        "mechanism_group": "bounded_local_overtaking",
+        "reason": "Three shortest-estimate turns followed by an oldest-job turn changes only the overtaking limit and preserves progress despite inaccurate estimates."
+      },
+      {
+        "id": "3654690cc08f8740",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c24c9fb507dc80e0",
+        "mechanism_group": "customer_round_robin",
+        "reason": "Tail insertion and one FIFO dispatch per customer turn bound dispatch opportunities independently of mean latency."
+      },
+      {
+        "id": "110ff15e9f95ab88",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "40ebb2798544cfce",
+        "mechanism_group": "bounded_local_overtaking",
+        "reason": "A modulo-four counter implements bounded local overtaking, with an explicit 4(k+1)-turn bound for queued jobs."
+      },
+      {
+        "id": "ac9a2c553e1cec46",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1598a995859fef68",
+        "mechanism_group": "protected_fair_workers",
+        "reason": "One existing worker can provide FIFO customer rotation with a conservative 60N-second bound, although reservation alone does not imply lost utilization."
+      },
+      {
+        "id": "ec69ea302a718938",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "c24c9fb507dc80e0",
+        "mechanism_group": "customer_round_robin",
+        "reason": "Customer rotation and local FIFO prevent starvation, and the stated time bound is conservative for twelve workers."
+      },
+      {
+        "id": "fb619edba2b8052f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "alternating_fair_and_global_short_dispatches",
+        "reason": "Alternating dispatch types rather than reserving workers bounds customer-turn gaps while providing global shortest-estimate opportunities."
+      },
+      {
+        "id": "d290aa56a68da785",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b79268dfec3d2754",
+        "mechanism_group": "median_ratio_calibration",
+        "reason": "The last-100 median-ratio correction is implementable and testable, though a common positive multiplier alone leaves shortest-job rankings unchanged."
+      },
+      {
+        "id": "17a989fe3461e193",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1a1ce25a80f7b433",
+        "mechanism_group": "adversarial_scheduler_replay",
+        "reason": "A twelve-worker replay tests continuous heavy arrivals and inaccurate estimates while measuring fairness separately from latency."
+      },
+      {
+        "id": "594710cd671ddaa9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b27ed68738df7fca",
+        "mechanism_group": "adversarial_scheduler_replay",
+        "reason": "Continuous heavy arrivals and reversed estimates provide an implementable fairness-versus-latency test, not a proof of starvation freedom."
+      },
+      {
+        "id": "05e8dbf1f4d4f279",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0074228c18b7ede6",
+        "mechanism_group": "customer_round_robin",
+        "reason": "Work-conserving customer rotation respects the fixed pool and provides a conservative customer dispatch bound independent of estimates."
+      },
+      {
+        "id": "974b3f08be1fc65b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "bounded_global_overtaking",
+        "reason": "Recurring globally oldest selections on eleven workers protect queued jobs; this differs from per-customer overtaking counters and pure shortest-job lanes."
+      },
+      {
+        "id": "e3cfebb8f5044f0f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1598a995859fef68",
+        "mechanism_group": "protected_fair_workers",
+        "reason": "Two protected FIFO round-robin workers and ten shortest-estimate workers implement the reference reservation mechanism with a different capacity split."
+      },
+      {
+        "id": "7d69482380ab837b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1598a995859fef68",
+        "mechanism_group": "protected_fair_workers",
+        "reason": "One protected FIFO customer-rotation worker guarantees progress while eleven shortest-estimate workers provide latency opportunities independently of that guarantee."
+      }
+    ]
+  },
+  "result_sha256": "eed6de5cf39d454872a0efa04f6b201dfda0ddbdf3386fe0437552f4bc7004fb",
+  "raw_output_sha256": "a144c95d940c3545fb9f01b2a800a4c1882fa2a80eb7d99350fa8054fdf8face"
+}

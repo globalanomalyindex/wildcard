@@ -1,0 +1,61 @@
+{
+  "actions": [
+    {
+      "action": "Create a receipt-linked item record at intake",
+      "mechanism": "A persistent item identifier connects ownership, physical location, work status, and the responsible volunteer.",
+      "implementation": "Give the visitor a numbered receipt; attach the matching number to the item. Record owner contact, location, status, custodian, and next action.",
+      "check": "Sample five stored items each shift: every identifier must resolve to its receipt record and actual location.",
+      "risk": "Protect owner contact details from public view."
+    },
+    {
+      "action": "Timebox diagnosis, not repair completion",
+      "mechanism": "Mandatory review points prevent uncertain diagnosis from occupying a workbench without a deliberate continuation decision.",
+      "implementation": "Set a 15-minute initial diagnostic review. At review, record continue, safely pause, or await parts, plus next action. Only the specialist opens electrical equipment.",
+      "check": "Audit bench records: every diagnostic interval exceeding 15 minutes must have a recorded review and disposition.",
+      "risk": "Never rush safety work to meet the review interval."
+    },
+    {
+      "action": "Protect access for bounded jobs",
+      "mechanism": "One bench favors assessed, bounded work; aging prevents repeatedly bypassed jobs from becoming invisible.",
+      "implementation": "At safe release points, route assessed short jobs to one bench. Review jobs bypassed twice; when none qualify, admit uncertain work until its next review.",
+      "check": "Under mixed demand, verify the next qualifying job receives that bench after safe release, with bypass reviews documented.",
+      "risk": "Duration estimates can be wrong; retain diagnostic review points."
+    },
+    {
+      "action": "Separate parts waiting from active work",
+      "mechanism": "An explicit blocked state keeps unavailable-part jobs out of the ready queue and off benches when safely storable.",
+      "implementation": "Label safely storable items WAITING FOR PARTS in an existing storage area. Record location, needed part, procurement responsibility, and review date; require reassessment before reactivation.",
+      "check": "Inspect every parts-waiting item: none appears ready for work, and each has a location and named next-action owner.",
+      "risk": "If safe storage is unavailable, arrange owner collection."
+    },
+    {
+      "action": "Make specialist access an explicit work gate",
+      "mechanism": "A visible specialist queue prevents unauthorized opening and avoids occupying benches merely while awaiting specialist availability.",
+      "implementation": "General volunteers perform intake and external observation only on electrical equipment. Label it SPECIALIST REQUIRED; the specialist authorizes bench admission when available.",
+      "check": "Observe electrical admissions: only the specialist opens equipment, and no item occupies a bench solely awaiting specialist arrival.",
+      "risk": "Treat uncertain equipment classification as specialist-required until reviewed."
+    },
+    {
+      "action": "Require accepted responsibility at shift handoff",
+      "mechanism": "A receiving person's acknowledgment closes the gap between written notes and actual responsibility for unfinished work.",
+      "implementation": "Outgoing and incoming custodians reconcile item identifiers, locations, status, safety restrictions, and next actions. Record acceptance; if nobody accepts, pause work and escalate to the shift coordinator.",
+      "check": "After handoff, ask each custodian to locate assigned items and state their next actions without consulting outgoing volunteers.",
+      "risk": "A signature alone can conceal an incomplete transfer."
+    },
+    {
+      "action": "Separate update commitments from completion estimates",
+      "mechanism": "Visitors receive a reliable communication checkpoint without an unsupported promise about when uncertain work will finish.",
+      "implementation": "At intake and status changes, offer a next-update checkpoint. If giving a completion estimate, include an explicit uncertainty range and dependencies; otherwise state that completion is unknown.",
+      "check": "Audit visitor messages: every completion estimate includes a range, and elapsed update checkpoints have a recorded contact attempt.",
+      "risk": "Do not invent ranges where there is no defensible basis."
+    },
+    {
+      "action": "Limit accepted drop-offs to traceable storage",
+      "mechanism": "A storage-based admission gate prevents accumulation from defeating item tracking, safe bench release, and accountable handoff.",
+      "implementation": "Number existing safe storage positions. Accept a drop-off only with an assigned position, receipt, and custodian; otherwise ask the visitor to retain the item and offer a return visit.",
+      "check": "At shift close, verify every retained item has an authorized location and no overflow occupies benches or access routes.",
+      "risk": "Explain that a return visit does not guarantee completion."
+    }
+  ],
+  "abstention_reason": ""
+}

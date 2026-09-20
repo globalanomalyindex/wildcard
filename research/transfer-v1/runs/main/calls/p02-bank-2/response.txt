@@ -1,0 +1,47 @@
+{
+  "actions": [
+    {
+      "action": "Preserve focus by product and control identity",
+      "mechanism": "Stable DOM identity retains focus through reordering; a persistent results heading provides a predictable removal fallback.",
+      "implementation": "Key cards by product ID, never index. Preserve their controls. If the focused product disappears, focus the results heading with tabindex=\"-1\".",
+      "check": "Reorder a focused product: its same control stays focused. Filter it out: focus reaches the heading. Filter-control focus never moves.",
+      "risk": "DOM moves can still disturb focus; test actual rendering behavior."
+    },
+    {
+      "action": "Reject outdated updates without reclaiming focus",
+      "mechanism": "Request sequencing prevents stale results; commit-time focus inspection respects navigation performed while results were loading.",
+      "implementation": "Assign increasing request IDs. Commit only the latest response, updating cards and count together. Apply focus recovery only if focus remains inside affected results.",
+      "check": "Resolve two requests backward: only the latest appears. Move focus to a filter during loading: it stays there after completion.",
+      "risk": "Cancellation alone does not guarantee protection against stale responses."
+    },
+    {
+      "action": "Keep the latest count immediately available",
+      "mechanism": "A persistent textual summary supports quick visual scanning and polite screen-reader notification without moving focus.",
+      "implementation": "Place a sticky count above results in a pre-existing role=\"status\" region outside the busy results container. Update it with accepted results.",
+      "check": "Measure arrival-to-count rendering below one second. Verify accessible text updates within that interval and announcements do not steal focus.",
+      "risk": "Speech queues may delay announcements; sticky content must not obscure focus."
+    },
+    {
+      "action": "Separate loading, empty, and failed states",
+      "mechanism": "Explicit state messages prevent an unfinished or failed request from being mistaken for zero matches.",
+      "implementation": "During requests, show “Updating results” and set results aria-busy=\"true\". Label any retained count as previous. Show zero only after successful completion; provide keyboard-operable retry on failure.",
+      "check": "Delay, empty, and fail requests separately. Confirm distinct visible and accessible messages, and clear aria-busy on completion or failure.",
+      "risk": "Clearing existing cards while loading unnecessarily destroys user context."
+    },
+    {
+      "action": "Expose the complete catalog in reading order",
+      "mechanism": "Native list semantics and consistent DOM order preserve browsing access independently of the visual grid.",
+      "implementation": "Render all 200 matching cards as list items, using CSS grid for layout. Keep DOM and visual order aligned; lazy-load images rather than product text or controls.",
+      "check": "Verify every matching product is reachable through screen-reader browsing and keyboard links, including the last item, before and after reordering.",
+      "risk": "Rendering every card requires profiling with realistic card complexity."
+    },
+    {
+      "action": "Preserve viewport context around the focused product",
+      "mechanism": "Scroll compensation keeps a retained focused control near its previous screen position despite cards moving around it.",
+      "implementation": "Record the focused control’s viewport offset before committing results; afterward compensate scrolling without animation. For removed products, reveal the fallback heading instead.",
+      "check": "Reorder a retained focused product: it remains visible without focus changing. Remove it: the heading is visible. Verify behavior at 400% zoom.",
+      "risk": "Coordinate with browser scroll anchoring to avoid double compensation."
+    }
+  ],
+  "abstention_reason": ""
+}

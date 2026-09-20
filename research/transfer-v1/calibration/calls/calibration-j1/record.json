@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "calibration-j1",
+  "request_sha256": "51643a8d2b1e9eb5ebf815032cbb77624d6ec7eaab8ebf5cc42cf8a0229b6843",
+  "prompt_sha256": "bb7252cda70400b6a4b9baa6a59a59044a2a4f16dcc394832106960180130800",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:17:12.279698+00:00",
+  "finished_at": "2026-09-20T19:17:31.795760+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.512992917,
+      "usage": {
+        "input_tokens": 7664,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 490,
+        "reasoning_output_tokens": 53
+      },
+      "completed": true,
+      "tool_violation": false
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "c1",
+        "constraint_valid": false,
+        "feasible": false,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "remote_storage",
+        "reason": "The concrete POST-and-receipt check requires prohibited network access and stores reservations off-device."
+      },
+      {
+        "id": "c2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b1",
+        "mechanism_group": "local_commit_confirmation",
+        "reason": "A banner shown only after local commit uses the same visible saved-confirmation mechanism as b1."
+      },
+      {
+        "id": "c3",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": false,
+        "baseline_match": null,
+        "mechanism_group": "unspecified_swarm_metaphor",
+        "reason": "The metaphor violates no explicit constraint but supplies neither a technically grounded intervention nor an operational check."
+      },
+      {
+        "id": "c4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "local_outbox_replay",
+        "reason": "Local pending records and idempotent restart replay are implementable without personal identifiers, with crash testing, but do not specify visible saved confirmation."
+      },
+      {
+        "id": "c5",
+        "constraint_valid": false,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "personal_identity_deduplication",
+        "reason": "Email-based deduplication is implementable and testable but explicitly violates the prohibition on personal identifiers."
+      },
+      {
+        "id": "c6",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": false,
+        "baseline_match": null,
+        "mechanism_group": "lcd_photon_storage",
+        "reason": "Although it proposes no new hardware or network, persistent unpowered LCD-photon storage is unsupported and provides no implementable intervention."
+      },
+      {
+        "id": "c7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "local_outbox_replay",
+        "reason": "Persisting pending random booking IDs and reconciling after restart implements the same local replay mechanism as c4, with a concrete crash check."
+      }
+    ]
+  },
+  "result_sha256": "876257b34fc2568f8b5c89622c23bb95388843e229764a6564267d122d72173b"
+}

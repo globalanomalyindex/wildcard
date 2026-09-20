@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "d03-bank-1",
+  "request_sha256": "d2670488744086f87e7c9517f863c153f8c7ce6cf89d890808bc65786d3bd55c",
+  "prompt_sha256": "22e18fc7edc201d402b0b0be4badb244787fd8dab0dedf6628d65020f7dc2adb",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:38:58.939896+00:00",
+  "finished_at": "2026-09-20T19:39:27.970324+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.0267205,
+      "usage": {
+        "input_tokens": 6990,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 822,
+        "reasoning_output_tokens": 118
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "5ade730d0782239ceae6b93d64eacc8dfcb7b752af56072cf45bcebefc102d5c",
+      "stderr_sha256": "1386699895df3fd6904166e75f02c4be02a1e3feb5fd1580f8563acd06d45bf9"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Pin one authoritative key-checkout record in the chat.",
+        "mechanism": "Separate key status from ordinary conversation.",
+        "implementation": "Create a shared sheet editable by the two volunteers. Pin its link. Show last confirmed holder, pending recipient, and unresolved handoffs at the top. Initialize it only after one volunteer confirms physical possession.",
+        "check": "Have each volunteer independently identify the same confirmed holder and unresolved handoffs using only the pinned record.",
+        "risk": "An outdated record can mislead; label it 'last confirmed holder,' not verified live location."
+      },
+      {
+        "action": "Require the recipient to acknowledge each handoff.",
+        "mechanism": "Distinguish an announced transfer from confirmed receipt.",
+        "implementation": "The sender adds a pending entry naming both volunteers and the reported physical handoff time, including timezone. The recipient confirms possession and verifies or corrects that time. Only then update the confirmed holder; retain both submission and confirmation timestamps.",
+        "check": "Create a transfer without recipient confirmation. It must remain unresolved and must not silently replace the last confirmed holder.",
+        "risk": "Forgotten confirmation leaves uncertainty even when the key was physically transferred."
+      },
+      {
+        "action": "Allow only one unresolved transfer at a time.",
+        "mechanism": "Prevent contradictory transfers from becoming competing current states.",
+        "implementation": "Permit a new pending transfer only from the last confirmed holder to the other volunteer. If a transfer is already pending, require confirmation, cancellation, or explicit reconciliation before another begins. Enforce this in the checkout form or sheet script.",
+        "check": "Submit duplicate transfers and a transfer from the wrong sender. Neither should create a second active handoff.",
+        "risk": "A real-world return before confirmation requires reconciliation rather than ordinary checkout."
+      },
+      {
+        "action": "Resolve disagreements without erasing the history.",
+        "mechanism": "Preserve evidence while making uncertainty explicit.",
+        "implementation": "Add 'disputed' and 'cancelled' statuses. For corrections, append a linked entry with author, recording time, and corrected handoff time rather than overwriting the original. If accounts conflict, display 'holder unconfirmed' until physical possession is checked and both volunteers acknowledge the resolution.",
+        "check": "Enter conflicting possession reports. The summary must show uncertainty, retain both reports, and clear the dispute only after reconciliation.",
+        "risk": "Agreement may be delayed when either volunteer is unavailable."
+      },
+      {
+        "action": "Make overdue confirmations visible to both volunteers.",
+        "mechanism": "Turn silent pending transfers into explicit follow-up work.",
+        "implementation": "Have the volunteers agree on a confirmation deadline. Calculate pending age from submission time and highlight overdue entries in the summary. The sender posts one linked reminder in the existing chat when the deadline passes; never auto-confirm.",
+        "check": "Use an entry older than the chosen deadline. It must appear overdue while remaining unresolved.",
+        "risk": "Manual reminders may be missed; excessive reminders may be ignored."
+      },
+      {
+        "action": "Define an offline handoff receipt.",
+        "mechanism": "Capture transfer evidence when the shared record is unavailable.",
+        "implementation": "Keep a paper log in the meeting room. At an offline transfer, record sender, recipient, physical handoff date and time with timezone, and both initials. Mark it 'not synchronized.' Either volunteer later transcribes it with a separate entry timestamp and marks the paper entry synchronized.",
+        "check": "Simulate loss of access, complete a paper receipt, and restore access. Verify one matching transfer appears online with its original handoff time.",
+        "risk": "Until synchronization, the online holder may be stale; paper receipts must be checked during reconciliation."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "eb609449aa5d53917855dd30a618dcc702874a087af45c5abb7e2c57377f88c4",
+  "raw_output_sha256": "b0a9480413a6da18e9661c637f801e35156f9e55c2a09ff93c555731b8a88563"
+}

@@ -1,0 +1,100 @@
+{
+  "type": "object",
+  "properties": {
+    "ratings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "872c6be1b488f589",
+              "650f5fbd3feaea86",
+              "19beb1d7cb7a4923",
+              "295a1a01a60b0f5a",
+              "5f8b3b65b1b24af6",
+              "d20e34d13d536b9a",
+              "6d1a11297a73adfa",
+              "19c5c3f7b14a507e",
+              "e7f64545a7e6a3ac"
+            ]
+          },
+          "constraint_valid": {
+            "type": "boolean"
+          },
+          "feasible": {
+            "type": "boolean"
+          },
+          "actionable": {
+            "type": "boolean"
+          },
+          "baseline_match": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "4099bba429608711",
+              "5468f57224179897",
+              "3a077fe81a8aae9a",
+              "f9bf680c59688c0a",
+              "15e71b977dd63861",
+              "58ff8eeb1d715360",
+              "f433c149fe3ba8c4",
+              "fd5757e35469c16c",
+              "40a9d1e6704242b3",
+              "da425da119fb3612",
+              "7a69b246f4dc266b",
+              "e5c82bbc204fb9f3",
+              "27644babdd4bb87e",
+              null
+            ]
+          },
+          "mechanism_group": {
+            "type": "string",
+            "enum": [
+              "872c6be1b488f589",
+              "650f5fbd3feaea86",
+              "19beb1d7cb7a4923",
+              "295a1a01a60b0f5a",
+              "5f8b3b65b1b24af6",
+              "d20e34d13d536b9a",
+              "6d1a11297a73adfa",
+              "19c5c3f7b14a507e",
+              "e7f64545a7e6a3ac"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "872c6be1b488f589",
+              "650f5fbd3feaea86",
+              "19beb1d7cb7a4923",
+              "295a1a01a60b0f5a",
+              "5f8b3b65b1b24af6",
+              "d20e34d13d536b9a",
+              "6d1a11297a73adfa",
+              "19c5c3f7b14a507e",
+              "e7f64545a7e6a3ac"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "constraint_valid",
+          "feasible",
+          "actionable",
+          "baseline_match",
+          "mechanism_group",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "ratings"
+  ],
+  "additionalProperties": false
+}

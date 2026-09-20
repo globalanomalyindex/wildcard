@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "x07-a",
+  "request_sha256": "e5d12f1cd0af76bd00128ea7bfd3360cc88e0e83661b2bb89cd13776ba488dd6",
+  "prompt_sha256": "985169c9a8231f7c8839cfe58482a80578673c732186b0b0c4ce7db4a8bf3116",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:05.930991+00:00",
+  "finished_at": "2026-09-20T20:19:11.642625+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 5.709764750000005,
+      "usage": {
+        "input_tokens": 6993,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 69,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b7439e70a22ff96e8c54c5a0afb46b9a4d092950227e0d30bcbe78bb7fe9b065",
+      "stderr_sha256": "5f3fcf833111baaf982183b7eed3bb0356f6e8696c73240f693347b2c352fc73"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Attach the note only to the sole candidate carrying stable marker K; otherwise return UNRESOLVED. Retain the note and original text.",
+    "trace": [
+      "P"
+    ],
+    "explanation": "Only P carries the unique stable marker K; Q has a different marker."
+  },
+  "result_sha256": "f1d20a2d6725b068d854ce48f6109754ae170c72849011d96edcebcfb0761563",
+  "raw_output_sha256": "1750d8943be296fc1070f9e945ccaa6b179228c36fc45bb3f23547e69790af84"
+}

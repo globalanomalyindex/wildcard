@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p06-LR",
+  "request_sha256": "7c879ab4aacf62a7ec2465a27d721bd69799ecd229f72333af41521ad66fc605",
+  "prompt_sha256": "c40b3c970778aa812681d6f4a9e768dc63ecc19e4725dbfd92fcd239aec7c5c8",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:13:03.326908+00:00",
+  "finished_at": "2026-09-20T20:13:21.879897+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 18.54755354200006,
+      "usage": {
+        "input_tokens": 7249,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 499,
+        "reasoning_output_tokens": 71
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "673924d885fdc778b4eb10eaf189f2738ecaeb39f78f321f4dfaec7701042c46",
+      "stderr_sha256": "180512d41ec434d24e718800a094cb113daa91bfd62d90eda660e69e044ceff2"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Replace the opaque preset with inspectable starting choices",
+        "mechanism": "Named starting choices expose their exact settings; manual changes remain Custom until the owner explicitly chooses otherwise.",
+        "implementation": "Offer Review drafts and Custom. Retain all 18 toggles in keyboard-accessible groups; preview changes before applying another starting choice.",
+        "check": "Load existing custom combinations, edit unrelated invite details, and verify every permission remains unchanged without an explicit role change.",
+        "risk": "Starting choices can become outdated; version their permission definitions."
+      },
+      {
+        "action": "Require explicit selection for publishing and billing",
+        "mechanism": "Sensitive privileges cannot be authorized merely by choosing a preset or copying an existing role.",
+        "implementation": "For new invites, require separate owner selections for publishing and billing. Flag calculated sensitive access without those selections and block sending.",
+        "check": "Copy a role containing publishing and billing; verify sending remains blocked until both privileges are explicitly selected or removed.",
+        "risk": "Indirect grants need actionable explanations; preserve every combination through explicit selection."
+      },
+      {
+        "action": "Show what the teammate can actually do",
+        "mechanism": "A live capability summary translates calculated effective permissions into concrete outcomes rather than leaving owners to interpret toggles.",
+        "implementation": "Before sending, show Can review drafts, Can publish, and Can manage billing with allowed, denied, or unresolved states and contributing settings.",
+        "check": "Exercise combinations where effective access differs from an individual toggle; verify the summary matches calculation and updates using keyboard-only interaction.",
+        "risk": "Unresolved calculations must never appear as denied; announce updates accessibly."
+      },
+      {
+        "action": "Check the invite against the owner's stated intent",
+        "mechanism": "An independent task expectation detects inconsistencies without guessing which permissions the owner intended to change.",
+        "implementation": "Record Review drafts, must not publish as the invite goal. Recalculate before sending; block contradictions and offer keyboard-accessible links to relevant settings.",
+        "check": "Inject a publishing grant after preview; assert the final check catches it and no invite request is sent.",
+        "risk": "Do not auto-correct custom roles; owners must revise settings or explicitly revise their goal."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "62609b67693c3179b721e2a06535cfe46eebc65a2bd0351359604a9c97724a4e",
+  "raw_output_sha256": "ff184b2bfd49984e8f3130c8fa36c8c7d03bbcef3e518ead027d9b3cb42a0960"
+}

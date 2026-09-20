@@ -1,0 +1,46 @@
+{
+  "schema_version": 1,
+  "id": "x08-a",
+  "request_sha256": "8630925d3df0b6be3d136408ad3a245a881ed8a5e3c0a3f494d25f92054dde35",
+  "prompt_sha256": "0ee3722a2bdd3ccf9c83f1153e1c77e71eab917e73c54b5d16e8f32d65063071",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:20.022611+00:00",
+  "finished_at": "2026-09-20T20:18:28.061010+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 8.036337042000001,
+      "usage": {
+        "input_tokens": 6989,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 63,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "4051436ede65defa586ba7a801f2e93eab307d025c2ec39942ec49058f3bb7f9",
+      "stderr_sha256": "5ba20297308e376d5d0b9b8b18b19ef8cff9cfa41c2562c887c0af201536348a"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "Output the uniquely consistent original; otherwise output UNRESOLVED and retain the record visibly for later repair.",
+    "trace": [
+      "A"
+    ],
+    "explanation": "The supplied redundancy supports A and excludes B, so A is uniquely recoverable."
+  },
+  "result_sha256": "9503772dfee34662fc579336d798605aed26ebdc4a3a2406e919e1064755db1f",
+  "raw_output_sha256": "204b35a7fc3a30e7561337594676427d4273549c87279150fa8b17ad3fffd7a7"
+}

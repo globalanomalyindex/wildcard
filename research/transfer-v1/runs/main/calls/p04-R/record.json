@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p04-R",
+  "request_sha256": "e11564ad941d5cffb76515ae86a339c179352819004bae135e444222db942ac5",
+  "prompt_sha256": "3a7ea34ad904b0f4b137475952768b8dd89f59034ec78a9c0014a674307e2522",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:09:18.174794+00:00",
+  "finished_at": "2026-09-20T20:09:37.802304+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.625521458000037,
+      "usage": {
+        "input_tokens": 7264,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 490,
+        "reasoning_output_tokens": 48
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "bea6e25fc1a7712c03539dc441ce5ed2aed5fd214999372fc8832704a3b62767",
+      "stderr_sha256": "0ca6002861682edc57a02468e315e741b3024ffb7437cc389ba404e0857c16c2"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Confirm only the explicitly selected slot",
+        "mechanism": "Bind review and confirmation to an immutable slot identifier, never its position in the changing week.",
+        "implementation": "Retain the selected identifier and booking details through refreshes. Send that identifier to the existing atomic endpoint; show unavailability without substituting another slot.",
+        "check": "Invalidate or reorder slots between selection and confirmation; verify no other slot is booked and failure preserves the reviewed details.",
+        "risk": "Displayed availability remains provisional until confirmation succeeds."
+      },
+      {
+        "action": "Keep controls stationary while capacity updates",
+        "mechanism": "Update availability in place without moving focus, reordering slots, or relocating the confirmation control.",
+        "implementation": "Use fixed slot ordering and a persistent review area. At 320 pixels, show stacked days with keyboard-operable controls. Announce selected-slot changes politely; impose no countdown.",
+        "check": "During repeated updates, test keyboard and slow pointer journeys at 320 pixels: focus persists, controls remain reachable, and nothing overlaps.",
+        "risk": "Excessive announcements can obscure useful feedback; suppress unchanged messages."
+      },
+      {
+        "action": "Offer explicit alternatives without losing preferences",
+        "mechanism": "Separate retained workshop, date, and time preferences from the selected slot so failures need not restart booking.",
+        "implementation": "After unavailability, retain filters and failed-slot details. Provide an explicit alternatives control; require deliberate selection and review before another atomic confirmation attempt.",
+        "check": "Force confirmation failure; verify preferences survive, keyboard focus reaches recovery controls, and no replacement is selected or submitted automatically.",
+        "risk": "Alternatives may also disappear; describe their availability as provisional."
+      },
+      {
+        "action": "Measure recovery without making speed the objective",
+        "mechanism": "Evaluate understandable failure and preference-preserving recovery rather than optimizing selection-to-confirmation time.",
+        "implementation": "Record unavailable-confirmation outcomes, preference retention, and recovery completion. In accessibility tests, trigger invalidation at defined interaction stages, allow unlimited time, and include keyboard-only participants.",
+        "check": "Verify every induced failure identifies the original slot and offers reachable recovery. Report outcomes by input method without awarding faster completion.",
+        "risk": "Live failure rates reflect capacity contention; they cannot alone establish accessibility."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "eb6a4c3404da7586e9d6e54f00c687b4bfb06563170b31f0298259378c2d00ae",
+  "raw_output_sha256": "c82ab79a59ecc21793e9129a6a7666fc2ef68a323a66b8102e1fe9a1e4fb5402"
+}

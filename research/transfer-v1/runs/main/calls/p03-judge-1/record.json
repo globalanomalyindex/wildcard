@@ -1,0 +1,159 @@
+{
+  "schema_version": 1,
+  "id": "p03-judge-1",
+  "request_sha256": "b3a0523b863cd5d23f5f3400bc16c0de9aeb8ecc3948fe49f5a14bd0ed7d7178",
+  "prompt_sha256": "761c1dc6369747f9a8702c4044d308c2b484c7ed777cdd15a9fb2b18a7474e5c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:27:19.254724+00:00",
+  "finished_at": "2026-09-20T20:27:53.440078+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 34.18137070799992,
+      "usage": {
+        "input_tokens": 10650,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1000,
+        "reasoning_output_tokens": 52
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f63c21d9fdd5cb01f043d439a060db105bef5a9ca24890cce2d8937e3f920a2a",
+      "stderr_sha256": "da1dddd6feb8324c151dfcf87ff12fd2f286cd0976037b37d4230230b535ed7f"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "e9b25b4ce4aada13",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0f58f4f18c544979",
+        "mechanism_group": "reconciled_selective_retry",
+        "reason": "Attempt lookup resolves uncertain acceptance before retry, and the network check verifies accepted bytes are not retransmitted."
+      },
+      {
+        "id": "b72cd71fd825ea9f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0bb140cc2dd71986",
+        "mechanism_group": "receipt_recovery",
+        "reason": "Expiring opaque receipts restore server attachments without persistent file content, with reopening and expiry checks."
+      },
+      {
+        "id": "dc545bc35aac5e0b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bd979e0ec10ea067",
+        "mechanism_group": "attachment_slot_capacity",
+        "reason": "Counting uploading and uncertain attachments toward five prevents additions from exceeding the attachment limit."
+      },
+      {
+        "id": "6b2cd68898107f0c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f98dd09a08010f58",
+        "mechanism_group": "final_list_review",
+        "reason": "Explicit snapshot approval, omission decisions, and invalidation after edits enforce review of the final attachment list."
+      },
+      {
+        "id": "d170ae87245eb975",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a8b32e857ce3201f",
+        "mechanism_group": "receipt_recovery",
+        "reason": "Receipt-only storage with 24-hour expiry supports anonymous restoration while explaining lost browser selections."
+      },
+      {
+        "id": "133b1ab76bdee678",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "02e36c5840fe015e",
+        "mechanism_group": "idempotent_reviewed_submission",
+        "reason": "A reviewed commitment token and recoverable completion status deduplicate case creation independently of uploads."
+      },
+      {
+        "id": "e9c262fc683430b8",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f98dd09a08010f58",
+        "mechanism_group": "final_list_review",
+        "reason": "Explicit review and renewed confirmation after attachment edits implement the required final-list checkpoint, though client locking alone cannot ensure idempotency."
+      },
+      {
+        "id": "0f5f86c36ce74288",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0f58f4f18c544979",
+        "mechanism_group": "reconciled_selective_retry",
+        "reason": "Per-file acceptance remains sticky while reconciliation gates retries of unconfirmed uploads."
+      },
+      {
+        "id": "a7cb332c5a0b7a9f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d5d3ada883a4743d",
+        "mechanism_group": "confirmed_failure_retry",
+        "reason": "Retrying only failed rows preserves accepted receipts, while uncertain uploads remain excluded rather than automatically retransmitted."
+      },
+      {
+        "id": "be106c780c7fb578",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a8b32e857ce3201f",
+        "mechanism_group": "receipt_recovery",
+        "reason": "Unexpired opaque receipts restore accepted attachments, and reopening tests distinguish restored files from selections requiring reselection."
+      },
+      {
+        "id": "bddf924e0923d39a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "02e36c5840fe015e",
+        "mechanism_group": "idempotent_reviewed_submission",
+        "reason": "Binding an idempotent submission token to the reviewed version enables duplicate-safe creation and receipt-based outcome recovery."
+      },
+      {
+        "id": "8ecd5ec4b7785171",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0f58f4f18c544979",
+        "mechanism_group": "reconciled_selective_retry",
+        "reason": "Confirmed failures alone are retried, with server reconciliation required before uncertain attempts can be uploaded again."
+      },
+      {
+        "id": "cc7bb9e7b6fb286f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0bb140cc2dd71986",
+        "mechanism_group": "receipt_recovery",
+        "reason": "Receipt-only persistence with enforced 24-hour expiry restores available attachments without retaining raw file content."
+      }
+    ]
+  },
+  "result_sha256": "47a79fe2d7bc0e50ace32fea5eaeb972c6a9c56a2d31a1826dcbf556a52cad95",
+  "raw_output_sha256": "11f2144696683509ddaf901f018f5e2e8dd627e679e946739cfa20e27d4949a1"
+}

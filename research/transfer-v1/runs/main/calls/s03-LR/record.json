@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s03-LR",
+  "request_sha256": "2df247f2bf3d634244f953d715be71c2f1034a78b9cdd01ad146948c30ef881f",
+  "prompt_sha256": "2896a25de8d8b5f2d397746eae396978fb59dd590830af6e5cb5792ed7e67627",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:10:01.718596+00:00",
+  "finished_at": "2026-09-20T20:10:24.140183+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.420649207999986,
+      "usage": {
+        "input_tokens": 7271,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 601,
+        "reasoning_output_tokens": 149
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f63a8b860053ba5fb233f6f87536abfebbddc3797025587f4b7a510587380c3e",
+      "stderr_sha256": "57a53b4aa7022c89cb059d746aa43d705c3eb63d11106878e1f36535e7d53589"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Merge paragraph edits using causal revision histories",
+        "mechanism": "Merge immutable edits by stable paragraph ID; causal ancestry distinguishes replacements from concurrent versions without ranking authors.",
+        "implementation": "Record device/counter operation IDs, author, text, and causal parents. Exchange missing operations over the existing sync path; retain concurrent originals.",
+        "check": "Edit different paragraphs offline, then exchange operations in both orders. Require identical text, retained versions, and authorship.",
+        "risk": "Logical revision numbers alone cannot establish cross-device causality."
+      },
+      {
+        "action": "Preserve deletion conflicts for explicit user resolution",
+        "mechanism": "A deletion is a causal tombstone, not erased storage; concurrent edits remain inspectable alongside it.",
+        "implementation": "Display delete-versus-edit conflicts with original text, author/device, and revision. Store resolutions referencing all reviewed versions; preserve originals until resolution.",
+        "check": "Delete a paragraph on one device and edit it on the other. Both reconnect orders must expose identical choices.",
+        "risk": "Concurrent resolutions must themselves remain conflicts, not silently overwrite."
+      },
+      {
+        "action": "Separate paragraph placement from paragraph content",
+        "mechanism": "Independent position revisions prevent reordering from overwriting prose; concurrent moves retain explainable alternatives.",
+        "implementation": "Assign fractional position keys. Track moves causally by paragraph ID; deterministically select concurrent display positions by revision/device, preserving alternatives. Break placement ties by paragraph ID.",
+        "check": "Replay concurrent reorders plus text edits in both orders. Require identical displayed order, unchanged text, and visible move alternatives.",
+        "risk": "Position-key growth requires care; avoid uncoordinated offline renumbering."
+      },
+      {
+        "action": "Add deterministic offline replay and convergence tests",
+        "mechanism": "A fixed operation history tests convergence independently of delivery order, retries, and process restarts.",
+        "implementation": "Seed paragraphs P/Q/R. Script independent edits, concurrent P edits, Q deletion versus editing, and reorders across 48 offline hours; replay opposite reconnect orders.",
+        "check": "Assert identical canonical state, retained conflicting originals and authors, visible Q conflict, and convergence after explicit resolution; repeat with duplicates and restarts.",
+        "risk": "Also test 500 paragraphs at 8 KB; retained histories exceed live-document bounds."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "e5e6a8ee3ad006f721a0874bfb076e5e2535aa3af89e323bb770cf85e8653008",
+  "raw_output_sha256": "0397ba31cfb52edc58fbb20b439159a54dec2c7813fb14f1230c6b4370a2132a"
+}

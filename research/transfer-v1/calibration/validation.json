@@ -1,0 +1,28 @@
+[
+  {
+    "judge": "j1",
+    "checks": {
+      "constraint_violation": true,
+      "false_donor_fact": true,
+      "decorative_analogy": true,
+      "baseline_paraphrase": true,
+      "valid_move": true,
+      "duplicate_mechanism": true,
+      "new_mechanism": true
+    },
+    "passed": true
+  },
+  {
+    "judge": "j2",
+    "checks": {
+      "constraint_violation": true,
+      "false_donor_fact": true,
+      "decorative_analogy": true,
+      "baseline_paraphrase": true,
+      "valid_move": true,
+      "duplicate_mechanism": true,
+      "new_mechanism": true
+    },
+    "passed": true
+  }
+]

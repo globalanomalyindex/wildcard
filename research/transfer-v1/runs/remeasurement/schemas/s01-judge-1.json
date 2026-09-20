@@ -1,0 +1,106 @@
+{
+  "type": "object",
+  "properties": {
+    "ratings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "51a9f075ed4880a9",
+              "51bfa915ce044e3a",
+              "5d5bf4bdd7275af2",
+              "1150af3bd976708d",
+              "bbd44ff21b3c75d7",
+              "3ca4eb760af39ff0",
+              "82890680e8b8fb36",
+              "f816f85d5d3afc0e",
+              "2e4dffa8c4b832ca",
+              "7fcb3be20c6e9678",
+              "00bd0befab688d3f",
+              "08d525c7f88e66bc"
+            ]
+          },
+          "constraint_valid": {
+            "type": "boolean"
+          },
+          "feasible": {
+            "type": "boolean"
+          },
+          "actionable": {
+            "type": "boolean"
+          },
+          "baseline_match": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "2dcd01677bb8ac49",
+              "253decdb8923325f",
+              "ac5d956c5ad12029",
+              "485180448ed02c9e",
+              "f959089e553b7c2a",
+              "cfab74980c854deb",
+              "dd44bafd420b412a",
+              "b58989805dec845c",
+              "82a9009de5924213",
+              "b80b0bc81bd9580e",
+              null
+            ]
+          },
+          "mechanism_group": {
+            "type": "string",
+            "enum": [
+              "51a9f075ed4880a9",
+              "51bfa915ce044e3a",
+              "5d5bf4bdd7275af2",
+              "1150af3bd976708d",
+              "bbd44ff21b3c75d7",
+              "3ca4eb760af39ff0",
+              "82890680e8b8fb36",
+              "f816f85d5d3afc0e",
+              "2e4dffa8c4b832ca",
+              "7fcb3be20c6e9678",
+              "00bd0befab688d3f",
+              "08d525c7f88e66bc"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "51a9f075ed4880a9",
+              "51bfa915ce044e3a",
+              "5d5bf4bdd7275af2",
+              "1150af3bd976708d",
+              "bbd44ff21b3c75d7",
+              "3ca4eb760af39ff0",
+              "82890680e8b8fb36",
+              "f816f85d5d3afc0e",
+              "2e4dffa8c4b832ca",
+              "7fcb3be20c6e9678",
+              "00bd0befab688d3f",
+              "08d525c7f88e66bc"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "constraint_valid",
+          "feasible",
+          "actionable",
+          "baseline_match",
+          "mechanism_group",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "ratings"
+  ],
+  "additionalProperties": false
+}

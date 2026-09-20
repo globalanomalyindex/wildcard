@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "s07-judge-1",
+  "request_sha256": "cc45d05ac90a24755b6bf21540cf9fc2908f58ebc9bea48b3b1c1cd079ef9164",
+  "prompt_sha256": "f8bcd0719dd61265e9db8131f03698e067ba34d3a4ad136180c8c93dc7d9ca54",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:20:31.599982+00:00",
+  "finished_at": "2026-09-20T20:21:12.172520+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 40.56675437499999,
+      "usage": {
+        "input_tokens": 11305,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1156,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "5608c3d4ecdf6d23b45203cf1af5d7e50594097cba3fe4c4f5c7955ab30ae239",
+      "stderr_sha256": "255708de8d9516ef297a0adc67f36d6a46c7750d9ac56db09d75a65fb4089ac9"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "9610eb7621b6a386",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e353ba500108a229",
+        "mechanism_group": "durable_upload_staging",
+        "reason": "Durable offsets and pre-import digest verification support interrupted uploads, with explicit bounded-memory and quota checks."
+      },
+      {
+        "id": "d00727f5e4a3fc5a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7de391e33bba297b",
+        "mechanism_group": "atomic_row_receipts",
+        "reason": "Atomic writes, receipts, and checkpoints enable safe replay using bounded batches rather than a whole-file transaction."
+      },
+      {
+        "id": "a1487a069b6dcf72",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "e353ba500108a229",
+        "mechanism_group": "durable_upload_staging",
+        "reason": "Persistent upload offsets and digest verification decouple connection recovery from bounded streaming processing."
+      },
+      {
+        "id": "a388ef5701ad7c92",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "862090c79fadf506",
+        "mechanism_group": "row_error_isolation",
+        "reason": "Strict validation and batch bisection isolate invalid references while preserving valid neighbors and precise rejection evidence."
+      },
+      {
+        "id": "cd4631045c1b2cf0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "38aa08307e435ed5",
+        "mechanism_group": "partial_result_reconciliation",
+        "reason": "Verified EOF, outcome accounting, and target-write checks distinguish completed partial acceptance from interrupted processing."
+      },
+      {
+        "id": "32324402f937afb4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "862090c79fadf506",
+        "mechanism_group": "row_error_isolation",
+        "reason": "Noncoercive validation and batch isolation preserve valid rows, while staged-record locators make rejections traceable."
+      },
+      {
+        "id": "548211a5de7d8475",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d98094fc8f25dfc3",
+        "mechanism_group": "durable_upload_staging",
+        "reason": "Durable upload offsets and digest verification permit resumed transfer without buffering the file, with a specified memory-budget check."
+      },
+      {
+        "id": "03bad06f642e71d5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d997e1311c05f80c",
+        "mechanism_group": "atomic_row_receipts",
+        "reason": "Committing unique receipts and checkpoints with writes makes lost acknowledgments safely replayable and explicitly handles natural-key conflicts."
+      },
+      {
+        "id": "bca2963a6dca2117",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "862090c79fadf506",
+        "mechanism_group": "row_error_isolation",
+        "reason": "Row-local isolation and durable diagnostics preserve rejected input while distinguishing retryable infrastructure failures."
+      },
+      {
+        "id": "8245a03bd5bb94ee",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d997e1311c05f80c",
+        "mechanism_group": "atomic_row_receipts",
+        "reason": "Unique row outcomes committed with writes and record-boundary checkpoints prevent duplicate application after ambiguous commits."
+      },
+      {
+        "id": "db4fea038577b8dd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "04f05a82ab930c1e",
+        "mechanism_group": "row_error_isolation",
+        "reason": "Rollback and bisection isolate permanent row errors without coercion, and explicit diagnostics identify rejected rows."
+      },
+      {
+        "id": "33f38fc3b73f40d0",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "399dba8503680084",
+        "mechanism_group": "partial_result_reconciliation",
+        "reason": "Verified EOF, unique receipt coverage, and mutation matching provide verifiable partial-result accounting rather than counts alone."
+      },
+      {
+        "id": "e4534801ffa56517",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d98094fc8f25dfc3",
+        "mechanism_group": "durable_upload_staging",
+        "reason": "Acknowledging only durable chunks and verifying the complete digest supports resumable uploads without premature database writes."
+      },
+      {
+        "id": "80098eb3691a9779",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "399dba8503680084",
+        "mechanism_group": "partial_result_reconciliation",
+        "reason": "EOF status, terminal outcome coverage, and committed-write matching distinguish partial completion from pending work."
+      },
+      {
+        "id": "8f1ec01d1ad0cfd5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "38aa08307e435ed5",
+        "mechanism_group": "partial_result_reconciliation",
+        "reason": "Disjoint outcomes and transactional write evidence verify accepted work while explicitly exposing unfinished input and blocked boundaries."
+      },
+      {
+        "id": "26ec8104aae815dc",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "7de391e33bba297b",
+        "mechanism_group": "atomic_row_receipts",
+        "reason": "Bounded transactions atomically couple writes, unique outcomes, and checkpoints so restarts neither duplicate nor skip accepted work."
+      }
+    ]
+  },
+  "result_sha256": "1ea42d11244acd958ac62f2061a5a79da2d4fd8c5f72a80bfd9ab8c88ff30fcf",
+  "raw_output_sha256": "9b135955ffd14c563f3e108e0eef205fdc46ed5e23cc2f07ac6946ca57e1c82f"
+}

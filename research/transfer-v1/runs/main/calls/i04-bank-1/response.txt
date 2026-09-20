@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Preview the full downstream token impact",
+      "mechanism": "Resolve reverse dependencies separately for each brand and theme, exposing actual changes rather than every referenced token.",
+      "implementation": "Build a dependency graph; recompute affected aliases in a draft. Show resolution paths, changed values, unchanged overrides, and cycle errors.",
+      "check": "Edit a base beneath a three-level alias; verify every changed descendant appears. Introduce a cycle; require a readable path and block publication.",
+      "risk": "Flattened token exports can hide dependency paths."
+    },
+    {
+      "action": "Preserve and explain intentional brand differences",
+      "mechanism": "Explicit override provenance distinguishes inherited values from deliberate brand decisions throughout resolution and editing.",
+      "implementation": "Display each override’s source, alias or literal value, and rationale. Preserve its definition; require an explicit brand-scoped operation to replace it.",
+      "check": "Change a shared base: a literal override stays unchanged; an alias override retains its reference and exposes any resulting value change.",
+      "risk": "A preserved override may still create illegible pairs."
+    },
+    {
+      "action": "Evaluate actual rendered text and background pairs",
+      "mechanism": "Usage-specific checks capture contrasting outcomes when one token serves multiple roles across themes and brands.",
+      "implementation": "For affected rendered pairs, calculate current and proposed contrast using effective backgrounds and applicable text thresholds. Mark unresolved compositing cases for manual review.",
+      "check": "Use one token as both text and background. Verify each usage is checked independently, including light and dark themes.",
+      "risk": "Color checks cannot establish complete accessibility."
+    },
+    {
+      "action": "Make proposed and current values explicitly comparable",
+      "mechanism": "Textual differences and persistent labels communicate changes without requiring designers to distinguish swatch colors.",
+      "implementation": "Provide keyboard-accessible current/proposed columns with numeric values, alias paths, brand, theme, contrast ratios, and written status. Include matched component previews.",
+      "check": "In grayscale, identify which values changed and which pairs need review. Verify screen-reader output distinguishes current from proposed values.",
+      "risk": "Unfiltered comparisons can overwhelm designers reviewing 180 tokens."
+    },
+    {
+      "action": "Require a revision-bound pair review before publishing",
+      "mechanism": "A publication gate makes unresolved consequences visible and prevents earlier approvals from covering later edits.",
+      "implementation": "List newly failing, still failing, and uncheckable affected pairs with usage locations. Require correction or explicit documented disposition; invalidate affected approvals after edits.",
+      "check": "Attempt publication with an undisposed pair, then modify an approved dependency. Both attempts must require review; cycle errors remain blocking.",
+      "risk": "Routine exceptions can normalize unresolved legibility problems."
+    },
+    {
+      "action": "Offer narrowly scoped correction candidates",
+      "mechanism": "Constrained search explores repairs while minimizing collateral changes and respecting protected brand overrides.",
+      "implementation": "Let designers choose adjustable tokens and protected values. Generate draft candidates; rank by remaining failing pairs and changed usages. Apply only after explicit selection.",
+      "check": "Protect a brand override and request repairs. Verify it remains untouched, all affected pairs are rechecked, and infeasible constraints produce no claimed solution.",
+      "risk": "Numerically acceptable repairs may undermine visual identity."
+    },
+    {
+      "action": "Publish palette changes as reversible atomic revisions",
+      "mechanism": "A consistent snapshot prevents partially updated aliases or themes from escaping the reviewed proposal.",
+      "implementation": "Bundle token definitions, override provenance, resolved values, and review results into one versioned revision. Reject stale publication attempts and support whole-revision rollback.",
+      "check": "Simulate a concurrent base edit and an interrupted publish. Neither may expose mixed revisions; rollback must restore previous definitions and values.",
+      "risk": "Consumers need revision-aware loading to preserve atomicity."
+    }
+  ],
+  "abstention_reason": ""
+}

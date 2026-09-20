@@ -1,48 +1,87 @@
-name: test and deploy
+name: verify and publish
 
 on:
   push:
-    branches: [main]
+    branches: [main, research/wildcard-next]
+  pull_request:
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
 
 concurrency:
-  group: pages
+  group: wildcard-${{ github.workflow }}-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  # The live site only ships if the mechanism still proves itself: the shell suite
-  # (draw determinism, map audit, diversity) and the node suite (cksum anchors,
-  # browser==shell seed parity, dealer invariants) both gate the deploy.
   test:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
           node-version: 22
-      - name: shell suite (skill mechanism)
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Runtime, corpus, legacy replay, security and site regressions
         run: bash tests/run_all.sh
-      - name: node suite (site engine + parity)
-        run: cd site && node --test
+      - name: Frozen historical artifacts and generated evidence
+        run: |
+          node scripts/verify-history.mjs
+          node scripts/build-evidence.mjs --check
+          node plugin/scripts/build-corpus.mjs --check
+      - name: Research scoring and acquisition integrity tests
+        run: |
+          node --test research/lib/*.test.mjs
+          python3 -m unittest discover -s research/transfer-v1 -p 'test_*.py'
+          node --test research/transfer-v1/test_analysis.mjs
+      - name: Reproduce published study from raw records
+        if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
+        run: |
+          python3 scripts/check-transfer-results.py
+          python3 docs/verification/verify_transfer_independent.py
+          python3 scripts/build-transfer-summary.py --check
+          python3 research/transfer-v1/original_sensitivity.py --check --aggregate --amendment-manifest research/transfer-v1/runs/remeasurement/manifest.json
+      - name: Install pinned browser engines
+        run: |
+          npx --yes --package=@playwright/cli@0.1.21 playwright-cli install-browser chromium --with-deps
+          npx --yes --package=@playwright/cli@0.1.21 playwright-cli install-browser firefox --with-deps
+          npx --yes --package=playwright@1.63.0 playwright install webkit --with-deps
+      - name: Browser security, interaction and layout regressions
+        run: python3 scripts/test-browser.py --browsers chromium firefox webkit
+      - name: Keep browser evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: browser-regression-evidence
+          path: output/playwright/regression
+          if-no-files-found: ignore
+          retention-days: 14
 
   deploy:
+    if: github.ref == 'refs/heads/main' && github.event_name != 'pull_request'
     needs: test
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
     runs-on: ubuntu-latest
     environment:
       name: github-pages
       url: ${{ steps.deployment.outputs.page_url }}
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/configure-pages@v5
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
-          enablement: true
-      - uses: actions/upload-pages-artifact@v3
+          persist-credentials: false
+      - uses: actions/configure-pages@45bfe0192ca1faeb007ade9deae92b16b8254a0d # v6.0.0
+      - uses: actions/upload-pages-artifact@fc324d3547104276b827a68afc52ff2a11cc49c9 # v5.0.0
         with:
           path: site
       - id: deployment
-        uses: actions/deploy-pages@v4
+        uses: actions/deploy-pages@368f82528645a54fb793d4d04e342629a3f51346 # v5.0.1

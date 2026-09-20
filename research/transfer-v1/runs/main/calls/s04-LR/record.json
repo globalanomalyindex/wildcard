@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s04-LR",
+  "request_sha256": "9dbddd4df1c9cf95bf8d7081af12068e9c11624bf3776d719efaf744e89d3939",
+  "prompt_sha256": "b63096262306c191112b66e3d02c8febfc5265731bdcff98a5c028c6dda73f09",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:19.119212+00:00",
+  "finished_at": "2026-09-20T20:15:51.857323+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.736463916999924,
+      "usage": {
+        "input_tokens": 7274,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 743,
+        "reasoning_output_tokens": 207
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e875e7bbe67f6e9d52374cd401f0823bb75cf6ff9fd0a4d8d62c2319485589a9",
+      "stderr_sha256": "a31bd93818bac92bf041f738e91bde1d5eb25b57ebfde077b389d03fd7e88e29"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce expiry locally, including during outages",
+        "mechanism": "Conservative clock deadlines and bounded screen-clearing latency prevent expired content from lingering without connectivity.",
+        "implementation": "Clear each expiring item by local expiry minus 30 seconds; initiate clearing earlier by the enforced rendering-latency bound. Revalidate before resume.",
+        "check": "Test both clock-error extremes, six-hour outages, stalled rendering, and sleep/resume; verify no item remains visible past its actual expiry.",
+        "risk": "Items disappear early; frozen displays require a functioning blanking watchdog."
+      },
+      {
+        "action": "Make reconnection replace, not merge, cached configuration",
+        "mechanism": "Authoritative snapshots and durable monotonic generations reject rollback; omitted IDs are removed rather than retained.",
+        "implementation": "Publish complete snapshots with increasing generations. Persist snapshot and generation atomically. Server-side revision floors prohibit republishing revoked revisions; devices reject older generations.",
+        "check": "Remove an item, reconnect, replay an older snapshot, and reboot mid-update; the removed revision must never reappear after removal commits.",
+        "risk": "Device state loss needs authoritative bootstrap; offline emergency removal remains impossible."
+      },
+      {
+        "action": "Stage and validate bundles before making them visible",
+        "mechanism": "An isolated candidate configuration prevents partial downloads or failed validation from changing the active announcement set.",
+        "implementation": "Cap encoded bundles below 100,000 bytes at publication and receipt. Validate completeness, unique IDs, revisions, and validity fields before atomic activation.",
+        "check": "Inject truncated, oversized, duplicate-ID, and malformed bundles; verify rejection leaves the previous configuration active with local expiry enforcement intact.",
+        "risk": "Oversized configurations need explicit publication failure, never silent truncation."
+      },
+      {
+        "action": "Show freshness limits alongside offline announcements",
+        "mechanism": "Separate connectivity status from configuration age and distinguish timed validity from unknown revocation status.",
+        "implementation": "Display last successful authoritative verification and offline status. State: “Timed announcements expire locally; until-revoked announcements may have been withdrawn while offline.”",
+        "check": "During a six-hour outage, verify status persists, expired items disappear, and until-revoked items never receive an unqualified “current” label.",
+        "risk": "Freshness notices consume display space and cannot establish whether revocation occurred."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "ae6f53451296017d31374e7a641e58ba833d4e8ee0205cb0911325aa9c50588a",
+  "raw_output_sha256": "52b351abad00cb1ac59a08be2c43b28ebc626639194706e902bc44abec4db64f"
+}

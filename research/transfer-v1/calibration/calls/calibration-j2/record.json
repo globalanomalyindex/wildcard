@@ -1,0 +1,102 @@
+{
+  "schema_version": 1,
+  "id": "calibration-j2",
+  "request_sha256": "62faa1c949867c6f5eae8957df638046075e71bbbdfa26e14f5e4babde01186b",
+  "prompt_sha256": "bb7252cda70400b6a4b9baa6a59a59044a2a4f16dcc394832106960180130800",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:17:31.819282+00:00",
+  "finished_at": "2026-09-20T19:17:44.113891+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 12.292820250000002,
+      "usage": {
+        "input_tokens": 4958,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 412,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "c1",
+        "constraint_valid": false,
+        "feasible": false,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "remote_cloud_storage",
+        "reason": "Posting to a hosted database requires network access and moves reservations off the same device, violating explicit constraints."
+      },
+      {
+        "id": "c2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b1",
+        "mechanism_group": "local_write_confirmation",
+        "reason": "It shows a visible confirmation only after a local commit, matching the reference mechanism and respecting offline same-device storage."
+      },
+      {
+        "id": "c3",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": false,
+        "baseline_match": null,
+        "mechanism_group": "vague_experience_metaphor",
+        "reason": "The beehive/swarm wording does not specify an implementable reservation mechanism or observable save check."
+      },
+      {
+        "id": "c4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "local_transaction_replay",
+        "reason": "A local transactional outbox with restart replay is implementable on the same device without network or identifiers."
+      },
+      {
+        "id": "c5",
+        "constraint_valid": false,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "personal_identifier_deduplication",
+        "reason": "Requiring visitor email violates the constraint against personal identifiers."
+      },
+      {
+        "id": "c6",
+        "constraint_valid": true,
+        "feasible": false,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "impossible_photon_storage",
+        "reason": "Persistent complete-record storage in LCD backlight photons is not technically plausible with standard kiosk hardware."
+      },
+      {
+        "id": "c7",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "local_transaction_replay",
+        "reason": "It uses the same local pending transaction and restart reconciliation mechanism as c4, feasible without network or new hardware."
+      }
+    ]
+  },
+  "result_sha256": "744c178c84272b19c25918bdd3223c9bfe0a5b1e991e882dc6bd53049d36052e"
+}

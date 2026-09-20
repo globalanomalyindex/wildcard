@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d02-S",
+  "request_sha256": "ef7e69c843998ccac51d3e2d335ec888d7d4008c09ca3afb8fde2b0a20ddc266",
+  "prompt_sha256": "595bb80c5a3e61c0a0b1691656805038919e17fc59b8060d2e97372866e71858",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:50:53.894243+00:00",
+  "finished_at": "2026-09-20T19:51:17.505104+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 23.608036791999993,
+      "usage": {
+        "input_tokens": 7044,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 596,
+        "reasoning_output_tokens": 136
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c3df97f4d930c110650e18470475a92db851a0e5001ef5f4a48d2bb10bad1c77",
+      "stderr_sha256": "9f5b4534f18e6ec2545c72e79493ae57269466280c64607d80fb257132efefcc"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce five-minute expiry and 100-record capacity.",
+        "mechanism": "Monotonic expiry controls freshness; expired-first, then least-recently-used eviction bounds the cache.",
+        "implementation": "Admit only allowlisted public fields from public sources. Set expiry at fetch start plus 300 seconds; atomically evict before insertion.",
+        "check": "With a fake clock, verify expiry at 300 seconds, including during outages. Insert 101 keys; assert at most 100 records.",
+        "risk": "Slow fetches shorten usable lifetime; discard responses already expired."
+      },
+      {
+        "action": "Return an explicit error when the source times out.",
+        "mechanism": "A fixed source deadline prevents indefinite waiting; failures never renew records or replace them with cached errors.",
+        "implementation": "Set a configurable fetch deadline. On timeout, cancel retrieval and return HTTP 503 with code source_timeout. Remove any expired entry; preserve unexpired entries.",
+        "check": "Simulate a hanging source. Verify timely 503, unchanged expiration timestamps, expired-entry removal, and no error-record insertion.",
+        "risk": "Cancellation must also stop underlying network work."
+      },
+      {
+        "action": "Merge concurrent misses for the same record.",
+        "mechanism": "One in-flight fetch per key prevents duplicate source requests; bounded admission limits outage-related request buildup.",
+        "implementation": "Maintain an in-flight promise map capped at a configured size. Join existing fetches; reject excess distinct misses with 503 cache_busy. Remove promises on completion.",
+        "check": "Send concurrent requests for one missing key: observe one source call. Force timeout; verify shared errors and an empty promise map.",
+        "risk": "Bound waiters too; shared fetches otherwise accumulate callers."
+      },
+      {
+        "action": "Temporarily stop source calls after repeated failures.",
+        "mechanism": "A circuit breaker makes sustained outages explicit while still serving cached records whose original expiry has not passed.",
+        "implementation": "After a configured consecutive-failure threshold, reject misses with 503 source_unavailable during cooldown. Then allow one probe; never extend TTL or suspend eviction.",
+        "check": "Force the threshold failures; verify no source calls during cooldown, expired-record eviction, one recovery probe, and resumed fetching after success.",
+        "risk": "Long cooldowns delay recovery; short cooldowns repeatedly probe outages."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "356bfe5d15fc2660133f3dc2908ebecef451ae7bcedd339906ea744b601a6dd1",
+  "raw_output_sha256": "cc33733790a07b1d598e4204395c57b0a3ceb8b2f007a42b4033a8af925e218c"
+}

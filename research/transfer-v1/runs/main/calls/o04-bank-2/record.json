@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "o04-bank-2",
+  "request_sha256": "ed7d6a37ef05eb19d965018daa8217b11d7457affb008031ca037afa145c1b8f",
+  "prompt_sha256": "0fecb6aecbb4578266725a7d52ebcf21b268fb11627aa7a292f49b902d300da7",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:59:37.162701+00:00",
+  "finished_at": "2026-09-20T20:00:09.477552+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.31284779099997,
+      "usage": {
+        "input_tokens": 7131,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 950,
+        "reasoning_output_tokens": 87
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "aeba6fdb9136e40d2a5f29dcb364e7539b7445d4e4bd6b6cd028c0dace85d2ee",
+      "stderr_sha256": "7e2ab74e3c84d9bbf5d85cc75fbd06f5510d129cc52c284aea9d2ae82be5fe37"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve arrival order across every reroute",
+        "mechanism": "Separate a case’s permanent waiting claim from its current team, tags, and queue location.",
+        "implementation": "Store immutable arrival_at and intake_sequence. Rank eligible, ready cases within each explicit urgency tier by that pair, never by transfer time.",
+        "check": "Reroute an older case twice; verify it still precedes newer eligible cases. Simultaneous arrivals must retain deterministic intake order.",
+        "risk": "Urgency tiers can starve ordinary cases; monitor their oldest waits."
+      },
+      {
+        "action": "Enforce eligibility when assignments commit",
+        "mechanism": "Treat required language, product expertise, urgent qualification, and current roster capacity as assignment gates.",
+        "implementation": "Route automatic and manual assignments through one transaction that rechecks worker qualifications, roster version, and remaining capacity before reserving a slot.",
+        "check": "Race two assignments for one slot and change shifts during dispatch; reject over-capacity, off-shift, language-mismatched, and unqualified urgent assignments.",
+        "risk": "Stale qualification records can invalidate otherwise correct routing."
+      },
+      {
+        "action": "Show why each case is waiting",
+        "mechanism": "Represent missing information and unavailable skills separately instead of hiding both behind an unassigned label.",
+        "implementation": "Record independent blockers for information, skill coverage, and capacity. Display missing fields, required skills, blocker age, and total age from arrival.",
+        "check": "Create cases with each blocker and both information and skill blockers; verify every reason appears and clearing one preserves the others.",
+        "risk": "Overly broad information requirements can unnecessarily block service."
+      },
+      {
+        "action": "Correct tags without recreating cases",
+        "mechanism": "Version routing requirements on the original case, preserving its waiting claim while preventing assignments based on superseded tags.",
+        "implementation": "Apply tag corrections atomically; retain arrival fields, record old and new values, invalidate pending offers, and requeue incompatible active assignments.",
+        "check": "Correct language while an offer is accepted; only an assignment matching the latest requirements may commit, with original arrival unchanged.",
+        "risk": "Repeated corrections can interrupt work; retain notes and correction history."
+      },
+      {
+        "action": "Hold urgent cases safely when coverage disappears",
+        "mechanism": "Make missing urgent coverage an explicit escalation condition, never permission to relax qualification requirements.",
+        "implementation": "Require documented issue-based urgency criteria, excluding status and spending. With neither trained worker available, hold by original arrival and alert the shift lead.",
+        "check": "Run a shift with no eligible urgent worker: no assignment occurs. Adding qualified coverage releases eligible cases in preserved order.",
+        "risk": "Escalation cannot guarantee immediate qualified coverage or response."
+      },
+      {
+        "action": "Reserve scarce skills through batch matching",
+        "mechanism": "Consider workers together so flexible staff do not consume work that available specialists could handle.",
+        "implementation": "Build eligible case-worker edges from the roster. Select cases by urgency and original arrival, then prefer least-flexible eligible workers without displacing older feasible cases.",
+        "check": "Submit simultaneous cases needing different skills; verify a feasible two-worker matching is used and an older feasible case is not skipped.",
+        "risk": "Matching rules need deterministic ties and bounded computation."
+      },
+      {
+        "action": "Protect return from waiting for information",
+        "mechanism": "Keep the original service claim while temporarily excluding cases that cannot progress without specific customer information.",
+        "implementation": "Require a named missing item and next review time before applying the blocker. Remove it when resolved, returning the case using original arrival order.",
+        "check": "Resume an older information-blocked case beside newer eligible cases; confirm its original position and that unrelated cases progressed during its absence.",
+        "risk": "Unnecessary blockers can conceal delays; audit reasons and durations."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "ffe2c471cdc3d60b2c484969989dfe439935149ada82d1cd33ff46eecd0713fa",
+  "raw_output_sha256": "6b62625b8afdd8d3a1bbc41f1446db3bf03a0cfcbaeda3437b1e1c1da3193bb9"
+}

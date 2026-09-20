@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Add a keyboard-operated “Move to position” command.",
+      "mechanism": "An explicit destination moves any item without dragging or repeatedly stepping through forty positions.",
+      "implementation": "Give each item a button opening a labeled integer field, accepting 1–40. Commit by splicing its existing ID into the requested final position.",
+      "check": "Using only Tab, typing, and Enter, move item 37 to position 2; verify all forty IDs remain unchanged.",
+      "risk": "Clearly label positions as one-based; reject invalid input."
+    },
+    {
+      "action": "Offer “Move before or after another item.”",
+      "mechanism": "A named destination lets users choose placement without knowing the target’s numerical position.",
+      "implementation": "Provide keyboard-accessible target and before/after selectors. Exclude the moving item; resolve the target by ID after removing the source from the order.",
+      "check": "Move an item before and after targets on either side; verify adjacent placement and an unchanged ID set.",
+      "risk": "Disambiguate duplicate titles with their current positions."
+    },
+    {
+      "action": "Keep every committed move undoable throughout the page.",
+      "mechanism": "A page-lifetime history restores prior ID sequences rather than attempting potentially ambiguous inverse movements.",
+      "implementation": "Before either move command commits, push the current ID order onto an uncapped session stack. Provide a keyboard-accessible Undo button; never expire entries by timer.",
+      "check": "Perform fifty mixed moves, wait, then undo all fifty; require exact restoration of the starting sequence.",
+      "risk": "Other list mutations require an explicit compatible history policy."
+    },
+    {
+      "action": "Preserve focus and announce each ordering change.",
+      "mechanism": "Stable focus and spoken status make committed moves and reversals observable without a pointer or visual tracking.",
+      "implementation": "Key rendered items by existing IDs. After moving or undoing, focus the affected item’s move button and announce its title and final position through a polite live region.",
+      "check": "With keyboard and screen reader, move and undo an item; verify focus follows its ID and each resulting position is announced.",
+      "risk": "Rerendering must not duplicate announcements or reset focus."
+    }
+  ],
+  "abstention_reason": ""
+}

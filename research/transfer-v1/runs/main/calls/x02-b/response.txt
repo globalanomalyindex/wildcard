@@ -1,0 +1,1 @@
+{"decision":"adapt","action":"Block RESET and use HIDE_NOTICE to clear the notice without changing the queue; retain both newly arriving drafts.","trace":["BLOCKED","6"],"explanation":"RESET deletes every queued item, violating the no-deletion constraint. HIDE_NOTICE changes only display, preserving all four original drafts and two new drafts."}

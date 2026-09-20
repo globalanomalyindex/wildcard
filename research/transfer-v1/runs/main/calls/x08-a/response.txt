@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Output the uniquely consistent original; otherwise output UNRESOLVED and retain the record visibly for later repair.","trace":["A"],"explanation":"The supplied redundancy supports A and excludes B, so A is uniquely recoverable."}

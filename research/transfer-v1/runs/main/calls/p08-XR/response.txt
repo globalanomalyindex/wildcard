@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Confirm and freeze the exact selection",
+      "mechanism": "Separate visible-page selection from all-matching selection; confirmation freezes explicit IDs rather than a live filter.",
+      "implementation": "Provide keyboard-accessible “25 on this page” and “600 matching records” controls. Resolve IDs before confirmation; persist the confirmed count and scope.",
+      "check": "Change filters, pages, and matching records after confirmation; submitted IDs must remain within the frozen set. Test with a screen reader.",
+      "risk": "Label the frozen selection clearly when current filter results differ."
+    },
+    {
+      "action": "Skip records changed since scope confirmation",
+      "mechanism": "Atomic version checks keep concurrent edits separate from the user's confirmed target status.",
+      "implementation": "Capture versions alongside confirmed IDs. Conditionally update each record against its captured version; return conflicts without overwriting newer edits.",
+      "check": "Modify a record between confirmation and write. Verify a conflict outcome, unchanged newer data, and an accessible explanation.",
+      "risk": "Requires backend conditional writes; client-side freshness checks alone cannot prevent races."
+    },
+    {
+      "action": "Recover failures through a durable results ledger",
+      "mechanism": "Per-ID outcomes partition successes, failures, and unresolved requests so recovery excludes completed changes.",
+      "implementation": "Persist operation identity and outcomes. Reconcile uncertain requests through idempotency keys; offer keyboard-accessible retry of confirmed-set failures, with renewed confirmation for conflicts.",
+      "check": "Simulate mixed failures and a lost response. Recovery must neither repeat successful writes nor introduce IDs outside the confirmed set.",
+      "risk": "An uncertain response must not be treated as a definite failure."
+    },
+    {
+      "action": "Explain and enforce reversal eligibility per record",
+      "mechanism": "Reversal requires both an unexpired ten-minute window and no subsequent record change, checked atomically.",
+      "implementation": "Store prior status, resulting version, and policy deadline per success. Show textual eligibility reasons; reverse eligible IDs using conditional writes.",
+      "check": "Test expiry, subsequent edits, and edits during reversal. Verify safe skips and screen-reader-readable reasons identifying each unavailable reversal.",
+      "risk": "Displayed eligibility can become stale; server checks remain authoritative."
+    }
+  ],
+  "abstention_reason": ""
+}

@@ -1,0 +1,10 @@
+{
+  "id": "x01-a",
+  "phase": "diagnostic",
+  "task_id": "x01",
+  "variant": "a",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Persistent versus local-only edit\",\n  \"brief\": \"A workflow preview begins with level 10. At step 1 an editor sets level 20; steps 2 and 3 contain no further edit. Propose the implementation rule for applying the supplied relation. Return the resulting level at steps 1, 2, and 3 as three decimal strings.\",\n  \"constraints\": [\n    \"Do not invent additional edits.\",\n    \"The starting level remains 10 unless the relation carries an edit forward.\"\n  ]\n}\nDonor label: Synthetic stage marker\nRelation: An edit persists into following steps until another explicit edit overrides it.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "c2a9c72ab18de7fe828ca34c28cec968fff48df85e2dda03557a5e6cd71d29e8"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i07-LR",
+  "request_sha256": "afaa133895e69bccaede8311eee2398f4d34822b77404d72339c4530716dc1cf",
+  "prompt_sha256": "1b01ac1cfbc8bfc86ead1f85657cdabea78f346878b1e783133a2510302f20bd",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:33.143615+00:00",
+  "finished_at": "2026-09-20T20:05:54.369146+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.222829708999996,
+      "usage": {
+        "input_tokens": 7270,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 546,
+        "reasoning_output_tokens": 99
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e57657e014cbd43c6bd4f43d50d145c83f32602c9066cae121fc7241b69645b2",
+      "stderr_sha256": "eaf65f4ed076481abd455ee57c7644173dd1b2f7f03cea113d7d7e36818fffd9"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind callouts to explicit evidence checks",
+        "mechanism": "Reevaluate descriptive claims against versioned evidence, separating invalid claims, changed scope, and immaterial revisions.",
+        "implementation": "Store metric/filter IDs, resolved dates, cited values, and analyst-selected predicates and tolerances. Compare after refresh; flag unsupported free-text claims for review.",
+        "check": "A ranking reversal invalidates its callout; changed dates flag scope; a within-tolerance revision logs change without invalidation.",
+        "risk": "Poorly chosen tolerances can conceal meaningful changes; trends cannot establish causation."
+      },
+      {
+        "action": "Keep missing evidence distinct from zero",
+        "mechanism": "Typed evidence states prevent absent series and incomplete observations from silently becoming numeric zero.",
+        "implementation": "Represent absent series, null observations, and observed zeros separately. Define completeness requirements per annotation; mark claims indeterminate when required observations are unavailable.",
+        "check": "Remove a series, null one required observation, then supply zero: verify distinct states and no missing-to-zero coercion.",
+        "risk": "Existing aggregations may hide missingness before annotation checks run."
+      },
+      {
+        "action": "Queue changed callouts for bounded review",
+        "mechanism": "A persistent review queue absorbs refresh bursts without treating delayed review as completed validation.",
+        "implementation": "Coalesce pending items per annotation while preserving change history. Prioritize invalid claims; bind acknowledgments to evidence fingerprints. On capacity overflow, mark affected charts unreviewed.",
+        "check": "Run successive refreshes during review: newer evidence invalidates stale acknowledgment, and overflow leaves a visible export blocker.",
+        "risk": "Persistent refresh volume can exceed review capacity; never silently discard pending changes."
+      },
+      {
+        "action": "Export an atomic, evidence-linked snapshot",
+        "mechanism": "An export preflight couples annotation review with the exact chart data version being rendered.",
+        "implementation": "Freeze chart data and annotations together. Present unresolved evidence changes; require correction, omission, or visible qualification. Embed dataset version, evidence bindings, resolved dates, and review status.",
+        "check": "Refresh during export: output must use one frozen version. Verify unresolved changes appear before export and metadata identifies rendered data.",
+        "risk": "Formats that strip metadata need a paired manifest and visible version identifier."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "b1f06bb2f0ccd01c9d2ed383cbbf2aad66713efdbaf24053b8fe6279610338c1",
+  "raw_output_sha256": "f569c3a1a8282055ad8f95c49037f3d06276b28bf29dd503e3daa5232a26f3cd"
+}

@@ -1,0 +1,47 @@
+{
+  "actions": [
+    {
+      "action": "Condense only verified exact duplicates",
+      "mechanism": "Group matching file hashes only within identical license records; preserve every source asset as an expandable member.",
+      "implementation": "Add indexed group keys using hash and license identity. Keep unknown licenses separate. Show copy counts and member paths; retain original files.",
+      "check": "Identical files sharing a license condense; identical pixels with different license records remain separate selectable results.",
+      "risk": "Hash differences leave some visually identical files uncondensed."
+    },
+    {
+      "action": "Record intentional variants as explicit relationships",
+      "mechanism": "Human-confirmed relationships connect crops, annotations, and originals without treating visual similarity as interchangeability.",
+      "implementation": "Provide relationship types such as cropped-from and annotated-from between asset IDs. Display linked variants without automatically collapsing them or inheriting licenses.",
+      "check": "Link two crops to one original; verify all remain independently searchable, selectable, and associated with their own licenses.",
+      "risk": "Incomplete or mistaken relationships require correction controls."
+    },
+    {
+      "action": "Record the exact licensed file each project used",
+      "mechanism": "An append-only usage record binds project selections to specific assets, rather than changing group representatives.",
+      "implementation": "On project attachment or export, record project ID, asset ID, hash, path, license-record revision, and timestamp. Preserve replacements as new events.",
+      "check": "Change the displayed duplicate representative; project history must still identify the originally selected file and license revision.",
+      "risk": "Files used outside instrumented workflows need manual recording."
+    },
+    {
+      "action": "Serve condensed results directly from the existing index",
+      "mechanism": "Precomputed grouping fields avoid request-time hashing, relationship traversal, and filesystem access on the critical search path.",
+      "implementation": "Index group keys, counts, and card metadata. Page over groups and independent variants; fetch member lists and relationship details only on expansion.",
+      "check": "Benchmark cold and warm first-page loads across representative queries and expected concurrency; require each measured load below one second.",
+      "risk": "Index updates may temporarily leave group counts stale."
+    },
+    {
+      "action": "Offer task-specific filters without suppressing variants",
+      "mechanism": "Dimensions, creators, folders, and explicit version types narrow results through user intent instead of inferred similarity.",
+      "implementation": "Add combinable indexed filters with removable chips. Compute duplicate counts within the filtered result set; keep missing metadata in an explicit unknown category.",
+      "check": "Filter for a crop's dimensions and folder; verify the crop remains discoverable and clearing filters restores excluded assets.",
+      "risk": "Folder conventions and creator metadata may be inconsistent."
+    },
+    {
+      "action": "Let people override unsafe condensation",
+      "mechanism": "Persistent keep-separate exceptions protect intentional distinctions that matching hashes and license records cannot fully describe.",
+      "implementation": "Add a keep-separate control to expanded members, recording actor and reason. Exclude flagged assets from condensation and provide a reversible exception list.",
+      "check": "Separate two byte-identical assets intentionally maintained in different folders; verify both appear independently after reindexing, then test reversal.",
+      "risk": "Accumulated exceptions can reintroduce clutter and need review."
+    }
+  ],
+  "abstention_reason": ""
+}

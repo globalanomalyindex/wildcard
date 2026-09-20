@@ -13,11 +13,11 @@ test("cksum matches POSIX cksum byte-for-byte", () => {
   assert.equal(cksum("layout:review-101"), 3636748815);
 });
 
-test("pickIndex mirrors draw.sh modulo (seed 1 lens -> index 5)", () => {
+test("pickIndex mirrors legacy draw modulo (seed 1 lens -> index 5)", () => {
   assert.equal(pickIndex("lens", "1", 8), 5); // structure-and-form
 });
 
-test("pickIndex streams are independent (verified against shell for seed 7)", () => {
+test("legacy tagged CRC constants match shell seed 7 (not an independence test)", () => {
   assert.equal(pickIndex("domain", "7", 344), 60);
   assert.equal(pickIndex("lens", "7", 344), 275);
 });

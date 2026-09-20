@@ -1,0 +1,1 @@
+{"decision":"apply","action":"SUBTRACT_ONE","trace":["2","1","0"],"explanation":"Each SUBTRACT_ONE decreases the measured offset by one, removing the +3 offset in three applications."}

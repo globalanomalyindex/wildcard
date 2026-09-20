@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s03-S",
+  "request_sha256": "abb2ac6fd4197f5713b4b4b757354aeb05898382f199f80dee3698e094d87b0d",
+  "prompt_sha256": "648043ccdc62b8e47d072ada3e05df26a203d494aebacf6c8befa5d5ebdc8269",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:50.820279+00:00",
+  "finished_at": "2026-09-20T20:16:13.285604+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.464312833000008,
+      "usage": {
+        "input_tokens": 7142,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 577,
+        "reasoning_output_tokens": 123
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "52b9502eaae3f00d2456ea3e17aa9d9f683e09167e2298f0b32d28c5e21cce05",
+      "stderr_sha256": "94c27f89e43087322538c390a601c1249ce53801ac7eaf8709c3ae4cb2d206b2"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Merge paragraph versions instead of complete documents",
+        "mechanism": "A causal multi-value register preserves concurrent paragraph edits, including their original text and authorship.",
+        "implementation": "Persist operations locally with paragraph ID, device/counter ID, two-device causal vector, and text. Exchange missing operations through existing synchronization; retain concurrent versions.",
+        "check": "Edit different paragraphs offline, then the same paragraph. Both reconnect orders must preserve independent changes and identical conflicting texts with author labels.",
+        "risk": "Logical revision ordering alone cannot distinguish concurrency; persist causal counters reliably."
+      },
+      {
+        "action": "Synchronize paragraph ordering separately from paragraph text",
+        "mechanism": "Stable position keys separate moves from prose edits; deterministic tie-breaking handles simultaneous moves.",
+        "implementation": "Store moves as causal operations containing paragraph ID and a position key between neighbors. Select concurrent move winners by operation ID; sort ties by paragraph ID.",
+        "check": "Replay simultaneous moves and text edits in reversed delivery orders. Assert identical paragraph order, one occurrence per paragraph, and unchanged retained text versions.",
+        "risk": "Concurrent placement intent may lose; position keys can grow."
+      },
+      {
+        "action": "Keep deletion conflicts until explicit user resolution",
+        "mechanism": "Tombstones make deletion an attributable competing version, rather than erasing a concurrent edit.",
+        "implementation": "Retain deleted text and conflicting edits. Show author/device labels and deletion status; record resolutions referencing all displayed version IDs. An unseen concurrent version remains unresolved.",
+        "check": "Delete a paragraph offline on one device and edit it on the other. Both reconnect orders must show deletion versus intact edited text.",
+        "risk": "Premature tombstone cleanup can resurrect paragraphs; avoid time-only expiration."
+      },
+      {
+        "action": "Add deterministic offline replay regression tests",
+        "mechanism": "A seeded operation-log harness checks convergence and preservation independently of arrival order.",
+        "implementation": "From a shared baseline, script independent edits, competing edits, moves, deletion versus edit, and resolution. Replay both reconnect orders with duplicates, delayed operations, and restart boundaries.",
+        "check": "Assert equal canonical states, retained unresolved source texts and authors, and no lost independent edits. Repeat at 500 paragraphs with 8 KB text.",
+        "risk": "Finite replay cases cannot prove correctness; retain failing seeds as regressions."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "7eb0f7a956a32d0d31a5d628ff49f98c11a401e9cb0348efeeff1cb5d8100c89",
+  "raw_output_sha256": "60937bad70c69ae6a1ee5288807b8ae62dca6229928de05716f0def015dfbe0f"
+}

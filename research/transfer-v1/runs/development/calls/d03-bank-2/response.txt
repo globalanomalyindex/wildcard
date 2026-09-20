@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Require receipt confirmation before changing the holder",
+      "mechanism": "A proposed handoff stays unresolved until the receiving volunteer confirms possession; intent does not establish custody.",
+      "implementation": "Provide Offer and Confirm receipt buttons in one shared record. Display last confirmed holder, intended recipient, and pending status.",
+      "check": "Offer a transfer without confirming it. Verify the holder remains unchanged and the unresolved handoff is visible.",
+      "risk": "Forgotten confirmation leaves physical possession uncertain."
+    },
+    {
+      "action": "Keep a timestamped, append-only handoff history",
+      "mechanism": "Preserved events make custody changes reconstructable without searching conversational messages or trusting an overwritten status.",
+      "implementation": "Record sender, recipient, physical handoff time, and submission time. Require handoff time on confirmation; append corrections rather than deleting entries.",
+      "check": "Enter a delayed confirmation, then correct its time. Verify both versions remain and the latest valid custody state is displayed.",
+      "risk": "Volunteer-entered physical times may be approximate."
+    },
+    {
+      "action": "Reject conflicting or repeated transfers",
+      "mechanism": "Version checks and unique transfer identifiers prevent stale screens or repeated taps from producing contradictory custody records.",
+      "implementation": "Allow one pending transfer. Atomically validate the current holder and record version; process each confirmation identifier only once.",
+      "check": "Submit competing offers from stale screens, then repeat a confirmation. Verify one transfer survives and custody changes only once.",
+      "risk": "Rejected submissions need clear refresh instructions."
+    },
+    {
+      "action": "Add an explicit custody-dispute recovery path",
+      "mechanism": "An uncertainty state exposes conflicting reports instead of presenting the last recorded holder as verified physical possession.",
+      "implementation": "Let either volunteer flag uncertainty. Preserve the last confirmed holder; require a named possession claim and the other's acknowledgment to resolve it.",
+      "check": "Flag conflicting possession reports. Verify uncertainty stays visible until both volunteers acknowledge the same resolution, with its time recorded.",
+      "risk": "Resolution stalls when either volunteer cannot respond."
+    },
+    {
+      "action": "Remind volunteers about unresolved handoffs",
+      "mechanism": "Age-based prompts draw attention to incomplete transfers without silently declaring that custody changed.",
+      "implementation": "Choose a reminder interval together. Notify the recipient of pending receipt confirmation and keep the unresolved item pinned for both volunteers.",
+      "check": "Leave a test handoff pending beyond the interval. Verify a reminder appears, custody stays unchanged, and confirmation stops further prompts.",
+      "risk": "Frequent reminders can become background noise."
+    },
+    {
+      "action": "Separate future arrangements from actual possession",
+      "mechanism": "Plans and reservations cannot overwrite custody, preventing statements such as 'I'll take it tomorrow' from becoming false location information.",
+      "implementation": "Add a separate Planned handoff section with intended participants and scheduled time. Require the ordinary receipt-confirmation process for actual transfer.",
+      "check": "Schedule tomorrow's transfer and let its scheduled time pass. Verify current custody remains unchanged and no completed handoff is fabricated.",
+      "risk": "Volunteers may mistake scheduling for completing the transfer."
+    },
+    {
+      "action": "Offer a paper ledger as a digital alternative",
+      "mechanism": "A fixed, shared ledger provides inspectable custody records without hardware, accounts, or reliance on chat access.",
+      "implementation": "Instead of the digital workflow, keep a ledger somewhere both can access without the key. Record each handoff's time, names, and both initials.",
+      "check": "Leave a transfer row missing recipient initials. Verify either volunteer can identify the last jointly confirmed holder and unresolved transfer.",
+      "risk": "Requires visiting the ledger; missing entries remain possible."
+    }
+  ],
+  "abstention_reason": ""
+}

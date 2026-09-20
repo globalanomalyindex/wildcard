@@ -1,0 +1,99 @@
+{
+  "schema_version": 1,
+  "id": "i07-bank-1",
+  "request_sha256": "c80bcae7cce50859bf354cc133fcd47f0bc4cfa8c6ffd923051c35d6ec3fce4b",
+  "prompt_sha256": "e4c6e4d1b845b7fdc04a163161a63c233643536207a93669ccfcc9841f410b71",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:56:43.220804+00:00",
+  "finished_at": "2026-09-20T19:57:15.310554+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.08753025,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 913,
+        "reasoning_output_tokens": 76
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1b0986a7dc151ebaf3ecffc8ece86bc8cab6e6b0990f0b2941734e5c24be44c0",
+      "stderr_sha256": "5893cf31fa12df3ba6819b8c8108f5689518be0ebbc77cd0a58847b1745e89b8"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind each callout to an evidence contract",
+        "mechanism": "Stable identifiers and explicit dependencies make cited evidence traceable across refreshes, renames, and chart edits.",
+        "implementation": "Store metric IDs, filter IDs and resolved values, aggregation, units, cited series, evaluation window, and original data version with each annotation.",
+        "check": "Rename a metric: its binding survives. Change a filter value: the annotation is marked for evidence review.",
+        "risk": "Stable IDs alone cannot detect changed metric definitions."
+      },
+      {
+        "action": "Recheck the specific claim after refresh",
+        "mechanism": "Evaluating an explicit claim detects when its supporting pattern disappears, rather than treating every refresh identically.",
+        "implementation": "Offer predicates for ranking, direction, and thresholds; store tie rules. For unsupported prose, request manual review when dependencies change.",
+        "check": "Reverse two series’ rankings: a highest-value callout becomes contradicted. A tie follows the stored tie rule.",
+        "risk": "Predicates validate descriptive claims, not causal explanations or significance."
+      },
+      {
+        "action": "Represent unavailable evidence separately from zero",
+        "mechanism": "Explicit availability states prevent absent series and missing observations from becoming apparently valid numeric evidence.",
+        "implementation": "Distinguish observed zero, missing observation, absent series, and evaluation error. Propagate these states through claim evaluation; display unavailable evidence visibly.",
+        "check": "Refresh fixtures containing zero, null, and a removed series produce distinct states; only observed zero supports a zero-value claim.",
+        "risk": "Partial aggregation can conceal missingness unless completeness rules are explicit."
+      },
+      {
+        "action": "Make annotation date-range behavior explicit",
+        "mechanism": "Separating fixed evidence windows from chart-following windows prevents silent changes to a callout’s temporal scope.",
+        "implementation": "Require fixed or follow-chart mode; store resolved boundaries, timezone, and bucket granularity. Surface changed scope or fixed evidence outside the chart.",
+        "check": "Change the chart range: following annotations reevaluate; fixed annotations retain their dates and flag excluded evidence.",
+        "risk": "Timezone and inclusive-boundary mismatches can create misleading scope changes."
+      },
+      {
+        "action": "Separate material revisions from harmless revisions",
+        "mechanism": "Dependency-scoped comparisons distinguish altered conclusions from revised observations that leave the cited claim materially unchanged.",
+        "implementation": "Compare cited inputs and predicate results across versions. Use analyst-set absolute or relative tolerances; show immaterial revisions informationally, but never suppress predicate flips.",
+        "check": "Revise historical values below tolerance without changing the claim: show a revision notice, not contradiction. A ranking reversal still escalates.",
+        "risk": "Overly broad tolerances can hide meaningful numeric changes."
+      },
+      {
+        "action": "Anchor callouts to evidence keys, not pixels",
+        "mechanism": "Semantic anchors prevent reordered or replaced observations from leaving annotations attached to unrelated chart marks.",
+        "implementation": "Store series ID and observation key or time interval; resolve positions after redraw. If resolution fails, detach visibly instead of choosing the nearest point.",
+        "check": "Reorder observations and resize the chart: the anchor remains correct. Delete its observation: the callout becomes visibly detached.",
+        "risk": "Aggregated charts need explicit rules for mapping intervals to marks."
+      },
+      {
+        "action": "Gate export on a version-specific review",
+        "mechanism": "A pre-export evidence review prevents stale confident text from bypassing refresh warnings or racing a later update.",
+        "implementation": "Evaluate against a pinned snapshot; list changed annotations with old and new evidence. Require editing, removal, or an exported caveat for unresolved claims.",
+        "check": "Attempt export after a ranking reversal: review appears first. Refresh during review: export retains the pinned version or restarts validation.",
+        "risk": "Uninformative bulk acknowledgments can turn review into a rubber stamp."
+      },
+      {
+        "action": "Package evidence provenance with every export",
+        "mechanism": "Portable provenance identifies the exact dataset and annotation evaluation state behind a shared chart, including static formats.",
+        "implementation": "Embed a version identifier and annotation evidence manifest in supported formats; include a visible version label and companion manifest for flat images.",
+        "check": "Export each supported format and recover its dataset version, metric/filter references, resolved dates, and review states without opening the editor.",
+        "risk": "A companion manifest may be separated from its image."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "4e77d6d3a42ea9bf5abe3196bffd929bacd4ebd82519f0601a32548bbf196c6b",
+  "raw_output_sha256": "34b3ff45c9fe43e4469b981f7c88be97c682cac0e01c2a4d2f748612a63b2d3a"
+}

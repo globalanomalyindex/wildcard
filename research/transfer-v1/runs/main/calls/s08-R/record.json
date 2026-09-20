@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s08-R",
+  "request_sha256": "9638813fd005cefe8dea7578d14bd07e2f3bdf14a4c76a2aa10764f8a602915f",
+  "prompt_sha256": "68459d1f1d60eeb887b34cd3e76bc40ae40ce8e5daa01f8578677fccf7493631",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:06:14.201062+00:00",
+  "finished_at": "2026-09-20T20:06:37.541934+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 23.338385208999995,
+      "usage": {
+        "input_tokens": 7256,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 648,
+        "reasoning_output_tokens": 134
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b3e854dab412cd1e36ad51d9d2c59ca9390daafe0a90ccb38b6ce7df3fecf91a",
+      "stderr_sha256": "9b044a1bcd2991dd6faf65e23f0b4eaed219d52b2282541d0e7fcab9d48f3122"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce format eligibility on the server",
+        "mechanism": "Creation requires the flag and declared write capabilities; opening requires the document's declared read capabilities.",
+        "implementation": "Persist required capabilities per document. Check authorization and capabilities on create, open, and edit; reject unsupported requests before returning document payloads.",
+        "check": "Exercise flag-on/off requests from both binaries. Old clients still open legacy documents but cannot create or receive unsupported formats.",
+        "risk": "Declared capabilities do not prove parser correctness."
+      },
+      {
+        "action": "Fork upgrades without replacing readable originals",
+        "mechanism": "Separate document identities preserve old clients' access without pretending a legacy snapshot represents newer content.",
+        "implementation": "Prohibit in-place legacy upgrades. Create an explicitly labeled new-format fork, preserving the original's content, permissions, and discoverability. Do not automatically merge unsupported edits back.",
+        "check": "During mixed-version collaboration, an old client reads and edits the original while a new client edits the fork; neither overwrites the other.",
+        "risk": "Branches diverge and require explicit reconciliation."
+      },
+      {
+        "action": "Make rollback stop creation, not erase documents",
+        "mechanism": "Separate rollout admission from durable format support so existing new documents survive flag reversal.",
+        "implementation": "On rollback, reject new-format creation and upgrades. Preserve existing bytes and metadata; retain compatible read handlers and make existing new documents explicitly read-only.",
+        "check": "Create and edit a new document, disable the flag, then verify identical content, compatible-client reopening, and rejected writes without deletion.",
+        "risk": "Removing format handlers during deployment rollback would break access."
+      },
+      {
+        "action": "Bind capability decisions to each client session",
+        "mechanism": "Prevent a newer device's cached capabilities from authorizing unsupported payloads for an older device on the same account.",
+        "implementation": "Bind capability declarations to sessions and revisions. Key cached decisions by session, capability revision, document format, and policy epoch; revalidate mismatches before serving content.",
+        "check": "Seed an old session with a newer session's cached allowance. Verify rejection of new-format payloads while legacy reads remain available.",
+        "risk": "Incorrect declarations within the same session remain undetectable."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "ec4d519346c4537407150e1ce8b94dc16e0eea2420e803199ab93b475f342771",
+  "raw_output_sha256": "35436e7cbe420acaf6c822d6445bb7c36f2186307307fae9c8875a1e460195eb"
+}

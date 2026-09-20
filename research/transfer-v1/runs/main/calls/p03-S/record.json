@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p03-S",
+  "request_sha256": "73734f3c6d210dff55737e7dab089c60a976bc74d3d48c908d2b36cd7bf5ce29",
+  "prompt_sha256": "f1bf83a2eb39eb05f698418ea643d55206dbb699a78c4b51fe3e17668215c0fa",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:03.742494+00:00",
+  "finished_at": "2026-09-20T20:07:20.538261+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 16.79384399999998,
+      "usage": {
+        "input_tokens": 7138,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 433,
+        "reasoning_output_tokens": 104
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "699795dee3bc127ab7a84b266206140a6dee01d93b6b638b806d9e5921f4047b",
+      "stderr_sha256": "b240d5a9ee6cb9eb9e3e36a9e250e74184f9e85c1cd3a1b4f8da334a0a781a1c"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Retry only attachments that need attention",
+        "mechanism": "Track each file separately; accepted receipts stay attached while failed files offer explicit recovery choices.",
+        "implementation": "Show uploading, accepted, failed, or unconfirmed status per row. Retry failed rows only; allow removal or replacement. Never automatically retry unconfirmed uploads.",
+        "check": "Force two of five uploads to fail. Retry them and verify the three accepted files generate no additional upload requests.",
+        "risk": "Lost responses require receipt reconciliation; otherwise acceptance remains unconfirmed."
+      },
+      {
+        "action": "Explain recovery when the tab reopens",
+        "mechanism": "Restore accepted attachments from unexpired receipts, while clearly distinguishing them from files whose browser selection was lost.",
+        "implementation": "Persist only opaque receipt identifiers for 24 hours. Resolve them server-side on reopening; explain unavailable receipts and request missing file selections again.",
+        "check": "Close after partial acceptance, then reopen. Accepted attachments remain available without reupload; missing selections require reselection. Repeat with expired receipts.",
+        "risk": "Without receipts, recovery cannot promise access to previously accepted files."
+      },
+      {
+        "action": "Require review of the exact final list",
+        "mechanism": "Separate attachment recovery from case submission so partial batches cannot silently become final cases.",
+        "implementation": "Present a receipt-backed review list capped at five files. Require explicit confirmation; invalidate it after edits and disable repeated submission while pending.",
+        "check": "Remove or replace an attachment after review: submission must require renewed confirmation. Double-click submit: only one request leaves the page.",
+        "risk": "Client-side locking cannot prevent duplicates after an ambiguous submission response."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "df51cfcc7b542255454ea245a6c872539e85fd7d36531c3a24190de19ee73d93",
+  "raw_output_sha256": "2ce61f5a2b27ab5be8c84fe36edc939dc647e5fcb41f1aa90daf47802b36b3ed"
+}

@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "p02-bank-1",
+  "request_sha256": "231fd0359a5d0773ace79f8694c918cb9fb4937ad0a574f709666a07394a56ad",
+  "prompt_sha256": "70f9e464a92a301e9676eb54ad8c4c8e52abd6bb00e48a1e932f7b9d3cbd1cc0",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:01:49.548414+00:00",
+  "finished_at": "2026-09-20T20:02:19.216237+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.666006959000015,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 874,
+        "reasoning_output_tokens": 182
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "2c1c1d2f8c04c966023ffde67ce0cae29380393b8a7e246d9c4c1797d8f8f3ad",
+      "stderr_sha256": "2889d18e2f0abdf43cde0889a010b833621d3900a025630534de84dbfdf37851"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve product focus; define a removal fallback",
+        "mechanism": "Stable product identities preserve focus through reordering; a consistent results heading receives focus only when the focused product disappears.",
+        "implementation": "Key cards by product ID. Preserve the focused control where possible. After removal, focus a tabindex=\"-1\" results heading and announce removal. Never steal filter focus.",
+        "check": "Reorder a retained product: its control stays focused. Filter it out: focus reaches the heading, never the document body.",
+        "risk": "Replacing keyed card internals can still destroy focused controls."
+      },
+      {
+        "action": "Separate loading, count, and empty states",
+        "mechanism": "A persistent visible status provides quick counts; a polite live region communicates completed updates without moving focus.",
+        "implementation": "Immediately display “Updating results.” Mark the results container busy. On completion, clear busy and publish the count outside that container; show empty guidance only for confirmed zero.",
+        "check": "Within one second of accepted results arriving, the latest count is visible and exposed. Slow requests never display premature zero results.",
+        "risk": "Screen-reader speech timing varies; avoid promising announcement completion within one second."
+      },
+      {
+        "action": "Commit only the latest filter response",
+        "mechanism": "Request sequencing prevents stale responses from replacing newer products, counts, or focus decisions.",
+        "implementation": "Assign each filter request a generation number. Ignore superseded responses. Commit products, count, busy state, and focus reconciliation together for the latest generation.",
+        "check": "Resolve three requests out of order, including stale zero results. Only the latest response changes the interface; its count appears within one second.",
+        "risk": "Cancellation alone is insufficient when an earlier response has already completed."
+      },
+      {
+        "action": "Make product ordering deterministic and explicit",
+        "mechanism": "A visible sort rule and stable tie-breaker prevent arbitrary movement among equally ranked matching products.",
+        "implementation": "Use a deterministic secondary product-ID sort. Keep the chosen sort across filter changes. Expose keyboard-operable sort controls; align DOM order with visual order.",
+        "check": "Repeat identical queries: product order remains identical. Change filters: surviving products follow the declared sort, and keyboard traversal matches the displayed sequence.",
+        "risk": "Live ranking changes can still legitimately move products; retain focus independently."
+      },
+      {
+        "action": "Expose large result sets through accessible pages",
+        "mechanism": "Keyboard-operable pagination bounds rendered content while keeping every match reachable and providing predictable page transitions.",
+        "implementation": "Add labeled page controls and ranges. Explicit page navigation focuses the results heading. On filtering, retain the focused product’s page if it survives; otherwise use the first page.",
+        "check": "Reach every matching product without a pointer. Retained-product filtering preserves its control focus; removal uses the heading fallback. Announce page and total counts.",
+        "risk": "Unexpected page changes require clear range feedback; use pagination instead of inaccessible virtualization."
+      },
+      {
+        "action": "Provide direct routes between filters and results",
+        "mechanism": "Named regions and skip links let users resume browsing without traversing every intervening filter or product.",
+        "implementation": "Add keyboard-visible “Skip to results” and “Back to filters” links targeting focusable headings. Label the results region from its heading and expose cards as a semantic list.",
+        "check": "Using only the keyboard, move both directions and continue in logical order. With a screen reader, locate both named regions and hear list structure.",
+        "risk": "Avoid assigning grid roles unless implementing the corresponding keyboard interaction model."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "94e1df62fab6f6237368ff051ed6d85bc7bba1f74fd96d23ddd2179ec4d44761",
+  "raw_output_sha256": "2675d4f7ae4e45d3fd770d02edb058bd382cdb2e7e658c833e6cb7d2a78dea03"
+}

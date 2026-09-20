@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "d02-bank-2",
+  "request_sha256": "e438087b2cd17d60cf8c3049433b6412d2e82f56dd1cfece85a76b8d8b45b9e3",
+  "prompt_sha256": "52d80ab1a9b725486cf650d10f6dd0a21bb0c1cf8377bcde3a3be64d2d152b48",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:48:42.174789+00:00",
+  "finished_at": "2026-09-20T19:49:12.809733+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 30.632440292,
+      "usage": {
+        "input_tokens": 7044,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 869,
+        "reasoning_output_tokens": 112
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "26b9e792ed7386f0365f9319cbc7517891ad715396520045cee532a5cfec2e7b",
+      "stderr_sha256": "15c89408ab3e49f0169dd211efc3736029d2cf9e0a8b93375589e28645019bfa"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce expiration independently of cleanup.",
+        "mechanism": "Read-time deadline checks prevent expired records being labeled fresh, even when background cleanup runs late.",
+        "implementation": "Stamp each fetch with monotonic start time; expire by start plus 300 seconds, or earlier source expiry. Delete expired entries before serving.",
+        "check": "With a fake clock, reads immediately before expiry succeed; reads at or after expiry miss, including during outages.",
+        "risk": "Starting freshness at fetch initiation shortens useful cache lifetime."
+      },
+      {
+        "action": "Make timeout and outage responses explicit.",
+        "mechanism": "A bounded source request produces a documented unavailable response rather than an expired record or indefinite wait.",
+        "implementation": "Set a configurable source deadline. On timeout, cancel the fetch and return 503 with source_timeout. Delete expired entries; retain unexpired entries until their deadlines.",
+        "check": "Simulate a hanging source: misses return 503 within the configured deadline and scheduling tolerance; expired records are never returned.",
+        "risk": "An overly short deadline rejects recoverable slow requests."
+      },
+      {
+        "action": "Bound storage with deterministic eviction.",
+        "mechanism": "Atomic admission keeps the cache within 100 records while preserving useful entries during source failures.",
+        "implementation": "Under one lock, remove expired entries, then evict the least recently used entry only when admitting a successful new record into a full cache.",
+        "check": "Insert 101 distinct records and verify the expected eviction. Concurrent insertions never exceed 100 entries; failed fetches never evict unexpired entries.",
+        "risk": "Large individual records still require a separate byte limit."
+      },
+      {
+        "action": "Coalesce duplicate fetches and bound pending work.",
+        "mechanism": "One source fetch per key prevents duplicate requests; bounded admission prevents outage-driven accumulation of pending work.",
+        "implementation": "Maintain a bounded map of in-flight promises. Join existing fetches; reject excess distinct-key fetches with 503 busy. Remove promises on every completion path.",
+        "check": "Send simultaneous misses for one key: observe one source call. Hang distinct-key requests and verify the configured pending-work limit holds.",
+        "risk": "Waiters need independent cancellation without canceling their shared fetch."
+      },
+      {
+        "action": "Reject nonpublic data before cache admission.",
+        "mechanism": "An explicit public-data boundary prevents credentials, private fields, and personalized responses from entering the cache or diagnostics.",
+        "implementation": "Fetch only approved public endpoints without user credentials. Validate a public-field allowlist, reject unexpected fields, and disable request-body and response-body logging.",
+        "check": "Inject an unexpected sensitive field and a credential-bearing request; verify rejection and absence from cache, logs, and error responses.",
+        "risk": "Field validation alone cannot establish that a source is public."
+      },
+      {
+        "action": "Pause source calls after repeated failures.",
+        "mechanism": "A circuit breaker makes sustained outages explicit while preserving access to records that remain unexpired.",
+        "implementation": "After a configured failure threshold, open the circuit for a bounded cooldown. Serve valid hits; return 503 source_unavailable for misses. Permit one recovery probe.",
+        "check": "Force threshold failures, confirm no source calls during cooldown, then recover the source and verify one successful probe restores fetching.",
+        "risk": "Cooldown delays recovery detection; expiry and eviction rules must remain unchanged."
+      },
+      {
+        "action": "Prevent late fetches from resurrecting records.",
+        "mechanism": "Fetch-generation checks block obsolete or canceled completions from overwriting newer data or recreating entries after invalidation.",
+        "implementation": "Give each admitted fetch a generation token. Commit only if its token remains current, its request remains active, and its original expiry deadline has not passed.",
+        "check": "Complete a canceled fetch after a newer successful fetch; verify no overwrite. Complete another after its deadline; verify no cache insertion.",
+        "risk": "Generation bookkeeping must be bounded and removed when no longer needed."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "77eba046c30c837ceb8662e8c568ee929106ef6c3fe684633b9d7c882cc48900",
+  "raw_output_sha256": "4de213560d5cae3f6a10035aa6c49b4fa85834a73fa57d6cb1bb0552ec25d3d9"
+}

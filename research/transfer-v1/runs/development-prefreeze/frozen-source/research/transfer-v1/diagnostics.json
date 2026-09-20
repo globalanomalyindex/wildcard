@@ -1,0 +1,281 @@
+{
+  "schema_version": "wildcard-transfer-diagnostics-v1",
+  "purpose": "Eight paired, invented known-answer fixtures. They test operational relation sensitivity and constraint handling; they are excluded from all main efficacy outcomes.",
+  "output_contract": {
+    "decision": "apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.",
+    "action": "One concrete target rule or intervention.",
+    "trace": "Array of strings, exactly as requested by the brief.",
+    "explanation": "One short evidence-based explanation."
+  },
+  "scoring": {
+    "trace": "Exact string-array equality against expected_trace_a/b.",
+    "decision": "Exact enum equality against expected_decision_a/b.",
+    "x05_action": "Trim whitespace and uppercase the action field; it must equal SUBTRACT_ONE for A and ADD_ONE for B.",
+    "pair_pass": "Both variants must satisfy decision and trace checks; x05 must also satisfy the command check.",
+    "scope": "Operational trace accuracy on these eight constructed pairs. Action adequacy beyond x05 and explanations are published for qualitative review, not silently given a numerical score."
+  },
+  "fixtures": [
+    {
+      "id": "x01",
+      "title": "Persistent versus local-only edit",
+      "brief": "A workflow preview begins with level 10. At step 1 an editor sets level 20; steps 2 and 3 contain no further edit. Propose the implementation rule for applying the supplied relation. Return the resulting level at steps 1, 2, and 3 as three decimal strings.",
+      "constraints": [
+        "Do not invent additional edits.",
+        "The starting level remains 10 unless the relation carries an edit forward."
+      ],
+      "label": "Synthetic stage marker",
+      "relation_a": "An edit persists into following steps until another explicit edit overrides it.",
+      "relation_b": "An edit applies only to its own step; on the next step the previous underlying level resumes.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "apply",
+      "expected_trace_a": [
+        "20",
+        "20",
+        "20"
+      ],
+      "expected_trace_b": [
+        "20",
+        "10",
+        "10"
+      ],
+      "expected_a": [
+        "Implement inherited state across unchanged steps."
+      ],
+      "expected_b": [
+        "Restore the underlying level after the local step."
+      ],
+      "failure_signals": [
+        "Same trace for both relations.",
+        "Only restating persistence words without a concrete preview rule."
+      ]
+    },
+    {
+      "id": "x02",
+      "title": "Masking a notice versus deleting its contents",
+      "brief": "A draft queue contains four unsent drafts. An operator requests RESET to clear a distracting notice; two new drafts arrive afterward. The queue offers RESET and HIDE_NOTICE. HIDE_NOTICE changes only display. Implement the request without losing any draft. Trace must contain the first operation's result, followed by the final number of retained drafts. The first trace entry is the retained-draft count if RESET is applied, or BLOCKED if RESET is blocked.",
+      "constraints": [
+        "No draft may be deleted or submitted.",
+        "Use RESET only if its stated effect respects that constraint.",
+        "For a blocked RESET, emit BLOCKED as the first trace entry."
+      ],
+      "label": "Synthetic maintenance marker",
+      "relation_a": "RESET clears only the notice display and leaves all queued contents unchanged.",
+      "relation_b": "RESET clears the notice by deleting every queued item.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "adapt",
+      "expected_trace_a": [
+        "4",
+        "6"
+      ],
+      "expected_trace_b": [
+        "BLOCKED",
+        "6"
+      ],
+      "expected_a": [
+        "Use RESET, then retain the two arriving drafts."
+      ],
+      "expected_b": [
+        "Block RESET and use HIDE_NOTICE or leave the notice unchanged while preserving drafts."
+      ],
+      "failure_signals": [
+        "Deletes drafts to follow the donor relation.",
+        "Treats a hidden warning as cleared workload."
+      ]
+    },
+    {
+      "id": "x03",
+      "title": "Exclusive versus shareable access",
+      "brief": "Two users A and B request the same digital resource in that order. Neither releases it during the observation window. The resource follows exactly the supplied allocation relation. Propose the admission rule and trace the result of each request as GRANT or WAIT.",
+      "constraints": [
+        "Do not add resource copies.",
+        "Apply the supplied rights contract without pretending that a waiting request was granted."
+      ],
+      "label": "Synthetic access marker",
+      "relation_a": "The resource is exclusive: at most one user holds it, and another request waits until that user releases it.",
+      "relation_b": "The resource is shareable: each user may hold a read-only right concurrently, and one holder does not consume another holder's right.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "apply",
+      "expected_trace_a": [
+        "GRANT",
+        "WAIT"
+      ],
+      "expected_trace_b": [
+        "GRANT",
+        "GRANT"
+      ],
+      "expected_a": [
+        "Hold an exclusive claim and queue the second request."
+      ],
+      "expected_b": [
+        "Permit concurrent read-only grants while keeping holder identities."
+      ],
+      "failure_signals": [
+        "Adds physical capacity to avoid enforcing exclusivity.",
+        "Confuses separate holder identities with separate resource copies."
+      ]
+    },
+    {
+      "id": "x04",
+      "title": "Timed evidence versus explicit revocation",
+      "brief": "At time 0 a service receives a verification record. At time 6 it must label that record VALID or UNKNOWN; at time 8 an explicit revocation arrives, and it labels the record again. The record follows exactly the supplied relation. Propose the state rule and return the two labels.",
+      "constraints": [
+        "No refresh occurs between time 0 and time 8.",
+        "Revocation makes the record UNKNOWN in either variant.",
+        "Do not infer a successful refresh from absence of an error."
+      ],
+      "label": "Synthetic evidence marker",
+      "relation_a": "Verification expires five time units after receipt unless refreshed.",
+      "relation_b": "Verification remains valid until an explicit revocation; elapsed time alone does not expire it.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "apply",
+      "expected_trace_a": [
+        "UNKNOWN",
+        "UNKNOWN"
+      ],
+      "expected_trace_b": [
+        "VALID",
+        "UNKNOWN"
+      ],
+      "expected_a": [
+        "Expire at time 5 and preserve unknown status after revocation."
+      ],
+      "expected_b": [
+        "Keep validity through time 6, then invalidate on revocation."
+      ],
+      "failure_signals": [
+        "Same freshness rule despite the changed relation.",
+        "Reports a fabricated renewal."
+      ]
+    },
+    {
+      "id": "x05",
+      "title": "Opposite correction direction",
+      "brief": "A harmless display calibration simulator has a measured offset of +3 units from its reference. Two available commands ADD_ONE and SUBTRACT_ONE respectively increase and decrease an internal control value by one. Under the supplied relation, choose one command and apply it exactly three times to remove the offset. Return the measured offset after each application. For this fixture only, action must be exactly the selected command token, with no extra prose.",
+      "constraints": [
+        "The relation exactly defines the simulator; do not substitute a remembered physical law.",
+        "The trace must use decimal strings and end at 0.",
+        "Do not change the reference."
+      ],
+      "label": "Synthetic calibration marker",
+      "relation_a": "Increasing the control value increases the measured offset by the same amount; decreasing it decreases the offset.",
+      "relation_b": "Increasing the control value decreases the measured offset by the same amount; decreasing it increases the offset.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "apply",
+      "expected_trace_a": [
+        "2",
+        "1",
+        "0"
+      ],
+      "expected_trace_b": [
+        "2",
+        "1",
+        "0"
+      ],
+      "expected_a": [
+        "Action must explicitly use SUBTRACT_ONE three times."
+      ],
+      "expected_b": [
+        "Action must explicitly use ADD_ONE three times."
+      ],
+      "failure_signals": [
+        "Same correction command under opposite response directions.",
+        "Renames the offset as zero without changing it."
+      ]
+    },
+    {
+      "id": "x06",
+      "title": "Finite buffer with and without recovery",
+      "brief": "A toy processor has storage capacity 4 units, begins empty, and receives 3 units in each of two periods. Each period records storage immediately after arrival and then performs the supplied recovery operation. A plan must avoid overflow and preserve every unit. Decide whether admitting both arrivals without changing the schedule is supported. Return the two arrival-time storage levels; if a level would exceed capacity, write OVERFLOW.",
+      "constraints": [
+        "No unit may be dropped or overwritten.",
+        "Capacity cannot be expanded.",
+        "An unsupported plan must be adapted by delaying admission or changing the explicitly stated service schedule, not called safe as written."
+      ],
+      "label": "Synthetic reservoir marker",
+      "relation_a": "After each arrival the processor completes and removes 3 stored units before the next period.",
+      "relation_b": "After each arrival the processor performs no work and retains every stored unit into the next period.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "adapt",
+      "expected_trace_a": [
+        "3",
+        "3"
+      ],
+      "expected_trace_b": [
+        "3",
+        "OVERFLOW"
+      ],
+      "expected_a": [
+        "Admit both periods with the stated recovery."
+      ],
+      "expected_b": [
+        "Reject unchanged admission; schedule real work or defer the second arrival while preserving its units outside the admitted queue."
+      ],
+      "failure_signals": [
+        "Claims buffering removes workload.",
+        "Drops the extra units silently."
+      ]
+    },
+    {
+      "id": "x07",
+      "title": "Unique marker versus ambiguous repeated marker",
+      "brief": "A text editor must attach a note to a revised passage. The original contains marker K. The revised document has candidate passages P and Q. The supplied relation describes marker evidence. Propose a safe anchoring rule. Trace is a single selected passage ID or UNRESOLVED.",
+      "constraints": [
+        "No silent attachment when more than one candidate satisfies the evidence.",
+        "Do not choose based on which candidate is presented first.",
+        "The note and original text must be retained."
+      ],
+      "label": "Synthetic alignment marker",
+      "relation_a": "K is a unique stable identity marker, and only candidate P carries K; Q has a different marker.",
+      "relation_b": "K is a repeated decorative marker shared by P and Q, and no other evidence distinguishes them.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "abstain",
+      "expected_trace_a": [
+        "P"
+      ],
+      "expected_trace_b": [
+        "UNRESOLVED"
+      ],
+      "expected_a": [
+        "Attach to P using the unique stable identity and preserve the old reference."
+      ],
+      "expected_b": [
+        "Keep the note unresolved and request disambiguating evidence rather than selecting a similar-looking passage."
+      ],
+      "failure_signals": [
+        "Uses a repeated marker as a unique identifier.",
+        "Drops the unresolved note."
+      ]
+    },
+    {
+      "id": "x08",
+      "title": "Detection versus correction",
+      "brief": "A toy message receiver sees an invalid encoded record. It must either recover the unique original or expose uncertainty. There are only two possible originals, A and B. The supplied relation defines exactly what the redundancy tells the receiver. Propose its output rule. Trace is a single original ID or UNRESOLVED.",
+      "constraints": [
+        "Never guess between equally supported originals.",
+        "Do not request an unavailable retransmission.",
+        "An unresolved record must remain visible for later repair."
+      ],
+      "label": "Synthetic redundancy marker",
+      "relation_a": "The observed redundant symbols are consistent with A and inconsistent with B, so the original is uniquely recoverable.",
+      "relation_b": "The check detects corruption, but the remaining symbols are equally consistent with A and B, so it cannot identify the original.",
+      "expected_decision_a": "apply",
+      "expected_decision_b": "abstain",
+      "expected_trace_a": [
+        "A"
+      ],
+      "expected_trace_b": [
+        "UNRESOLVED"
+      ],
+      "expected_a": [
+        "Recover A and mark the recovery basis."
+      ],
+      "expected_b": [
+        "Expose a detected-but-uncorrectable state and retain the record."
+      ],
+      "failure_signals": [
+        "Equates error detection with unique recovery.",
+        "Invents a third original or hidden evidence."
+      ]
+    }
+  ]
+}

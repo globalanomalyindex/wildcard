@@ -1,0 +1,10 @@
+{
+  "id": "x05-a",
+  "phase": "diagnostic",
+  "task_id": "x05",
+  "variant": "a",
+  "model": "gpt-6-astra",
+  "schema": "diagnostic",
+  "prompt": "This is a hypothetical mechanism-transfer check, not a factual statement about a real donor domain. Use the supplied relation to propose the target rule and return the observable outcome trace. Do not provide private reasoning; the trace is the requested target-system output.\n\n{\n  \"title\": \"Opposite correction direction\",\n  \"brief\": \"A harmless display calibration simulator has a measured offset of +3 units from its reference. Two available commands ADD_ONE and SUBTRACT_ONE respectively increase and decrease an internal control value by one. Under the supplied relation, choose one command and apply it exactly three times to remove the offset. Return the measured offset after each application. For this fixture only, action must be exactly the selected command token, with no extra prose.\",\n  \"constraints\": [\n    \"The relation exactly defines the simulator; do not substitute a remembered physical law.\",\n    \"The trace must use decimal strings and end at 0.\",\n    \"Do not change the reference.\"\n  ]\n}\nDonor label: Synthetic calibration marker\nRelation: Increasing the control value increases the measured offset by the same amount; decreasing it decreases the offset.\n\nOutput contract:\n{\"decision\": \"apply = the supplied mechanism supports the requested operation unchanged; adapt = change or block part of the requested operation to meet a constraint; abstain = do not select an unsupported match or reconstruction.\", \"action\": \"One concrete target rule or intervention.\", \"trace\": \"Array of strings, exactly as requested by the brief.\", \"explanation\": \"One short evidence-based explanation.\"}\nReturn JSON with exactly decision, action, trace, explanation. No tools.",
+  "prompt_sha256": "35091ecbc999ab52aba647457f483cdac5552fb937f8c29934f6cde0b96b6827"
+}

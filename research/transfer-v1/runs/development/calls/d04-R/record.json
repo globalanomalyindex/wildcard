@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d04-R",
+  "request_sha256": "7287d506e1dacbaa15893c5ff3932d1f096bd529b0fa8d714e20a505f614d31b",
+  "prompt_sha256": "0964c81e8b23887ec69432e0d7eb7f62f0430d8baf62efe60070b3268b5b9212",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:50:41.939844+00:00",
+  "finished_at": "2026-09-20T19:51:02.277515+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.335264124999995,
+      "usage": {
+        "input_tokens": 7173,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 567,
+        "reasoning_output_tokens": 138
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e6294a2f3d86aa24ae18cc13498c1c5c02225fdecf53a0fb6dbe8ddae7139f39",
+      "stderr_sha256": "770a1845849ab753aaf0838b0b25ff63efaa7a3deae8d1f4798c8040789d8141"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require valid source links before saving definitions",
+        "mechanism": "A required reference to an existing supplied passage prevents definitions from becoming detached from their evidence.",
+        "implementation": "Store passage IDs in a supplied-source registry. Require each definition variant to reference an existing ID; prohibit deleting referenced passages.",
+        "check": "Attempt saves with missing, unknown, and valid IDs. Only the valid case succeeds, and its source link opens the referenced passage.",
+        "risk": "A valid reference does not establish that wording is supported."
+      },
+      {
+        "action": "Display competing wording beside its source",
+        "mechanism": "Separate variants preserve disagreement without forcing disputed definitions into a single editorial formulation.",
+        "implementation": "Give each variant its own wording, passage ID, and stable ID. Add a comparison view showing variants, source passages, and recorded objections.",
+        "check": "Enter two conflicting definitions. Verify readers can inspect both wordings, each source, and the objection without accessing editor-only controls.",
+        "risk": "An editorial preference could visually overshadow alternatives; label preference explicitly."
+      },
+      {
+        "action": "Review source changes without silently replacing evidence",
+        "mechanism": "Versioned passages retain original support while dependency checks identify definitions needing review after a source edit.",
+        "implementation": "Assign changed passages new IDs and link their predecessors. Flag dependent variants for review; retain their original wording and references until explicitly revised.",
+        "check": "Edit a passage supporting two variants. Both receive review flags; their original passages remain inspectable, and neither reference changes automatically.",
+        "risk": "Review flags may accumulate; they must not hide existing definitions."
+      },
+      {
+        "action": "Make competing wording searchable and directly shareable",
+        "mechanism": "Indexing every variant lets readers discover disagreements even when their search uses wording absent from the preferred definition.",
+        "implementation": "Index all variant text and passage IDs locally. Return term-grouped results with matched wording, dispute indicators, and stable links to individual variants.",
+        "check": "Search a phrase unique to a nonpreferred variant. Its result appears, and its direct link exposes that wording, source, and competing definition.",
+        "risk": "Grouping must not conceal which variant actually matched the query."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "e588ba97a56a377aaf86232291a9eaaede0205d166e8ef97c96c95d1ab5c9789",
+  "raw_output_sha256": "9ca59640d2fbc33d17de0781b76234bc734948799becc5a05d9eb33a7c90c867"
+}

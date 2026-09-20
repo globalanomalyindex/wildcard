@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Set the record to VALID upon verification and keep it VALID until explicit revocation changes it to UNKNOWN; elapsed time alone causes no transition.","trace":["time 6: VALID","time 8: UNKNOWN"],"explanation":"The supplied relation preserves validity without refresh until explicit revocation arrives at time 8."}

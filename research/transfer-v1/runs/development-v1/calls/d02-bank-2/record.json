@@ -1,0 +1,85 @@
+{
+  "schema_version": 1,
+  "id": "d02-bank-2",
+  "request_sha256": "fda79645d039408809afbd56f85af56fcae3f4c392ec26eeb78f1e842b144466",
+  "prompt_sha256": "87f86636f1cb93ae68c07a11a30611cf2e38382c2aad9ee8f8d85b89e88658ef",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:39:31.332502+00:00",
+  "finished_at": "2026-09-20T19:40:03.506800+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.170972500000005,
+      "usage": {
+        "input_tokens": 6989,
+        "cached_input_tokens": 6784,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 921,
+        "reasoning_output_tokens": 178
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a330bbdc2e77b813dfb6799b9fb55f20fb7d59f4f66706d8130f25a5de1e532d",
+      "stderr_sha256": "f3d8bafcda2e534ecf8e5a03f649c75cd29dc90382e5ae26c3ef3c5d3a61864f"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce a hard five-minute expiration.",
+        "mechanism": "Absolute expiration prevents reads from extending freshness.",
+        "implementation": "Assign each validated source response a monotonic expiry no later than 300 seconds after receipt. Check expiry before serving; remove expired entries and schedule expiry cleanup. Never serve expired records, including during outages.",
+        "check": "With a fake clock, verify a record is unavailable at its expiry boundary and repeated reads do not extend its lifetime.",
+        "risk": "Process-local monotonic timestamps cannot be reused after a restart."
+      },
+      {
+        "action": "Define timeout responses and outage eviction explicitly.",
+        "mechanism": "Bounded source calls separate unavailable data from missing records.",
+        "implementation": "Set a configurable source deadline. Return 504 when it expires and 503 for source unavailability. Do not cache either failure. Existing unexpired records remain usable until their original expiry; failures neither extend their lifetime nor flush them. Delete expired records normally.",
+        "check": "Simulate an outage across an expiry boundary: a pre-expiry hit succeeds, a post-expiry request fails explicitly, and the expired entry is removed.",
+        "risk": "Clients may retry aggressively; document retry behavior."
+      },
+      {
+        "action": "Enforce the 100-record limit atomically.",
+        "mechanism": "A bounded cache with least-recently-used eviction controls capacity independently of source health.",
+        "implementation": "Under one cache lock, replace an existing key or remove expired entries and evict the least-recently-used entry before inserting a new key. Failed fetches never evict valid entries. Keep no secondary cache of evicted records.",
+        "check": "Insert 101 distinct records and race concurrent insertions; assert resident record count never exceeds 100 and the expected victim disappears.",
+        "risk": "A scan of many distinct keys can evict frequently useful records."
+      },
+      {
+        "action": "Coalesce concurrent misses and bound outstanding fetches.",
+        "mechanism": "Single-flight fetching prevents duplicate work; admission limits bound temporary record residency.",
+        "implementation": "Maintain one in-flight promise per key. Reserve a record slot before starting each distinct fetch, counting reservations plus cached records against 100. Reject new misses with 503 when no slot is available. Release reservations on every completion path; do not retain response copies in the promise registry.",
+        "check": "Send concurrent requests for one key and then many distinct keys; assert one fetch per key and cached records plus reservations never exceed 100.",
+        "risk": "Conservative reservations can reject misses even when some cached entries could be evicted."
+      },
+      {
+        "action": "Stop repeatedly calling a failing source.",
+        "mechanism": "A circuit breaker provides fail-fast outage behavior without changing cache freshness.",
+        "implementation": "After a configured number of consecutive source failures, open the circuit for a configured cooldown. Continue serving only unexpired hits; return 503 for misses. Permit one recovery probe after cooldown. Preserve normal expiration and eviction while open.",
+        "check": "Force the failure threshold, verify subsequent misses make no source calls, then confirm one successful probe closes the circuit without reviving expired records.",
+        "risk": "An overly long cooldown delays recognition of recovery."
+      },
+      {
+        "action": "Restrict the service to explicitly public records.",
+        "mechanism": "Allowlisted sources, request forms, and response fields prevent private-data admission.",
+        "implementation": "Fetch only approved public endpoints without user credentials. Reject private-resource selectors and authorization-bearing requests. Validate response schemas and cache only allowlisted public fields. Exclude record bodies and sensitive request values from logs, traces, and errors.",
+        "check": "Test forbidden endpoints, credential-bearing requests, and unexpected response fields; verify rejection and absence of their contents from cache and telemetry.",
+        "risk": "Schema checks alone cannot establish that a source remains public; source classification needs review."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "3fd53486a3d1dfd3871e43ee25e3170a3203b96a7da852af74a7228c60298a87",
+  "raw_output_sha256": "2fcd5e5f72d5de2c6d21c51c7ac87ac125a9a845051e06139341a984573c93a6"
+}

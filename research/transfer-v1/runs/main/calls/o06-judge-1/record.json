@@ -1,0 +1,177 @@
+{
+  "schema_version": 1,
+  "id": "o06-judge-1",
+  "request_sha256": "c720accdd04228a3c1aca981b2115a3155a82ddaeea6e9546d9d63ed042570df",
+  "prompt_sha256": "395dd20986f97258dec180faac528ff52702fd44827ad99020e87d1b555e8480",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:24:11.930866+00:00",
+  "finished_at": "2026-09-20T20:24:50.589781+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 38.65611850000005,
+      "usage": {
+        "input_tokens": 10835,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1142,
+        "reasoning_output_tokens": 48
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f46ee3a8df87ec2dd4c56944063d714daefd94ba02f4b5a7390229bbd2038b53",
+      "stderr_sha256": "9874ba3dd0148547256eab0d488939d29a6f5c57000e510e629ad0745f7a5bae"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "6053882e8a02590e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d08aa1c6a2e1d1d3",
+        "mechanism_group": "protected_assignment_contact_gate",
+        "reason": "Blocks protected placement changes without completed contact and tests cancellation and reshuffling paths."
+      },
+      {
+        "id": "9b4dd8c120baf66e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d08aa1c6a2e1d1d3",
+        "mechanism_group": "protected_assignment_contact_gate",
+        "reason": "Staged updates enforce attendee contact before protected removal and test stale-import rejection."
+      },
+      {
+        "id": "95f052ee3bbc3b53",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364303cf545c88e8",
+        "mechanism_group": "private_public_separation",
+        "reason": "Separates placement-only publication from restricted needs and checks attendee access to sensitive records."
+      },
+      {
+        "id": "c8ead18a9019ab6b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46510c3297c6fee0",
+        "mechanism_group": "hard_need_first_allocation",
+        "reason": "Allocates four eligible seats before pair preferences and tests excess demand and separated-seat offers."
+      },
+      {
+        "id": "0eea3045fbc85cef",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a5c0c64a6be33d2c",
+        "mechanism_group": "hard_need_first_allocation",
+        "reason": "Makes clear-route eligibility mandatory and tests that a fifth request receives no unsuitable assignment."
+      },
+      {
+        "id": "9f57b752817f8199",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d08aa1c6a2e1d1d3",
+        "mechanism_group": "protected_assignment_contact_gate",
+        "reason": "Preserves confirmed access assignments during recalculation unless contact and a compliant replacement are documented."
+      },
+      {
+        "id": "e38c88fe04d8c4ad",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1d9a8ef5b32caf92",
+        "mechanism_group": "private_public_separation",
+        "reason": "Publishes only placement fields from restricted records and tests that private spreadsheet content is inaccessible."
+      },
+      {
+        "id": "749f5af783e7b731",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46510c3297c6fee0",
+        "mechanism_group": "hard_need_first_allocation",
+        "reason": "Preserves confirmed access placements, prioritizes hard needs, and tests an infeasible late pair without displacement."
+      },
+      {
+        "id": "b26c8752a7c94190",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "64d74e14faa484df",
+        "mechanism_group": "physical_route_verification",
+        "reason": "Checks actual routes and tests obstruction removal without silently relocating a confirmed attendee."
+      },
+      {
+        "id": "bf9dcce2b0c8e224",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "364303cf545c88e8",
+        "mechanism_group": "private_public_separation",
+        "reason": "Replaces shared private data with a minimal export, revokes old links, and checks attendee-visible access."
+      },
+      {
+        "id": "8d74710f521737ab",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "46510c3297c6fee0",
+        "mechanism_group": "hard_need_first_allocation",
+        "reason": "Constrains access assignments to four qualifying seats and tests pair handling without displacing hard needs."
+      },
+      {
+        "id": "a78940bd012e64ed",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "1d9a8ef5b32caf92",
+        "mechanism_group": "private_public_separation",
+        "reason": "Exports only identifiers and placements while restricting functional needs and checking for private-data exposure."
+      },
+      {
+        "id": "c42bace4acb222b2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ced1fe72ad063f0d",
+        "mechanism_group": "honest_late_pair_options",
+        "reason": "Offers separated vacancies without displacement or adjacency promises and reconsiders the preference after cancellations."
+      },
+      {
+        "id": "ab1d39e1f3a5da77",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "d08aa1c6a2e1d1d3",
+        "mechanism_group": "protected_assignment_contact_gate",
+        "reason": "Gates protected changes on attendee contact and tests cancellation, reshuffling, and stale-update protections."
+      },
+      {
+        "id": "6336ec4190d4eff3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f704765a519bef59",
+        "mechanism_group": "physical_route_verification",
+        "reason": "Inspects the four physical routes, tests obstruction detection, and requires contact before changing confirmed placements."
+      }
+    ]
+  },
+  "result_sha256": "27458516f78e52f4d284dc2110e99b9f7034c129dd4e1fdce835771f821d2d74",
+  "raw_output_sha256": "60f076fa11379a8b5a2fccc25d667867ec3421c21b1563632a970f60b0bd3d44"
+}

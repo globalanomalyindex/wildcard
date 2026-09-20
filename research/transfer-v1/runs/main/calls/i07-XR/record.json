@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i07-XR",
+  "request_sha256": "a367e32287cd382979dc58b94bcf99795124296e0e6ee4f387ffbae7a64a3726",
+  "prompt_sha256": "6bbe70968bd98da1eab7c1238b0123579cd85695429dfac6e03f692b447c78c3",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:16.557791+00:00",
+  "finished_at": "2026-09-20T20:15:37.047941+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.485645040999998,
+      "usage": {
+        "input_tokens": 7269,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 573,
+        "reasoning_output_tokens": 88
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "10809dc45f0b612e907c1a35230576dca82980ee855d32d5604980a5de1bdcd8",
+      "stderr_sha256": "2925e8110ea25b9d17cf1c9d6dcab4022628f9066cf80a3cd4ca0ef51688c072"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind callouts to explicit evidence tests",
+        "mechanism": "Reevaluate the cited comparison after refresh instead of treating annotation text as permanently valid.",
+        "implementation": "Store metric IDs, filter IDs, date bounds, comparison type, and analyst-set tolerance per annotation. Route unsupported claims to manual review.",
+        "check": "Reverse two series’ rankings; the ranking callout must become contradicted. Shift date bounds; require scope review.",
+        "risk": "Passing a comparison cannot validate causal wording."
+      },
+      {
+        "action": "Represent unavailable evidence separately from zero",
+        "mechanism": "Explicit availability states prevent missing series or observations from silently satisfying numeric comparisons.",
+        "implementation": "Distinguish observed zero, missing observation, and absent series. Record required coverage for each evidence test; mark insufficient coverage indeterminate.",
+        "check": "Refresh with zero, null, and an omitted series separately; confirm distinct displays and indeterminate results for insufficient evidence.",
+        "risk": "Aggregation defaults may still conceal missing observations."
+      },
+      {
+        "action": "Show evidence changes in a review inbox",
+        "mechanism": "Separate changed inputs from changed conclusions so harmless revisions remain visible without implying contradiction.",
+        "implementation": "Compare each annotation’s reviewed evidence with refreshed evidence. Show before/after values, scope differences, and test status; retain unresolved changes across refreshes.",
+        "check": "Revise history within the configured tolerance; show changed evidence with an unchanged conclusion before export, not a contradiction.",
+        "risk": "Broad tolerances can conceal meaningful changes; display them."
+      },
+      {
+        "action": "Export only a reviewed, version-pinned snapshot",
+        "mechanism": "An atomic export gate prevents refreshes from invalidating annotations between review and file generation.",
+        "implementation": "Pin data and annotation versions during export. Require acknowledgment of changes; exclude or visibly qualify unresolved callouts. Embed version, metric, filter, and date metadata.",
+        "check": "Trigger refresh during export; verify the artifact contains one coherent reviewed version and identifiable provenance, never mixed snapshots.",
+        "risk": "Version identifiers alone cannot reconstruct discarded historical data."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "578aa325858222c6342042d7b8758827ab2e1e651d0b480d512e71474e4821f1",
+  "raw_output_sha256": "7b7413078351dde3f314466a3c90fb249fb9c09293799afb1bf3815cba52d803"
+}

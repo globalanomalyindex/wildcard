@@ -1,0 +1,39 @@
+{
+  "schema_version": 1,
+  "id": "i07-judge-2",
+  "request_sha256": "c7fcc6636f74c2a754d5cb54368ebc4650efd0cd31bd8bf6c5476f5d5f4adbe7",
+  "prompt_sha256": "f26420ca68d0dd13dd163c0ce32745e694033a09f836ab7c426bdb1a53024e74",
+  "status": "validation_error",
+  "error": "unknown reference-bank id",
+  "started_at": "2026-09-20T20:25:49.024314+00:00",
+  "finished_at": "2026-09-20T20:26:14.124860+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 25.097573249999982,
+      "usage": {
+        "input_tokens": 8415,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1182,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "fef0786c6a2c4bda6fb25e0728dcf1ea62b74db11039b833a91f2f594b7d4e4d",
+      "stderr_sha256": "22fd565673990fbb319571c2b633cbb4133c897030eff4ff23c348e05932f89c"
+    }
+  ],
+  "result": null,
+  "result_sha256": null,
+  "raw_output_sha256": "b1c3cfeb7896fea89d07e31a3c402066e42f2d702bff38683bf1902f9e69a231"
+}

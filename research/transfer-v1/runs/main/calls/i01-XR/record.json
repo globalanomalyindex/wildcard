@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i01-XR",
+  "request_sha256": "537e3d070c28d3470805b721e112ff079db9e7dc9b2adca1fe45d8c15d99b176",
+  "prompt_sha256": "d47e08c6625c7abbe48e53b5896f8b64ce9c5ae6d9d965d0169918cb0d32b90e",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:34.690091+00:00",
+  "finished_at": "2026-09-20T20:12:54.559250+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.863200415999984,
+      "usage": {
+        "input_tokens": 7266,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 487,
+        "reasoning_output_tokens": 59
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c4a96355d3d4e16bf9fd1c2867af47c5d65a49471dffdc60937829edccb1ad03",
+      "stderr_sha256": "36996bb53ed8e3e475dfe082e2b2775a2e15865e37dfb90f92f21f85061ab9c4"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Store claims with explicit evidence scope.",
+        "mechanism": "Structured population, outcome, timeframe, and context prevent similar wording from collapsing differently scoped findings.",
+        "implementation": "Require exact stored passage IDs for every claim. Extract scope only from supplied passages; mark unspecified fields unknown rather than inferring them.",
+        "check": "Enter similar claims with different populations and opposing findings; verify separate records retain their populations, directions, and passage IDs.",
+        "risk": "Overly rigid fields may obscure qualifications; retain passage wording."
+      },
+      {
+        "action": "Show disagreement separately from scope differences.",
+        "mechanism": "Pairwise evidence relationships distinguish comparable opposition, differently scoped findings, and unresolved comparability without ranking source truth.",
+        "implementation": "Add a comparison view with scope columns and user-confirmed relationship labels. Treat absent evidence as unassessed, never opposing evidence.",
+        "check": "Different-population opposing claims must display scope differences; same-scope opposing claims must display disagreement. An empty evidence slot must remain unassessed.",
+        "risk": "Incomplete scope can mislead comparisons; default uncertain pairs to unresolved."
+      },
+      {
+        "action": "Compile briefings through a citation-and-scope gate.",
+        "mechanism": "Statement-level validation blocks unsupported generalization and makes relevant disagreement visible instead of smoothing it away.",
+        "implementation": "Draft only from supplied passages. Require exact passage IDs per statement, scope confirmation, and acknowledgment of linked opposition before export.",
+        "check": "Attempt an all-populations conclusion from opposing population-specific claims; block export until separate scoped statements appear with their supporting IDs.",
+        "risk": "Validation cannot establish truth; users must review semantic support."
+      },
+      {
+        "action": "Keep original passages beside the working briefing.",
+        "mechanism": "An embedded source inspector preserves report context while users verify citations and compare conflicting passages.",
+        "implementation": "Open citation IDs in a workspace side panel showing exact stored text, report identity, and stored passage order; allow two passages side-by-side.",
+        "check": "From each opposing briefing statement, open its cited passage without navigation away; verify displayed text matches the stored ID exactly.",
+        "risk": "Unavailable surrounding text must be marked unavailable, not reconstructed."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "93f53c6bf2247c38b555a612874e46a176a056b989312c7506b02beb2661c409",
+  "raw_output_sha256": "2193156990555e76e8ca2329bd4ac47b2dc585829409048ea1163b3b03e7bc20"
+}

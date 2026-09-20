@@ -1,0 +1,48 @@
+{
+  "schema_version": 1,
+  "id": "x05-a",
+  "request_sha256": "a317fbbf0d27d024f5b8abc86dc8cc8f5de9b82d911eac21ae6ffd3b547a5427",
+  "prompt_sha256": "35091ecbc999ab52aba647457f483cdac5552fb937f8c29934f6cde0b96b6827",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:19:23.970390+00:00",
+  "finished_at": "2026-09-20T20:19:29.957744+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 5.985671457999999,
+      "usage": {
+        "input_tokens": 7017,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 54,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "13fe47e3273bdafc1e2e1109fd562209599c7ce627cd2331638ab059d6589302",
+      "stderr_sha256": "581c7abea5311eb95553797875072a0ac19e271080395c0c4b1e33ccb5846cc3"
+    }
+  ],
+  "result": {
+    "decision": "apply",
+    "action": "SUBTRACT_ONE",
+    "trace": [
+      "2",
+      "1",
+      "0"
+    ],
+    "explanation": "Each SUBTRACT_ONE decreases the measured offset by one, removing the +3 offset in three applications."
+  },
+  "result_sha256": "46411e53326e9a6ed085bf90aacbe9ef35398e49011e5410c3e616dc136876f9",
+  "raw_output_sha256": "37d9d1bb9866a9991fcf6ddd25237071bb7e4248fdff13bf214fdc1ee8ce8861"
+}

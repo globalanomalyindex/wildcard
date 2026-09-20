@@ -1,0 +1,11 @@
+{
+  "id": "s05-S",
+  "phase": "main",
+  "task_id": "s05",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Prevent large jobs from starving small jobs\",\n  \"brief\": \"A single worker pool processes image transforms. Jobs require between one and sixty seconds. A few customers submit hundreds of long jobs, delaying occasional short jobs from other customers.\",\n  \"constraints\": [\n    \"Twelve workers are fixed; no autoscaling or preemption of an in-progress transform.\",\n    \"Runtime estimates based on file size are imperfect.\",\n    \"Each customer must eventually make progress even under sustained arrivals from others.\",\n    \"Queue metadata may store per-customer counters and the last 100 completed runtimes.\"\n  ],\n  \"success_criteria\": [\n    \"Bound a fairness objective and distinguish it from mean latency.\",\n    \"Small jobs gain opportunities without permanently blocking large jobs.\",\n    \"Specify a workload test with inaccurate estimates and a continuous heavy customer.\"\n  ],\n  \"non_goals\": [\n    \"Changing transform quality or rejecting every long job.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "9626eb453a4ec5ab0c04287f8bd6945483875d366c2d47ecc028c7c58fd024e1"
+}

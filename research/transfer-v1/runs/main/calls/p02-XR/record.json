@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p02-XR",
+  "request_sha256": "650463c2327bd21a6e8611d310993265547c0bf9507841d198e0b1c3bc5cdeb0",
+  "prompt_sha256": "79d1e3644dc93c394b69283a0b51764c86173d919330a24ee3d360f8bd56ca37",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:11:05.078593+00:00",
+  "finished_at": "2026-09-20T20:11:24.989875+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.906063708999966,
+      "usage": {
+        "input_tokens": 7275,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 532,
+        "reasoning_output_tokens": 107
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "15390a0464e08e51d527d3ee977373d4c57dd09faeec5f18b823fd5529a19373",
+      "stderr_sha256": "209177067ea904132f1fb3454189ca8a9f68f05d94e0f93590bef99c1dc7a0dc"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve product focus with a predictable fallback",
+        "mechanism": "Track product and control identity across reordering; disappearing products send focus to the persistent results heading.",
+        "implementation": "Key cards by product ID. Preserve the active control when retained. If removed while focused, focus the heading using tabindex=\"-1\"; otherwise never move focus.",
+        "check": "Keyboard-test retained-item reordering and focused-item removal. Confirm the same control remains active or the heading receives focus; verify screen-reader output.",
+        "risk": "Index-based keys or unconditional focus restoration can redirect users unexpectedly."
+      },
+      {
+        "action": "Separate immediate counts from result rendering",
+        "mechanism": "A persistent status distinguishes pending, completed, empty, and failed requests without waiting for all cards to render.",
+        "implementation": "Show “Updating” during requests; label any previous count. Reject stale responses. Publish accepted totals immediately in visible text and a polite status outside the busy results container.",
+        "check": "Measure count publication within one second of arrival. Test zero, failure, and reversed response order; verify loading never announces zero.",
+        "risk": "Screen-reader speech may queue even when the count is available."
+      },
+      {
+        "action": "Offer a compact view without reducing coverage",
+        "mechanism": "A text-first view reduces scanning detail while preserving every matching product and access to full information.",
+        "implementation": "Add keyboard-operable Grid/Compact buttons. Compact mode shows product names, prices, distinguishing variants, and detail links. Share result data and ordering; keep focus on the activated view button.",
+        "check": "For 200 matches, compare product IDs across views: none missing. Keyboard-open details and verify view switching preserves filter state and count.",
+        "risk": "Over-simplification can hide distinctions; retain variant labels rather than merging products."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "f004dab0c935fee9fbf26df7bb59c703e322d9826cd1126687889546e839b525",
+  "raw_output_sha256": "859e8569c4a77ebd259d50790428f4f064ed6526221bbd3b498b006c25ac72a7"
+}

@@ -1,0 +1,54 @@
+{
+  "actions": [
+    {
+      "action": "Track progress for each requested item",
+      "mechanism": "Calculate received and outstanding quantities from allocated physical receipts, keeping supplier promises in separate fields.",
+      "implementation": "Add a shared line-item register showing requested, confirmed, received, outstanding, and excess quantities. Sum multiple deliveries; link each receipt.",
+      "check": "Request ten units, confirm ten, and receive four then three. Outstanding must show ten, six, then three.",
+      "risk": "Inconsistent units can corrupt totals; specify units per line."
+    },
+    {
+      "action": "Assign independent substitution decisions",
+      "mechanism": "A named teammate other than the requester approves or rejects each replacement, preserving the decision rationale.",
+      "implementation": "Record original and replacement IDs, quantity conversion, requester, decision owner, decision, and rationale. Block self-approval; keep unapproved arrivals pending.",
+      "check": "Attempt requester approval and verify rejection. Independent approval must preserve rationale and count only quantities evidenced by receipts.",
+      "risk": "Owner absence can stall work; designate another eligible teammate."
+    },
+    {
+      "action": "Make receipt entry duplicate-resistant",
+      "mechanism": "Stable receipt-line identifiers prevent repeated entry from increasing delivered totals while preserving genuinely separate deliveries.",
+      "implementation": "Require supplier, receipt number, and line identifier; block repeated keys. Flag matching attachments or suspicious quantity/date matches for review.",
+      "check": "Enter the same receipt twice: totals must remain unchanged. Enter a separate identical-sized delivery: it must count once.",
+      "risk": "Missing supplier identifiers require locally assigned IDs and manual review."
+    },
+    {
+      "action": "Route excess deliveries to explicit decisions",
+      "mechanism": "Preserve actual received quantities while flagging excess separately instead of hiding it through capped totals.",
+      "implementation": "Calculate excess against authorized quantities. Assign an existing teammate to record acceptance, return, or correction; retain original quantities and receipt links.",
+      "check": "Receive twelve against ten requested: show twelve received, zero outstanding, two excess, and an unresolved exception.",
+      "risk": "Do not infer permission to retain excess from receipt alone."
+    },
+    {
+      "action": "Allocate every receipt line explicitly",
+      "mechanism": "Allocation records connect physical item IDs to request lines without double-counting deliveries shared across requests.",
+      "implementation": "Record receipt-line-to-request-line quantities. Prevent allocations exceeding receipt quantities; place unmatched IDs in a review queue. Use approved mappings for substitutions.",
+      "check": "Split eight received units across two requests as three and five; reject a ninth allocated unit.",
+      "risk": "Similar item descriptions can cause misallocation; verify IDs and units."
+    },
+    {
+      "action": "Separate fulfillment from administrative closure",
+      "mechanism": "Closure requires resolved quantities and exceptions; cancellations remain distinguishable from physically received goods.",
+      "implementation": "Allow remaining quantities to be canceled only with a named decision and reason. Block closure for unresolved substitutions, excess, or unmatched receipts.",
+      "check": "Receive six of ten and cancel four: show six received, four canceled, and closed—not ten received.",
+      "risk": "Premature cancellations can conceal shortages; keep closure history reviewable."
+    },
+    {
+      "action": "Give every open exception a next step",
+      "mechanism": "A shared action queue turns ambiguous partial requests into named responsibilities and scheduled follow-ups.",
+      "implementation": "Create filtered views for shortages, substitution decisions, unmatched receipts, and excess. Require owner, next action, and due date; review together weekly.",
+      "check": "Seed one case of each type; verify all appear with owners. Resolving one must remove only that exception.",
+      "risk": "Stale assignments undermine visibility; review overdue entries explicitly."
+    }
+  ],
+  "abstention_reason": ""
+}

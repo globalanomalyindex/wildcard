@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "s07-bank-2",
+  "request_sha256": "915ebcbb2d2afb503b90cda73a721963c928b719fcff7c4ee0d5d7bf74d98fb6",
+  "prompt_sha256": "8fd645aef2bc91b467ffcec97663abd6e3168780903d5f3e0af0f1e38a6e705e",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:01:19.556388+00:00",
+  "finished_at": "2026-09-20T20:01:49.526201+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.965387041000042,
+      "usage": {
+        "input_tokens": 7142,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 884,
+        "reasoning_output_tokens": 148
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "cb0897b622e966b694a8ef969d69344bb54dc89afd231b079aecf6e7bc36f308",
+      "stderr_sha256": "f13e73352a4177e61782a6f0bbc907a436225dd3284a88dffe647b52ed3f33aa"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Stream parsing within an enforced memory budget",
+        "mechanism": "Backpressure and byte-limited batches prevent file size, slow writes, or oversized records from exhausting memory.",
+        "implementation": "Use incremental CSV decoding, bounded queues, and byte-capped batches; spill oversized records to disk or reject them explicitly.",
+        "check": "Import 4 GB with oversized fields and throttled database writes; verify peak process memory remains below 128 MB.",
+        "risk": "CSV quoting can span physical lines; preserve record start and end lines."
+      },
+      {
+        "action": "Persist uploads independently of the browser connection",
+        "mechanism": "Durable staging separates interrupted transfer from processing and permits digest verification before database changes.",
+        "implementation": "Stream uploads to disk or object storage, persist acknowledged chunk offsets, and verify the completed file against the supplied digest.",
+        "check": "Disconnect halfway, resume transfer, and verify the digest; processing must not start for incomplete or mismatched files.",
+        "risk": "Staging requires storage quotas, expiration rules, and authorization for resuming uploads."
+      },
+      {
+        "action": "Commit row receipts with each transactional batch",
+        "mechanism": "Atomic receipts and checkpoints make ambiguous commits safely replayable without duplicating previously accepted work.",
+        "implementation": "Identify imports by scope, digest, and configuration; uniquely record each source row’s outcome alongside writes and its committed checkpoint.",
+        "check": "Crash before commit, after commit, and before acknowledgement; replay must produce identical outcomes without duplicate writes or skipped rows.",
+        "risk": "Receipt retention must cover the supported restart period."
+      },
+      {
+        "action": "Reject bad rows without aborting valid neighbors",
+        "mechanism": "Strict validation and recoverable batch isolation distinguish permanent row errors from transient infrastructure failures.",
+        "implementation": "Validate types and references without coercion; enforce database constraints, then roll back and bisect failing batches to isolate permanent row errors.",
+        "check": "Place missing references between valid rows and delete a reference during processing; valid neighbors commit while invalid rows receive explicit outcomes.",
+        "risk": "Do not classify timeouts or deadlocks as permanently rejected rows."
+      },
+      {
+        "action": "Provide traceable rejection reports and correction submissions",
+        "mechanism": "Explicit diagnostics connect each rejection to its original location and preserve history when corrected data is resubmitted.",
+        "implementation": "Export source line range, natural key, field, rejected value, and error code; link corrected submissions to original receipts without overwriting them.",
+        "check": "Correct a reported reference and submit twice; verify one application, retained rejection history, and an explicit resolved status.",
+        "risk": "Rejected values may contain sensitive data; restrict report access and retention."
+      },
+      {
+        "action": "Define natural-key conflicts separately from restart duplicates",
+        "mechanism": "Replay identity and business-key uniqueness solve different problems; neither should silently overwrite conflicting data.",
+        "implementation": "Enforce scoped natural-key uniqueness; explicitly reject existing-key conflicts and later repeated keys within the file, recording the conflicting receipt when available.",
+        "check": "Test an exact replay, two different rows sharing a key, and concurrent imports; verify deterministic rejection or replay outcomes without silent overwrite.",
+        "risk": "If updates are required, define an explicit version-checked update policy instead."
+      },
+      {
+        "action": "Publish a verifiable partial-result manifest",
+        "mechanism": "A durable accounting ledger distinguishes completed partial imports from interrupted runs and supports reconciliation of accepted writes.",
+        "implementation": "Record verified digest, configuration, parsed count, accepted/rejected receipts, and checkpoint; reconcile receipt coverage and transactional write audit records before marking completion.",
+        "check": "Require parsed count = accepted + rejected with unique row coverage; missing receipts block completion, and any rejection marks the result partial.",
+        "risk": "An unrecoverable CSV boundary error leaves an explicit unprocessed tail, not a completed import."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "7bff193d99197d0297a769a9f3c53d527a0031f3e901f3fb6cc66e433553a467",
+  "raw_output_sha256": "35d804d690ea4a80e79046f8dd149df5339864dd07a5269a21eb89f62513a2d6"
+}

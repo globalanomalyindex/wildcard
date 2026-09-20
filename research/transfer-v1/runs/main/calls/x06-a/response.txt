@@ -1,0 +1,1 @@
+{"decision":"apply","action":"Admit 3 units each period, then complete and remove all 3 before the next period.","trace":["3","3"],"explanation":"Recovery empties storage between arrivals, so each arrival reaches only 3 of 4 units and no unit is dropped or overwritten."}

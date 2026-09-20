@@ -1,0 +1,47 @@
+{
+  "actions": [
+    {
+      "action": "Bind approvals to immutable paragraph revisions",
+      "mechanism": "Approval records identify exact source and translation revisions, rather than merely their stable paragraph IDs.",
+      "implementation": "Store immutable revisions and record paragraph ID, language, source revision, translation revision, reviewer, and timestamp for every approval.",
+      "check": "Edit either text: the old approval remains historical but cannot approve the new pair. Unchanged paragraphs retain their approvals.",
+      "risk": "Mutable revision records would defeat this guarantee."
+    },
+    {
+      "action": "Track placement and cross-paragraph dependencies separately",
+      "mechanism": "Separate text revisions from ordering; context changes trigger targeted review through explicit dependencies.",
+      "implementation": "Record order independently and link context-sensitive paragraphs to headings, definitions, or references. Flag moves for context assessment; invalidate dependent approvals when necessary.",
+      "check": "Move a paragraph: its text revision stays fixed. A harmless move preserves approval; a changed referent triggers review.",
+      "risk": "Missing dependencies can conceal affected translations; human assessment remains necessary."
+    },
+    {
+      "action": "Give reviewers focused change packets",
+      "mechanism": "Show differences against each language's last approved source, concentrating attention without concealing surrounding context.",
+      "implementation": "Display old and new source, highlighted changes, current translation, and neighboring paragraphs. Require explicit approval even when reviewers retain the translation unchanged.",
+      "check": "Introduce a substantive edit after languages diverge in progress; each packet shows its own correct baseline and requests fresh approval.",
+      "risk": "Diffs indicate changes, not whether translations are accurate."
+    },
+    {
+      "action": "Share targeted queues between each language's volunteers",
+      "mechanism": "Revision-specific work items and claims prevent duplicate effort while preserving any existing approval requirements.",
+      "implementation": "Create tasks only for changed or context-affected paragraphs. Let either volunteer claim work; reserve the other for escalation or required second review.",
+      "check": "Both volunteers claim one task simultaneously: only one succeeds. A later source edit prevents that task's stale approval from completing current work.",
+      "risk": "Abandoned claims need expiration and reassignment."
+    },
+    {
+      "action": "Batch source amendments into review rounds",
+      "mechanism": "A fixed review snapshot reduces repeated interruptions while later amendments remain explicitly pending.",
+      "implementation": "Collect edits in a draft branch, then open a named review round. Record subsequent amendments separately and prohibit silently mixing them into that round.",
+      "check": "Edit a paragraph twice during review: reviewers see a stable assigned revision, and the later revision still requires approval before publication.",
+      "risk": "Batching may delay urgent corrections; urgent rounds remain possible."
+    },
+    {
+      "action": "Publish only validated, immutable release snapshots",
+      "mechanism": "An atomic release gate prevents edits between approval verification and publication from introducing unapproved content.",
+      "implementation": "Build a manifest of exact source and translation revisions for all six languages. Verify matching approvals and resolved context flags; publish only that immutable artifact.",
+      "check": "Test unchanged, harmlessly moved, and substantively edited paragraphs. Reject the unapproved edit, including an edit injected during release preparation.",
+      "risk": "Direct publishing paths must not bypass the gate."
+    }
+  ],
+  "abstention_reason": ""
+}

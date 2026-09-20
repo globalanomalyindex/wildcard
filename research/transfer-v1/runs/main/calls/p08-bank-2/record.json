@@ -1,0 +1,92 @@
+{
+  "schema_version": 1,
+  "id": "p08-bank-2",
+  "request_sha256": "e5e41f6e9f85c380eb762803b7902152dc6b1f78db70d2f164242f6966d1fff8",
+  "prompt_sha256": "941a18861f1323d519b12a0f029815b66cc07316c3fcd9c3e44fe8404aff0595",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:01:51.994723+00:00",
+  "finished_at": "2026-09-20T20:02:24.596741+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 32.59728999999999,
+      "usage": {
+        "input_tokens": 7134,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 938,
+        "reasoning_output_tokens": 78
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1db20e9ed5e3d521c6f9e9f29fdc96cd657f09bad8730117f6ccdc6ba9fc7bce",
+      "stderr_sha256": "1b1f1f416ef37765a6a39fcfeb9ab2953cce43124745a5e4d535eebf7b641695"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate visible-page selection from all matching records",
+        "mechanism": "Explicit scope choices distinguish the 25 visible records from the 600 matching records before confirmation.",
+        "implementation": "Provide separate labeled controls. Show a persistent summary: count, filter description, target status, and whether selection spans pages.",
+        "check": "Using keyboard only, select each scope; verify the confirmation and submitted ID count agree, including after page navigation.",
+        "risk": "A generic “Select all” label would reintroduce ambiguity."
+      },
+      {
+        "action": "Freeze the exact confirmed record set",
+        "mechanism": "An immutable ID manifest prevents changing filters or new matches from silently expanding the confirmed operation.",
+        "implementation": "Resolve matching IDs before confirmation; bind confirmation to that manifest. Execute explicit manifest IDs, never rerun the filter for membership.",
+        "check": "Add matching records and change filters after confirmation; assert every dispatched ID belongs to the original confirmed manifest.",
+        "risk": "Resolving the manifest may delay confirmation; expose progress."
+      },
+      {
+        "action": "Reject records changed since the confirmed snapshot",
+        "mechanism": "Atomic version preconditions prevent overwriting intervening edits, while unchanged records can still succeed independently.",
+        "implementation": "Capture record versions with the manifest. Add server-side conditional updates that atomically compare each version and return conflicts as per-record outcomes.",
+        "check": "Change one record between confirmation and execution; verify that record reports conflict and retains its newer state while others proceed.",
+        "risk": "Client-side checks alone leave a race window."
+      },
+      {
+        "action": "Preserve a resumable per-record operation receipt",
+        "mechanism": "Durable outcomes distinguish completed changes, failures, and unresolved requests even when navigation or network interruption hides progress.",
+        "implementation": "Persist operation ID, confirmed manifest, and per-record outcomes. Restore a receipt showing succeeded, failed, conflicted, pending, and unknown counts.",
+        "check": "Interrupt a batch and reload; verify restored counts reconcile with the manifest and unresolved records are not labeled successful.",
+        "risk": "Lost responses require server reconciliation, not guessed outcomes."
+      },
+      {
+        "action": "Retry failures without replaying successful changes",
+        "mechanism": "Outcome-based retry sets and server-side deduplication isolate recovery from work that has already completed successfully.",
+        "implementation": "Offer “Retry failed records.” Enforce original-manifest membership, exclude successes, reconcile unknown outcomes, and deduplicate writes by operation and record.",
+        "check": "Mix successes, failures, and lost responses; retry twice and verify successes receive no additional writes and no outside IDs appear.",
+        "risk": "Conflicts require refreshed information and renewed confirmation before overwrite."
+      },
+      {
+        "action": "Make reversal eligibility explicit for each record",
+        "mechanism": "A reversal receipt explains whether the deadline elapsed or a subsequent change prevents restoring the earlier status.",
+        "implementation": "Store prior status, resulting version, and server deadline. Atomically reverse only eligible confirmed IDs; show textual per-record reasons when unavailable.",
+        "check": "Test unchanged, subsequently edited, expired, and edited-back records; only eligible records reverse, and every rejection displays its actual reason.",
+        "risk": "Displayed eligibility can expire before activation; revalidate server-side."
+      },
+      {
+        "action": "Make the whole workflow keyboard and screen-reader operable",
+        "mechanism": "Semantic controls, predictable focus, and concise announcements expose scope and outcomes without depending on pointer interaction or color.",
+        "implementation": "Use labeled native controls, a navigable scope summary, throttled live progress, and keyboard-accessible outcome filters. Preserve focus when rows update.",
+        "check": "Complete selection, confirmation, failure recovery, and reversal using only keyboard and screen reader; verify counts and rejection reasons are discoverable.",
+        "risk": "Announcing every record outcome would overwhelm the workflow."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "99b1c8704513f0f16feadf43ec53633f70ff415db98f436fa6d3a4cc0ced5aa7",
+  "raw_output_sha256": "1a2afb37fe2036a5748051efda36a0b7cf64c737b61421b7b66b0b89ce1bea5f"
+}

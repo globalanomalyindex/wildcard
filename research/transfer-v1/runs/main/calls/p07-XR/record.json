@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p07-XR",
+  "request_sha256": "8bb87334363f4cc055176d87560ea760664ce8d8fd5662feb6168dfc82540cf4",
+  "prompt_sha256": "13cb7d5fafff7d6b95ddbc363a11174ca5960365a73f85ce7e0033768c2b3968",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:04:48.830268+00:00",
+  "finished_at": "2026-09-20T20:05:07.396387+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 18.562933792,
+      "usage": {
+        "input_tokens": 7274,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 509,
+        "reasoning_output_tokens": 85
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "13b8e0ae7880be016a74c788750ad21aa562dcf1d9555c6c5b9ed9c1f03df55a",
+      "stderr_sha256": "3c4886e590be7ab546e9bb4ad540a22312a772aeb9ec84aabf35b4d4e66a63c7"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Merge changes against the tab’s loaded revision",
+        "mechanism": "Compare each field’s loaded value, local value, and latest server value; flag only divergent changes to the same field.",
+        "implementation": "Retain the loaded snapshot. On stale-save rejection, fetch the latest revision, preserve both drafts, and carry forward nonconflicting edits automatically.",
+        "check": "Test a stale tab edited after another tab saved: disjoint changes survive; divergent same-field changes require resolution.",
+        "risk": "Timestamps cannot reliably determine which edits should win."
+      },
+      {
+        "action": "Replace the modal with field-level conflict resolution",
+        "mechanism": "Show conflicting fields in context, with labeled alternatives and text differences instead of a document-wide warning.",
+        "implementation": "For long text, offer an editable result beside both versions; for single-choice fields, offer explicit alternatives. Require confirmation for each conflict.",
+        "check": "Resolve text and choice conflicts entirely in one tab; verify untouched and automatically merged fields require no retyping.",
+        "risk": "Large text differences need accessible navigation and full-text views."
+      },
+      {
+        "action": "Keep recoverable versions of every reconciliation attempt",
+        "mechanism": "A durable recovery history preserves text even when users choose another version or leave reconciliation unfinished.",
+        "implementation": "Checkpoint local and fetched text before applying resolutions. Provide a same-tab recovery panel that restores any alternative into the editable draft.",
+        "check": "Choose one version, reload, and restore the rejected text without copying between windows; simulate checkpoint failure and verify replacement is blocked.",
+        "risk": "Sensitive text needs appropriate storage protection and explicit retention controls."
+      },
+      {
+        "action": "Recheck revisions when saving the resolved draft",
+        "mechanism": "Resolution remains provisional because another tab can save while the user reviews conflicts.",
+        "implementation": "Save explicitly as a draft using the reviewed revision. On rejection, preserve the resolution and repeat comparison against the newly fetched revision; never publish automatically.",
+        "check": "Save from another tab during review. Verify no overwrite, no lost resolution text, and no publication after successful draft saving.",
+        "risk": "Repeated concurrent saves can require additional review rounds."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "f85a38e5bd6507ca065060cc8699a0ee063411ef7d70268e055cc2b71ddfab4c",
+  "raw_output_sha256": "aadbaa240ebe23e332a4e142c85cba765d889af097afb7e7eff1521899ad74bb"
+}

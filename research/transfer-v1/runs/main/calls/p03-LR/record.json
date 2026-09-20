@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p03-LR",
+  "request_sha256": "692b2e1e9ecd8704819cf87d1aaa51d43f5c57a1f6bdc4131ac57d2c651e649c",
+  "prompt_sha256": "8ca20c082ccdb152c568eeca1fb4968a9dfe07bace6fda92610cf5f5107afa35",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:06:12.940404+00:00",
+  "finished_at": "2026-09-20T20:06:35.360956+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.418753500000008,
+      "usage": {
+        "input_tokens": 7281,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 624,
+        "reasoning_output_tokens": 188
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "15a836f8a4c9d74a3eb25d6757231a2cc9f149eb70a8090e1f225385c33dfea4",
+      "stderr_sha256": "4b4a314a9a725c2a11da574888f33fb313a452086edecd4cabdfbecc392228fd"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Retry only files without confirmed acceptance",
+        "mechanism": "Receipt-backed acceptance survives later network errors; uncertain uploads are reconciled before another upload starts.",
+        "implementation": "Show per-file states: uploading, accepted, failed, or checking. Add upload-attempt status lookup; retry confirmed failures only, retaining accepted receipts.",
+        "check": "Interrupt responses after server acceptance. Verify reconciliation finds receipts and retry sends no accepted file bytes.",
+        "risk": "Unresolved status must stay visibly uncertain, not silently become failed."
+      },
+      {
+        "action": "Restore available attachments after reopening",
+        "mechanism": "Short-lived receipt storage restores server-held attachments without retaining file content or relying on an account.",
+        "implementation": "Store only opaque receipts with 24-hour expiry. On reopening, resolve them server-side, list available attachments, and explain that unconfirmed files require reselection.",
+        "check": "Close after partial acceptance and reopen. Verify accepted attachments return, reselection guidance appears, and browser storage contains no file content.",
+        "risk": "Expired or unavailable receipts require explicit explanation; shared-device recovery can expose attachment metadata."
+      },
+      {
+        "action": "Make replacement an explicit attachment decision",
+        "mechanism": "Five visible attachment slots distinguish retrying a failure from adding or replacing an attachment.",
+        "implementation": "Count accepted, uploading, and uncertain files toward five. Require explicit removal or replacement before admitting another; cancel or reconcile pending attempts first.",
+        "check": "With four accepted files and one uncertain upload, attempt a sixth. Verify it is blocked until a slot is resolved.",
+        "risk": "Removing an attachment from the list must not imply server deletion."
+      },
+      {
+        "action": "Review once and submit without duplicate cases",
+        "mechanism": "Explicit review gates case creation; server-side idempotency makes uncertain submission outcomes recoverable without creating another case.",
+        "implementation": "Show the final receipt-backed list and require confirmation. Bind a submission token to that reviewed version; recover its outcome through receipt lookup.",
+        "check": "Change the list after review, double-click submit, then disconnect and reopen. Require renewed review and verify only one case exists.",
+        "risk": "Attachment or form edits must invalidate review; disable submission while uploads remain unresolved."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "7ff3bf05e99270acd4a20095d55424423f0a1848661e7c51d111344fce466c3e",
+  "raw_output_sha256": "ab91fa4f0e4838f9ec60c4444b6aaaf1c6dd80b01ea442b6ad138389b611738c"
+}

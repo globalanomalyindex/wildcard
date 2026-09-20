@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i03-XR",
+  "request_sha256": "f959142e8ca9d60bd4b1c1427e44f16cb6bf9c6d2ac226e34672a890d8c52ece",
+  "prompt_sha256": "f5de7a99c8cae53c0775302ee9d8d28f79e4bd565e7e2c71fdc756d419686521",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:14:18.049812+00:00",
+  "finished_at": "2026-09-20T20:14:39.152559+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.10114145800003,
+      "usage": {
+        "input_tokens": 7250,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 536,
+        "reasoning_output_tokens": 121
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "440e849a9896b3b5b4eb863f3ec50b789f00f54facd835509930a62658afaca2",
+      "stderr_sha256": "e389fa5fe941429a1b008d2da2cbd56fb242518df22c0ac70745bbdc175ed4a9"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate quote verification from imported speaker labels",
+        "mechanism": "Track text, timing, and attribution verification separately; imported labels never establish speaker identity.",
+        "implementation": "Default to unverified. Require recorded reviewer confirmation for each dimension before marking a quote verified; allow speaker identity to remain unknown.",
+        "check": "Import an incorrect label and export an unresolved-speaker quote. Neither may display verified attribution, including in plain-text exports.",
+        "risk": "A single overall badge could conceal unresolved dimensions."
+      },
+      {
+        "action": "Propagate corrections through versioned quote references",
+        "mechanism": "Append-only revisions update current collections while preserving their original saved versions and imported text.",
+        "implementation": "Store corrections with segment IDs, parent revision, reviewer identity, and changed fields. Collections retain saved revision references and resolve current revisions separately.",
+        "check": "Correct a speaker after saving two collections. Both show the correction; their original versions and reviewer audit trail remain accessible.",
+        "risk": "Silent updates could obscure changes; display revision differences."
+      },
+      {
+        "action": "Export quotes as explicit audio-backed spans",
+        "mechanism": "Quote spans cross segment boundaries without assuming that either segment's speaker or timestamps are correct.",
+        "implementation": "Store ordered segment IDs, selected text ranges, audio asset ID, and reviewed playback intervals. Export these with revision identifiers and playable links.",
+        "check": "Export a quote crossing two segments with different labels and an unresolved speaker. Links must play every selected portion without asserting one speaker.",
+        "risk": "Expired links break traceability; retain durable asset identifiers."
+      },
+      {
+        "action": "Provide contextual listening and timestamp repair",
+        "mechanism": "Listening beyond imported boundaries lets reviewers inspect speaker transitions and locate clipped or misplaced words.",
+        "implementation": "Add expandable before-and-after playback and draggable quote boundaries. Save interval repairs as reviewer-attributed revisions; invalidate affected timing verification pending recheck.",
+        "check": "Seed a timestamp offset that excludes the sentence opening. A reviewer must recover it, save the interval, and replay the corrected export.",
+        "risk": "Context can inform attribution but cannot guarantee speaker identity."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "cdefdb58b8fd5e1437d27c8504163b803d94c093e1bb786f50980fb38f3ccd4d",
+  "raw_output_sha256": "943244dba82c6e50f5296f035bd77342f1f972f919f1994ab549c1318e1c914a"
+}

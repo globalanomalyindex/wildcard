@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "s06-judge-2",
+  "request_sha256": "86c201fa161123340677e0cc0457b7a93ff8d4ef561f7c92379ea337471591a7",
+  "prompt_sha256": "267f60fb9d37326a0026f9c14f00176d6f11a12a6a29c25090cb38406c039249",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:29:17.565527+00:00",
+  "finished_at": "2026-09-20T20:29:43.355893+00:00",
+  "requested_model": "gpt-5.5",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 25.78784404099997,
+      "usage": {
+        "input_tokens": 8615,
+        "cached_input_tokens": 3584,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1258,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "5b0f61eaf7107f6282bd5388d1d12a98e0c017185ce2a354fe41188ec01176f8",
+      "stderr_sha256": "d1b240c57de2460c5d86d1174f4e5c4bbbc7c93a98be39bafdf0d38bfb0b4dc9"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "81158335dac10dda",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9d020f4b9c0bceb2",
+        "mechanism_group": "ordinary_bounded_summaries",
+        "reason": "Bounded bucket summaries reduce ordinary detail and mark reduced intervals without storing prohibited content, with an overrun reconciliation check."
+      },
+      {
+        "id": "0e312acf844346b6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27d8bc2ffeb0c295",
+        "mechanism_group": "critical_capacity_reservation",
+        "reason": "Partitioning the existing 20 MB quota reserves critical capacity so ordinary writes cannot evict the bounded 2 MB critical history."
+      },
+      {
+        "id": "ce8bab97df3469da",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0feae09334a10cbc",
+        "mechanism_group": "ordinary_sequence_reduction_markers",
+        "reason": "A rotating ordinary buffer plus sequence-range reduction buckets makes omitted ordinary detail observable while preserving privacy via allowlisting."
+      },
+      {
+        "id": "f839553348b8299a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "955e29e6432fd836",
+        "mechanism_group": "privacy_allowlist_before_persistence",
+        "reason": "A strict typed allowlist before serialization directly enforces the ban on message bodies, credentials, and user content, with canary checks."
+      },
+      {
+        "id": "609e2bc2fb2063a4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "104a5a3201d323ec",
+        "mechanism_group": "ordinary_lost_range_marker",
+        "reason": "Assigning ordinary sequence numbers and maintaining an explicit omitted range accounts for reduced ordinary detail instead of silently losing it."
+      },
+      {
+        "id": "8bf2ec21196f6de2",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0bc9eb983c08957b",
+        "mechanism_group": "crash_recoverable_commits",
+        "reason": "Checksummed committed records and production recovery tests make accepted critical records recoverable after interrupted writes within the bounded buffer."
+      },
+      {
+        "id": "a7b2ddd611acb457",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a0629825c87a405c",
+        "mechanism_group": "idempotent_replay_with_manifest",
+        "reason": "Stable identities, coverage manifests, transactional deduplication, and durable acknowledgments distinguish duplicates, declared reductions, and unexplained gaps."
+      },
+      {
+        "id": "c06f5ef98abe558c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b2c9ccb2270e4b68",
+        "mechanism_group": "idempotent_retry_ack_retention",
+        "reason": "Persistent identity plus recipient deduplication and deletion only after durable acknowledgment separate retries from gaps and prevent premature critical loss."
+      },
+      {
+        "id": "0e71e9abb2f0ced6",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9d020f4b9c0bceb2",
+        "mechanism_group": "ordinary_bounded_summaries",
+        "reason": "Fixed per-minute summary tables are a bounded way to mark ordinary-event reductions and reconcile retained plus omitted counts."
+      },
+      {
+        "id": "4edab3cebd3a45f3",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "4ccea0906fd759df",
+        "mechanism_group": "crash_recoverable_commits",
+        "reason": "A preallocated checksummed journal with commit markers preserves durably accepted critical records across interrupted writes without quota expansion."
+      },
+      {
+        "id": "f51b54c49267cd7b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "955e29e6432fd836",
+        "mechanism_group": "privacy_allowlist_recoverable_records",
+        "reason": "Allowlisted structured encoding enforces content-free telemetry, and crash-recoverable records add a concrete recovery check for committed critical data."
+      },
+      {
+        "id": "dc6c6c07598a6c28",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a0629825c87a405c",
+        "mechanism_group": "idempotent_replay_with_manifest",
+        "reason": "Stable identities and bounded coverage manifests expose duplicate uploads and missing critical sequences during retry replay."
+      },
+      {
+        "id": "e696eff478d9b9ab",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "a0629825c87a405c",
+        "mechanism_group": "idempotent_replay_with_manifest",
+        "reason": "Stable stream identities, retained-range manifests, collector deduplication, and acknowledgment-based reclaim distinguish duplicates from missing data."
+      },
+      {
+        "id": "6ecf906a0a531b1e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27d8bc2ffeb0c295",
+        "mechanism_group": "critical_capacity_reservation",
+        "reason": "Preallocating critical, ordinary, and metadata regions within 20 MB reserves the bounded critical allowance against ordinary pressure."
+      },
+      {
+        "id": "8b240f1cc29e3f7a",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b988b934236a77cb",
+        "mechanism_group": "critical_capacity_reservation",
+        "reason": "A non-ordinary critical reservation within the fixed quota protects all critical sequence records during the stated outage bound."
+      },
+      {
+        "id": "97c7bac65a620041",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "27d8bc2ffeb0c295",
+        "mechanism_group": "critical_capacity_reservation",
+        "reason": "Reserving 2 MB plus overhead for critical records and giving ordinary data only the remainder prevents ordinary saturation from discarding critical history."
+      }
+    ]
+  },
+  "result_sha256": "9f5f4b028ed88c9ff351ff5359ba3c49de6eb9c96e7cb90e45c6885472643952",
+  "raw_output_sha256": "fad9380d4d0a1df9abdede74b3673165af8ce37b31c145703e066482c9fe8ab5"
+}

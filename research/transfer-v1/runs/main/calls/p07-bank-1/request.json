@@ -1,0 +1,11 @@
+{
+  "id": "p07-bank-1",
+  "phase": "bank",
+  "task_id": "p07",
+  "arm": "S",
+  "count": 8,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Conflicting edits in several tabs\",\n  \"brief\": \"A web form editor is often open in two tabs. A save in one tab can overwrite newer work in the other, while the current warning modal gives no clue which fields differ. Fields include long text and single-choice values.\",\n  \"constraints\": [\n    \"Server exposes a document revision number and rejects a stale save.\",\n    \"Never silently discard text from either tab.\",\n    \"Users must be able to finish without dragging or copying between windows.\",\n    \"Do not auto-publish the merged draft.\"\n  ],\n  \"success_criteria\": [\n    \"A user can identify and resolve only conflicting fields.\",\n    \"Nonconflicting edits do not require retyping.\",\n    \"A test covers a stale tab whose last edit happened after the other tab saved.\"\n  ],\n  \"non_goals\": [\n    \"Implementing real-time collaborative editing.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "4cfc8aa4cb6ba38419ef04174194ab73ec833ec5bb5f2b5cb1ed59f659d6e5fa"
+}

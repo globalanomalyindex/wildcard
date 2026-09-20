@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "id": "x06-b",
+  "request_sha256": "19ed49b2d45386ad69c3635d4b2cf410e39cdd14113fc6846cf9d134effc0c58",
+  "prompt_sha256": "bdbc863703d536c15ce4ec2ae46c60035e5c9790c05c488e3d58c011bfac3072",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:18:53.681992+00:00",
+  "finished_at": "2026-09-20T20:19:00.432479+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 6.749519792000001,
+      "usage": {
+        "input_tokens": 7018,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 79,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "b1917ab5d3afb2cc6c06cf20a579093badd5e62651725084df595d3b47aa707b",
+      "stderr_sha256": "52996c16f52ba8dc20ca7b84f0e884c4371473190dbb2e2c43f2596f5eebe959"
+    }
+  ],
+  "result": {
+    "decision": "adapt",
+    "action": "Block the second arrival until storage is freed by an explicitly changed service schedule; preserve its units outside the processor pending admission.",
+    "trace": [
+      "3",
+      "OVERFLOW"
+    ],
+    "explanation": "With no recovery, all 3 stored units remain; the second arrival would raise storage to 6, exceeding capacity 4."
+  },
+  "result_sha256": "8ea0fd02c5c9f05f3affdcc80ce858a7be69fe440f804b960e2931d39230027a",
+  "raw_output_sha256": "ca05fd1af493da137b03c53cc50d8f93581bd7419aba28855f40829f84bd9aad"
+}

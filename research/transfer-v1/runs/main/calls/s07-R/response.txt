@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Commit row outcomes with replay-safe batch checkpoints",
+      "mechanism": "Atomic batches couple accepted writes, row outcomes, and progress so retries cannot duplicate committed work.",
+      "implementation": "Uniquely identify outcomes by tenant, file digest, and source line. Transactionally commit outcomes, target writes, and record-boundary checkpoints. Reject conflicting natural keys explicitly.",
+      "check": "Disconnect before and after commits; replay repeatedly. Verify identical target contents, one outcome per row, and no checkpoint beyond committed work.",
+      "risk": "Concurrent imports require database-enforced natural-key uniqueness."
+    },
+    {
+      "action": "Quarantine invalid rows with actionable rejection reports",
+      "mechanism": "Explicit validation and isolated constraint failures preserve valid rows without coercing invalid references.",
+      "implementation": "Record source line, natural key, field, rejected value, and error code. Roll back and bisect failed batches to isolate row errors; retry infrastructure failures separately.",
+      "check": "Mix valid rows, missing references, and concurrent reference deletions. Verify valid rows commit and every rejection identifies its cause without substituted values.",
+      "risk": "Rejection reports need access controls and sensitive-value redaction."
+    },
+    {
+      "action": "Separate resumable upload from bounded-memory processing",
+      "mechanism": "A finite durable spool survives connection loss and decouples upload rate from database processing.",
+      "implementation": "Persist upload offsets and chunk checksums; verify the supplied digest before import. Enforce spool quotas, backpressure, and a 96 MB worker limit; stream CSV with bounded records.",
+      "check": "Interrupt a 4 GB upload, exhaust spool capacity, and submit oversized records. Verify resumability, explicit errors, digest verification, and peak memory below 128 MB.",
+      "risk": "Finite storage requires expiration and cleanup; sustained overload still needs admission control."
+    },
+    {
+      "action": "Publish partial status and reconcile linked corrections",
+      "mechanism": "A durable outcome ledger distinguishes incomplete processing from completed partial acceptance and tracks subsequent repairs.",
+      "implementation": "At verified EOF, reconcile parsed records against accepted and rejected outcomes. Publish counts and partial status. Link corrected submissions to original rejection IDs; retain history.",
+      "check": "Verify accepted plus rejected equals parsed records, accepted outcomes match target writes, and corrected rows resolve only their linked rejections. Interrupted parsing must remain incomplete.",
+      "risk": "Do not report complete reconciliation when malformed CSV prevents reliable record boundaries."
+    }
+  ],
+  "abstention_reason": ""
+}

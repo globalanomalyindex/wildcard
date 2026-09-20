@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "d02-R",
+  "request_sha256": "c30c27d602d23d9831fc6ac369c268eec3a4bcce6ed7002103e77fd87e009e54",
+  "prompt_sha256": "f310e3aafdfc751b30bf0f58eb7dc65a0ced3fec1b63162989801b1a082db02c",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:40:42.781224+00:00",
+  "finished_at": "2026-09-20T19:41:07.681208+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 24.896732458,
+      "usage": {
+        "input_tokens": 7126,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 725,
+        "reasoning_output_tokens": 172
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a3e01fc49560e1664c666ca4700262487a4cc28f38739003d6053fd664502bcc",
+      "stderr_sha256": "c47491edcbc978a7e2053836eacc6aedc1a3a3078b8140fd8669dad5ffb76d88"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce five-minute expiry and explicit eviction.",
+        "mechanism": "Expiration determines freshness; capacity eviction never extends a record’s lifetime.",
+        "implementation": "Store a monotonic expiry deadline no later than five minutes after fetching starts. Remove expired records on access and with a scheduled sweep. Before admitting a record, remove expired entries, then evict the least recently used entry if necessary. Never return an expired entry as fresh.",
+        "check": "With a fake clock, verify a record is unavailable at its deadline. Insert 101 distinct records and verify capacity eviction and unchanged deadlines.",
+        "risk": "Strict expiry reduces availability during source outages."
+      },
+      {
+        "action": "Make source timeouts and outages explicit.",
+        "mechanism": "A bounded fetch deadline and circuit breaker prevent indefinite waits and repeated calls to an unavailable source.",
+        "implementation": "Set a configurable source timeout. On timeout, return HTTP 503 with a machine-readable source_timeout code; do not cache the error or extend expiry. After a configured failure threshold, temporarily stop source calls and permit one recovery probe. Continue serving unexpired cached records; keep normal expiry and eviction active.",
+        "check": "Simulate a hanging source. Verify bounded responses, breaker activation, continued expiry, and recovery after a successful probe.",
+        "risk": "Breaker settings can delay recovery or reject requests during brief failures."
+      },
+      {
+        "action": "Bound concurrent fetches as well as cached records.",
+        "mechanism": "Shared requests and admission reservations prevent concurrent misses from exceeding the 100-record memory limit.",
+        "implementation": "Coalesce misses for the same key into one fetch. Under one lock, require cached records plus reserved incoming-record slots to remain at most 100. Evict or reject admission before decoding a new record. Bound waiting requests, release reservations on every failure, and disable response-body retention in diagnostics.",
+        "check": "Run concurrent distinct-key misses and duplicate-key misses against a delayed source. Assert the slot invariant, one fetch per duplicate key, and no leaked reservations after cancellation.",
+        "risk": "Admission rejection or eviction can increase misses under bursts."
+      },
+      {
+        "action": "Admit only explicitly public record fields.",
+        "mechanism": "A public-only source contract and field allowlist prevent accidental private-data caching.",
+        "implementation": "Use a source endpoint restricted to public records, validate its public-record designation, and cache only approved fields. Reject unknown fields or visibility states without logging payloads. Keep source identifiers for later refetching rather than retaining full source responses.",
+        "check": "Supply fixtures with private visibility, missing visibility, and unexpected fields. Verify rejection and absence of those payloads from cache, logs, and error responses.",
+        "risk": "An allowlist cannot make an incorrectly classified source trustworthy; schema changes may cause valid records to be rejected."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "3253f477263572c86dcbc7772340acc2ca2adac6a1b940f7253f8f31c8cb9c4a",
+  "raw_output_sha256": "4017b014dbbe11be198c4f83fdb70ecd2b30408fb2c08d128e1a00575b58fb46"
+}

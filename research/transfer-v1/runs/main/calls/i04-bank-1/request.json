@@ -1,0 +1,11 @@
+{
+  "id": "i04-bank-1",
+  "phase": "bank",
+  "task_id": "i04",
+  "arm": "S",
+  "count": 8,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 8 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Palette editing across many design tokens\",\n  \"brief\": \"A design system has 180 color tokens used in light and dark themes. A designer changes one base color and unknowingly makes some text illegible. Some tokens intentionally differ between brands.\",\n  \"constraints\": [\n    \"Token references and rendered foreground/background pairs are available.\",\n    \"Brand overrides cannot be silently replaced.\",\n    \"The tool must show which pairs require review before publishing.\",\n    \"Designers must be able to compare proposed and current values without relying on color alone.\"\n  ],\n  \"success_criteria\": [\n    \"A base-token edit exposes its actual downstream effects.\",\n    \"An intentionally different brand value stays traceable.\",\n    \"Test a multi-level alias, a cycle, and a token used as both text and background.\"\n  ],\n  \"non_goals\": [\n    \"Declaring complete accessibility from color checks alone.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "2912e6fea4a798fdb7aab6c0d4b638d008d298cbbc2f333dcf86f6853119c913"
+}

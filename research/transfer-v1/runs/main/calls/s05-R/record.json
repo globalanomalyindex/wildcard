@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "s05-R",
+  "request_sha256": "ede27223f79e35b85066330b35841babd201d82ef233b8f2204013d20034eb1f",
+  "prompt_sha256": "930751437a93421b9e0f0c9e180798cf9606749745bb153db32607816dda33af",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:11:25.923282+00:00",
+  "finished_at": "2026-09-20T20:12:03.271560+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 37.34735170799996,
+      "usage": {
+        "input_tokens": 7257,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 852,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c93b9ce5919b2a2a76524efd605b6a65bf8a60f739b4b0d883879dda1f6169cc",
+      "stderr_sha256": "c10d99c7fed4108467c51c708291a16f4ca99726a4eef9676820ecb72c0d7c18"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Reserve one worker for customer fairness.",
+        "mechanism": "Round-robin customer turns bound dispatch delay independently of file-size estimates; this is not a mean-latency guarantee.",
+        "implementation": "Dedicate one of twelve workers to oldest-job customer round-robin. Append newly active customers behind waiting turns; remove empty customers.",
+        "check": "A waiting customer with N−1 turns ahead starts within 60N seconds, excluding scheduler overhead. Verify from dispatch logs.",
+        "risk": "Reserving capacity can reduce utilization when only long jobs remain."
+      },
+      {
+        "action": "Give remaining workers short-job opportunities.",
+        "mechanism": "Estimated-shortest selection favors small jobs; recurring oldest-job selections protect underestimated and large jobs from indefinite bypass.",
+        "implementation": "On the other eleven workers, use estimated-shortest selection for three dispatches, then select the globally oldest queued job. Coordinate dequeues atomically.",
+        "check": "Under mixed arrivals, compare short-job start delay with FIFO; verify every fourth dispatch selects the oldest available job.",
+        "risk": "Misestimated long jobs still occupy workers for up to sixty seconds."
+      },
+      {
+        "action": "Test fairness separately from latency.",
+        "mechanism": "Adversarial replay exposes estimate errors and sustained-load starvation that aggregate latency can conceal.",
+        "implementation": "Continuously replenish one customer's sixty-second jobs; inject other customers' one-second jobs and long jobs. Reverse estimates, then repeat with accurate estimates.",
+        "check": "Verify the fairness bound and oldest-job dispatch rule; report per-customer starts, short-job latency, and overall mean latency separately.",
+        "risk": "An overloaded queue can grow indefinitely despite guaranteed customer progress."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "5ca6ec0adf0715bbf13ebbf97780a4939eda3a763719a9e2fa1879f7812c6ee9",
+  "raw_output_sha256": "163564e3acd1c34d9693457b6e1e31ac35edc9595f5259fd1c7e962479c91327"
+}

@@ -11,7 +11,7 @@ const repo = join(here, "..", "..");
 
 function shellDraw(seed) {
   const out = execFileSync("bash", [
-    "plugin/scripts/draw.sh", "--seed", seed,
+    "plugin/scripts/draw.sh", "--sampler", "legacy-crc-v1", "--seed", seed,
     "--domains-file", "plugin/references/domains.txt",
     "--concepts-file", "plugin/references/concepts.txt",
   ], { cwd: repo, encoding: "utf8" });
@@ -21,7 +21,7 @@ function shellDraw(seed) {
   return { mode, pick, lens };
 }
 
-test("browser reproduces shell mode + pick + lens for many seeds", () => {
+test("legacy browser reproduces explicit legacy shell replay for many seeds", () => {
   for (const seed of ["1", "42", "7", "wildcard", "review-101", "999"]) {
     const s = shellDraw(seed);
     const mode = pickIndex("mode", seed, 2) === 0 ? "specialist" : "concept";

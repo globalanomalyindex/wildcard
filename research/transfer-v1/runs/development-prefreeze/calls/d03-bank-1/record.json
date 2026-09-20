@@ -1,0 +1,78 @@
+{
+  "schema_version": 1,
+  "id": "d03-bank-1",
+  "request_sha256": "d2670488744086f87e7c9517f863c153f8c7ce6cf89d890808bc65786d3bd55c",
+  "prompt_sha256": "22e18fc7edc201d402b0b0be4badb244787fd8dab0dedf6628d65020f7dc2adb",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T19:26:14.700908+00:00",
+  "finished_at": "2026-09-20T19:26:44.034331+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.332599082999998,
+      "usage": {
+        "input_tokens": 6990,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 824,
+        "reasoning_output_tokens": 154
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "2d048dfe9b32c42df9ca9484562c5712c8526c69de365287f044511260c846a6",
+      "stderr_sha256": "20939fdd9c9333b4b448c9a5022163dff999ad54dca9f1723eedb258051a8edd"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Require the receiving volunteer to confirm each key handoff.",
+        "mechanism": "Separate an offered handoff from confirmed possession.",
+        "implementation": "Create a shared form restricted to the two volunteers. Start by recording who physically has the key, or mark possession unknown. An offer records sender, recipient and offer time. Acceptance requires the recipient to enter the actual handoff time; also save confirmation time. Until acceptance, show the last confirmed holder and the unresolved offer.",
+        "check": "Offer a transfer without accepting it: the holder must not change, and the unresolved handoff must remain visible. Accept it: the holder and handoff time must update.",
+        "risk": "Unrecorded physical transfers can make the last confirmed holder outdated."
+      },
+      {
+        "action": "Replace chat searching with one pinned key-status view.",
+        "mechanism": "Present the authoritative status separately from conversation.",
+        "implementation": "Pin a link to a shared page showing the last confirmed holder, last recorded handoff time, and every unresolved handoff. Label uncertainty explicitly. Generate this view from the handoff records rather than maintaining a second editable summary.",
+        "check": "After a confirmed transfer, open the pinned link as either volunteer and verify identical holder, time and unresolved-handoff information.",
+        "risk": "A cached page can mislead; show its refresh time and provide a refresh control."
+      },
+      {
+        "action": "Prevent conflicting or duplicate handoffs.",
+        "mechanism": "Allow only one active transfer and apply changes atomically.",
+        "implementation": "Give each handoff a unique ID. Permit only the last confirmed holder to offer it and only the named recipient to accept it. Reject another offer while one remains open. Check the current record version when saving, and make repeated acceptance of the same ID harmless.",
+        "check": "Submit two offers simultaneously, then accept the surviving offer twice. Exactly one transfer should exist and exactly one holder change should be recorded.",
+        "risk": "A mistaken open offer blocks another transfer until it is explicitly cancelled or resolved."
+      },
+      {
+        "action": "Bring unresolved handoffs back to both volunteers’ attention.",
+        "mechanism": "Use a deadline to surface missing confirmation without guessing possession.",
+        "implementation": "Have the sender choose a confirmation deadline when offering the key. If it passes, notify the two volunteers with links to confirm receipt, report that no transfer occurred, or flag uncertainty. Keep the handoff unresolved until someone records an explicit outcome; never transfer ownership automatically.",
+        "check": "Let a test deadline pass without acceptance. Both volunteers should receive the unresolved status, and the last confirmed holder must remain unchanged.",
+        "risk": "Frequent reminders may be ignored; limit notifications to one per deadline."
+      },
+      {
+        "action": "Preserve corrections instead of silently rewriting key history.",
+        "mechanism": "Use an append-only record to expose discrepancies and recover trustworthy status.",
+        "implementation": "Record offers, confirmations, cancellations and corrections as separate timestamped events. A correction includes author, reason and the event being corrected. If a correction disputes possession, mark the current holder uncertain until the two volunteers record an agreed resolution with the relevant handoff time.",
+        "check": "Correct an accepted transfer as mistaken. The original must remain visible, uncertainty must appear in the status view, and an agreed resolution must restore a single confirmed holder.",
+        "risk": "Agreement may be delayed; the interface must keep uncertainty visible rather than selecting a holder arbitrarily."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "1ab4cc813798f46dbd86c3165ef2ecf88dc2db80c0831d1398a72d9e54dd4921",
+  "raw_output_sha256": "247b9b8f07d8ecbd96da80f3fb888c028cb29baf18634debb566de33cf62996d"
+}

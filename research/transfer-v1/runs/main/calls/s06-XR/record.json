@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s06-XR",
+  "request_sha256": "ee48e0f3868ad5f4c4170af24b32ca7e651c9c63e619e8311ff9b6058b5397e2",
+  "prompt_sha256": "1b6ca08c83373a824d5becfe96c4a6692cd86098bcccf1f8612e10216fdbdf4d",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:16:29.916472+00:00",
+  "finished_at": "2026-09-20T20:16:51.056710+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.137978083000007,
+      "usage": {
+        "input_tokens": 7279,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 569,
+        "reasoning_output_tokens": 133
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "188b7c419ca112c8a01c1e7f039f8a7458b34a3c12b11e7ec8943676d32214a1",
+      "stderr_sha256": "f15aa3c346a521a7587ce4644d85527ac88a43ed8593fb17fd033393175521e8"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Reserve critical capacity before accepting ordinary events.",
+        "mechanism": "Separate capacity budgets prevent ordinary traffic from consuming space required by the bounded critical history.",
+        "implementation": "Preallocate critical, ordinary, and metadata regions totaling 20 MB. Size critical storage for 2 MB plus bounded encoding overhead; allowlist diagnostic fields.",
+        "check": "Inject maximum ordinary traffic and 2 MB of critical events over 30 minutes; verify every critical sequence survives within quota.",
+        "risk": "An unverified encoding-overhead bound invalidates the reservation."
+      },
+      {
+        "action": "Replace excess ordinary detail with explicit summaries.",
+        "mechanism": "Fixed time buckets preserve evidence of reduction without retaining every ordinary event.",
+        "implementation": "Allocate bounded bucket metadata containing interval, observed count, retained count, and reduction mode. Evict only ordinary detail; never record content-derived values.",
+        "check": "Overrun ordinary storage throughout a 30-minute outage; verify each reduced interval is marked and counts reconcile with generated events.",
+        "risk": "Coarse buckets identify reduced intervals, not individual omitted events."
+      },
+      {
+        "action": "Make replay identities stable across retries.",
+        "mechanism": "Persistent record identities distinguish duplicated transmissions from absent events; summaries explain intentional ordinary-detail reduction.",
+        "implementation": "Assign stream epoch and sequence before reduction. Upload stable batch manifests with retained ranges and summaries; deduplicate at the collector and reclaim only acknowledged records.",
+        "check": "Drop acknowledgments, resend batches, and deliberately omit a critical record; verify duplicates collapse while the missing critical sequence is reported.",
+        "risk": "Epoch reuse or premature acknowledgment-based reclamation can conceal loss."
+      },
+      {
+        "action": "Recover committed critical records after interrupted writes.",
+        "mechanism": "An append-only journal with checksums and commit markers makes persisted records recoverable without destructive verification.",
+        "implementation": "Use preallocated journal space, bounded framing, and durability barriers. Scan on startup, reject incomplete tails, and replay committed records without clearing them before acknowledgment.",
+        "check": "Interrupt writes and acknowledgment handling at each boundary; restart and replay. Verify every durably accepted critical sequence appears and duplicates remain identifiable.",
+        "risk": "Storage failure remains outside this protection; synchronous durability may increase latency."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "55bc748d4add15543e60ba8773bd6d2d2dc16f48a442f58970a8035ac2a5e731",
+  "raw_output_sha256": "15ff38526e7b144d175bfc08d9609d7a346549dcd7adab39eb1c6d0588cc7f78"
+}

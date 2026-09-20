@@ -1,0 +1,186 @@
+{
+  "schema_version": 1,
+  "id": "o05-judge-1",
+  "request_sha256": "97be07b019c9d08a9a600a6a986e6bd04438d07a1c34315e60df9012efa88d1d",
+  "prompt_sha256": "6bcf2d7f3995a479cd08e78b59c8780bf8b0f945249e6dcc488bfc4ba4226910",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:29:08.660678+00:00",
+  "finished_at": "2026-09-20T20:29:48.384013+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 39.7200442919999,
+      "usage": {
+        "input_tokens": 11164,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1190,
+        "reasoning_output_tokens": 48
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "4c62ec5e71f6f8e4089480f99bad4fe5d450d80fdb93f2ba637657c42ecccb8c",
+      "stderr_sha256": "5366f237f98a68fdb8978c4e86dec5c9576886617e7882941ed1c446424f784a"
+    }
+  ],
+  "result": {
+    "ratings": [
+      {
+        "id": "7e129ed77d922cea",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "0c56d4f3e0acee36",
+        "mechanism_group": "specific_substitute_consent",
+        "reason": "Item-specific inspected offers, permitted-channel contact, and acceptance before assignment implement consent-based substitution."
+      },
+      {
+        "id": "17a2acf72e8079cd",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b6d93ab0a6477002",
+        "mechanism_group": "immutable_cohort_audit",
+        "reason": "Preserving original windows and counting cancellations as disruptions prevents difficult bookings from disappearing from performance measures."
+      },
+      {
+        "id": "7e424a1ca1ff3c02",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "ca19a59164347eb4",
+        "mechanism_group": "specific_substitute_consent",
+        "reason": "Compatibility filtering and disclosed inspected-item offers require explicit consent through the supplied contact preference."
+      },
+      {
+        "id": "a9ae8c5434ba330b",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bdd682069d22b046",
+        "mechanism_group": "stock_backed_confirmation",
+        "reason": "Atomic holds on inspected stock separate conditional requests from supported pickup confirmations."
+      },
+      {
+        "id": "a4a6bbb91a801a76",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "195885f21cfcaea8",
+        "mechanism_group": "immutable_cohort_audit",
+        "reason": "Original-window misses survive cancellation or rescheduling, with preventability assessed from timestamped operational evidence."
+      },
+      {
+        "id": "88c08173a9edab76",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "bdd682069d22b046",
+        "mechanism_group": "stock_backed_confirmation",
+        "reason": "Conditional booking labels and inspection-and-allocation gates prevent unsupported or double-backed confirmations."
+      },
+      {
+        "id": "c962824d01c7dab9",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "b6d93ab0a6477002",
+        "mechanism_group": "immutable_cohort_audit",
+        "reason": "A fixed request denominator retains cancellations and withdrawals while distinguishing unknown preventability from evidenced failures."
+      },
+      {
+        "id": "bf4ca77222ba1403",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9af0495e1f168f24",
+        "mechanism_group": "stock_backed_confirmation",
+        "reason": "Passing inspection and exclusive allocation gate confirmations, with recovery triggered when inspection clearance is withdrawn."
+      },
+      {
+        "id": "63aca8d0bf4b701c",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f2b0519d7b1f78e2",
+        "mechanism_group": "owned_recovery_case",
+        "reason": "Missed return deadlines create owned recovery tasks for dependent reservations, including unresolved contact failures."
+      },
+      {
+        "id": "a53384b927691466",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "9af0495e1f168f24",
+        "mechanism_group": "stock_backed_confirmation",
+        "reason": "Atomic inspected-item allocations support confirmations while future-return-dependent requests remain visibly contingent."
+      },
+      {
+        "id": "7f7bbca1e00aecdb",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3e302ef6b4a764f5",
+        "mechanism_group": "owned_recovery_case",
+        "reason": "Delay triggers staff ownership, decision deadlines, and recorded outcomes using only supplied contact preferences."
+      },
+      {
+        "id": "917641617e18827e",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "f2b0519d7b1f78e2",
+        "mechanism_group": "owned_recovery_case",
+        "reason": "Overdue dependencies create owned, deadline-bound cases with consented inspected alternatives and unresolved status when recovery fails."
+      },
+      {
+        "id": "19539c9c124c51b4",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "component_level_recombination",
+        "reason": "Recombining existing inspected, manufacturer-compatible components expands usable configurations without purchases or bypassing substitution consent."
+      },
+      {
+        "id": "fdd610469c296fd5",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "195885f21cfcaea8",
+        "mechanism_group": "immutable_cohort_audit",
+        "reason": "Fixed original-window reporting retains stock-related cancellations and postponements and requires evidence for preventability."
+      },
+      {
+        "id": "37fd0c662feae49d",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": null,
+        "mechanism_group": "component_level_recombination",
+        "reason": "Component-level assembly uses existing inspected stock with approved compatibility, substitution consent, and checks against shared-component double allocation."
+      },
+      {
+        "id": "a5f10e28c548a68f",
+        "constraint_valid": true,
+        "feasible": true,
+        "actionable": true,
+        "baseline_match": "3e302ef6b4a764f5",
+        "mechanism_group": "owned_recovery_case",
+        "reason": "Overdue dependencies trigger staff-owned recovery with disclosed inspected substitutes, permitted-channel contact, and no inferred consent from silence."
+      }
+    ]
+  },
+  "result_sha256": "fc41ddac8e733a218770690d320f641eec18af4bb0f8c1b922f063d71ef597ae",
+  "raw_output_sha256": "5a0b7f88bf033808c3ada837eec4ae4d9da0d00428ac192b0dfb401cc0f5c670"
+}
