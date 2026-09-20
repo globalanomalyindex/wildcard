@@ -84,7 +84,7 @@ async (page) => {
     'entropy failure is visible and fails closed without an uncaught error');
   await unavailable.close();
 
-  for (const [width,height] of [[1440,1024],[1280,720],[390,844],[320,800]]) {
+  for (const [width,height] of [[1440,1024],[1280,720],[390,844],[320,800],[640,360],[320,180],[1280,500]]) {
     await page.setViewportSize({width,height});
     for (const view of ['landing','overview','methods','install','evidence','experiment']) {
       await go(view === 'landing' ? '/?seed=42&sampler=sha256-counter-v2' : '/case-study/#'+view);
@@ -98,7 +98,7 @@ async (page) => {
       }
       // WebKit screenshots inject <style>body {}</style> and create CSP warnings.
       // Keep its functional run capture-free so no CSP violation is exempted.
-      if (options.browser !== 'webkit' && (view === 'landing' || view === 'overview')) {
+      if (options.browser !== 'webkit' && height > 700 && (view === 'landing' || view === 'overview')) {
         // Capture from the top after reachability checks. Otherwise a fixed
         // offscreen skip link can appear inside the full-page stitched image.
         await page.evaluate(() => window.scrollTo(0, 0));
@@ -106,6 +106,40 @@ async (page) => {
       }
     }
   }
+  // Emulates user text-spacing overrides through existing CSSOM rules. This is
+  // viewport reflow testing, not native browser zoom or screen-reader validation.
+  for (const [width,height] of [[1280,720],[640,360],[320,180],[1280,500]]) {
+    await page.setViewportSize({width,height});
+    for (const view of ['landing','overview','methods','install','experiment']) {
+      // A distinct query forces a fresh document so prior user-style rules do
+      // not leak into another view or the later actual-dataset assertions.
+      const query = '?spacing-qa='+width+'-'+height+'-'+view;
+      await go(view === 'landing' ? '/'+query+'&seed=42&sampler=sha256-counter-v2' : '/case-study/'+query+'#'+view);
+      if (view === 'landing') await ready();
+      else if (view === 'experiment' && options.hasStudy) await page.locator('#experiment-workbench').waitFor({state:'visible'});
+      await page.evaluate(() => {
+        const sheet = [...document.styleSheets].find(s=>s.href?.includes('tokens.css'));
+        sheet.insertRule('* {line-height:1.5 !important;letter-spacing:.12em !important;word-spacing:.16em !important}',sheet.cssRules.length);
+        sheet.insertRule('p {margin-bottom:2em !important}',sheet.cssRules.length);
+      });
+      check(await page.evaluate(() => document.documentElement.scrollWidth <= innerWidth+1), 'text spacing reflows '+view+' at'+width+'x'+height);
+      if (view === 'landing') {
+        check(await page.evaluate(() => document.querySelector('.lede').getBoundingClientRect().bottom <= document.querySelector('.demo').getBoundingClientRect().top+1), 'text spacing separates intro and draw at'+width+'x'+height);
+        for (const selector of ['#draw-next','.fig:last-child a','.case-link a']) {
+          const target = page.locator(selector); await target.scrollIntoViewIfNeeded();
+          check(await target.evaluate(el => {
+            const b=el.getBoundingClientRect(), x=Math.max(1,Math.min(innerWidth-1,b.x+b.width/2)), y=Math.max(1,Math.min(innerHeight-1,b.y+b.height/2));
+            return b.width>0 && b.height>0 && el.contains(document.elementFromPoint(x,y));
+          }), 'spaced landing target reachable '+selector+' at'+width+'x'+height);
+        }
+      } else {
+        const link = page.locator('.case-nav a[href="#install"]'); await link.scrollIntoViewIfNeeded();
+        const b = await link.boundingBox();
+        check(b && b.x>=-1 && b.x+b.width<=width+1, 'spaced navigation scrolls locally at'+width+'x'+height+'/'+view);
+      }
+    }
+  }
+  await page.setViewportSize({width:320,height:800});
   await go('/case-study/#methods');
   await page.locator('.skip-link').focus(); await page.keyboard.press('Enter');
   check(await page.locator('#methods').isVisible() && await page.evaluate(() => document.activeElement.id) === 'methods-title', 'skip link preserves current section and focuses content');
@@ -120,21 +154,32 @@ async (page) => {
     await page.locator('#experiment-workbench').waitFor({state:'visible'});
     const study = await page.evaluate(async () => (await fetch('../data/transfer-study.json')).json());
     check(study.complete && study.cohort === 'main' && study.nTasks === 32, 'actual main artifact is complete');
-    for (const row of [study.perProblem[0], study.perProblem.at(-1)]) {
+    const arms = ['S','R','LR','XR'];
+    for (const row of study.perProblem) {
       await page.locator('#task-select').selectOption(row.taskId);
       check(await page.locator('#task-title').textContent() === row.task.title, 'actual task title '+row.taskId);
-      for (const arm of ['S','R','LR','XR']) {
+      for (const [index,arm] of arms.entries()) {
         await page.locator('#condition-left').selectOption(arm);
-        check((await page.locator('#left-score').textContent()).startsWith(row.arms[arm].score.qnm.toFixed(1)+' QNM@4'), 'actual score adapter '+row.taskId+'/'+arm);
-        if (row.arms[arm].actions.length) check(await page.locator('#left-actions>li').count() === row.arms[arm].actions.length, 'actual action coverage '+row.taskId+'/'+arm);
-        else check((await page.locator('#left-actions').textContent()).includes(row.arms[arm].status), 'actual failure/abstention '+row.taskId+'/'+arm);
+        const other = arms[(index+1)%arms.length];
+        await page.locator('#condition-right').selectOption(other);
+        const rendered = await page.evaluate(() => Object.fromEntries(['left','right'].map(side => [side,{
+          score:document.querySelector('#'+side+'-score').textContent,
+          titles:[...document.querySelectorAll('#'+side+'-actions>li>h3')].map(el=>el.textContent),
+          text:document.querySelector('#'+side+'-actions').textContent
+        }])));
+        for (const [side,selected] of [['left',arm],['right',other]]) {
+          const expected = row.arms[selected], actual = rendered[side];
+          check(actual.score.startsWith(expected.score.qnm.toFixed(1)+' QNM@4'), 'actual score adapter '+row.taskId+'/'+selected+'/'+side);
+          check(JSON.stringify(actual.titles) === JSON.stringify(expected.actions.map(action=>action.action)), 'exact action coverage '+row.taskId+'/'+selected+'/'+side);
+          if (!expected.actions.length) check(actual.text.includes(expected.status), 'actual failure/abstention '+row.taskId+'/'+selected+'/'+side);
+        }
       }
       check(await page.locator('#bank-actions>li').count() === row.bank.actions.length, 'actual reference-bank coverage '+row.taskId);
     }
     await page.locator('.case-nav a[href="#evidence"]').click();
     check(!(await page.locator('#primary-result').textContent()).includes('p=0.0000'), 'positive p-value never rounded tozero');
     check(await page.locator('#primary-chart title').count() === 1, 'result chart has accessible explanation');
-    studyStatus = 'actual complete main artifact adapters checked';
+    studyStatus = 'all 32 actual tasks and four arms checked in both comparison columns';
   } else {
     await go('/case-study/#experiment');
     await page.waitForFunction(() => document.querySelector('#experiment-loading').textContent.includes('could not be loaded'));
@@ -144,6 +189,7 @@ async (page) => {
   check(failedResources.length === 0, 'no unexpected failed assets: '+failedResources.join('; '));
   check(cspErrors.length === 0, 'CSP permits required assets: '+cspErrors.join('; '));
   const result = {passed:true,browser:options.browser,version:page.context().browser().version(),checks,study:studyStatus,
+    accessibility:'CSSOM text spacing and viewport reflow emulation; not native browser zoom or assistive-technology certification',
     screenshots:options.browser === 'webkit'?'omitted: Playwright screenshot injection conflicts with restrictive CSP':'landing and overview at four sizes',
     clipboard:nativeClipboard?'native Chromium clipboard read/write':'export-value shim; native OS clipboard not tested'};
   return result;

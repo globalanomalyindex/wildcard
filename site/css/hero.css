@@ -167,3 +167,15 @@ button:disabled { opacity: .5; cursor: default; }
 @media (max-width: 1099px), (max-height: 700px) {
   .reshuffle, #receipt-details summary { min-height: 44px; }
 }
+
+/* Keep the desktop left column in reading flow. Its old absolute offsets let
+   user text-spacing overrides print the intro across the draw controls. The
+   minimum intro height retains the composition when the text fits; extra text
+   now extends the document vertically, with the wordmark following the draw. */
+@media (min-width: 1100px) and (min-height: 701px) {
+  .page { display: flex; flex-direction: column; align-items: flex-start; overflow: visible; padding-bottom: 1.4vh; }
+  .lede { position: relative; top: auto; min-height: 35vh; padding-top: 4.4vh; display: flow-root; }
+  .demo { position: relative; top: auto; order: 1; }
+  .wordmark { position: relative; bottom: auto; order: 2; margin-top: auto; max-width: calc(100% - 4.4vw); white-space: normal; overflow-wrap: anywhere; }
+  .install-cta { max-width: 38.2vw; flex-wrap: wrap; justify-content: flex-end; }
+}
