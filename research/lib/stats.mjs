@@ -2,7 +2,7 @@
 // Signed-rank p-values are exact conditional on observed tie-averaged ranks.
 const finite = (values, name = 'values', allowEmpty = false) => {
   if (!Array.isArray(values) || (!allowEmpty && values.length === 0) ||
-      values.some(x => typeof x !== 'number' || !Number.isFinite(x))) {
+      Array.from(values).some(x => typeof x !== 'number' || !Number.isFinite(x))) {
     throw new TypeError(`${name} must be ${allowEmpty ? 'an' : 'a nonempty'} array of finite numbers`);
   }
 };

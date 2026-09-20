@@ -42,7 +42,7 @@ test('bootstrap uses declared paired units and deterministic seed',()=>{
   assert.deepEqual(pairedBootstrap([.5,.5],{seed:3}).ci95,[.5,.5]);
 });
 test('malformed inputs and unsupported work sizes fail explicitly',()=>{
-  for(const bad of [[1,NaN],[Infinity],[null],['1'],null]){
+  for(const bad of [[1,NaN],[Infinity],[null],['1'],Array(2),null]){
     assert.throws(()=>mean(bad));assert.throws(()=>signedRank(bad));assert.throws(()=>pairedBootstrap(bad,{seed:1}));
   }
   assert.throws(()=>mean([]));assert.throws(()=>pairedBootstrap([1]));
