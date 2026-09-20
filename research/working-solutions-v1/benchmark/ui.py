@@ -13,12 +13,13 @@ _SPECS={
 "u06":("Revision-owned optimistic form",["identity","causality","reversibility","visibility"],"config={fields:object}. Start revision=0,status='idle',pending={}. edit={type:'edit',set:object,remove:[keys]} applies removals then sets, increments revision even if no-op, and status=idle. submit={type:'submit',id,set:object,remove:[keys]} for an ID never previously submitted saves the pre-submit fields, applies the same patch, increments revision, records that revision, makes this ID current owner, and sets status=saving; repeated IDs are ignored. success={type:'success',id,fields:object} or failure={type:'failure',id} removes a known pending submission. It can change form fields/status ONLY if it is current owner AND its recorded revision equals current revision. Such success replaces fields with server fields, increments revision,status=saved; such failure restores its saved pre-submit fields, increments revision,status=error. Both clear current owner. Other known outcomes only remove pending; unknown/repeated outcomes are ignored. A newer user edit or submission protects newer values from old outcomes. Output {fields,revision,status,pending:[sorted unsettled IDs]}. Null is a real value, deletion uses remove."),
 "u07":("Nested transactional undo history",["reversibility","isolation","retention","ordering"],"config={initial:object,limit:integer 1..4}. Events set={type:'set',key,value}, delete={type:'delete',key}, or {type:'begin'|'commit'|'cancel'|'undo'|'redo'}. Maintain document, bounded undo/redo histories and nested group stack. Begin saves the current document. Edits inside groups change the document without history entries. Commit closes the innermost group; only an outermost commit whose final document differs from its saved start records that start in undo and clears redo. Cancel restores and closes the innermost group's start, without recording history. A changed edit outside groups records its pre-edit document in undo and clears redo. No-op edits and empty/no-op groups preserve redo. Undo/redo during a group are ignored; otherwise move current document to the opposite history and restore the most recent source entry. Retain at most limit entries in each history, dropping oldest. Commit/cancel without a group and unavailable undo/redo are ignored. Output {document,canUndo:boolean,canRedo:boolean,depth:integer}; availability booleans are false while a group is open. Deep object equality ignores key order."),
 "u08":("Stable range and multiselection",["identity","ordering","visibility","propagation"],"config={options:[{id,disabled:boolean}]} unique IDs; initially selected=[],anchor=null. view={type:'view',options:[...]} replaces ordered options, drops selected IDs absent or disabled, and clears an absent/disabled anchor. click={type:'click',id,shift:boolean,ctrl:boolean} ignores absent/disabled IDs. A plain click replaces selection with id and sets anchor=id. Ctrl without Shift toggles id and sets anchor=id. Shift uses the current valid anchor, or establishes clicked id as anchor if absent; select the inclusive range in the CURRENT view between anchor and id, skipping disabled options. Ctrl+Shift unions that range with existing selection; Shift alone replaces selection. A Shift operation preserves an existing anchor. Output {selected:[lexicographically sorted IDs],anchor:ID|null}. Selection cannot retain filtered-out IDs under this explicit policy."),
-"dev-u01":("Bounded numeric stepper",["thresholds","visibility","conservation"],"config={min:integer,max:integer,value:integer},min<=value<=max. Events {type:'step',amount:integer} or {type:'set',value:integer}. Clamp the requested new value into [min,max]. Output {value,atMin:boolean,atMax:boolean}. This stateless-bound numeric controller has no asynchronous callbacks, selection or undo."),
-"dev-u02":("Single-open disclosure set",["identity","visibility","isolation"],"config={ids:[unique IDs]}; initially open=null. Events {type:'toggle',id} toggle a known ID between open and closed, replacing any other open ID; {type:'close'} closes all. Unknown IDs are ignored. Output {open:ID|null,expanded:[open ID] or []}. There is no focus lifecycle, dialog stack or keyboard-navigation policy.")}
+'dev-u01': ('Staged bounded numeric input', ['thresholds', 'visibility', 'reversibility', 'ordering'], "config={min:integer,max:integer,step:positive integer,initial:integer}, min<=max and (max-min)<=100; legal committed values are min+k*step<=max for nonnegative k, and initial is legal. Start value=initial,draft=decimal value,error=null,disabled=false. Events input{type:'input',text:ASCII string of at most 40 characters},commit{type:'commit'},step{type:'step',direction:-1|1},cancel{type:'cancel'},mode{type:'mode',disabled:boolean}. Enabled input replaces draft and clears error. Enabled commit accepts only optional '+'/'-' followed by one or more ASCII digits, representing a safe integer; invalid sets error='invalid', retaining draft and committed value. Valid commit chooses nearest legal lattice value, ties toward smaller value, then canonical decimal draft and clears error. Enabled step moves one legal lattice position in direction, clamped to endpoints, canonicalizes draft and clears error. Disabled ignores input/commit/step. Cancel always restores canonical committed draft and clears error, even disabled. Mode only changes disabled. Output {value,draft,dirty:boolean,error:null|'invalid',disabled:boolean}; dirty compares draft text with canonical committed decimal. Ordinary min=0,max=5,step=2; shift min=-3,max=8,step=3; boundary includes empty drafts; adversarial repeats events. No asynchronous server ownership or undo history."),
+'dev-u02': ('Required grouped disclosure states', ['isolation', 'visibility', 'identity', 'reversibility'], "config={groups:[{id,required:boolean}],panels:[{id,group,enabled:boolean}]}; IDs unique within each list, every panel group exists, at most eight group IDs plus panel IDs combined. Fixed panel order determines fallback. Initially each required group opens its first enabled panel or null, optional groups null. Events toggle{type:'toggle',id},enabled{type:'enabled',id,value:boolean},close{type:'close',group},mode{type:'mode',group,required:boolean}. Toggle ignores unknown/disabled panels; otherwise opens it replacing only that group's panel, or closes an already-open panel only if the group is optional. Enabled changes panel eligibility. Mode changes that group's requirement; close only clears an optional group. Unknown IDs/groups ignored. After every event, drop any ineligible open panel and fill an empty required group with its first enabled panel when available. Output {open:{every group:panel ID or null},expanded:[open panel IDs in fixed global panel order],unsatisfied:[sorted required group IDs that have no open panel]}. Other groups remain independent. Ordinary has two groups/four panels; shift adds a third group/one panel; boundary disables every panel; adversarial repeats events. No focus, range selection or keyboard movement.")}
 TASKS=[{"id":k,"family":"ui","split":"development" if k.startswith("dev-") else "main","title":v[0],"tags":v[1],"specification":v[2]+_COMMON} for k,v in _SPECS.items()]
 
 def make_case(task_id,regime,seed):
     if task_id not in _SPECS or regime not in REGIMES:raise ValueError("unknown task or regime")
+    if task_id.startswith("dev-"):return _development_case(task_id,regime,seed)
     r=rng_for(seed,["ui",task_id,regime]);config={}
     if task_id=="u01":
         events=[{"type":"search","id":"r1","query":"A"},{"type":"search","id":"r2","query":"B"},{"type":"success","id":"r1","result":"old"},{"type":"search","id":"r3","query":"A"},{"type":"failure","id":"r2","error":"old"},{"type":"success","id":"r3","result":r.randint(0,9)},{"type":"failure","id":"r3","error":"late"},{"type":"search","id":"r4","query":"C"},{"type":"dispose"},{"type":"success","id":"r4","result":"gone"},{"type":"mount"}]
@@ -70,11 +71,6 @@ def make_case(task_id,regime,seed):
         if regime=="boundary":events += [{"type":"view","options":[]},click("missing",True,True)]
         if regime=="shift":events += [{"type":"view","options":[{"id":k,"disabled":k=="f"} for k in "defgh"]},click("h",True,True)]
         if regime=="adversarial":events.insert(2,click("b",True,True))
-    elif task_id=="dev-u01":
-        config={"min":-2,"max":5,"value":r.randint(-2,5)}
-        events=[{"type":"step","amount":1},{"type":"step","amount":99},{"type":"step","amount":-99},{"type":"set","value":0},{"type":"step","amount":0}]
-    else:
-        config={"ids":["a","b","c"]};events=[{"type":"toggle","id":"a"},{"type":"toggle","id":"b"},{"type":"toggle","id":"b"},{"type":"toggle","id":"unknown"},{"type":"toggle","id":"c"},{"type":"close"}]
     # Fixed contract, varied legal event ordering and state; no donor or arm
     # enters generation. Private seeds are not just new numeric constants.
     for j in range(8 if regime=="shift" else 4):
@@ -103,8 +99,6 @@ def make_case(task_id,regime,seed):
         elif task_id=="u08":
             if j%3==0:extra={"type":"view","options":[{"id":k,"disabled":r.random()<.25} for k in r.sample(list("abcdefg"),r.randint(0,7))]}
             else:extra={"type":"click","id":r.choice(list("abcdefg")),"shift":r.choice([True,False]),"ctrl":r.choice([True,False])}
-        elif task_id=="dev-u01":extra={"type":"step","amount":r.randint(-10,10)}
-        else:extra={"type":"toggle","id":r.choice(["a","b","c","unknown"])}
         events.insert(r.randrange(len(events)+1),extra)
     names={};reserved={"search","success","failure","cancel","dispose","mount","edit","snapshot","insert","persistent","one","element","open","close","complete","observe","ack","mode","options","key","click","ArrowDown","ArrowUp","Home","End","Enter","submit","set","delete","begin","commit","undo","redo","view","step","toggle"}
     def name(x):
@@ -137,8 +131,16 @@ def _json_equal(a,b):
     return False
 
 def _equal(a,b):return _json_equal(a,b)
+def _normalize_numbers(value):
+    if type(value) is float and math.isfinite(value) and value.is_integer() and abs(value)<=9007199254740991:return int(value)
+    if type(value) is list:return [_normalize_numbers(x) for x in value]
+    if type(value) is dict:return {k:_normalize_numbers(v) for k,v in value.items()}
+    return value
+
 def reference(task_id,case):
+    case=_normalize_numbers(case)
     if task_id not in _SPECS:raise ValueError("unknown task")
+    if task_id.startswith("dev-"):return _development_reference(task_id,case)
     c=case["config"];outputs=[];s={}
     if task_id=="u01":s={"mounted":True,"query":"","current":None,"loading":False,"result":None,"error":None}
     if task_id=="u02":s={"frames":[{"id":k,"persistent":{},"one":{},"snapshot":None} for k in c["frames"]]}
@@ -148,8 +150,6 @@ def reference(task_id,case):
     if task_id=="u06":s={"fields":cloned(c["fields"]),"revision":0,"status":"idle","pending":{},"seen":set(),"owner":None}
     if task_id=="u07":s={"document":cloned(c["initial"]),"undo":[],"redo":[],"groups":[]}
     if task_id=="u08":s={"options":cloned(c["options"]),"selected":set(),"anchor":None}
-    if task_id=="dev-u01":s={"value":c["value"]}
-    if task_id=="dev-u02":s={"open":None}
     for e in case["events"]:
         typ=e["type"]
         if task_id=="u01":
@@ -259,17 +259,14 @@ def reference(task_id,case):
                 elif e["ctrl"]:s["selected"]^={k};s["anchor"]=k
                 else:s["selected"]={k};s["anchor"]=k
             out={"selected":sorted(s["selected"]),"anchor":s["anchor"]}
-        elif task_id=="dev-u01":
-            requested=s["value"]+e["amount"] if typ=="step" else e["value"];s["value"]=max(c["min"],min(c["max"],requested));out={"value":s["value"],"atMin":s["value"]==c["min"],"atMax":s["value"]==c["max"]}
-        else:
-            if typ=="close":s["open"]=None
-            elif e["id"] in c["ids"]:s["open"]=None if s["open"]==e["id"] else e["id"]
-            out={"open":s["open"],"expanded":[] if s["open"] is None else [s["open"]]}
+        else:raise ValueError(task_id)
         outputs.append(cloned(out))
     return outputs
 
+
 def _audit(task,c,events):
     """Independent prefix reconstruction; no call into the executable model."""
+    if task.startswith("dev-"):return _development_audit(task,c,events)
     if task=="u01":
         mounted=True;query="";ticket=None;busy=False;shown=None;error=None;effects=[]
         for x in events:
@@ -408,20 +405,10 @@ def _audit(task,c,events):
                     elif target in selected:selected.remove(target)
                     else:selected.append(target)
         return {"selected":sorted(selected),"anchor":anchor}
-    if task=="dev-u01":
-        value=c["value"]
-        for x in events:
-            value=value+x["amount"] if x["type"]=="step" else x["value"]
-            if value<c["min"]:value=c["min"]
-            if value>c["max"]:value=c["max"]
-        return {"value":value,"atMin":value==c["min"],"atMax":value==c["max"]}
-    opened=[]
-    for x in events:
-        if x["type"]=="close":opened=[]
-        elif x["id"] in c["ids"]:opened=[] if opened==[x["id"]] else [x["id"]]
-    return {"open":opened[0] if opened else None,"expanded":opened}
+    raise ValueError(task)
 
 def check(task_id,case,outputs):
+    case=_normalize_numbers(case)
     errors=check_count(case,outputs)
     if errors:return result(errors)
     if task_id not in _SPECS:raise ValueError("unknown task")
@@ -439,9 +426,9 @@ _FAULTS={
 "u06":[("stale_rollback","fields",{"name":"invented"}),("wrong_revision_owner","revision",999),("lost_pending_submission","pending",["invented"])],
 "u07":[("partial_group_undo","document",{"invented":1}),("history_availability","canUndo",None),("nested_group_boundary","depth",999)],
 "u08":[("disabled_range_member","selected",["b"]),("removed_anchor","anchor","invented"),("lost_range","selected",None)],
-"dev-u01":[("upper_bound","value",999),("lower_bound_flag","atMin",None),("upper_bound_flag","atMax",None)],
-"dev-u02":[("unknown_disclosure","open","invented"),("two_open_panels","expanded",["a","b"]),("expansion_mismatch","expanded",None)]}
+}
 def fault_cases(task_id):
+    if task_id.startswith("dev-"):return _development_faults(task_id)
     case=public_cases(task_id)[0];good=reference(task_id,case);faults=[]
     for name,key,bad in _FAULTS[task_id]:
         altered=cloned(good);i=next((j for j,x in enumerate(altered) if not _equal(x[key],bad)),0);altered[i][key]=cloned(bad)
@@ -465,7 +452,140 @@ _JS={
 "u06":r'''if(!state)state={fields:config.fields,revision:0,status:'idle',pending:{},seen:{},owner:null};const t=event.type;if(t==='edit'||(t==='submit'&&!own(state.seen,event.id))){const before=copy(state.fields);for(const k of event.remove)delete state.fields[k];patch(state.fields,event.set);state.revision++;if(t==='edit')state.status='idle';else{put(state.seen,event.id,true);put(state.pending,event.id,{before,revision:state.revision});state.owner=event.id;state.status='saving';}}else if(['success','failure'].includes(t)&&own(state.pending,event.id)){const row=state.pending[event.id];delete state.pending[event.id];if(state.owner===event.id&&row.revision===state.revision){state.fields=t==='success'?event.fields:row.before;state.revision++;state.status=t==='success'?'saved':'error';state.owner=null;}}return {state,output:{fields:state.fields,revision:state.revision,status:state.status,pending:Object.keys(state.pending).sort()}};''',
 "u07":r'''if(!state)state={document:config.initial,undo:[],redo:[],groups:[]};const push=(k,d)=>{state[k].push(copy(d));state[k]=state[k].slice(-config.limit);};const t=event.type;if(t==='begin')state.groups.push(copy(state.document));else if(['commit','cancel'].includes(t)&&state.groups.length){const before=state.groups.pop();if(t==='cancel')state.document=before;else if(!state.groups.length&&!eq(before,state.document)){push('undo',before);state.redo=[];}}else if(['undo','redo'].includes(t)&&!state.groups.length&&state[t].length){push(t==='undo'?'redo':'undo',state.document);state.document=state[t].pop();}else if(t==='set'||t==='delete'){const before=copy(state.document);if(t==='set')put(state.document,event.key,event.value);else delete state.document[event.key];if(!state.groups.length&&!eq(before,state.document)){push('undo',before);state.redo=[];}}return {state,output:{document:state.document,canUndo:!!state.undo.length&&!state.groups.length,canRedo:!!state.redo.length&&!state.groups.length,depth:state.groups.length}};''',
 "u08":r'''if(!state)state={options:config.options,selected:[],anchor:null};if(event.type==='view')state.options=event.options;const ids=state.options.map(x=>x.id),enabled=state.options.filter(x=>!x.disabled).map(x=>x.id);state.selected=state.selected.filter(k=>enabled.includes(k));if(!enabled.includes(state.anchor))state.anchor=null;if(event.type==='click'&&enabled.includes(event.id)){const k=event.id;if(event.shift){if(state.anchor===null)state.anchor=k;const a=ids.indexOf(state.anchor),b=ids.indexOf(k),span=ids.slice(Math.min(a,b),Math.max(a,b)+1).filter(x=>enabled.includes(x));state.selected=event.ctrl?[...new Set(state.selected.concat(span))]:span;}else if(event.ctrl){state.selected=state.selected.includes(k)?state.selected.filter(x=>x!==k):state.selected.concat(k);state.anchor=k;}else{state.selected=[k];state.anchor=k;}}state.selected.sort();return {state,output:{selected:state.selected,anchor:state.anchor}};''',
-"dev-u01":r'''if(!state)state={value:config.value};state.value=Math.max(config.min,Math.min(config.max,event.type==='step'?state.value+event.amount:event.value));return {state,output:{value:state.value,atMin:state.value===config.min,atMax:state.value===config.max}};''',
-"dev-u02":r'''if(!state)state={open:null};if(event.type==='close')state.open=null;else if(config.ids.includes(event.id))state.open=state.open===event.id?null:event.id;return {state,output:{open:state.open,expanded:state.open===null?[]:[state.open]}};'''}
+'dev-u01': "if(!state)state={value:config.initial,draft:String(config.initial),error:null,disabled:false};const t=event.type,reset=()=>{state.draft=String(state.value);state.error=null;};if(t==='mode')state.disabled=event.disabled;else if(t==='cancel')reset();else if(!state.disabled){if(t==='input'){state.draft=event.text;state.error=null;}else if(t==='step'){let n=(state.value-config.min)/config.step+event.direction;n=Math.max(0,Math.min(Math.floor((config.max-config.min)/config.step),n));state.value=config.min+n*config.step;reset();}else if(t==='commit'){const n=Number(state.draft);if(!/^[+-]?[0-9]+$/.test(state.draft)||!Number.isSafeInteger(n))state.error='invalid';else{const last=Math.floor((config.max-config.min)/config.step),lo=Math.max(0,Math.min(last,Math.floor((n-config.min)/config.step))),hi=Math.min(last,lo+1),a=config.min+lo*config.step,b=config.min+hi*config.step;state.value=Math.abs(n-b)<Math.abs(n-a)?b:a;reset();}}}return {state,output:{value:state.value,draft:state.draft,dirty:state.draft!==String(state.value),error:state.error,disabled:state.disabled}};",
+'dev-u02': "if(!state){state={panels:copy(config.panels),required:{},open:{}};for(const g of config.groups){put(state.required,g.id,g.required);const p=config.panels.find(p=>p.group===g.id&&p.enabled);put(state.open,g.id,g.required&&p?p.id:null);}}const t=event.type,p=state.panels.find(p=>p.id===event.id),g=event.group;if(t==='toggle'&&p&&p.enabled){if(state.open[p.group]!==p.id)put(state.open,p.group,p.id);else if(!state.required[p.group])put(state.open,p.group,null);}else if(t==='enabled'&&p)p.enabled=event.value;else if(t==='mode'&&own(state.required,g))put(state.required,g,event.required);else if(t==='close'&&own(state.required,g)&&!state.required[g])put(state.open,g,null);for(const g of Object.keys(state.required)){const eligible=state.panels.filter(p=>p.group===g&&p.enabled).map(p=>p.id);if(!eligible.includes(state.open[g]))put(state.open,g,state.required[g]&&eligible.length?eligible[0]:null);}return {state,output:{open:state.open,expanded:state.panels.filter(p=>state.open[p.group]===p.id).map(p=>p.id),unsatisfied:Object.keys(state.required).filter(g=>state.required[g]&&state.open[g]===null).sort()}};"}
 
 def reference_source(task_id):return _JS_COMMON+"\nfunction solve({config,state,event}) {\n"+_JS[task_id]+"\n}\n"
+
+# Calibration tasks exercise interactions without reusing main task templates.
+def _development_case(task,regime,seed):
+    r=rng_for(seed,['ui-development',task,regime])
+    if task=='dev-u01':
+        c={'min':-3 if regime=='shift' else 0,'max':8 if regime=='shift' else 5,'step':3 if regime=='shift' else 2,'initial':-3 if regime=='shift' else 0}
+        events=[{'type':'input','text':'3'},{'type':'commit'},{'type':'input','text':'1x'},
+                {'type':'commit'},{'type':'mode','disabled':True},{'type':'step','direction':1},
+                {'type':'cancel'},{'type':'mode','disabled':False},{'type':'input','text':'999'},
+                {'type':'commit'},{'type':'step','direction':-1}]
+        texts=['','+0','-0',' 2','2.0','1e2','-99','4','9007199254740992','+001']
+        for _ in range(18 if regime=='shift' else 10):
+            typ=r.choice(['input','input','commit','cancel','mode','step']);e={'type':typ}
+            if typ=='input':e['text']=r.choice(texts)
+            if typ=='mode':e['disabled']=r.choice([True,False])
+            if typ=='step':e['direction']=r.choice([-1,1])
+            events.append(e)
+        if regime=='boundary':events+=[{'type':'mode','disabled':False},{'type':'input','text':''},{'type':'commit'}]
+    else:
+        c={'groups':[{'id':'g','required':True},{'id':'h','required':False}],
+           'panels':[{'id':'a','group':'g','enabled':True},{'id':'b','group':'g','enabled':True},
+                     {'id':'c','group':'h','enabled':True},{'id':'d','group':'h','enabled':False}]}
+        if regime=='shift':c['groups'].append({'id':'i','required':True});c['panels'] += [{'id':'e','group':'i','enabled':True}]
+        events=[{'type':'toggle','id':'a'},{'type':'toggle','id':'c'},{'type':'enabled','id':'a','value':False},
+                {'type':'enabled','id':'b','value':False},{'type':'close','group':'g'},
+                {'type':'mode','group':'h','required':True},{'type':'close','group':'h'},
+                {'type':'enabled','id':'b','value':True},{'type':'toggle','id':'d'},
+                {'type':'mode','group':'h','required':False},{'type':'close','group':'h'}]
+        for _ in range(18 if regime=='shift' else 10):
+            typ=r.choice(['toggle','enabled','close','mode']);e={'type':typ}
+            if typ in ('toggle','enabled'):e['id']=r.choice([p['id'] for p in c['panels']]+['unknown'])
+            else:e['group']=r.choice([g['id'] for g in c['groups']]+['unknown'])
+            if typ=='enabled':e['value']=r.choice([True,False])
+            if typ=='mode':e['required']=r.choice([True,False])
+            events.append(e)
+        if regime=='boundary':
+            for p in c['panels']:events.append({'type':'enabled','id':p['id'],'value':False})
+    if regime=='adversarial':events=[cloned(e) for e in events for _ in range(2 if r.random()<.4 else 1)][:48]
+    return {'config':c,'events':events}
+
+
+def _development_reference(task,case):
+    c=case['config'];out=[]
+    if task=='dev-u01':value=c['initial'];draft=str(value);error=None;disabled=False
+    else:
+        panels=cloned(c['panels']);required={g['id']:g['required'] for g in c['groups']}
+        opened={g:next((p['id'] for p in panels if p['group']==g and p['enabled']),None) if required[g] else None for g in required}
+    for e in case['events']:
+        typ=e['type']
+        if task=='dev-u01':
+            if typ=='mode':disabled=e['disabled']
+            elif typ=='cancel':draft=str(value);error=None
+            elif not disabled:
+                if typ=='input':draft=e['text'];error=None
+                elif typ=='step':
+                    n=(value-c['min'])//c['step']+e['direction'];n=max(0,min((c['max']-c['min'])//c['step'],n));value=c['min']+n*c['step'];draft=str(value);error=None
+                elif typ=='commit':
+                    digits=draft[1:] if draft[:1] in ('+','-') else draft
+                    valid=bool(digits) and all('0'<=ch<='9' for ch in digits)
+                    parsed=int(draft) if valid else 0
+                    if not valid or abs(parsed)>9007199254740991:error='invalid'
+                    else:
+                        last=(c['max']-c['min'])//c['step'];lower=max(0,min(last,(parsed-c['min'])//c['step']));upper=min(last,lower+1)
+                        a=c['min']+lower*c['step'];b=c['min']+upper*c['step'];value=b if abs(parsed-b)<abs(parsed-a) else a;draft=str(value);error=None
+            row={'value':value,'draft':draft,'dirty':draft!=str(value),'error':error,'disabled':disabled}
+        else:
+            p=next((p for p in panels if p['id']==e.get('id')),None);g=e.get('group')
+            if typ=='toggle' and p and p['enabled']:
+                g=p['group']
+                if opened[g]!=p['id']:opened[g]=p['id']
+                elif not required[g]:opened[g]=None
+            elif typ=='enabled' and p:p['enabled']=e['value']
+            elif typ=='mode' and g in required:required[g]=e['required']
+            elif typ=='close' and g in required and not required[g]:opened[g]=None
+            for g in required:
+                eligible=[p['id'] for p in panels if p['group']==g and p['enabled']]
+                if opened[g] not in eligible:opened[g]=eligible[0] if required[g] and eligible else None
+            row={'open':opened.copy(),'expanded':[p['id'] for p in panels if opened[p['group']]==p['id']],
+                 'unsatisfied':sorted(g for g in required if required[g] and opened[g] is None)}
+        out.append(cloned(row))
+    return out
+
+
+def _development_audit(task,c,events):
+    if task=='dev-u01':
+        committed=c['initial'];text=str(committed);problem=None;locked=False
+        legal=range(c['min'],c['max']+1,c['step'])
+        for e in events:
+            typ=e['type']
+            if typ=='mode':locked=e['disabled']
+            elif typ=='cancel':text=str(committed);problem=None
+            elif not locked:
+                if typ=='input':text=e['text'];problem=None
+                elif typ=='step':
+                    committed=min(max(committed+e['direction']*c['step'],legal[0]),legal[-1]);text=str(committed);problem=None
+                elif typ=='commit':
+                    body=text[1:] if text.startswith(('+','-')) else text
+                    accepted=bool(body) and set(body)<=set('0123456789')
+                    number=int(text) if accepted else 0
+                    if not accepted or not -9007199254740991<=number<=9007199254740991:problem='invalid'
+                    else:committed=min(legal,key=lambda n:(abs(n-number),n));text=str(committed);problem=None
+        return {'value':committed,'draft':text,'dirty':text!=str(committed),'error':problem,'disabled':locked}
+    order=[p['id'] for p in c['panels']];group={p['id']:p['group'] for p in c['panels']};enabled={p['id'] for p in c['panels'] if p['enabled']}
+    mandatory={g['id'] for g in c['groups'] if g['required']};groups=[g['id'] for g in c['groups']]
+    choices={g:next((p for p in order if group[p]==g and p in enabled),None) if g in mandatory else None for g in groups}
+    for e in events:
+        typ=e['type'];k=e.get('id');g=e.get('group')
+        if typ=='mode' and g in groups:
+            if e['required']:mandatory.add(g)
+            else:mandatory.discard(g)
+        elif typ=='enabled' and k in group:
+            if e['value']:enabled.add(k)
+            else:enabled.discard(k)
+        elif typ=='close' and g in groups and g not in mandatory:choices[g]=None
+        elif typ=='toggle' and k in enabled:
+            g=group[k]
+            if choices[g]!=k:choices[g]=k
+            elif g not in mandatory:choices[g]=None
+        for g in groups:
+            if choices[g] not in enabled:choices[g]=None
+            if choices[g] is None and g in mandatory:choices[g]=next((k for k in order if group[k]==g and k in enabled),None)
+    return {'open':choices,'expanded':[k for k in order if choices[group[k]]==k],
+            'unsatisfied':sorted(g for g in mandatory if choices[g] is None)}
+
+
+def _development_faults(task):
+    case=public_cases(task)[0];good=reference(task,case)
+    edits=([('tie_rounds_up',1,'value',4),('invalid_draft_commits',3,'value',1),('disabled_step_changes_value',5,'value',4)] if task=='dev-u01' else
+           [('required_toggle_closes_group',0,'open',{'g':None,'h':None}),('disabled_open_not_replaced',2,'expanded',['a','c']),('required_group_forced_closed',6,'open',{'g':None,'h':None})])
+    faults=[]
+    for name,index,key,value in edits:
+        wrong=cloned(good);wrong[index][key]=value;faults.append({'name':name,'case':cloned(case),'outputs':wrong})
+    return faults

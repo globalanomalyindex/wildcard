@@ -18,8 +18,8 @@ _SPECS = {
 "s06": ("Versioned delta handshake", ["ordering", "identity", "recovery", "causality"], "config={version:nonnegative integer,value:integer}. Events delta={type:'delta',base,version,delta}, snapshot={type:'snapshot',version,value}, ack={type:'ack',version}. Keep current version/value, acknowledged=-1 and a snapshot-request latch. A delta with base=current and version>base applies, clears the latch; any other delta with version<=current is ignored; any remaining delta emits {type:'snapshot',base:current} once while latched and leaves state unchanged. A snapshot with version>current replaces version/value and clears the latch; same-version same-value is ignored; same-version different-value requests a snapshot once; older snapshots are ignored. Ack sets acknowledged=current only when its version equals current; older/future acks are ignored. After version advances, previously acknowledged remains as a historical version. Output {version,value,acknowledged,effects}, where effects is the one request object or []. A request is rearmed only by a successfully applied newer delta or snapshot."),
 "s07": ("Resumable verified chunk receiver", ["identity", "recovery", "conservation", "visibility"], "config={maxLength:integer 0..64}. Events begin={type:'begin',id,length}, chunk={type:'chunk',id,offset,bytes,checksum}, finish={type:'finish',id}. A legal begin length 0..maxLength starts a new active ID and clears bytes; repeating active ID with same length is ok and preserves bytes, different length is conflict and preserves bytes. Invalid length is invalid. A chunk/finish for another ID or no active transfer is ignored. Chunk checksum must equal sum(bytes)%251, bytes must be integers 0..255, offset a nonnegative integer, and offset+length<=declared length; otherwise invalid. Conflicting overlap rejects the ENTIRE chunk as conflict; matching overlap is allowed. Valid chunks fill known bytes, status=ok. Finish is incomplete unless every byte is known; otherwise complete and returns bytes, including [] for length zero. Output {status,id,received,data}, where id is active ID or null, received counts distinct known offsets, and data is full bytes ONLY on a complete finish, else null. Completed transfers remain active; future matching chunks/finishes are legal. No future trace is available."),
 "s08": ("Three-way nested document merge", ["identity", "uncertainty", "reversibility", "propagation"], "config={} . Each event is an independent {base:object,local:object,remote:object}; JSON trees contain objects, arrays and scalars, depth<=3. Merge recursively. At a path, if local and remote are deeply equal (including both absent), choose that value. Else if local equals base choose remote; else if remote equals base choose local. Else if local and remote are objects and base is an object or absent, recursively merge the sorted union of their keys, treating absent base as {}. Otherwise retain base (omit if absent) and record the conflicting path as an array of keys. Arrays are atomic and absence differs from null. Output {merged,conflicts}, with conflicts in depth-first lexicographic key order. Root inputs are objects, so merged is an object. Delete/edit and scalar/object disagreements are explicit conflicts; equal concurrent edits are not."),
-"dev-s01": ("Two-party token handshake", ["identity", "ordering", "visibility"], "config={} . Events {type:'offer',token:string}, {type:'accept',token:string}, or {type:'reset'}. Offer replaces pending token and clears connected; matching accept connects and clears pending; unmatched accepts do nothing; reset clears both. Output {pending:null|string,connected:null|string}. Repeated accept after connection has no effect. This is a two-party handshake, not an ordered operation inbox."),
-"dev-s02": ("Atomic compare-and-swap register pair", ["isolation", "identity", "visibility"], "config={a:integer,b:integer}. Events {expect:[a,b],replace:[a,b]}. Replace both registers only if current pair exactly equals expect, otherwise retain both. Output {accepted:boolean,pair:[a,b]}. Each update is atomic; no merge, version routing, operation deduplication or partial update occurs.")}
+'dev-s01': ('Expiring two-party rendezvous', ['identity', 'deadlines', 'causality', 'visibility'], "config={ttl:positive integer,parties:[two distinct ASCII IDs]}. Initially now=0,token=null,expires=null,approved=[],connected=null. Events offer{type:'offer',token:string}, accept{type:'accept',token,party}, cancel{type:'cancel',token}, advance{type:'advance',dt:nonnegative integer}. Advance adds dt before expiration; every event expires a pending unconnected offer if now>=expires, clearing token/approvals and reporting expired=true for that event. Offer always replaces the token, resets approvals and connection, sets expires=now+ttl,status=offered. Accept for the current unconnected token and a configured party records that party once (accepted or duplicate); when both parties approved, connected=token,expires=null,status=connected. A connected session no longer expires; further accepts ignored. Matching cancel clears pending or connected session,status=cancelled; stale/unknown cancel or accept ignored. Advance status=advanced even when it expires. Output {status,now,token,expires,approved:[sorted party IDs],connected,expired:boolean}. Other events expired=false unless expiration happened immediately before them. Boundary ttl=2,shift ttl=1,ordinary ttl=3; adversarial repeats messages, shift lengthens traces. No lease renewal or resource fencing."),
+'dev-s02': ('Atomic guarded register batches', ['isolation', 'conservation', 'ordering', 'identity'], 'config={initial:{register:nonnegative integer},capacity:integer>=sum(initial)}. Start values=initial,version=0. Each event {version:nonnegative integer,guards:{register:integer},updates:{register:integer}} requests an atomic batch. Evaluate rejection precedence: invalid if any guard key is unknown, any update lacks a guard, or any update value<0; otherwise stale if event.version!=current version; otherwise conflict if any guarded value differs; otherwise capacity if sum of candidate values exceeds capacity. Rejections change nothing. Valid identical candidate status=unchanged and does not increment version. Otherwise status=committed, publish all updates together and increment version once. Output {status,version,values,changed:[sorted keys whose values changed on this committed event]}, changed=[] on every other status. Empty guarded batches are permitted. Ordinary capacity=4; boundary/shift capacity=2; adversarial repeats old batches; shift lengthens traces. This is conditional multi-register commitment, not snapshot history or rollback.')}
 
 TASKS = [{"id": k, "family": "sync", "split": "development" if k.startswith("dev-") else "main", "title": v[0], "tags": v[1], "specification": v[2] + _COMMON} for k, v in _SPECS.items()]
 
@@ -32,6 +32,7 @@ def _line(obj):
 
 def make_case(task_id, regime, seed):
     _validate(task_id, regime)
+    if task_id.startswith("dev-"):return _development_case(task_id,regime,seed)
     r = rng_for(seed, ["sync", task_id, regime])
     n = 6 if regime == "shift" else 4
     config = {}
@@ -81,12 +82,6 @@ def make_case(task_id, regime, seed):
         events=[{"base":{"a":0,"b":0},"local":{"a":v,"b":0},"remote":{"a":0,"b":2}}, {"base":{"a":0},"local":{},"remote":{"a":1}}, {"base":{"a":None},"local":{"a":0},"remote":{"a":0}}, {"base":{"x":{"a":1,"b":2}},"local":{"x":{"a":3,"b":2}},"remote":{"x":{"a":1,"b":4}}}, {"base":{},"local":{"z":None},"remote":{"z":0}}, {"base":{"x":[1]},"local":{"x":[2]},"remote":{"x":[3]}}]
         if regime == "shift": events += [{"base":{"x":{"a":{"v":0}}},"local":{"x":0},"remote":{"x":{"a":{"v":1}}}},{"base":{},"local":{"x":{"a":1}},"remote":{"x":{"b":2}}}]
         if regime == "adversarial": r.shuffle(events)
-    elif task_id == "dev-s01":
-        events=[{"type":"offer","token":"a"},{"type":"accept","token":"b"},{"type":"accept","token":"a"},{"type":"accept","token":"a"},{"type":"offer","token":"b"},{"type":"reset"},{"type":"accept","token":"b"}]
-        if regime == "shift": events += [{"type":"offer","token":str(seed)},{"type":"accept","token":str(seed)}]
-    else:
-        config={"a":r.randint(-3,3),"b":r.randint(-3,3)}; pair=[config["a"],config["b"]]
-        events=[{"expect":pair,"replace":[1,2]},{"expect":pair,"replace":[7,8]},{"expect":[1,2],"replace":[3,4]},{"expect":[3,4],"replace":[3,4]},{"expect":[3,99],"replace":[8,8]}]
     # Seeded legal interleavings make private instances more than renumbered
     # copies of four public traces. Each source-independent oracle replays them.
     extras=[]
@@ -115,10 +110,6 @@ def make_case(task_id, regime, seed):
             elif j%3==1:l.pop("x");rr["x"]["b"]=r.randint(5,9)
             else:l["x"]=None;rr["x"]={"new":[r.randint(0,4)]}
             extra={"base":b,"local":l,"remote":rr}
-        elif task_id=="dev-s01":
-            extra={"type":r.choice(["offer","accept","reset"])}
-            if extra["type"]!="reset":extra["token"]=r.choice(["a","b","c"])
-        else:extra={"expect":[r.randint(-3,4),r.randint(-3,4)],"replace":[r.randint(-3,4),r.randint(-3,4)]}
         events.insert(r.randrange(len(events)+1),extra)
     case={"config":config,"events":cloned(events)}
     # Hide accidental semantic help in familiar IDs while keeping every actual
@@ -177,8 +168,16 @@ def _merge_ref(base,left,right,path):
         return merged,conflicts
     return base,[path]
 
+def _normalize_numbers(value):
+    if type(value) is float and math.isfinite(value) and value.is_integer() and abs(value)<=9007199254740991:return int(value)
+    if type(value) is list:return [_normalize_numbers(x) for x in value]
+    if type(value) is dict:return {k:_normalize_numbers(v) for k,v in value.items()}
+    return value
+
 def reference(task_id, case):
+    case=_normalize_numbers(case)
     if task_id not in _SPECS:raise ValueError("unknown task")
+    if task_id.startswith("dev-"):return _development_reference(task_id,case)
     c=case["config"];out=[];state={}
     if task_id == "s01": state={"seen":{},"slots":{},"next":1,"value":0}
     if task_id == "s03": state={"graph":{},"head":None}
@@ -186,8 +185,6 @@ def reference(task_id, case):
     if task_id == "s05": state={"available":c["initial"],"spent":0,"spends":{},"sends":{},"received":set()}
     if task_id == "s06": state={"version":c["version"],"value":c["value"],"acknowledged":-1,"latch":False}
     if task_id == "s07": state={"id":None,"length":0,"bytes":{}}
-    if task_id == "dev-s01": state={"pending":None,"connected":None}
-    if task_id == "dev-s02": state={"pair":[c["a"],c["b"]]}
     for e in case["events"]:
         if task_id == "s01":
             ident=e["id"];seq=e["seq"]
@@ -293,20 +290,14 @@ def reference(task_id, case):
             value={"status":status,"id":state["id"],"received":len(state["bytes"]),"data":data}
         elif task_id == "s08":
             merged,conflicts=_merge_ref(e["base"],e["local"],e["remote"],[]);value={"merged":merged,"conflicts":conflicts}
-        elif task_id == "dev-s01":
-            if e["type"]=="offer":state={"pending":e["token"],"connected":None}
-            elif e["type"]=="reset":state={"pending":None,"connected":None}
-            elif state["pending"]==e["token"]:state={"pending":None,"connected":e["token"]}
-            value=state
-        else:
-            accepted=state["pair"]==e["expect"]
-            if accepted:state["pair"]=cloned(e["replace"])
-            value={"accepted":accepted,"pair":state["pair"]}
+        else:raise ValueError(task_id)
         out.append(cloned(value))
     return out
 
+
 def _audit(task, c, events):
     """Reconstruct the final observable prefix independently of reference()."""
+    if task.startswith("dev-"):return _development_audit(task,c,events)
     if task == "s01":
         identities={}; sequence={}; frontier=1;status="accepted"
         for x in events:
@@ -448,20 +439,10 @@ def _audit(task, c, events):
                 return True,merged
             conflicts.append(path);return b
         return {"merged":visit((True,x["base"]),(True,x["local"]),(True,x["remote"]),[])[1],"conflicts":conflicts}
-    if task == "dev-s01":
-        pending=None;connected=None
-        for x in events:
-            if x["type"]=="reset":pending=connected=None
-            elif x["type"]=="offer":pending=x["token"];connected=None
-            elif x["token"]==pending:connected=pending;pending=None
-        return {"pending":pending,"connected":connected}
-    pair=[c["a"],c["b"]];accepted=False
-    for x in events:
-        accepted=all(a==b for a,b in zip(pair,x["expect"]))
-        if accepted:pair=list(x["replace"])
-    return {"accepted":accepted,"pair":pair}
+    raise ValueError(task)
 
 def check(task_id, case, outputs):
+    case=_normalize_numbers(case)
     errors=check_count(case,outputs)
     if errors:return result(errors)
     if task_id not in _SPECS:raise ValueError("unknown task")
@@ -479,10 +460,10 @@ _FAULTS={
 "s06":[("wrong_base_apply","value",999),("stale_ack","acknowledged",999),("duplicate_request","effects",[{"type":"snapshot","base":999}])],
 "s07":[("premature_finalize","data",[999]),("overlap_double_count","received",999),("transfer_identity","id","invented")],
 "s08":[("lost_disjoint_edit","merged",{"invented":1}),("hidden_conflict","conflicts",[["invented"]]),("absence_null_collapse","merged",None)],
-"dev-s01":[("wrong_token_accept","connected","invented"),("lost_offer","pending","invented"),("non_atomic_reset","connected",999)],
-"dev-s02":[("partial_swap","pair",[999,0]),("false_acceptance","accepted",None),("lost_pair","pair",[])]}
+}
 
 def fault_cases(task_id):
+    if task_id.startswith("dev-"):return _development_faults(task_id)
     case=public_cases(task_id)[0];correct=reference(task_id,case);out=[]
     for name,key,bad in _FAULTS[task_id]:
         changed=cloned(correct)
@@ -513,8 +494,108 @@ if(event.type==='finish'){if(state.buf.length)fail();state.buf=[];state.drop=fal
 "s06":r'''if(!state)state={version:config.version,value:config.value,acknowledged:-1,latch:false};let need=false,effects=[];if(event.type==='delta'){if(event.base===state.version&&event.version>event.base){state.version=event.version;state.value+=event.delta;state.latch=false;}else if(event.version>state.version)need=true;}else if(event.type==='snapshot'){if(event.version>state.version){state.version=event.version;state.value=event.value;state.latch=false;}else if(event.version===state.version&&event.value!==state.value)need=true;}else if(event.version===state.version)state.acknowledged=state.version;if(need&&!state.latch){effects=[{type:'snapshot',base:state.version}];state.latch=true;}return {state,output:{version:state.version,value:state.value,acknowledged:state.acknowledged,effects}};''',
 "s07":r'''if(!state)state={id:null,length:0,bytes:{}};let status='ignored',data=null;if(event.type==='begin'){if(!Number.isInteger(event.length)||event.length<0||event.length>config.maxLength)status='invalid';else if(state.id===event.id&&state.length!==event.length)status='conflict';else{if(state.id!==event.id)state={id:event.id,length:event.length,bytes:{}};status='ok';}}else if(state.id!==null&&state.id===event.id){if(event.type==='finish'){status=Object.keys(state.bytes).length===state.length?'complete':'incomplete';if(status==='complete')data=Array.from({length:state.length},(_,i)=>state.bytes[i]);}else{const b=event.bytes,o=event.offset;if(!Number.isInteger(o)||o<0||o+b.length>state.length||b.some(x=>!Number.isInteger(x)||x<0||x>255)||b.reduce((a,x)=>a+x,0)%251!==event.checksum)status='invalid';else if(b.some((x,i)=>own(state.bytes,o+i)&&state.bytes[o+i]!==x))status='conflict';else{b.forEach((x,i)=>put(state.bytes,o+i,x));status='ok';}}}return {state,output:{status,id:state.id,received:Object.keys(state.bytes).length,data}};''',
 "s08":r'''const conflicts=[];const obj=x=>x!==null&&typeof x==='object'&&!Array.isArray(x);const merge=(b,l,r,p)=>{if(eq(l,r))return l;if(eq(l,b))return r;if(eq(r,b))return l;if(obj(l)&&obj(r)&&(b===undefined||obj(b))){const out={},base=b||{};for(const k of [...new Set([...Object.keys(base),...Object.keys(l),...Object.keys(r)])].sort(lex)){const value=merge(own(base,k)?base[k]:undefined,own(l,k)?l[k]:undefined,own(r,k)?r[k]:undefined,p.concat(k));if(value!==undefined)put(out,k,value);}return out;}conflicts.push(p);return b;};return {state:null,output:{merged:merge(event.base,event.local,event.remote,[]),conflicts}};''',
-"dev-s01":r'''if(!state)state={pending:null,connected:null};if(event.type==='offer')state={pending:event.token,connected:null};else if(event.type==='reset')state={pending:null,connected:null};else if(state.pending===event.token)state={pending:null,connected:event.token};return {state,output:state};''',
-"dev-s02":r'''if(!state)state={pair:[config.a,config.b]};const accepted=eq(state.pair,event.expect);if(accepted)state.pair=event.replace;return {state,output:{accepted,pair:state.pair}};'''}
+'dev-s01': "if(!state)state={now:0,token:null,expires:null,approved:[],connected:null};let status='ignored',expired=false;const t=event.type;if(t==='advance'){state.now+=event.dt;status='advanced';}const clear=()=>{state.token=null;state.expires=null;state.approved=[];state.connected=null;};if(state.expires!==null&&state.now>=state.expires){clear();expired=true;}if(t==='offer'){clear();state.token=event.token;state.expires=state.now+config.ttl;status='offered';}else if(t==='accept'&&state.token!==null&&state.connected===null&&event.token===state.token&&config.parties.includes(event.party)){status=state.approved.includes(event.party)?'duplicate':'accepted';if(!state.approved.includes(event.party))state.approved.push(event.party);if(state.approved.length===config.parties.length){state.connected=state.token;state.expires=null;status='connected';}}else if(t==='cancel'&&state.token!==null&&event.token===state.token){clear();status='cancelled';}return {state,output:{status,now:state.now,token:state.token,expires:state.expires,approved:[...state.approved].sort(lex),connected:state.connected,expired}};",
+'dev-s02': "if(!state)state={values:config.initial,version:0};const g=event.guards,u=event.updates;let status,changed=[];const candidate=JSON.parse(JSON.stringify(state.values));for(const k of Object.keys(u))put(candidate,k,u[k]);if(Object.keys(g).some(k=>!own(state.values,k))||Object.keys(u).some(k=>!own(g,k)||u[k]<0))status='invalid';else if(event.version!==state.version)status='stale';else if(Object.keys(g).some(k=>state.values[k]!==g[k]))status='conflict';else if(Object.values(candidate).reduce((a,b)=>a+b,0)>config.capacity)status='capacity';else if(eq(candidate,state.values))status='unchanged';else{changed=Object.keys(u).filter(k=>state.values[k]!==u[k]).sort(lex);state.values=candidate;state.version++;status='committed';}return {state,output:{status,version:state.version,values:state.values,changed}};"}
 
 def reference_source(task_id):
     return _JS_COMMON+"\nfunction solve({config,state,event}) {\n"+_JS[task_id]+"\n}\n"
+
+# Development contracts have interacting rules, but distinct templates from main.
+def _development_case(task,regime,seed):
+    r=rng_for(seed,['sync-development',task,regime])
+    if task=='dev-s01':
+        c={'ttl':1 if regime=='shift' else 2 if regime=='boundary' else 3,'parties':['a','b']}
+        events=[{'type':'offer','token':'t'},{'type':'accept','token':'t','party':'a'},
+                {'type':'accept','token':'t','party':'a'},{'type':'advance','dt':c['ttl']},
+                {'type':'accept','token':'t','party':'b'},{'type':'offer','token':'u'},
+                {'type':'accept','token':'u','party':'b'},{'type':'accept','token':'u','party':'a'},
+                {'type':'advance','dt':4},{'type':'cancel','token':'t'},{'type':'cancel','token':'u'}]
+        for _ in range(20 if regime=='shift' else 12):
+            typ=r.choice(['offer','accept','accept','advance','cancel']);e={'type':typ}
+            if typ=='advance':e['dt']=r.randint(0,5)
+            else:e['token']=r.choice(['t','u','v'])
+            if typ=='accept':e['party']=r.choice(['a','b','unknown'])
+            events.append(e)
+    else:
+        c={'initial':{'a':1,'b':1,'c':0},'capacity':2 if regime in ('boundary','shift') else 4}
+        events=[{'version':0,'guards':{'a':1,'b':1},'updates':{'a':0,'b':2}},
+                {'version':0,'guards':{'a':0},'updates':{'a':1}},
+                {'version':1,'guards':{'a':1,'b':2},'updates':{'a':2,'b':0}},
+                {'version':1,'guards':{'a':0},'updates':{'b':0}},
+                {'version':1,'guards':{'a':0,'b':2},'updates':{'a':3,'b':2}},
+                {'version':1,'guards':{'a':0,'b':2},'updates':{'a':1,'b':1}},
+                {'version':2,'guards':{'a':1},'updates':{'a':1}}]
+        for _ in range(20 if regime=='shift' else 12):
+            keys=r.sample(['a','b','c'],r.randint(0,3));guards={k:r.randint(0,3) for k in keys}
+            updates={k:r.randint(-1,4) for k in r.sample(keys,r.randint(0,len(keys)))}
+            if r.random()<.2:updates['unknown']=1
+            events.append({'version':r.randint(0,4),'guards':guards,'updates':updates})
+    if regime=='adversarial':events=[cloned(e) for e in events for _ in range(2 if r.random()<.4 else 1)][:48]
+    return {'config':c,'events':events}
+
+
+def _development_reference(task,case):
+    c=case['config'];out=[];now=0;token=None;expires=None;approved=set();connected=None
+    values=cloned(c.get('initial',{}));version=0
+    for e in case['events']:
+        if task=='dev-s01':
+            typ=e['type'];status='ignored';expired=False
+            if typ=='advance':now+=e['dt'];status='advanced'
+            if expires is not None and now>=expires:token=None;expires=None;approved=set();connected=None;expired=True
+            if typ=='offer':token=e['token'];expires=now+c['ttl'];approved=set();connected=None;status='offered'
+            elif typ=='accept' and token is not None and connected is None and e['token']==token and e['party'] in c['parties']:
+                status='duplicate' if e['party'] in approved else 'accepted';approved.add(e['party'])
+                if len(approved)==len(c['parties']):connected=token;expires=None;status='connected'
+            elif typ=='cancel' and token is not None and e['token']==token:token=None;expires=None;approved=set();connected=None;status='cancelled'
+            row={'status':status,'now':now,'token':token,'expires':expires,'approved':sorted(approved),'connected':connected,'expired':expired}
+        else:
+            changed=[];g=e['guards'];u=e['updates'];candidate={**values,**u}
+            if set(g)-set(values) or set(u)-set(g) or any(v<0 for v in u.values()):status='invalid'
+            elif e['version']!=version:status='stale'
+            elif any(values[k]!=v for k,v in g.items()):status='conflict'
+            elif sum(candidate.values())>c['capacity']:status='capacity'
+            elif _json_equal(values,candidate):status='unchanged'
+            else:
+                changed=sorted(k for k in u if values[k]!=u[k]);values=candidate;version+=1;status='committed'
+            row={'status':status,'version':version,'values':values,'changed':changed}
+        out.append(cloned(row))
+    return out
+
+
+def _development_audit(task,c,events):
+    if task=='dev-s01':
+        time=0;offer=None;proofs=[];connection=None;status='ignored';expired=False
+        for e in events:
+            typ=e['type'];expired=False;status='advanced' if typ=='advance' else 'ignored'
+            time+=e.get('dt',0) if typ=='advance' else 0
+            if offer is not None and connection is None and time-offer[1]>=c['ttl']:offer=None;proofs=[];expired=True
+            if typ=='offer':offer=(e['token'],time);proofs=[];connection=None;status='offered'
+            elif typ=='accept' and offer is not None and connection is None and e['token']==offer[0] and e['party'] in c['parties']:
+                if e['party'] in proofs:status='duplicate'
+                else:proofs.append(e['party']);status='accepted'
+                if set(proofs)==set(c['parties']):connection=offer[0];status='connected'
+            elif typ=='cancel' and offer is not None and e['token']==offer[0]:offer=None;proofs=[];connection=None;status='cancelled'
+        return {'status':status,'now':time,'token':offer[0] if offer else None,'expires':offer[1]+c['ttl'] if offer and connection is None else None,'approved':sorted(proofs),'connected':connection,'expired':expired}
+    ledger=[cloned(c['initial'])];status='unchanged';changed=[]
+    for e in events:
+        before=ledger[-1];g=e['guards'];writes=e['updates'];changed=[]
+        malformed=any(k not in before for k in g) or any(k not in g or v<0 for k,v in writes.items())
+        if malformed:status='invalid'
+        elif e['version']!=len(ledger)-1:status='stale'
+        elif not all(before[k]==g[k] for k in g):status='conflict'
+        else:
+            after={k:writes[k] if k in writes else v for k,v in before.items()}
+            if sum(after.values())>c['capacity']:status='capacity'
+            elif all(before[k]==after[k] for k in before):status='unchanged'
+            else:status='committed';changed=sorted(k for k in before if before[k]!=after[k]);ledger.append(after)
+    return {'status':status,'version':len(ledger)-1,'values':ledger[-1],'changed':changed}
+
+
+def _development_faults(task):
+    case=public_cases(task)[0];good=reference(task,case)
+    edits=( [('duplicate_party_connects',2,'connected','t'),('expiry_equality_ignored',3,'token','t'),('connected_session_expires',8,'connected',None)] if task=='dev-s01' else
+            [('stale_revision_commits',1,'status','committed'),('unguarded_write_commits',3,'status','committed'),('capacity_failure_partially_writes',4,'values',{'a':3,'b':2,'c':0})])
+    faults=[]
+    for name,index,key,value in edits:
+        wrong=cloned(good);wrong[index][key]=value;faults.append({'name':name,'case':cloned(case),'outputs':wrong})
+    return faults

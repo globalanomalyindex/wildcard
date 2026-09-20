@@ -1,4 +1,4 @@
-"""Independent-model, mutation and isolated JavaScript parity checks."""
+"""Independent-model, negative-output and isolated JavaScript parity checks."""
 import json
 import unittest
 from unittest.mock import patch
@@ -28,6 +28,8 @@ class SyncUIBenchmarkTests(unittest.TestCase):
                             self.assertGreater(len(a["events"]),0)
                             self.assertLessEqual(len(a["events"]),48)
                             json.dumps(a,allow_nan=False)
+                            if task["id"] == "dev-u02":
+                                self.assertLessEqual(len(a["config"]["groups"])+len(a["config"]["panels"]),8)
 
     def test_python_models_agree_on_public_and_generated_cases(self):
         for family in FAMILIES:
@@ -46,7 +48,7 @@ class SyncUIBenchmarkTests(unittest.TestCase):
                 with patch.object(family,"reference",side_effect=AssertionError("checker called reference")):
                     self.assertTrue(family.check(task["id"],case,outputs)["passed"])
 
-    def test_all_named_faults_rejected(self):
+    def test_named_incorrect_output_controls_rejected(self):
         for family in FAMILIES:
             for task in family.TASKS:
                 faults=family.fault_cases(task["id"])
@@ -150,6 +152,29 @@ class SyncUIBenchmarkTests(unittest.TestCase):
                 if event["deleted"]:
                     self.assertEqual(event["value"], "")
 
+    def test_public_and_generated_values_stay_inside_numeric_string_domain(self):
+        def validate(value):
+            if type(value) in (int, float):
+                self.assertTrue(-9007199254740991 <= value <= 9007199254740991)
+                self.assertEqual(value, int(value))
+            elif isinstance(value, str):
+                self.assertFalse(any(0xD800 <= ord(ch) <= 0xDFFF for ch in value))
+            elif isinstance(value, list):
+                for child in value:
+                    validate(child)
+            elif isinstance(value, dict):
+                for key, child in value.items():
+                    self.assertIs(type(key), str)
+                    validate(key)
+                    validate(child)
+        for family in FAMILIES:
+            for task in family.TASKS:
+                for case in family.public_cases(task["id"]):
+                    validate(case)
+                for regime in REGIMES:
+                    for seed in range(12):
+                        validate(family.make_case(task["id"], regime, seed))
+
     def test_integral_json_number_notation_does_not_create_a_change(self):
         cases = [
             (ui, "u07", {"config": {"initial": {"x": 1}, "limit": 2},
@@ -172,7 +197,7 @@ class SyncUIBenchmarkTests(unittest.TestCase):
     def test_output_json_numbers_stay_distinct_from_booleans(self):
         for family, task_id, case in [
             (sync, "s06", {"config": {"version": 0, "value": 1.0}, "events": [{"type": "ack", "version": 0}]}),
-            (ui, "dev-u01", {"config": {"min": 0, "max": 2, "value": 1}, "events": [{"type": "step", "amount": 0}]}),
+            (ui, "dev-u01", {"config": {"min": 0, "max": 2, "step": 1, "initial": 0}, "events": [{"type": "step", "direction": 1}]}),
         ]:
             correct = family.reference(task_id, case)
             equivalent = cloned(correct)
@@ -182,6 +207,56 @@ class SyncUIBenchmarkTests(unittest.TestCase):
                 wrong = cloned(correct)
                 wrong[0]["value"] = wrong_value
                 self.assertFalse(family.check(task_id, case, wrong)["passed"])
+
+    def test_development_contracts_require_interacting_rules(self):
+        scenarios = [
+            (sync, "dev-s01", {"ttl": 2, "parties": ["a", "b"]}, [
+                {"type": "offer", "token": "t"}, {"type": "accept", "token": "t", "party": "a"},
+                {"type": "advance", "dt": 2}, {"type": "accept", "token": "t", "party": "b"},
+                {"type": "offer", "token": "u"}, {"type": "accept", "token": "u", "party": "b"},
+                {"type": "accept", "token": "u", "party": "a"}],
+             [(2, {"expired": True, "token": None}), (3, {"status": "ignored"}),
+              (6, {"connected": "u", "expires": None, "approved": ["a", "b"]})]),
+            (sync, "dev-s02", {"initial": {"a": 1, "b": 1}, "capacity": 3}, [
+                {"version": 0, "guards": {"a": 1, "b": 1}, "updates": {"a": 2, "b": 2}},
+                {"version": 0, "guards": {"a": 1, "b": 1}, "updates": {"a": 0, "b": 3}},
+                {"version": 0, "guards": {"a": 0}, "updates": {"a": 0}},
+                {"version": 1, "guards": {"a": 0}, "updates": {"b": 0}}],
+             [(0, {"status": "capacity", "values": {"a": 1, "b": 1}}),
+              (1, {"status": "committed", "version": 1, "changed": ["a", "b"]}),
+              (2, {"status": "stale"}), (3, {"status": "invalid", "values": {"a": 0, "b": 3}})]),
+            (ui, "dev-u01", {"min": 0, "max": 5, "step": 2, "initial": 0}, [
+                {"type": "input", "text": "3"}, {"type": "commit"},
+                {"type": "input", "text": "1x"}, {"type": "commit"},
+                {"type": "mode", "disabled": True}, {"type": "step", "direction": 1},
+                {"type": "cancel"}, {"type": "mode", "disabled": False},
+                {"type": "input", "text": "99"}, {"type": "commit"}],
+             [(1, {"value": 2, "draft": "2", "dirty": False}),
+              (3, {"error": "invalid", "draft": "1x", "value": 2}),
+              (5, {"error": "invalid", "value": 2}), (6, {"draft": "2", "error": None}),
+              (9, {"value": 4, "draft": "4"})]),
+            (ui, "dev-u02", {"groups": [{"id": "g", "required": True}, {"id": "h", "required": False}],
+                "panels": [{"id": "a", "group": "g", "enabled": True}, {"id": "b", "group": "g", "enabled": True},
+                           {"id": "c", "group": "h", "enabled": True}]}, [
+                {"type": "toggle", "id": "a"}, {"type": "toggle", "id": "c"},
+                {"type": "enabled", "id": "a", "value": False}, {"type": "enabled", "id": "b", "value": False},
+                {"type": "mode", "group": "h", "required": True}, {"type": "close", "group": "h"},
+                {"type": "enabled", "id": "b", "value": True}],
+             [(0, {"open": {"g": "a", "h": None}}), (2, {"expanded": ["b", "c"]}),
+              (3, {"unsatisfied": ["g"]}), (5, {"open": {"g": None, "h": "c"}}),
+              (6, {"expanded": ["b", "c"], "unsatisfied": []})]),
+        ]
+        for family, task_id, config, events, expectations in scenarios:
+            case = {"config": config, "events": events}
+            expected = family.reference(task_id, case)
+            self.assertTrue(family.check(task_id, case, expected)["passed"])
+            execution = run_cases(family.reference_source(task_id), [case])[0]
+            self.assertEqual(execution["status"], "success", execution)
+            for outputs in (expected, execution["outputs"]):
+                for index, fields in expectations:
+                    for key, value in fields.items():
+                        with self.subTest(task=task_id, index=index, key=key):
+                            self.assertEqual(outputs[index][key], value)
 
     def test_byte_import_split_unicode_and_atomic_conflicting_chunk(self):
         frames=[{"op":"begin","id":"a"},{"op":"put","key":"🦊","value":"café"},{"op":"commit","id":"a"}]
