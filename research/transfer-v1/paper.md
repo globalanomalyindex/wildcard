@@ -154,7 +154,7 @@ The [amendment](amendment.md) authorized exactly one new panel of all 64 judge b
 
 All 64 blocks were measured again under the same amended interface and passed validation on their first transport attempt. The 63 valid original blocks are not pooled with the new panel, and panels cannot be selected according to their results. The amended panel alone determines its primary estimate using the already prespecified LR−R contrast and statistical procedures. Delivered invalid responses are still not regenerated, and any missing or invalid required block halts the amended analysis. The amendment authorizes no additional panel.
 
-The new panel is a changed measurement procedure applied to the same generated sample. It is not an independent generator replication or a second set of 32 problems. Constraining IDs prevents this reference-domain error but does not establish semantic reliability. The [complete amended results](results.json) contain every task score, both acquisition ledgers, and their source hashes. Within the amended panel, no block was omitted, repaired, or regenerated after an invalid delivery.
+The new panel is a changed measurement procedure applied to the same generated sample. It is not an independent generator replication or a second set of 32 problems. Constraining IDs prevents this reference-domain error but does not establish semantic reliability. The [complete amended results](results.json) contain every task score, both acquisition ledgers, and their source hashes. The amended panel contains no omitted blocks and required no repairs or retries.
 
 ### 5.3 A separate post-hoc metric-invariance sensitivity
 
