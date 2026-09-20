@@ -4,6 +4,7 @@
 The default writes only the failed block's exhaustive metric-invariance proof.
 Aggregate estimates require --aggregate and an already frozen amendment manifest.
 Original requests, records, responses, and the strict analysis stay untouched.
+--check recomputes the requested artifacts in memory and never writes files.
 """
 import argparse
 import copy
@@ -156,8 +157,21 @@ def aggregate(run, proof, amendment_manifest):
                 perProblem=rows, sourceRecords=[source(run/'calls'/r['id']/'record.json') for r in requests])
 
 
+def persist_or_check(path, value, *, check):
+    path = Path(path)
+    if check:
+        if not path.is_file():
+            raise ValueError(f'Missing sensitivity artifact: {path}')
+        if read(path) != value:
+            raise ValueError(f'Stale sensitivity artifact: {path}')
+        return
+    path.parent.mkdir(parents=True, exist_ok=True)
+    path.write_text(json.dumps(value, ensure_ascii=False, indent=2)+'\n')
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--check', action='store_true', help='Recompute in memory and reject missing/stale artifacts without writing')
     parser.add_argument('--aggregate', action='store_true')
     parser.add_argument('--amendment-manifest', type=Path)
     args = parser.parse_args()
@@ -166,13 +180,13 @@ def main():
     run = HERE/'runs/main'
     target = HERE/'runs/original-sensitivity'
     proof = build_proof(run)
-    target.mkdir(parents=True, exist_ok=True)
-    (target/'invariance-proof.json').write_text(json.dumps(proof, ensure_ascii=False, indent=2)+'\n')
+    persist_or_check(target/'invariance-proof.json', proof, check=args.check)
     if args.aggregate:
         result = aggregate(run, proof, args.amendment_manifest)
-        (target/'results.json').write_text(json.dumps(result, ensure_ascii=False, indent=2)+'\n')
+        persist_or_check(target/'results.json', result, check=args.check)
     print(json.dumps(dict(proof=str(target/'invariance-proof.json'), completionCount=proof['completionCount'],
-                         metricInvariant=proof['metricInvariant'], originalPrimaryStatus='halted', aggregateCalculated=args.aggregate)))
+                         metricInvariant=proof['metricInvariant'], originalPrimaryStatus='halted', aggregateCalculated=args.aggregate,
+                         mode='checked-in-memory' if args.check else 'generated')))
 
 
 if __name__ == '__main__':
