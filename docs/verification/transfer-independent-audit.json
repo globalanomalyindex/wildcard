@@ -1,0 +1,1167 @@
+{
+  "allChecksPassed": true,
+  "method": "Independent Python implementation, no production analysis imports; integer half-score arithmetic.",
+  "measurementPanel": "remeasurement",
+  "originalPrimaryStatus": "halted",
+  "judgeManifestSha256": "a4eb6defbbf86bc725afecdad5e714d9f789c9cadf47bc2408da335003cf99a8",
+  "nTasks": 32,
+  "originalBankActions": 448,
+  "originalCandidateActions": 478,
+  "descriptive": {
+    "S": {
+      "qnm": 0.046875,
+      "qdm": 3.671875,
+      "qualified_actions": 3.671875,
+      "total_actions": 3.6875
+    },
+    "R": {
+      "qnm": 0.171875,
+      "qdm": 3.765625,
+      "qualified_actions": 3.765625,
+      "total_actions": 3.78125
+    },
+    "LR": {
+      "qnm": 0.15625,
+      "qdm": 3.75,
+      "qualified_actions": 3.75,
+      "total_actions": 3.75
+    },
+    "XR": {
+      "qnm": 0.140625,
+      "qdm": 3.71875,
+      "qualified_actions": 3.71875,
+      "total_actions": 3.71875
+    }
+  },
+  "contrasts": [
+    {
+      "id": "LR-R",
+      "difference": -0.015625,
+      "ci95": [
+        -0.109375,
+        0.0625
+      ],
+      "test": {
+        "p": 1.0,
+        "extremeCount": 100000
+      },
+      "signedRank": {
+        "n": 3,
+        "p": 1.0,
+        "wPlus": 2.5,
+        "wMinus": 3.5
+      }
+    },
+    {
+      "id": "R-S",
+      "difference": 0.125,
+      "ci95": [
+        0.0,
+        0.265625
+      ],
+      "test": {
+        "p": 0.13945860541394586,
+        "extremeCount": 13945
+      },
+      "signedRank": {
+        "n": 7,
+        "p": 0.140625,
+        "wPlus": 23.0,
+        "wMinus": 5.0
+      },
+      "holmAdjustedP": 0.2789172108278917
+    },
+    {
+      "id": "XR-LR",
+      "difference": -0.015625,
+      "ci95": [
+        -0.109375,
+        0.0625
+      ],
+      "test": {
+        "p": 1.0,
+        "extremeCount": 100000
+      },
+      "signedRank": {
+        "n": 3,
+        "p": 1.0,
+        "wPlus": 2.5,
+        "wMinus": 3.5
+      },
+      "holmAdjustedP": 1
+    }
+  ],
+  "primaryDirection": "inconclusive",
+  "globalMatchContradictions": 1,
+  "perProblem": [
+    {
+      "taskId": "p01",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "p02",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 1.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "LR": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 1.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "p03",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "p04",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "p05",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "p06",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "p07",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "p08",
+      "family": "interaction_accessibility",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "s01",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "s02",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 1.0,
+          "qdm": 2.0,
+          "qualified_actions": 2.0,
+          "total_actions": 2.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 2.0,
+          "qualified_actions": 2.0,
+          "total_actions": 2.0
+        },
+        "LR": {
+          "qnm": 1.0,
+          "qdm": 2.0,
+          "qualified_actions": 2.0,
+          "total_actions": 2.0
+        },
+        "XR": {
+          "qnm": 1.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "s03",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "s04",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "s05",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 1.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "LR": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "s06",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.5,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "s07",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "s08",
+      "family": "software_systems",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "o01",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "o02",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "o03",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "o04",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "o05",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 1.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "o06",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "o07",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "o08",
+      "family": "operational_workflows",
+      "arms": {
+        "S": {
+          "qnm": 0.5,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.5,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.5,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.5,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        }
+      }
+    },
+    {
+      "taskId": "i01",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i02",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i03",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 3.0,
+          "qualified_actions": 3.0,
+          "total_actions": 3.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i04",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i05",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i06",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i07",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.5,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.5,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    },
+    {
+      "taskId": "i08",
+      "family": "information_creative_tooling",
+      "arms": {
+        "S": {
+          "qnm": 0.0,
+          "qdm": 3.5,
+          "qualified_actions": 3.5,
+          "total_actions": 4.0
+        },
+        "R": {
+          "qnm": 0.0,
+          "qdm": 3.5,
+          "qualified_actions": 3.5,
+          "total_actions": 4.0
+        },
+        "LR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        },
+        "XR": {
+          "qnm": 0.0,
+          "qdm": 4.0,
+          "qualified_actions": 4.0,
+          "total_actions": 4.0
+        }
+      }
+    }
+  ],
+  "agreement": {
+    "counts": {
+      "candidate_actions": 478,
+      "grouping_pairs": 3373,
+      "constraint_valid_agree": 476,
+      "feasible_agree": 478,
+      "actionable_agree": 478,
+      "bank_newness_agree": 471,
+      "qualified_agree": 476,
+      "grouping_agree": 3334,
+      "same_group_j1": 589,
+      "same_group_j2": 570,
+      "same_group_both": 560
+    },
+    "rates": {
+      "constraint_valid_agree": 0.99581589958159,
+      "feasible_agree": 1.0,
+      "actionable_agree": 1.0,
+      "bank_newness_agree": 0.9853556485355649,
+      "qualified_agree": 0.99581589958159
+    },
+    "pairwiseMechanismGroupingAgreement": 0.9884375926474949,
+    "positiveMechanismLinkAgreement": 0.9663503019844694,
+    "qnmMeanAbsoluteJudgeDifference": 0.0546875,
+    "caveat": "Within-block descriptive agreement; candidate pairs are correlated, and agreement is not truth or human validation."
+  },
+  "diagnostics": {
+    "pairs": 8,
+    "passedPairs": 6,
+    "variants": 16,
+    "passedVariants": 12
+  },
+  "actualStudyUsage": {
+    "logicalCalls": 336,
+    "attempts": 336,
+    "attemptsWithUsage": 336,
+    "elapsedSeconds": 9373.437101911995,
+    "statusCounts": {
+      "success": 335,
+      "validation_error": 1
+    },
+    "tokens": {
+      "input_tokens": 2756273,
+      "cached_input_tokens": 1102720,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 292147,
+      "reasoning_output_tokens": 49422
+    }
+  },
+  "originalJudgeUsage": {
+    "logicalCalls": 64,
+    "attempts": 64,
+    "attemptsWithUsage": 64,
+    "elapsedSeconds": 2094.7038046220005,
+    "statusCounts": {
+      "success": 63,
+      "validation_error": 1
+    },
+    "tokens": {
+      "input_tokens": 611294,
+      "cached_input_tokens": 178816,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 77296,
+      "reasoning_output_tokens": 6836
+    }
+  },
+  "amendedJudgeUsage": {
+    "logicalCalls": 64,
+    "attempts": 64,
+    "attemptsWithUsage": 64,
+    "elapsedSeconds": 2136.8634307079997,
+    "statusCounts": {
+      "success": 64
+    },
+    "tokens": {
+      "input_tokens": 651120,
+      "cached_input_tokens": 0,
+      "cache_write_input_tokens": 0,
+      "output_tokens": 81294,
+      "reasoning_output_tokens": 15749
+    }
+  },
+  "amendedPanelTimes": {
+    "firstStarted": "2026-09-20T20:43:26.859623+00:00",
+    "lastFinished": "2026-09-20T20:55:23.807490+00:00",
+    "wallElapsedSeconds": 716.947867
+  },
+  "sources": [
+    {
+      "path": "docs/verification/verify_transfer_independent.py",
+      "sha256": "8bb1a6032c2e1d3c6948549498d6aa8dfd80dbd080e1b725b242648ba9bc2a6b"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/manifest.json",
+      "sha256": "30b1ebc62656b3ad14849d238daccbd5558ef9a4a7a3438ceca91adc14b4b5b0"
+    },
+    {
+      "path": "research/transfer-v1/runs/main/mask-map.json",
+      "sha256": "675b414e1872bdcfa45e2786429aa60351502d8a1be85665af2df4319f5f370a"
+    },
+    {
+      "path": "research/transfer-v1/runs/remeasurement/manifest.json",
+      "sha256": "a4eb6defbbf86bc725afecdad5e714d9f789c9cadf47bc2408da335003cf99a8"
+    },
+    {
+      "path": "site/data/transfer-study.json",
+      "sha256": "5b3a97c5b4d7adb84955623dae16042dd496920243d81b829cfaf65f9176bbf7"
+    }
+  ]
+}
