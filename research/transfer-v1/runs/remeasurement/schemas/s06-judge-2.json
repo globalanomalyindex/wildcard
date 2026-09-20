@@ -1,0 +1,124 @@
+{
+  "type": "object",
+  "properties": {
+    "ratings": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "enum": [
+              "97c7bac65a620041",
+              "8b240f1cc29e3f7a",
+              "6ecf906a0a531b1e",
+              "e696eff478d9b9ab",
+              "dc6c6c07598a6c28",
+              "f51b54c49267cd7b",
+              "4edab3cebd3a45f3",
+              "0e71e9abb2f0ced6",
+              "c06f5ef98abe558c",
+              "a7b2ddd611acb457",
+              "8bf2ec21196f6de2",
+              "609e2bc2fb2063a4",
+              "f839553348b8299a",
+              "ce8bab97df3469da",
+              "0e312acf844346b6",
+              "81158335dac10dda"
+            ]
+          },
+          "constraint_valid": {
+            "type": "boolean"
+          },
+          "feasible": {
+            "type": "boolean"
+          },
+          "actionable": {
+            "type": "boolean"
+          },
+          "baseline_match": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "enum": [
+              "8abb483bdf16dc33",
+              "4ccea0906fd759df",
+              "0feae09334a10cbc",
+              "955e29e6432fd836",
+              "cdd57f0b6f1a29e4",
+              "df82627b7a7d898b",
+              "a0629825c87a405c",
+              "5e87baf26a56d304",
+              "b2c9ccb2270e4b68",
+              "0697ebbeb7bfa8ac",
+              "34ef7a59067e866b",
+              "b988b934236a77cb",
+              "27d8bc2ffeb0c295",
+              "0bc9eb983c08957b",
+              "9d020f4b9c0bceb2",
+              "104a5a3201d323ec",
+              null
+            ]
+          },
+          "mechanism_group": {
+            "type": "string",
+            "enum": [
+              "97c7bac65a620041",
+              "8b240f1cc29e3f7a",
+              "6ecf906a0a531b1e",
+              "e696eff478d9b9ab",
+              "dc6c6c07598a6c28",
+              "f51b54c49267cd7b",
+              "4edab3cebd3a45f3",
+              "0e71e9abb2f0ced6",
+              "c06f5ef98abe558c",
+              "a7b2ddd611acb457",
+              "8bf2ec21196f6de2",
+              "609e2bc2fb2063a4",
+              "f839553348b8299a",
+              "ce8bab97df3469da",
+              "0e312acf844346b6",
+              "81158335dac10dda"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "enum": [
+              "97c7bac65a620041",
+              "8b240f1cc29e3f7a",
+              "6ecf906a0a531b1e",
+              "e696eff478d9b9ab",
+              "dc6c6c07598a6c28",
+              "f51b54c49267cd7b",
+              "4edab3cebd3a45f3",
+              "0e71e9abb2f0ced6",
+              "c06f5ef98abe558c",
+              "a7b2ddd611acb457",
+              "8bf2ec21196f6de2",
+              "609e2bc2fb2063a4",
+              "f839553348b8299a",
+              "ce8bab97df3469da",
+              "0e312acf844346b6",
+              "81158335dac10dda"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "constraint_valid",
+          "feasible",
+          "actionable",
+          "baseline_match",
+          "mechanism_group",
+          "reason"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "ratings"
+  ],
+  "additionalProperties": false
+}
