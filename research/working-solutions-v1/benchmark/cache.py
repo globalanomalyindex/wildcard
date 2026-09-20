@@ -1,10 +1,23 @@
 """Cache/storage task contracts with separate reference and checker formulations."""
 import json
+import math
 from .common import cloned, rng_for, result, check_count, REGIMES
+
+
+def _integer_json(value):
+    """Preserve boolean identity while canonicalizing integral JSON numbers."""
+    if type(value) in (int, float):
+        if abs(value)>9007199254740991 or not math.isfinite(value) or int(value)!=value:
+            raise ValueError('Expected a finite safe integer JSON number')
+        return int(value)
+    if isinstance(value, list):return [_integer_json(x) for x in value]
+    if isinstance(value, dict):return {k:_integer_json(v) for k,v in value.items()}
+    return value
 
 _COMMON=(' Implement pure solve({config,state,event})->{state,output}, initially state=null. '
  'Only the current event is supplied; every named event uses a type field, e.g. {type:"restore"}. Return exactly the stated output fields each step; opaque JSON state is not graded. '
  'All numeric inputs and intermediate arithmetic are safe integers; time deltas are nonnegative. Unless a task explicitly overrides this, keys, snapshot IDs, readers and graph nodes are single lowercase ASCII letters. '
+ 'Integral JSON number spellings such as 1 and 1.0 are equivalent; booleans remain distinct from numbers. '
  'At most eight identities and 48 events occur. Configurations and event fields shown below are present. '
  'Ordinary regimes use moderate storage and timing; boundary uses equality/empty states; adversarial repeats stale/conflicting events; '
  'shift uses smaller capacity, longer timing gaps or deeper dependency shapes, without changing these rules.')
@@ -18,31 +31,31 @@ _DEFS=[
 ('c04','Acknowledged replay-preserving compaction','retention ordering causality conservation',
  'Config readers is a nonempty list. Start sequence=0, empty log, each reader acknowledgment=0. Events set{key,value},ack{reader,seq},compact. Set increments sequence and appends {seq,key,value}. Ack succeeds only if old_ack<=seq<=current_sequence; otherwise unchanged. Compact watermark=min(reader acknowledgments): keep every log record above watermark, plus exactly the latest record at or below watermark for each key that has one. Preserve sequence order. Output {log:[retained sequence numbers],view:{key:latest value from all writes}} after each event. Compaction never changes visible values; unacknowledged records cannot be discarded. Values are integers.'),
 ('c05','Canonical typed query keys','identity ordering aggregation',
- 'Config empty. Every event is encode{value}, where value is JSON null/boolean/safe integer/string/array/object, maximum depth 3; object keys are single lowercase ASCII letters. Output {key:canonical_JSON_string}. Canonical JSON has no insignificant spaces; recursively sort object keys lexically, preserve array order, JSON-escape strings, and emit null/true/false/numbers without added type coercion. Unicode string values are allowed; no lone surrogates, floating values or negative zero occur. State is irrelevant. Distinctions between absent and null, numeric and string values, boolean and integer, or array order must remain distinguishable.'),
+ 'Config empty. Every event is encode{value}, where value is JSON null/boolean/safe integer/string/array/object, maximum depth 3; object keys are single lowercase ASCII letters. Output {key:canonical_JSON_string}. Canonical JSON has no insignificant spaces; recursively sort object keys lexically, preserve array order, encode strings and scalars exactly as ECMAScript JSON.stringify: quote and backslash escaped, backspace/form-feed/newline/carriage-return/tab use their short escapes, other U+0000..U+001F characters use lowercase four-digit Unicode escapes, and all other Unicode (including U+2028/U+2029) and slash remain literal. Emit null/true/false/numbers without added type coercion. Unicode string values are allowed; no lone surrogates, nonintegral numbers or negative zero occur. State is irrelevant. Distinctions between absent and null, numeric and string values, boolean and integer, or array order must remain distinguishable.'),
 ('c06','Dirty write-back residency','recovery retention identity capacity',
- 'Config slots>=1. Start empty resident cache and durable map, per-key version counters=0. Events write{key,value},read{key},flush{key},ack{key,version},evict{key}. Cache recency is oldest->newest. To insert when full, evict the oldest CLEAN resident; if all dirty insertion fails. Write existing key always succeeds, increments its lifetime version, sets dirty=true and newest; insert write uses same rule, status=written or blocked. Read returns resident value and makes newest (hit); otherwise durable value (durable), optionally promoting it CLEAN if space/clean eviction permits, without changing lifetime version; absent=miss/null. Flush resident dirty key emits {key,version,value} without changing recency/dirty, status=flushed; otherwise ignored. Ack only for a currently resident dirty entry with version matching both current version AND a previously emitted flush for that key/version: persist current value, mark clean (persisted); otherwise ignored. Evict only clean resident (evicted), dirty=blocked, absent=missing. Other operations value=null. Output {status,value,flush:[records],cached:[oldest-to-newest keys],dirty:[sorted dirty keys],durable:{key:value}}. A stale acknowledgment cannot persist newer unflushed data.'),
+ 'Config slots>=1. Start empty resident cache and durable map, per-key version counters=0. Events write{key,value},read{key},flush{key},ack{key,version},evict{key}. Cache recency is oldest->newest. To insert when full, evict the oldest CLEAN resident; if all dirty insertion fails. Write existing key always succeeds, increments its lifetime version, sets dirty=true and newest; insert write uses same rule, status=written or blocked. Read returns resident value and makes newest (hit); otherwise durable value (durable), must promote it CLEAN if space/clean eviction permits; if every resident is dirty, return the durable value without promotion, without changing lifetime version; absent=miss/null. Flush resident dirty key emits {key,version,value} without changing recency/dirty, status=flushed; otherwise ignored. Ack only for a currently resident dirty entry with version matching both current version AND a previously emitted flush for that key/version: persist current value, mark clean (persisted); otherwise ignored. Evict only clean resident (evicted), dirty=blocked, absent=missing. Other operations value=null. Output {status,value,flush:[records],cached:[oldest-to-newest keys],dirty:[sorted dirty keys],durable:{key:value}}. A stale acknowledgment cannot persist newer unflushed data.'),
 ('c07','Transitive dependency memo invalidation','causality propagation ordering retention',
  'Config deps is a finite DAG of existing nodes; values gives an integer for every leaf (empty dependency list). A nonleaf value is sum of its immediate dependency values; repeated dependencies are not present. Start empty memo. Events evaluate{node},set{node,value}. Set changes only a leaf; nonleaf set ignored. Successful set invalidates that leaf and every transitive dependent, even if value unchanged. Evaluate computes dependencies in their listed order, memoizes leaves and intermediate nodes, and returns the node value. Output {value:integer_or_null,computed:number of newly memoized nodes this event,valid:[sorted memoized node IDs]}. Set value=null and computed=0. Cached evaluate computed=0. No undefined nodes or cycles are supplied.'),
 ('c08','Sparse range completeness','identity uncertainty capacity conservation',
  'Config length>=1. Start all byte positions unknown. Events put{start,data:[0..255]},read{start,end},clear{start,end}. Put valid only if 0<=start and start+len(data)<=length and every overlapping known byte equals incoming byte; otherwise reject the ENTIRE put without changes. Empty in-range put allowed. Read/clear require 0<=start<=end<=length. Valid clear makes range unknown (cleared). Valid read returns status=complete and data list if every byte is known (empty range complete); otherwise status=incomplete,data=null,missing=maximal unknown half-open intervals in ascending order. Invalid operation status=invalid, data=null,missing=[]; valid put status=stored, other non-read data=null,missing=[]. Output {status,data,missing,known:count_known_positions}. Conflicting data must not silently replace known bytes.'),
-('dev-c01','Development ASCII alias map','identity reversibility visibility',
- 'Config empty. Events set{key,value},get{key},remove{key}; keys are one ASCII letter a-z or A-Z, values integers. Normalize keys to lowercase. Set replaces; remove silently deletes; get returns current value or null. Output {value:integer_or_null,keys:[sorted normalized keys]}; only get returns nonnull value. No TTL, capacity, persistence or eviction.'),
-('dev-c02','Development observation window','deadlines retention visibility',
- 'Config window>=1. Start now=0 and no observations. Events hit,advance{dt>=0}. Hit records now. Advance changes now. After every event retain only observations with now-timestamp<window. Output {count:number retained,now}. Repeated same-time hits count separately; equality at expiry removes a hit. No keys, cache values or admission policy.')]
+('dev-c01','Development pinned FIFO invalidation','retention visibility capacity identity',
+ 'Config capacity>=1. Start empty residents. put{key,value:integer} replaces a live resident value without changing its FIFO position or pin count (stored); a tombstoned resident blocks replacement. New put evicts the oldest unpinned resident if full, or is blocked if all residents pinned; otherwise insert newest with pins=0 (stored). pin{key} increments pins for a live resident (pinned), otherwise ignored. unpin{key} decrements positive pins (released); if the last pin leaves a tombstone, remove that resident. Otherwise unpin ignored. invalidate{key} removes an unpinned resident or marks a pinned one tombstoned (invalidated); absent=missing. Tombstones still consume capacity and cannot be read or newly pinned. get{key} returns a live value (hit), else null (miss), without reordering. Output {status,value:integer_or_null,order:[resident FIFO keys including tombstones],pins:{resident_key:count},tombstones:[sorted tombstone keys]}. Only get returns nonnull value. Keys may be reused after removal. No recency promotion, persistence or flush acknowledgments exist.'),
+('dev-c02','Development revision-guarded snapshot rollback','recovery identity retention isolation',
+ 'Config keep>=1,initial:integer. Start value=initial,revision=0, no snapshots and no used snapshot IDs. write{expect,value} changes value and increments revision exactly once iff expect=current revision (written), otherwise conflict. Even a same-value write increments. save{id} for an ID never saved stores immutable {value,revision}, appends newest, retaining only newest keep snapshots (saved); previously used ID=exists with no changes, even if evicted/dropped. rollback{id,expect} first checks expect=current revision (otherwise conflict); then requires a retained snapshot (otherwise missing); success restores its value and increments CURRENT revision once (rolled_back), never resets revision to the snapshot revision. Snapshots remain unchanged by rollback. drop{id} removes a retained snapshot (dropped), else missing; it never makes an ID reusable. Output {status,value,revision,snapshots:[retained IDs oldest-to-newest],saved:{retained_id:{value,revision}}}. There is no undo/redo stack, automatic snapshot creation or transactional group.')]
 TASKS=[dict(id=i,family='cache',split='development' if i.startswith('dev-') else 'main',title=t,tags=tags.split(),specification=spec+_COMMON) for i,t,tags,spec in _DEFS]
 _IDS={t['id'] for t in TASKS}
 
 _REGIME_NOTES={
-'c01':'Boundary and shift byte capacity=2 versus ordinary 6; puts may exceed capacity and TTL may be zero.',
-'c02':'Boundary and shift stale window=0 versus ordinary 3; ttl=2 in every regime, with equality and stale replies explicit.',
-'c03':'Boundary and shift retain one snapshot versus ordinary 3; invalid snapshots still consume retention slots.',
+'c01':'Boundary byte capacity=2; shift capacity=4 versus ordinary 6, sizes 1..4 instead of 1..5, TTL 0..2 instead of 0..5 and clock steps 0..5 instead of 0..4.',
+'c02':'Boundary ttl=2,stale=0; shift ttl=4,stale=2 versus ordinary ttl=2,stale=3, with clock gaps 0..7 instead of 0..5, retaining both fresh and stale behavior.',
+'c03':'Boundary retains one snapshot; shift retains two versus ordinary three, with valid save checksums at 40% instead of 70%, stressing fallback and retention of invalid snapshots.',
 'c04':'Shift uses four readers versus ordinary two, making independent acknowledgment lag more likely.',
 'c05':'Shift permits nested values of depth three versus ordinary depth two; typed scalar distinctions remain required.',
-'c06':'Boundary and shift have one resident slot versus ordinary three; dirty entries cannot be evicted to satisfy pressure.',
+'c06':'Boundary has one resident slot; shift has two versus ordinary three, with write events weighted 3/7 instead of 1/5 to increase dirty pressure; dirty entries cannot be evicted.',
 'c07':'Boundary uses independent leaves; shift uses six DAG nodes versus four with randomly sampled acyclic dependencies.',
-'c08':'Boundary and shift buffer length=3 versus ordinary 8, with partial, empty, conflicting and out-of-range operations.',
-'dev-c01':'Shift uses four letter identities with both cases versus ordinary two; normalization is unchanged.',
-'dev-c02':'Boundary and shift window=1 versus ordinary 3; hits at the same timestamp remain distinct.'}
+'c08':'Boundary buffer length=3; shift length=5 versus ordinary 8, with incoming lengths and read/clear lengths 0..6 instead of 0..4, increasing overlap and out-of-range pressure.',
+'dev-c01':'Boundary capacity=1 versus ordinary 3; shift capacity=2 and eight identities instead of four, with more pin and invalidation events under admission pressure.',
+'dev-c02':'Boundary keeps one snapshot versus ordinary 2; shift keeps three and uses eight snapshot IDs instead of four, with longer histories and stale expected revisions.'}
 for _task in TASKS:
     _task['specification'] += ' Generator regimes: '+_REGIME_NOTES[_task['id']]+' Adversarial traces add adjacent repeated events, capped at 48; those events obey the same contract.'
 
@@ -50,31 +63,31 @@ for _task in TASKS:
 
 def make_case(task_id,regime,seed):
     if task_id not in _IDS or regime not in REGIMES:raise ValueError('unknown task/regime')
-    r=rng_for(seed,'cache/'+task_id+'/'+regime);n=12 if regime=='ordinary' else 20;keys=list('abcd');small=regime in ('boundary','shift')
+    r=rng_for(seed,'cache/'+task_id+'/'+regime);n=12 if regime=='ordinary' else 20;keys=list('abcd');small=regime in ('boundary','shift');shifted=regime=='shift'
     if task_id=='c01':
-        config={'capacity':2 if small else 6};events=[{'type':'put','key':'a','value':1,'size':1,'ttl':2},{'type':'get','key':'a'},{'type':'advance','dt':2},{'type':'get','key':'a'}]
+        config={'capacity':4 if shifted else 2 if small else 6};events=[{'type':'put','key':'a','value':1,'size':1,'ttl':2},{'type':'get','key':'a'},{'type':'advance','dt':2},{'type':'get','key':'a'}]
         for _ in range(n):
             op=r.choice(['put','put','get','advance']);e={'type':op}
             if op!='advance':e['key']=r.choice(keys)
-            if op=='put':e.update(value=r.randint(-5,9),size=r.randint(1,5),ttl=r.randint(0,5))
-            if op=='advance':e['dt']=r.randint(0,4)
+            if op=='put':e.update(value=r.randint(-5,9),size=r.randint(1,4 if shifted else 5),ttl=r.randint(0,2 if shifted else 5))
+            if op=='advance':e['dt']=r.randint(0,5 if shifted else 4)
             events.append(e)
     elif task_id=='c02':
-        config={'ttl':2,'stale':0 if small else 3};events=[{'type':'get','key':'a'},{'type':'get','key':'a'},{'type':'resolve','key':'a','token':1,'value':7},{'type':'advance','dt':2},{'type':'get','key':'a'},{'type':'invalidate','key':'a'},{'type':'resolve','key':'a','token':2,'value':9},{'type':'get','key':'a'}]
+        config={'ttl':4 if shifted else 2,'stale':2 if shifted else 0 if small else 3};events=[{'type':'get','key':'a'},{'type':'get','key':'a'},{'type':'resolve','key':'a','token':1,'value':7},{'type':'advance','dt':2},{'type':'get','key':'a'},{'type':'invalidate','key':'a'},{'type':'resolve','key':'a','token':2,'value':9},{'type':'get','key':'a'}]
         for _ in range(n):
             op=r.choice(['get','get','resolve','reject','invalidate','advance']);e={'type':op}
-            if op=='advance':e['dt']=r.randint(0,5)
+            if op=='advance':e['dt']=r.randint(0,7 if shifted else 5)
             else:e['key']=r.choice(keys)
             if op in ('resolve','reject'):e['token']=r.randint(1,10)
             if op=='resolve':e['value']=r.randint(0,20)
             events.append(e)
     elif task_id=='c03':
-        config={'keep':1 if small else 3};events=[{'type':'save','id':'a','data':[1,2],'checksum':5},{'type':'save','id':'b','data':[3,4],'checksum':11},{'type':'damage','id':'b','index':0,'value':8},{'type':'restore'}]
+        config={'keep':2 if shifted else 1 if small else 3};events=[{'type':'save','id':'a','data':[1,2],'checksum':5},{'type':'save','id':'b','data':[3,4],'checksum':11},{'type':'damage','id':'b','index':0,'value':8},{'type':'restore'}]
         for _ in range(n):
             op=r.choice(['save','restore','damage','drop']);e={'type':op}
             if op!='restore':e['id']=r.choice(keys)
             if op=='save':
-                data=[r.randint(0,20) for _ in range(r.randint(0,4))];checksum=sum((i+1)*v for i,v in enumerate(data))%251;e.update(data=data,checksum=checksum if r.random()<.7 else (checksum+1)%251)
+                data=[r.randint(0,20) for _ in range(r.randint(0,4))];checksum=sum((i+1)*v for i,v in enumerate(data))%251;e.update(data=data,checksum=checksum if r.random()<(.4 if shifted else .7) else (checksum+1)%251)
             if op=='damage':e.update(index=r.randint(0,4),value=r.randint(0,20))
             events.append(e)
     elif task_id=='c04':
@@ -94,9 +107,9 @@ def make_case(task_id,regime,seed):
             return value(0)
         events += [{'type':'encode','value':value(3 if regime=='shift' else 2)} for _ in range(n)]
     elif task_id=='c06':
-        config={'slots':1 if small else 3};events=[{'type':'write','key':'a','value':1},{'type':'ack','key':'a','version':1},{'type':'flush','key':'a'},{'type':'write','key':'a','value':2},{'type':'ack','key':'a','version':1},{'type':'flush','key':'a'},{'type':'ack','key':'a','version':2},{'type':'evict','key':'a'},{'type':'read','key':'a'}]
+        config={'slots':2 if shifted else 1 if small else 3};events=[{'type':'write','key':'a','value':1},{'type':'ack','key':'a','version':1},{'type':'flush','key':'a'},{'type':'write','key':'a','value':2},{'type':'ack','key':'a','version':1},{'type':'flush','key':'a'},{'type':'ack','key':'a','version':2},{'type':'evict','key':'a'},{'type':'read','key':'a'}]
         for _ in range(n):
-            op=r.choice(['write','read','flush','ack','evict']);e={'type':op,'key':r.choice(keys)}
+            op=r.choice(['write','write','write','read','flush','ack','evict'] if shifted else ['write','read','flush','ack','evict']);e={'type':op,'key':r.choice(keys)}
             if op=='write':e['value']=r.randint(-2,10)
             if op=='ack':e['version']=r.randint(1,5)
             events.append(e)
@@ -109,21 +122,28 @@ def make_case(task_id,regime,seed):
             if e['type']=='set':e['value']=r.randint(-3,5)
             events.append(e)
     elif task_id=='c08':
-        config={'length':3 if small else 8};events=[{'type':'put','start':0,'data':[1,2]},{'type':'put','start':1,'data':[9]},{'type':'read','start':0,'end':3},{'type':'clear','start':1,'end':2},{'type':'read','start':0,'end':2}]
+        config={'length':5 if shifted else 3 if small else 8};events=[{'type':'put','start':0,'data':[1,2]},{'type':'put','start':1,'data':[9]},{'type':'read','start':0,'end':3},{'type':'clear','start':1,'end':2},{'type':'read','start':0,'end':2}]
         for _ in range(n):
             op=r.choice(['put','read','clear']);start=r.randint(-1,config['length']);e={'type':op,'start':start}
-            if op=='put':e['data']=[r.randint(0,3) for _ in range(r.randint(0,4))]
-            else:e['end']=start+r.randint(0,4)
+            if op=='put':e['data']=[r.randint(0,3) for _ in range(r.randint(0,6 if shifted else 4))]
+            else:e['end']=start+r.randint(0,6 if shifted else 4)
             events.append(e)
     elif task_id=='dev-c01':
-        config={};events=[{'type':'set','key':'A','value':2},{'type':'get','key':'a'},{'type':'remove','key':'a'},{'type':'get','key':'A'}]
-        for _ in range(8):
-            e={'type':r.choice(['set','get','remove']),'key':r.choice('aAbBcCdD' if regime=='shift' else 'aAbB')}
-            if e['type']=='set':e['value']=r.randint(-2,5)
+        config={'capacity':2 if shifted else 1 if regime=='boundary' else 3}
+        events=[{'type':'put','key':'a','value':1},{'type':'pin','key':'a'},{'type':'pin','key':'a'},{'type':'invalidate','key':'a'},{'type':'get','key':'a'},{'type':'put','key':'a','value':2},{'type':'unpin','key':'a'},{'type':'unpin','key':'a'},{'type':'put','key':'a','value':3}]
+        for _ in range(24 if regime=='ordinary' else 34):
+            op=r.choice(['put','pin','pin','unpin','invalidate','invalidate','get'] if shifted else ['put','put','pin','unpin','invalidate','get']);e={'type':op,'key':r.choice('abcdefgh' if shifted else 'abcd')}
+            if op=='put':e['value']=r.randint(-2,9)
             events.append(e)
     else:
-        config={'window':1 if small else 3};events=[{'type':'hit'},{'type':'hit'},{'type':'advance','dt':config['window']},{'type':'hit'}]
-        events += [{'type':'hit'} if r.random()<.5 else {'type':'advance','dt':r.randint(0,4)} for _ in range(8)]
+        config={'keep':3 if shifted else 1 if regime=='boundary' else 2,'initial':r.randint(-3,5)}
+        events=[{'type':'save','id':'a'},{'type':'write','expect':0,'value':9},{'type':'rollback','id':'a','expect':0},{'type':'rollback','id':'a','expect':1},{'type':'save','id':'b'},{'type':'drop','id':'a'},{'type':'save','id':'a'},{'type':'write','expect':2,'value':0},{'type':'rollback','id':'b','expect':3}]
+        for _ in range(24 if regime=='ordinary' else 34):
+            op=r.choice(['write','save','save','rollback','drop']);e={'type':op}
+            if op in ('save','rollback','drop'):e['id']=r.choice('abcdefgh' if shifted else 'abcd')
+            if op in ('write','rollback'):e['expect']=r.randint(0,12)
+            if op=='write':e['value']=r.randint(-5,12)
+            events.append(e)
     if regime=='adversarial':
         events=[cloned(e) for e in events for _ in range(2 if r.random()<.5 else 1)][:48]
     return {'config':config,'events':events}
@@ -133,10 +153,12 @@ def public_cases(task_id):return [dict(id='p'+str(i+1),**make_case(task_id,regim
 
 
 def reference(task_id,case):
+    case=_integer_json(case)
     c=case['config']; out=[];now=0;store={};order=[];pending={};next_token=1;log=[];seq=0;versions={};flushed=set();durable={};memo={};hits=[]
     if task_id=='c04':acks={k:0 for k in c['readers']};view={}
     if task_id=='c07':values=c['values'].copy()
     if task_id=='c08':cells=[None]*c['length']
+    if task_id=='dev-c02':snapshot_value=c['initial'];snapshot_revision=0;used_snapshots=set()
     for e in case['events']:
         op=e['type'];value=None
         if task_id=='c01':
@@ -248,15 +270,44 @@ def reference(task_id,case):
                         missing.append([i,end]);i=end
             row=dict(status=status,data=data,missing=missing,known=sum(v is not None for v in cells))
         elif task_id=='dev-c01':
-            k=e['key'].lower()
-            if op=='set':store[k]=e['value']
-            elif op=='remove':store.pop(k,None)
-            else:value=store.get(k)
-            row=dict(value=value,keys=sorted(store))
+            k=e['key'];status='ignored'
+            if op=='put':
+                status='blocked'
+                if k in store:
+                    if not store[k]['deleted']:store[k]['value']=e['value'];status='stored'
+                else:
+                    if len(store)>=c['capacity']:
+                        victim=next((x for x in order if store[x]['pins']==0),None)
+                        if victim is not None:del store[victim];order.remove(victim)
+                    if len(store)<c['capacity']:store[k]={'value':e['value'],'pins':0,'deleted':False};order.append(k);status='stored'
+            elif op=='pin' and k in store and not store[k]['deleted']:store[k]['pins']+=1;status='pinned'
+            elif op=='unpin' and k in store and store[k]['pins']>0:
+                store[k]['pins']-=1;status='released'
+                if store[k]['pins']==0 and store[k]['deleted']:del store[k];order.remove(k)
+            elif op=='invalidate':
+                status='missing'
+                if k in store:
+                    status='invalidated'
+                    if store[k]['pins']:store[k]['deleted']=True
+                    else:del store[k];order.remove(k)
+            elif op=='get':
+                status='miss'
+                if k in store and not store[k]['deleted']:value=store[k]['value'];status='hit'
+            row=dict(status=status,value=value,order=order[:],pins={x:store[x]['pins'] for x in order},tombstones=sorted(x for x in order if store[x]['deleted']))
         elif task_id=='dev-c02':
-            if op=='hit':hits.append(now)
-            else:now+=e['dt']
-            hits=[t for t in hits if now-t<c['window']];row=dict(count=len(hits),now=now)
+            k=e.get('id')
+            if op=='save':
+                status='exists' if k in used_snapshots else 'saved'
+                if status=='saved':
+                    used_snapshots.add(k);store[k]={'value':snapshot_value,'revision':snapshot_revision};order.append(k)
+                    if len(order)>c['keep']:del store[order.pop(0)]
+            elif op=='drop':
+                status='dropped' if k in store else 'missing'
+                if k in store:del store[k];order.remove(k)
+            elif e['expect']!=snapshot_revision:status='conflict'
+            elif op=='rollback' and k not in store:status='missing'
+            else:snapshot_value=e['value'] if op=='write' else store[k]['value'];snapshot_revision+=1;status='written' if op=='write' else 'rolled_back'
+            row=dict(status=status,value=snapshot_value,revision=snapshot_revision,snapshots=order[:],saved=cloned(store))
         else:raise ValueError(task_id)
         out.append(cloned(row))
     return out
@@ -268,6 +319,7 @@ def _audit(task_id,case):
     These checks share the published semantics, not the reference implementation.
     They inspect observable outputs only; opaque solution state is never trusted.
     """
+    case=_integer_json(case)
     c=case['config'];rows=[];clock=0;entries=[];active=[];serial=0;history=[];allowed=set();durable={};version={};valid=set();observed=[]
     if task_id=='c04':acknowledged={k:0 for k in c['readers']};kept=set()
     if task_id=='c07':
@@ -402,15 +454,39 @@ def _audit(task_id,case):
                 else:data=[known[i] for i in range(start,end)]
             row=dict(status=status,data=data,missing=missing,known=len(known))
         elif task_id=='dev-c01':
-            k=chr(ord(e['key'])+32) if 'A'<=e['key']<='Z' else e['key']
-            if op=='set':known[k]=e['value']
-            elif op=='remove':known={x:v for x,v in known.items() if x!=k}
-            elif k in known:value=known[k]
-            row=dict(value=value,keys=sorted(known))
+            k=e['key'];found=next((x for x in entries if x[0]==k),None);status='ignored'
+            # (key,value,pin-count,tombstone,first-insertion-rank); reads never rank.
+            if op=='put':
+                status='blocked'
+                if found and not found[3]:entries=[(k,e['value'],*x[2:]) if x[0]==k else x for x in entries];status='stored'
+                elif found is None:
+                    free=sorted((x for x in entries if x[2]==0),key=lambda x:x[4])
+                    if len(entries)==c['capacity'] and free:entries.remove(free[0])
+                    if len(entries)<c['capacity']:entries.append((k,e['value'],0,False,step));status='stored'
+            elif op=='pin' and found and not found[3]:entries=[(x[0],x[1],x[2]+1,x[3],x[4]) if x[0]==k else x for x in entries];status='pinned'
+            elif op=='unpin' and found and found[2]>0:
+                status='released';entries=[(x[0],x[1],x[2]-1,x[3],x[4]) if x[0]==k else x for x in entries if x[0]!=k or not (x[2]==1 and x[3])]
+            elif op=='invalidate':
+                status='invalidated' if found else 'missing'
+                entries=[(x[0],x[1],x[2],True,x[4]) if x[0]==k else x for x in entries if x[0]!=k or x[2]>0]
+            elif op=='get':
+                status='hit' if found and not found[3] else 'miss'
+                if status=='hit':value=found[1]
+            ordered=sorted(entries,key=lambda x:x[4])
+            row=dict(status=status,value=value,order=[x[0] for x in ordered],pins={x[0]:x[2] for x in entries},tombstones=sorted(x[0] for x in entries if x[3]))
         elif task_id=='dev-c02':
-            if op=='advance':clock+=e['dt']
-            else:observed.append(clock)
-            row=dict(count=sum(t>clock-c['window'] for t in observed),now=clock)
+            current=history[-1] if history else c['initial'];k=e.get('id')
+            if op=='save':
+                status='exists' if k in allowed else 'saved'
+                if status=='saved':allowed.add(k);entries=(entries+[(k,current,len(history))])[-c['keep']:]
+            elif op=='drop':
+                status='dropped' if any(x[0]==k for x in entries) else 'missing';entries=[x for x in entries if x[0]!=k]
+            elif e['expect']!=len(history):status='conflict'
+            elif op=='write':history.append(e['value']);status='written'
+            else:
+                saved=next((x for x in entries if x[0]==k),None);status='rolled_back' if saved else 'missing'
+                if saved:history.append(saved[1])
+            row=dict(status=status,value=history[-1] if history else c['initial'],revision=len(history),snapshots=[x[0] for x in entries],saved={x[0]:dict(value=x[1],revision=x[2]) for x in entries})
         else:raise ValueError(task_id)
         rows.append(cloned(row))
     return rows
@@ -423,7 +499,7 @@ def check(task_id,case,outputs):
     for i,(want,got) in enumerate(zip(expected,outputs)):
         try:
             # JSON textual types distinguish bool/int, null/missing, and reject NaN.
-            equal=json.dumps(want,sort_keys=True,ensure_ascii=False,allow_nan=False)==json.dumps(got,sort_keys=True,ensure_ascii=False,allow_nan=False)
+            equal=json.dumps(want,sort_keys=True,ensure_ascii=False,allow_nan=False)==json.dumps(_integer_json(got),sort_keys=True,ensure_ascii=False,allow_nan=False)
         except (TypeError,ValueError):equal=False
         if not equal:errors.append('event_'+str(i)+':output_contract')
     return result(errors)
@@ -471,8 +547,15 @@ if(e.type==='put'){legal=legal&&e.data.every((v,i)=>s.cells[a+i]===null||s.cells
 else if(!legal)status='invalid';else if(e.type==='clear'){for(let i=a;i<end;i++)s.cells[i]=null;status='cleared'}
 else{const chunk=s.cells.slice(a,end);if(chunk.every(v=>v!==null)){data=chunk;status='complete'}else{status='incomplete';for(let i=a;i<end;){if(s.cells[i]!==null){i++;continue}let j=i+1;while(j<end&&s.cells[j]===null)j++;missing.push([i,j]);i=j}}}
 return {state:s,output:{status,data,missing,known:s.cells.filter(v=>v!==null).length}};''',
-'dev-c01':'''state ??= {};const k=event.key.toLowerCase();let value=null;if(event.type==='set')state[k]=event.value;else if(event.type==='remove')delete state[k];else if(Object.prototype.hasOwnProperty.call(state,k))value=state[k];return {state,output:{value,keys:Object.keys(state).sort()}};''',
-'dev-c02':'''state ??= {now:0,hits:[]};if(event.type==='hit')state.hits.push(state.now);else state.now+=event.dt;state.hits=state.hits.filter(t=>state.now-t<config.window);return {state,output:{count:state.hits.length,now:state.now}};'''
+'dev-c01':'''state ??= {items:{},order:[]};const s=state,e=event,k=e.key;let value=null,status='ignored';const drop=k=>{delete s.items[k];s.order=s.order.filter(x=>x!==k)};
+if(e.type==='put'){status='blocked';if(s.items[k]){if(!s.items[k].deleted){s.items[k].value=e.value;status='stored'}}else{if(s.order.length>=config.capacity){const victim=s.order.find(x=>s.items[x].pins===0);if(victim!==undefined)drop(victim)}if(s.order.length<config.capacity){s.items[k]={value:e.value,pins:0,deleted:false};s.order.push(k);status='stored'}}}
+else if(e.type==='pin'&&s.items[k]&&!s.items[k].deleted){s.items[k].pins++;status='pinned'}else if(e.type==='unpin'&&s.items[k]?.pins>0){s.items[k].pins--;status='released';if(s.items[k].pins===0&&s.items[k].deleted)drop(k)}
+else if(e.type==='invalidate'){status=s.items[k]?'invalidated':'missing';if(s.items[k]){if(s.items[k].pins)s.items[k].deleted=true;else drop(k)}}else if(e.type==='get'){status=s.items[k]&&!s.items[k].deleted?'hit':'miss';if(status==='hit')value=s.items[k].value}
+return {state:s,output:{status,value,order:[...s.order],pins:Object.fromEntries(s.order.map(x=>[x,s.items[x].pins])),tombstones:s.order.filter(x=>s.items[x].deleted).sort()}};''',
+'dev-c02':'''state ??= {value:config.initial,revision:0,used:[],saved:{},order:[]};const s=state,e=event,k=e.id;let status;
+if(e.type==='save'){status=s.used.includes(k)?'exists':'saved';if(status==='saved'){s.used.push(k);s.saved[k]={value:s.value,revision:s.revision};s.order.push(k);if(s.order.length>config.keep)delete s.saved[s.order.shift()]}}
+else if(e.type==='drop'){status=s.saved[k]?'dropped':'missing';delete s.saved[k];s.order=s.order.filter(x=>x!==k)}else if(e.expect!==s.revision)status='conflict';else if(e.type==='rollback'&&!s.saved[k])status='missing';else{s.value=e.type==='write'?e.value:s.saved[k].value;s.revision++;status=e.type==='write'?'written':'rolled_back'}
+return {state:s,output:{status,value:s.value,revision:s.revision,snapshots:[...s.order],saved:{...s.saved}}};'''
 }
 
 
@@ -491,8 +574,8 @@ def fault_cases(task_id):
       'c06':[('ack_without_flush_persists',1,'durable',{'a':1}),('stale_ack_cleans_new_write',4,'dirty',[]),('flush_omits_current_version',5,'flush',[{'key':'a','version':1,'value':2}])],
       'c07':[('memo_hit_recomputes',1,'computed',1),('evaluation_does_not_memoize',0,'valid',[]),('set_returns_a_value',2,'value',2)],
       'c08':[('conflicting_put_accepted',1,'status','stored'),('partial_read_marked_complete',2,'status','complete'),('clear_does_not_remove_byte',3,'known',2)],
-      'dev-c01':[('uppercase_key_not_normalized',0,'keys',['A']),('alias_lookup_misses',1,'value',None),('remove_keeps_alias',2,'keys',['a'])],
-      'dev-c02':[('coalesces_simultaneous_hits',1,'count',1),('expiry_equality_keeps_hits',2,'count',2),('advance_does_not_change_time',2,'now',0)]
+      'dev-c01':[('invalidation_drops_pinned_resident',3,'order',[]),('tombstone_remains_readable',4,'value',1),('first_unpin_removes_tombstone',6,'order',[])],
+      'dev-c02':[('stale_rollback_changes_value',2,'value',case['config'].get('initial')),('rollback_resets_revision',3,'revision',0),('dropped_snapshot_id_reused',6,'status','saved')]
     }[task_id]
     for name,index,field,value in edits:
         outputs=cloned(correct);outputs[index][field]=value;faults.append(dict(name=name,case=cloned(case),outputs=outputs))

@@ -1,6 +1,7 @@
 """Contract-pack acceptance tests; no model or network calls."""
 import importlib
 import json
+import random
 import unittest
 from benchmark.common import REGIMES, cloned
 from execution import run_cases
@@ -42,6 +43,169 @@ class QueueCacheContracts(unittest.TestCase):
                             self.assertLessEqual(len(case['events']), 48)
                             verdict=family.check(task['id'], case, family.reference(task['id'], case))
                             self.assertTrue(verdict['passed'],verdict)
+
+    def test_main_shift_is_more_than_resampling_boundary(self):
+        """Equal random streams must still produce a different input distribution."""
+        for family in self.families():
+            original = family.rng_for
+            try:
+                family.rng_for = lambda seed, namespace: random.Random(seed)
+                for task in (t for t in family.TASKS if t['split'] == 'main'):
+                    with self.subTest(task=task['id']):
+                        pairs = [(family.make_case(task['id'], 'boundary', seed),
+                                  family.make_case(task['id'], 'shift', seed))
+                                 for seed in (1000003, 1000033, 1000063)]
+                        self.assertTrue(all(boundary != shift for boundary, shift in pairs))
+            finally:
+                family.rng_for = original
+
+    def test_shift_inputs_stay_in_contract_and_exercise_new_conditions(self):
+        from benchmark import queue, cache
+        for family in (queue, cache):
+            for task in (t for t in family.TASKS if t['split'] == 'main'):
+                for seed in (1000003, 1000033, 1000063):
+                    case = family.make_case(task['id'], 'shift', seed)
+                    with self.subTest(task=task['id'], seed=seed):
+                        self.assertLessEqual(len(case['events']), 48)
+                        ids = set()
+                        for event in case['events']:
+                            for field in ('id', 'key', 'tenant', 'reader', 'node'):
+                                if field in event:
+                                    self.assertRegex(event[field], '^[a-z]$')
+                                    ids.add(event[field])
+                            if 'dt' in event:
+                                self.assertGreaterEqual(event['dt'], 0)
+                        self.assertLessEqual(len(ids), 8)
+                        self.assertTrue(family.check(task['id'], case, family.reference(task['id'], case))['passed'])
+        # A retained valid predecessor remains available under shifted corruption.
+        shifted = cache.make_case('c03', 'shift', 1000003)
+        self.assertEqual(cache.reference('c03', shifted)[3]['chosen'], 'a')
+        # The fractional shift must exercise a different credit ratio, not only
+        # make an independently seeded copy of the boundary capacity case.
+        boundary = queue.make_case('q06', 'boundary', 1000003)
+        shifted = queue.make_case('q06', 'shift', 1000003)
+        self.assertNotEqual(boundary['config']['rate'] / boundary['config']['denom'],
+                            shifted['config']['rate'] / shifted['config']['denom'])
+
+    def test_exact_encoding_and_mandatory_durable_promotion_are_public(self):
+        from benchmark import cache
+        specifications = {task['id']: task['specification'] for task in cache.TASKS}
+        self.assertIn('ECMAScript JSON.stringify', specifications['c05'])
+        self.assertIn('must promote', specifications['c06'])
+        case = {'config': {}, 'events': [{'type': 'encode', 'value': 'é/\b\n'}]}
+        expected = [{'key': '"é/\\b\\n"'}]
+        self.assertTrue(cache.check('c05', case, expected)['passed'])
+        self.assertFalse(cache.check('c05', case, [{'key': '"\\u00e9/\\b\\n"'}])['passed'])
+        case = {'config': {'slots': 1}, 'events': [
+            {'type': 'write', 'key': 'a', 'value': 1}, {'type': 'flush', 'key': 'a'},
+            {'type': 'ack', 'key': 'a', 'version': 1}, {'type': 'evict', 'key': 'a'},
+            {'type': 'read', 'key': 'a'}]}
+        expected = cache.reference('c06', case)
+        self.assertEqual(expected[-1]['cached'], ['a'])
+        expected[-1]['cached'] = []
+        self.assertFalse(cache.check('c06', case, expected)['passed'])
+
+    def test_development_composes_progress_with_ownership_and_recovery(self):
+        from benchmark import queue, cache
+        scenarios = [
+            (queue, 'dev-q01', {'capacity': 2, 'quantum': 2, 'ceiling': 3}, [
+                {'type': 'add', 'id': 'a', 'work': 3, 'priority': 0},
+                {'type': 'advance', 'dt': 6},
+                {'type': 'add', 'id': 'b', 'work': 1, 'priority': 3},
+                {'type': 'run', 'budget': 2}, {'type': 'run', 'budget': 2}],
+             {3: {'served': [{'id': 'a', 'units': 2, 'complete': False}], 'pending': ['a', 'b']},
+              4: {'served': [{'id': 'a', 'units': 1, 'complete': True}], 'pending': ['b']}}),
+            (queue, 'dev-q02', {'ttl': 3}, [
+                {'type': 'acquire', 'owner': 'a'}, {'type': 'advance', 'dt': 3},
+                {'type': 'renew', 'owner': 'a', 'generation': 1},
+                {'type': 'acquire', 'owner': 'a'},
+                {'type': 'release', 'owner': 'a', 'generation': 1},
+                {'type': 'renew', 'owner': 'a', 'generation': 2}],
+             {2: {'status': 'ignored', 'owner': None, 'generation': 1},
+              4: {'status': 'ignored', 'owner': 'a', 'generation': 2},
+              5: {'status': 'renewed', 'expires': 6}}),
+            (cache, 'dev-c01', {'capacity': 1}, [
+                {'type': 'put', 'key': 'a', 'value': 1}, {'type': 'pin', 'key': 'a'},
+                {'type': 'invalidate', 'key': 'a'}, {'type': 'get', 'key': 'a'},
+                {'type': 'put', 'key': 'b', 'value': 2}, {'type': 'unpin', 'key': 'a'},
+                {'type': 'put', 'key': 'b', 'value': 2}],
+             {3: {'value': None, 'tombstones': ['a'], 'order': ['a']},
+              4: {'status': 'blocked'}, 5: {'order': []}, 6: {'order': ['b']}}),
+            (cache, 'dev-c02', {'keep': 1, 'initial': 4}, [
+                {'type': 'save', 'id': 'a'}, {'type': 'write', 'expect': 0, 'value': 9},
+                {'type': 'rollback', 'id': 'a', 'expect': 0},
+                {'type': 'rollback', 'id': 'a', 'expect': 1},
+                {'type': 'save', 'id': 'b'}, {'type': 'save', 'id': 'a'}],
+             {2: {'status': 'conflict', 'value': 9, 'revision': 1},
+              3: {'status': 'rolled_back', 'value': 4, 'revision': 2},
+              5: {'status': 'exists', 'snapshots': ['b'], 'revision': 2}}),
+            (queue, 'dev-q01', {'capacity': 1, 'quantum': 2, 'ceiling': 3}, [
+                {'type': 'add', 'id': 'a', 'work': 2, 'priority': 1},
+                {'type': 'add', 'id': 'b', 'work': 1, 'priority': 3},
+                {'type': 'run', 'budget': 0}, {'type': 'cancel', 'id': 'a'},
+                {'type': 'add', 'id': 'b', 'work': 1, 'priority': 3},
+                {'type': 'run', 'budget': 9}],
+             {1: {'status': 'rejected', 'remaining': {'a': 2}},
+              2: {'served': [{'id': 'a', 'units': 0, 'complete': False}]},
+              5: {'pending': [], 'served': [{'id': 'b', 'units': 1, 'complete': True}]}}),
+            (queue, 'dev-q02', {'ttl': 4}, [
+                {'type': 'acquire', 'owner': 'b'}, {'type': 'advance', 'dt': 1},
+                {'type': 'acquire', 'owner': 'b'},
+                {'type': 'renew', 'owner': 'b', 'generation': 1},
+                {'type': 'release', 'owner': 'a', 'generation': 1},
+                {'type': 'advance', 'dt': 4}],
+             {2: {'status': 'busy', 'expires': 4}, 3: {'expires': 5},
+              4: {'owner': 'b', 'status': 'ignored'},
+              5: {'owner': None, 'expires': None, 'generation': 1}}),
+            (cache, 'dev-c01', {'capacity': 2}, [
+                {'type': 'put', 'key': 'a', 'value': 1},
+                {'type': 'put', 'key': 'b', 'value': 2}, {'type': 'get', 'key': 'a'},
+                {'type': 'put', 'key': 'a', 'value': 9},
+                {'type': 'put', 'key': 'c', 'value': 3}, {'type': 'pin', 'key': 'b'},
+                {'type': 'put', 'key': 'd', 'value': 4}],
+             {3: {'order': ['a', 'b']}, 4: {'order': ['b', 'c']},
+              6: {'order': ['b', 'd'], 'pins': {'b': 1, 'd': 0}}}),
+            (cache, 'dev-c02', {'keep': 2, 'initial': 4}, [
+                {'type': 'write', 'expect': 0, 'value': 4}, {'type': 'save', 'id': 'a'},
+                {'type': 'write', 'expect': 1, 'value': 8},
+                {'type': 'rollback', 'id': 'a', 'expect': 2},
+                {'type': 'rollback', 'id': 'b', 'expect': 2},
+                {'type': 'rollback', 'id': 'b', 'expect': 3}],
+             {0: {'revision': 1}, 3: {'revision': 3, 'value': 4, 'saved': {'a': {'value': 4, 'revision': 1}}},
+              4: {'status': 'conflict'}, 5: {'status': 'missing', 'revision': 3}}),
+        ]
+        for family, task, config, events, answers in scenarios:
+            case = {'config': config, 'events': events}
+            reference = family.reference(task, case)
+            checked = family._audit(task, case)
+            execution = run_cases(family.reference_source(task), [case])[0]
+            self.assertEqual(execution['status'], 'success', execution)
+            self.assertTrue(family.check(task, case, execution['outputs'])['passed'])
+            for outputs in (reference, checked, execution['outputs']):
+                for index, fields in answers.items():
+                    for field, expected in fields.items():
+                        with self.subTest(task=task, index=index, field=field):
+                            self.assertEqual(outputs[index][field], expected)
+
+    def test_development_regimes_require_progress_and_keep_bounded_inputs(self):
+        for family in self.families():
+            for task in (t for t in family.TASKS if t['split'] == 'development'):
+                for regime in REGIMES:
+                    for seed in (1000003, 1000033, 1000063):
+                        case = family.make_case(task['id'], regime, seed)
+                        with self.subTest(task=task['id'], regime=regime, seed=seed):
+                            self.assertGreaterEqual(len(case['events']), 30)
+                            self.assertLessEqual(len(case['events']), 48)
+                            outputs = family.reference(task['id'], case)
+                            self.assertFalse(family.check(task['id'], case, [outputs[0]] * len(outputs))['passed'])
+                            for event in case['events']:
+                                for field in ('work', 'priority', 'budget', 'generation', 'expect', 'dt'):
+                                    if field in event:
+                                        self.assertIs(type(event[field]), int)
+                                        self.assertGreaterEqual(event[field], 0)
+                                for field in ('id', 'key', 'owner'):
+                                    if field in event:
+                                        self.assertRegex(event[field], '^[a-z]$')
 
     def test_named_faults_rejected_and_checker_does_not_call_reference(self):
         for family in self.families():
@@ -99,6 +263,43 @@ class QueueCacheContracts(unittest.TestCase):
                 wrong[0][next(iter(wrong[0]))] = float('nan')
                 self.assertFalse(family.check(task['id'], case, wrong)['passed'])
         self.assertGreater(mutations, 80)
+
+    def test_integral_json_spellings_are_equivalent_but_bool_fraction_nonfinite_are_not(self):
+        def float_numbers(value):
+            if type(value) is int:
+                return float(value)
+            if isinstance(value, list):
+                return [float_numbers(x) for x in value]
+            if isinstance(value, dict):
+                return {k: float_numbers(v) for k, v in value.items()}
+            return value
+        for family in self.families():
+            for task in family.TASKS:
+                case = family.public_cases(task['id'])[0]
+                alternate = float_numbers(case)
+                expected = family.reference(task['id'], case)
+                with self.subTest(task=task['id']):
+                    self.assertTrue(family.check(task['id'], case, float_numbers(expected))['passed'])
+                    self.assertEqual(family.reference(task['id'], alternate), expected)
+                    self.assertTrue(family.check(task['id'], alternate, expected)['passed'])
+                    execution = run_cases(family.reference_source(task['id']), [alternate])[0]
+                    self.assertEqual(execution['status'], 'success', execution)
+                    self.assertTrue(family.check(task['id'], alternate, execution['outputs'])['passed'])
+        from benchmark import queue, cache
+        case = {'config': {'capacity': 1, 'rate': 1, 'denom': 2}, 'events': [{'type': 'advance', 'dt': 0}]}
+        expected = queue.reference('q06', case)
+        for invalid in (True, .5, float('nan'), float('inf'), 9007199254740992, 10**400):
+            wrong = cloned(expected)
+            wrong[0]['credits'] = invalid
+            self.assertFalse(queue.check('q06', case, wrong)['passed'])
+        for invalid in (.5, float('nan'), float('inf'), 9007199254740992, 10**400):
+            bad = cloned(case)
+            bad['config']['capacity'] = invalid
+            with self.assertRaises(ValueError):
+                queue.reference('q06', bad)
+            with self.assertRaises(ValueError):
+                cache.reference('c05', {'config': {}, 'events': [{'type': 'encode', 'value': invalid}]})
+        self.assertEqual(cache.reference('c05', {'config': {}, 'events': [{'type': 'encode', 'value': [True, 1.0]}]}), [{'key': '[true,1]'}])
 
     def test_javascript_references_in_isolated_executor(self):
         """Public examples and all four hidden regimes, through the real runner."""

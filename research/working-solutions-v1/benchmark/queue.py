@@ -1,12 +1,25 @@
 """Scheduling contracts. No donor information participates in these task oracles."""
 import json
+import math
 from fractions import Fraction
 from .common import cloned, rng_for, result, check_count, REGIMES
+
+
+def _integer_json(value):
+    """JSON has numeric values, not separate integer/float spelling types."""
+    if type(value) in (int, float):
+        if abs(value)>9007199254740991 or not math.isfinite(value) or int(value)!=value:
+            raise ValueError('Expected a finite safe integer JSON number')
+        return int(value)
+    if isinstance(value, list):return [_integer_json(x) for x in value]
+    if isinstance(value, dict):return {k:_integer_json(v) for k,v in value.items()}
+    return value
 
 _COMMON = (' Implement pure solve({config,state,event})->{state,output}; initial state is null. '
            'Only the current event is available; each named event uses a type field, e.g. {type:"run"}. Inputs have at most eight single lowercase ASCII-letter identifiers, safe integer quantities and at most 48 events. '
            'Return exactly the documented output fields after every event; state representation is unrestricted JSON. '
            'All identifiers and numeric fields shown in event forms are present; quantities and all intermediate arithmetic are safe integers. '
+           'Integral JSON number spellings such as 1 and 1.0 are equivalent; booleans remain distinct from numbers. '
            'Regimes vary event order and timing: ordinary uses moderate capacity, boundary tests equality/empty cases, '
            'adversarial repeats stale/conflicting events, and shift uses smaller capacities or larger costs/delays within the same semantics.')
 _DEFS = [
@@ -26,24 +39,24 @@ _DEFS = [
  'Config attempts>=1,delay>=1. Start now=0,phase=idle,id=null,attempt=0,due=null. start{id}: while pending/waiting status=busy; otherwise starts a new job attempt=1,phase=pending, emits {id,attempt:1}, status=started. IDs may be reused after terminal states. fail{id,attempt,after>=0}: only matching current pending attempt counts; if attempt>=attempts set phase=failed,due=null; else phase=waiting,due=now+max(delay,after); status=failed or waiting. success{id,attempt}: matching pending attempt sets succeeded,due=null,status=succeeded. cancel: active pending/waiting->cancelled,due=null,status=cancelled, otherwise ignored. advance{dt>=0}: add dt; if waiting and now>=due increment attempt once,phase=pending,due=null,emit current attempt; status=advanced. Every stale/nonmatching response status=ignored. Output {status,phase,id,attempt,due,now,send:[{id,attempt}]}.'),
 ('q08','Dependency completion propagation','causality propagation ordering recovery',
  'Config deps maps unique nodes to prerequisite-node lists and is a finite acyclic graph; IDs in deps always exist. Initially all nodes pending. Events poll,ok{id},fail{id}. A matching running node changes to done or failed; all other completion events are ignored. After each event, mark pending nodes blocked if any prerequisite is failed or blocked, transitively; then start every pending node whose prerequisites are all done, simultaneously in lexical order. Roots therefore start after the first event, not before it. Output {started:[newly started IDs in lexical order],states:{every node:pending|running|done|failed|blocked}}. No hidden cycle or undefined-node requirement exists.'),
-('dev-q01','Development capacity meter','capacity conservation reversibility',
- 'Config capacity>=1. Start used=0. Events reserve{units>=0},release{units>=0}. Reserve adds units only if used+units<=capacity; release subtracts only if units<=used; otherwise leave unchanged. Output {accepted:boolean,used,free:capacity-used}. No IDs, deadlines, ordering policy or retries exist.'),
-('dev-q02','Development countdown','deadlines reversibility visibility',
- 'Start remaining=0. Config is empty. Events set{ticks>=0},tick{dt>=0},cancel. Set replaces remaining; tick reduces by dt with floor zero; cancel clears it. Output {remaining,expired:boolean}. expired is true only on a tick that changes a positive remaining value to zero; it is false for set/cancel and ticks from zero. No job identity, backoff or repeat effect exists.')]
+('dev-q01','Development aging partial-service scheduler','fairness capacity ordering conservation',
+ 'Config capacity>=1,quantum>=1,ceiling>=1. Start now=0 and no jobs. add{id,work>=1,priority:0..ceiling} queues an unused pending ID if fewer than capacity jobs exist (queued), otherwise rejected. IDs may be reused after removal. Effective priority=min(ceiling,initial_priority+floor((now-arrival_time)/quantum)). advance{dt>=0} changes now (advanced); it never services jobs. run{budget>=0} selects highest effective priority, ties by earlier accepted insertion. Service ONLY that job by min(budget,remaining_work), output one served record; remove it exactly when remaining work reaches zero, otherwise retain its original arrival and insertion rank. Budget left after completion is discarded. Run status=served, or empty with no jobs. cancel{id} removes a pending job (cancelled), otherwise missing. Output {status,served:[{id,units,complete:boolean}],pending:[insertion-order IDs],remaining:{pending_id:work},priorities:{pending_id:effective_priority},now}. Non-run served=[]. No deadline expiry or automatic dispatch exists.'),
+('dev-q02','Development fenced renewable lease','identity deadlines isolation recovery',
+ 'Config ttl>=1. Start now=0,owner=null,generation=0,expires=null. advance{dt>=0} first increases now. Before every operation, expire an active lease when expires<=now, clearing owner/expires but preserving generation. acquire{owner} succeeds only while vacant: increment generation, set owner and expires=now+ttl (acquired); otherwise busy even for the same owner. renew{owner,generation} only for matching active owner and generation resets expires=now+ttl (renewed); release{owner,generation} only for that same match clears owner/expires (released). Nonmatching/expired renew and release are ignored. Advance status=advanced. Output {status,owner:id_or_null,generation:latest_issued_generation,expires:time_or_null,now}. Generations never reset or get reused; release after expiry cannot release a new lease. Renew is replacement from current time, not extension from the old expiration.')]
 TASKS=[dict(id=i,family='queue',split='development' if i.startswith('dev-') else 'main',title=t,tags=tags.split(),specification=spec+_COMMON) for i,t,tags,spec in _DEFS]
 _IDS={t['id'] for t in TASKS}
 
 _REGIME_NOTES={
-'q01':'Boundary and shift capacity=2 versus ordinary/adversarial 7; equality-at-expiry is explicit.',
-'q02':'Boundary and shift give tenant b three slots versus two ordinarily; all tenant queues remain present.',
+'q01':'Boundary capacity=2; shift capacity=4 versus ordinary 7, sizes 2..6 instead of 1..5, deadline gaps 0..2 instead of 0..5, and clock steps 0..5 instead of 0..3.',
+'q02':'Boundary weights are a:1,b:3,c:1; shift weights a:2,b:1,c:3 replace ordinary a:1,b:2,c:1, with eight job IDs and 70% add events instead of four IDs and 50%.',
 'q03':'Boundary limit=2 versus ordinary 3; shift enables required delivery, disabling aggregation.',
 'q04':'Shift reduces the resource universe from three to two, increasing shared-resource contention.',
-'q05':'Boundary and shift capacity=1 versus ordinary 3; adjacent and overlapping reservations are explicit.',
-'q06':'Boundary and shift capacity=2 versus ordinary 7; fractional refill uses rate=2,denom=3.',
+'q05':'Boundary capacity=1; shift capacity=2 versus ordinary 3, starts 0..4 instead of 0..8, durations 1..6 instead of 0..4 and units 1..3 instead of 1..4, increasing overlap.',
+'q06':'Boundary capacity=2; shift capacity=4,rate=3,denom=7 versus ordinary capacity=7,rate=2,denom=3, with clock steps 0..3 instead of 0..5 and costs 1..6 instead of 1..8.',
 'q07':'Shift permits one attempt versus ordinary 3, requiring immediate terminal failure; timing still applies to other regimes.',
 'q08':'Boundary uses independent roots; shift uses six nodes versus four with randomly sampled acyclic dependencies.',
-'dev-q01':'Shift capacity=1 versus ordinary capacities 1..5, with reserve/release values up to 6.',
-'dev-q02':'Shift tick gaps range 0..12 versus ordinary 0..5; this changes timing, not countdown semantics.'}
+'dev-q01':'Boundary uses capacity=1,quantum=1; ordinary capacity=3,quantum=3; shift capacity=2,quantum=2 with work up to 12 instead of 6 and clock gaps up to 6 instead of 3. Ceiling=3 throughout.',
+'dev-q02':'Boundary ttl=1 versus ordinary 3; shift ttl=5 and clock gaps 0..7 instead of 0..3, mixing early renewal and expiry with stale generations.'}
 for _task in TASKS:
     _task['specification'] += ' Generator regimes: '+_REGIME_NOTES[_task['id']]+' Adversarial traces add adjacent repeated events, capped at 48; those events obey the same contract.'
 
@@ -52,19 +65,19 @@ for _task in TASKS:
 def make_case(task_id, regime, seed):
     if task_id not in _IDS or regime not in REGIMES: raise ValueError('unknown task/regime')
     r=rng_for(seed, 'queue/'+task_id+'/'+regime); n=12 if regime=='ordinary' else 20
-    ids=list('abcd'); small=regime in ('shift','boundary')
+    ids=list('abcdefgh') if task_id=='q02' and regime=='shift' else list('abcd'); small=regime in ('shift','boundary'); shifted=regime=='shift'
     if task_id=='q01':
-        config={'capacity':2 if small else 7}; events=[{'type':'add','id':'a','size':1,'deadline':2},{'type':'add','id':'b','size':2,'deadline':2},{'type':'run'},{'type':'advance','dt':2}]
+        config={'capacity':4 if shifted else 2 if small else 7}; events=[{'type':'add','id':'a','size':1,'deadline':2},{'type':'add','id':'b','size':2,'deadline':2},{'type':'run'},{'type':'advance','dt':2}]
         now=2
         for _ in range(n):
             op=r.choice(['add','add','cancel','run','advance']); e={'type':op}
-            if op=='add':e.update(id=r.choice(ids),size=r.randint(1,5),deadline=now+r.randint(0,5))
+            if op=='add':e.update(id=r.choice(ids),size=r.randint(2,6) if shifted else r.randint(1,5),deadline=now+r.randint(0,2 if shifted else 5))
             if op=='cancel':e['id']=r.choice(ids)
-            if op=='advance':e['dt']=r.randint(0,3);now+=e['dt']
+            if op=='advance':e['dt']=r.randint(0,5 if shifted else 3);now+=e['dt']
             events.append(e)
     elif task_id=='q02':
-        config={'weights':{'a':1,'b':3 if small else 2,'c':1}};events=[{'type':'add','tenant':'b','id':'a'},{'type':'add','tenant':'b','id':'a'},{'type':'dispatch'}]
-        for _ in range(n):events.append({'type':'dispatch'} if r.random()<.5 else {'type':'add','tenant':r.choice('abc'),'id':r.choice(ids)})
+        config={'weights':{'a':2,'b':1,'c':3} if shifted else {'a':1,'b':3 if small else 2,'c':1}};events=[{'type':'add','tenant':'b','id':'a'},{'type':'add','tenant':'b','id':'a'},{'type':'dispatch'}]
+        for _ in range(n):events.append({'type':'dispatch'} if r.random()<(.3 if shifted else .5) else {'type':'add','tenant':r.choice('abc'),'id':r.choice(ids)})
     elif task_id=='q03':
         config={'limit':2 if small else 3,'delay':2,'required':regime=='shift'};events=[{'type':'put','key':'a','value':1},{'type':'advance','dt':1},{'type':'put','key':'a','value':2},{'type':'advance','dt':1}]
         for _ in range(n):
@@ -80,18 +93,18 @@ def make_case(task_id, regime, seed):
             if op=='begin':e['resources']=r.sample(config['resources'],r.randint(1,len(config['resources'])))
             events.append(e)
     elif task_id=='q05':
-        config={'capacity':1 if small else 3};events=[{'type':'reserve','id':'a','start':0,'end':2,'units':1},{'type':'reserve','id':'b','start':2,'end':4,'units':1},{'type':'reserve','id':'c','start':1,'end':3,'units':config['capacity']},{'type':'cancel','id':'a'}]
+        config={'capacity':2 if shifted else 1 if small else 3};events=[{'type':'reserve','id':'a','start':0,'end':2,'units':1},{'type':'reserve','id':'b','start':2,'end':4,'units':1},{'type':'reserve','id':'c','start':1,'end':3,'units':config['capacity']},{'type':'cancel','id':'a'}]
         for _ in range(n):
             if r.random()<.3:events.append({'type':'cancel','id':r.choice(ids)})
             else:
-                start=r.randint(0,8);events.append({'type':'reserve','id':r.choice(ids),'start':start,'end':start+r.randint(0,4),'units':r.randint(1,4)})
+                start=r.randint(0,4 if shifted else 8);events.append({'type':'reserve','id':r.choice(ids),'start':start,'end':start+(r.randint(1,6) if shifted else r.randint(0,4)),'units':r.randint(1,3 if shifted else 4)})
     elif task_id=='q06':
-        config={'capacity':2 if small else 7,'rate':2,'denom':3};events=[{'type':'take','id':'a','cost':2},{'type':'advance','dt':1},{'type':'advance','dt':1},{'type':'refund','id':'a'},{'type':'refund','id':'a'}]
+        config={'capacity':4 if shifted else 2 if small else 7,'rate':3 if shifted else 2,'denom':7 if shifted else 3};events=[{'type':'take','id':'a','cost':2},{'type':'advance','dt':1},{'type':'advance','dt':1},{'type':'refund','id':'a'},{'type':'refund','id':'a'}]
         for _ in range(n):
             op=r.choice(['take','refund','advance']);e={'type':op}
-            if op=='advance':e['dt']=r.randint(0,5)
+            if op=='advance':e['dt']=r.randint(0,3 if shifted else 5)
             else:e['id']=r.choice(ids)
-            if op=='take':e['cost']=r.randint(1,8)
+            if op=='take':e['cost']=r.randint(1,6 if shifted else 8)
             events.append(e)
     elif task_id=='q07':
         config={'attempts':1 if regime=='shift' else 3,'delay':2};events=[{'type':'start','id':'a'},{'type':'fail','id':'a','attempt':1,'after':3},{'type':'advance','dt':2},{'type':'advance','dt':1},{'type':'success','id':'a','attempt':1}]
@@ -108,14 +121,23 @@ def make_case(task_id, regime, seed):
         config={'deps':deps};events=[{'type':'ok','id':nodes[0]},{'type':'poll'}]
         events += [{'type':r.choice(['ok','ok','fail','poll']), 'id':r.choice(nodes)} for _ in range(n)]
     elif task_id=='dev-q01':
-        config={'capacity':1 if regime=='shift' else r.randint(1,5)};events=[{'type':'reserve','units':config['capacity']},{'type':'reserve','units':1},{'type':'release','units':config['capacity']}]
-        events += [{'type':r.choice(['reserve','release']),'units':r.randint(0,6)} for _ in range(8)]
+        config={'capacity':2 if shifted else 1 if regime=='boundary' else 3,'quantum':2 if shifted else 1 if regime=='boundary' else 3,'ceiling':3}
+        events=[{'type':'add','id':'a','work':3,'priority':0},{'type':'advance','dt':3*config['quantum']},{'type':'add','id':'b','work':1,'priority':3},{'type':'run','budget':2},{'type':'run','budget':2},{'type':'cancel','id':'b'},{'type':'add','id':'a','work':2,'priority':1},{'type':'run','budget':0},{'type':'run','budget':4}]
+        for _ in range(24 if regime=='ordinary' else 34):
+            op=r.choice(['add','add','advance','run','run','cancel']);e={'type':op}
+            if op in ('add','cancel'):e['id']=r.choice(ids)
+            if op=='add':e.update(work=r.randint(1,12 if shifted else 6),priority=r.randint(0,3))
+            if op=='advance':e['dt']=r.randint(0,6 if shifted else 3)
+            if op=='run':e['budget']=r.randint(0,5)
+            events.append(e)
     else:
-        config={};events=[{'type':'set','ticks':2},{'type':'tick','dt':2},{'type':'tick','dt':1}]
-        for _ in range(8):
-            op=r.choice(['set','tick','cancel']);e={'type':op}
-            if op=='set':e['ticks']=r.randint(0,5)
-            if op=='tick':e['dt']=r.randint(0,12 if regime=='shift' else 5)
+        config={'ttl':5 if shifted else 1 if regime=='boundary' else 3}
+        events=[{'type':'acquire','owner':'a'},{'type':'advance','dt':config['ttl']},{'type':'renew','owner':'a','generation':1},{'type':'acquire','owner':'a'},{'type':'release','owner':'a','generation':1},{'type':'advance','dt':0},{'type':'renew','owner':'a','generation':2},{'type':'release','owner':'a','generation':2},{'type':'acquire','owner':'b'}]
+        for _ in range(24 if regime=='ordinary' else 34):
+            op=r.choice(['acquire','renew','release','advance']);e={'type':op}
+            if op=='advance':e['dt']=r.randint(0,7 if shifted else 3)
+            else:e['owner']=r.choice(ids)
+            if op in ('renew','release'):e['generation']=r.randint(0,8)
             events.append(e)
     if regime=='adversarial':
         events=[cloned(e) for e in events for _ in range(2 if r.random()<.5 else 1)][:48]
@@ -128,8 +150,9 @@ def public_cases(task_id):
 
 def reference(task_id, case):
     """Imperative state-machine reference, distinct from the declarative checker below."""
+    case=_integer_json(case)
     c=case['config']; out=[]; jobs={}; order=[]; now=0; cursor=0; credits=c.get('capacity',0);carry=0;refunds=set();held={};done=set(); used=0;remain=0
-    phase='idle'; current=None;attempt=0;due=None
+    phase='idle'; current=None;attempt=0;due=None;lease_owner=None;generation=0;expires=None
     if task_id=='q02':cycle=[k for k in sorted(c['weights']) for _ in range(c['weights'][k])];queues={k:[] for k in c['weights']}
     if task_id=='q08':states={k:'pending' for k in c['deps']}
     for e in case['events']:
@@ -232,12 +255,35 @@ def reference(task_id, case):
             for k in started:states[k]='running'
             value=dict(started=started,states=states.copy())
         elif task_id=='dev-q01':
-            change=e['units'] if op=='reserve' else -e['units'];accepted=0<=used+change<=c['capacity']
-            if accepted:used+=change
-            value=dict(accepted=accepted,used=used,free=c['capacity']-used)
+            served=[]
+            def priority(k):return min(c['ceiling'],jobs[k]['priority']+(now-jobs[k]['time'])//c['quantum'])
+            if op=='advance':now+=e['dt'];status='advanced'
+            elif op=='add':
+                status='rejected'
+                if e['id'] not in jobs and len(jobs)<c['capacity']:
+                    jobs[e['id']]={'remaining':e['work'],'priority':e['priority'],'time':now};order.append(e['id']);status='queued'
+            elif op=='cancel':
+                status='cancelled' if e['id'] in jobs else 'missing'
+                if e['id'] in jobs:del jobs[e['id']];order.remove(e['id'])
+            elif op=='run':
+                status='empty'
+                if order:
+                    k=max(order,key=priority);units=min(e['budget'],jobs[k]['remaining']);jobs[k]['remaining']-=units;complete=jobs[k]['remaining']==0
+                    served=[dict(id=k,units=units,complete=complete)];status='served'
+                    if complete:del jobs[k];order.remove(k)
+            value=dict(status=status,served=served,pending=order[:],remaining={k:jobs[k]['remaining'] for k in order},priorities={k:priority(k) for k in order},now=now)
         elif task_id=='dev-q02':
-            old=remain;remain=e['ticks'] if op=='set' else max(0,remain-e['dt']) if op=='tick' else 0
-            value=dict(remaining=remain,expired=op=='tick' and old>0 and remain==0)
+            if op=='advance':now+=e['dt']
+            if lease_owner is not None and expires<=now:lease_owner=None;expires=None
+            status='ignored'
+            if op=='advance':status='advanced'
+            elif op=='acquire':
+                status='busy'
+                if lease_owner is None:generation+=1;lease_owner=e['owner'];expires=now+c['ttl'];status='acquired'
+            elif lease_owner is not None and (e['owner'],e['generation'])==(lease_owner,generation):
+                if op=='renew':expires=now+c['ttl'];status='renewed'
+                else:lease_owner=None;expires=None;status='released'
+            value=dict(status=status,owner=lease_owner,generation=generation,expires=expires,now=now)
         else:raise ValueError(task_id)
         out.append(cloned(value))
     return out
@@ -249,8 +295,9 @@ def _audit(task_id, case):
     Data representations intentionally differ (tuples/sets/rational credit, discrete
     interval occupancy and ancestor closure) so reference bugs are not inherited.
     """
+    case=_integer_json(case)
     c=case['config']; events=case['events']; t=0; rows=[]; entries=[]; known={}; finished=set(); leases={}; pos=0; amount=c.get('capacity',0);fraction=Fraction(0); refunded=set();remaining=0
-    phase='idle'; job=None;count=0;wake=None
+    phase='idle'; job=None;count=0;wake=None;lease_history=[]
     if task_id=='q02':slots=sum(([k]*c['weights'][k] for k in sorted(c['weights'])),[])
     if task_id=='q08':
         running=set();success=set();failed=set()
@@ -347,14 +394,32 @@ def _audit(task_id, case):
             running.update(new)
             expected=dict(started=new,states={k:'done' if k in success else 'failed' if k in failed else 'running' if k in running else 'blocked' if k in blocked else 'pending' for k in c['deps']})
         elif task_id=='dev-q01':
-            before=amount if i else 0
-            signed=e['units']*(1 if op=='reserve' else -1);ok=0<=before+signed<=c['capacity'];amount=before+signed if ok else before
-            expected=dict(accepted=ok,used=amount,free=c['capacity']-amount)
+            if op=='advance':t+=e['dt']
+            served=[];status='advanced'
+            if op=='add':
+                ok=len(entries)<c['capacity'] and all(x[0]!=e['id'] for x in entries);status='queued' if ok else 'rejected'
+                if ok:entries.append((e['id'],e['work'],e['priority'],t,i))
+            elif op=='cancel':
+                status='cancelled' if any(x[0]==e['id'] for x in entries) else 'missing';entries=[x for x in entries if x[0]!=e['id']]
+            elif op=='run':
+                status='empty'
+                if entries:
+                    chosen=sorted(entries,key=lambda x:(-min(c['ceiling'],x[2]+(t-x[3])//c['quantum']),x[4]))[0]
+                    amount=min(e['budget'],chosen[1]);complete=amount==chosen[1];status='served';served=[dict(id=chosen[0],units=amount,complete=complete)]
+                    entries=[(x[0],x[1]-amount,*x[2:]) if x is chosen else x for x in entries if x is not chosen or not complete]
+            ordered=sorted(entries,key=lambda x:x[4])
+            expected=dict(status=status,served=served,pending=[x[0] for x in ordered],remaining={x[0]:x[1] for x in ordered},priorities={x[0]:min(c['ceiling'],x[2]+(t-x[3])//c['quantum']) for x in ordered},now=t)
         elif task_id=='dev-q02':
-            if op=='set':remaining=e['ticks'];expired=False
-            elif op=='cancel':remaining=0;expired=False
-            else:expired=0<remaining<=e['dt'];remaining=max(remaining-e['dt'],0)
-            expected=dict(remaining=remaining,expired=expired)
+            if op=='advance':t+=e['dt']
+            live=bool(lease_history and lease_history[-1][2] and lease_history[-1][1]>t);status='ignored'
+            if op=='acquire':
+                status='busy' if live else 'acquired'
+                if not live:lease_history.append((e['owner'],t+c['ttl'],True));live=True
+            elif op=='advance':status='advanced'
+            elif live and (e['owner'],e['generation'])==(lease_history[-1][0],len(lease_history)):
+                if op=='renew':lease_history[-1]=(e['owner'],t+c['ttl'],True);status='renewed'
+                else:lease_history[-1]=(*lease_history[-1][:2],False);live=False;status='released'
+            expected=dict(status=status,owner=lease_history[-1][0] if live else None,generation=len(lease_history),expires=lease_history[-1][1] if live else None,now=t)
         else:raise ValueError(task_id)
         rows.append(expected)
     return rows
@@ -365,7 +430,7 @@ def check(task_id, case, outputs):
     if errors:return result(errors)
     expected=_audit(task_id,case)
     for i,(want,got) in enumerate(zip(expected,outputs)):
-        try: equal=json.dumps(want,sort_keys=True,allow_nan=False)==json.dumps(got,sort_keys=True,allow_nan=False)
+        try: equal=json.dumps(want,sort_keys=True,allow_nan=False)==json.dumps(_integer_json(got),sort_keys=True,allow_nan=False)
         except (TypeError,ValueError):equal=False
         if not equal:errors.append('event_%d_contract'%i)
     return result(errors)
@@ -379,8 +444,8 @@ _JS = {
 'q06':r'''let s=state||{credits:config.capacity,carry:0,taken:{},refunded:[]},e=event,status;if(e.type==='advance'){let n=s.carry+e.dt*config.rate;s.credits=Math.min(config.capacity,s.credits+Math.floor(n/config.denom));s.carry=n%config.denom;status='advanced';}else if(e.type==='take'){status='rejected';if(!Object.hasOwn(s.taken,e.id)&&e.cost<=s.credits){s.taken[e.id]=e.cost;s.credits-=e.cost;status='taken';}}else{status='ignored';if(Object.hasOwn(s.taken,e.id)&&!s.refunded.includes(e.id)){s.credits=Math.min(config.capacity,s.credits+s.taken[e.id]);s.refunded.push(e.id);status='refunded';}}return {state:s,output:{status,credits:s.credits,carry:s.carry}};''',
 'q07':r'''let s=state||{now:0,phase:'idle',id:null,attempt:0,due:null},e=event,status='ignored',send=[];if(e.type==='start'){status='busy';if(!['pending','waiting'].includes(s.phase)){s.id=e.id;s.attempt=1;s.phase='pending';s.due=null;send=[{id:s.id,attempt:1}];status='started';}}else if(e.type==='advance'){s.now+=e.dt;status='advanced';if(s.phase==='waiting'&&s.now>=s.due){s.attempt++;s.phase='pending';s.due=null;send=[{id:s.id,attempt:s.attempt}];}}else if(e.type==='cancel'&&['pending','waiting'].includes(s.phase)){s.phase='cancelled';s.due=null;status='cancelled';}else if(['success','fail'].includes(e.type)&&s.phase==='pending'&&s.id===e.id&&s.attempt===e.attempt){if(e.type==='success'){s.phase='succeeded';s.due=null;}else if(s.attempt>=config.attempts){s.phase='failed';s.due=null;}else{s.phase='waiting';s.due=s.now+Math.max(config.delay,e.after);}status=s.phase;}return {state:s,output:{status,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due,now:s.now,send}};''',
 'q08':r'''let s=state||{phases:Object.fromEntries(Object.keys(config.deps).map(k=>[k,'pending']))},e=event;if(['ok','fail'].includes(e.type)&&s.phases[e.id]==='running')s.phases[e.id]=e.type==='ok'?'done':'failed';let changed=true;while(changed){changed=false;for(let [k,ps]of Object.entries(config.deps))if(s.phases[k]==='pending'&&ps.some(p=>['failed','blocked'].includes(s.phases[p]))){s.phases[k]='blocked';changed=true;}}let started=Object.keys(config.deps).filter(k=>s.phases[k]==='pending'&&config.deps[k].every(p=>s.phases[p]==='done')).sort();for(let k of started)s.phases[k]='running';return {state:s,output:{started,states:s.phases}};''',
-'dev-q01':r'''let s=state||{used:0},delta=event.units*(event.type==='reserve'?1:-1),accepted=s.used+delta>=0&&s.used+delta<=config.capacity;if(accepted)s.used+=delta;return {state:s,output:{accepted,used:s.used,free:config.capacity-s.used}};''',
-'dev-q02':r'''let s=state||{remaining:0},old=s.remaining;s.remaining=event.type==='set'?event.ticks:event.type==='tick'?Math.max(0,s.remaining-event.dt):0;return {state:s,output:{remaining:s.remaining,expired:event.type==='tick'&&old>0&&s.remaining===0}};'''
+'dev-q01':r'''let s=state||{now:0,jobs:[]},e=event,served=[],status='advanced';const priority=j=>Math.min(config.ceiling,j.priority+Math.floor((s.now-j.time)/config.quantum));if(e.type==='advance')s.now+=e.dt;else if(e.type==='add'){status='rejected';if(s.jobs.length<config.capacity&&!s.jobs.some(j=>j.id===e.id)){s.jobs.push({id:e.id,remaining:e.work,priority:e.priority,time:s.now});status='queued';}}else if(e.type==='cancel'){status=s.jobs.some(j=>j.id===e.id)?'cancelled':'missing';s.jobs=s.jobs.filter(j=>j.id!==e.id);}else if(e.type==='run'){status='empty';if(s.jobs.length){const j=s.jobs.reduce((a,b)=>priority(b)>priority(a)?b:a),units=Math.min(e.budget,j.remaining);j.remaining-=units;const complete=j.remaining===0;served=[{id:j.id,units,complete}];status='served';if(complete)s.jobs=s.jobs.filter(x=>x!==j);}}return {state:s,output:{status,served,pending:s.jobs.map(j=>j.id),remaining:Object.fromEntries(s.jobs.map(j=>[j.id,j.remaining])),priorities:Object.fromEntries(s.jobs.map(j=>[j.id,priority(j)])),now:s.now}};''',
+'dev-q02':r'''let s=state||{now:0,owner:null,generation:0,expires:null},e=event,status='ignored';if(e.type==='advance')s.now+=e.dt;if(s.owner!==null&&s.expires<=s.now){s.owner=null;s.expires=null;}if(e.type==='advance')status='advanced';else if(e.type==='acquire'){status='busy';if(s.owner===null){s.generation++;s.owner=e.owner;s.expires=s.now+config.ttl;status='acquired';}}else if(s.owner!==null&&s.owner===e.owner&&s.generation===e.generation){if(e.type==='renew'){s.expires=s.now+config.ttl;status='renewed';}else{s.owner=null;s.expires=null;status='released';}}return {state:s,output:{status,owner:s.owner,generation:s.generation,expires:s.expires,now:s.now}};'''
 }
 
 def reference_source(task_id):return 'function solve({config,state,event}) {\n'+_JS[task_id]+'\n}'
@@ -399,8 +464,8 @@ def fault_cases(task_id):
       'q06':[('fractional_carry_discarded',1,'carry',0),('refill_rounds_up',1,'credits',6),('duplicate_refund_accepted',4,'status','refunded')],
       'q07':[('retry_ignores_delay_floor',2,'send',[{'id':'a','attempt':2}]),('retry_does_not_advance_attempt',3,'attempt',1),('stale_success_wins',4,'phase','succeeded')],
       'q08':[('dependent_starts_before_prerequisite',0,'started',['a','b']),('failure_not_transitive',2,'states',{'a':'failed','b':'blocked','c':'pending'}),('terminal_node_restarts',3,'started',['a'])],
-      'dev-q01':[('full_capacity_admits_extra_unit',1,'accepted',True),('release_does_not_restore_free_space',2,'free',0),('rejected_reservation_changes_used',1,'used',case['config'].get('capacity',0)+1)],
-      'dev-q02':[('countdown_can_go_negative',2,'remaining',-1),('equality_not_expired',1,'expired',False),('empty_tick_reexpires',2,'expired',True)]
+      'dev-q01':[('aging_does_not_promote',1,'priorities',{'a':0}),('partial_service_removes_job',3,'pending',['b']),('remaining_budget_spills_to_second_job',4,'pending',[])],
+      'dev-q02':[('expiry_equality_keeps_owner',1,'owner','a'),('generation_reused',3,'generation',1),('stale_release_releases_new_lease',4,'owner',None)]
     }[task_id]
     correct=reference(task_id,case);faults=[]
     for name,index,field,value in edits:
