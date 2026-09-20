@@ -13,6 +13,7 @@ HERE=Path(__file__).resolve().parent
 FAMILIES=('queue','cache','sync','ui')
 TAGS={'capacity','conservation','ordering','identity','isolation','recovery','retention','thresholds','fairness','causality','visibility','propagation','uncertainty','reversibility','aggregation','deadlines'}
 MATCH_SEED='wildcard-working-solutions-matching-v1'
+PUBLIC_EVENT_LIMIT=4  # Prospective development-revision.md; common to every arm.
 
 
 def canonical(value):
@@ -100,7 +101,7 @@ def _replace(value,path,replacement):
 
 def public_material(task_id,module=None):
     module=module or owner(task_id)
-    cases=module.public_cases(task_id)
+    cases=[{**case,'events':deepcopy(case['events'][:PUBLIC_EVENT_LIMIT])} for case in module.public_cases(task_id)]
     if len(cases)!=4 or [case['id'] for case in cases]!=['p1','p2','p3','p4']:
         raise ValueError('Exactly p1 through p4 are required')
     examples=[];foils=[]

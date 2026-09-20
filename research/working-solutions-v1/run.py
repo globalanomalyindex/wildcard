@@ -20,6 +20,7 @@ HERE=Path(__file__).resolve().parent
 ROOT=HERE.parent.parent
 SCHEDULE_SEED='wildcard-working-solutions-schedule-v1'
 SOURCE_NAMES=['run.py','catalog.py','prompts.py','execution.py','js_worker.py','analysis.py','analyze.mjs','protocol.md','runtime.json','requirements.txt','system-instructions.txt','cards.json']+['benchmark/'+x+'.py' for x in ('__init__','common','queue','cache','sync','ui')]
+if (HERE/'development-revision.md').exists():SOURCE_NAMES.append('development-revision.md')
 
 
 def now():return datetime.datetime.now(datetime.timezone.utc).isoformat()

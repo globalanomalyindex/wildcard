@@ -33,6 +33,14 @@ class MaterialsTests(unittest.TestCase):
             with self.subTest(update=list(update)):
                 with self.assertRaises(ValueError):validate_response(value|update,'initial')
 
+    def test_revised_public_budget_exposes_only_four_event_prefixes(self):
+        cases=[{'id':f'p{i}','config':{'capacity':i},'events':[{'n':n} for n in range(9)]} for i in range(1,5)]
+        module=SimpleNamespace(public_cases=lambda _:cases,reference=lambda _,c:[e['n'] for e in c['events']],check=lambda _,c,o:{'passed':canonical(o)==canonical([e['n'] for e in c['events']])})
+        material=public_material('test',module)
+        self.assertEqual([len(row['input']['events']) for row in material['examples']],[4]*4)
+        self.assertEqual([row['output'] for row in material['examples']],[[0,1,2,3]]*4)
+        self.assertEqual(len(cases[0]['events']),9)
+
     def test_shared_task_and_schema_between_conditions(self):
         task={'title':'t','specification':'test','tags':['identity']}
         material={'examples':[],'incorrectExamples':[]}

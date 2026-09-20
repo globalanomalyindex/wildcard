@@ -1,0 +1,488 @@
+{
+  "role": "Pre-development-2 public-prefix instrumentation verification; not model evidence",
+  "publicEventLimit": 4,
+  "tracesVerified": 160,
+  "tasks": [
+    {
+      "taskId": "q01",
+      "publicMaterialSHA256": "fbd9ded613a0dd4f6e2ad586f4cdf9b1c9a1052c43697ccb8c4188aa7f17ca34",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q02",
+      "publicMaterialSHA256": "95f7f9db4332672c4aace8a0861c5d46cdab3aa153268c06b91771802b32766f",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q03",
+      "publicMaterialSHA256": "880d6446537a7d7f2cf5cc51b4baf91471500943531bdc92c46b5d156eebb56d",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q04",
+      "publicMaterialSHA256": "6e2c84e26cfa0409339229d5e73e230e0114aaedadcaece10681fc6ed2396fce",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q05",
+      "publicMaterialSHA256": "fa79bf72883577641a3b8d659b16cefdef5428c23b6dda402b7c3abdb105044f",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q06",
+      "publicMaterialSHA256": "c45c143790f1acb67cd092cffa931e3a0546a20b0dac1e99b0f62bf0cb224e84",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q07",
+      "publicMaterialSHA256": "1f22ad9ec03d85de3443d22dfc58bb535c9d7c1b97f976e8b9c0327487329667",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "q08",
+      "publicMaterialSHA256": "4a71b53c36bdba96dd357902b9adccd9d9bddc00b4807b16852d4acf599ac274",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-q01",
+      "publicMaterialSHA256": "b9883c1b683d19786dad1e32107c5dd1afaf145fe3a92c62f517732cf299d622",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-q02",
+      "publicMaterialSHA256": "e77c5625fa398ef527382ecbcefd8d3bba2f7827228bc8a5cb1e7168b66ad1d5",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c01",
+      "publicMaterialSHA256": "b7fed0a50df67626c73661c42d156f47383ff0640f072eecf95c64e8b8159faf",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c02",
+      "publicMaterialSHA256": "3dda76a81b8b8b71aee8bf69b1fcb072d3e7c8758c21ede5ea6e80c120280e47",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c03",
+      "publicMaterialSHA256": "eb5595003521d3925ba6281385d152cdce24b12694ef3bf99be72fc836eb7417",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c04",
+      "publicMaterialSHA256": "8d3d7bdbb0b443950c43a1a1dc3574b4fdd3e38a5f2d2ae07d241cb7ed290392",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c05",
+      "publicMaterialSHA256": "f2459f6a6ccde740620a747253f8d7a2a4f8dccd7f699adb91d6fd9567fd5c6e",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c06",
+      "publicMaterialSHA256": "79b574850de8b68f1dd54a65e700cf8a735177e431f28efd19466911f5058eab",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c07",
+      "publicMaterialSHA256": "5c955579e01121b54198de783252920f9f66e441b58668f297ad783d1c77d64a",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "c08",
+      "publicMaterialSHA256": "c1597b1019dfb8c7b7fdcef5b2e0401486c53f6040f1ae239e71f804bf3b79fe",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-c01",
+      "publicMaterialSHA256": "c5754c54bfe8f133a572a751c80f4b475070dbd1a5f273c5dfbc0c7a06753290",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-c02",
+      "publicMaterialSHA256": "705f07cda0665d0e93616a9b3e91d9d2649a1ed9d9c95f11dd87a8ae829fd4ad",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s01",
+      "publicMaterialSHA256": "00b6174270c80077f48eea974712d86d47e98571e0960ce7c2071f88e6c75f42",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s02",
+      "publicMaterialSHA256": "6c2303d8a23ea04ce3ec7000c6954045c017f635d8d0403db6306da0285172ea",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s03",
+      "publicMaterialSHA256": "2518f418345ea5ba9a38fb8e633112dc6ded5f2112f24e14d0b9234d1eff2fd4",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s04",
+      "publicMaterialSHA256": "eda910ed5dcb6f5f74c7fd6b777e9e493bf863ecfb46f9a4b54caf076c6f0a8f",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s05",
+      "publicMaterialSHA256": "55c72565e2f2041e091e3deabc65594b2e510494a30d8ae392be6dd9c0f5b413",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s06",
+      "publicMaterialSHA256": "8656e69e62ccb133ae4784f86048c3784ce9deaa758c8fc4d09a88a5987232cc",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s07",
+      "publicMaterialSHA256": "380140a14e3c357bfe89efe6a724fa1a75c94c30d88f720771a7670193451b43",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "s08",
+      "publicMaterialSHA256": "6d332a83e679ede21d0ebaff950f8c560f71ff08b66b518f78e90b7c97925e71",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-s01",
+      "publicMaterialSHA256": "c54960dc68610035c35caab1b2250c80213e75f92c6432c83327febe61ab41ac",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-s02",
+      "publicMaterialSHA256": "c1112007fe3f9f94dba1a96257d590fba32474a6c83a3d81af5a074a2f2e6d3b",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u01",
+      "publicMaterialSHA256": "06637179e7274d5aab1c838d2577aca58f41328af30b6110a0811d2468ef326d",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u02",
+      "publicMaterialSHA256": "452bb0678fa0f8f4733db2d42c9c0d1578288f747d47466acf6457242c012bf2",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u03",
+      "publicMaterialSHA256": "718eab24ff9e8756dc7566229b724826914bc3b4db1efd3b6a39f0e961b9a94d",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u04",
+      "publicMaterialSHA256": "d37092e7ec702645342408898a80aeb4b986465177165564e8ebaf4ec2b6635d",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u05",
+      "publicMaterialSHA256": "e8f182a08ba671c872a489cc07c0a0f4caa1078f4f7feae1fa847f9d6a5eca9d",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u06",
+      "publicMaterialSHA256": "0d54377cd03dc759ae5b530d47adf05269151f620e0800ced8c10a0b17bb50ca",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u07",
+      "publicMaterialSHA256": "d00e6b201398b2d98279ef2e35259f2f617a9b35216cb738e0495fe003606d01",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "u08",
+      "publicMaterialSHA256": "cdd2409e3394cf9114bed5f9ec1463dcf035a5f19e1716caec233ef742981397",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-u01",
+      "publicMaterialSHA256": "acda1e9ed37afe2d2912e211432950e1b5838004c966a44f090375af484317bf",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    },
+    {
+      "taskId": "dev-u02",
+      "publicMaterialSHA256": "1fcf46b9cc2a1d1a424e126da6a0951535fa90df41906ad42a04a02def6d8bff",
+      "publicTraceCount": 4,
+      "shownEventCounts": [
+        4,
+        4,
+        4,
+        4
+      ],
+      "foilCount": 4
+    }
+  ],
+  "catalogSHA256": "92a5dc6f03a92e38f15ba143e1c828050b2f791e8ae20f2cdd8e11f3d32b3352"
+}

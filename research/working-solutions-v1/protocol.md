@@ -42,6 +42,8 @@ The main hidden seed is 32 operating-system-random bytes, kept outside the repos
 
 ## Development gate
 
+Prospective revision after development-1: the direct condition reached 1.000 hidden success, triggering the ceiling. Development-2 and any subsequent main run retain the same four public fixture configurations but expose only each trace's first four events (at most 16 event/output pairs), equally in all arms. Full specifications and hidden generators remain unchanged. See development-revision.md for the fixed decision and scope; the original full-feedback run is preserved under its frozen source. A second floor/ceiling halts the main test.
+
 One separately logged transport-only echo call validates model availability and structured delivery before calibration. It contains no benchmark task and is excluded from all task outcomes; its usage is reported separately.
 
 At most two development rounds are permitted. Each round runs eight disjoint development tasks, three arms and two calls: 48 logical calls. Development validates transport, strict schema, runtime, public feedback and benchmark instrumentation. Difficulty decisions use D only. D mean hidden success <=0.10 is a floor; >=0.95 is a ceiling. If either holds, do not start main acquisition under that configuration. One declared revision may follow round one, preserving all original artifacts and documenting its reason before round two. Revision may strengthen benchmark task interactions or select an explicitly disclosed fixed generator configuration using D failures, but never choose changes by the observed R−D difference. If the second round remains unsuitable, publish a halted calibration outcome and an executable system without pretending to have run a confirmatory main test.
