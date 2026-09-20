@@ -26,7 +26,7 @@ def _worker(payload):
     # Deliberately exclude user configuration, account variables and credentials.
     env={'PATH':os.defpath,'LANG':'C.UTF-8','PYTHONDONTWRITEBYTECODE':'1'}
     proc=subprocess.run(args,input=encoded,text=True,capture_output=True,cwd=HERE,
-                        env=env,timeout=90)
+                        env=env,timeout=180)
     if proc.returncode:
         raise RuntimeError('JavaScript worker failed: '+proc.stderr[-1500:])
     result=json.loads(proc.stdout)
@@ -49,4 +49,10 @@ def run_cases(source,cases):
 def check_contract(when_source,property_source,correct,foils):
     if any(not isinstance(x,str) for x in (when_source,property_source)) or len((when_source+property_source).encode())>MAX_CONTRACT_BYTES:
         return {'admitted':False,'error':'contract_source_limit','applicableCorrect':0,'excludedCorrect':0,'rejectedFoils':0,'applicabilityBoundaryExercised':False,'correct':[],'foils':[]}
+    correct_inputs={json.dumps(pair['input'],sort_keys=True,ensure_ascii=False,allow_nan=False) for pair in correct}
+    identities=[pair['id'] for pair in correct+foils]
+    if not 1<=len(correct)<=8 or not 1<=len(foils)<=8 or len(set(identities))!=len(identities):
+        raise ValueError('Contract examples require bounded unique identities')
+    if any(json.dumps(pair['input'],sort_keys=True,ensure_ascii=False,allow_nan=False) not in correct_inputs for pair in foils):
+        raise ValueError('Every incorrect example must share a correct example input')
     return _worker({'operation':'contract','whenSource':when_source,'propertySource':property_source,'correct':correct,'foils':foils})

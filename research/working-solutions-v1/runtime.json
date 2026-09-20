@@ -10,9 +10,9 @@
   "execution": {
     "javascriptMemoryBytes": 67108864,
     "javascriptStackBytes": 524288,
-    "cpuSecondsPerEngineEntry": 0.2,
-    "workerCPULimitSeconds": 60,
-    "workerWallLimitSeconds": 90,
+    "cpuSecondsPerEngineEntry": 0.05,
+    "workerCPULimitSeconds": 120,
+    "workerWallLimitSeconds": 180,
     "maxCasesPerWorker": 256,
     "maxEventsPerCase": 64,
     "maxProgramUTF8Bytes": 10000,
@@ -21,7 +21,12 @@
     "hostCallbacks": false,
     "moduleLoader": false,
     "ambientClock": false,
-    "ambientRandom": false
+    "ambientRandom": false,
+    "maxTraceOutputUTF8Bytes": 262144,
+    "cpuSecondsPerTrace": 0.2,
+    "maxNestingDepth": 48,
+    "nestingConvention": "Returned step object depth zero; each child increments depth",
+    "jsonStructure": "Dense arrays; plain objects with enumerable own data properties; no accessors, symbols, cycles, custom prototypes, or serialization hooks"
   },
   "limits": [
     "Python process plus native interpreter limits; not a formally verified or multi-tenant isolation service",

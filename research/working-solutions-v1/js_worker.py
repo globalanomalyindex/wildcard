@@ -12,12 +12,13 @@ if args.dependencies: sys.path.insert(0,args.dependencies)
 import _quickjs as quickjs
 
 # Hard process bounds supplement the engine's per-entry CPU/memory/stack limits.
-resource.setrlimit(resource.RLIMIT_CPU,(60,60))
+resource.setrlimit(resource.RLIMIT_CPU,(120,120))
 resource.setrlimit(resource.RLIMIT_FSIZE,(0,0))
 resource.setrlimit(resource.RLIMIT_CORE,(0,0))
 
 SETUP = r'''
 globalThis.Date=undefined;
+globalThis.performance=undefined;
 globalThis.Atomics=undefined;
 globalThis.SharedArrayBuffer=undefined;
 Math.random=function(){throw new Error("ambient randomness is unavailable");};
@@ -25,34 +26,49 @@ Object.freeze(Math);
 '''
 BRIDGE = r'''
 (function(){
-  const stringify=JSON.stringify, keys=Object.keys, isArray=Array.isArray,
-        finite=Number.isFinite, proto=Object.getPrototypeOf;
+  const primitive=JSON.stringify, namesOf=Object.getOwnPropertyNames,
+        descriptor=Object.getOwnPropertyDescriptor, symbolsOf=Object.getOwnPropertySymbols,
+        isArray=Array.isArray, finite=Number.isFinite, proto=Object.getPrototypeOf;
   const objectProto=Object.prototype;
-  function valid(x,seen,depth){
+  function data(x,key){
+    const d=descriptor(x,key);
+    if(!d || !descriptor(d,"value"))throw new Error("JSON accessors are unavailable");
+    if(!d.enumerable && !(isArray(x) && key==="length"))throw new Error("nonenumerable JSON property");
+    return d.value;
+  }
+  function encode(x,seen,depth){
     if(depth>48)throw new Error("JSON nesting limit");
-    if(x===null || typeof x==="boolean" || typeof x==="string")return;
-    if(typeof x==="number"){if(!finite(x))throw new Error("nonfinite JSON number");return;}
+    if(x===null || typeof x==="boolean" || typeof x==="string")return primitive(x);
+    if(typeof x==="number"){if(!finite(x))throw new Error("nonfinite JSON number");return primitive(x);}
     if(typeof x!=="object")throw new Error("non-JSON value");
-    if(seen.indexOf(x)!==-1)throw new Error("cyclic JSON value");
-    seen.push(x);
+    for(let i=0;i<seen.length;i++)if(seen[i]===x)throw new Error("cyclic JSON value");
+    seen[seen.length]=x;
+    if(symbolsOf(x).length)throw new Error("JSON symbol property");
+    let text;
+    const names=namesOf(x);
     if(isArray(x)){
-      for(let i=0;i<x.length;i++)valid(x[i],seen,depth+1);
+      const length=data(x,"length");
+      if(names.length!==length+1)throw new Error("non-JSON array properties or holes");
+      text="[";
+      for(let i=0;i<length;i++)text+=(i?",":"")+encode(data(x,primitive(i)),seen,depth+1);
+      text+="]";
     }else{
       if(proto(x)!==objectProto && proto(x)!==null)throw new Error("non-JSON object");
-      const names=keys(x);
-      for(let i=0;i<names.length;i++)valid(x[names[i]],seen,depth+1);
+      text="{";
+      for(let i=0;i<names.length;i++)text+=(i?",":"")+primitive(names[i])+":"+encode(data(x,names[i]),seen,depth+1);
+      text+="}";
     }
-    seen.pop();
+    seen.length-=1;
+    if(text.length>131072)throw new Error("step output limit");
+    return text;
   }
   return function(fn,input){
     const answer=fn(input);
     if(answer===null || typeof answer!=="object" || isArray(answer))throw new Error("step must return state and output");
-    const names=keys(answer).sort();
-    if(names.length!==2 || names[0]!=="output" || names[1]!=="state")throw new Error("step must return exactly state and output");
-    valid(answer,[],0);
-    const text=stringify(answer);
-    if(text.length>131072)throw new Error("step output limit");
-    return text;
+    const names=namesOf(answer);
+    if(names.length!==2 || !((names[0]==="output" && names[1]==="state") || (names[0]==="state" && names[1]==="output")))throw new Error("step must return exactly state and output");
+    // Native stringification returns a flat transport string for the Python binding.
+    return primitive(encode(answer,[],0));
   };
 })()
 '''
@@ -62,13 +78,13 @@ def context():
     ctx=quickjs.Context()
     ctx.set_memory_limit(64*1024*1024)
     ctx.set_max_stack_size(512*1024)
-    ctx.set_time_limit(.2)
+    ctx.set_time_limit(.05)
     ctx.eval(SETUP)
     return ctx
 
 
 def execute_case(source,case):
-    start=time.monotonic();outputs=[]
+    start=time.monotonic();cpu_start=time.process_time();outputs=[];output_bytes=0
     try:
         ctx=context();bridge=ctx.eval(BRIDGE)
         ctx.eval(source)
@@ -77,9 +93,18 @@ def execute_case(source,case):
         state=None
         for event in case['events']:
             # Only the current event enters the JavaScript realm.
+            remaining=.2-(time.process_time()-cpu_start)
+            if remaining<=0: raise ValueError('trace CPU limit')
+            ctx.set_time_limit(min(.05,remaining))
             value=ctx.parse_json(json.dumps({'config':case['config'],'state':state,'event':event},ensure_ascii=False,allow_nan=False))
-            answer=json.loads(bridge(fn,value))
-            state=answer['state'];outputs.append(answer['output'])
+            answer=json.loads(json.loads(bridge(fn,value)))
+            if not isinstance(answer,dict) or set(answer)!={'state','output'}:
+                raise ValueError('invalid serialized step shape')
+            state=answer['state']
+            output_bytes+=len(json.dumps(answer['output'],ensure_ascii=False).encode())
+            if output_bytes>262144: raise ValueError('trace output limit')
+            outputs.append(answer['output'])
+            if time.process_time()-cpu_start>.2: raise ValueError('trace CPU limit')
         return {'status':'success','outputs':outputs,'elapsedSeconds':round(time.monotonic()-start,6)}
     except (Exception,MemoryError) as error:
         return {'status':'runtime_error','outputs':None,'processedEvents':len(outputs),'error':str(error)[:1200],'elapsedSeconds':round(time.monotonic()-start,6)}
