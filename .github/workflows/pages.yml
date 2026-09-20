@@ -2,7 +2,7 @@ name: verify and publish
 
 on:
   push:
-    branches: [main, research/wildcard-next]
+    branches: [main, research/wildcard-next, research/working-solutions-v1]
   pull_request:
   workflow_dispatch:
 
@@ -38,6 +38,10 @@ jobs:
           node --test research/lib/*.test.mjs
           python3 -m unittest discover -s research/transfer-v1 -p 'test_*.py'
           node --test research/transfer-v1/test_analysis.mjs
+      - name: Install pinned isolated execution runtime
+        run: python3 -m pip install -r research/working-solutions-v1/requirements.txt
+      - name: Working-solutions instrumentation and inference tests
+        run: python3 -m unittest discover -s research/working-solutions-v1 -p 'test_*.py'
       - name: Reproduce published study from raw records
         if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
         run: |
