@@ -4,7 +4,7 @@
 
 **Question:** Does explicitly naming a donor domain add model-judged qualified mechanisms after its relation and transfer boundary are already supplied?
 
-**Status:** The **original preregistered primary analysis is halted**. All 64 bank calls, 128 candidate-generation calls, and 16 diagnostic calls passed validation. One of 64 judge blocks failed because two bank-reference fields contained a candidate ID. The [measurement amendment](amendment.md) declares one new complete 64-block panel with constrained IDs; amended estimates remain pending. The original data and failure remain unchanged. Strict operational diagnostics passed **6/8 pairs (12/16 variants)**. Development outputs are excluded from the main estimate.
+**Status:** The **original preregistered primary analysis is halted**. All 64 bank calls, 128 candidate-generation calls, and 16 diagnostic calls passed validation. One of 64 judge blocks failed because two bank-reference fields contained a candidate ID. The [measurement amendment](amendment.md) completed one new 64-block panel with constrained IDs; all blocks validated in one attempt each. Its [amended primary estimate](results.json) is **−0.015625 QNM@4**, with 95% interval **[−0.109375, 0.0625]** and p = **1.000**, an inconclusive result. The original data and failure remain unchanged. Strict operational diagnostics passed **6/8 pairs (12/16 variants)**. Development outputs are excluded from the main estimate.
 
 ## The comparison
 
@@ -20,6 +20,20 @@ Thirty-two designed briefs cover interaction/accessibility, software systems, op
 The primary comparison is **LR−R on QNM@4**, the count of qualified distinct mechanism groups absent from a separately acquired finite direct-prompt bank. Two requested judge configurations assess masked, verbatim actions. A bank match anywhere in a task/judge mechanism group makes that group non-new in every arm. The task is the analysis unit, after averaging both judges. R−S and XR−LR are secondary comparisons with Holm correction.
 
 This is a bounded synthetic benchmark, not a powered population study. Bank-relative newness is not historical originality, feasibility ratings are not implementation tests, and same-provider model judges are not human validation. The name intervention changes a model's prompt; it does not test whether displaying names improves an interface for people. The 16-card research set does not test the complete deployed skill with its 378 specialists and 461 concepts, or validate the sampler's creative benefit. Eight separate paired diagnostics test supplied operational relations, not general creativity. See the [protocol](protocol.md), [manuscript](paper.md), and [prior-work map](related-work.md).
+
+## Completed amended findings
+
+The name contrast, LR−R, was inconclusive under the prespecified rule; 29 of 32 task differences were zero. Neither secondary contrast met its Holm-corrected .05 threshold. These results do not establish equivalence or validate the complete deployed skill.
+
+| Amended QNM@4 contrast | Mean difference | 95% percentile interval | Paired mean sign-flip p | Holm-adjusted p |
+|---|---:|---|---:|---:|
+| LR−R, primary | −0.015625 | [−0.109375, 0.0625] | 1.000000 | Not applicable |
+| R−S, secondary | +0.125000 | [0, 0.265625] | 0.139459 | 0.278917 |
+| XR−LR, secondary | −0.015625 | [−0.109375, 0.0625] | 1.000000 | 1.000000 |
+
+Mean QNM@4 was 0.046875 for S, 0.171875 for R, 0.15625 for LR, and 0.140625 for XR. Mean qualified diversity was 3.67–3.77 out of four, while mechanisms absent from the bank were sparse. This may reflect strong bank coverage, grouping granularity, or limited intervention effects; the study does not separate them. The bank contains 448 actions and the main sample 478 candidate actions. No response was removed from the 32-task analysis.
+
+The [complete results](results.json) include all task scores, original and amended ledgers, agreement, one remaining within-group bank-match contradiction, and observed usage. The 336 main and remeasurement calls required 336 attempts and reported 2,756,273 input and 292,147 output tokens, including the invalid original judge response. A further 74 development/calibration calls remain separately preserved. Summed call latency is not project wall time, and marginal dollar cost is unavailable. See the [manuscript](paper.md#56-acquisition-and-observed-resource-use) for phase-level accounting and limitations.
 
 ## Registration and preserved development
 
@@ -62,7 +76,7 @@ All sixteen operational diagnostic responses were structurally valid. Two pairs 
 | [Judge manifest](runs/main/judge-manifest.json) and [mask map](runs/main/mask-map.json) | Exact original masked judge requests and reversible ID mapping. Content may still reveal its source; masking does not prove perfect blinding. |
 | [Validator/scorer](analysis.py) and [statistical analysis](analyze.mjs) | Identity, source, event, schema, and coverage checks; global bank-match propagation; paired inference and declared sensitivities. They do not independently verify the truth of model judgments. |
 | [Amendment](amendment.md), [remeasurement manifest](runs/remeasurement/manifest.json), [collector](remeasure.py), [amended analysis](amended_analysis.py) | The changed identity constraints, full-panel acquisition and validation, and reuse of the frozen statistical analysis. The amended manifest binds the original records and new source/schema hashes before new acquisition. |
-| `runs/remeasurement/results.json`, `results.json`, and `site/data/transfer-study.json` | Produced only after complete amended validation: equivalent derived amended results for the run, research entry point, and website. They are pending. No original `runs/main/results.json` may be presented as a completed primary. |
+| [Run results](runs/remeasurement/results.json), [research results](results.json), and [site results](../../site/data/transfer-study.json) | Equivalent derived amended results for the run, research entry point, and website, produced after complete validation. No original `runs/main/results.json` is presented as a completed primary. |
 | [Invariance proof](runs/original-sensitivity/invariance-proof.json) and [sensitivity implementation](original_sensitivity.py) | Exhaustive hypothetical identity completions holding all other original ratings fixed. Any aggregate original-panel sensitivity is separately labeled and cannot replace the amended estimate. |
 | [Historical audit](../audit-2026-09/README.md) | New checks of preserved earlier studies. Its results are separate from this component experiment and the corrected live sampler. |
 
@@ -90,7 +104,7 @@ Confirm the original analysis halt with the original validator. This command is 
 python3 research/transfer-v1/analysis.py --cohort main --validate-only
 ```
 
-After the amended manifest is frozen, verify its original-record and source hashes. Once all 64 amended blocks are complete, require their validity and recompute the published analysis in memory:
+Verify the amended manifest's original-record and source hashes, require all 64 completed blocks to be valid, and recompute the published analysis in memory:
 
 ```sh
 python3 research/transfer-v1/remeasure.py verify
@@ -99,7 +113,7 @@ python3 research/transfer-v1/amended_analysis.py --validate-only
 python3 scripts/check-transfer-results.py
 ```
 
-Completion checks intentionally fail while the amended dataset or published result files are incomplete. `run.py verify` checks the original manifest and source hashes only; it is not a substitute for complete record validation. The published-result check also rejects an original `runs/main/results.json`, preserving the original halt.
+Completion checks reject missing or invalid amended records and incomplete result artifacts. `run.py verify` checks the original manifest and source hashes only; it is not a substitute for complete record validation. The published-result check also rejects an original `runs/main/results.json`, preserving the original halt.
 
 To explicitly regenerate the three derived amended-result JSON files from complete retained records, then verify them:
 

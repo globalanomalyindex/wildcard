@@ -5,7 +5,7 @@ Product design, research direction, and an AI-assisted implementation.
 
 Wildcard began with a practical question: can an outside reference help a language model propose a useful move that a direct brainstorm misses? The product supplies a cue, asks for a relationship that matters to the task, and gives the model permission to leave it unused. The difficult part is deciding whether the connection adds an action or only an appealing story.
 
-This case study follows the product and evidence together. The historical experiments have been reproduced and audited. A new study separates the source name from the relation it describes. **Its original primary analysis halted after one invalid judge response. A separately declared measurement amendment is underway; its results remain pending in this draft.** The [research manuscript](../research/transfer-v1/paper.md) carries the methods, failure record, and measured results when available.
+This case study follows the product and evidence together. The historical experiments have been reproduced and audited. A new study separates the source name from the relation it describes. **The completed amended measurement found no established benefit from adding the donor name. Its original primary analysis remains halted after one invalid judge response.** The [research manuscript](../research/transfer-v1/paper.md) carries the measured results and explains why the amended panel is a distinct measurement procedure on the same generated ideas.
 
 ## The design problem
 
@@ -56,7 +56,7 @@ Before these responses, two fresh direct-prompt calls built a reference bank for
 
 The resulting measure is deliberately limited: qualified mechanisms absent from a finite reference bank. It does not certify that an idea has never existed. The two judges share a provider, the briefs were authored by an AI assistant aware of the question, and no new human user study is included. Eight separate paired toy cases check whether changing a relation changes the proposed operation appropriately. Six pairs passed the exact contract. Two pairs failed because their traces added actor or time labels, although their operational choices matched the expected decisions. Those failures remain failures. This checks sensitivity to stated rules and format, not the model's internal process. [Study protocol](../research/transfer-v1/protocol.md) and [diagnostic detail](../research/transfer-v1/paper.md#54-strict-operational-diagnostics-six-of-eight-pairs).
 
-Development caught another practical failure: five of sixteen candidate responses exceeded the shared length contract. Before any main-study calls, the common prompt was clarified to aim below the unchanged hard limit. One declared rerun passed all 32 development calls. Both versions remain visible. That check shows the collection process worked on the development briefs; it provides no new effectiveness result. Main failures will still count in the primary result instead of disappearing from the sample. [Development record](../research/transfer-v1/runs/development/README.md).
+Development caught another practical failure: five of sixteen candidate responses exceeded the shared length contract. Before any main-study calls, the common prompt was clarified to aim below the unchanged hard limit. One declared rerun passed all 32 development calls. Both versions remain visible. That check shows the collection process worked on the development briefs; it provides no new effectiveness result. The main failure rule remained unchanged; all 128 main candidate responses subsequently passed. [Development record](../research/transfer-v1/runs/development/README.md).
 
 ## A validation failure stopped the original analysis
 
@@ -66,7 +66,24 @@ The response led to a bounded instrument change: constrain those fields to the i
 
 A separate audit found that every legal assignment to the two invalid references would produce the same mechanism counts if all other original judgments stayed fixed. That is a useful limit on the error's numerical consequences. It does not recover the intended references, establish that the other judgments are correct, or lift the original halt. [All 256 hypothetical assignments](../research/transfer-v1/runs/original-sensitivity/invariance-proof.json).
 
-The product consequence is direct: the evidence view needs room for a stopped analysis and its subsequent amendment. A single success badge would hide the most consequential part of this record. The amended estimates remain pending here until the complete panel validates.
+The product consequence is direct: the evidence view needs room for a stopped analysis and its subsequent amendment. A single success badge would hide the most consequential part of this record. All 64 amended blocks passed on their first attempt. The record retains 336 main and remeasurement calls, including the failed original judgment, plus 74 development and calibration calls. Completing the amended panel does not erase the original halt.
+
+## What the measured result changes
+
+Adding the correct donor name changed the mean number of qualified mechanisms absent from the bank by **−0.016 per response**, with a 95% interval from **−0.109 to +0.063**. The paired test was inconclusive. Twenty-nine of the thirty-two task differences were zero. The study did not establish that names help, harm, or never matter. [Exact amended results](../research/transfer-v1/results.json).
+
+| Prompt | Qualified mechanisms absent from the bank, mean per response |
+|---|---:|
+| Strong direct | 0.047 |
+| Relation only | 0.172 |
+| Correctly named relation | 0.156 |
+| Mismatched name | 0.141 |
+
+Relation only had a positive difference from direct prompting, but that secondary comparison also failed its corrected test threshold. The mismatched-name comparison did not establish an effect either. Selecting the most promising difference would overstate what this small study found.
+
+The more useful design observation is the gap between qualification and newness. Every condition averaged more than 3.6 qualified distinct mechanisms per response, yet few were absent from the direct-prompt bank. A suggestion could be plausible and concrete while repeating a mechanism the model already offered. That result keeps the interface focused on inspecting the proposed move and its constraints. An unusual donor name cannot serve as a quality badge.
+
+The measure has limits: a finite bank, broad mechanism matches, and a rubric near its qualification ceiling may conceal meaningful distinctions. The two judges agreed often, but they share a provider and supply no human validation. This completed component test does not validate the full plugin's creative benefit or justify a claim that names are universally irrelevant.
 
 ## What a reader can inspect
 
@@ -74,8 +91,8 @@ The public work is organized around a trace from a claim to its evidence. The [h
 
 The central design choice is to make that trail usable without asking a visitor to read the whole methodology first. Start with the question and the result's limits. Let the reader inspect an example, then the source and evaluation behind it. Keep the live draw's appeal, but give the evidence the same care as the visual interaction.
 
-## Roles and the next decision
+## Roles and the resulting product decision
 
 christopher robin fiore directs the project and its research-to-product presentation. AI assistants contributed literature review, historical auditing, synthetic task authoring, engineering, analysis, and interface implementation. The earlier record contains a small author-rated human anchor; the new benchmark uses model judgments and adds no human evaluation. These are disclosed roles, not implied customer research.
 
-The next product decision will use the amended name-ablation result, its costs, disagreements, and failures. A positive result would support further testing of the named prompt component under these conditions. An inconclusive or negative result would still help decide which prompt complexity earns further testing. Neither licenses a promise of better creativity from the full plugin. The current product implication is to help people inspect relations, boundaries, and concrete actions, while making the evidence and its limits easy to find.
+The resulting product direction is to help people inspect relations, boundaries, and concrete actions without presenting an outside name as evidence of creative quality. Source names remain useful for provenance even when this model-level test establishes no incremental benefit. A future efficacy claim would require new evaluation of the full deployed skill, broader tasks, and external or human validation. The public case study makes that boundary part of the product rather than leaving it in a footnote.
