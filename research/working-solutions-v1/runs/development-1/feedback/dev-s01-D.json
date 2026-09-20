@@ -1,0 +1,1219 @@
+{
+  "initialRecordSHA256": "254db33ae51eb493082b8bac8f1efe417ea6fdad47ab14792345acfced17815b",
+  "firstShown": {
+    "explanation": "The rule is: expiration is checked before each event at the event’s current time, while advance first increments time; connected sessions never expire. Acceptances affect only the current pending token and configured parties.",
+    "mapping": "config.ttl maps to the pending lease duration; config.parties maps to the two allowed approvers; state tracks now, token, expires, approved, and connected; each event maps to one documented output snapshot.",
+    "assumptions": "Inputs satisfy the stated public validity constraints. JavaScript string ordering is sufficient because configured party IDs are ASCII.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.every(function(o){return o&&typeof o==='object'&&o.connected!=='__changed'&&Array.isArray(o.approved)&&Object.keys(o).length===7})}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state||{n:0,t:null,z:null,a:[],q:null},n=s.n,t=s.t,z=s.z,a=s.a.slice(),q=s.q,expired=false,st='ignored';function clear(){t=null;z=null;a=[];q=null}function expire(){if(t!==null&&q===null&&z!==null&&n>=z){clear();expired=true}}if(e.type==='advance'){n+=e.dt;expire();st='advanced'}else{expire();if(e.type==='offer'){t=e.token;z=n+c.ttl;a=[];q=null;st='offered'}else if(e.type==='accept'){if(q===null&&t!==null&&e.token===t&&(e.party===c.parties[0]||e.party===c.parties[1])){if(a.indexOf(e.party)>=0)st='duplicate';else{a.push(e.party);a.sort();st='accepted';if(a.length===2){q=t;z=null;st='connected'}}}}else if(e.type==='cancel'&&t!==null&&e.token===t){clear();st='cancelled'}}return{state:{n:n,t:t,z:z,a:a,q:q},output:{status:st,now:n,token:t,expires:z,approved:a.slice().sort(),connected:q,expired:expired}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "offered",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "duplicate",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 3,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": true
+          },
+          {
+            "status": "ignored",
+            "now": 3,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 3,
+            "token": "u",
+            "expires": 6,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 3,
+            "token": "u",
+            "expires": 6,
+            "approved": [
+              "b"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "connected",
+            "now": 3,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 7,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 7,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "cancelled",
+            "now": 7,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 7,
+            "token": "t",
+            "expires": 10,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 10,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": true
+          },
+          {
+            "status": "advanced",
+            "now": 14,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 17,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 20,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 20,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 21,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 21,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 21,
+            "token": "v",
+            "expires": 24,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 21,
+            "token": "u",
+            "expires": 24,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 21,
+            "token": "u",
+            "expires": 24,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 22,
+            "token": "u",
+            "expires": 24,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "offered",
+            "now": 0,
+            "token": "t",
+            "expires": 2,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 0,
+            "token": "t",
+            "expires": 2,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "duplicate",
+            "now": 0,
+            "token": "t",
+            "expires": 2,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 2,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": true
+          },
+          {
+            "status": "ignored",
+            "now": 2,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 2,
+            "token": "u",
+            "expires": 4,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 2,
+            "token": "u",
+            "expires": 4,
+            "approved": [
+              "b"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "connected",
+            "now": 2,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 6,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "cancelled",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 8,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 8,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 8,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 8,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 8,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 8,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 10,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 13,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 17,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 17,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 17,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "offered",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "duplicate",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "duplicate",
+            "now": 0,
+            "token": "t",
+            "expires": 3,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 3,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": true
+          },
+          {
+            "status": "ignored",
+            "now": 3,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 3,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 3,
+            "token": "u",
+            "expires": 6,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 3,
+            "token": "u",
+            "expires": 6,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 3,
+            "token": "u",
+            "expires": 6,
+            "approved": [
+              "b"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "connected",
+            "now": 3,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 3,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 7,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 7,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "cancelled",
+            "now": 7,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 7,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 7,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 9,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 9,
+            "token": "u",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 9,
+            "token": "u",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 9,
+            "token": "u",
+            "expires": 12,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "duplicate",
+            "now": 9,
+            "token": "u",
+            "expires": 12,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": 12,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "connected",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 9,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "offered",
+            "now": 0,
+            "token": "t",
+            "expires": 1,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 0,
+            "token": "t",
+            "expires": 1,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "duplicate",
+            "now": 0,
+            "token": "t",
+            "expires": 1,
+            "approved": [
+              "a"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 1,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": true
+          },
+          {
+            "status": "ignored",
+            "now": 1,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 1,
+            "token": "u",
+            "expires": 2,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 1,
+            "token": "u",
+            "expires": 2,
+            "approved": [
+              "b"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "connected",
+            "now": 1,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 5,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 5,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "cancelled",
+            "now": 5,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 5,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 6,
+            "token": "v",
+            "expires": 7,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": "v",
+            "expires": 7,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": "v",
+            "expires": 7,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "cancelled",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": null,
+            "expires": null,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 6,
+            "token": "u",
+            "expires": 7,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": "u",
+            "expires": 7,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "accepted",
+            "now": 6,
+            "token": "u",
+            "expires": 7,
+            "approved": [
+              "b"
+            ],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "connected",
+            "now": 6,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 6,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "advanced",
+            "now": 11,
+            "token": "u",
+            "expires": null,
+            "approved": [
+              "a",
+              "b"
+            ],
+            "connected": "u",
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 11,
+            "token": "v",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "ignored",
+            "now": 11,
+            "token": "v",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 11,
+            "token": "t",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          },
+          {
+            "status": "offered",
+            "now": 11,
+            "token": "v",
+            "expires": 12,
+            "approved": [],
+            "connected": null,
+            "expired": false
+          }
+        ]
+      }
+    ]
+  }
+}

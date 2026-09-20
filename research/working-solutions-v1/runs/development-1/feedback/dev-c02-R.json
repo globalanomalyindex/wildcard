@@ -1,0 +1,532 @@
+{
+  "initialRecordSHA256": "a94a27eb3f1b0d53ffcde83d6b3802d5d5ebb06b4e7a6c3fbbca04e84e99c5c9",
+  "firstShown": {
+    "explanation": "Revision-guarded state machine: accepted writes and rollbacks advance the current revision; saves capture immutable value/revision snapshots, while retention evicts only the oldest retained snapshot. Snapshot IDs remain permanently used after first save.",
+    "mapping": "config.initial initializes value; config.keep bounds retained snapshots. State tracks value, revision, retained snapshots in oldest-to-newest order, and permanently used IDs.",
+    "assumptions": "Inputs satisfy the stated schema and safe-integer limits. Event types are write, save, rollback, or drop; IDs are lowercase ASCII letters.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Number.isInteger(input.config.initial)&&Number.isInteger(input.config.keep)&&input.config.keep>=1&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x.status!==\"string\"||!Number.isSafeInteger(x.value)||!Number.isSafeInteger(x.revision)||!Array.isArray(x.snapshots)||!x.saved||typeof x.saved!==\"object\")return false;if(x.snapshots.length>input.config.keep)return false;for(const id of x.snapshots){if(typeof id!==\"string\"||!Object.prototype.hasOwnProperty.call(x.saved,id))return false;const q=x.saved[id];if(!q||!Number.isSafeInteger(q.value)||!Number.isSafeInteger(q.revision))return false}}return true}",
+    "program": "function solve({config,state,event}){let s=state||{v:config.initial,r:0,a:[],u:{},m:{}};let t=event.type,id=event.id,status;if(t==='write'){if(event.expect===s.r){s.v=event.value;s.r++;status='written'}else status='conflict'}else if(t==='save'){if(s.u[id])status='exists';else{s.u[id]=1;s.m[id]={value:s.v,revision:s.r};s.a.push(id);while(s.a.length>config.keep){let z=s.a.shift();delete s.m[z]}status='saved'}}else if(t==='drop'){let i=s.a.indexOf(id);if(i<0)status='missing';else{s.a.splice(i,1);delete s.m[id];status='dropped'}}else if(t==='rollback'){if(event.expect!==s.r)status='conflict';else if(!Object.prototype.hasOwnProperty.call(s.m,id))status='missing';else{s.v=s.m[id].value;s.r++;status='rolled_back'}}let saved={};for(let k of s.a)saved[k]={value:s.m[k].value,revision:s.m[k].revision};return{state:s,output:{status,value:s.v,revision:s.r,snapshots:s.a.slice(),saved}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 0,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "saved",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "a",
+              "b"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              },
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "dropped",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 0,
+            "revision": 3,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 0,
+            "revision": 4,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "saved",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "dropped",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "c"
+            ],
+            "saved": {
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "c"
+            ],
+            "saved": {
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "c"
+            ],
+            "saved": {
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "dropped",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "saved",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 43,
+        "outputSHA256": "be45a4cdd86e29e311c1db2f81babcc4d085af25b9e2f875b54d68018a2a620a",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 48,
+        "outputSHA256": "e2b73c4c7bf67f4edd71e1f25ecd0050b3c4cfd70ddf5bcf0c319fdbec99dd3d",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 43,
+        "outputSHA256": "857806c88672b91583896c758e0c5d0d99bd9f69228b03bdbf4fa99889e75cbf",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      }
+    ]
+  }
+}

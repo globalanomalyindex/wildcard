@@ -1,0 +1,490 @@
+{
+  "initialRecordSHA256": "45e028ddbb7b2e2d4ef7a5e87a04a395686151147e42307240f0ff9dd2779455",
+  "firstShown": {
+    "explanation": "Conditional rule: revision-guarded mutations occur only when expect equals the current revision; successful rollback restores retained snapshot value but advances the current revision. Save/drop affect retention without changing revision.",
+    "mapping": "config.initial -> value; state revision -> revision; retained IDs and immutable snapshots -> snapshots/saved; event.expect guards writes and rollbacks.",
+    "assumptions": "Inputs satisfy the stated legal contract. State is initialized from config when null and otherwise is the prior returned opaque state.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,v=c.initial,r=0,a=[],m={},u={},z=[];function eq(x,y){return JSON.stringify(x)===JSON.stringify(y)}function out(st){var q={};for(var i=0;i<a.length;i++)q[a[i]]={value:m[a[i]].value,revision:m[a[i]].revision};return {status:st,value:v,revision:r,snapshots:a.slice(),saved:q}}for(var i=0;i<input.events.length;i++){var e=input.events[i],st;if(e.type==='write'){if(e.expect!==r)st='conflict';else{v=e.value;r++;st='written'}}else if(e.type==='save'){if(u[e.id])st='exists';else{u[e.id]=1;m[e.id]={value:v,revision:r};a.push(e.id);if(a.length>c.keep){var x=a.shift();delete m[x]}st='saved'}}else if(e.type==='rollback'){if(e.expect!==r)st='conflict';else if(!m[e.id])st='missing';else{v=m[e.id].value;r++;st='rolled_back'}}else if(e.type==='drop'){if(!m[e.id])st='missing';else{delete m[e.id];a.splice(a.indexOf(e.id),1);st='dropped'}}else return false;z.push(out(st))}return eq(z,output)}",
+    "program": "function solve(x){var c=x.config,s=x.state,e=x.event;if(s===null)s={v:c.initial,r:0,a:[],m:{},u:{}};var v=s.v,r=s.r,a=s.a,m=s.m,u=s.u,t;if(e.type==='write'){if(e.expect!==r)t='conflict';else{v=e.value;r++;t='written'}}else if(e.type==='save'){if(u[e.id])t='exists';else{u[e.id]=1;m[e.id]={value:v,revision:r};a.push(e.id);if(a.length>c.keep){var q=a.shift();delete m[q]}t='saved'}}else if(e.type==='rollback'){if(e.expect!==r)t='conflict';else if(!m[e.id])t='missing';else{v=m[e.id].value;r++;t='rolled_back'}}else if(e.type==='drop'){if(!m[e.id])t='missing';else{delete m[e.id];a.splice(a.indexOf(e.id),1);t='dropped'}}var z={};for(var i=0;i<a.length;i++)z[a[i]]={value:m[a[i]].value,revision:m[a[i]].revision};var o={status:t,value:v,revision:r,snapshots:a.slice(),saved:z};return {state:{v:v,r:r,a:a,m:m,u:u},output:o}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 0,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "saved",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "a",
+              "b"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              },
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "dropped",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 0,
+            "revision": 3,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 0,
+            "revision": 4,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              }
+            }
+          },
+          {
+            "status": "saved",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "b",
+              "c"
+            ],
+            "saved": {
+              "b": {
+                "value": 0,
+                "revision": 2
+              },
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "dropped",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "c"
+            ],
+            "saved": {
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "c"
+            ],
+            "saved": {
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "c"
+            ],
+            "saved": {
+              "c": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "dropped",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [],
+            "saved": {}
+          },
+          {
+            "status": "saved",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "missing",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 8,
+            "revision": 5,
+            "snapshots": [
+              "d"
+            ],
+            "saved": {
+              "d": {
+                "value": 8,
+                "revision": 5
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 43,
+        "outputSHA256": "be45a4cdd86e29e311c1db2f81babcc4d085af25b9e2f875b54d68018a2a620a",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 48,
+        "outputSHA256": "e2b73c4c7bf67f4edd71e1f25ecd0050b3c4cfd70ddf5bcf0c319fdbec99dd3d",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 43,
+        "outputSHA256": "857806c88672b91583896c758e0c5d0d99bd9f69228b03bdbf4fa99889e75cbf",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      }
+    ]
+  }
+}

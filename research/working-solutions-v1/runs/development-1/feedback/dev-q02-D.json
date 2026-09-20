@@ -1,0 +1,1231 @@
+{
+  "initialRecordSHA256": "6b8694e4aba67fad70c72f3f002269482e87e72a16d391cdf2535c79081fbce9",
+  "firstShown": {
+    "explanation": "Use a single lease record. Before each operation, advance time when requested, then expire if the deadline is reached. Acquire increments the monotonic generation only when vacant; renew and release require the current owner and generation.",
+    "mapping": "state={now,owner,generation,expires}; output mirrors these fields plus status. null owner/expires represent vacancy.",
+    "assumptions": "Inputs satisfy the published validity constraints; event fields are present and arithmetic remains safe.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let t=0,o=null,g=0,x=null,L=input.config.ttl;for(let i=0;i<output.length;i++){let e=input.events[i],s=output[i];if(e.type==='advance')t+=e.dt;if(x!==null&&x<=t){o=null;x=null}let z='ignored';if(e.type==='advance')z='advanced';else if(e.type==='acquire'){if(o===null){g++;o=e.owner;x=t+L;z='acquired'}else z='busy'}else if((e.type==='renew'||e.type==='release')&&o!==null&&o===e.owner&&g===e.generation){if(e.type==='renew'){x=t+L;z='renewed'}else{o=null;x=null;z='released'}}let q={status:z,owner:o,generation:g,expires:x,now:t};if(JSON.stringify(q)!==JSON.stringify(s))return false}return true}",
+    "program": "function solve(a){let c=a.config,e=a.event,s=a.state||{now:0,owner:null,generation:0,expires:null};let n=s.now,o=s.owner,g=s.generation,x=s.expires;if(e.type==='advance')n+=e.dt;if(x!==null&&x<=n){o=null;x=null}let r='ignored';if(e.type==='advance')r='advanced';else if(e.type==='acquire'){if(o===null){g++;o=e.owner;x=n+c.ttl;r='acquired'}else r='busy'}else if((e.type==='renew'||e.type==='release')&&o!==null&&o===e.owner&&g===e.generation){if(e.type==='renew'){x=n+c.ttl;r='renewed'}else{o=null;x=null;r='released'}}return{state:{now:n,owner:o,generation:g,expires:x},output:{status:r,owner:o,generation:g,expires:x,now:n}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 3,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "a",
+            "generation": 2,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "advanced",
+            "owner": "a",
+            "generation": 2,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "renewed",
+            "owner": "a",
+            "generation": 2,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "released",
+            "owner": null,
+            "generation": 2,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 3
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 8
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 9
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 9
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 11
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 11
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 11
+          },
+          {
+            "status": "acquired",
+            "owner": "c",
+            "generation": 4,
+            "expires": 14,
+            "now": 11
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 14,
+            "now": 11
+          },
+          {
+            "status": "advanced",
+            "owner": "c",
+            "generation": 4,
+            "expires": 14,
+            "now": 13
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 15
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 16
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 16
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 16
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 1,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 1
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": "a",
+            "generation": 2,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "advanced",
+            "owner": "a",
+            "generation": 2,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "renewed",
+            "owner": "a",
+            "generation": 2,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "released",
+            "owner": null,
+            "generation": 2,
+            "expires": null,
+            "now": 1
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 2,
+            "now": 1
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 2
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 4,
+            "expires": 3,
+            "now": 2
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 4
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 5,
+            "expires": 5,
+            "now": 4
+          },
+          {
+            "status": "advanced",
+            "owner": "a",
+            "generation": 5,
+            "expires": 5,
+            "now": 4
+          },
+          {
+            "status": "busy",
+            "owner": "a",
+            "generation": 5,
+            "expires": 5,
+            "now": 4
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 5,
+            "expires": null,
+            "now": 5
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 6,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 6,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 6,
+            "expires": 6,
+            "now": 5
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 6,
+            "expires": null,
+            "now": 7
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 7,
+            "expires": 8,
+            "now": 7
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 7,
+            "expires": null,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 7,
+            "expires": null,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 7,
+            "expires": null,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 7,
+            "expires": null,
+            "now": 8
+          },
+          {
+            "status": "acquired",
+            "owner": "c",
+            "generation": 8,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 8,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "busy",
+            "owner": "c",
+            "generation": 8,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 8,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 8,
+            "expires": null,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 8,
+            "expires": null,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 8,
+            "expires": null,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 8,
+            "expires": null,
+            "now": 10
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 3,
+            "now": 0
+          },
+          {
+            "status": "busy",
+            "owner": "a",
+            "generation": 1,
+            "expires": 3,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 3
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 6
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 6
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 6
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "busy",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "ignored",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "advanced",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "advanced",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "renewed",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "renewed",
+            "owner": "a",
+            "generation": 2,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "released",
+            "owner": null,
+            "generation": 2,
+            "expires": null,
+            "now": 6
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 6
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 7
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 3,
+            "expires": 9,
+            "now": 8
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 11
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 14
+          },
+          {
+            "status": "acquired",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "busy",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "busy",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "busy",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "advanced",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "advanced",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "advanced",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "busy",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "ignored",
+            "owner": "c",
+            "generation": 4,
+            "expires": 17,
+            "now": 14
+          },
+          {
+            "status": "released",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 14
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 1,
+            "expires": 5,
+            "now": 0
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 1,
+            "expires": null,
+            "now": 5
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 2,
+            "expires": 10,
+            "now": 5
+          },
+          {
+            "status": "ignored",
+            "owner": "a",
+            "generation": 2,
+            "expires": 10,
+            "now": 5
+          },
+          {
+            "status": "advanced",
+            "owner": "a",
+            "generation": 2,
+            "expires": 10,
+            "now": 5
+          },
+          {
+            "status": "renewed",
+            "owner": "a",
+            "generation": 2,
+            "expires": 10,
+            "now": 5
+          },
+          {
+            "status": "released",
+            "owner": null,
+            "generation": 2,
+            "expires": null,
+            "now": 5
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 3,
+            "expires": 10,
+            "now": 5
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 3,
+            "expires": null,
+            "now": 10
+          },
+          {
+            "status": "acquired",
+            "owner": "d",
+            "generation": 4,
+            "expires": 15,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": "d",
+            "generation": 4,
+            "expires": 15,
+            "now": 10
+          },
+          {
+            "status": "ignored",
+            "owner": "d",
+            "generation": 4,
+            "expires": 15,
+            "now": 10
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 17
+          },
+          {
+            "status": "ignored",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 17
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 4,
+            "expires": null,
+            "now": 19
+          },
+          {
+            "status": "acquired",
+            "owner": "d",
+            "generation": 5,
+            "expires": 24,
+            "now": 19
+          },
+          {
+            "status": "ignored",
+            "owner": "d",
+            "generation": 5,
+            "expires": 24,
+            "now": 19
+          },
+          {
+            "status": "busy",
+            "owner": "d",
+            "generation": 5,
+            "expires": 24,
+            "now": 19
+          },
+          {
+            "status": "ignored",
+            "owner": "d",
+            "generation": 5,
+            "expires": 24,
+            "now": 19
+          },
+          {
+            "status": "busy",
+            "owner": "d",
+            "generation": 5,
+            "expires": 24,
+            "now": 19
+          },
+          {
+            "status": "advanced",
+            "owner": "d",
+            "generation": 5,
+            "expires": 24,
+            "now": 20
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 5,
+            "expires": null,
+            "now": 24
+          },
+          {
+            "status": "acquired",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 24
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 24
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 24
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 26
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 26
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 26
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 26
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 26
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 26
+          },
+          {
+            "status": "advanced",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 27
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 27
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 27
+          },
+          {
+            "status": "busy",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 27
+          },
+          {
+            "status": "ignored",
+            "owner": "b",
+            "generation": 6,
+            "expires": 29,
+            "now": 27
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 6,
+            "expires": null,
+            "now": 33
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 6,
+            "expires": null,
+            "now": 33
+          },
+          {
+            "status": "advanced",
+            "owner": null,
+            "generation": 6,
+            "expires": null,
+            "now": 34
+          },
+          {
+            "status": "acquired",
+            "owner": "a",
+            "generation": 7,
+            "expires": 39,
+            "now": 34
+          }
+        ]
+      }
+    ]
+  }
+}

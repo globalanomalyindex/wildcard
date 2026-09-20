@@ -1,0 +1,2159 @@
+{
+  "initialRecordSHA256": "9574191145404dc8f7e80cc030d43ab81264d677a07a8f6d4a8bad3e18731779",
+  "firstShown": {
+    "explanation": "Use a bounded FIFO resident list. A live replacement preserves position and pins; tombstones block replacement. Admission evicts the oldest unpinned resident, while pinning, invalidation, and final unpinning update or remove entries.",
+    "mapping": "Each resident is [key,value,pins,tombstone]. The list is FIFO order; values are readable only when tombstone is false. Capacity applies to list length, and output is derived directly from the list.",
+    "assumptions": "Events are legal per the specification and config.capacity is available on each call or preserved in state. Keys are strings and values are safe integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.length===input.events.length&&output.every(function(x){return x&&Array.isArray(x.order)&&x.pins&&Array.isArray(x.tombstones)&&Object.prototype.hasOwnProperty.call(x,'value')})}",
+    "program": "function solve(a){var c=a.config||{},s=a.state||{cap:c.capacity||1,r:[]},r=s.r,e=a.event,k=e.key,t=e.type,i=-1,j;for(j=0;j<r.length;j++)if(r[j][0]===k){i=j;break}var z='ignored',v=null;if(t==='put'){if(i>=0){if(r[i][3])z='blocked';else{r[i][1]=e.value;z='stored'}}else{if(r.length>=(s.cap||c.capacity)){for(j=0;j<r.length&&r[j][2]>0;j++);if(j===r.length)z='blocked';else{r.splice(j,1);r.push([k,e.value,0,false]);z='stored'}}else{r.push([k,e.value,0,false]);z='stored'}}}else if(t==='pin'){if(i>=0&&!r[i][3]){r[i][2]++;z='pinned'}}else if(t==='unpin'){if(i>=0&&r[i][2]>0){r[i][2]--;z='released';if(r[i][2]===0&&r[i][3])r.splice(i,1)}}else if(t==='invalidate'){if(i<0)z='missing';else if(r[i][2]===0){r.splice(i,1);z='invalidated'}else{r[i][3]=true;z='invalidated'}}else if(t==='get'){if(i>=0&&!r[i][3]){z='hit';v=r[i][1]}else z='miss'}var o={order:[],pins:{},status:z,tombstones:[],value:v};for(j=0;j<r.length;j++){o.order.push(r[j][0]);o.pins[r[j][0]]=r[j][2];if(r[j][3])o.tombstones.push(r[j][0])}o.tombstones.sort();return{state:{cap:s.cap||c.capacity,r:r},output:o}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "released",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [],
+            "pins": {},
+            "status": "released",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "hit",
+            "tombstones": [],
+            "value": 3
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 1,
+              "c": 0
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "c": 0,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "c": 0,
+              "b": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "c": 0,
+              "b": 1
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "c": 0,
+              "b": 1
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 1
+            },
+            "status": "invalidated",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1
+            },
+            "status": "hit",
+            "tombstones": [],
+            "value": 4
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1
+            },
+            "status": "hit",
+            "tombstones": [
+              "b"
+            ],
+            "value": 3
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1
+            },
+            "status": "stored",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1,
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1,
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1,
+              "c": 0
+            },
+            "status": "miss",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1,
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "b": 1,
+              "c": 1
+            },
+            "status": "pinned",
+            "tombstones": [
+              "b"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "c": 1
+            },
+            "status": "released",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "c": 1
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 2,
+              "c": 1
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "c": 1,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c",
+              "b"
+            ],
+            "pins": {
+              "a": 2,
+              "c": 2,
+              "b": 0
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "released",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [],
+            "pins": {},
+            "status": "released",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "miss",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "d"
+            ],
+            "pins": {
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "d"
+            ],
+            "pins": {
+              "d": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "d"
+            ],
+            "pins": {
+              "d": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "c"
+            ],
+            "pins": {
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "c"
+            ],
+            "pins": {
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "c"
+            ],
+            "pins": {
+              "c": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [],
+            "pins": {},
+            "status": "invalidated",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "d"
+            ],
+            "pins": {
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "b"
+            ],
+            "pins": {
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "d"
+            ],
+            "pins": {
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "miss",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "c"
+            ],
+            "pins": {
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "c"
+            ],
+            "pins": {
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "c"
+            ],
+            "pins": {
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 3
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 3
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 3
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 3
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 3
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "released",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "released",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [],
+            "pins": {},
+            "status": "released",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "d"
+            ],
+            "pins": {
+              "a": 0,
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "d"
+            ],
+            "pins": {
+              "a": 0,
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "d"
+            ],
+            "pins": {
+              "a": 0,
+              "d": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "d"
+            ],
+            "pins": {
+              "a": 0,
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "d"
+            ],
+            "pins": {
+              "a": 0,
+              "d": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "invalidated",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "hit",
+            "tombstones": [],
+            "value": -2
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "hit",
+            "tombstones": [],
+            "value": -2
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "invalidated",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "missing",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 0,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 0,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 0,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 0,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "invalidated",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "c"
+            ],
+            "pins": {
+              "a": 0,
+              "c": 0
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 2
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "released",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [],
+            "pins": {},
+            "status": "released",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "pinned",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "stored",
+            "tombstones": [],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "b"
+            ],
+            "pins": {
+              "a": 1,
+              "b": 0
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "g"
+            ],
+            "pins": {
+              "a": 1,
+              "g": 0
+            },
+            "status": "stored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a",
+              "g"
+            ],
+            "pins": {
+              "a": 1,
+              "g": 0
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "invalidated",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "blocked",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "miss",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "missing",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          },
+          {
+            "order": [
+              "a"
+            ],
+            "pins": {
+              "a": 1
+            },
+            "status": "ignored",
+            "tombstones": [
+              "a"
+            ],
+            "value": null
+          }
+        ]
+      }
+    ]
+  }
+}
