@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
 """Pre-acquisition reference/checker/engine audit on public validation seeds."""
 import argparse
+import hashlib
 import json
 from pathlib import Path
 from catalog import all_tasks,assignments,cards,digest,owner,public_material
@@ -39,7 +40,7 @@ def verify(count=64):
                 events+=len(case['events'])
             row['regimes'][regime]={'traces':count,'distinctInputs':len({digest(case) for case in cases}),'events':events,'corpusSHA256':digest(cases)}
         rows.append(row);print(task['id'],'verified',flush=True)
-    return {'schemaVersion':1,'kind':'pre-acquisition instrumentation validation, not model evidence','validationSeedNamespace':'preflight-v1','casesPerRegime':count,'tasks':rows,'totalTraces':sum(4+sum(r['traces'] for r in row['regimes'].values()) for row in rows),'generatorAndOracleSourceSHA256':{path.name:digest(path.read_text()) for path in sorted((HERE/'benchmark').glob('*.py'))},'limitations':['Separately formulated reference and checker are AI-authored and may share errors; cross-author review and explicit boundary cases complement agreement checks.','Known bad-output rejection does not exhaust all possible incorrect programs.','These public validation seeds are separate from the private final study seed.']}
+    return {'schemaVersion':1,'kind':'pre-acquisition instrumentation validation, not model evidence','validationSeedNamespace':'preflight-v1','casesPerRegime':count,'tasks':rows,'totalTraces':sum(4+sum(r['traces'] for r in row['regimes'].values()) for row in rows),'generatorAndOracleSourceSHA256':{path.name:hashlib.sha256(path.read_bytes()).hexdigest() for path in sorted((HERE/'benchmark').glob('*.py'))},'limitations':['Separately formulated reference and checker are AI-authored and may share errors; cross-author review and explicit boundary cases complement agreement checks.','Known bad-output rejection does not exhaust all possible incorrect programs.','These public validation seeds are separate from the private final study seed.']}
 
 def main():
     parser=argparse.ArgumentParser();parser.add_argument('--cases',type=int,default=64);parser.add_argument('--output',type=Path,required=True);args=parser.parse_args()
