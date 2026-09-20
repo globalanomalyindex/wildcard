@@ -1,525 +1,71 @@
-# wildcard: a case study
-
-*an honest write-up of an experiment in seeding non-linear thinking in an LLM. all
-lowercase, because that is the vibe. all numbers real, regenerable, and caveated where the
-sample is small. nothing here is dressed up to look more rigorous than it is.*
-
-## tl;dr
-
-ask an LLM to "think of a random unrelated expert" and it hands back its own priors with extra
-steps. it is a bad random number generator over its own training distribution. wildcard moves the
-randomness out of the model, into a shell script reading OS entropy. the model gets a specific
-foreign wildcard it would never have picked, and has to bring back something genuinely useful or
-honestly say it found nothing.
-
-i ran a pre-registered, blind, three-arm study to see if that works. the core claim held
-decisively: the model's own "random" picks collapse and sit right next to the problem, while the
-external draw is far more diverse and far less adjacent. the no-fabrication guarantee held too,
-under both AI and human grading.
-
-the stronger claim did not hold. the distant connections scored *lower* on judged genuineness, not
-higher, because reaching far costs the easy clean mapping. i report that plainly, and then i did
-something about it. i diagnosed the cause: the skill found the connection but never forced it to be
-*spent* into a concrete move in your own words. i rewrote the skill around that and re-tested on
-ten fresh problems.
-
-the new version beats the old by **+0.81** on genuineness and **+0.84** on usefulness, a gain i
-predicted in advance and confirmed out of sample, with zero new fabrication. i also caught the
-mechanism failing a different guarantee once, fixed it, and report that too.
-
-then i noticed the hole in all of that. two studies in, i had never run the arm that answers the
-obvious question: is this better than just asking the model normally? so i ran it. on ten more
-fresh problems, the shipped skill beats a plain brainstorm on **novelty by +0.72** (p = 0.037),
-which is the claim the whole project rests on, and it does **not** beat it on usefulness or
-genuineness. it also fabricated nothing where the plain brainstorm fabricated six times. that is
-the real shape of the tool: it buys you distance, not polish.
-
-## the idea
-
-human creativity leans on a faculty an on-task reasoner does not have. while you are not
-working on a problem, your mind wanders and recombines, and sometimes a distant memory pops
-in unbidden - the "aha". psychologists call the resting state the default mode network;
-wallas called the stages incubation and illumination; mednick framed creative cognition as
-reaching *remote associates*, distant nodes in your semantic web.
-
-an LLM's chain of thought has no default mode. every token is conditioned on staying
-on-task, so it never wanders and the pop-in cannot happen; the architecture forbids it.
-wildcard does not fake consciousness. it externalizes the one missing faculty: a synthetic
-default-mode network that injects the remote associate the focused reasoner would never
-wander to.
-
-a note on mechanism, because it matters: there are two ways to make a model less
-predictable. raising the *temperature* flattens the next-token distribution into noise.
-changing the *conditioning* - putting a specific expert persona in context - translates the
-model's high-probability mass to a different but still-coherent region. wildcard is
-structured divergence, not randomness. the specific persona is the seed.
-
-## the mechanism
-
-five steps, each with a job:
-
-1. **detect, then freeze.** distill a structural sketch of your problem - its moving parts,
-   flows, tensions - and commit to it *before* drawing. this is pre-registration:
-   once you know what you drew, it is tempting to quietly reshape the problem so the
-   connection lands. freezing first keeps the mapping honest.
-2. **draw, outside the model.** `draw.sh` reads `/dev/urandom` and rejection-samples for an
-   exactly uniform pick. it first rolls a mode, then draws either a niche discipline from a
-   map of 378 or a general concept from a pool of 461, plus a "lens" (a second entropy axis
-   that picks where to look first). the model does not choose. that is the whole point.
-3. **become it.** inhabit the draw and think *from* it, not *about* it: a specialist grows
-   into a practitioner with a real toolkit, built *before* looking at your problem; a concept
-   gets loaded for its relational properties, how it works and what it trades off and how it
-   fails. that inhabiting is the conditioning that does the seeding.
-4. **harvest what the seed surfaces.** look at the frozen sketch from in there and keep what
-   pays off. the gate is the **removability test**: delete the sentence that names the
-   wildcard, and an executable move in your own words must still stand, one the plainest
-   reading of the problem would not already produce. if nothing survives that deletion, dig
-   one step deeper or let the strand go. abstention is the skill working, not failing.
-5. **present seeds.** offer about three optional seeds, each as noticing -> mapping ->
-   concrete move, where the third beat carries a falsifiable specific. additive, never
-   prescriptive.
-
-one caveat you should hold while reading the rest of this page: steps 4 and 5 are the *current*
-version. the study below tested an earlier one, whose gate was structure-mapping rather than
-removability and whose third beat was a "provocation" rather than a move. that difference is not
-a footnote, it is the whole finding, and the fix section explains how the study produced it.
-
-gentner's structure-mapping is the sharpest tool in that harvest. a fake connection shares a
-surface feature ("your code has cells, i study cells!"). a real one maps a system of relations
-("your retry backoff and a predator-prey cycle are the same oscillation, and ecologists found
-stochastic jitter stops the populations synchronizing into a crash - have you considered
-jitter?"). same relations, different domain. it is how a seed usually earns its keep, and it is
-the standing check against decoration. what it is *not*, any more, is the gate: a mapping can be
-real and still ship nothing usable, which is exactly the failure the study found. the gate is the
-removability test, and encoding it is what makes "never lies for the sake of a connection" a
-checkable property instead of a vibe.
-
-## does it actually work? a pre-registered, blind, three-arm study
-
-> "You know a thing mentally by looking at it from the outside, by comparing it with other
-> things, by analyzing it and defining it [by thinking of it]; whereas you can know a thing
-> spiritually only by becoming it, [only by thinking from it]. You must be the thing itself and
-> not merely talk about it or look at it. You must be like the moth in search of his idol, the
-> flame, who spurred with true desire, plunging at once into the sacred fire, folded his wings
-> within, till he became one color and one substance with the flame."
->
-> - Neville Goddard, The Power of Awareness (1952), pp. 24-25
-
-> "He only knew the flame who in it burned, and only he could tell who ne'er to tell returned."
->
-> - Farid ud-Din Attar
-
-that passage is the mechanism stated seven decades before the model existed. you know a thing by
-*becoming* it, by thinking *from* it and not *about* it. that is persona-conditioning in plain
-words: inhabiting the wildcard (from it) rather than analyzing it (about it) is the difference
-between shifting the model's conditioning to a coherent distant region and merely adding noise.
-the skill is built on that idea. so i tried to measure whether it holds.
-
-a demonstration is not evidence, so i pre-registered a real one. the full protocol, hypotheses,
-prompts, rubric, master seed, and analysis plan are frozen in `experiment/preregistration.md`,
-committed *before any data existed*; the trust argument and the honest residuals are in
-`docs/methods-colophon.md`. the headline: **the core mechanism claim holds decisively, the
-no-fabrication guarantee held under both AI and human grading, and the stronger "produces better
-connections" claim did not hold** - i report that last part plainly because that is the deal.
-
-**the design.** three arms on the same ten problems, varying only the draw. **arm a** runs the
-full wildcard protocol but lets the model pick its own "random unrelated expert or concept";
-**arm b** is the shipped skill, drawing from `draw.sh`; **arm c** is a plain brainstorm with no
-scaffolding. so a-vs-b isolates the *source of the draw*, the one thing i care about. the ten
-problems were generated by an agent **blind to the hypothesis**, then **entropy-selected** from
-a pool of fifty using the committed master seed, so i could not cherry-pick problems that suit
-the method. subjects were Sonnet 4.6 (`claude-sonnet-4-6`, held constant across arms); four blind
-graders were Opus 4.8 (`claude-opus-4-8`); one human (the author) blind-graded a fifteen-output
-subset. raw outputs were
-quarantined outside the repo until grading finished, and all 30 of 30 treatment draws were
-verified against their pre-registered seed.
-
-**h1, divergence: confirmed, decisively.** asked to name its own unrelated field, the model
-collapsed. across ten problems and twenty self-picks each, its picks averaged **1.48 bits** of
-entropy against the external draw's **4.30**; on one problem it named the *same* field twenty
-times out of twenty. pooled over all 200 self-picks there were only **46 distinct labels**, the
-top ten covering **72%**. and the self-picks hugged the problem: **47%** were judged adjacent to
-the problem's own domain, against **9%** for the entropy draw. an LLM asked to be its own random
-number generator returns its priors with extra steps, and those priors sit next door to the
-question. that is exactly what wildcard exists to defeat, and it does.
-
-**no fabrication, validated rather than asserted.** the guarantee the whole project rests on is
-"never invent a connection." across all 90 outputs, the four-grader panel flagged **zero**
-fabrications; on the fifteen the human graded, also **zero**. this matters doubly because i had
-just sharpened the skill toward a *conviction* posture (assume a connection is there, dig for it
-rather than reaching for the easy abstention). the worry with that change is that it would push
-the model to invent. it did not. the pre-registered fabrication flag is how i know, instead of
-hoping.
-
-**h2, quality: honest, and not the win i hoped for.** the pre-registered primary endpoint was
-structural genuineness, arm b versus arm a, judged blind. the panel rated the wildcard arm
-**lower**: mean **5.27** for b against **5.70** for a (and **5.94** for the plain baseline c),
-cliff's delta **-0.50**, 95% CI **-0.84 to -0.25**, exact wilcoxon **p = 0.008**. the
-pre-registered reading of that interval is **inferiority**. the honest interpretation is a
-tradeoff, not a failure of the mechanism: the entropy draw genuinely reaches distant material
-(h1 proves it), and *distant material is harder to map cleanly*, so a grader scoring "does this
-map a real system of relations" rewards the model's own adjacent picks over a forced-foreign
-one. distance is the product; clean genuineness is its price.
-
-**the check that complicates the verdict.** before trusting the panel, i validated it against a
-human. it **did not validate well**. the human's fifteen blind scores correlated only weakly with
-the panel item by item (pooled spearman **0.29**; on genuineness itself, **0.01**), and the panel
-had compressed its scores into a narrow 4.5-to-6.25 band where the human used the full 1-to-7
-range. so the panel is a blunt instrument for ranking individual outputs. it is more trustworthy
-in aggregate: sorting the human's own grades by arm reproduces the same order the panel found
-(c > a > b on genuineness), so the *direction* against wildcard survives a human read, even as
-the panel's item-level precision does not. inter-rater agreement among the four graders was
-moderate on genuineness, usefulness, and novelty (krippendorff alpha 0.63 to 0.72) and
-essentially nil on non-derailment (-0.10), so i lean on the first three and discount the last.
-the blinding was imperfect too: an adversarial checker guessed the arm 64% of the time against a
-33% baseline.
-
-**what the study actually establishes.** wildcard does the thing it is built to do - it injects
-the remote associate the on-task model never reaches (h1), and it does so without fabricating
-(validated twice). what it does **not** establish is that those remote connections are *better*
-by a blind grader's lights; on structural genuineness they scored lower, in both the AI panel
-and a human's aggregate read, because reaching far costs you the easy clean mapping. that is the
-real shape of the tool: it is for breaking out of the obvious groove and willing to do the work
-of mapping something genuinely foreign, not a guarantee of higher-rated output. the skill's
-documented promises (reach the remote associate; never fabricate) held. the promise it never
-made (distant beats near on judged quality) did not, and i am not going to pretend otherwise.
-
-**honest limits.** ten problems, not a population. graders are LLMs, shown to be blunt and only
-partly blind. subjects and graders are both anthropic models, of different tiers but one vendor.
-the human anchor is a single person on fifteen outputs. every number here regenerates from the
-committed data with `node scripts/analyze_experiment.mjs experiment`.
-
-### the original illustrative walkthrough (n=1, kept for honesty)
-
-before the pre-registered study i ran a quick demonstration on one fixed problem. it reads well
-and i keep it, but a demonstration is not evidence, and the study above supersedes it. i
-wanted to know if the *external* draw matters, or if the model could reach the same
-places on its own. so i ran a small blind comparison on one fixed problem.
-
-**the problem (held constant):** a personal-finance "spending forecast" that warns a user
-before they overspend, which feels either alarmist (ignored) or too late (useless). make it
-trustworthy and well-timed.
-
-**condition a - model self-picks (no external entropy).** i asked the model, three
-separate times, to pick "an expert from an unrelated field" for cross-domain ideas.
-
-> picks: (1) probabilistic weather/storm forecaster · (2) wildfire/avalanche risk
-> forecaster · (3) er triage nurse.
-
-all three collapsed onto a single attractor: *people whose job is to issue warnings and
-worry about false alarms*. the problem statement contains "alarmist", "warnings",
-"well-timed", and the model walked straight to professionals defined by that vocabulary. it
-did not just pick generically "creative" fields - it picked the problem's nearest neighbors,
-the experts who already share its framing. that is the opposite of an outside view.
-
-**condition b - the real draw (`/dev/urandom`).** five entropy draws, verbatim:
-
-> 1. hand-stippling and flaking layout-bluing on machinist scribes · *materials*
-> 2. cold-chain reefer monitoring of perishable cargo temps · *measurement*
-> 3. coopering steam-bent staves and croze-grooving barrel heads · *energy-and-flow*
-> 4. spectrum-license auction band-plan packaging · *energy-and-flow*
-> 5. rush-light dipping reeds in tallow for period stage lamps · *failure-modes*
-
-a cooper, a machinist-scribe blueing craftsman, a rush-light dipper - these arrive with no
-pre-fitted opinion about warning systems. two of them mapped through deep structure rather
-than shared vocabulary:
-
-- **reefer monitoring -> the forecast.** the strongest seed: overspend is not any single
-  large transaction, it is accumulated trajectory against time-remaining - the same shape as
-  *mean kinetic temperature*, where you alarm on projected end-of-cycle dose, not
-  instantaneous readings. a finance pm would plausibly never reach for this; it is a concrete
-  design move (forecast projected month-end position) that arrived *with* the persona.
-- **band-plan packaging -> a budget guard band.** define a usable limit short of the hard
-  limit; the gap absorbs fluctuation; alarm on entry to the gap, not the limit. real
-  hysteresis, honestly transferred.
-
-**a clean abstention.** a sixth draw - a theatrical armourer who builds blunt stage-combat
-rapiers - did *not* map. the lens ("energy-and-flow") even baited a fake link (the
-"emotional energy" of a warning), and the expert correctly refused: "i'd be selling you a
-metaphor, not a method. i'll abstain rather than hand you a decorative connection."
-
-**what this shows, and what it does not.** this is one session, a single fixed problem,
-graded by me. it is a qualitative demonstration, not a controlled study with statistical
-significance - treat n as small and the result as illustrative. with that caveat: condition
-a mode-collapsed exactly as predicted, condition b produced foreign machinery the on-task
-reasoner demonstrably did not reach, and the honesty bar both killed a surface match and
-drove a clean abstention. in this single illustration the mechanism behaved as designed - but
-the pre-registered study above is what actually tests it, including the part that went against
-me.
-
-## the fix, and the re-test
-
-the study handed me a problem, not a trophy: the wildcard reached genuinely distant material, but
-a blind panel rated those distant connections *lower* on genuineness than the model's own nearby
-picks. that is not the tool i set out to build, so i treated the study as a diagnosis.
-
-**the cause.** three independent Opus 4.8 reviewers read all 90 study outputs against their
-genuineness scores and converged on one root cause, and it was not reach, it was *emit*. the wildcard finds
-the real connection; the old skill let a strand ship while it was still wearing the donor's
-vocabulary at the donor's altitude, ending in a metaphor instead of a move. the data proved it:
-the skill's own best distant outputs (knitting mapped to a credential-dependency graph, chemistry
-to a literal rental-turn ratio) reached just as far and scored 6.5, because they *spent* the
-analogy into a concrete move in the user's world. the low scorers reached the same distance and
-stopped at the image.
-
-**the fix: seed, not subject.** with the cause named, i had the rewrite authored by Fable 5
-(`claude-fable-5`) - Anthropic's most capable generally available model and the first of its
-mythos-class intelligence made general, the obvious hand for the one piece of writing this whole
-result would hinge on - then reviewed by a separate Opus 4.8 pass for honesty. the brief was the
-original vision, stated precisely. the wildcard is a seed, not a subject. you do not force the
-problem to map onto it; you let it steer your thinking somewhere new and bring back the genuinely
-good idea it seeds.
-gentner's structure-mapping went from the gate every strand had to pass to one mode of payoff and
-a standing check against decoration. the new gate is a *removability test*: delete the sentence
-that names the wildcard, and an executable move in the user's own words must still stand, one the
-plainest reading of the problem would not already produce. note the direction: the honesty bar got
-*tighter*, not looser, because a decorative rhyme the old skill could ship as a "mapping" now
-fails when nothing survives deleting the donor sentence.
-
-**the re-test, pre-registered first.** i wrote the prediction down before collecting anything: the
-new skill beats the old by at least half a point on genuineness, fabrication does not rise, and the
-draw distance does not shrink. then i ran both skill versions head to head on *ten fresh problems
-the fix had never seen*, with the wildcards held identical between versions so the only thing that
-could differ was the prose. subjects ran on Sonnet 4.6 (`claude-sonnet-4-6`), normalization on
-Haiku (`claude-haiku-4-5`), and the outputs were blind-graded by four Opus 4.8 graders. it worked,
-and the guard rails held:
-
-- **genuineness: 4.93 to 5.74**, a paired gain of **+0.81** (95% CI 0.60 to 1.03), exact wilcoxon
-  p = 0.002. the pre-registered prediction was met.
-- **usefulness: +0.84** (p = 0.002).
-- **novelty: -0.37** (p = 0.02), the honest cost. spending a seed into a grounded, concrete move
-  makes the output read a little less exotic. i think a usable idea beats an impressive-sounding
-  one, but the trade is real and i am not hiding it.
-- **zero fabrications** in both versions; removability compliance rose from 0.98 to 1.00; and
-  because the two versions drew identical wildcards, the gain came from *discharging* the distance,
-  not from quietly reaching for nearer material.
-
-**what it means.** the loop closed. the first study found the mapping-gated wildcard's distant
-connections scoring below the model's own near picks; the fix, validated on problems it was never
-tuned against, lifts them back above that bar. distant *and* genuinely useful, measured rather than
-asserted. the strongest part is not the +0.81, it is where it came from: a number predicted in
-advance and confirmed out of sample, with the draws held identical, is a different kind of evidence
-than a number reported after the fact.
-
-**honest bounds.** ten problems again, LLM graders again (moderate agreement, alpha around 0.6 on
-the quality scales), the same limits as the first study. the comparison is *within* the re-test,
-same problems and rubric and draws; the first study's numbers ran on different problems, so i
-compare the two skill versions to each other, not across studies.
-
-## the arm i had not run: does it beat just asking?
-
-two studies in, i went looking for the weakest point in my own argument and found it fast. study 1
-had three arms, and one of them was a plain brainstorm with no wildcard at all. **that arm won.**
-it scored 5.94 on genuineness against the wildcard's 5.27, 6.67 on usefulness against 5.67, and
-even 5.33 on novelty against 4.89. study 2 then fixed the skill and proved the new version beats
-the old one, but both of *its* arms were wildcard versions. the plain baseline was not in it.
-
-so the question the whole project rests on had never actually been asked of the shipped skill.
-study 1 said the old skill lost to doing nothing. study 2 said the new skill beats the old one. the
-two ran on different problems, so i cannot subtract them and claim the gap is closed. i had to run
-the arm.
-
-**the design.** ten problems again, entropy-selected from the thirty in the pool that neither prior
-study touched, so this is out of sample for a third time. arm **W** is the skill exactly as it
-ships; arm **P** reuses study 1's baseline prompt **word for word**, because a baseline i wrote
-fresh for this study would be a strawman built to lose. three replicates each, subjects on Sonnet
-(`claude-sonnet-4-6`), normalization on Haiku (`claude-haiku-4-5`), four blind Opus
-(`claude-opus-5`) graders on study 1's rubric verbatim. master seed `7eb8abe05e8a13d2`, drawn from
-`/dev/urandom` and committed before a single output existed, along with the prediction and the
-decision rule.
-
-the primary endpoint is **novelty**, because that is the scale that carries "wildcard makes output
-more creative", and i wrote down **+0.30 or better** as the bar. i also wrote down that i was not
-confident: study 1 had the baseline ahead on novelty, and study 2's fix had *lowered* novelty by
-0.37 as the price of forcing seeds into concrete moves. a straight-line reading of my own prior
-data predicted i would lose this.
-
-**the result: the prediction held.**
-
-| scale | wildcard | plain | difference | 95% CI | exact wilcoxon p |
-|---|---|---|---|---|---|
-| **novelty** (primary) | **5.43** | **4.71** | **+0.72** | 0.22 to 1.21 | **0.037** |
-| genuineness | 5.21 | 5.44 | -0.23 | -0.55 to 0.07 | 0.31 |
-| usefulness | 6.22 | 6.45 | -0.23 | -0.45 to -0.03 | 0.14 |
-| non-derailment | 6.66 | 6.55 | +0.11 | 0.01 to 0.23 | 0.10 |
-
-the novelty gain is not one lucky problem: the wildcard arm is ahead on **eight of the ten**, and
-inter-rater agreement on novelty was the strongest of any scale in any of the three studies
-(alpha 0.78). so the headline claim is now supported by an experiment designed to break it.
-
-**and the rest is a wash or a small loss, which is the honest half.** genuineness sits at -0.23
-with a confidence interval straddling zero: no detectable difference. usefulness sits at -0.23 with
-an interval just clear of zero but a wilcoxon p of 0.14, which is the edge of what ten problems can
-resolve; i read it as a small real cost, not a proven one, and the plain brainstorm was ahead on
-six of ten problems there. non-derailment i will not claim at all, because the graders did not
-agree with each other on it (alpha -0.07), exactly as in study 1.
-
-**the guard rail went the other way from what i expected.** fabrication flags: **wildcard 0, plain
-brainstorm 6**. two of the plain outputs invented confident-sounding empirical claims, one of them
-flagged by all four graders for asserting that "hospitals discovered that most day-of surgery
-cancellations trace back to" a specific set of causes. the wildcard arm, which is the one carrying
-a foreign domain it has to be careful about, invented nothing across thirty outputs. i did not
-predict that and would not have thought to claim it.
-
-**what this actually establishes.** wildcard buys you **distance**, measurably: more novel angles
-than the model produces on its own, from a mechanism that provably reaches material the model would
-never pick (study 1's entropy result), without fabricating. what it does not buy you is a more
-useful or more structurally sound answer. if you want the single best actionable response to a
-problem, ask normally. if you are stuck in the obvious groove and want somewhere genuinely new to
-stand, that is what this is for, and now there is a number behind it instead of a story.
-
-**honest bounds.** ten problems, one vendor on both sides, LLM graders that study 1 showed to be
-blunt at the item level. usefulness agreement was weak here too (alpha 0.46), so that scale carries
-less weight than novelty's 0.78. and it measures the skill against one specific baseline prompt: a
-differently-worded baseline could land differently. every number regenerates with
-`node scripts/analyze_v3.mjs experiment/v3`.
-
-## the failure i am not hiding
-
-i ran a separate cold adversarial review of the skill's three guarantees. on a
-three-timeline-novel test, a drawn vellum-preparation expert produced genuinely strong
-structural matches but crossed a line on the *no-derailment* guarantee: two of its
-provocations told the writer their own question was wrong ("instead of asking x, ask y") and
-branded their method a failure ("x is what you do when you've failed"). that is the expert
-grading the user's work instead of offering a lens. the review flagged it; the guarantee
-**failed** that run.
-
-the fix was a rule, not a patch: keep your authority pointed at your own craft and your
-suggestion optional for theirs; describe what works in your world, do not diagnose theirs.
-i added it to the skill with a worked before/after, then re-ran the same expert on the same
-problem. it came back additive and self-audited clean. i am reporting the failure because
-a guarantee you have never seen fail is a guarantee you have never tested.
-
-## open scope, safely
-
-the draw has two modes now. before it picks a leaf, it flips a seeded coin -
-`cksum("mode:"+seed)%2`, so ~50/50 and reproducible (measured **296 specialist over 600
-seeds, 49.3%**) - and draws either a hyper-specific **specialist** from the 378-discipline
-map above, or a general **concept** from a separate 461-concept pool. a specialist is "a
-cold-chain reefer monitor"; a concept is "tides", "adenosine", "a moire pattern". the
-specialist mode is the original wildcard; this section is about how i opened the second
-pool without breaking any of the promises the first one keeps.
-
-the obvious way to draw a general concept is a live "random wikipedia article" call at
-runtime. i did not do that, because it would break the one promise the rest of the project
-keeps: a live call is **non-reproducible** (your seed could not regenerate it), needs a
-**network** (the draw is offline by design), adds **latency**, and **cannot be pre-screened**
-for sensitive topics before a user sees it. so instead i take a one-time, committed,
-version-pinned snapshot and screen it offline. the filter, not the network, is the
-interesting part.
-
-the source is wikipedia **vital articles**, levels 3 and 4 (community-curated for importance
-and breadth). i pull the **titles only** - a title and the bare fact that a topic exists are
-not copyrightable - and use them purely as inspiration pointers; no article prose is ever
-reproduced. wikipedia text is CC BY-SA, attributed in the corpus header. two whole topics are
-excluded **at the source**: people (biographies) and history (events), because a person or a
-war is never a "concept" i would draw.
-
-then every surviving title runs a mechanical, **logged** safety screen - each drop written to
-`rejection-log.txt` with the rule that caught it, so the guardrail is auditable rather than
-asserted. the rule families and one real drop each:
-
-```
-names    A Christmas Carol
-person   Actor
-IP       Apple Inc.
-meta     History of Earth
-toolong  A Sunday Afternoon on the Island of La Grande Jatte
-```
-
-the snapshot counts: **7291 candidates -> 7115 passed the screen -> 176 rejected**
-(142 names, 15 person, 9 toolong, 6 IP, 4 meta). the screen guarantees safety, not quality, so
-a separate editorial pass (the multi-agent method that hardened the discipline map) keeps only
-genuine, mechanism-rich concepts and tags each `concept | tier | facet`, and an adversarial
-pass tries to break the safety bar one more time. that curated **461** (89 everyday, 162
-natural, 150 scientific, 60 abstract) is gated by `audit_concepts.sh`, which re-runs the
-denylist as belt-and-suspenders. the pool spreads well: **160 distinct concepts in 200 seeded
-draws, max recurrence 3**.
-
-IP-bearing entities - brands, franchises, characters, specific copyrighted works - are excluded
-at curation time. if one ever slipped through to runtime, the skill is instructed to use it only
-as abstract inspiration and to name it as such, never to reproduce its content.
-
-a concept arrives with no person and no toolkit attached - but it need not stay impersonal, and
-concept mode keeps the "summon an expert" quality. you can embody a *generalist of the concept's
-field*, the broad-knowledge counterpart to specialist mode's niche practitioner ("tides" -> a
-coastal-oceanography professor, "adenosine" -> a neuropharmacologist), who thinks *with* the
-concept as their lens; or you work the bare concept directly when a persona adds nothing. either
-way the connection is built from the concept side. the honest name for that is **spreading
-activation** (collins & loftus, 1975):
-from one node, activation flows out along associative links and lights up neighbours. left alone
-that is exactly the "everything reminds me of everything" associating that produces decorative
-non-connections. so it is **gated by the same structure-mapping bar** as specialist mode: cast
-3 to 5 relational properties of the concept (how it works, what it trades off, how it fails -
-never its surface nouns), probe each against the frozen sketch, keep only strands where the same
-*system of relations* genuinely holds, and refine a promising-but-loose strand one association
-deeper until it either tightens into a real isomorphism or is dropped. spreading activation
-proposes; structure-mapping disposes. the terminus is the same two exits as before: a few
-genuine connections, or honest abstention. refinement never licenses a connection the bar would
-have rejected.
-
-## reproducibility and the numbers
-
-everything on the live site and in this study is regenerable from the repo:
-
-- **two modes, one coin-flip.** each draw rolls `cksum("mode:"+seed)%2` to pick specialist or
-  concept before drawing a leaf - ~50/50 and reproducible, **measured 296 specialist over 600
-  seeds (49.3%)**. browser and shell agree on the mode pick too, so any seed reproduces
-  end-to-end. regenerate: `bash tests/test_mode_balance.sh`.
-- **exact uniformity.** the entropy draw is rejection-sampled, so every leaf is equiprobable
-  (plain `% n` would favor a handful of indices by one count). over 200 entropy draws on the
-  shipped **378-leaf discipline map** i measured **152 distinct experts, no expert recurring
-  more than 6 times** - wide spread, no clustering. the **461-concept pool** spreads similarly:
-  **160 distinct in 200 seeded draws, max recurrence 3**. regenerate: `bash tests/run_all.sh`.
-- **the map.** 378 niche disciplines, breadth-audited: all 22 axis buckets (scale x medium x
-  activity x era) are spanned and there are no duplicates. selection is uniform over this
-  deliberately broad, curated span - not a claim to contain literally every field.
-  audit: `bash plugin/scripts/audit_domains.sh plugin/references/domains.txt`.
-- **browser == terminal.** the live draw on the site uses the same crc (posix `cksum`) the
-  shell does, so any seed reproduces in your terminal byte-for-byte. a parity test checks six
-  seeds against the real `draw.sh`, and CI gates the site deploy on the full suite, so the
-  page can never ship a claim the mechanism fails. verify a seed yourself:
-  `bash plugin/scripts/draw.sh --seed <seed>`.
-
-## honest limitations
-
-- the study is **ten problems, not a population**, and its graders are LLMs shown here to be
-  blunt (weak human-anchor correlation) and only partly blind (a checker guessed the arm 64% of
-  the time). subjects and graders are both anthropic models, of different tiers but one vendor,
-  and the human anchor is a single person on fifteen outputs. it supports effect sizes and
-  confidence intervals, not broad generalization.
-- the map's breadth is **curated, not exhaustive**. uniform-over-the-map is not
-  uniform-over-all-human-knowledge. i widened it (added systems, dynamics, and social-
-  process disciplines) after noticing a craft/material skew, but it remains a taste.
-- the **concept pool is a frozen snapshot**, mechanically screened (every drop logged) then
-  curated. that makes the guardrail auditable, but the safety bar is a denylist plus editorial
-  judgment, not a proof: a borderline title could in principle survive, which is why the skill
-  also carries a runtime inspiration-only / IP rule as a second line of defense.
-- the **lens has only 8 values**, so it can repeat across a short session by chance. that is
-  honest variance, not a fixed lens; i deliberately did not add anti-repetition memory,
-  because biasing the draw to feel more varied would betray the whole point.
-- the structure-mapping bar is enforced by the model honoring it. it held under adversarial
-  review, but it is guidance, not a hard gate - the quality of a given run depends on the
-  model actually applying it.
-
-## install
-
-in any Claude Code session:
-
-```
-/plugin marketplace add globalanomalyindex/wildcard
-/plugin install wildcard@globalanomalyindex
-```
-
-then run `/wildcard:wildcard` and meet whatever you draw. plugin skills are namespaced
-`plugin-name:skill-name`, which is why the name says itself twice. it needs bash and a readable
-`/dev/urandom`, makes no network calls, and the only thing it ever writes to your project is
-`.wildcard/seedbank.md`, and only when you say yes to being asked.
-
-repo: https://github.com/globalanomalyindex/wildcard ·
-site: https://globalanomalyindex.github.io/wildcard/
-
----
-
-**designed & engineered by christopher robin fiore**
-design engineer + happiest bf ever :>
+# Wildcard: make the connection earn its place
+
+**christopher robin fiore · globalanomalyindex**  
+Product design, research direction, and an AI-assisted implementation.
+
+Wildcard began with a practical question: can an outside reference help a language model propose a useful move that a direct brainstorm misses? The product supplies a cue, asks for a relationship that matters to the task, and gives the model permission to leave it unused. The difficult part is deciding whether the connection adds an action or only an appealing story.
+
+This case study follows the product and evidence together. The historical experiments have been reproduced and audited. A new study separates the source name from the relation it describes. **Its main results are pending in this draft; no new effectiveness claim is available yet.** The [research manuscript](../research/transfer-v1/paper.md) carries the detailed methods and, after acquisition, the measured results.
+
+## The design problem
+
+An unusual reference is easy to notice. A useful consequence is harder to identify. If a cue names a wetland, an answer can borrow words such as “buffer” and “flow” while proposing the same notification queue it would have proposed anyway. A concrete change must survive removal of the metaphor: what changes, how would someone implement it, and what observation could show it failed?
+
+That distinction shaped both the interaction and the research. The draw should be something a person can inspect and decline. The proposed action should be stated in the task's own language. Evidence should explain which configuration was tested, what was measured, and where the record is incomplete. A lively sampler cannot stand in for that evidence.
+
+## Three decisions that narrowed the work
+
+The first decision was to treat the cue as context. Wildcard changes the information supplied to a model during a request. It does not change model weights or construct a synthetic brain network. Removing that claim made the interaction easier to explain: draw an outside reference, examine a possible relation, and keep a concrete move only if it fits the task.
+
+The second was to separate useful diversity from a high novelty rating. The earlier studies made the distinction visible. Study 1's externally drawn cues received lower structural-genuineness ratings than model-selected cues. Study 2's revised prompt improved judged genuineness by about 0.81 points and usefulness by about 0.84, while judged novelty decreased by about 0.37. The revision was a tradeoff, and the bundled comparison could not identify which instruction produced it. [Preserved results](https://github.com/globalanomalyindex/wildcard/blob/04ff0a546d4e55038fa75881ec245662ac5765e9/experiment/v2/results.json).
+
+The third was to test one component before expanding the system. Options included a larger persona library, semantic-distance routing, more rounds of generation, and source-name ablation. Several already have substantial prior art, and adding them together would make the result difficult to explain. The new study holds a relation fixed and changes its explicit name. That creates a specific question a reader can understand and a result that can guide the next iteration. [Prior-work map](../research/transfer-v1/related-work.md).
+
+## The evidence changed the product story
+
+Study 3 compared the recorded full skill with a specified plain brainstorm on ten problems. It found a +0.725 mean difference in model-rated novelty on a seven-point scale, with the original 95% interval from +0.217 to +1.208. Mean usefulness was lower, not higher. The result supports a bounded observation about that configuration and those ratings. It does not show a general improvement in design work or establish a minimum +0.30 gain with 95% confidence. [Original results](https://github.com/globalanomalyindex/wildcard/blob/04ff0a546d4e55038fa75881ec245662ac5765e9/experiment/v3/results.json).
+
+The new audit kept the original files intact and reproduced their arithmetic. It also found that Study 2's 240 grading rows included a duplicate and a missing judgment. Counting unique identities revealed the gap. Removing the duplicate in a separate sensitivity barely changed the primary difference, but the claim of a complete grading matrix was wrong. The revised evidence layer checks the expected identities as well as the row total. [Study 2 integrity finding](../research/audit-2026-09/README.md#new-finding-study-2-contains-a-duplicate-and-a-missing-judgment).
+
+Study 3 had two missing judgments. Recomputing its finite bootstrap across all 10^10 ordered resamples gave a novelty interval from +0.225 to +1.214. The positive direction persisted under the reported missing-score sensitivities. This is stronger computational checking of the same observations, not a new replication or proof that the ratings measure human creativity. [Sensitivity analyses](../research/audit-2026-09/README.md#newly-executed-sensitivity-analyses).
+
+The audit also corrected the story around fabrication. Six positive flags in the plain arm came from repeated model judgments of two outputs. They were not six independently verified errors. One inspected response changed meaning during normalization. The new study therefore keeps the generator's structured fields verbatim when judging, and reports flags and their denominators instead of a guarantee that the system never fabricates. [Flags and normalization](../research/audit-2026-09/README.md#fabrication-counts-and-normalization).
+
+## A live draw and a research result are different objects
+
+The sampler audit found that the historical seeded selector coupled choices that had been described as independent. Its mode and lens were linked for every recorded Study 3 treatment seed. A separate shuffle probe reached only 12 of 24 possible four-item orders in the tested seed stratum. Matching a browser implementation to a shell implementation had reproduced the same behavior; parity had not established independence. [Selection and shuffle audit](../research/audit-2026-09/README.md#sampler-and-grader-order-interpretation).
+
+The corrected sampler uses versioned, separately named SHA-256 streams and records the selection in a receipt. Historical seeds remain available through explicitly named legacy replay. A receipt lets someone inspect and reproduce a draw. It does not show that the resulting suggestion is good, and the corrected sampler does not inherit the historical skill's effect size. [Current sampler implementation](../site/js/sampler-v2.js).
+
+This distinction structures the product. The live interaction demonstrates how a cue is selected. The evidence view describes recorded research. A reader should always be able to tell which one they are looking at, which sampler version produced the draw, and which study supports a numerical claim.
+
+## The next test: does the name contribute anything?
+
+The new materials contain 32 designed briefs across accessibility and interaction, software systems, operational workflows, and information or creative tooling. Sixteen cards describe source-backed relations and their limits. Each task is assigned a card and receives four kinds of prompt:
+
+| Condition | What changes |
+|---|---|
+| Strong direct prompt | A credible starting point with constraints, implementation, and checks |
+| Relation only | Adds a relation and its transfer limit |
+| Correctly named relation | Adds the real donor name to the same relation |
+| Mismatched name | Adds a different donor name to the same relation |
+
+The primary comparison is the correctly named relation against relation only. That asks what a name adds to the model's prompt after the relationship is already present. It does not test whether people prefer seeing the name in the interface.
+
+Before these responses, two fresh direct-prompt calls build a reference bank for each task. Two model-judge configurations then inspect masked candidate actions. An action must respect the brief, be plausible with the available resources, and name an intervention with an observable check. Equivalent mechanisms count once. A mechanism matching the reference bank does not count as new, even if its wording or metaphor differs.
+
+The resulting measure is deliberately limited: qualified mechanisms absent from a finite reference bank. It does not certify that an idea has never existed. The two judges share a provider, the briefs were authored by an AI assistant aware of the question, and no new human user study is included. Eight separate paired toy cases check whether changing a relation changes the proposed operation appropriately. Passing them would show sensitivity to those stated rules, not explain the model's internal process. [Study protocol](../research/transfer-v1/protocol.md).
+
+Development caught another practical failure: five of sixteen candidate responses exceeded the shared length contract. Before any main-study calls, the common prompt was clarified to aim below the unchanged hard limit. One declared rerun passed all 32 development calls. Both versions remain visible. That check shows the collection process worked on the development briefs; it provides no new effectiveness result. Main failures will still count in the primary result instead of disappearing from the sample. [Development record](../research/transfer-v1/runs/development/README.md).
+
+## What a reader can inspect
+
+The public work is organized around a trace from a claim to its evidence. The [historical audit](../research/audit-2026-09/README.md) identifies corrected claims and preserves the originals. The [cards](../research/transfer-v1/cards.json) link donor facts to primary sources. The [task set](../research/transfer-v1/tasks.json), [literal prompts](../research/transfer-v1/prompts.py), and [analysis](../research/transfer-v1/analyze.mjs) expose the intended test. Completed run artifacts will add requests, outputs, judgments, failures, timing, and paired results without rewriting weak responses.
+
+The central design choice is to make that trail usable without asking a visitor to read the whole methodology first. Start with the question and the result's limits. Let the reader inspect an example, then the source and evaluation behind it. Keep the live draw's appeal, but give the evidence the same care as the visual interaction.
+
+## Roles and the next decision
+
+christopher robin fiore directs the project and its research-to-product presentation. AI assistants contributed literature review, historical auditing, synthetic task authoring, engineering, analysis, and interface implementation. The earlier record contains a small author-rated human anchor; the new benchmark uses model judgments and adds no human evaluation. These are disclosed roles, not implied customer research.
+
+The next product decision will use the measured name-ablation result, its costs, disagreements, and failures. A positive result would support further testing of the named prompt component under these conditions. An inconclusive or negative result would still help simplify the prompt and identify what requires external validation. The value of this iteration is an inspectable decision process whose evidence can constrain the story.
