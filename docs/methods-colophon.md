@@ -42,6 +42,6 @@ Different problem IDs within one agent-authored pool are not a broad out-of-samp
 
 ## Current and future work
 
-The correctness release introduces versioned cue receipts, stronger corpus validation, safer display/copy behavior and source-linked claim presentation. These are engineering changes with their own tests. The [transfer-v1 protocol](../research/transfer-v1/protocol.md) separately proposes controlled tests of donor labels, relations and transfer boundaries. No new study result is asserted here.
+The correctness release introduces versioned cue receipts, stronger corpus validation, safer display/copy behavior and source-linked claim presentation. These are engineering changes with their own tests. The completed [transfer-v1 study](../research/transfer-v1/README.md) separately tested donor names after supplying a relation. Its original primary remains halted; the amended measurement is inconclusive. The [working-solutions follow-up](../research/working-solutions-v1/README.md) tests executable behavior under a separate prospective protocol. Each study has its own sample, intervention, result record and evidence limits.
 
 Use the [audit resolution ledger](audit-resolution.md) for implementation status and remaining limitations. Read the [historical evidence audit](../research/audit-2026-09/README.md) for full denominators, primary decision rules, sensitivity analyses, source hashes and reproducible commands. Negative results and unresolved checks belong next to the favorable result, because they define what the tool is ready to support.

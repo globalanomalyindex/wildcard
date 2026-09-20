@@ -85,6 +85,12 @@ The more useful design observation is the gap between qualification and newness.
 
 The measure has limits: a finite bank, broad mechanism matches, and a rubric near its qualification ceiling may conceal meaningful distinctions. The two judges agreed often, but they share a provider and supply no human validation. This completed component test does not validate the full plugin's creative benefit or justify a claim that names are universally irrelevant.
 
+## From a proposal to a working program
+
+The fixed main study completed **192 valid calls across 32 authored task blocks**. Direct, matched outside and shuffled outside conditions passed **94.54%**, **87.24%** and **95.81%** of their withheld traces. Matched minus direct was **-7.300 percentage points**, 95% task-bootstrap interval **[-19.482, +3.906]**, paired sign-flip p = **0.281388**. **The study did not establish an outside-relation advantage.** The two earlier calibration rounds are preserved; the first hit a ceiling and one declared feedback-budget revision passed the second gate. These are bounded software-contract results, not evidence of production reliability or full-plugin creative benefit.
+
+The new system derives an input condition and behavioral rule, checks public examples and incorrect outputs, repairs once, then evaluates sealed programs on withheld cases. Direct solving receives the same scaffolding. The [new evidence interface](https://globalanomalyindex.github.io/wildcard/working-solutions/) exposes the source assumptions, rule decision, public feedback, implementation and event-by-event outcome for every task. [Full paper](../research/working-solutions-v1/paper.md).
+
 ## What a reader can inspect
 
 The public work is organized around a trace from a claim to its evidence. The [historical audit](../research/audit-2026-09/README.md) identifies corrected claims and preserves the originals. The [cards](../research/transfer-v1/cards.json) link donor facts to primary sources. The [task set](../research/transfer-v1/tasks.json), [literal prompts](../research/transfer-v1/prompts.py), and [analysis](../research/transfer-v1/analyze.mjs) expose the intended test. [Retained calls](../research/transfer-v1/runs/main/calls/) contain requests, outputs, judgments, failures, timing, and usage. The [research entry point](../research/transfer-v1/README.md) explains what each artifact establishes and how to reproduce the analysis offline.
@@ -93,6 +99,6 @@ The central design choice is to make that trail usable without asking a visitor 
 
 ## Roles and the resulting product decision
 
-christopher robin fiore directs the project and its research-to-product presentation. AI assistants contributed literature review, historical auditing, synthetic task authoring, engineering, analysis, and interface implementation. The earlier record contains a small author-rated human anchor; the new benchmark uses model judgments and adds no human evaluation. These are disclosed roles, not implied customer research.
+christopher robin fiore directs the project and its research-to-product presentation. AI assistants contributed literature review, historical auditing, synthetic task authoring, engineering, analysis, and interface implementation. The earlier record contains a small author-rated human anchor; the donor-name benchmark uses model judgments and adds no human evaluation. These are disclosed roles, not implied customer research.
 
 The resulting product direction is to help people inspect relations, boundaries, and concrete actions without presenting an outside name as evidence of creative quality. Source names remain useful for provenance even when this model-level test establishes no incremental benefit. A future efficacy claim would require new evaluation of the full deployed skill, broader tasks, and external or human validation. The public case study makes that boundary part of the product rather than leaving it in a footnote.

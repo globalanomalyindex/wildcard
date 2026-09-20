@@ -23,7 +23,7 @@ def build(cohort):
     summary={'schemaVersion':1,'cohort':cohort,'cohortLabel':'main study' if cohort=='main' else 'development calibration','nTasks':results['nTasks'],'sourcePath':str((target/'results.json').relative_to(ROOT)),'tasks':[],'metrics':[{'value':percent(results['descriptive']['D']['meanPassRate']),'label':'direct · mean trace pass rate'},{'value':percent(results['descriptive']['R']['meanPassRate']),'label':'matched outside · mean trace pass rate'},{'value':str(results['nTasks']),'label':'task blocks · 256 traces each'}]}
     if cohort=='main':
         primary=results['primary'];summary['title']='the main study'
-        summary['verdict']='Outside relations improved working solutions on this benchmark.' if primary['positiveEvidence'] else 'This study did not establish an advantage for outside relations.'
+        summary['verdict']=('Outside relations improved working solutions on this benchmark.' if primary['practicalBenefit'] else 'A positive difference appeared, below the prespecified practical-benefit threshold.') if primary['positiveEvidence'] else 'This study did not establish an advantage for outside relations.'
         summary['limit']=f"Matched outside minus direct: {signed(primary['difference'])} percentage points; 95% interval [{signed(primary['ci95'][0])}, {signed(primary['ci95'][1])}]; paired sign-flip p={primary['test']['p']:.5g}. Thirty-two authored task blocks. This does not establish production reliability."
     else:
         gate=results['developmentGate'];summary['title']='development calibration'

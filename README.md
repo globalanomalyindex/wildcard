@@ -6,7 +6,7 @@ the cue can be a niche specialist from a curated pool of 378 disciplines or a co
 
 this is **inference-time context conditioning**: the model receives different text in its context. wildcard does not change model weights, access a parameter or token pool, retrieve identifiable training examples, or implement a neural default-mode network. the sampler selects a cue; the model generates the interpretation. those are separate operations.
 
-by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Download the paper](https://globalanomalyindex.github.io/wildcard/research-paper.pdf) · [Inspect the evidence audit](research/audit-2026-09/README.md).
+by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Download the paper](https://globalanomalyindex.github.io/wildcard/research-paper.pdf) · [Inspect the evidence audit](research/audit-2026-09/README.md) · [Working-solutions follow-up](research/working-solutions-v1/README.md).
 
 ## what has been measured
 
@@ -19,6 +19,8 @@ the later audit found a dependent legacy sampler, incomplete grading matrices, a
 the new [component study](research/transfer-v1/README.md) acquired four prompt conditions across 32 authored briefs using 16 curated relation cards. it asks whether an explicit donor name adds qualified mechanisms once the relation is already supplied. all 64 reference-bank calls and 128 candidate calls passed validation, but one of 64 judge blocks contained invalid reference identities. **the original primary analysis is halted.** a separate [measurement amendment](research/transfer-v1/amendment.md) completed one full new judge panel, with all 64 blocks valid. its [amended primary estimate](research/transfer-v1/results.json) was **−0.015625 qualified mechanisms absent from the bank per response**, with 95% interval **[−0.109375, 0.0625]** and p = **1.000**: inconclusive, not equivalent. neither secondary contrast met its corrected test threshold. the amended panel evaluates the same generated sample and does not restore the original primary. the separate operational diagnostics passed 6 of 8 pairs under their exact contract.
 
 the current **v2 sampler and revised prompt have not inherited experimental effectiveness results**. the component study does not test the full 378-specialist/461-concept skill or sampler's creative benefit. the website's live interaction draws a cue locally; it does not run an AI model or demonstrate improved downstream work by itself.
+
+The executable [working-solutions study](research/working-solutions-v1/README.md) now tests a different question: whether supplied outside relations improve working programs under common checks and one repair. The fixed main study completed **192 valid calls across 32 authored task blocks**. Direct, matched outside and shuffled outside conditions passed **94.54%**, **87.24%** and **95.81%** of their withheld traces. Matched minus direct was **-7.300 percentage points**, 95% task-bootstrap interval **[-19.482, +3.906]**, paired sign-flip p = **0.281388**. **The study did not establish an outside-relation advantage.** The two earlier calibration rounds are preserved; the first hit a ceiling and one declared feedback-budget revision passed the second gate. These are bounded software-contract results, not evidence of production reliability or full-plugin creative benefit. [Inspect the programs and traces](https://globalanomalyindex.github.io/wildcard/working-solutions/).
 
 ## install
 
@@ -73,5 +75,6 @@ tests establish the properties they check: deterministic replay, specified sampl
 - `experiment/`, `experiment/v2/`, `experiment/v3/`: preserved historical studies.
 - `research/audit-2026-09/`: new validation and post-hoc reanalysis of those observations.
 - `research/transfer-v1/`: component-study protocol, preserved acquisition, original analysis halt, and measurement amendment.
+- `research/working-solutions-v1/`: outside-derived conditional rules, isolated JavaScript execution, frozen calibration and withheld-test protocol.
 
 existing license declarations and unresolved asset provenance are recorded in [the notices inventory](THIRD_PARTY_NOTICES.md). this README adds no license grant.

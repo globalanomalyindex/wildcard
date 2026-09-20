@@ -31,6 +31,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--browsers', nargs='+', choices=['chromium', 'firefox', 'webkit'], default=['chromium'])
     parser.add_argument('--output', type=pathlib.Path, default=ROOT/'output/playwright/working-regression')
+    parser.add_argument('--base-url', help='Verify an already-published site, including its path prefix; otherwise serve the local site')
     parser.add_argument('--focus-only', action='store_true', help='Run only the focused skip-link regression')
     args = parser.parse_args()
     output = args.output.resolve(); output.mkdir(parents=True, exist_ok=True)
@@ -42,7 +43,7 @@ def main():
     handler = functools.partial(QuietHandler, directory=str(ROOT/'site'))
     server = http.server.ThreadingHTTPServer(('127.0.0.1', 0), handler)
     threading.Thread(target=server.serve_forever, daemon=True).start()
-    base = f'http://127.0.0.1:{server.server_port}'
+    base = args.base_url.rstrip('/') if args.base_url else f'http://127.0.0.1:{server.server_port}'
     code = (ROOT/'scripts/working-browser-regression.js').read_text()
     summaries = []; failed = False
     try:
@@ -90,7 +91,7 @@ def main():
         server.shutdown();server.server_close()
     stable=before==hashes()
     if not stable: failed=True
-    report=dict(passed=not failed,recordedDataUnchanged=stable,dataHashes=before,browsers=summaries)
+    report=dict(baseURL=base,passed=not failed,recordedDataUnchanged=stable,dataHashes=before,browsers=summaries)
     (output/'summary.json').write_text(json.dumps(report,indent=2)+'\n')
     return int(failed)
 

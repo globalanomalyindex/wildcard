@@ -1,0 +1,102 @@
+{
+  "scope": "Independent recount of stored execution verdicts, panel sizes, development gates and published summary values. The primary analyzer separately validates raw provenance and rechecks outputs.",
+  "cohorts": {
+    "development-1": {
+      "arms": {
+        "D": {
+          "passed": 2048,
+          "total": 2048,
+          "mean": 1.0,
+          "fullSuites": 8
+        },
+        "R": {
+          "passed": 1979,
+          "total": 2048,
+          "mean": 0.96630859375,
+          "fullSuites": 7
+        },
+        "X": {
+          "passed": 1979,
+          "total": 2048,
+          "mean": 0.96630859375,
+          "fullSuites": 7
+        }
+      },
+      "deliveredResponses": 48,
+      "statuses": {
+        "success": 48
+      },
+      "readyForMain": {
+        "dMean": 1,
+        "floor": false,
+        "ceiling": true,
+        "readyForMain": false,
+        "criterion": "Complete validated development evidence and direct mean strictly between .10 and .95. Outside-arm outcomes do not choose difficulty."
+      },
+      "resultsFileSHA256": "a5dc18072af0a71e1d5794c76ee04fac374e2831eadc7a329655f5e8532eebb7"
+    },
+    "development-2": {
+      "arms": {
+        "D": {
+          "passed": 1793,
+          "total": 2048,
+          "mean": 0.87548828125,
+          "fullSuites": 7
+        },
+        "R": {
+          "passed": 1792,
+          "total": 2048,
+          "mean": 0.875,
+          "fullSuites": 7
+        },
+        "X": {
+          "passed": 1807,
+          "total": 2048,
+          "mean": 0.88232421875,
+          "fullSuites": 7
+        }
+      },
+      "deliveredResponses": 48,
+      "statuses": {
+        "success": 48
+      },
+      "readyForMain": {
+        "dMean": 0.87548828125,
+        "floor": false,
+        "ceiling": false,
+        "readyForMain": true,
+        "criterion": "Complete validated development evidence and direct mean strictly between .10 and .95. Outside-arm outcomes do not choose difficulty."
+      },
+      "resultsFileSHA256": "e2680f2e4983c7fe47b3b8f1493a205d3e4331ca8b00d43b62459565a41d30a8"
+    },
+    "main": {
+      "arms": {
+        "D": {
+          "passed": 7745,
+          "total": 8192,
+          "mean": 0.9454345703125,
+          "fullSuites": 30
+        },
+        "R": {
+          "passed": 7147,
+          "total": 8192,
+          "mean": 0.8724365234375,
+          "fullSuites": 26
+        },
+        "X": {
+          "passed": 7849,
+          "total": 8192,
+          "mean": 0.9581298828125,
+          "fullSuites": 29
+        }
+      },
+      "deliveredResponses": 192,
+      "statuses": {
+        "success": 192
+      },
+      "readyForMain": null,
+      "resultsFileSHA256": "e8d2641c698edadcfa3d38812459a0be0f0d7e3a054cede0e5297d08a0cb8ce6"
+    }
+  },
+  "passed": true
+}
