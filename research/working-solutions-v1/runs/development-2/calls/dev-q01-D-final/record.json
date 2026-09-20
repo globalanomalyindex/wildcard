@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q01-D-final",
+  "requestSHA256": "1c1849cccea50429dd4bdb9e38be561c07f263552e8be496d7793493b879df2e",
+  "promptSHA256": "abb29aaee7db293edf191c0544a3456fc42ff8a5eb8da0f1ce03b387b8bb1797",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:00:04.746502+00:00",
+  "finishedAt": "2026-09-20T23:00:24.179499+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.43217037501745,
+      "usage": {
+        "input_tokens": 8885,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 633,
+        "reasoning_output_tokens": 117
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a955524fcc94537497179216344569b4252411b5ab30e3054d4cb7025d64d88f",
+      "stderrSHA256": "6d5d8495c4c6ae6cf4c9c74e4fb6e373d73811b0e61d2fdfb8878a43879ff4db"
+    }
+  ],
+  "result": {
+    "explanation": "The implementation stores the clock and pending jobs, including each job’s original arrival time and insertion order (the array order). Add rejects duplicate pending IDs or a full queue; cancel removes only pending jobs; advance changes only the clock. Run selects the highest effective priority, preserving insertion order on ties, serves at most the requested budget, discards unused budget after completion, and removes completed jobs. Every event returns the required snapshot.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={n:0,j:[]};var n=s.n,j=s.j,i,k,b,t,served=[],status;if(e.type==='add'){for(i=0;i<j.length&&j[i].id!==e.id;i++);if(i<j.length||j.length>=c.capacity)status='rejected';else{j.push({id:e.id,w:e.work,p:e.priority,a:n});status='queued'}}else if(e.type==='advance'){n+=e.dt;status='advanced'}else if(e.type==='cancel'){for(i=0;i<j.length&&j[i].id!==e.id;i++);if(i<j.length){j.splice(i,1);status='cancelled'}else status='missing'}else if(e.type==='run'){if(j.length===0)status='empty';else{k=0;for(i=1;i<j.length;i++){var pi=Math.min(c.ceiling,j[i].p+Math.floor((n-j[i].a)/c.quantum)),pk=Math.min(c.ceiling,j[k].p+Math.floor((n-j[k].a)/c.quantum));if(pi>pk)k=i}b=Math.min(e.budget,j[k].w);j[k].w-=b;t=j[k];var done=t.w===0;served=[{id:t.id,units:b,complete:done}];if(done)j.splice(k,1);status='served'}}var p=[],r={},q={};for(i=0;i<j.length;i++){p.push(j[i].id);r[j[i].id]=j[i].w;q[j[i].id]=Math.min(c.ceiling,j[i].p+Math.floor((n-j[i].a)/c.quantum))}return{state:{n:n,j:j},output:{status:status,served:served,pending:p,remaining:r,priorities:q,now:n}}}"
+  },
+  "resultSHA256": "ad5923eed3cb57ac34d886c72a1c414138db873b0f92ded658985be9b944b05e",
+  "rawOutputSHA256": "ad5923eed3cb57ac34d886c72a1c414138db873b0f92ded658985be9b944b05e"
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-R-final",
+  "requestSHA256": "b3ffc8cc1cf7b29e728d5db4baadabd794a3fa8e71a912653813ba4c5e6b29a0",
+  "promptSHA256": "c95a3547b3a813dd68528875bf4648dade42164f2cf754bac775d81239a5a10c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:59:31.666665+00:00",
+  "finishedAt": "2026-09-20T22:59:50.073196+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.406749124871567,
+      "usage": {
+        "input_tokens": 8695,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 841,
+        "reasoning_output_tokens": 370
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "0e74f7c358832c31f9a1250524dd51bb9e2e3864c77ac6cdb6a575b9eed16e26",
+      "stderrSHA256": "bbaec0978a95ee4b47c7194762bd2912d9c76d1f5b5c4c8b7e24acabb144a59b"
+    }
+  ],
+  "result": {
+    "explanation": "State tracks time, the current token, expiry, approvals, and connected session. Advance updates time before the event’s expiration check; every event expires an unconnected offer at or beyond its deadline. Offers replace all session data. Valid matching accepts accumulate unique configured parties, connecting once both approve. Matching cancellation clears either pending or connected sessions; other operations are ignored.",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={q:config.ttl,p:config.parties.slice(),n:0,t:null,x:null,a:[],c:null};var e=event||{},z=false;if(e.type==='advance')s.n+=e.dt;if(s.c===null&&s.t!==null&&s.n>=s.x){s.t=null;s.x=null;s.a=[];z=true}var r='ignored';if(e.type==='offer'){s.t=e.token;s.x=s.n+s.q;s.a=[];s.c=null;r='offered'}else if(e.type==='accept'){if(s.c===null&&s.t!==null&&e.token===s.t&&(e.party===s.p[0]||e.party===s.p[1])){if(s.a.indexOf(e.party)>=0)r='duplicate';else{s.a.push(e.party);r='accepted';if(s.a.length===2){s.a.sort(cmp);s.c=s.t;s.x=null;r='connected'}}}}else if(e.type==='cancel'){if(s.t!==null&&e.token===s.t){s.t=null;s.x=null;s.a=[];s.c=null;r='cancelled'}}else if(e.type==='advance')r='advanced';s.a.sort(cmp);return{state:s,output:{status:r,now:s.n,token:s.t,expires:s.x,approved:s.a.slice(),connected:s.c,expired:z}}}function cmp(a,b){var i=0,j=0;while(i<a.length&&j<b.length){var x=a.codePointAt(i),y=b.codePointAt(j);if(x!==y)return x-y;i+=x>65535?2:1;j+=y>65535?2:1}return a.length-i-(b.length-j)}"
+  },
+  "resultSHA256": "c663809bb6fd1e889eb4c4ad21d134c70d7294ed8675e6641a10e7884d45523a",
+  "rawOutputSHA256": "c663809bb6fd1e889eb4c4ad21d134c70d7294ed8675e6641a10e7884d45523a"
+}
