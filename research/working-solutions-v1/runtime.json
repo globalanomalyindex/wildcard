@@ -1,0 +1,31 @@
+{
+  "package": "quickjs-ng",
+  "version": "0.16.2.1",
+  "source": "https://github.com/genotrance/quickjs-ng",
+  "distribution": "https://pypi.org/project/quickjs-ng/0.16.2.1/",
+  "developmentWheel": {
+    "filename": "quickjs_ng-0.16.2.1-cp310-abi3-macosx_11_0_arm64.whl",
+    "sha256": "5edf6aeb394d270ca7193279251a8b3e7e68577aed9f2ede7406a676056d6ffc"
+  },
+  "execution": {
+    "javascriptMemoryBytes": 67108864,
+    "javascriptStackBytes": 524288,
+    "cpuSecondsPerEngineEntry": 0.2,
+    "workerCPULimitSeconds": 60,
+    "workerWallLimitSeconds": 90,
+    "maxCasesPerWorker": 256,
+    "maxEventsPerCase": 64,
+    "maxProgramUTF8Bytes": 10000,
+    "maxContractUTF8Bytes": 4000,
+    "maxSerializedStepCharacters": 131072,
+    "hostCallbacks": false,
+    "moduleLoader": false,
+    "ambientClock": false,
+    "ambientRandom": false
+  },
+  "limits": [
+    "Python process plus native interpreter limits; not a formally verified or multi-tenant isolation service",
+    "CPU and wall limits are containment controls, not performance benchmark measurements",
+    "No host functions or expected hidden answers are exposed to the JavaScript realm"
+  ]
+}
