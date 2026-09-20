@@ -98,8 +98,12 @@ async (page) => {
       }
       // WebKit screenshots inject <style>body {}</style> and create CSP warnings.
       // Keep its functional run capture-free so no CSP violation is exempted.
-      if (options.browser !== 'webkit' && (view === 'landing' || view === 'overview'))
+      if (options.browser !== 'webkit' && (view === 'landing' || view === 'overview')) {
+        // Capture from the top after reachability checks. Otherwise a fixed
+        // offscreen skip link can appear inside the full-page stitched image.
+        await page.evaluate(() => window.scrollTo(0, 0));
         await page.screenshot({path:options.output+'/'+view+'-'+width+'.png',fullPage:true});
+      }
     }
   }
   await go('/case-study/#methods');
