@@ -1,0 +1,11 @@
+{
+  "id": "s07-S",
+  "phase": "main",
+  "task_id": "s07",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Large import with traceable partial failure\",\n  \"brief\": \"A web service imports a 4 GB CSV file. Some rows have invalid references, and the connection may drop halfway through. Currently a restart creates duplicates and a bad row aborts the whole file.\",\n  \"constraints\": [\n    \"Process in bounded memory below 128 MB.\",\n    \"The user supplies a file digest; every row has a source line number and natural key.\",\n    \"The target database supports transactional batches but not a transaction over the whole file.\",\n    \"No invalid row may be silently converted to a plausible value.\"\n  ],\n  \"success_criteria\": [\n    \"A restart resumes or safely replays accepted work.\",\n    \"A user can locate and correct rejected rows without guessing.\",\n    \"State whether the accepted result is partial and how reconciliation is verified.\"\n  ],\n  \"non_goals\": [\n    \"Requiring users to split files manually or making the entire import atomic.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "c25858b3bb157299cc094954fdbcc96637248ffd273417ab7da20372ef8c9fa6"
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "o02-LR",
+  "request_sha256": "6d7080f2cb39016c4897e9989219d349938b551af888a5a211eceba0cb019657",
+  "prompt_sha256": "4a250f377b2329b1516ba563ad7de8871e4178617ad22005deaf296478117716",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:10:05.423679+00:00",
+  "finished_at": "2026-09-20T20:10:23.470081+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 18.045538834000013,
+      "usage": {
+        "input_tokens": 7260,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 448,
+        "reasoning_output_tokens": 110
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "056e843f6f180400d5f8ee7c8304a8f9e1043a85510f263b9c47c0ce43ec725f",
+      "stderr_sha256": "1bd7f198c91f9c78973fda2604446224f16c9f952ed1a5b4d0a6e5457ecda3a4"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind approvals to exact paragraph revisions",
+        "mechanism": "Approval records identify both source and translation revisions; publication rejects mismatches rather than copying approval status forward.",
+        "implementation": "Store immutable revisions under stable paragraph IDs. Record language, reviewer, and both revision IDs on approval; validate against the release snapshot.",
+        "check": "Edit an approved source paragraph: publication must block it. An unchanged paragraph must retain eligibility. A concurrent edit must not bypass validation.",
+        "risk": "Translation edits must also invalidate the matching approval."
+      },
+      {
+        "action": "Give each language a focused review queue",
+        "mechanism": "Compact review packets expose affected content without hiding the full source or restarting all six languages.",
+        "implementation": "Show changed paragraphs, prior approved text, source differences, current translation, and expandable context. Let the two reviewers claim items; require explicit reapproval.",
+        "check": "Test a move, unchanged paragraph, and substantive edit: label the move separately, omit unchanged work, and queue the edit in each language.",
+        "risk": "Difference highlighting guides attention; it cannot establish translation accuracy."
+      },
+      {
+        "action": "Track context dependencies separately from paragraph text",
+        "mechanism": "Moves and related edits can invalidate meaning even when a paragraph’s own wording remains unchanged.",
+        "implementation": "Record dependencies for references, terminology, and context-sensitive neighbors. Queue dependent approvals for human reassessment; require a context check when paragraphs move.",
+        "check": "Move a paragraph containing “above”: require reassessment. Move a self-contained paragraph: permit its unchanged translation after context confirmation, without restarting the language.",
+        "risk": "Missing dependencies can conceal impacts; show surrounding text during reassessment."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "09b5e6792a427313273cfd3d6d979f3c2b11d1d86f69fc3ed08edeae79243ae7",
+  "raw_output_sha256": "7b13c184f502e8e5f0d96405c1f07a3c19705af48fb1c3529cf624517a37aee1"
+}

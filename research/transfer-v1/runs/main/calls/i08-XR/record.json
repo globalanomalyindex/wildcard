@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i08-XR",
+  "request_sha256": "c53058261f141917811a72fba736bfefe2b967ebd99e67ef8056a5af0e4e0687",
+  "prompt_sha256": "4f3aa1fcc59e0e01e50125d28f06ee6602c631b7ac0356a96a883b5137bd3e1f",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:59.204332+00:00",
+  "finished_at": "2026-09-20T20:06:28.965915+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 29.756139208999997,
+      "usage": {
+        "input_tokens": 7270,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 537,
+        "reasoning_output_tokens": 57
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "165cf8f094f8dde83386dd2e824e64501188f6c22e241523d52b160bd9401ea0",
+      "stderr_sha256": "c87a6f853edba134c615d86fbeb6135f816c384827ed2fc4fca0b917d18a0159"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve original highlights as immutable records",
+        "mechanism": "Separate the original evidence from revision-specific placements so deleted text remains available with its notes.",
+        "implementation": "Store highlighted text, revision ID, original range, and surrounding context; retain that revision. Record subsequent placements separately.",
+        "check": "Delete a highlighted paragraph; verify its note still opens the original passage and reports no current placement.",
+        "risk": "Retaining revisions increases storage and requires explicit retention policies."
+      },
+      {
+        "action": "Track passage identity through edits and moves",
+        "mechanism": "Persistent block IDs and recorded edit operations distinguish moved content from identical text elsewhere.",
+        "implementation": "Preserve IDs on moves, assign new IDs on copies, and map ranges through edit operations. Automatically retain only verified unchanged selections.",
+        "check": "Move a paragraph containing a repeated sentence; verify its note follows the original block with a visible operation trail.",
+        "risk": "Imported revisions may lack identity evidence; changed selections require review."
+      },
+      {
+        "action": "Offer comparison without assuming a match",
+        "mechanism": "Candidate discovery stays separate from attachment; repetition and meaning-changing edits produce explicit review states.",
+        "implementation": "For unverified placements, list exact and approximate candidates with section context. Show original/new diffs; require confirmation or allow unresolved status.",
+        "check": "Test identical repeated sentences and an inserted “not”; neither may silently acquire the note, and both must support comparison.",
+        "risk": "Candidate ranking can bias choices; show alternatives and permit rejection."
+      },
+      {
+        "action": "Limit placement decisions to explicit revisions",
+        "mechanism": "Revision-scoped decisions prevent one manual reassignment from silently governing later or branched document versions.",
+        "implementation": "Record each accepted placement with source revision, target revision, evidence, and actor. Revalidate subsequent revisions rather than copying accepted status.",
+        "check": "Confirm a placement in revision two, then alter its meaning in revision three; verify review resumes and revision two remains unchanged.",
+        "risk": "Frequent edits may create repeated review work."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "85a80563aba86b9cc9a576dc4fe0c098436b9d543f16eb0256bd3587cd844adc",
+  "raw_output_sha256": "b745dbfb92dfd583c62a963df10d398db77e4ac59eaa24c9d9bb613253ce6433"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s06-LR",
+  "request_sha256": "b3b40f508cfe72ad83042cde2207a50b161d4a877a31edc7a3f498eb829cebae",
+  "prompt_sha256": "1d38337825be057df78a3331aa4c6c75ce8bce34094453b5e4dc4e36c3875848",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:37.070945+00:00",
+  "finished_at": "2026-09-20T20:16:01.474745+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 24.40068320799992,
+      "usage": {
+        "input_tokens": 7277,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 616,
+        "reasoning_output_tokens": 156
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "798f19aaf6b977beb475954215b3b039d266d8f87261e9397af914b06c0a2de7",
+      "stderr_sha256": "fc23ac1a6f1714d4490e9ecaf05c9a2821209ca7000a5c72fdd43383deea186e"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Reserve non-evictable capacity for critical history.",
+        "mechanism": "Separate allocation prevents ordinary-event volume from consuming space required by critical events.",
+        "implementation": "Within 20 MB, reserve 2 MB plus bounded encoding overhead for critical records. Give ordinary data only the remainder; reclaim critical records only after durable acknowledgement.",
+        "check": "Generate maximum ordinary traffic and 2 MB of critical events during a 30-minute outage; verify every critical sequence survives.",
+        "risk": "Capacity accounting must include indexes, framing, and recovery metadata."
+      },
+      {
+        "action": "Replace ordinary detail with explicit coverage summaries.",
+        "mechanism": "Bounded summaries identify intervals where ordinary records were omitted without retaining their contents.",
+        "implementation": "Use a rotating ordinary buffer and preallocated time-bucket summaries containing sequence ranges, retained counts, and omitted counts. Allowlist diagnostic fields; reject bodies, credentials, and user content.",
+        "check": "Force repeated buffer rollover; verify every omitted ordinary sequence falls within a marked reduced-detail interval and prohibited fields never persist.",
+        "risk": "Summary granularity limits how precisely omissions can be located."
+      },
+      {
+        "action": "Make replay identity stable across upload retries.",
+        "mechanism": "Persistent record identities separate duplicate delivery from missing records; coverage manifests expose trailing gaps.",
+        "implementation": "Assign installation-epoch, stream, and sequence identities. Upload a bounded manifest of sequence high-water marks and reduction intervals; deduplicate transactionally before acknowledging durable receipt.",
+        "check": "Replay with duplicate batches, lost acknowledgements, and one deleted critical record. Require one logical copy per identity and detection of the deletion.",
+        "risk": "Reused identities or premature acknowledgements can conceal missing data."
+      },
+      {
+        "action": "Test recoverability through the actual reader.",
+        "mechanism": "Non-destructive recovery drills verify that retained critical bytes remain decodable and replayable, not merely present.",
+        "implementation": "Use versioned, checksummed records and committed-length markers. Periodically read committed critical records without deleting them; exercise the production recovery and upload paths in fault-injection tests.",
+        "check": "Interrupt writes and acknowledgements across a 30-minute test. Verify all committed critical sequences recover and corruption is reported rather than silently skipped.",
+        "risk": "Checksums detect damage; they cannot guarantee survival of physical storage failure."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "2d1b837ebb5e9865a41388a9c144c2d4ab3b6215a200afd02e47ca96606ae530",
+  "raw_output_sha256": "bf8c99cd1b77b96e92ac61382902d68acf4a6152bce0d395360ee6f3e2a9cca7"
+}

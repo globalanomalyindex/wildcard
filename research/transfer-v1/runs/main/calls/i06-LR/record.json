@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i06-LR",
+  "request_sha256": "3021581ac077fb4b82138837118623fb8d918a044c04b1d60b2afa1dfd1d3c8d",
+  "prompt_sha256": "759c9d2900d1957b2b3d0bde61cba3af911b1fd3240ba6a44d8377cececc8573",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:14:26.005123+00:00",
+  "finished_at": "2026-09-20T20:14:43.682602+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 17.675695958999995,
+      "usage": {
+        "input_tokens": 7272,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 452,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "8bc4c572d9a20e2cc135fb1a6c85d48a01767bd9cac5b7a2805cf050cd959635",
+      "stderr_sha256": "05f0127ffe3431b2bb67dd03829faef4ef1665b03e551fe212ceedcb34463bd4"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate naming directions from wording variants",
+        "mechanism": "Group suggestions by their stated naming rationale, not spelling similarity; keep every underlying direction visible.",
+        "implementation": "Require a rationale and addressed constraints. Allow multiple direction memberships, reversible grouping, and original-record retrieval; hide authors during first review.",
+        "check": "Enter two similar names with different rationales; verify both directions remain visible and each original suggestion remains recoverable.",
+        "risk": "Forced categories could erase ambiguity; allow ungrouped suggestions and disputed memberships."
+      },
+      {
+        "action": "Tie rejections to versioned constraints",
+        "mechanism": "A rejection records its reason and applicable constraint version, making changed premises detectable without automatically reversing decisions.",
+        "implementation": "Store rejection explanations and linked constraints. When a constraint changes, flag dependent rejections for reconsideration, preserving previous explanations and decisions.",
+        "check": "Reject a name against a constraint, then edit that constraint; verify its rejection is flagged while unrelated rejections remain unchanged.",
+        "risk": "Some rejections lack constraint dependencies; retain free-text reasons without inventing links."
+      },
+      {
+        "action": "Give late suggestions an anonymous first review",
+        "mechanism": "A separate review inbox prevents prior attention and visible authorship from substituting for consideration of a new rationale.",
+        "implementation": "Hide authors and reaction counts in first review; retain access-controlled authorship records. Use a disclosed arrival-order queue; require rationale comparison before marking duplicates.",
+        "check": "Submit a late, similarly worded alternative with a different rationale; verify anonymous access and that duplicate dismissal requires an explicit explanation.",
+        "risk": "Rationale text may identify authors; warn contributors before submission."
+      },
+      {
+        "action": "Keep hard-constraint conflicts visible beside popular names",
+        "mechanism": "Explicit eligibility evidence prevents popularity from obscuring a hard constraint, without selecting a winner or deleting suggestions.",
+        "implementation": "Add a constraint matrix with meets, conflicts, and unknown states plus explanations. Keep conflicting names visible; periodically reopen parked directions for manual review.",
+        "check": "Give a hard-constraint-violating name many reactions; verify its conflict remains prominent. Reopen a parked direction and recover rationale, rejection history, and authorized authorship.",
+        "risk": "Constraint assessments can be disputed; expose uncertainty and permit corrections."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "773999b93d609aa5f9c58f2229e38cb2b0aeead06deaae8037f134df849c923b",
+  "raw_output_sha256": "bf5bd8bbe49568ffdd8a079cd395daf90b6a9f6f2bb3ea70282cf35a6140f415"
+}

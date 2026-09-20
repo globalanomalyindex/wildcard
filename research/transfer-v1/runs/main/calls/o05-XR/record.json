@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "o05-XR",
+  "request_sha256": "dd5f341fbd49c933ed165591f689dba88c2ba4f6fe07bdff342813560d75c7a4",
+  "prompt_sha256": "581d9d3f007f9db1ce1fedfaef41cf6237e86ff1b1c872f2d50b2a1240068174",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:08.052313+00:00",
+  "finished_at": "2026-09-20T20:12:27.501091+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.44686979200003,
+      "usage": {
+        "input_tokens": 7251,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 478,
+        "reasoning_output_tokens": 47
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "9f5efef9b195a56ae6a8f0c47617e1b70841c14e736fed80e4b4221a2be22f28",
+      "stderr_sha256": "63d1dc7096e48feb0feed26a87d61be9d79823c31801c1c4c2b39ddd69c1cca7"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate booking requests from stock-backed pickup confirmations.",
+        "mechanism": "A future return is a dependency, not available stock; confirmations require an inspected item held for pickup.",
+        "implementation": "Track on-loan, awaiting-inspection, inspected-ready, and held states. Label unsupported bookings conditional; atomically assign and hold inspected stock before confirming pickup.",
+        "check": "Simulate late returns and simultaneous bookings; every confirmation must reference a distinct inspected, held item.",
+        "risk": "Conditional status must remain prominent throughout booking."
+      },
+      {
+        "action": "Open a recovery case when returns slip.",
+        "mechanism": "An overdue dependency triggers owned recovery work rather than silently leaving the next reservation unchanged.",
+        "implementation": "Assign staff to offer an inspected substitute with disclosed differences, revised pickup, or cancellation, using only the supplied contact preference. Record explicit substitution consent.",
+        "check": "Simulate lateness, refusal, and silence; verify case ownership, permitted-channel contact, and no substitution without consent.",
+        "risk": "Silence leaves the reservation unresolved, not accepted or automatically cancelled."
+      },
+      {
+        "action": "Match tool bodies and accessories separately.",
+        "mechanism": "Separate compatibility and condition checks can identify usable combinations that whole-kit matching would overlook.",
+        "implementation": "Record existing components, inspection status, and approved compatibility. Assemble candidates only from inspected components; disclose condition and accessory differences and obtain substitution consent.",
+        "check": "Test missing, incompatible, and uninspected accessories; reject each invalid combination and prevent component allocation to two pickups.",
+        "risk": "Apparent interchangeability does not establish safe compatibility."
+      },
+      {
+        "action": "Audit preventable failures against original pickup requests.",
+        "mechanism": "A fixed booking cohort prevents cancellation or rescheduling from making difficult reservations disappear from performance measures.",
+        "implementation": "Retain original windows and outcomes, including cancellations. Review misses against timestamped inspection, allocation, consent, and contact records; classify preventability using predefined rules.",
+        "check": "Cancel or reschedule a difficult booking in test data; the original-window miss must remain counted. Report recovery outcomes separately.",
+        "risk": "Do not assume an unoffered substitute would have received consent."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "5dfefb075779d2d231fe48eb34b2640b471d69cf8dc0b27e3633ded017adab6f",
+  "raw_output_sha256": "efa9237a87448cc55fffa9bff5c46e31610cf453a17002aa64c263f5b6220151"
+}

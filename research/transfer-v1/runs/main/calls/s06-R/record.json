@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s06-R",
+  "request_sha256": "a159f1df511cdb74ac15d7489770d3d3c41213ec291a2056a2e5770ed40ded1f",
+  "prompt_sha256": "e3e1fac17bd650a937b6bfe6968a74ff44a6ff5cfb8ecf329e0a9ffc16d56682",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:10:42.996522+00:00",
+  "finished_at": "2026-09-20T20:11:08.919358+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 25.921521083000016,
+      "usage": {
+        "input_tokens": 7270,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 728,
+        "reasoning_output_tokens": 227
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "59278c343ba4d0cf5ca4e9fad7340684ebda23361e7f5626f6f452765161c9c9",
+      "stderr_sha256": "73aabe12616789356887a2b9f8f735f926bc0e0783e88f607cf7a5381d076d03"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Reserve space exclusively for critical history",
+        "mechanism": "Ordinary writes cannot consume the capacity needed for the bounded critical volume and its storage overhead.",
+        "implementation": "Partition the 20 MB quota into critical, metadata, and ordinary budgets. Reserve 2 MB for critical bytes plus worst-case framing overhead.",
+        "check": "Fill the ordinary budget, then inject the maximum critical volume over 30 minutes; verify every critical sequence survives.",
+        "risk": "Sizing must include encoding, indexes, and temporary writes."
+      },
+      {
+        "action": "Replace exhausted ordinary detail with an explicit gap",
+        "mechanism": "Stopping ordinary capture at its budget produces one bounded, precisely described reduction interval rather than silently overwriting history.",
+        "implementation": "Assign ordinary sequence numbers before admission. Once full, retain only a reserved gap record containing first omitted sequence, last omitted sequence, and count.",
+        "check": "Replay a 30-minute outage; confirm retained ordinary records plus the declared gap account for every generated ordinary sequence.",
+        "risk": "Gap updates need crash-safe storage; counters must not overflow."
+      },
+      {
+        "action": "Make replay identifiable and acknowledgments durable",
+        "mechanism": "Stable record identities distinguish retransmission from sequence gaps, while durable acknowledgments prevent premature local deletion.",
+        "implementation": "Persist an installation identifier and sequence namespace; deduplicate at the recipient. Delete local records only after acknowledgment of durable receipt.",
+        "check": "Interrupt acknowledgments and replay batches twice; verify duplicates are identified. Remove one critical record and verify its missing sequence is reported.",
+        "risk": "Persist a final sequence watermark to expose missing tails."
+      },
+      {
+        "action": "Verify safe records remain recoverable",
+        "mechanism": "Allowlisted structured encoding excludes prohibited content; recovery tests establish usability rather than merely confirming stored bytes exist.",
+        "implementation": "Allow only bounded diagnostic codes, timestamps, and numeric fields. Use checksummed, crash-recoverable records; test decoding without consuming or deleting originals.",
+        "check": "Inject secret-bearing input and terminate during writes; confirm prohibited values are absent and every committed critical record recovers.",
+        "risk": "Do not acknowledge critical persistence before durable commit."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "8bcd2bd5a04e372069833d55c3404146b35d367b92d3d2daf5b15450c5287b0e",
+  "raw_output_sha256": "18fc7d324e30341153be602d0e672cc9273c82da25350eed958b432c54a782dc"
+}

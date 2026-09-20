@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "action": "Authorize format access per requesting client.",
+      "mechanism": "Server-side capability checks, not the flag alone, determine creation and opening eligibility.",
+      "implementation": "Require enabled creation flag plus declared write capability; require declared read capability for opening. Revalidate session declarations rather than trusting cached account capabilities.",
+      "check": "Seed a capable account cache, then connect an old client: new-format creation and opening fail; authorized legacy reads succeed.",
+      "risk": "Incorrect declarations remain possible; fail closed only for new-format operations."
+    },
+    {
+      "action": "Fork legacy documents instead of upgrading them.",
+      "mechanism": "Separate document identities preserve previously readable content without lossy conversion or in-place format replacement.",
+      "implementation": "Keep legacy documents and permissions intact. Create an explicitly labeled new-format fork; never redirect legacy identifiers or overwrite their content with incompatible edits.",
+      "check": "During mixed-version collaboration, a new client edits its fork while an old client successfully reads the unchanged legacy document.",
+      "risk": "Branches diverge; explicitly disclose that legacy readers do not receive fork updates."
+    },
+    {
+      "action": "Make rollback stop creation, not destroy documents.",
+      "mechanism": "Separate creation admission from durable storage and the read path for existing new-format documents.",
+      "implementation": "Rollback disables new-format creation and editing. Retain document bytes, permissions, and format readers; capable clients open existing documents read-only. Leave legacy access unchanged.",
+      "check": "Create a new-format document, roll back, and verify byte integrity, capable-client reads, rejected writes, and continued old-client legacy reads.",
+      "risk": "Operational rollback must retain the reader service and compatible storage schema."
+    }
+  ],
+  "abstention_reason": ""
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p08-R",
+  "request_sha256": "b4a08671a1891157537e13781863c31e389a4d7113b3ea27767685cdeac1cf4d",
+  "prompt_sha256": "c69e13787ad70100dc0d398369406f4b264d1d42e49647c4aae21cf8fcb064a2",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:16:16.489419+00:00",
+  "finished_at": "2026-09-20T20:16:37.443881+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.951394917000016,
+      "usage": {
+        "input_tokens": 7264,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 566,
+        "reasoning_output_tokens": 57
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "c96b309790673fca5944f049a3f8f65ed5d41ffe4beeca7d131aaf0e13dbee79",
+      "stderr_sha256": "fd6a38b2d4cbe7d296de92326b7fc14c239cfd1bf9424b666e6f0d97c64009b1"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Confirm and freeze the exact selection",
+        "mechanism": "Separate visible-page selection from all matching records; confirmation binds an immutable ID set, not a live filter.",
+        "implementation": "Provide keyboard-accessible choices labeled “25 on this page” and “600 matching records.” Resolve IDs before confirmation; persist the confirmed count and scope.",
+        "check": "Change filters and add matching records after confirmation; verify every submitted ID belongs to the frozen set. Test with a screen reader.",
+        "risk": "Resolving all IDs may require a loading state."
+      },
+      {
+        "action": "Skip records changed since scope confirmation",
+        "mechanism": "Atomic version checks distinguish concurrent edits from the user's confirmed targets without silently overwriting newer work.",
+        "implementation": "Capture versions alongside selected IDs. Add conditional writes to the bulk handler; return a conflict outcome when a version differs.",
+        "check": "Modify one selected record immediately before its write; verify it remains untouched and receives a readable conflict explanation.",
+        "risk": "Conflicts require refreshed information and explicit reconfirmation before retry."
+      },
+      {
+        "action": "Recover failures through a persistent outcome ledger",
+        "mechanism": "Per-record outcomes drive retries; operation tokens deduplicate requests when responses are lost.",
+        "implementation": "Persist confirmed IDs and outcomes under an operation token. Offer keyboard-accessible “Retry failed records”; reconcile unknown outcomes before retrying. Announce summarized progress.",
+        "check": "Disconnect after several committed writes, reload, and retry. Verify successful changes are not reapplied and requests contain only confirmed IDs.",
+        "risk": "Deduplication must be durable and atomic with each write."
+      },
+      {
+        "action": "Explain and enforce reversal eligibility per record",
+        "mechanism": "A ten-minute deadline and post-write version guard prevent reversal from overwriting subsequent changes.",
+        "implementation": "Store prior statuses, resulting versions, and policy deadlines. Reverse eligible IDs conditionally; provide keyboard-accessible record lookup with deadline or subsequent-change explanations.",
+        "check": "Test expiry and a subsequent edit, including changing back to the same status. Verify reversal fails safely and screen readers expose the reason.",
+        "risk": "Eligibility can change after display; recheck atomically during reversal."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "352a0277e0206e287a5dd0f1942dd2432eaada13eb674e10f5a1e32185bc7ad5",
+  "raw_output_sha256": "b29cd229249e40e100a0baa01e856b6157fc0e1e059a12b8286981d0754bf696"
+}

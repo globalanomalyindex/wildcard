@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s04-XR",
+  "request_sha256": "3911609c8049444e69f68e6fe644df671a7f5ff38203ef4f21887dbf454a2251",
+  "prompt_sha256": "b45f869551f13efef31ab6824cb3375b0b3a9f6cee4ba10990709a54be83c717",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:33.218779+00:00",
+  "finished_at": "2026-09-20T20:05:58.354915+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 25.132303958,
+      "usage": {
+        "input_tokens": 7276,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 659,
+        "reasoning_output_tokens": 153
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1e732cab2a97c6af08baf8ab26c907d89307c9b2115213a44847590bc0c28df0",
+      "stderr_sha256": "031e1fc53c707c3e10749b264abaa90545de8800252773b8b9d833fdd289c701"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Enforce expiry at the display boundary",
+        "mechanism": "Suppress timestamped items when local time plus 30 seconds reaches expiry, independently of connectivity.",
+        "implementation": "Check eligibility before rendering and clear visible items at that threshold. Keep explicit-until-revoked items eligible unless removed.",
+        "check": "Simulate six-hour outages with clock offsets of ±30 seconds; verify no timestamped item remains visible past its actual expiry.",
+        "risk": "Conservative suppression can hide announcements up to 60 seconds early."
+      },
+      {
+        "action": "Reject stale configurations without accumulating removal records",
+        "mechanism": "Complete snapshots make absence authoritative; persistent generation ordering prevents older bundles from restoring removed revisions.",
+        "implementation": "Assign increasing generations; reject stale item mutations server-side. Devices accept only newer complete snapshots. Reject publication when serialized size reaches 100 KB.",
+        "check": "Remove an item, apply that snapshot, reboot, then replay earlier snapshots; verify absence persists. Verify oversized publication fails.",
+        "risk": "Complete snapshots impose a hard capacity limit on active announcements."
+      },
+      {
+        "action": "Stage reconnect updates before switching the display",
+        "mechanism": "Isolated staging and atomic activation prevent interrupted transfers from mixing old and new configuration states.",
+        "implementation": "Expose downloading, validating, and active states. Validate completeness, IDs, revisions, flags, and size; atomically commit snapshot and generation. Continue expiry enforcement throughout.",
+        "check": "Interrupt transfers and power at every transition; recovery must select one complete snapshot with its matching generation.",
+        "risk": "Validation failure leaves cached content active; offline revocations remain unknown."
+      },
+      {
+        "action": "Show freshness limits alongside offline announcements",
+        "mechanism": "A persistent status distinguishes locally enforced expiry from removal information that requires a successful connection.",
+        "implementation": "Show last successful synchronization time and: “Offline: expired announcements are hidden. Until-revoked announcements may remain after removal; emergency removals cannot be guaranteed.”",
+        "check": "Disconnect for six hours; verify the warning remains visible, including when no announcements remain, and clears only after successful synchronization.",
+        "risk": "Status text requires readable placement and must not obscure announcements."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "007e9959778c143cc57f61bb256d6f7b75ff843f59c691b445ab672ae51401c1",
+  "raw_output_sha256": "fa39309a6135d697af8fe8becc1d9876bfb276e8fb9f9aac5ff406337d980382"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s07-S",
+  "request_sha256": "43a91bb82b00028bdad8cd7ced729fc46fc02ee287356dd8aec935c19b1a2f75",
+  "prompt_sha256": "c25858b3bb157299cc094954fdbcc96637248ffd273417ab7da20372ef8c9fa6",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:40.572854+00:00",
+  "finished_at": "2026-09-20T20:08:02.905904+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.33162437499999,
+      "usage": {
+        "input_tokens": 7142,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 579,
+        "reasoning_output_tokens": 124
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "106999b6bcf3ac54deeaed192a4ab7a9ceb2aa767dcda3ddcc8e19e4004f9a2d",
+      "stderr_sha256": "2fb34d171caad8d5297da161248eed9a7fa5b240e395c1f2add2913b21142e9c"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Stage resumable uploads; stream verified files.",
+        "mechanism": "Durable disk or object storage separates connection recovery from processing without buffering the 4 GB file.",
+        "implementation": "Persist upload offsets; verify the supplied digest before processing. Stream CSV with bounded queues, capped record buffers, and disk spill.",
+        "check": "Disconnect halfway, resume, and verify the digest. Test oversized and multiline records; peak process memory must remain below 128 MB.",
+        "risk": "Staging needs storage quotas, cleanup, and a defined digest algorithm."
+      },
+      {
+        "action": "Commit row outcomes and progress with writes.",
+        "mechanism": "A transactional receipt makes retries idempotent even when commit succeeds but its acknowledgment is lost.",
+        "implementation": "Identify imports by tenant and verified digest. Atomically commit bounded batches of writes, unique source-line receipts, and checkpoints; explicitly reject conflicting natural keys.",
+        "check": "Crash before and after commit and acknowledgment. Replay must produce identical accepted keys and outcomes without duplicate writes.",
+        "risk": "Concurrent imports require database-enforced natural-key uniqueness and an explicit conflict policy."
+      },
+      {
+        "action": "Quarantine invalid rows with actionable diagnostics.",
+        "mechanism": "Row-level isolation prevents invalid references from aborting unrelated rows or being replaced with plausible defaults.",
+        "implementation": "Validate without coercion. Use savepoints or rollback-and-bisect batches for row errors. Export line, natural key, field, offending value, and reason.",
+        "check": "Inject missing references and concurrent reference deletion. Valid neighbors must commit; each rejected row must retain its original input and location.",
+        "risk": "System failures must remain retryable, not be misclassified as rejected rows."
+      },
+      {
+        "action": "Publish a reconciled partial-result manifest.",
+        "mechanism": "Durable outcome accounting distinguishes completed partial imports from interrupted imports and exposes missing or repeated work.",
+        "implementation": "Record EOF and terminal outcomes. Reconcile parsed records against disjoint accepted/rejected receipts and transactional write evidence; link corrected submissions to original rejections.",
+        "check": "Report partial whenever rejections or unfinished input remain. At completion, every parsed record must have exactly one outcome; corrections must resolve linked rejections.",
+        "risk": "Malformed CSV boundaries can prevent complete accounting; report the blocked location rather than guessing."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "4645e8c44eca9e6eb909d844d3ddc769b4cec02072b912e226e58e5c37435a05",
+  "raw_output_sha256": "8b75e5fba52a4a8d16ede18929a22801f625d89d60895d9a0c93509bc436d52c"
+}

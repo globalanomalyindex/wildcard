@@ -1,0 +1,11 @@
+{
+  "id": "o08-S",
+  "phase": "main",
+  "task_id": "o08",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Small-team purchase reconciliation\",\n  \"brief\": \"A three-person studio orders materials using purchase requests, supplier confirmations, and delivery receipts. Partial deliveries and substitutions make staff unsure whether a request is finished or still needs action.\",\n  \"constraints\": [\n    \"The requester may not approve their own substitution.\",\n    \"A request can have several deliveries; receipts identify quantities and item IDs.\",\n    \"Do not treat a supplier confirmation as evidence of physical delivery.\",\n    \"No accounting platform replacement or new employee.\"\n  ],\n  \"success_criteria\": [\n    \"Partial completion is visible at item level.\",\n    \"A substitution has a named decision owner and preserved rationale.\",\n    \"Test duplicate receipts and a delivery that exceeds the requested quantity.\"\n  ],\n  \"non_goals\": [\n    \"Making tax or legal determinations.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "6ce8147b5874942ff320be6c7cb23869ce137e38baed03971966e6b74ebc59fd"
+}

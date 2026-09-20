@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Bind confirmation to the explicitly reviewed slot",
+      "mechanism": "Keep selected identity separate from refreshed availability; never substitute another slot when capacity changes.",
+      "implementation": "Store the slot ID and reviewed details. Send that ID to the existing atomic endpoint; require renewed review if booking details change.",
+      "check": "Invalidate or reorder slots between selection and confirmation. Verify no different booking occurs and endpoint rejection produces an explicit error.",
+      "risk": "Displayed availability remains provisional, not a reservation."
+    },
+    {
+      "action": "Keep controls stationary through capacity refreshes",
+      "mechanism": "Update availability without removing focused elements, reordering choices, or moving confirmation away from the user.",
+      "implementation": "Use stable keyed controls and reserved status space. At 320 pixels, show vertically grouped days with keyboard-operable slots and a persistent confirmation area.",
+      "check": "Refresh every five seconds during keyboard and pointer traversal. Verify unchanged focus, stationary confirmation, no horizontal scrolling, and no obscured controls.",
+      "risk": "Persistent controls must clearly identify unavailable selections."
+    },
+    {
+      "action": "Provide an untimed, preference-preserving recovery path",
+      "mechanism": "An unavailable slot opens a recoverable decision rather than resetting the booking or automatically choosing a replacement.",
+      "implementation": "Retain workshop, week, filters, and entered details. Explain the failure inline; offer matching alternatives for explicit selection and subsequent atomic confirmation, without countdowns.",
+      "check": "Force confirmation rejection, then pause across several refreshes. Verify retained preferences, keyboard-accessible alternatives, and no automatic booking or reset.",
+      "risk": "Alternatives may also become unavailable before confirmation."
+    },
+    {
+      "action": "Measure recovery without scoring input speed",
+      "mechanism": "Evaluate correctness and retained intent under controlled invalidation, rather than rewarding faster confirmation or completion.",
+      "implementation": "Inject the same rejection at each participant’s first confirmation, regardless of elapsed time. Record wrong-slot bookings, preference loss, recovery completion, and abandonment.",
+      "check": "Repeat with keyboard-only use and a 320-pixel viewport, including motor-impaired participants. Report error counts and denominators; exclude completion speed from success scoring.",
+      "risk": "Scripted failures do not estimate real-world rejection frequency."
+    }
+  ],
+  "abstention_reason": ""
+}

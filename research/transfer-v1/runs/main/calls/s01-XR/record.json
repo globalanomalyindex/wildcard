@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "s01-XR",
+  "request_sha256": "41b8c278f446c81e1a2b0d78209ac45d99ff35f1e9d840492b2c2c05d26b0b42",
+  "prompt_sha256": "3c11c705dec7310c1861de661102cd9de860729ff641ac74996440b9343e4844",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:53.746269+00:00",
+  "finished_at": "2026-09-20T20:08:15.673297+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.92858770799998,
+      "usage": {
+        "input_tokens": 7294,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 551,
+        "reasoning_output_tokens": 189
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f6f269622cfec864da0dc9f5505da573c1893feb4e5f78643fcfc0b469a08ef1",
+      "stderr_sha256": "dea72d58280e1996ea5a8f837e728de64689ee490fbaf0c2e027851693956fc9"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Commit the update and delivery receipt together",
+        "mechanism": "A unique event receipt and business update share one transaction; acknowledgement follows successful commit.",
+        "implementation": "Insert a receipt keyed by partner and event ID. Only the successful inserter applies the update. On conflict, skip it and acknowledge.",
+        "check": "Crash before commit, after commit before acknowledgement, and during acknowledgement; replay concurrently. Verify exactly one committed business update.",
+        "risk": "External side effects require a transactional outbox and downstream idempotency."
+      },
+      {
+        "action": "Guard entity updates with monotonic revisions",
+        "mechanism": "Atomic revision comparisons prevent stale events from replacing newer entity state, independently of event-ID deduplication.",
+        "implementation": "Within the receipt transaction, condition replacement updates on stored revision being lower. For dependent deltas, reject gaps without committing receipts; reconcile first.",
+        "check": "Deliver revisions 12, 10, 12 concurrently under distinct IDs; replacement state must finish at 12. Verify gapped deltas remain unapplied.",
+        "risk": "Skipping revisions is safe for replacement snapshots, not necessarily incremental changes."
+      },
+      {
+        "action": "Expire receipts conservatively within a measured storage budget",
+        "mechanism": "Seven-day retention from first durable receipt covers redelivery without extending retention on every duplicate.",
+        "implementation": "Keep receipts through first-seen plus seven days; delete only strictly afterward. Serialize cleanup with receipt handling. Measure all durable deduplication storage; backpressure before 2 GB.",
+        "check": "Replay just before and exactly at expiry: no repeat. After expiry, verify cleanup and stale-revision protection. Load-test one million 64-byte IDs including indexes.",
+        "risk": "Seven days must bound arrival delay; longer delays need longer retention or permanent revision protection."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d6fffc1904709798a19d5620ec4a4919aac804285410cae3cc9371b4d1714cfd",
+  "raw_output_sha256": "c6ac1f54ab2169ae91fc1664ecafbb35e0478bdeb96d5ba4bc618a12e49d55ab"
+}

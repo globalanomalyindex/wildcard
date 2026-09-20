@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p01-S",
+  "request_sha256": "0b16f38cb30485616587e9c83778a60eea25fa8822de787a0e1a4a7497438436",
+  "prompt_sha256": "f78521fe884b7c56514e5eae73cb2c4b35ec1a5f12dd115b25a67a0125aa1f76",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:09.143026+00:00",
+  "finished_at": "2026-09-20T20:05:33.118619+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 23.970718125,
+      "usage": {
+        "input_tokens": 7154,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 632,
+        "reasoning_output_tokens": 278
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "86ad236d7a30782e2f849058d1574c1272fd374b69780e304e5e2c8610f097d1",
+      "stderr_sha256": "02349d8640ceabbaf2b98bc69da24b6a2d538546379bdb5273c211a9258e80f3"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Lock sessions without discarding ticket selections",
+        "mechanism": "Separate screen locking from draft deletion; a visitor-held code permits private resumption without an account.",
+        "implementation": "Issue a random recovery code before ticket selection. At 90 seconds idle, mask display and stop speech; retain an encrypted local draft for 30 minutes.",
+        "check": "Pause five minutes, then resume using touch or physical buttons. Verify selections return; incorrect codes and Start new reveal nothing.",
+        "risk": "Forgotten codes prevent recovery; rate-limit guesses without blocking new purchases."
+      },
+      {
+        "action": "Make reading screens untimed and nonpersonal",
+        "mechanism": "Separate lengthy explanations from private summaries so reading requires neither repeated activity nor exposure of saved selections.",
+        "implementation": "Keep generic instructions and ticket descriptions untimed. Hide selections, quantities, and personal details there. Require recovery-code entry to reopen a locked private summary.",
+        "check": "Compare three-minute reading trials with the current flow: count lost selections, interruptions, and exposed details during scripted visitor handovers.",
+        "risk": "Visitors may find switching between explanations and protected summaries cumbersome."
+      },
+      {
+        "action": "Isolate new visitors and guard offline confirmation",
+        "mechanism": "Separate local session storage and explicit purchase confirmation prevent handover leaks and unintended submissions after reconnection.",
+        "implementation": "Provide Start new on the lock screen; clear navigation and speech buffers. Store drafts locally. Require a fresh, clearly labeled final Confirm; never submit drafts automatically.",
+        "check": "Disconnect for ten minutes, abandon a populated session, and start another. Test Back, screen-reader history, and reconnection for leaks or unintended purchases.",
+        "risk": "Offline payment authorization may remain unavailable; preserve drafts rather than promise completed payment."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d4a755d359559b0c7246e478eb94e0a00bfa58071b13f3fd8c03ff43d5499f4c",
+  "raw_output_sha256": "430333249415072802354f8c586995ad175ea74e3e01cdb42531c59a0f49655b"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i07-S",
+  "request_sha256": "c64756aa2f783e52493ae8a7298bedcf746538fdc5e6ffd8445304c463a91737",
+  "prompt_sha256": "6546f79b033aaad68468efc3d0cfda0b095e8f6b92b2e5f2dd14343f84bd4a7b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:04:48.830393+00:00",
+  "finished_at": "2026-09-20T20:05:08.327914+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.494531291999998,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 467,
+        "reasoning_output_tokens": 58
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "1cfd86940cb8e870503221cf5b03678c2fe3a57b50b7b9d7b8d804c7e8b2d90e",
+      "stderr_sha256": "2b67e83befcb02befc82589461766be918b4243bb5379e5c6adead93fb9db529"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind callouts to explicit evidence checks",
+        "mechanism": "Evaluate the cited relationship after refresh instead of trusting unchanged annotation text.",
+        "implementation": "Store stable metric/filter IDs, comparison series, date bounds, and analyst-confirmed predicates such as highest-ranked or increasing with each callout.",
+        "check": "Reverse two series’ rankings; the highest-ranked callout must become contradicted without generating a causal explanation.",
+        "risk": "An incorrectly specified predicate can misrepresent the analyst’s intended claim."
+      },
+      {
+        "action": "Represent unavailable evidence separately from zero",
+        "mechanism": "Explicit availability states prevent missing series and observations from silently becoming numeric evidence.",
+        "implementation": "Distinguish absent series, missing observations, and observed zero before evaluating callouts; mark checks requiring unavailable values as unverifiable.",
+        "check": "Refresh fixtures containing an absent series, a null observation, and zero; each must retain its distinct state.",
+        "risk": "Existing aggregation defaults may conceal missing observations unless explicitly overridden."
+      },
+      {
+        "action": "Show evidence changes in a review queue",
+        "mechanism": "Compare saved and refreshed evidence, separating changed inputs from materially changed conclusions.",
+        "implementation": "Display old/new values and date bounds; flag changed windows, failed predicates, and unavailable evidence. Label immaterial revisions using analyst-set tolerances.",
+        "check": "A date-range change requires review; a within-tolerance revision appears as changed evidence without falsely invalidating the claim.",
+        "risk": "Tolerance must never override a failed predicate, including a ranking reversal."
+      },
+      {
+        "action": "Export only a reviewed, version-bound snapshot",
+        "mechanism": "An export checkpoint prevents refreshed data from bypassing annotation review and preserves traceability.",
+        "implementation": "Pin chart data and checks to one snapshot; require resolving or visibly qualifying flagged callouts. Embed version, metric/filter IDs, date bounds, and review states.",
+        "check": "Refresh during export: output must use the reviewed snapshot or stop. Confirm exported metadata identifies that version.",
+        "risk": "Image-only formats need embedded metadata or a bundled manifest."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "cab65adfe32565abaa8206e23de6f5b7e76e7664dc488c85b6ddae03fe63971c",
+  "raw_output_sha256": "0370f909cb37eb333d3c5820450c2867e8be6f7ec4febc67ad5b33d51137e2c4"
+}

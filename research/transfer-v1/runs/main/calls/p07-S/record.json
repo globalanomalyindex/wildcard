@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p07-S",
+  "request_sha256": "df47cdd0d5c2a1b4e234f285135a2c47ad07322f6ad90f096bf4773fd60d80ff",
+  "prompt_sha256": "34edf826a41f983475f39a6559f0a84b1604045d24c13bfb1c77f8b8eb710e1e",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:04:48.830103+00:00",
+  "finished_at": "2026-09-20T20:05:09.119181+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 20.283228875,
+      "usage": {
+        "input_tokens": 7129,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 575,
+        "reasoning_output_tokens": 72
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "9a8b099784a210ab3e40caf986bac18b961cc3ddee70da28b22db9670befbbb8",
+      "stderr_sha256": "9b5c25a16df4f60e18418dfe5492eb914e455e550d518b267abddbdddc434b67"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Merge independent edits using the loaded revision",
+        "mechanism": "Compare each field’s loaded value, local draft, and latest server value; flag only divergent changes.",
+        "implementation": "Retain the loaded snapshot. On stale-save rejection, fetch latest values, preserve originals, and combine nonconflicting changes into an unpublished draft.",
+        "check": "Test a stale tab edited after another tab saved: independent changes survive; divergent same-field changes are flagged, regardless of timestamps.",
+        "risk": "Missing snapshot data must block automatic merging, not guess."
+      },
+      {
+        "action": "Replace the warning with field-level resolution",
+        "mechanism": "Show only conflicting fields, with labeled local and saved versions and explicit resolution controls.",
+        "implementation": "For long text, provide inline differences and an editable combined result. For single-choice fields, require selection. Retain originals; save only as draft.",
+        "check": "Resolve text and choice conflicts entirely in one tab without dragging, window-to-window copying, retyping independent edits, or publishing.",
+        "risk": "Long differences need accessible navigation and expandable full originals."
+      },
+      {
+        "action": "Preserve recoverable drafts before reconciliation",
+        "mechanism": "A per-tab recovery journal retains both text versions even after users select a replacement.",
+        "implementation": "Store local drafts and fetched conflict versions in IndexedDB before replacing editor state. Offer in-editor restoration; require explicit deletion of recovery entries.",
+        "check": "Reload during resolution and after choosing one version; verify both original texts remain recoverable without using another window.",
+        "risk": "Storage failure must block destructive replacement; sensitive drafts need safeguards."
+      },
+      {
+        "action": "Notify other tabs without replacing their drafts",
+        "mechanism": "An advisory cross-tab message reveals newer revisions before saving; server revision checks remain authoritative.",
+        "implementation": "After draft saves, broadcast document ID and revision. Show a nonblocking review banner in sibling tabs; fetch latest values only for reconciliation.",
+        "check": "Edit the stale tab after receiving the banner; reconciliation must retain that edit. Drop messages and confirm stale-save rejection still works.",
+        "risk": "Notifications can arrive late; never treat them as locks."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "56efaab4c3ec26cdfc63da590a56e16f6a699a073f1296e9dc673c7b19bd71c5",
+  "raw_output_sha256": "8dd8253e5d44598bddf06a0305b079e312b6fad71e21799083d85bea6513fec0"
+}

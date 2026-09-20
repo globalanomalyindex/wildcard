@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s07-XR",
+  "request_sha256": "907079a857d88e34b6ed8a1ad4a2331b770cfb2a8ddc883b2ea05eee972c7574",
+  "prompt_sha256": "2caead72e37395f0b44e0b00307bb16534994195c6b486da58ea6e27508f94bf",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:08:38.773174+00:00",
+  "finished_at": "2026-09-20T20:09:00.196783+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.422605249999975,
+      "usage": {
+        "input_tokens": 7283,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 540,
+        "reasoning_output_tokens": 64
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "9ee1cce5adbff028eba23e739966c80974f6c25b834705a726148398ce4718eb",
+      "stderr_sha256": "bb318b135a2c8043e3cffff0179ce0743151dac73b67e225a1cfbfc2f0663f1b"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Stage resumable uploads behind a bounded queue",
+        "mechanism": "Durable staging separates connection lifetime from processing; finite storage quotas apply backpressure rather than discard data.",
+        "implementation": "Persist numbered upload chunks with checksums; acknowledge durable chunks. Verify the supplied whole-file digest before processing. Reject excess uploads explicitly when storage is full.",
+        "check": "Drop the connection halfway; resume missing chunks. Verify identical final digest, no premature database writes, and explicit quota errors.",
+        "risk": "Staging requires disk capacity and an expiry policy."
+      },
+      {
+        "action": "Commit row receipts with bounded transactional batches",
+        "mechanism": "Atomic receipts and checkpoints make retries distinguish committed work from unfinished work without whole-file transactions.",
+        "implementation": "Stream verified CSV with capped record and batch sizes. Transactionally commit writes, receipts keyed by digest/source-line, and checkpoints. Define natural-key conflict rules; never blindly insert.",
+        "check": "Crash before and after batch commit; replay produces no duplicate writes. Test oversized records and confirm peak process memory stays below 128 MB.",
+        "risk": "Concurrent imports need database-enforced natural-key uniqueness and explicit conflict outcomes."
+      },
+      {
+        "action": "Quarantine invalid rows with precise correction evidence",
+        "mechanism": "Explicit validation and durable rejection records isolate bad rows without inventing substitute values or aborting valid rows.",
+        "implementation": "Validate references and fields; store digest, source line, natural key, field, error code, and staged-record locator. Use savepoints for row-local database failures; retry infrastructure failures.",
+        "check": "Inject missing references between valid rows: valid rows commit, rejected values remain unchanged, and each rejection locates its original record.",
+        "risk": "Malformed CSV framing may require stopping with an explicit incomplete status."
+      },
+      {
+        "action": "Publish a reconciled partial-result manifest",
+        "mechanism": "An exhaustive outcome ledger distinguishes partial acceptance, unfinished processing, and fully accepted imports.",
+        "implementation": "Track each parsed row as accepted or rejected, marking replays without recounting. Publish digest, completion status, counts, and rejection export. Link corrected-file imports to original rejections.",
+        "check": "At verified EOF, require parsed count equals accepted plus rejected, unique receipts, and accepted receipts matching committed mutations; otherwise report reconciliation failure or incompleteness.",
+        "risk": "Counts alone miss mismatched writes; verify mutation identifiers and unresolved correction links."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "8348801e2cbc5a34e296e8d66750a9d252d2f75433c9b32303ce03e8ee4e6e33",
+  "raw_output_sha256": "8ad7d740f8b155b2d4bd7d67ef1334fbbd76ba36c5cf7489ba53950d701f541c"
+}

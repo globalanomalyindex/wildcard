@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s08-LR",
+  "request_sha256": "3223ae8dd183e54524679d5b1bc40fd4e8a76be15ba62ef871a52a48e3cfa422",
+  "prompt_sha256": "044ace9bd1dedbefbbfaee69198453243e0d06f86076e948cce0b5fcd2d32a56",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:49.922932+00:00",
+  "finished_at": "2026-09-20T20:06:12.895093+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.967634915999994,
+      "usage": {
+        "input_tokens": 7267,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 643,
+        "reasoning_output_tokens": 192
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "4471ecb840c797c3055caa252cc300adec26093c9da0d9d38e4a00a722705d51",
+      "stderr_sha256": "7e4d1f2bb3dcd011b76b76e29a428b7a402d4427639b9fa3b2d90e25ca4a2868"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Keep existing document formats fixed",
+        "mechanism": "A durable per-document format prevents a global flag from making previously readable documents unreadable.",
+        "implementation": "Keep existing documents legacy-format. Allow new-format creation only when the flag is enabled and the creator declares required capabilities; retain legacy creation.",
+        "check": "With mixed-version collaborators, enable the flag and edit an existing document; verify the old client still reads every committed revision.",
+        "risk": "Legacy documents cannot accept features requiring the new format."
+      },
+      {
+        "action": "Validate capabilities separately for each client session",
+        "mechanism": "Opening requires the document’s capabilities, not an account-wide assumption based on another client or the rollout flag.",
+        "implementation": "Check declared capabilities server-side on create, open, and write. Key capability caches by session and declaration revision; reject mismatches before returning document payloads.",
+        "check": "Cache new-client capabilities, then access through an old-client session on the same account; verify legacy reads succeed and new-format access fails safely.",
+        "risk": "Declarations cannot prove actual parser support; incorrectly declaring clients remain a risk."
+      },
+      {
+        "action": "Roll back creation without disabling existing documents",
+        "mechanism": "Separate creation permission from format recognition so disabling rollout never reinterprets or deletes existing content.",
+        "implementation": "On rollback, reject new-format creation and writes, retain stored bytes and decoder support, and allow capable clients read-only access to existing new-format documents.",
+        "check": "Create a new-format document, roll back, and verify unchanged content, successful capable-client reads, rejected writes, and continued old-client access to legacy documents.",
+        "risk": "Operational rollback must retain compatible read infrastructure."
+      },
+      {
+        "action": "Offer explicit forks instead of in-place conversion",
+        "mechanism": "A separate new-format document lets capable users adopt new features without replacing the legacy document shared with old clients.",
+        "implementation": "Provide an explicit fork operation under creation eligibility checks. Preserve the source, record provenance, and label both documents as independent with no automatic synchronization.",
+        "check": "Fork a shared legacy document, add new-only content, and verify old collaborators still read the untouched source; reject unsupported merges explicitly.",
+        "risk": "Independent branches diverge; users must understand which document contains later work."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "a8a65f15117eac3207acc7825df642a68994edebbd92cdea6ac6734c0a47af41",
+  "raw_output_sha256": "54168382e5dd108f749ca3df079fad06564866f42660ea05ac1e4d8ff2ef180c"
+}

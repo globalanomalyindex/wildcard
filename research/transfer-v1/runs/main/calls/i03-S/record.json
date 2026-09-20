@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i03-S",
+  "request_sha256": "9b28395af1bffce7aefb705d05e5167990ab17a15cb54390132107ca98086075",
+  "prompt_sha256": "5c79d7106a54749f68c7dce7b0fa8d08b701b18c550c8c29f4215f829b0552de",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:08.347091+00:00",
+  "finished_at": "2026-09-20T20:05:29.832884+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.480386292000002,
+      "usage": {
+        "input_tokens": 7123,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 491,
+        "reasoning_output_tokens": 63
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f6e0be80c9db4d2684719e65a53bf4ca7ff2df23388b20cb7fe0a52381d3dbd6",
+      "stderr_sha256": "513c2f2f8079658db5139a7ac0765498fd72d1da90360bf8bea0c5e7f360296d"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate quotation review from speaker verification",
+        "mechanism": "Explicit review states prevent imported labels or confidence scores from appearing as verified attribution.",
+        "implementation": "Default attribution to unverified. Require a recorded audio review to verify identity; allow unknown. Show attribution status in search, collections, and exports.",
+        "check": "Export an unresolved-speaker quote: it must say unknown and unverified, never inherit a verified badge from text review.",
+        "risk": "Reviewers can still misidentify voices; verification must remain reversible."
+      },
+      {
+        "action": "Store corrections as attributed, immutable revisions",
+        "mechanism": "Stable quote references expose current corrections while preserving earlier collection and export states.",
+        "implementation": "Append corrections with reviewer identity and parent revision; retain imported text. Collections resolve current revisions but retain their saved revision and change history.",
+        "check": "Correct a saved quote’s speaker: every collection must show the correction, while its earlier attribution and reviewer remain inspectable.",
+        "risk": "Existing downloaded exports cannot update; their links should reveal subsequent revisions."
+      },
+      {
+        "action": "Anchor quotes across segments to reviewed audio intervals",
+        "mechanism": "Quote-level audio anchors avoid treating potentially incorrect segment timestamps as authoritative boundaries.",
+        "implementation": "Represent quotes using ordered segment IDs and text ranges, plus versioned recording intervals. Provide playback handles for manual boundary correction; export audio links and offsets.",
+        "check": "Select a quote crossing two segments, adjust incorrect timing, then export; its audio route must play the complete selected utterance.",
+        "risk": "Recording access or retention failures can break otherwise valid audio routes."
+      },
+      {
+        "action": "Keep uncertain speakers discoverable in search",
+        "mechanism": "Separate confirmed-speaker matches from provisional labels and unresolved candidates rather than silently collapsing them.",
+        "implementation": "Default quotation search to all speakers. Speaker filters show confirmed matches separately from imported-label matches, with an explicit option to include unresolved results.",
+        "check": "Search a fixture containing confirmed, mislabeled, and unknown speakers; each must appear in its appropriate group without receiving unsupported attribution.",
+        "risk": "Including unresolved candidates increases review effort; hiding them by default can conceal relevant quotations."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "fc3a80775411f5e57acfaaa59d6707009a66232b655d5cc0bb4d2db3c9b55a42",
+  "raw_output_sha256": "2fe2b8db9843d8dc56d76c05434b0f9c4c4a5c67d77acd0233300c04b0bda298"
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "o08-XR",
+  "request_sha256": "dd3f7a1c93fa2f6b1b9f72e1de541d5e4a870c516cb30c7c6c386e48cfc771a3",
+  "prompt_sha256": "cfae8be614407964290a7483dd087e929b336fc67800b710ae0ebe899d2f1b83",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:12.590158+00:00",
+  "finished_at": "2026-09-20T20:07:33.839404+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.244650916000012,
+      "usage": {
+        "input_tokens": 7253,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 451,
+        "reasoning_output_tokens": 70
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "4bc3429662ba075e8814d3fe94b3f6f3de07078dbd064694e1e295ba72318c54",
+      "stderr_sha256": "b55bc8d78e9dcb7ba2f0577ed33543535f27f278143b215063dbe4e1f0618071"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Track completion separately for every requested item",
+        "mechanism": "Aggregate receipt quantities against requested quantities; keep supplier promises separate from physical delivery evidence.",
+        "implementation": "Add linked request-line and receipt tables to the existing shared tracker. Show requested, received, remaining, excess, and unresolved-substitution quantities per item.",
+        "check": "For ten requested units, receipts of four and three must show seven received, three remaining, and incomplete status.",
+        "risk": "Incorrect item mappings can falsely indicate completion."
+      },
+      {
+        "action": "Require a named independent substitution decision",
+        "mechanism": "Keep proposed replacements pending until someone other than the requester records an explicit decision and rationale.",
+        "implementation": "Assign one existing teammate per substitution. Record requester, original and replacement IDs, quantity conversion, decision, rationale, approver, and timestamp; preserve decision history.",
+        "check": "Reject requester self-approval. A delivered but unapproved replacement must remain visible without satisfying the original item.",
+        "risk": "An unavailable approver can delay closure; name an eligible backup."
+      },
+      {
+        "action": "Validate receipts before they change completion",
+        "mechanism": "Duplicate detection prevents double-counting; excess deliveries create exceptions rather than silently changing requested quantities.",
+        "implementation": "Use supplier, receipt number, and line as a uniqueness key; flag matching contents under different numbers. Preserve excess quantities and assign disposition to an existing teammate.",
+        "check": "Enter a receipt twice: totals must remain unchanged. Receive twelve against ten: show two excess and unresolved disposition.",
+        "risk": "Similar legitimate deliveries need review, not automatic rejection."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "52cc7817a17992404e40c324ed7928600c3aef9e681bc0ec5b3edf4d657b7460",
+  "raw_output_sha256": "035be6eda99f8fac76b483ec2233bb2a153a1447db70a8886d0c29c29b0cfcc2"
+}

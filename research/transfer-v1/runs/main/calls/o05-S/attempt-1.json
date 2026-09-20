@@ -1,0 +1,16 @@
+{
+  "number": 1,
+  "exit_code": 0,
+  "elapsed_seconds": 20.908477250000033,
+  "usage": {
+    "input_tokens": 7117,
+    "cached_input_tokens": 5760,
+    "cache_write_input_tokens": 0,
+    "output_tokens": 546,
+    "reasoning_output_tokens": 95
+  },
+  "completed": true,
+  "tool_violation": false,
+  "events_sha256": "ea83f6ce091c179b80372d8ba34aa2dc9507c2d5f91c089ced0250bfa512d9f5",
+  "stderr_sha256": "2b8bc84e4637c57181353003f523c6f08619916c2e96596405f4a201f80c0e1e"
+}

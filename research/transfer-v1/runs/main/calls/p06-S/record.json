@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p06-S",
+  "request_sha256": "384b9a6b84716e71e2559d3ca51ead4322dcdf79b6f7a2be2d874b23e0fa5dc9",
+  "prompt_sha256": "d4ca540ef9fbe7ad7e78e1bc3ed2898cb06d00a34966b57cbb2559de840af92b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:10:18.771434+00:00",
+  "finished_at": "2026-09-20T20:10:42.983430+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 24.21075033300002,
+      "usage": {
+        "input_tokens": 7117,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 543,
+        "reasoning_output_tokens": 98
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "2d3a3052d29f05988f1e7f44aebdc308cc6b8e8e411cf3d9a0243c81576dac93",
+      "stderr_sha256": "d6ba3679264de001876b623941290422802865bb7372a53120b3b5787f149107"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Make presets transparent, optional starting points.",
+        "mechanism": "Show each preset’s changes before applying; preserve custom combinations unless the owner explicitly chooses replacement.",
+        "implementation": "Replace the undocumented preset with a permission list and an Apply button. Leave publishing and billing unselected, requiring separate owner selection.",
+        "check": "Load a custom combination, change an unrelated invite field, and confirm every permission remains unchanged. Applying a preset must not grant privileged access.",
+        "risk": "Preset descriptions can drift; derive their lists from configured permissions."
+      },
+      {
+        "action": "Preview what the teammate can actually do.",
+        "mechanism": "Calculate effective permissions before saving, exposing inherited or dependent access rather than merely repeating toggle states.",
+        "implementation": "Show draft viewing, reviewing, publishing, and billing outcomes with their permission sources. Block sending if effective publishing or billing lacks explicit owner selection.",
+        "check": "Configure an indirect publishing grant without owner selection. The preview must report publishing access, and sending must remain blocked.",
+        "risk": "Stale previews mislead; recalculate after changes and immediately before sending."
+      },
+      {
+        "action": "Test the invite against the intended job.",
+        "mechanism": "Turn “review drafts but not publish” into explicit expectations checked against calculated effective permissions.",
+        "implementation": "Offer keyboard-selectable expectations: draft review allowed and publishing denied. Run these assertions before sending; surface mismatches without automatically changing permissions.",
+        "check": "Start with passing expectations, then enable publishing. The pre-send test must fail and prevent sending until permissions or expectations are explicitly revised.",
+        "risk": "Expectations cover selected tasks only; label them as targeted checks."
+      },
+      {
+        "action": "Organize all toggles without hiding custom settings.",
+        "mechanism": "Group the 18 controls by task while keeping every existing combination accessible and visibly marked as custom when appropriate.",
+        "implementation": "Use native checkboxes in labeled fieldsets, an Expand all button, and group summaries showing selected permissions. Preserve values when groups collapse.",
+        "check": "Using only Tab, Shift+Tab, Space, and Enter, configure review without publishing. Expand every group and verify all 18 controls remain reachable.",
+        "risk": "Collapsed groups can obscure access; keep publishing and billing summaries visible."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "551003a455f1e5732c98ae2e6e34417f2d924ceb7a3d8d7e9779734cd07a3f5e",
+  "raw_output_sha256": "865aaa57bee44ec9e2bc47389fbda5815ad6196bf5c3e7dabae72416174dc97f"
+}

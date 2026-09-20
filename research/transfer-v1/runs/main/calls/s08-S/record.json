@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "s08-S",
+  "request_sha256": "fd7146626353a7ffe3973f6cf7bdc6ef24fd914925c1e7596a423ab3282374bd",
+  "prompt_sha256": "656d3376f862912f1d02800eb5d6e1ae3ec0efadf79ac31d9a365780b9837fb8",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:15:28.840177+00:00",
+  "finished_at": "2026-09-20T20:15:55.151470+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 26.309677125000007,
+      "usage": {
+        "input_tokens": 7122,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 670,
+        "reasoning_output_tokens": 278
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "f7873c7f39b8c01071a1f700677eee8ee0d99082b81b941e100cf69f58f98812",
+      "stderr_sha256": "f0e9bbc19992291d95eb01292acdd0196d3249d38cac35002d133e306e62b9c6"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Authorize format access per requesting client.",
+        "mechanism": "Server-side capability checks, not the flag alone, determine creation and opening eligibility.",
+        "implementation": "Require enabled creation flag plus declared write capability; require declared read capability for opening. Revalidate session declarations rather than trusting cached account capabilities.",
+        "check": "Seed a capable account cache, then connect an old client: new-format creation and opening fail; authorized legacy reads succeed.",
+        "risk": "Incorrect declarations remain possible; fail closed only for new-format operations."
+      },
+      {
+        "action": "Fork legacy documents instead of upgrading them.",
+        "mechanism": "Separate document identities preserve previously readable content without lossy conversion or in-place format replacement.",
+        "implementation": "Keep legacy documents and permissions intact. Create an explicitly labeled new-format fork; never redirect legacy identifiers or overwrite their content with incompatible edits.",
+        "check": "During mixed-version collaboration, a new client edits its fork while an old client successfully reads the unchanged legacy document.",
+        "risk": "Branches diverge; explicitly disclose that legacy readers do not receive fork updates."
+      },
+      {
+        "action": "Make rollback stop creation, not destroy documents.",
+        "mechanism": "Separate creation admission from durable storage and the read path for existing new-format documents.",
+        "implementation": "Rollback disables new-format creation and editing. Retain document bytes, permissions, and format readers; capable clients open existing documents read-only. Leave legacy access unchanged.",
+        "check": "Create a new-format document, roll back, and verify byte integrity, capable-client reads, rejected writes, and continued old-client legacy reads.",
+        "risk": "Operational rollback must retain the reader service and compatible storage schema."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "cd50dc35b159cccf37b23686414919be5df24bbe664ed54e80b62794653ac502",
+  "raw_output_sha256": "44110b1ff76f920cac001c2f1b532ccc5507a87c0e12a03364f9c418b22a7ae8"
+}

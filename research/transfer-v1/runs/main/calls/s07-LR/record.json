@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s07-LR",
+  "request_sha256": "f9fd13406e5003d069edb8fcf3153416e07097481d9dc22cfb27a443c4c1b646",
+  "prompt_sha256": "8c1308f3c8b80cf8de3d55832d62bdcb60fc9b5795ce0d00f10b4151c1db03b4",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:18.299853+00:00",
+  "finished_at": "2026-09-20T20:12:39.400926+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.09872487499996,
+      "usage": {
+        "input_tokens": 7284,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 513,
+        "reasoning_output_tokens": 58
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "40a95cae61859258b02585f898531bb98bd2648cb5755d265b44caeec510e3bb",
+      "stderr_sha256": "b46da8a846bafc71976169b0ebea3b8758ddb1e2958d29e04e301f0893cfc6c3"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Stage uploads durably before importing.",
+        "mechanism": "Resumable disk or object storage decouples connection lifetime from processing without buffering the file in memory.",
+        "implementation": "Persist upload offsets; stream and verify the supplied digest before processing. Enforce storage quotas, backpressure, and a total memory budget below 128 MB.",
+        "check": "Disconnect halfway through 4 GB; resume uploading, verify the digest, and measure peak memory under slow database writes.",
+        "risk": "Finite staging capacity requires explicit refusal and expiry policies."
+      },
+      {
+        "action": "Commit accepted rows with their replay ledger.",
+        "mechanism": "Atomic batch writes couple database changes to durable row outcomes, preventing crash-induced duplicate application.",
+        "implementation": "Use bounded batches; uniquely identify outcomes by import scope, digest, and source line. Commit writes, outcomes, and checkpoint together; explicitly reject conflicting natural keys.",
+        "check": "Crash before and after batch commits, then restart. Confirm accepted rows appear once and checkpoints never skip uncommitted outcomes.",
+        "risk": "Concurrent imports require database-enforced uniqueness and a documented natural-key conflict policy."
+      },
+      {
+        "action": "Quarantine bad rows with exact correction details.",
+        "mechanism": "Explicit rejection outcomes isolate invalid references without substituting plausible values or aborting unrelated rows.",
+        "implementation": "Validate references without coercion; isolate database failures using savepoints or batch bisection. Store line, natural key, field, reason, and staged-record locator; cap parser buffers.",
+        "check": "Inject invalid references and an oversized record; confirm valid neighbors commit and each rejected record is locatable without truncation.",
+        "risk": "Malformed CSV may prevent safe boundary recovery; stop with an explicit incomplete status."
+      },
+      {
+        "action": "Publish a reconciled partial-result manifest.",
+        "mechanism": "A durable accounting manifest distinguishes completed partial imports from interrupted processing and links subsequent corrections.",
+        "implementation": "Record digest verification, EOF status, accepted, rejected, and pending counts. Require one outcome per parsed record; link corrected-file outcomes to original rejections.",
+        "check": "At EOF, verify accepted plus rejected equals parsed records, pending is zero, and accepted ledger entries match committed writes.",
+        "risk": "Counts alone miss substitutions; reconcile row identities and committed versions, not totals alone."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "4276df31d0b34ee2423ed9379b81561b37d87242f01f87fc1eb6280c962722db",
+  "raw_output_sha256": "8fc0be7cbee72adf336b861502c923727fc12e1c8943ccbff1caeedacc7bf1b0"
+}

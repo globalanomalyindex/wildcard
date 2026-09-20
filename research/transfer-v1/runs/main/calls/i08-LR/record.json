@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i08-LR",
+  "request_sha256": "c96d25c0a69c81faf7733893d596a21d017a7c7467e743e63cfeafce80ac1148",
+  "prompt_sha256": "991dc5c77d706142799dc6d8056a2194d2196ebc36b6f7a5f78e44a477315078",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:07:20.558716+00:00",
+  "finished_at": "2026-09-20T20:07:40.559797+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.999848500000013,
+      "usage": {
+        "input_tokens": 7271,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 501,
+        "reasoning_output_tokens": 82
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "9469c9f5ad725c1e236f9c721f9f40c59f0840fa03ba137a070f5755ded70896",
+      "stderr_sha256": "9f574bc28a6d2a16811c7de60dc9c32798993b609d2beef1eb8cbfaa6da6ba0e"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Track moved highlights with verifiable passage identity.",
+        "mechanism": "Separate immutable original anchors from revision-specific locations; require identity evidence rather than textual resemblance.",
+        "implementation": "Store original text, revision, offsets, and context. Reattach only when preserved passage IDs or verified edit history establish unchanged passage identity.",
+        "check": "Move a paragraph: its notes follow with recorded evidence. Duplicate an identical sentence: absent distinguishing provenance, matching remains ambiguous.",
+        "risk": "Imported revisions may lack sufficient identity evidence."
+      },
+      {
+        "action": "Require explicit resolution of changed or ambiguous passages.",
+        "mechanism": "Candidate locations remain proposals until the reader confirms them; similarity never authorizes attachment.",
+        "implementation": "Show original and candidate passages side by side, highlighting differences and displaying section paths and surrounding context. Offer confirm, reject, and unresolved.",
+        "check": "Change “must” to “must not”: require confirmation. Show identical repeated sentences as separate candidates, not one automatic match.",
+        "risk": "Frequent edits can create substantial review work."
+      },
+      {
+        "action": "Keep deleted highlights accessible with their notes.",
+        "mechanism": "A missing passage becomes an explicit historical annotation, not a forced attachment or discarded note.",
+        "implementation": "Retain original text and revision permanently with the note. Show “deleted” only with deletion evidence; otherwise show “unresolved.” Compare against the corresponding new section.",
+        "check": "Delete a highlighted paragraph: its note remains searchable, opens the original passage, and has no current attachment.",
+        "risk": "Retained passages require storage and appropriate access controls."
+      },
+      {
+        "action": "Scope attachment corrections to explicit revisions.",
+        "mechanism": "Versioned binding decisions prevent a correction in one revision from silently changing later attachments.",
+        "implementation": "Append binding events with source revision, target revision, evidence, and user decision. Default corrections to one revision; extending them requires revalidation per revision.",
+        "check": "Correct revision B after C exists: C stays unchanged. Extend toward C containing a meaning-changing edit: attachment requires review.",
+        "risk": "Revision branches and conflicting corrections complicate the interface."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "89ac932b052bd70a9b15c20c59f82dda29dd653841d41d239d1e542456a1a33f",
+  "raw_output_sha256": "b938d1fd3b5a4fd2f420a1858a1692237ce83c2e0e0b1ef230fc53660281f211"
+}

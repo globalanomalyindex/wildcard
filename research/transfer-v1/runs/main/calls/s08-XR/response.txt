@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "action": "Enforce creation and opening eligibility server-side",
+      "mechanism": "Creation requires the flag and format-write capability; opening requires format-read capability, independently of the creation flag.",
+      "implementation": "Check authorization and capabilities on every request. Bind capability caches to client installation and declaration revision, never account alone; require fresh declaration for new-format operations.",
+      "check": "Seed a capable cache entry, then request through an old client on the same account; verify no new-format payload is delivered.",
+      "risk": "Declared capabilities cannot prove parser correctness."
+    },
+    {
+      "action": "Fork incompatible changes instead of replacing legacy documents",
+      "mechanism": "Separate document identities preserve old clients’ existing access without translating unsupported content.",
+      "implementation": "Keep existing documents in their original format. Put incompatible edits in explicitly linked new-format forks; retain legacy permissions and clearly label divergence for new clients.",
+      "check": "Have old and new clients edit concurrently: the old client still reads the legacy document; incompatible fork content never enters it.",
+      "risk": "Branches diverge; merging requires explicit compatibility checks."
+    },
+    {
+      "action": "Make rollback disable creation, not existing-document access",
+      "mechanism": "Separate creation enablement from durable format support so rollback cannot strand or destroy stored documents.",
+      "implementation": "Retain compatible readers, storage, and export paths during rollback. Reject new-format creation and freeze existing new-format writes explicitly; never delete or down-convert them.",
+      "check": "Create a new-format document, roll back, then verify capable clients can reopen it unchanged, creation fails, and legacy reads still succeed.",
+      "risk": "Reader services must outlive the rollout flag."
+    }
+  ],
+  "abstention_reason": ""
+}

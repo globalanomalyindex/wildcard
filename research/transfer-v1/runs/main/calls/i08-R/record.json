@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i08-R",
+  "request_sha256": "cf9fc9f20f03e784f60120ba7d590653fa97c131cec785bb92e228408617fc36",
+  "prompt_sha256": "62730b822e5c28ef98dd83dc9bf0953213ac9b768fa64cf14b531086dd987a73",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:06:18.836512+00:00",
+  "finished_at": "2026-09-20T20:06:43.419537+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 24.58069937500001,
+      "usage": {
+        "input_tokens": 7260,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 570,
+        "reasoning_output_tokens": 153
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "3e59de94ae157f0803893de1075f52e8c2a7c203ddf364f1b18fa37a41958310",
+      "stderr_sha256": "9bb847f1448f80e66ae96cf274fcaae4817da50379edc625722492d5a2d2f3d1"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve original highlights independently of current locations",
+        "mechanism": "Immutable source records keep notes recoverable even when later revisions delete or replace their passages.",
+        "implementation": "Store original text, revision ID, range, and surrounding context; retain the source revision. Store subsequent attachment decisions separately.",
+        "check": "Delete a highlighted passage, reload, and verify its original text, revision, context, and note remain accessible and unchanged.",
+        "risk": "Retained revisions increase storage and require explicit retention policies."
+      },
+      {
+        "action": "Track unchanged passages across section moves",
+        "mechanism": "Move-aware matching uses exact text and structural evidence rather than offsets or similarity alone.",
+        "implementation": "Compare revision blocks; require an unambiguous unchanged mapping supported by section identity or surrounding anchors. Record evidence; leave competing matches unresolved.",
+        "check": "Move a paragraph and verify traceable attachment. Duplicate an identical sentence in indistinguishable contexts and verify neither candidate is automatically selected.",
+        "risk": "Missing structural evidence can leave legitimate moves unresolved."
+      },
+      {
+        "action": "Keep changed and missing passages visibly unresolved",
+        "mechanism": "Explicit states and side-by-side comparison prevent suggested passages from becoming silent note attachments.",
+        "implementation": "Show ambiguous, changed, or missing status beside the preserved original. Offer highlighted differences, candidate locations, explicit confirmation, and “keep original only.”",
+        "check": "Change “must” to “must not”; require confirmation before attachment. Delete a passage and verify its note remains readable without a replacement.",
+        "risk": "Excessive candidate suggestions can burden readers and encourage careless confirmation."
+      },
+      {
+        "action": "Scope attachment corrections to explicit revisions",
+        "mechanism": "Revision-specific decisions prevent one manual correction from silently changing attachments elsewhere in document history.",
+        "implementation": "Key decisions by highlight and target revision. Default corrections to that revision; require fresh validation for descendants and preserve superseded decisions.",
+        "check": "Correct an attachment in revision two; verify revision one stays unchanged and revision three receives no attachment without recorded validation.",
+        "risk": "Additional decision history complicates synchronization and concurrent correction handling."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "7246abfb1f57de7cbbc4b3dc81b2b5272133c018d22d755436928899b43e1894",
+  "raw_output_sha256": "bfd29afd3591e2879a8692c58b4445d43fff8f71aaa4ee85ec2374b07afcdd67"
+}

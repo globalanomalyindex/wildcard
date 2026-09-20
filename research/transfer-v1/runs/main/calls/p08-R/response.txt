@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Confirm and freeze the exact selection",
+      "mechanism": "Separate visible-page selection from all matching records; confirmation binds an immutable ID set, not a live filter.",
+      "implementation": "Provide keyboard-accessible choices labeled “25 on this page” and “600 matching records.” Resolve IDs before confirmation; persist the confirmed count and scope.",
+      "check": "Change filters and add matching records after confirmation; verify every submitted ID belongs to the frozen set. Test with a screen reader.",
+      "risk": "Resolving all IDs may require a loading state."
+    },
+    {
+      "action": "Skip records changed since scope confirmation",
+      "mechanism": "Atomic version checks distinguish concurrent edits from the user's confirmed targets without silently overwriting newer work.",
+      "implementation": "Capture versions alongside selected IDs. Add conditional writes to the bulk handler; return a conflict outcome when a version differs.",
+      "check": "Modify one selected record immediately before its write; verify it remains untouched and receives a readable conflict explanation.",
+      "risk": "Conflicts require refreshed information and explicit reconfirmation before retry."
+    },
+    {
+      "action": "Recover failures through a persistent outcome ledger",
+      "mechanism": "Per-record outcomes drive retries; operation tokens deduplicate requests when responses are lost.",
+      "implementation": "Persist confirmed IDs and outcomes under an operation token. Offer keyboard-accessible “Retry failed records”; reconcile unknown outcomes before retrying. Announce summarized progress.",
+      "check": "Disconnect after several committed writes, reload, and retry. Verify successful changes are not reapplied and requests contain only confirmed IDs.",
+      "risk": "Deduplication must be durable and atomic with each write."
+    },
+    {
+      "action": "Explain and enforce reversal eligibility per record",
+      "mechanism": "A ten-minute deadline and post-write version guard prevent reversal from overwriting subsequent changes.",
+      "implementation": "Store prior statuses, resulting versions, and policy deadlines. Reverse eligible IDs conditionally; provide keyboard-accessible record lookup with deadline or subsequent-change explanations.",
+      "check": "Test expiry and a subsequent edit, including changing back to the same status. Verify reversal fails safely and screen readers expose the reason.",
+      "risk": "Eligibility can change after display; recheck atomically during reversal."
+    }
+  ],
+  "abstention_reason": ""
+}

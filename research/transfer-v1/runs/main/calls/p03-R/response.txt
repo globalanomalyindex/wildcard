@@ -1,0 +1,26 @@
+{
+  "actions": [
+    {
+      "action": "Retry only attachments that need attention",
+      "mechanism": "Track each file independently; a stable receipt makes acceptance durable despite later network errors.",
+      "implementation": "Show accepted, failed, uploading, or unconfirmed per file. Retry failed files only; reconcile unconfirmed attempts before offering retry. Keep accepted rows unchanged.",
+      "check": "Accept three files and fail two. Retry must transmit only those two; a later connection error must not reset accepted rows.",
+      "risk": "Unconfirmed attempts require server reconciliation support; otherwise explain uncertainty instead of silently retrying."
+    },
+    {
+      "action": "Restore receipts, not local files",
+      "mechanism": "Receipt-based recovery preserves accepted attachments while clearly distinguishing unavailable browser-held selections.",
+      "implementation": "Persist only opaque receipts with a 24-hour expiry. On reopening, validate receipts and fetch display metadata; explain that unfinished uploads require reselection. Never persist file bytes.",
+      "check": "Close after partial acceptance, then reopen: accepted files remain available without uploading; unfinished selections require reselection. After expiry, no local recovery is promised.",
+      "risk": "Treat receipts as sensitive bearer references; unavailable validation must not imply missing files."
+    },
+    {
+      "action": "Make reviewed submission a single recoverable commitment",
+      "mechanism": "An explicit attachment snapshot prevents accidental omissions; server-side idempotency prevents repeated requests from creating duplicate cases.",
+      "implementation": "Require review of up to five accepted attachments. Invalidate approval after edits. Submit receipt references with a server-issued commitment token; expose completed-case status through associated receipts.",
+      "check": "Edit after approval: submission requires renewed review. Double-click, lose the response, then reopen within retention: exactly one case exists and its confirmation is recoverable.",
+      "risk": "Idempotency must identify the reviewed commitment, not globally prohibit legitimate reuse of attachments."
+    }
+  ],
+  "abstention_reason": ""
+}

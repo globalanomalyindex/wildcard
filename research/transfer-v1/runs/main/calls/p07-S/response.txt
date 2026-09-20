@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Merge independent edits using the loaded revision",
+      "mechanism": "Compare each field’s loaded value, local draft, and latest server value; flag only divergent changes.",
+      "implementation": "Retain the loaded snapshot. On stale-save rejection, fetch latest values, preserve originals, and combine nonconflicting changes into an unpublished draft.",
+      "check": "Test a stale tab edited after another tab saved: independent changes survive; divergent same-field changes are flagged, regardless of timestamps.",
+      "risk": "Missing snapshot data must block automatic merging, not guess."
+    },
+    {
+      "action": "Replace the warning with field-level resolution",
+      "mechanism": "Show only conflicting fields, with labeled local and saved versions and explicit resolution controls.",
+      "implementation": "For long text, provide inline differences and an editable combined result. For single-choice fields, require selection. Retain originals; save only as draft.",
+      "check": "Resolve text and choice conflicts entirely in one tab without dragging, window-to-window copying, retyping independent edits, or publishing.",
+      "risk": "Long differences need accessible navigation and expandable full originals."
+    },
+    {
+      "action": "Preserve recoverable drafts before reconciliation",
+      "mechanism": "A per-tab recovery journal retains both text versions even after users select a replacement.",
+      "implementation": "Store local drafts and fetched conflict versions in IndexedDB before replacing editor state. Offer in-editor restoration; require explicit deletion of recovery entries.",
+      "check": "Reload during resolution and after choosing one version; verify both original texts remain recoverable without using another window.",
+      "risk": "Storage failure must block destructive replacement; sensitive drafts need safeguards."
+    },
+    {
+      "action": "Notify other tabs without replacing their drafts",
+      "mechanism": "An advisory cross-tab message reveals newer revisions before saving; server revision checks remain authoritative.",
+      "implementation": "After draft saves, broadcast document ID and revision. Show a nonblocking review banner in sibling tabs; fetch latest values only for reconciliation.",
+      "check": "Edit the stale tab after receiving the banner; reconciliation must retain that edit. Drop messages and confirm stale-save rejection still works.",
+      "risk": "Notifications can arrive late; never treat them as locks."
+    }
+  ],
+  "abstention_reason": ""
+}

@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Check permission for the actual installation",
+      "mechanism": "An asset identifier resolves to permission for the selected venue and display dates, not universal approval.",
+      "implementation": "Print only the asset ID and verification URL on public labels. Require venue staff to select venue and dates before checking.",
+      "check": "Test authorized, withdrawn, wrong-venue, and partially authorized date ranges; only fully authorized selections pass.",
+      "risk": "Copied labels require matching the identifier to the physical print."
+    },
+    {
+      "action": "Keep withdrawals as dated, append-only events",
+      "mechanism": "Preserving grants and withdrawals separately distinguishes past authorized display from permission for future display.",
+      "implementation": "Record asset ID, affected venue/date scope, receipt time, effective time, and event ID; derive current permission without deleting earlier records.",
+      "check": "After withdrawal, verify affected future dates fail while an earlier authorized installation and its original permission evidence remain retrievable.",
+      "risk": "Incorrect effective times or scope can misclassify permission."
+    },
+    {
+      "action": "Treat offline packing as provisional",
+      "mechanism": "Cached permission supports packing decisions, but reconciliation—not packing—determines whether a print can proceed to installation.",
+      "implementation": "Cache a versioned manifest for one workday. Queue asset, destination, dates, and cached version for each packing decision; require synchronization before installation.",
+      "check": "Withdraw permission during an offline shift; synchronization must flag the packed print and block installation clearance.",
+      "risk": "If connectivity remains unavailable, installation must wait."
+    },
+    {
+      "action": "Intercept withdrawn prints already in transit",
+      "mechanism": "Shipment-level holds turn a permission change into a physical handling task without requiring contributor contact details.",
+      "implementation": "Link asset IDs to crates and destinations. On withdrawal, create a hold task for affected shipments; require receiving staff to scan and segregate flagged prints.",
+      "check": "Withdraw a packed asset; confirm its destination receives the hold and records segregation before installation clearance.",
+      "risk": "Unrecorded crate changes can send holds to the wrong shipment."
+    }
+  ],
+  "abstention_reason": ""
+}

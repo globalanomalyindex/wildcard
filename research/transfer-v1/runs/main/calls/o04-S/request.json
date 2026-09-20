@@ -1,0 +1,11 @@
+{
+  "id": "o04-S",
+  "phase": "main",
+  "task_id": "o04",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Support triage without resetting wait time\",\n  \"brief\": \"A small team routes support cases by language and product expertise. Cases bounce between teams when tags are wrong, losing their original waiting position. Urgent cases require one of two trained staff.\",\n  \"constraints\": [\n    \"Keep the original arrival timestamp permanently.\",\n    \"No case may be assigned to a worker without the required language or urgent-case qualification.\",\n    \"Staff capacity changes by shift and is available in a roster.\",\n    \"Do not infer urgency from customer status or spending.\"\n  ],\n  \"success_criteria\": [\n    \"A rerouted case retains a fair claim on service.\",\n    \"Workers can distinguish waiting-for-skill from waiting-for-information.\",\n    \"Test simultaneous arrivals, wrong tags, and a shift with no eligible urgent-case worker.\"\n  ],\n  \"non_goals\": [\n    \"Promising every case an immediate response.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "ba61e1f5c194c52b627fe386c870348ce9e1666badc4bebaa2d56087da698c8f"
+}

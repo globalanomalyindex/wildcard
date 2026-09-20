@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Compare both drafts against their shared revision",
+      "mechanism": "Three-way comparison separates independent edits from divergent changes without relying on edit timestamps.",
+      "implementation": "Retain the loaded baseline. After stale-save rejection, fetch the current revision; merge one-sided and identical changes, flagging divergent fields.",
+      "check": "Test a stale tab edited after the other tab saved: independent changes survive; divergent changes become conflicts.",
+      "risk": "Missing baselines must trigger explicit comparison, never guessed reconciliation."
+    },
+    {
+      "action": "Resolve conflicting fields inside the current tab",
+      "mechanism": "Field-specific comparisons show relevant differences while leaving automatically combined fields out of the required resolution flow.",
+      "implementation": "Show labeled local, saved, and baseline values. Provide expandable text differences, an editable result, and explicit single-choice selection; retain originals.",
+      "check": "Resolve long-text and single-choice conflicts without switching windows, dragging, copying, or retyping independent edits.",
+      "risk": "Truncated previews can conceal differences; full values must remain accessible."
+    },
+    {
+      "action": "Keep recoverable snapshots before resolving conflicts",
+      "mechanism": "Separate recovery history preserves both text versions even when users choose one or rewrite the result.",
+      "implementation": "Persist baseline, local text, fetched text, and resolution progress in per-tab recovery records before replacement; expose restore controls within the editor.",
+      "check": "Choose one version, reload, then restore the other text without another window; verify simultaneous tabs cannot overwrite recovery records.",
+      "risk": "Storage failure must block destructive replacement; retained text needs privacy safeguards."
+    },
+    {
+      "action": "Recheck the revision when saving resolved drafts",
+      "mechanism": "Revision-conditional draft saves prevent another intervening save from invalidating the user's completed resolution.",
+      "implementation": "Submit the resolved draft against its compared revision. On rejection, preserve it and repeat comparison against the newest document; keep publishing separate.",
+      "check": "Inject another save during resolution: stale submission is rejected, new conflicts appear, and no publish request occurs.",
+      "risk": "Repeated intervening saves may require another resolution pass."
+    }
+  ],
+  "abstention_reason": ""
+}

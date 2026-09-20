@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p04-S",
+  "request_sha256": "83da4f039044c20ca68535c591881c78f173d4ef29305e5c1a8553cf0930c633",
+  "prompt_sha256": "96cf2e9a412c5964fb7f3eebf796a105699ad52ce371646484377be51c023b0f",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:12:45.126144+00:00",
+  "finished_at": "2026-09-20T20:13:03.314723+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 18.187629500000014,
+      "usage": {
+        "input_tokens": 7129,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 484,
+        "reasoning_output_tokens": 39
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "bef20cf3f77987b4388df5004be1471a5459d64d8fc5cd9120e1adc4c8d7f882",
+      "stderr_sha256": "b9e5a1e97ed06cadd0baf715d87b793797c6f8768b61784c8c5f28e7aefe6db0"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Keep confirmation bound to the reviewed slot",
+        "mechanism": "Separate the selected slot’s identity from live capacity, so refreshes cannot silently substitute another booking.",
+        "implementation": "Store the slot ID and reviewed details; submit that ID to the existing atomic endpoint. Label selection as unreserved; require review if details change.",
+        "check": "Invalidate or reorder slots between selection and confirmation; verify no different slot is submitted and conflicts produce an explicit unavailable state.",
+        "risk": "Displayed capacity can still become stale before confirmation."
+      },
+      {
+        "action": "Recover without discarding booking preferences",
+        "mechanism": "Treat unavailability as a recoverable selection failure, preserving the person’s search context rather than restarting booking.",
+        "implementation": "Retain workshop, week, filters, and failed selection. Offer explicitly selectable alternatives with differences stated; never automatically select or confirm replacements.",
+        "check": "Force a confirmation conflict; verify preferences survive and keyboard users can review and explicitly confirm an alternative at 320 pixels.",
+        "risk": "Alternatives may also become unavailable; describe them without guarantees."
+      },
+      {
+        "action": "Keep controls stable during capacity refreshes",
+        "mechanism": "Update availability in place without moving focused controls, reducing repeated targeting while someone reaches confirmation.",
+        "implementation": "Keep slot order and focused elements stable; use a single-column 320-pixel layout, keyboard-operable controls, and a persistent confirmation region. Announce selected-slot changes politely.",
+        "check": "Refresh repeatedly during keyboard and pointer navigation; verify unchanged focus, no refresh-driven target movement, no horizontal scrolling, and no automatic submission.",
+        "risk": "Frequent announcements can overwhelm; suppress duplicates and unrelated updates."
+      },
+      {
+        "action": "Measure conflicts and recovery without speed targets",
+        "mechanism": "Evaluate explicit error handling and preference retention under controlled invalidation, rather than rewarding faster confirmation.",
+        "implementation": "Inject unavailability at the same review stage, independent of elapsed time. Record silent substitutions, exposed conflicts, retained preferences, and independently completed recovery; impose no countdown.",
+        "check": "Run untimed keyboard and motor-access trials at 320 pixels; require zero silent substitutions and report recovery failures separately from capacity conflicts.",
+        "risk": "Controlled trials do not estimate real-world conflict frequency."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "d81fdfd9eeb45fd401c607bdc1cc306c9bba4671036e5ec6bf2b9706a6f0ff45",
+  "raw_output_sha256": "ae4092b296f4a3efdedd18491fe17de55c34d6bc86162a4153bf1ced43eadb6f"
+}

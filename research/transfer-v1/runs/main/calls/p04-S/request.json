@@ -1,0 +1,11 @@
+{
+  "id": "p04-S",
+  "phase": "main",
+  "task_id": "p04",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Appointment slot changes during selection\",\n  \"brief\": \"A booking interface displays a week of workshop slots. Capacity updates every five seconds and can invalidate a slot while someone is reviewing it. People with motor impairments need time to reach the confirmation control.\",\n  \"constraints\": [\n    \"Selecting a slot does not reserve capacity; only the existing atomic confirmation endpoint can reserve it.\",\n    \"Do not fabricate a hold or guarantee availability.\",\n    \"No time limit may require faster motor input to gain an advantage.\",\n    \"Support keyboard navigation and a 320-pixel viewport.\"\n  ],\n  \"success_criteria\": [\n    \"A changed slot does not silently become a different booking.\",\n    \"A person can recover from an unavailable slot while retaining preferences.\",\n    \"Measure an error state without rewarding speed over access.\"\n  ],\n  \"non_goals\": [\n    \"Changing capacity policy or the reservation API.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "96cf2e9a412c5964fb7f3eebf796a105699ad52ce371646484377be51c023b0f"
+}

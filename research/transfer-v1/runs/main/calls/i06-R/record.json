@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i06-R",
+  "request_sha256": "67bb72da67bc39459399c39f8668f2d46e1b836c1fa5224b56c507c6e211cf6d",
+  "prompt_sha256": "e6e013792ed8989768cfddab8a0f4624170a13b78493180a5914111ed47f4ac5",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:08:28.622746+00:00",
+  "finished_at": "2026-09-20T20:08:46.659712+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 18.028454332999985,
+      "usage": {
+        "input_tokens": 7265,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 432,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e92c07ed98f083a9460cbeaed3f2d7ad6b6a9b9e2b458e36d48ea670416c8c72",
+      "stderr_sha256": "d12d72b1d141178222460066b0137e69dd4faadaca74118deaf1028eba3f5c48"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate naming directions from wording variants",
+        "mechanism": "Group by the constraint addressed and rationale, not spelling similarity; keep every direction visible without popularity ordering.",
+        "implementation": "Add rationale and constraint fields. Allow reversible, user-confirmed grouping; retain immutable originals and private author links. Show direction headers even when variants collapse.",
+        "check": "Submit two similar names with different rationales; verify both directions remain visible and each original suggestion is recoverable.",
+        "risk": "Forced categories could obscure suggestions addressing multiple constraints."
+      },
+      {
+        "action": "Make rejections conditional on versioned constraints",
+        "mechanism": "Link each rejection to its explanation and constraint version so changed assumptions can reopen consideration.",
+        "implementation": "Store rejection reasons and referenced constraints. On constraint edits, mark affected rejections 'needs review'; preserve previous decisions and notify reviewers without automatically reinstating names.",
+        "check": "Reject a name for a stated constraint, then change that constraint; verify review reopens while unrelated rejections remain unchanged.",
+        "risk": "Broad constraint edits may create excessive review notifications."
+      },
+      {
+        "action": "Give late suggestions an anonymous first review",
+        "mechanism": "A separate review queue conceals authorship and popularity signals until reviewers independently assess rationale and constraint fit.",
+        "implementation": "Store authorship behind access controls. Present unread suggestions in disclosed randomized order, regardless of arrival date; require a reason before marking one previously considered.",
+        "check": "Add a late alternative; verify its first-review payload excludes identity and endorsements, and dismissal requires a linked prior rationale.",
+        "risk": "Distinctive wording may reveal identity despite interface anonymity."
+      },
+      {
+        "action": "Keep hard-constraint conflicts visible beside popular names",
+        "mechanism": "Separate constraint eligibility from enthusiasm; visible conflicts prompt deliberation without selecting or automatically eliminating candidates.",
+        "implementation": "Add a constraint checklist with pass, conflict, and unknown states plus evidence. Display unresolved hard-constraint conflicts on cards; require explanations for overrides, retaining dissent.",
+        "check": "Give a popular name a documented hard-constraint conflict; verify the warning persists despite endorsements and no winner is selected.",
+        "risk": "Disputed constraints could be weaponized; allow recorded challenges."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "b1f3cc472367fbe4b444d9793746c66d00c95bc3325e5484009f973467315421",
+  "raw_output_sha256": "cf2b56a32a17cb7134ce08bfcfa5a8d687ea1f89f76ba1b3bf3cffd3a7f3850a"
+}

@@ -1,0 +1,11 @@
+{
+  "id": "p05-S",
+  "phase": "main",
+  "task_id": "p05",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Understandable plan comparison\",\n  \"brief\": \"A design-tool comparison page has six plans, each with storage, editors, guests, export limits, and optional charges. People select the apparently cheapest plan and discover a required add-on after checkout.\",\n  \"constraints\": [\n    \"All required and optional charges are available as structured input.\",\n    \"The page must show all six plans without hiding an unavailable capability.\",\n    \"Do not collect personal income or infer affordability.\",\n    \"The solution must work with screen readers and without relying on color.\"\n  ],\n  \"success_criteria\": [\n    \"A visitor can compare total cost for their stated usage.\",\n    \"An optional charge cannot be confused with a mandatory one.\",\n    \"Describe a comprehension check involving two superficially similar plans.\"\n  ],\n  \"non_goals\": [\n    \"Changing prices, discounting, or ranking users by ability to pay.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "4bd3b865208fa040c80162aa3975d179fb2ea1e81c38cca6576e3e90826f3699"
+}

@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Bind callouts to explicit evidence tests",
+      "mechanism": "Reevaluate the cited comparison after refresh instead of treating annotation text as permanently valid.",
+      "implementation": "Store metric IDs, filter IDs, date bounds, comparison type, and analyst-set tolerance per annotation. Route unsupported claims to manual review.",
+      "check": "Reverse two series’ rankings; the ranking callout must become contradicted. Shift date bounds; require scope review.",
+      "risk": "Passing a comparison cannot validate causal wording."
+    },
+    {
+      "action": "Represent unavailable evidence separately from zero",
+      "mechanism": "Explicit availability states prevent missing series or observations from silently satisfying numeric comparisons.",
+      "implementation": "Distinguish observed zero, missing observation, and absent series. Record required coverage for each evidence test; mark insufficient coverage indeterminate.",
+      "check": "Refresh with zero, null, and an omitted series separately; confirm distinct displays and indeterminate results for insufficient evidence.",
+      "risk": "Aggregation defaults may still conceal missing observations."
+    },
+    {
+      "action": "Show evidence changes in a review inbox",
+      "mechanism": "Separate changed inputs from changed conclusions so harmless revisions remain visible without implying contradiction.",
+      "implementation": "Compare each annotation’s reviewed evidence with refreshed evidence. Show before/after values, scope differences, and test status; retain unresolved changes across refreshes.",
+      "check": "Revise history within the configured tolerance; show changed evidence with an unchanged conclusion before export, not a contradiction.",
+      "risk": "Broad tolerances can conceal meaningful changes; display them."
+    },
+    {
+      "action": "Export only a reviewed, version-pinned snapshot",
+      "mechanism": "An atomic export gate prevents refreshes from invalidating annotations between review and file generation.",
+      "implementation": "Pin data and annotation versions during export. Require acknowledgment of changes; exclude or visibly qualify unresolved callouts. Embed version, metric, filter, and date metadata.",
+      "check": "Trigger refresh during export; verify the artifact contains one coherent reviewed version and identifiable provenance, never mixed snapshots.",
+      "risk": "Version identifiers alone cannot reconstruct discarded historical data."
+    }
+  ],
+  "abstention_reason": ""
+}

@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p02-R",
+  "request_sha256": "61b934030e171d8051acc9f95cb73e70b371cbe4d30a0b8cc8ce7a5a6b0e9efc",
+  "prompt_sha256": "cc231ec982b33b7da41feeccbf9e4eae9ce7eb536a33c2f597eae184343c577b",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:13:34.425575+00:00",
+  "finished_at": "2026-09-20T20:13:52.602631+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 18.175691166999968,
+      "usage": {
+        "input_tokens": 7265,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 438,
+        "reasoning_output_tokens": 83
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "108f8a67177d903cbc7f43149c572f6eb1497dd056e068f2070874a92f2d415a",
+      "stderr_sha256": "8b6ad4f782e0f0b80fd7e266367c152d7074fedbce001e41f7b21dd4c559cf04"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Preserve product focus; give removals a predictable destination.",
+        "mechanism": "Stable product identities preserve focus through reordering; a persistent results heading receives focus when the focused product disappears.",
+        "implementation": "Reuse nodes keyed by product ID. Preserve the focused control. On removal, focus the results heading with tabindex=\"-1\"; otherwise leave filter focus untouched.",
+        "check": "Reorder a retained focused product: its control stays focused. Remove it: focus reaches the heading. Filtering from a filter keeps focus there.",
+        "risk": "Replacing keyed nodes can still discard focus."
+      },
+      {
+        "action": "Separate loading, result count, and empty states.",
+        "mechanism": "A persistent visible status and polite live region distinguish pending updates from completed searches, including zero matches.",
+        "implementation": "Show “Updating results” while pending. Commit only the latest request. Within one second of arrival, display its count and update the live region.",
+        "check": "Test delayed, zero-result, and out-of-order responses. Verify count timing, distinct loading text, and screen-reader announcements without focus movement.",
+        "risk": "Rapid announcements may queue; announce only current results."
+      },
+      {
+        "action": "Offer a compact view without dropping matching products.",
+        "mechanism": "A keyboard-operated view toggle reduces card detail while retaining every matching product and access to full information.",
+        "implementation": "Keep count and view controls above results. Compact mode retains product names, distinguishing variants, prices, and detail links; preserve product order and control identities.",
+        "check": "With 200 matches, verify all 200 remain reachable in both modes. Toggle by keyboard; confirm focus stays on the toggle and variants remain distinguishable.",
+        "risk": "Removing distinguishing details can make products appear identical."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "4f447ff9e987f955f03dacddb5a1c1c58193f4fa0e260dc5af2697a07c3c8ea1",
+  "raw_output_sha256": "3e6dfab2712e12b23b9279e17389680bed7c0ec0e6865163a0cefb65459d8d7d"
+}

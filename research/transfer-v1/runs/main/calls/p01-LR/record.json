@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "p01-LR",
+  "request_sha256": "615c11a8fba6956c489fe98ef845c08cac4340b367af5bd2466bd052b6305f27",
+  "prompt_sha256": "81bb8b2963c7a21df6a731363cc84fcdeac4e1be90e08845fb5ce0f8efb4e247",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:09:34.744798+00:00",
+  "finished_at": "2026-09-20T20:10:01.704404+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 26.957840874999988,
+      "usage": {
+        "input_tokens": 7300,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 586,
+        "reasoning_output_tokens": 213
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "9d9615981599bd59bb1f06bddbd705189c8aebbe512d650c17168a6ec0ec7ee1",
+      "stderr_sha256": "bfa870c45b9cb57fee676fc93e1e7fec09d92bc13f69a5604314dbccbdd311fb"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Replace destructive timeout with a protected pause.",
+        "mechanism": "Locally saved ticket selections survive masking; a visitor-created code unlocks them without an account.",
+        "implementation": "Offer three-, six-, or ten-minute reading intervals. On expiry, mask and silence content. Retain encrypted drafts locally for fifteen minutes; require codes to resume.",
+        "check": "Test five-minute reading tasks and simulated walkaways: count reconstruction, unlock interruptions, and seconds selections remain exposed, including ten minutes offline.",
+        "risk": "Forgotten codes prevent recovery; longer intervals increase exposure before masking."
+      },
+      {
+        "action": "Collect personal details only at final checkout.",
+        "mechanism": "Separating ticket choices from sensitive checkout data limits what survives interruption without losing ticket-selection work.",
+        "implementation": "Keep personal details outside resumable drafts. Purge them on locking or starting over. Require explicit final confirmation; offline, preserve tickets without claiming payment success.",
+        "check": "Interrupt every checkout screen, then resume offline: tickets must survive, personal details must not reappear, and no unconfirmed purchase may submit.",
+        "risk": "Slow visitors may need to re-enter details after locking."
+      },
+      {
+        "action": "Make starting fresh an isolated, accessible handoff.",
+        "mechanism": "A new visitor gets a separate session, never a continuation of whichever draft was last active.",
+        "implementation": "Provide persistent “Start new visit” and locked-screen “Resume with code” controls, accessible through touch, Back/Confirm navigation, and screen reader. Handoff clears visible content, audio queues, and navigation history.",
+        "check": "Alternate two visitors offline. After starting fresh, exercise Back, Confirm, and screen reader; none may reveal or submit the previous visitor’s data.",
+        "risk": "Without identification, arrival cannot be detected; exposure remains until masking or explicit handoff."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "266494679dc48046fd7f3ade4f43816bb6da32545a4ae1f82456a163acc45d6a",
+  "raw_output_sha256": "40640f2b7f489a70b05f2aa8d3ef9791767c2bce4e4f4998edba910e12451722"
+}

@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "i01-S",
+  "request_sha256": "4dbe668225e366e454cee3aa21292097a4e86913bdb7e8ad6519eb41db46b200",
+  "prompt_sha256": "78f9016bead03829776264eebfabab5320102baace2e2d858c3c882dd4e8ea41",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:05:11.723851+00:00",
+  "finished_at": "2026-09-20T20:05:33.207566+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.482696875,
+      "usage": {
+        "input_tokens": 7128,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 519,
+        "reasoning_output_tokens": 95
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "34e3ebf325f2f48e4976c67c380283386ed62d0d18842a064ec3a82d018cda1b",
+      "stderr_sha256": "85c2b717fd6a0b4de2348bd1b0c36020b946f15a2e76c5e27a68e23fb873c453"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Separate findings by population and measurement scope",
+        "mechanism": "Structured scope distinguishes opposing findings about comparable populations from differences that a merged summary would hide.",
+        "implementation": "Store population, outcome, timeframe, finding direction, and exact passage IDs per claim; mark unspecified scope explicitly. Display comparable findings together.",
+        "check": "Load similar claims with opposing findings in adults versus adolescents; verify separate population labels and no unqualified contradiction label.",
+        "risk": "Overly rigid scope matching can conceal meaningful disagreements."
+      },
+      {
+        "action": "Distinguish counterevidence from evidence gaps",
+        "mechanism": "Explicit evidence relationships prevent absent coverage from appearing as opposition and preserve disagreement without choosing a winner.",
+        "implementation": "Label claim–passage links supporting, opposing, or scope-mismatched, with exact stored IDs. Show missing coverage separately, never as a passage-backed finding.",
+        "check": "Remove an opposing passage link; verify the claim becomes unsupported on that side, not more strongly supported on the other.",
+        "risk": "Incorrect relationship labels require passage inspection and user correction."
+      },
+      {
+        "action": "Require scoped citations before exporting briefing statements",
+        "mechanism": "A briefing validator blocks unsupported wording and exposes linked opposing findings rather than silently smoothing them away.",
+        "implementation": "Compose only from supplied passages. Require exact passage IDs per claim-bearing clause; flag broadened populations and unresolved opposing links before export.",
+        "check": "Draft “all populations benefit” from opposing adult and adolescent passages; verify export requires scoped revision and preserves both findings.",
+        "risk": "Citation presence alone cannot establish that wording faithfully represents evidence."
+      },
+      {
+        "action": "Open cited passages beside the briefing",
+        "mechanism": "An in-workspace evidence pane makes original wording and conflicting passages inspectable without interrupting briefing preparation.",
+        "implementation": "Make every claim citation open its exact stored passage, showing its ID and report label; allow supporting and opposing passages side by side.",
+        "check": "From a briefing containing opposing population-specific findings, open both citations; verify exact passage text and IDs without workspace navigation.",
+        "risk": "Highlighting excerpts too narrowly can hide qualifiers within stored passages."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "f6747fa9fc493a2120486616c16ca0b4c30b358fc21af7c5825df452a07551aa",
+  "raw_output_sha256": "002ff5135ad897ea29a68dcf981d041f39813d2a1d67b89fabdac389b63c8225"
+}

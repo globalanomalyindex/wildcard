@@ -1,0 +1,11 @@
+{
+  "id": "o05-S",
+  "phase": "main",
+  "task_id": "o05",
+  "arm": "S",
+  "count": 4,
+  "model": "gpt-6-astra",
+  "schema": "generation",
+  "prompt": "Produce up to 4 distinct, useful design or engineering actions for the task below. Explore materially different mechanisms, including non-obvious alternatives. Respect every constraint. Give executable changes in the target domain, with an implementation step and a falsifiable check. Do not claim unmeasured gains, invent supporting facts, or rename the same action several ways. State actions in the user's terms; omit donor names and analogy explanations from the answer. Fewer actions, including none, are acceptable when no additional valid action remains. Keep each action compact: aim for 60–80 words TOTAL across its five fields, never more than 110. Suggested field budgets: action 8 words, mechanism 16, implementation 22, check 20, risk 10. The 110-word maximum applies to the SUM of all five values, not to each field.\n\nTask:\n{\n  \"title\": \"Tool-library reservations when returns slip\",\n  \"brief\": \"A tool library reserves items for specific pickup windows. Borrowers sometimes return late, making the next reservation impossible. Several interchangeable items exist, but condition and accessories differ.\",\n  \"constraints\": [\n    \"No more stock may be purchased.\",\n    \"A substitution requires the next borrower's consent.\",\n    \"Only inspected returned items may be marked available.\",\n    \"Contact is permitted only through the contact preference already supplied by each borrower.\"\n  ],\n  \"success_criteria\": [\n    \"A late return causes an explicit recovery path for affected reservations.\",\n    \"Reservations do not become promises unsupported by inspected stock.\",\n    \"Measure preventable failed pickups without rewarding cancellation of difficult bookings.\"\n  ],\n  \"non_goals\": [\n    \"Penalties, credit scoring, or collecting additional personal information.\"\n  ]\n}\nReturn JSON only: {\"actions\":[{\"action\":\"...\",\"mechanism\":\"...\",\"implementation\":\"...\",\"check\":\"...\",\"risk\":\"...\"}],\"abstention_reason\":\"\"}. Use abstention_reason only to explain an empty action list. No tools or additional research.",
+  "prompt_sha256": "cda9e4f1e79c7302f09712b6f7cd906cc12e75dc4f0b36ad0b66f8925af163c9"
+}

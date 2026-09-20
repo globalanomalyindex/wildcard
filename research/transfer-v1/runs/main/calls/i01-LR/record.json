@@ -1,0 +1,64 @@
+{
+  "schema_version": 1,
+  "id": "i01-LR",
+  "request_sha256": "bf3eaeefb901851eeeb74475c24c86434944ab6bedfb6c91cc91c72b6b86342a",
+  "prompt_sha256": "296403e33d044591e159fa1e3e34f5e9a59b481ddcb76fd31f6035c1da4fa009",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:13:43.569303+00:00",
+  "finished_at": "2026-09-20T20:14:02.735399+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 19.16339029200003,
+      "usage": {
+        "input_tokens": 7264,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 506,
+        "reasoning_output_tokens": 157
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "915cc0097724ac1ac1820768b043b268ca5a057e6a5f32f773975b1dea6f75b5",
+      "stderr_sha256": "56eeeab422f452db7f51d50fe9a465dac51037edff3daf2e0a9a92802479450a"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Store findings with explicit scope and passage links",
+        "mechanism": "Structured population, outcome, timeframe, and conditions prevent similar wording from collapsing differently scoped findings.",
+        "implementation": "Require exact stored passage IDs for every claim; extract scope only from linked passages, marking unspecified dimensions explicitly.",
+        "check": "Enter similar claims with opposing findings for adults and adolescents; verify separate records, preserved populations, and rejection of nonexistent passage IDs.",
+        "risk": "Extracted scope can be wrong; make every field reviewable against its passage."
+      },
+      {
+        "action": "Show disagreement beside original passages",
+        "mechanism": "Pairwise comparison separates opposing findings within matching scopes from findings about different populations or conditions.",
+        "implementation": "Add comparison lanes for matching, different, and unresolved scopes; show opposing findings side by side with passage-ID links opening an in-workspace reader.",
+        "check": "The adult/adolescent pair must display different populations, not an unqualified contradiction; a same-population opposing pair must retain both findings.",
+        "risk": "Shared populations alone do not establish comparable methods, outcomes, or timeframes."
+      },
+      {
+        "action": "Build briefings from scope-checked evidence bundles",
+        "mechanism": "Each statement carries supporting passage IDs; a separate coverage check exposes omitted opposing evidence without treating gaps as refutation.",
+        "implementation": "Generate only from supplied passages. Flag broadened scope and omitted same-scope opposition; offer a short qualified rewrite. Track unanswered questions separately from claims.",
+        "check": "Attempt an all-populations statement from adult-only evidence; require revision. Verify opposing adolescent findings remain distinguishable and unanswered questions never become negative evidence.",
+        "risk": "Automated checks can miss implications; keep linked passages inspectable before approval."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "2bd41318d65627f5173acadde90e68d186d2dacd4681d2e686578a8a2f986294",
+  "raw_output_sha256": "ebba5e167bb5cd333a286eb6e2ce2e6deb215b4a599ae7271465a905899f8624"
+}

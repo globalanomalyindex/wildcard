@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "o02-XR",
+  "request_sha256": "6d5abce4f9cabf370b4d68c6f8b274d5a14cccc7fb3a3c185d37d118a351557b",
+  "prompt_sha256": "dc0dbfbb257ed7660e4e0c0d97eff486b595e9106f99fc0dc7e15e5b10e2052e",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:14:09.538213+00:00",
+  "finished_at": "2026-09-20T20:14:31.620993+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 22.081101999999987,
+      "usage": {
+        "input_tokens": 7261,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 546,
+        "reasoning_output_tokens": 124
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "cee0e3bb809ccf09a57b148b8f478c99ac1157382a9f6507ce528613ceb9de84",
+      "stderr_sha256": "26cd8a9f6ac105fad82c3dee2daf110ac55cc76bf4ca1e25e499fe6f0a6e9096"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Bind approvals to exact paragraph revisions",
+        "mechanism": "Approval records identify both source and translation revisions; publication rejects mismatches rather than trusting an approved flag.",
+        "implementation": "Store immutable paragraph revisions and approval tuples containing language, stable IDs, revision IDs, and reviewer. Check tuples atomically during publication.",
+        "check": "Edit a source paragraph after approval: publication must fail. An unchanged paragraph must retain its valid approval.",
+        "risk": "Restoring earlier wording must not silently restore approval."
+      },
+      {
+        "action": "Show reviewers precisely what changed",
+        "mechanism": "A compact change list directs attention, while expandable comparisons preserve details needed to judge translation accuracy.",
+        "implementation": "Compare the last approved source with the current revision by stable ID. Show source and translation differences, movement, and surrounding paragraphs.",
+        "check": "Use moved, unchanged, and substantively edited paragraphs: identify movement separately, exclude unchanged content from the change queue, and expose every edit.",
+        "risk": "Collapsed details can hide consequential punctuation or context."
+      },
+      {
+        "action": "Track context that can invalidate unchanged translations",
+        "mechanism": "Explicit context dependencies catch translations affected by changed headings, references, or placement even when their source wording stays identical.",
+        "implementation": "Record relevant heading, terminology, and reference dependencies. Flag dependent translations when these change; flag moved paragraphs for human context confirmation before publication.",
+        "check": "Move a paragraph beneath a contradictory heading: publication must pause for context review. Unrelated unchanged paragraphs must remain approved.",
+        "risk": "Missing dependencies can leave indirect effects undetected."
+      },
+      {
+        "action": "Allocate bounded review batches between two volunteers",
+        "mechanism": "One shared queue prevents duplicate effort; pinned review batches prevent approvals from drifting onto newer revisions.",
+        "implementation": "Per language, assign each affected paragraph to one volunteer and route disputed items to the other. Pin revisions; supersede tasks after further edits.",
+        "check": "Have both volunteers claim one task: only one succeeds. Edit during review: the old approval must not clear the replacement task.",
+        "risk": "Disagreements remain blocked until resolved; workload may become uneven."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "e8d385b05f82eff16fa1be564e8534d9da0111cf0325a07e47e6fe86cffe034a",
+  "raw_output_sha256": "8b2328fada27dac0b5752e2bf51d30dc2c3ab24b46525f486e70704dc27e71dc"
+}

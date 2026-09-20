@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "s05-LR",
+  "request_sha256": "9e52ce76e83405c43da447067bea27a7ae78eab786066508a510a28cb9f8a807",
+  "prompt_sha256": "e14b7d8f68cfee3da4941dd8f92b90b0b2756e36fbb69bdebf0fa083b78afecb",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:06:43.442197+00:00",
+  "finished_at": "2026-09-20T20:07:17.811706+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 34.36832725000001,
+      "usage": {
+        "input_tokens": 7265,
+        "cached_input_tokens": 5760,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 879,
+        "reasoning_output_tokens": 377
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "a1f59570a2727af72efe7f94f5afbb73f4cfd6b1455c0e2f3c061d6d047d8b71",
+      "stderr_sha256": "8fb91c860db72123ef5f7f049840c692b5d79ce0023adfb3fc814720f005bcf5"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Rotate guaranteed dispatches across customers",
+        "mechanism": "A customer round-robin ring bounds dispatch opportunities independently of estimated runtime or mean latency.",
+        "implementation": "On worker release, dispatch the head customer's oldest job; append still-backlogged customers and newly active customers at the tail.",
+        "check": "With N customers present when a customer joins the tail, verify service within N dispatches. Report mean latency separately.",
+        "risk": "Dispatch fairness does not imply equal worker-seconds; running transforms remain nonpreemptible."
+      },
+      {
+        "action": "Interleave bounded shortest-job opportunities",
+        "mechanism": "Alternate guaranteed customer turns with globally shortest-estimated-job dispatches, preserving progress regardless of estimation errors.",
+        "implementation": "Maintain one global alternation bit. Bonus dispatches must not move a still-backlogged customer backward in the fairness ring.",
+        "check": "Verify each waiting customer receives a guaranteed turn within 2N total dispatches, and oldest long jobs continue starting.",
+        "risk": "Twelve running long transforms can still delay every short job until a worker finishes."
+      },
+      {
+        "action": "Calibrate estimates without weakening fairness",
+        "mechanism": "Observed prediction errors adjust bonus-job rankings; guaranteed turns never depend on prediction accuracy.",
+        "implementation": "Store the last 100 completed runtimes with original estimates and completion times. Apply their median actual-to-estimated ratio to customer estimates.",
+        "check": "Compare corrected and original prediction errors on subsequent completions; disable correction if errors worsen. Preserve raw residuals for inspection.",
+        "risk": "Sparse or stale histories and changing workloads can make corrections misleading."
+      },
+      {
+        "action": "Replay adversarial arrivals before rollout",
+        "mechanism": "An event-driven twelve-worker simulation separates bounded customer progress from improvements in short-job latency.",
+        "implementation": "Continuously replenish one customer's sixty-second jobs; inject occasional one-second jobs from others. Test accurate, inverted, and stale estimates.",
+        "check": "Assert dispatch bounds and continued long-job starts; compare short-job p95 waiting time and overall mean latency against FIFO.",
+        "risk": "Simulation results depend on arrival assumptions; repeat with production traces before claiming gains."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "e76147d6da16f133620b75becc0460de1bfc646e7cbca6eeb99b968fb795d68f",
+  "raw_output_sha256": "847f192d6be050884c5745fe1d663aaafbfe046a3c0c6c415c5677b7c8194db7"
+}

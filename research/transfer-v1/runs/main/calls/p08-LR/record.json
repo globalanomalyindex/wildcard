@@ -1,0 +1,71 @@
+{
+  "schema_version": 1,
+  "id": "p08-LR",
+  "request_sha256": "30dff7851f11e0f8ed24c79ac2d3f29ace1fef2ad8b96550290c1eaf201c8898",
+  "prompt_sha256": "ff2e4ce5aca91ec16db629448596738a21afb865898969dafd7608ab71b15333",
+  "status": "success",
+  "error": null,
+  "started_at": "2026-09-20T20:13:21.929057+00:00",
+  "finished_at": "2026-09-20T20:13:43.515418+00:00",
+  "requested_model": "gpt-6-astra",
+  "returned_model": null,
+  "provider": "OpenAI via Codex CLI",
+  "cli_version": "codex-cli 0.154.0-alpha.6.2",
+  "reasoning_effort": "low",
+  "temperature": null,
+  "top_p": null,
+  "max_output_tokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exit_code": 0,
+      "elapsed_seconds": 21.58266783299996,
+      "usage": {
+        "input_tokens": 7274,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 607,
+        "reasoning_output_tokens": 72
+      },
+      "completed": true,
+      "tool_violation": false,
+      "events_sha256": "e565b335a16adf1fcadd15b45c34cd87a837052630e4e40d3e5fa297ffbe80b5",
+      "stderr_sha256": "39cd463c0d0ed583e6dd47a74d8f41dd72dfff8256b04b1f4844c6cca2a4b0dc"
+    }
+  ],
+  "result": {
+    "actions": [
+      {
+        "action": "Confirm and freeze the exact selection",
+        "mechanism": "Separate visible-page selection from all-match selection, then bind confirmation to an immutable list of explicit IDs.",
+        "implementation": "Provide keyboard-operable “Select these 25” and “Select all 600 matching.” Confirm count, filter summary, and target status; retain that summary during execution.",
+        "check": "With a screen reader, confirm all matches, change filters, and verify every submitted ID belongs to the original confirmed set.",
+        "risk": "If selection resolution fails, disable confirmation rather than show an estimated count."
+      },
+      {
+        "action": "Reject records changed since confirmation",
+        "mechanism": "Atomic per-record version checks prevent intervening edits from being silently overwritten during a long-running operation.",
+        "implementation": "Capture versions alongside confirmed IDs. At each write, compare the current version atomically; return a conflict outcome on mismatch.",
+        "check": "Modify one selected record between confirmation and execution. Verify that record remains untouched while unchanged records receive their requested status.",
+        "risk": "Separate preflight reads cannot close the race; backend write guards are required."
+      },
+      {
+        "action": "Recover only unsuccessful records",
+        "mechanism": "A durable outcome ledger separates successes, retryable failures, conflicts, and unresolved requests without rebuilding selection from filters.",
+        "implementation": "Persist per-ID outcomes and idempotency keys. Offer keyboard-accessible “Retry failed”; reconcile unresolved requests first, and require renewed confirmation for conflicts.",
+        "check": "Inject mixed failures and a lost response. Verify retry excludes recorded successes, uses only confirmed IDs, and announces remaining failures.",
+        "risk": "Without server-side deduplication or outcome lookup, lost responses cannot be safely retried."
+      },
+      {
+        "action": "Explain reversal eligibility per record",
+        "mechanism": "Each successful change carries its prior status, reversal deadline, and resulting version, making eligibility independently explainable.",
+        "implementation": "Atomically reverse only before the deadline and when the resulting version still matches. Show keyboard-reachable reasons: “Ten minutes elapsed” or “Record changed afterward.”",
+        "check": "Test eligible, expired, subsequently changed, and deadline-crossing reversals. Verify outcomes and screen-reader-readable explanations, including when both restrictions apply.",
+        "risk": "Displayed eligibility can become stale; execution must recheck both conditions."
+      }
+    ],
+    "abstention_reason": ""
+  },
+  "result_sha256": "6aa3c610bde6264fea6faa2e5a5045a5af3995c4ee01e166e2b5fd870cc8a6e2",
+  "raw_output_sha256": "ed876fd18a9dbf0ca73972b2cc5bc1ccd631183752969fa0ba20b3f6f1187591"
+}

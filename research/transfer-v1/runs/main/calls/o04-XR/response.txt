@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Preserve arrival-based priority across every reroute",
+      "mechanism": "Queue placement follows immutable arrival order, not the latest team transfer or tag correction.",
+      "implementation": "Store write-once arrival timestamps and stable admission sequence numbers. Order eligible cases within explicit urgency classes by these fields; record transfers separately.",
+      "check": "Simulate simultaneous arrivals and repeated wrong-tag transfers. Verify deterministic ordering and unchanged priority keys after every transfer.",
+      "risk": "Urgency classes can starve ordinary cases; monitor oldest waits."
+    },
+    {
+      "action": "Gate assignment against live qualifications and capacity",
+      "mechanism": "Atomic dispatch checks prevent routing errors and shift changes from producing ineligible or excess assignments.",
+      "implementation": "Require language, product expertise, and urgent qualification when applicable. Validate roster version and reserve capacity transactionally; retry conflicts. Derive urgency only from explicit issue criteria.",
+      "check": "Race dispatches across a shift change. With neither trained urgent worker available, verify urgent cases remain unassigned and trigger an alert.",
+      "risk": "Stale roster data can block otherwise valid assignments."
+    },
+    {
+      "action": "Expose separate skill and information blockers",
+      "mechanism": "Independent blocker flags explain stalled cases without replacing their original waiting priority.",
+      "implementation": "Display missing skills, required information, and next review owner. Allow both blockers simultaneously. Clear information blockers on receipt and restore dispatch eligibility using original arrival order.",
+      "check": "Test skill-only, information-only, and combined blockers. Verify clearing one leaves the other visible and never resets arrival time.",
+      "risk": "Unnecessary information requests could become a way to sideline cases."
+    },
+    {
+      "action": "Run bounded reviews of suspected wrong tags",
+      "mechanism": "Small, monitored correction batches address routing errors without flooding newly eligible workers or rewriting case history.",
+      "implementation": "Pilot five oldest flagged cases only when rostered review capacity exists. Confirm tags from case evidence; stop on disputed corrections. Otherwise retain cases for individual review.",
+      "check": "Seed known tagging errors; verify corrections, unchanged timestamps, and continued qualification checks. Remove review capacity and confirm batch work stops.",
+      "risk": "Incorrect corrections can cause further bouncing; keep an audit trail."
+    }
+  ],
+  "abstention_reason": ""
+}

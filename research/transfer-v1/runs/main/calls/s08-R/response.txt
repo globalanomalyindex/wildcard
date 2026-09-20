@@ -1,0 +1,33 @@
+{
+  "actions": [
+    {
+      "action": "Enforce format eligibility on the server",
+      "mechanism": "Creation requires the flag and declared write capabilities; opening requires the document's declared read capabilities.",
+      "implementation": "Persist required capabilities per document. Check authorization and capabilities on create, open, and edit; reject unsupported requests before returning document payloads.",
+      "check": "Exercise flag-on/off requests from both binaries. Old clients still open legacy documents but cannot create or receive unsupported formats.",
+      "risk": "Declared capabilities do not prove parser correctness."
+    },
+    {
+      "action": "Fork upgrades without replacing readable originals",
+      "mechanism": "Separate document identities preserve old clients' access without pretending a legacy snapshot represents newer content.",
+      "implementation": "Prohibit in-place legacy upgrades. Create an explicitly labeled new-format fork, preserving the original's content, permissions, and discoverability. Do not automatically merge unsupported edits back.",
+      "check": "During mixed-version collaboration, an old client reads and edits the original while a new client edits the fork; neither overwrites the other.",
+      "risk": "Branches diverge and require explicit reconciliation."
+    },
+    {
+      "action": "Make rollback stop creation, not erase documents",
+      "mechanism": "Separate rollout admission from durable format support so existing new documents survive flag reversal.",
+      "implementation": "On rollback, reject new-format creation and upgrades. Preserve existing bytes and metadata; retain compatible read handlers and make existing new documents explicitly read-only.",
+      "check": "Create and edit a new document, disable the flag, then verify identical content, compatible-client reopening, and rejected writes without deletion.",
+      "risk": "Removing format handlers during deployment rollback would break access."
+    },
+    {
+      "action": "Bind capability decisions to each client session",
+      "mechanism": "Prevent a newer device's cached capabilities from authorizing unsupported payloads for an older device on the same account.",
+      "implementation": "Bind capability declarations to sessions and revisions. Key cached decisions by session, capability revision, document format, and policy epoch; revalidate mismatches before serving content.",
+      "check": "Seed an old session with a newer session's cached allowance. Verify rejection of new-format payloads while legacy reads remain available.",
+      "risk": "Incorrect declarations within the same session remain undetectable."
+    }
+  ],
+  "abstention_reason": ""
+}
