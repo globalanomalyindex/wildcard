@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u02-D-final",
+  "requestSHA256": "8eb6505fbdae52b48e8a4c7ce1b0cddaf61a6e3e58cdc9b737a228d604308f88",
+  "promptSHA256": "5ad5d1c803e4f8672121581c18b53462abbc5faeb09abc36805afbcf337ba683",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:37:52.900939+00:00",
+  "finishedAt": "2026-09-20T22:38:09.816626+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.91400933288969,
+      "usage": {
+        "input_tokens": 16325,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 761,
+        "reasoning_output_tokens": 101
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "986facc6586dcc8d01a3a8bd127e8b53ef784a2629423f00f6d170f4575ca6ed",
+      "stderrSHA256": "a7219e5fd197fb1a3e9f14006a9ea284d25b02fc528d65ba0e86250783ab7314"
+    }
+  ],
+  "result": {
+    "explanation": "Each group maintains one selected panel and its current required flag. Initialization selects the first enabled panel for required groups. Events affect only the addressed valid identity; toggles replace a group selection, while an already selected panel closes only for optional groups. Enabled changes can invalidate selections, and mode/close obey requirement rules. A normalization pass removes ineligible selections and fills empty required groups using fixed panel order. Output is then derived in group order, global panel order, and sorted required-group order.",
+    "program": "function solve({config,state,event}){let s=state;if(s===null){s={e:[],r:[],o:[]};for(let i=0;i<config.panels.length;i++)s.e[i]=config.panels[i].enabled;for(let i=0;i<config.groups.length;i++){s.r[i]=config.groups[i].required;s.o[i]=null}}let G=config.groups,P=config.panels,gi=-1,pi=-1;if(event.type==='toggle'||event.type==='enabled'){for(let j=0;j<P.length;j++)if(P[j].id===event.id){pi=j;break}if(pi>=0)for(let i=0;i<G.length;i++)if(G[i].id===P[pi].group){gi=i;break}}else{for(let i=0;i<G.length;i++)if(G[i].id===event.group){gi=i;break}}if(event.type==='toggle'&&pi>=0&&s.e[pi]){if(s.o[gi]===P[pi].id){if(!s.r[gi])s.o[gi]=null}else s.o[gi]=P[pi].id}else if(event.type==='enabled'&&pi>=0)s.e[pi]=event.value;else if(event.type==='close'&&gi>=0&&!s.r[gi])s.o[gi]=null;else if(event.type==='mode'&&gi>=0)s.r[gi]=event.required;for(let i=0;i<G.length;i++){let valid=false;for(let j=0;j<P.length;j++)if(P[j].id===s.o[i]&&s.e[j]&&P[j].group===G[i].id){valid=true;break}if(!valid)s.o[i]=null;if(s.r[i]&&s.o[i]===null)for(let j=0;j<P.length;j++)if(P[j].group===G[i].id&&s.e[j]){s.o[i]=P[j].id;break}}let open={},expanded=[],unsatisfied=[];for(let i=0;i<G.length;i++)open[G[i].id]=s.o[i];for(let j=0;j<P.length;j++)for(let i=0;i<G.length;i++)if(s.o[i]===P[j].id){expanded.push(P[j].id);break}for(let i=0;i<G.length;i++)if(s.r[i]&&s.o[i]===null)unsatisfied.push(G[i].id);unsatisfied.sort();return{state:s,output:{open:open,expanded:expanded,unsatisfied:unsatisfied}}}"
+  },
+  "resultSHA256": "e00ad3ff1b4a5e91a62fbabdc36d8c1eb01347506364d88763360333e9714e11",
+  "rawOutputSHA256": "e00ad3ff1b4a5e91a62fbabdc36d8c1eb01347506364d88763360333e9714e11"
+}

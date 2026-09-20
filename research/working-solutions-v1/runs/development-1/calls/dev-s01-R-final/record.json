@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-R-final",
+  "requestSHA256": "05db6732e4556fabba96a71c60f6506aa3f15a7346869e2bc0175bbd36e09495",
+  "promptSHA256": "767f8389d372258a98a6ae4a9615a99537cf028ad3ec53d8d01a30e6eb5f37d4",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:36:09.612688+00:00",
+  "finishedAt": "2026-09-20T22:36:24.957865+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 15.343710834160447,
+      "usage": {
+        "input_tokens": 18650,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 679,
+        "reasoning_output_tokens": 288
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "c5f5ee56a3178afd013866d0731728ad6495ef70b1af73cd2c5724b2b1955b36",
+      "stderrSHA256": "18a95bc73298ee8016145ae6028ec86179ee9cf123804817a21ec9c67613b537"
+    }
+  ],
+  "result": {
+    "explanation": "A pending offer expires at the start of each event when the current time reaches its deadline; an advance first adds its duration. Matching offers collect each configured party once, and the second distinct approval connects the token. Connected sessions do not expire, while matching cancellation clears either pending or connected state.",
+    "program": "function solve({config,state,event}){let s=state==null?[0,null,null,[],null]:state,n=s[0],tok=s[1],ex=s[2],ap=s[3],con=s[4],expired=false,t=event&&event.type;if(t==='advance'){n+=event.dt}if(tok!==null&&con===null&&ex!==null&&n>=ex){tok=null;ex=null;ap=[];con=null;expired=true}let status='ignored';if(t==='offer'&&typeof event.token==='string'){tok=event.token;ex=n+config.ttl;ap=[];con=null;status='offered'}else if(t==='accept'&&typeof event.token==='string'&&event.token===tok&&con===null&&ex!==null&&config.parties.indexOf(event.party)>=0){if(ap.indexOf(event.party)>=0)status='duplicate';else{ap=ap.concat(event.party).sort();status='accepted';if(ap.length===2){con=tok;ex=null;status='connected'}}}else if(t==='cancel'&&typeof event.token==='string'&&event.token===tok&&tok!==null){tok=null;ex=null;ap=[];con=null;status='cancelled'}else if(t==='advance')status='advanced';s=[n,tok,ex,ap,con];return{state:s,output:{status,now:n,token:tok,expires:ex,approved:ap,connected:con,expired}}}"
+  },
+  "resultSHA256": "441075eb0f17a3b373e1f68f5c594309353fd737ddc9dae104d8f69caa1eae8e",
+  "rawOutputSHA256": "441075eb0f17a3b373e1f68f5c594309353fd737ddc9dae104d8f69caa1eae8e"
+}
