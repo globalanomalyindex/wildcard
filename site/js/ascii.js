@@ -1,9 +1,8 @@
 import { cksum } from "./entropy.js";
 
-// Intentionally-digital ASCII drift, in-palette, in the two small cells only. Seeded by
-// the page seed via cksum -> mulberry32, separately from the cue sampler,
-// so the initial field is reproducible. Deliberately low-fps (~12) for a digital, not-smooth
-// cadence. Static single frame under reduced motion; paused while the tab is hidden.
+// Reproducible static ASCII fields, seeded separately from the cue sampler.
+// Continuous drift requires explicit animate:true; callers must provide a user
+// control for that optional motion. It also pauses for reduced motion/hidden tabs.
 const CHARS = "01/\\|<>=+*.:- ·01  ".split("");
 const activeCells = new WeakMap();
 
@@ -18,9 +17,8 @@ function rng(seedNum) {
   };
 }
 
-export function initAscii(el, seed) {
+export function initAscii(el, seed, { animate = false } = {}) {
   activeCells.get(el)?.();
-  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   const cw = 6.7, ch = 12; // approx mono metrics at 11px
   const cols = Math.max(8, Math.floor((el.clientWidth - 18) / cw));
   const rows = Math.max(4, Math.floor((el.clientHeight - 14) / ch));
@@ -34,7 +32,9 @@ export function initAscii(el, seed) {
     el.textContent = out;
   };
   paint();
+  if (animate !== true) return () => {};
 
+  const reduced = window.matchMedia("(prefers-reduced-motion: reduce)");
   const churn = Math.max(1, Math.floor(grid.length * 0.08));
   let timer = null;
   const tick = () => {
