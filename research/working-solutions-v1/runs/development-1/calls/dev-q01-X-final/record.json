@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q01-X-final",
+  "requestSHA256": "a56c77affb6fabf75c3401a08cc153332bca46b383e394e2deb5fc7cd74f8ce1",
+  "promptSHA256": "523a34bc3251c5515ea14f6e5b8d5717bb4397e92c19c243690ce3e229ef755f",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:36:24.981227+00:00",
+  "finishedAt": "2026-09-20T22:36:39.860164+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.878377333050594,
+      "usage": {
+        "input_tokens": 23167,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 651,
+        "reasoning_output_tokens": 128
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fe330fe0df37dc266ff82a8ce54fd6f6064438c9a71bbf671ce65504307071bc",
+      "stderrSHA256": "6808f8152b5148beb8b2cdf7311ca390edb044f0df47ca862e4699cca3f66e6d"
+    }
+  ],
+  "result": {
+    "explanation": "A job is admitted only when its identifier is not pending and capacity remains. Each admitted job stores its original priority, arrival time, remaining work, and monotonic insertion rank. Effective priority is recomputed from the current clock. Runs choose highest priority, breaking ties by insertion rank; zero-budget runs still emit a served record. Cancellation and rejected additions leave work unchanged.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s==null)s={now:0,jobs:[],seq:0};var n=s.now,j=s.jobs,st,served=[];function pr(a){var v=a.p+Math.floor((n-a.a)/c.quantum);return v>c.ceiling?c.ceiling:v}function out(){var p=[],r={},q={};for(var i=0;i<j.length;i++){var a=j[i];p.push(a.id);r[a.id]=a.w;q[a.id]=pr(a)}return{now:n,pending:p,priorities:q,remaining:r,served:served,status:st}}if(e.type==='advance'){n+=e.dt;st='advanced'}else if(e.type==='add'){var k=-1;for(var i=0;i<j.length;i++)if(j[i].id===e.id){k=i;break}if(k>=0||j.length>=c.capacity)st='rejected';else{j.push({id:e.id,w:e.work,p:e.priority,a:n,k:s.seq++});st='queued'}}else if(e.type==='cancel'){var k=-1;for(var i=0;i<j.length;i++)if(j[i].id===e.id){k=i;break}if(k<0)st='missing';else{j.splice(k,1);st='cancelled'}}else if(e.type==='run'){if(j.length===0)st='empty';else{var b=0;for(var i=1;i<j.length;i++){var u=pr(j[i]),v=pr(j[b]);if(u>v||u===v&&j[i].k<j[b].k)b=i}var a=j[b],u=Math.min(e.budget,a.w);a.w-=u;var z=a.w===0;served=[{id:a.id,units:u,complete:z}];if(z)j.splice(b,1);st='served'}}s.now=n;return{state:s,output:out()}}"
+  },
+  "resultSHA256": "401ab7de088f662aea6baca44519cd7053691853a8285fddda9fb5e396cc849e",
+  "rawOutputSHA256": "401ab7de088f662aea6baca44519cd7053691853a8285fddda9fb5e396cc849e"
+}

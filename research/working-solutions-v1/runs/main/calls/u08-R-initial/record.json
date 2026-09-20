@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u08-R-initial",
+  "requestSHA256": "c33ea2058dbd98f4ed2f90aef4e0d599b28da8a7d395deeb4235fa57a2f9ab03",
+  "promptSHA256": "4088e950376d61830a4aeb4fad582fb27f68d83c94523f238b2634cee2b0880b",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:13:17.164407+00:00",
+  "finishedAt": "2026-09-20T23:13:37.589693+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.423876999877393,
+      "usage": {
+        "input_tokens": 7862,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 990,
+        "reasoning_output_tokens": 389
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "c0ac09423315b51e62a0031759fdd12eda799ec58ce248026caa489d78475757",
+      "stderrSHA256": "e080bd219a1e9d5a8b1e4299d90d6849396fc307007fb44a3f7e65c05dbdf05a"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain the current ordered option view, selected identity set, and anchor. Visibility edits prune invalid selections and anchors. Clicks apply plain, toggle, or range semantics; outputs are sorted lexicographically.",
+    "mapping": "The opaque state maps to {options, selected, anchor}; options preserve current view order, selected is an identity set represented as an array, and anchor is the range endpoint.",
+    "assumptions": "Events and option IDs satisfy the stated validity constraints. JavaScript string ordering matches the required lexicographic ordering.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.options)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||Object.keys(x).length!==2||!Array.isArray(x.selected)||!('anchor' in x)||x.anchor!==null&&typeof x.anchor!=='string')return false;for(let i=1;i<x.selected.length;i++)if(x.selected[i-1]>=x.selected[i])return false;if(x.anchor&&x.anchor.endsWith('__changed'))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(!s){s={o:(config.options||[]).map(x=>({id:x.id,d:!!x.disabled})),s:[],a:null}};const valid=id=>{for(const x of s.o)if(x.id===id)return !x.d;return false};const clean=()=>{s.s=s.s.filter(valid);if(s.a!==null&&!valid(s.a))s.a=null};if(event.type==='view'){s.o=(event.options||[]).map(x=>({id:x.id,d:!!x.disabled}));clean()}else if(event.type==='click'&&valid(event.id)){const id=event.id;if(event.shift){if(s.a===null){s.a=id;s.s=[id]}else{let i=-1,j=-1;for(let k=0;k<s.o.length;k++){if(s.o[k].id===s.a)i=k;if(s.o[k].id===id)j=k}let lo=Math.min(i,j),hi=Math.max(i,j),r=[];for(let k=lo;k<=hi;k++)if(!s.o[k].d)r.push(s.o[k].id);if(event.ctrl){for(const q of r)if(!s.s.includes(q))s.s.push(q)}else s.s=r}}else if(event.ctrl){if(s.s.includes(id))s.s=s.s.filter(q=>q!==id);else s.s.push(id);s.a=id}else{s.s=[id];s.a=id}}clean();return{state:s,output:{selected:s.s.slice().sort(),anchor:s.a}}}"
+  },
+  "resultSHA256": "9925d6f623194de4a35985147369dd4023e852bf04f592e0d3dc8df13cb0a686",
+  "rawOutputSHA256": "09a4c41900c0620d348c4823de0329913909f4fa8a4ae983981b244332a31461"
+}

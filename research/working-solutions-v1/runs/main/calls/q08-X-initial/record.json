@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q08-X-initial",
+  "requestSHA256": "99ba3018cc1bfe39a9eb95644dd10fb74fb3c9bf1e63d8b3189fe572a7781eca",
+  "promptSHA256": "87bcc2f8ba5a068c50287d1ade3c13467f55e59cd4bf713d158ecc7c8951d19b",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:10:00.057429+00:00",
+  "finishedAt": "2026-09-20T23:10:20.840220+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.781636292114854,
+      "usage": {
+        "input_tokens": 7300,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 975,
+        "reasoning_output_tokens": 246
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "0d075c5e700bdceffce09181beb2e29a5fc377b3f2e36a5c461773e3a609ef7b",
+      "stderrSHA256": "864224ff87c7f8c08a50d6635e8773f5e22a461de4abda4f19c458ee634cf121"
+    }
+  ],
+  "result": {
+    "explanation": "Each event first completes only a matching running node, then repeatedly propagates blocked status, and finally starts all currently eligible pending nodes in lexical order.",
+    "mapping": "Graph nodes map to status values; prerequisite edges determine blocked propagation and eligibility. Running nodes alone can accept completion events.",
+    "assumptions": "The supplied graph is finite, acyclic, and references only declared nodes. Event fields are valid as specified; lexical order is ordinary identifier order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&!!input.config.deps&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var d=input.config.deps,n=Object.keys(d).sort(),s={};for(var i=0;i<n.length;i++)s[n[i]='pending';for(var k=0;k<input.events.length;k++){var e=input.events[k];if((e.type==='ok'||e.type==='fail')&&s[e.id]==='running')s[e.id]=e.type==='ok'?'done':'failed';var ch=true;while(ch){ch=false;for(var j=0;j<n.length;j++)if(s[n[j]]==='pending'){var q=d[n[j]],bad=false;for(var z=0;z<q.length;z++)if(s[q[z]]==='failed'||s[q[z]]==='blocked')bad=true;if(bad){s[n[j]]='blocked';ch=true}}}var a=[];for(var j=0;j<n.length;j++)if(s[n[j]]==='pending'){var q=d[n[j]],ok=true;for(var z=0;z<q.length;z++)if(s[q[z]]!=='done')ok=false;if(ok){s[n[j]]='running';a.push(n[j])}}var want={started:a,states:{}};for(var j=0;j<n.length;j++)want.states[n[j]]=s[n[j]];var got=output[k];if(!got||JSON.stringify(got)!==JSON.stringify(want))return false}return true}",
+    "program": "function solve(x){var d=x.config.deps,n=Object.keys(d).sort(),s=x.state||{};if(!x.state)for(var i=0;i<n.length;i++)s[n[i]]='pending';var e=x.event;if((e.type==='ok'||e.type==='fail')&&s[e.id]==='running')s[e.id]=e.type==='ok'?'done':'failed';var more=true;while(more){more=false;for(var i=0;i<n.length;i++)if(s[n[i]]==='pending'){var q=d[n[i]],bad=false;for(var j=0;j<q.length;j++)if(s[q[j]]==='failed'||s[q[j]]==='blocked')bad=true;if(bad){s[n[i]]='blocked';more=true}}}var a=[];for(var i=0;i<n.length;i++)if(s[n[i]]==='pending'){var q=d[n[i]],ok=true;for(var j=0;j<q.length;j++)if(s[q[j]]!=='done')ok=false;if(ok){s[n[i]]='running';a.push(n[i])}}var v={};for(var i=0;i<n.length;i++)v[n[i]]=s[n[i]];return{state:s,output:{started:a,states:v}}}"
+  },
+  "resultSHA256": "5ae310c5022a6518963e5141f76ec309b1ce658fd349a4a6addc70afa2c02359",
+  "rawOutputSHA256": "b43be2684830d419f19e4853a30dee1ae10fda61de1d39a5de6296b90d643cd4"
+}

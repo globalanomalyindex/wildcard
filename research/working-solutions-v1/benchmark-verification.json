@@ -1,0 +1,1582 @@
+{
+  "schemaVersion": 1,
+  "kind": "pre-acquisition instrumentation validation, not model evidence",
+  "validationSeedNamespace": "preflight-v1",
+  "casesPerRegime": 64,
+  "tasks": [
+    {
+      "taskId": "q01",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "capacity_accounting_omits_second_job",
+        "equal_deadline_lifo",
+        "expiry_equality_retains_job"
+      ],
+      "referenceSourceUTF8Bytes": 779,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "d558e7aaba9cccd03eb614d3377fcba4aeb94d7465a6e87b5b25febdd9bf3776"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "6ace05d5e6c3c983415d8f18c28c8e63a1d984a82d073729c6a8511a9b5d4b8d"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2297,
+          "corpusSHA256": "ca487692ab895f253863936ec08744c0b3a1ce445bcdcbcd9d461dc7b0929567"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "f6ad9a54e568eb83b2bfce7039a1f989b686d7089311df263508b2318830bbea"
+        }
+      }
+    },
+    {
+      "taskId": "q02",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "duplicate_admitted",
+        "weighted_cursor_reset",
+        "dispatched_job_not_removed"
+      ],
+      "referenceSourceUTF8Bytes": 625,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "1ac81eefc427aa6f1d31a8ecd32065bef44a19d327fe5098b01bfcbd79b7d21d"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1472,
+          "corpusSHA256": "aa0f2a6fefb18af068a8bb0ca9ac58869974a1d180ac19d64fb978a7ae3e158e"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2206,
+          "corpusSHA256": "e8d20ec7a77fdbd439d128257817f092a5fd3551b29361a3c546a683d072f1e1"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1472,
+          "corpusSHA256": "e63ca7fa093ea18ef9107381d02be84a4b21ddb5eb3c3ebdb64e5cc9b4f0bb6d"
+        }
+      }
+    },
+    {
+      "taskId": "q03",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "replacement_resets_maximum_age",
+        "flush_retains_pending_key",
+        "replacement_keeps_old_value"
+      ],
+      "referenceSourceUTF8Bytes": 602,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "a47e0df6cbb4f82e6741d7d81ef95ff85b2fcf09362e04bde0c24dc8f714ad2d"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "0b9591359ead5af5327e82a2d4ab82e56da44716471dfab524114eadf15069ac"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2313,
+          "corpusSHA256": "b39fbf2df2759d57dd30ff8ef3efa67d558fc60f1c59890d1c55a7766f6ba6ed"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "d519be6690230970c855bb56cb76dfb6306ceeeb4b7413558e78c8f5cd2c64cc"
+        }
+      }
+    },
+    {
+      "taskId": "q04",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "conflicting_begin_acquires_resource",
+        "commit_without_prepare",
+        "commit_leaks_resource"
+      ],
+      "referenceSourceUTF8Bytes": 805,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1152,
+          "corpusSHA256": "a4144e2b48c8fa6a1c470daf453a644c17a70ff21c4baa0f3aea72c2aaf2095a"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1664,
+          "corpusSHA256": "c8876c7d26190492c3d13b8d9649168fb303ec9e811c7d6ff0d6a63921316ab3"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2527,
+          "corpusSHA256": "942bf3e87f0f4a4e292007e64348d182e8a675ccfeea9ae5a5cf8b91925407fd"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1664,
+          "corpusSHA256": "5e5f7bb0885a8e785b46768c64e8bcb1e198ab902df814a1214e85d0dbb45d08"
+        }
+      }
+    },
+    {
+      "taskId": "q05",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "closed_interval_rejects_adjacent",
+        "overlap_exceeds_capacity",
+        "cancel_keeps_reservation"
+      ],
+      "referenceSourceUTF8Bytes": 638,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "fa309e98440118f06076e74997230f13176cc04051a6d81ed235e34ada9f3f6e"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "c05e9c5b14c43caf5f02f5e732ebe781d9b6493cf6d7681af6450e958ba9ed51"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2286,
+          "corpusSHA256": "d93a711808ba9a04ecebb5206f43a92fe9b59cd3edf4dd835ed8ea6465fe333a"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "6a60c1b7ed75b74dfbabafb3f7b29aabbe180ffa0ef3223d1dfd1ce8ae78f0be"
+        }
+      }
+    },
+    {
+      "taskId": "q06",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "fractional_carry_discarded",
+        "refill_rounds_up",
+        "duplicate_refund_accepted"
+      ],
+      "referenceSourceUTF8Bytes": 693,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1088,
+          "corpusSHA256": "7aff74b70237d7437384f5e1d2cbeeeb272692f7be7b61bd5f2f7151e6e26c29"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "29d0553d5f042247235e5ee5b910eba6eb25d907c7a7a73a2cecc9264cbda4f9"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2368,
+          "corpusSHA256": "365db1a4d186e823367ded1e78b30d6c63d41ddcbb8b8d50ba2017bc9fd391e7"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "b69041b8d2d9229b3ac56a85ae38d19293de1191478b1958e75a38b4d1dfd193"
+        }
+      }
+    },
+    {
+      "taskId": "q07",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "retry_ignores_delay_floor",
+        "retry_does_not_advance_attempt",
+        "stale_success_wins"
+      ],
+      "referenceSourceUTF8Bytes": 1008,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1088,
+          "corpusSHA256": "17db871864cd13d790937806e1b7d63d44bae0eea401d125db4fadc9e1c452f2"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "d08b6083ef78edcc5a73e6e6c71f74183225028f4b90a7584c309ca0b9557bb1"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2420,
+          "corpusSHA256": "d2e99768191706bcbfa9feebc27a1457a7f83a40c50275df0d4eca5e98b5df07"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "04b37ca9ae6c8151e3cfc707738406053290fdf2ded465feb6f13bca66219bd6"
+        }
+      }
+    },
+    {
+      "taskId": "q08",
+      "family": "queue",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "dependent_starts_before_prerequisite",
+        "failure_not_transitive",
+        "terminal_node_restarts"
+      ],
+      "referenceSourceUTF8Bytes": 676,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "a891c855fdb107ca570b2b9d68558ea4a77680d53e8ee6ea49cc63aab57bcbfc"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1408,
+          "corpusSHA256": "99e654f4cfe3b2edba2c1a9e3a14a36e108ab3d8eea5d51924d11d96cf299724"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2118,
+          "corpusSHA256": "6adfc3372fa7a0e64f2be6b3d336d475bafb7273e77f8133b25e23807b7c10e0"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1408,
+          "corpusSHA256": "3590b6659d2939368fcee366f6f75427aedf30f1348e56f0d34ca3467138eb44"
+        }
+      }
+    },
+    {
+      "taskId": "dev-q01",
+      "family": "queue",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "aging_does_not_promote",
+        "partial_service_removes_job",
+        "remaining_budget_spills_to_second_job"
+      ],
+      "referenceSourceUTF8Bytes": 1057,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2112,
+          "corpusSHA256": "7e1991f2e60b873727d3be97ac2db17deac40ae0a611f7a0725fbd6a6bec228c"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "78dfbe1d1784603e36d81f69585a14cf8fbf6d9c24f9c596ca9133feb437605e"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 3072,
+          "corpusSHA256": "00f354da459352da7b9ea09ef678ae176757d3e6a29a8a9c3d65009bb5bd9acb"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "12fef7b73453faba1121c5335e5a8625ba106ccec3f515d218b80823f434c5be"
+        }
+      }
+    },
+    {
+      "taskId": "dev-q02",
+      "family": "queue",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "expiry_equality_keeps_owner",
+        "generation_reused",
+        "stale_release_releases_new_lease"
+      ],
+      "referenceSourceUTF8Bytes": 693,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2112,
+          "corpusSHA256": "8ae4e93c3ca70d3ab0d3d7a937f5f5a480177cc5123503b24c3407760be5b9cd"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "c86c1104b9d6acfd7cc67de7c0b286640693dfdd31d3dedbb175daabbfb05412"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 3072,
+          "corpusSHA256": "6c8826acd844e88cac98721238bba80913c2e96a184523e852afbcb1153e4567"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "f2d6b49fedfff6cfa5509d2092dc87c203aa926818c098a204d204944a223ec5"
+        }
+      }
+    },
+    {
+      "taskId": "c01",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "read_does_not_return_value",
+        "expiry_equality_retains_entry",
+        "bytes_ignore_inserted_size"
+      ],
+      "referenceSourceUTF8Bytes": 760,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "54c234f401813b8f74ccc7a4f4c323cb02e1fadc655440a974a874076e181946"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "90d681f496caa6b956bbb0d32a1038f706f43e3f0b22b59b94792987366fecf9"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2287,
+          "corpusSHA256": "a1dc38759bebe63127be0b8653c7ac835a307a8cbfd539d2a712a3d2bc43dfe3"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "e6a39baeb5cca6bcf309eca98659904be3536026f3a682a046a839024bc04c1d"
+        }
+      }
+    },
+    {
+      "taskId": "c02",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "duplicate_inflight_fetch",
+        "stale_reply_after_invalidation",
+        "ttl_equality_skips_refresh"
+      ],
+      "referenceSourceUTF8Bytes": 687,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1280,
+          "corpusSHA256": "68b442941a466f7b6508413190fbc6272f9931fc0f562aa7a6fa180a0145e0af"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1792,
+          "corpusSHA256": "3d32f73bd4c4b724541cb3c3bcd5b011d10d097a412d195e5eabd425a8bbe698"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2714,
+          "corpusSHA256": "60a0cf384bc8cf3ce5c3c1b075d76db41cf8406cd013a9e0c63ebc4c966fca04"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1792,
+          "corpusSHA256": "3ce0b257069976cfef39baa21e70c93ec62d674f229ab66a9dfd683b043c94de"
+        }
+      }
+    },
+    {
+      "taskId": "c03",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "restore_chooses_corrupt_newest",
+        "restore_returns_damaged_data",
+        "save_does_not_retain_snapshot"
+      ],
+      "referenceSourceUTF8Bytes": 722,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "29009d33e2275fb1533252f5ae663b1b75287cd10980588d504a2cd06c00acd4"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "eb8528583c9f102619ac0cedb69a458ccfd44d35e6229d5f7e33c851ba59394a"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2263,
+          "corpusSHA256": "f423a8b30d1c93a1995409c92dc8614f2093eca68d3fb6ac003107af05654444"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "4be2015e591c93d00efac8078e3a97d4e387c1652ccd92d7079d51bcfe360b79"
+        }
+      }
+    },
+    {
+      "taskId": "c04",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "drop_unacknowledged_history",
+        "compaction_keeps_obsolete_write",
+        "visible_value_regresses"
+      ],
+      "referenceSourceUTF8Bytes": 606,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1152,
+          "corpusSHA256": "b07b4b1f3fe305898a799a63fe8ef5a1391eed76e080268a2cc366475c18a44f"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1664,
+          "corpusSHA256": "fb6b94e3b1f8694aaf448ef8971b0efcb530d7a99f4208ae4d27d74aa621dd3d"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2493,
+          "corpusSHA256": "f10c09d08abc172a01d67de4dc4586245770b1cf393f75d0f461c9148797c224"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1664,
+          "corpusSHA256": "17edcb89079ec32263c65f464630cd2a01e7d32807b04d2e99d1231a23864e4e"
+        }
+      }
+    },
+    {
+      "taskId": "c05",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "object_key_order_not_canonical",
+        "string_number_coercion",
+        "boolean_numeric_coercion"
+      ],
+      "referenceSourceUTF8Bytes": 333,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "c24c44ae5a36c8b1d5a983eecb8429c723421713df95f93fd29e49481105c793"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "66f70e410b468ccc3d4f19bfe0fff2919a427586b11fa4ba5272dbbc31008210"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2281,
+          "corpusSHA256": "d994253f4868a3babaa4a55e3ca14009a56dae57cd7e8038eb18e53d58cdbe8a"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "5ae4c1d30ad6a642805811426bfddcb41c48c289991812e79cf0e42ddfaa099d"
+        }
+      }
+    },
+    {
+      "taskId": "c06",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "ack_without_flush_persists",
+        "stale_ack_cleans_new_write",
+        "flush_omits_current_version"
+      ],
+      "referenceSourceUTF8Bytes": 1593,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1344,
+          "corpusSHA256": "7b582603874616c6f6ec9731b818a7a43bfa6d53857616c55b27dfbf25be538b"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1856,
+          "corpusSHA256": "8be968ddf28a3f4adf475e78322238274bc69ac171b672e03aef776baf3a7a1c"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2800,
+          "corpusSHA256": "33774a340809224b264c099f96ce0c62ff3f3d4ad04ef2ff3217212a1e2769c8"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1856,
+          "corpusSHA256": "60ae30bcac17b2f9db6764c39b754e0fe7779379404d4a5b6c9501e2f6cbc0e8"
+        }
+      }
+    },
+    {
+      "taskId": "c07",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "memo_hit_recomputes",
+        "evaluation_does_not_memoize",
+        "set_returns_a_value"
+      ],
+      "referenceSourceUTF8Bytes": 785,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "54c691e3cbea6dc8576f56535d2f91f793a91485385a3f0bc1b3d049cee82833"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "c9a3f23a6fa22a70cca3fd963b765e1aa4bb61933cd5f156c798e7623799594c"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2325,
+          "corpusSHA256": "99c3a82281547dfb4d33f6934bb48e667f2bd6325b502cfc05fcf5a8b8347a4a"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "30a1b943aecc7809dcdeb7c858d764367cb2b0a13a26fef9f65706bde0fcf898"
+        }
+      }
+    },
+    {
+      "taskId": "c08",
+      "family": "cache",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "conflicting_put_accepted",
+        "partial_read_marked_complete",
+        "clear_does_not_remove_byte"
+      ],
+      "referenceSourceUTF8Bytes": 866,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1088,
+          "corpusSHA256": "d902f1366cc19a0766390abe12413af8faca4c9db732c1875fe1e874dc02b20c"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "745f488dd51e60bf580184b8b8562cf9ddbd024a29783f8beb623448c3c73cad"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2392,
+          "corpusSHA256": "cc21c13e7695db7089401569ae89742e97f047a14b996017895f73c3f7320aa0"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "2894b63c87f3c0c4e23a3b07a829459e0f4148f612d608dcfbd97195f930a696"
+        }
+      }
+    },
+    {
+      "taskId": "dev-c01",
+      "family": "cache",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "invalidation_drops_pinned_resident",
+        "tombstone_remains_readable",
+        "first_unpin_removes_tombstone"
+      ],
+      "referenceSourceUTF8Bytes": 1225,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2112,
+          "corpusSHA256": "670423e8ea6265c6021d385cad76bdb5370cba8a626531a3ab79ca955d46d143"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "3b4ec3215d29d35c1060f518db67c74986d51bf70785c9d15dfa4a49c588520f"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 3072,
+          "corpusSHA256": "bb0517c46a4db28c8944755a4e0379e7fe96e0547f77ddd52896c37b6b949e5a"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "2fbc84d51e60b313f3c999116b3bf4126e26cb4f2475be688225d73ea1c9ef49"
+        }
+      }
+    },
+    {
+      "taskId": "dev-c02",
+      "family": "cache",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "stale_rollback_changes_value",
+        "rollback_resets_revision",
+        "dropped_snapshot_id_reused"
+      ],
+      "referenceSourceUTF8Bytes": 824,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2112,
+          "corpusSHA256": "70f965a9714d4e10bae804680e64c341f2fa18c9b02f6c5d95a9d835885e144f"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "638a9a7b8509bfb00c76535f8346535d4b4c51c848bd90b5c5ca7a5a33e30806"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 3072,
+          "corpusSHA256": "7df60640ff17278597484a2a0e80595caebed9c724d80884a88e4c8ffce80bdd"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2752,
+          "corpusSHA256": "57a7bf7d0a74277107e6af58063ad81dea2098d3cb761cf6b71bb1ee7993e609"
+        }
+      }
+    },
+    {
+      "taskId": "s01",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "double_application",
+        "causal_frontier",
+        "pending_conservation"
+      ],
+      "referenceSourceUTF8Bytes": 1227,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 704,
+          "corpusSHA256": "995e2deab9912190d032512c339653c3e59548260dcdb34424de07960c359678"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 704,
+          "corpusSHA256": "1c9614c6324c7395c3e47c5dbdcaf7fbd844c9b3672a50d433d5084cb48e5ee5"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 640,
+          "corpusSHA256": "ecf58644a1d1cb8f0dddf2ff02f32057c53b96bcea010433864738c2b62c6f42"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1088,
+          "corpusSHA256": "94695976cfa28e2938935ac2e0d64d94c499ffc297b314b3972eaafe6339a4d0"
+        }
+      }
+    },
+    {
+      "taskId": "s02",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "stale_resurrection",
+        "lost_tombstone",
+        "value_fabrication"
+      ],
+      "referenceSourceUTF8Bytes": 1122,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "413f5be3ed9502684239b87861d21531e2c1430efb1bf052ad88a5989c465a2b"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "10724697b18cfe732f813e89c50771a18c844dbe14f1af7e94e5ddd25c4d8a96"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "f7cb8259e9e0b58b8ce13bb025eb64200876c10b74683228645d48d08aea243f"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1408,
+          "corpusSHA256": "3a61b5985c245b42ec45ac9adfbac8c8ce8ceb7d06dc627d1cb35b312f8351d9"
+        }
+      }
+    },
+    {
+      "taskId": "s03",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "invented_alignment",
+        "ambiguity_erasure",
+        "missing_ancestry"
+      ],
+      "referenceSourceUTF8Bytes": 1441,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 640,
+          "corpusSHA256": "bef2d3b363a46b17c2f0fe481c8ffa0c3785b2efde6da3367c8521c7a596b511"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 704,
+          "corpusSHA256": "2eea94abf87ab9b8adbb1a74c5d1745e0e5a8f221d8d81625378d73c45d58db1"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 640,
+          "corpusSHA256": "145639a7ec2391b260d74b433a6bf1487e9591ec10e6c291ee58bd9fd66c8f08"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "3349dd90a36e359928242702c909e17aabdb4394c9e7e768a16065138c94085e"
+        }
+      }
+    },
+    {
+      "taskId": "s04",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "partial_visibility",
+        "abandoned_transaction",
+        "lost_parse_failure"
+      ],
+      "referenceSourceUTF8Bytes": 2601,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 915,
+          "corpusSHA256": "91de7e9cff4b626c0e607eefa28dae85c371b8bba4951ee79c5689bfe890d3a4"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 917,
+          "corpusSHA256": "7e5f5a610de861a6a10d52253874339fc42074ff7ed405b6533ecee2fc44b187"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2097,
+          "corpusSHA256": "63cc2b25f63f7707eec003b9332c0560131bfea3c90f4d1ceac2cbfb735e5853"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1255,
+          "corpusSHA256": "99959fc9655890e729b3b06e8e8f5a0c0bd7269ffe2e225fc2a5ea2e446d7260"
+        }
+      }
+    },
+    {
+      "taskId": "s05",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "rights_creation",
+        "double_spend",
+        "lost_transfer"
+      ],
+      "referenceSourceUTF8Bytes": 1757,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "d2222598dff7c976244e1a400be95a9904d1d9146c65c12229f2a932569e3cd2"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "9b0ce76e696880ebf3642b62028bcee78b44a68938b3e478d3970855d12d10cd"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1088,
+          "corpusSHA256": "75aeb438fb93855a38ee9277a401174c1b5303ec51b8f2187e0b25ca7715ba0b"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1408,
+          "corpusSHA256": "13813d6c8993993d72a628b8bee020054959df8ae991653b4f90fe56a3f6da56"
+        }
+      }
+    },
+    {
+      "taskId": "s06",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "wrong_base_apply",
+        "stale_ack",
+        "duplicate_request"
+      ],
+      "referenceSourceUTF8Bytes": 1457,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "e4dc94f4aca5894146f6caa2900bad3ff0cad5944c17100c11886046c3fc1f4e"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "f64d87b638e3fcfa2d3713c8071d5289c14f3fa569bc6be3e273bc29e2efa4d9"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "7eaf1efa03de116cfb9a716e82f0d7ae141ef77e7e7ba7af58c082ee824904fa"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1344,
+          "corpusSHA256": "554f704d94fd617ed1ea32f753b98cfc273ce3cdd78e5bd3b870ed7df93dcd36"
+        }
+      }
+    },
+    {
+      "taskId": "s07",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "premature_finalize",
+        "overlap_double_count",
+        "transfer_identity"
+      ],
+      "referenceSourceUTF8Bytes": 1702,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "dbc17ddaa9e6912c3bf2a0d403460d4ae1e536b8015384bc0c14bd3889c725c4"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "90022b0e0dedb89c8b85b1b7ce14256385d92a4e191fe2c34683af5063635cb2"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "065af254ba8dac242d0586ae1f645db3ae9b44f37428ea31947e66dcfd02efc9"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1216,
+          "corpusSHA256": "ccb78a264e31cbd02f48012b7a06c0a9312fecee03321256e4dc36f902d023c2"
+        }
+      }
+    },
+    {
+      "taskId": "s08",
+      "family": "sync",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "lost_disjoint_edit",
+        "hidden_conflict",
+        "absence_null_collapse"
+      ],
+      "referenceSourceUTF8Bytes": 1280,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 640,
+          "corpusSHA256": "1eea2631bc6baaca4ee4e413765d8cd72e6298ce48a68aec4f99a4d7f303bd9d"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 640,
+          "corpusSHA256": "4297790236cdee8f9918471815116ad4ccd92496f32884240aeac2bc49dc7134"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 640,
+          "corpusSHA256": "5ff14fd91a11aa526ef756b26ec1206224f67d5853fe86cf939fda9690b72e6a"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "dc116bd499294c9d049081d113d2b733fec2abef331c95bd527097c7ed7e15e6"
+        }
+      }
+    },
+    {
+      "taskId": "dev-s01",
+      "family": "sync",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "duplicate_party_connects",
+        "expiry_equality_ignored",
+        "connected_session_expires"
+      ],
+      "referenceSourceUTF8Bytes": 1766,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1472,
+          "corpusSHA256": "d7db431ce85842800cc80bfc0e3b50e1f296ba6e9764dedd0ea773a5d535172a"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1472,
+          "corpusSHA256": "f56c8fb44e1f11ea451467100d57b342356119a50c2297d10f1dd8bf2a63b505"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2052,
+          "corpusSHA256": "1701b76a93f188b563d04f2b2c3aba8a62baba4f5de8036bd4f522a50fe22b8f"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1984,
+          "corpusSHA256": "50ab26a9c839ba2e4a1720f1b93b66389e9ea540df8b9d85fa6347491acb1316"
+        }
+      }
+    },
+    {
+      "taskId": "dev-s02",
+      "family": "sync",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "stale_revision_commits",
+        "unguarded_write_commits",
+        "capacity_failure_partially_writes"
+      ],
+      "referenceSourceUTF8Bytes": 1473,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1216,
+          "corpusSHA256": "44d2382d4c24de9d8dbe8043e1a50f2e49026f6287502a3321e2c3302c484953"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1216,
+          "corpusSHA256": "291517d70e1c21f2d4e10488f12c17ce33616daa8535a19dc4d51df7eec48c05"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1677,
+          "corpusSHA256": "8720b81e10ce89b0c9f3c97d081026c3b507ed51517c76e96371215224d06428"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1728,
+          "corpusSHA256": "2738c0b187a4a78b985cf0f34333ffe344635b5fc05ea00af48fe238836ff7be"
+        }
+      }
+    },
+    {
+      "taskId": "u01",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "stale_result",
+        "settlement_loading",
+        "missing_request_effect"
+      ],
+      "referenceSourceUTF8Bytes": 1427,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "4cc3044950f25d7b91c977351251e92eaa40f206b2f6dd78fd222d58c8d4b5ff"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1088,
+          "corpusSHA256": "ac28c9b94586f4e32173342446ee5fee22919b9413fe7644f6e643c24d25afb3"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "1fa101ddae119fb931c00a39e5c246ac5fe52256dc45ece0868c2bede3ff8657"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "d971fe75d576d69e7c5fe6996a3eb09e7a32d407440ab8cc50cb05efade8b384"
+        }
+      }
+    },
+    {
+      "taskId": "u02",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "scope_propagation",
+        "snapshot_boundary",
+        "one_frame_leak"
+      ],
+      "referenceSourceUTF8Bytes": 1352,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 704,
+          "corpusSHA256": "3372fa271f4d1e614d31c18fc206515f3f3fa6f01e698e738853d32b4a2327c0"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 832,
+          "corpusSHA256": "a93bb1a872cba159f6db2a8b1c9143dcfd98f11e66160686ee4a65f675e1350d"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 768,
+          "corpusSHA256": "7f2fa930126a11db04b5a629561d5b39897f80418de69a07a65584385feb35d5"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1152,
+          "corpusSHA256": "93df93d45a275f5654330bbc3fc888b088b5f1b9338840f69e32b48938613186"
+        }
+      }
+    },
+    {
+      "taskId": "u03",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "lost_focus_restore",
+        "lower_layer_interactivity",
+        "stale_completion"
+      ],
+      "referenceSourceUTF8Bytes": 1587,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 704,
+          "corpusSHA256": "b84d9910c76b6ad5878b16a2976ab8dcde82a6fc3b18aec8bfb917a70e92f41a"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 832,
+          "corpusSHA256": "ef636f90cff56f89db822c3d0e674d446679b3951ce0b3e7f6b6c0ab76595d05"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 768,
+          "corpusSHA256": "91757b9d4883edf5237adc7e5a71beec99ab699ff07e159023cb4d2d0db57f31"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1152,
+          "corpusSHA256": "589105078840a9e43c1d21da933135b8ced85da72870e55dc32417fb414b807e"
+        }
+      }
+    },
+    {
+      "taskId": "u04",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "critical_suppression",
+        "acknowledged_reappearance",
+        "normal_hysteresis"
+      ],
+      "referenceSourceUTF8Bytes": 1523,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1152,
+          "corpusSHA256": "e76ed8427766c840a1edfbf6ecd3764ecef5b12791b40fdb97b3b32c8c337928"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1216,
+          "corpusSHA256": "8c5801cdbee28be25c491c6a2a023434a0d0cbb94d1f55b123db6e8ddb4bcfbf"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1216,
+          "corpusSHA256": "6ab7f3a4709428bc0872bae463029f179de40cec71050a4ab39928cc6dbbd8b7"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1664,
+          "corpusSHA256": "9505f22401778003a7147e10cb5d3c61fbf652ba592cbeb34b09fec72f131b59"
+        }
+      }
+    },
+    {
+      "taskId": "u05",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "disabled_focus",
+        "disabled_selection",
+        "identity_loss"
+      ],
+      "referenceSourceUTF8Bytes": 1448,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 832,
+          "corpusSHA256": "d448059667c1eff0f958533b1dfb9f11f406c24db0d3aeca27bb9294d4b2b9a6"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1024,
+          "corpusSHA256": "b62ae5f14a2d1dd7a84a3143652ce79b622ef0e13fb7a8e440f7cbfe305e9d46"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "3d257633b8715c8ad038d270a4a5ab83dbdd191052b3a3c7dc42377a9fdb0176"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1280,
+          "corpusSHA256": "944f2ab142dd5e8afab07fdb4d1babd1d1cf7e84407606b6e531479b92193aae"
+        }
+      }
+    },
+    {
+      "taskId": "u06",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "stale_rollback",
+        "wrong_revision_owner",
+        "lost_pending_submission"
+      ],
+      "referenceSourceUTF8Bytes": 1514,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "e6b1f536cc84eca51fdd5340af6881b76bb265d584c08f058ce6e157fe9183af"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "37c85baaa7aefbcc6227046e46e3a9d33c556b7b201a5963b2d35fb77fd47dab"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "48f6c442cbe0a65fd81e3ba4df7f610504e8721bf750bf55e6e2ad4a57e3b878"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1344,
+          "corpusSHA256": "0b715bc348a6c2250362f801936d3c2ef3ce84409983825bd54946a3b73e998d"
+        }
+      }
+    },
+    {
+      "taskId": "u07",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "partial_group_undo",
+        "history_availability",
+        "nested_group_boundary"
+      ],
+      "referenceSourceUTF8Bytes": 1610,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1280,
+          "corpusSHA256": "b3f6a3795ff9d42aa614a29a4ed336120450a1a57c3297314cf25d7b51e1ceee"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1280,
+          "corpusSHA256": "187711884c09031f71e75743d63d641cb86ecfcc7454fa23f5bdfc68072b91a6"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1664,
+          "corpusSHA256": "ecd4041951bc4c80457efc6f230837a980af67ebdd1abdc07dbd972fb4164ae5"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 2112,
+          "corpusSHA256": "d764a473a33c44b049c06a4458919bed9cb0229fad3ba4af6ef20f8bd4a1af9a"
+        }
+      }
+    },
+    {
+      "taskId": "u08",
+      "family": "ui",
+      "split": "main",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "disabled_range_member",
+        "removed_anchor",
+        "lost_range"
+      ],
+      "referenceSourceUTF8Bytes": 1500,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 832,
+          "corpusSHA256": "89761ec0ed42a9d9faef8587abaee9f4570f71145f21b79d313617278af18042"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 960,
+          "corpusSHA256": "797043942a69132e4bc852160d96c1f444746902c99c698bd8e6f893067f7b4f"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 896,
+          "corpusSHA256": "a4b0d13e993a604a94cce5109d7d28b04505793a7a30ff188d1aa03f09bdf0c5"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1216,
+          "corpusSHA256": "f1279fd63db1d8b0bea737bbeddc2a74441b40b11d33c393b2abba70007742af"
+        }
+      }
+    },
+    {
+      "taskId": "dev-u01",
+      "family": "ui",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "tie_rounds_up",
+        "invalid_draft_commits",
+        "disabled_step_changes_value"
+      ],
+      "referenceSourceUTF8Bytes": 1657,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1344,
+          "corpusSHA256": "7d0f609b3f0019a5f551d15799620eb7b3263f270b6bbc9fbeaf675e7f4dfd53"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1536,
+          "corpusSHA256": "cd24fab481ec83665e60660cf1e65b4ca49601bdc508e53f417369cde93c6418"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1875,
+          "corpusSHA256": "73ce6ee395f6e5aaa05801daa033a87c95f7cee80064f24c0f12402e317062d2"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1856,
+          "corpusSHA256": "bdeb6c2616ce1ac0ecaa4b4f5ca5185f9f1cdf31e31fa76f916293bdaead9da5"
+        }
+      }
+    },
+    {
+      "taskId": "dev-u02",
+      "family": "ui",
+      "split": "development",
+      "publicFixtures": 4,
+      "publicFoils": 4,
+      "namedFaultsRejected": [
+        "required_toggle_closes_group",
+        "disabled_open_not_replaced",
+        "required_group_forced_closed"
+      ],
+      "referenceSourceUTF8Bytes": 1695,
+      "regimes": {
+        "ordinary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1344,
+          "corpusSHA256": "b73b25c7ff56884ec476d47fd653eb8229740437da3f1a6354ad6823db8cb6eb"
+        },
+        "boundary": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1600,
+          "corpusSHA256": "2e2c0e12bd5e9750f94bcbd10835ca4f98c312f6995d7141d2c9cf1bf784e05c"
+        },
+        "adversarial": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1850,
+          "corpusSHA256": "ccc9f611a1ed164c22619e79a988d80ef68e59ec3c9aaca30220efcade72b2f2"
+        },
+        "shift": {
+          "traces": 64,
+          "distinctInputs": 64,
+          "events": 1856,
+          "corpusSHA256": "2a319c86b83b63c4d3b8cf689ae6cafe4be536884c9a6c3fb4e78b7379e081f9"
+        }
+      }
+    }
+  ],
+  "totalTraces": 10400,
+  "generatorAndOracleSourceSHA256": {
+    "__init__.py": "532e7a9fd07087d2ac1afe4497d8db20c997fc3b1685c730f962c2ba3c940e7c",
+    "cache.py": "733f90d52f237d62863803da21393e4ffeac29f64f0917b7538880c27fac802c",
+    "common.py": "a82224635f33b90b1a2cda9b4f46c9f78580c0ebaeed121b953a48f90b360df1",
+    "queue.py": "0926372c16d67b2948b4d7b3148b542a41081ac7fbebc3ade1e1d8534f28b70b",
+    "sync.py": "0ed30bda849ecc51dc8d8ae1209d6f5be9f3921159dc41e947a5472a48d8b9d5",
+    "ui.py": "fe94907452acbe978cae940874431788c12d4c40918499cf5fbdc90200d25235"
+  },
+  "limitations": [
+    "Separately formulated reference and checker are AI-authored and may share errors; cross-author review and explicit boundary cases complement agreement checks.",
+    "Known bad-output rejection does not exhaust all possible incorrect programs.",
+    "These public validation seeds are separate from the private final study seed."
+  ]
+}

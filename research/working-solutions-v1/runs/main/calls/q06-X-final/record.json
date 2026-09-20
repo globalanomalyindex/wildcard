@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q06-X-final",
+  "requestSHA256": "7fb93c017ae43d37349d7b499f9709bed06b989f338124fc5096e3f5b063931e",
+  "promptSHA256": "8dd5c74d1d1f58a20bd6ffc3c739edd9fc384ba5130c212a793c6e19010dbe2c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:36.755106+00:00",
+  "finishedAt": "2026-09-20T23:24:47.052236+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 10.295031584100798,
+      "usage": {
+        "input_tokens": 7730,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 406,
+        "reasoning_output_tokens": 68
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "cb9266334db21745843dba31b9387594bf3bb60f41959e7547f442782eee626c",
+      "stderrSHA256": "c3a9d1014514cf54c4e99b40d99fafe66ff4fb81f917f7dcee6e3d33bfbd6bf5"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains credits, fractional carry, and reservation records in JSON state. Advances add dt*rate to carry, convert complete denominator units into capped credits, and retain the remainder. A take is accepted only once and only with sufficient credits. A valid refund restores the recorded cost up to capacity; IDs remain consumed and carry is unchanged.",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={C:config.capacity,R:config.rate,D:config.denom,c:config.capacity,b:0,q:[]};var e=event,t=e.type,status;if(t==='advance'){var n=s.b+e.dt*s.R;s.c=Math.min(s.C,s.c+Math.floor(n/s.D));s.b=n%s.D;status='advanced'}else if(t==='take'){var found=false;for(var i=0;i<s.q.length;i++)if(s.q[i].id===e.id){found=true;break}if(!found&&e.cost<=s.c){s.c-=e.cost;s.q.push({id:e.id,cost:e.cost,ref:false});status='taken'}else status='rejected'}else{var z=null;for(var j=0;j<s.q.length;j++)if(s.q[j].id===e.id){z=s.q[j];break}if(z!==null&&!z.ref){s.c=Math.min(s.C,s.c+z.cost);z.ref=true;status='refunded'}else status='ignored'}return{state:s,output:{status:status,credits:s.c,carry:s.b}}}"
+  },
+  "resultSHA256": "1fa36a9d266efc9f3a0ae2dd9c156e45417e51fd52f8fcc57c6358b568b7c668",
+  "rawOutputSHA256": "1fa36a9d266efc9f3a0ae2dd9c156e45417e51fd52f8fcc57c6358b568b7c668"
+}

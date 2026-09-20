@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-D-initial",
+  "requestSHA256": "5d30eaf2d5ed88371126203c27fbd0df0331d8d44f355ed2621a59d8960032e8",
+  "promptSHA256": "d25a984026eaa430884ef04d4a8959d80730cda2bb5e8957173c2c4ad5033b48",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:32:29.814011+00:00",
+  "finishedAt": "2026-09-20T22:32:55.473822+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 25.659836667124182,
+      "usage": {
+        "input_tokens": 14292,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1256,
+        "reasoning_output_tokens": 307
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a03c5dac617d7862243922df6bfe17b2556a49bb9ef0b8e5ff25b83dbbeb2c2c",
+      "stderrSHA256": "7dea88538df7941e65c827e8939f3de3fe02624d741d8ec6ed34115f889ff56c"
+    }
+  ],
+  "result": {
+    "explanation": "Conditional rule: process each batch only after invalidity, version, guard, and capacity checks in that order. A successful batch commits all updates atomically; version changes only when values change. I considered history-based rollback, but repeated old batches show only the current version and values matter.",
+    "mapping": "Target variables are current register values and version. Guards constrain the current snapshot; updates define one candidate snapshot; status and changed derive solely from the ordered checks.",
+    "assumptions": "Inputs satisfy the stated legal JSON bounds. JavaScript object keys represent register identities, and code-point sorting is implemented explicitly.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){let c=input.config,v=Object.assign({},c.initial),ver=0,cap=c.capacity;let eq=(a,b)=>a===b,keys=o=>Object.keys(o),sort=a=>a.sort((x,y)=>{let A=Array.from(x),B=Array.from(y),n=Math.min(A.length,B.length);for(let i=0;i<n;i++)if(A[i]!==B[i])return A[i]<B[i]?-1:1;return A.length-B.length});if(!Array.isArray(output)||output.length!==input.events.length)return false;for(let z=0;z<input.events.length;z++){let e=input.events[z],s='committed',bad=false,g=e.guards||{},u=e.updates||{};for(let k of keys(g))if(!Object.prototype.hasOwnProperty.call(v,k))bad=true;for(let k of keys(u)){if(!Object.prototype.hasOwnProperty.call(g,k)||!Object.prototype.hasOwnProperty.call(v,k)||u[k]<0)bad=true}if(bad)s='invalid';else if(e.version!==ver)s='stale';else{for(let k of keys(g))if(v[k]!==g[k])s='conflict';if(s==='committed'){let q=Object.assign({},v);for(let k of keys(u))q[k]=u[k];let sum=0;for(let k of keys(q))sum+=q[k];if(sum>cap)s='capacity';else{let ch=sort(keys(u).filter(k=>q[k]!==v[k]));if(!ch.length)s='unchanged';else{v=q;ver++;}}}}let ch=s==='committed'?sort(keys(u).filter(k=>u[k]!==undefined)):[];if(s!=='committed')ch=[];let o=output[z];if(!o||o.status!==s||o.version!==ver||JSON.stringify(o.values)!==JSON.stringify(v)||JSON.stringify(o.changed)!==JSON.stringify(ch))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={v:Object.assign({},config.initial),n:0};let v=s.v,n=s.n,g=event.guards,u=event.updates,bad=false;for(let k in g)if(!Object.prototype.hasOwnProperty.call(v,k))bad=true;for(let k in u)if(!Object.prototype.hasOwnProperty.call(g,k)||!Object.prototype.hasOwnProperty.call(v,k)||u[k]<0)bad=true;let status;if(bad)status='invalid';else if(event.version!==n)status='stale';else{status='committed';for(let k in g)if(v[k]!==g[k]){status='conflict';break}if(status==='committed'){let q=Object.assign({},v);for(let k in u)q[k]=u[k];let sum=0;for(let k in q)sum+=q[k];if(sum>config.capacity)status='capacity';else{let ch=Object.keys(q).filter(k=>q[k]!==v[k]);if(!ch.length)status='unchanged';else{v=q;n++}}}}let changed=[];if(status==='committed'){changed=Object.keys(v).filter(k=>v[k]!==s.v[k]);changed.sort((a,b)=>{let A=Array.from(a),B=Array.from(b),m=Math.min(A.length,B.length);for(let i=0;i<m;i++)if(A[i]!==B[i])return A[i]<B[i]?-1:1;return A.length-B.length})}let out={status:status,version:n,values:Object.assign({},v),changed:changed};return {state:{v:v,n:n},output:out}}"
+  },
+  "resultSHA256": "c274eba242386d916f835315bc23df66e9810f0e247e9644472a28fdd08b6767",
+  "rawOutputSHA256": "f7d3a38c8f607520b48fcc0981c0d27162736981d2e0d04f6aa1178b1e0fd166"
+}

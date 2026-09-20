@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-D-initial",
+  "requestSHA256": "5d1d14030f093622de4f37d41bffdf4834b63ade1bbd260858dd4afc2b5a85fb",
+  "promptSHA256": "b21e1874ad47dabe322a942c093ccf4279e0374f557248d9a68863b5b2f47737",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:31:13.402284+00:00",
+  "finishedAt": "2026-09-20T22:31:36.207369+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 22.902911958983168,
+      "usage": {
+        "input_tokens": 14543,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1013,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "5c134752587d413d37cdc521735abcfdd10adb2191a56f0e8e1561cba785474e",
+      "stderrSHA256": "06b2f75c869d5463f9b5e7e397032a25d02c2cc286dcaccebdcc74db59b67a2b"
+    }
+  ],
+  "result": {
+    "explanation": "The rule is: expiration is checked before each event at the event’s current time, while advance first increments time; connected sessions never expire. Acceptances affect only the current pending token and configured parties.",
+    "mapping": "config.ttl maps to the pending lease duration; config.parties maps to the two allowed approvers; state tracks now, token, expires, approved, and connected; each event maps to one documented output snapshot.",
+    "assumptions": "Inputs satisfy the stated public validity constraints. JavaScript string ordering is sufficient because configured party IDs are ASCII.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.every(function(o){return o&&typeof o==='object'&&o.connected!=='__changed'&&Array.isArray(o.approved)&&Object.keys(o).length===7})}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state||{n:0,t:null,z:null,a:[],q:null},n=s.n,t=s.t,z=s.z,a=s.a.slice(),q=s.q,expired=false,st='ignored';function clear(){t=null;z=null;a=[];q=null}function expire(){if(t!==null&&q===null&&z!==null&&n>=z){clear();expired=true}}if(e.type==='advance'){n+=e.dt;expire();st='advanced'}else{expire();if(e.type==='offer'){t=e.token;z=n+c.ttl;a=[];q=null;st='offered'}else if(e.type==='accept'){if(q===null&&t!==null&&e.token===t&&(e.party===c.parties[0]||e.party===c.parties[1])){if(a.indexOf(e.party)>=0)st='duplicate';else{a.push(e.party);a.sort();st='accepted';if(a.length===2){q=t;z=null;st='connected'}}}}else if(e.type==='cancel'&&t!==null&&e.token===t){clear();st='cancelled'}}return{state:{n:n,t:t,z:z,a:a,q:q},output:{status:st,now:n,token:t,expires:z,approved:a.slice().sort(),connected:q,expired:expired}}}"
+  },
+  "resultSHA256": "b24964115079d4552d022adc63a3b27ab94231f62843b4b4d428359277366ca9",
+  "rawOutputSHA256": "b48dfc09262d82af452a060b0c9cf49f80f6308639c1af4933d5534b356b4586"
+}

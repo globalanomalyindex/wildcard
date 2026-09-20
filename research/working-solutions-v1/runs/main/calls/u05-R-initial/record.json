@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u05-R-initial",
+  "requestSHA256": "0e4a01546dd2c1e421788dadaaaf168bafe42a6f3c236dafa8be1ecb2d421df9",
+  "promptSHA256": "fa47561da842dc69a07ae112f40938b7be75711011c1f9590809dd05c1629067",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:10:58.052786+00:00",
+  "finishedAt": "2026-09-20T23:11:20.670155+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 22.616087375208735,
+      "usage": {
+        "input_tokens": 7326,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1060,
+        "reasoning_output_tokens": 239
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "809cb84bdde90f182cc6c132518cde1fc463d8536b7ac93da7f59d314f26a52f",
+      "stderrSHA256": "4bed815e974a0cc4c8947253216642351468317b7ab9c475f187bd82a1a0ccc2"
+    }
+  ],
+  "result": {
+    "explanation": "Stable IDs determine retention and navigation. Disabled entries are never valid active or selected values; edits preserve valid identities while re-evaluating order.",
+    "mapping": "The controller state maps active and selected IDs to the current enabled option set. Keyboard navigation maps to enabled-option order, and edits map by ID rather than index.",
+    "assumptions": "Invalid clicks are no-ops. Unknown event types are no-ops. The supplied option IDs are unique as specified.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var o=input.config.options||[],a=null,s=null;function en(x,id){for(var i=0;i<x.length;i++)if(x[i].id===id)return !x[i].disabled;return false}function first(x,rev){for(var i=rev?x.length-1:0;rev?i>=0:i<x.length;rev?i--:i++)if(!x[i].disabled)return x[i].id;return null}a=first(o,false);for(var k=0;k<input.events.length;k++){var e=input.events[k];if(e.type==='options'){o=e.options||[];if(!en(o,a))a=first(o,false);if(!en(o,s))s=null}else if(e.type==='click'){if(en(o,e.id)){a=e.id;s=e.id}}else if(e.type==='key'){var z=[];for(var i=0;i<o.length;i++)if(!o[i].disabled)z.push(o[i].id);if(!z.length){a=s=null}else if(e.key==='Home')a=z[0];else if(e.key==='End')a=z[z.length-1];else if(e.key==='Enter'){if(en(o,a))s=a}else if(e.key==='ArrowDown'||e.key==='ArrowUp'){var q=z.indexOf(a);if(q<0)q=0;else q=(q+(e.key==='ArrowDown'?1:-1)+z.length)%z.length;a=z[q]}}var r=output[k];if(!r||Object.keys(r).length!==2||r.active!==a||r.selected!==s)return false}return true}",
+    "program": "function solve({config,state,event}){var o=state?state.o:(config.options||[]),a=state?state.a:null,s=state?state.s:null;function valid(id){for(var i=0;i<o.length;i++)if(o[i].id===id)return !o[i].disabled;return false}function pick(last){for(var i=last?o.length-1:0;last?i>=0:i<o.length;last?i--:i++)if(!o[i].disabled)return o[i].id;return null}if(!state)a=pick(false);if(event.type==='options'){o=event.options||[];if(!valid(a))a=pick(false);if(!valid(s))s=null}else if(event.type==='click'){if(valid(event.id)){a=event.id;s=event.id}}else if(event.type==='key'){var z=[];for(var i=0;i<o.length;i++)if(!o[i].disabled)z.push(o[i].id);if(!z.length){a=null;s=null}else if(event.key==='Home')a=z[0];else if(event.key==='End')a=z[z.length-1];else if(event.key==='Enter'){if(valid(a))s=a}else if(event.key==='ArrowDown'||event.key==='ArrowUp'){var q=z.indexOf(a);if(q<0)q=0;else q=(q+(event.key==='ArrowDown'?1:-1)+z.length)%z.length;a=z[q]}}return {state:{o:o,a:a,s:s},output:{active:a,selected:s}}}"
+  },
+  "resultSHA256": "186eac996ae40990a0e0150ee8bf93b10dd38a20ad2f40e562c655bb00ddb5ae",
+  "rawOutputSHA256": "0ee8796cc64e63b3101e409c3aebbf5509b9fef8eb051a6b6f7cd907cdc9d291"
+}

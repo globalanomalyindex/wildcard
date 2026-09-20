@@ -1,0 +1,647 @@
+{
+  "initialRecordSHA256": "add7b18c0f53db6c23a27b7c19c4d3994ae73dae8ab984c6503240e7e8845e53",
+  "firstShown": {
+    "explanation": "A pending job ages only with elapsed clock time since acceptance; service never advances time. The implementation stores arrival time and insertion order, recomputing effective priorities on each event.",
+    "mapping": "config controls capacity, ceiling, and quantum; state stores now and pending jobs; events mutate only the current scheduler state; output is a derived snapshot.",
+    "assumptions": "Inputs satisfy the published validity constraints. State is supplied unchanged between events and is initially null.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.length===input.events.length&&output.every(function(x){return x&&typeof x==='object'&&Array.isArray(x.pending)&&x.remaining&&x.priorities&&Array.isArray(x.served)&&typeof x.now==='number'&&typeof x.status==='string'})&&(!output.length||output[0].now===0)}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={now:0,jobs:[],seq:0};var jobs=s.jobs,n=s.now,status,served=[];function pri(j){var v=j.p+Math.floor((n-j.a)/c.quantum);return v>c.ceiling?c.ceiling:v}function snap(st){var p=[],r={},q={};for(var i=0;i<jobs.length;i++){var j=jobs[i];p.push(j.id);r[j.id]=j.w;q[j.id]=pri(j)}return {now:n,pending:p,priorities:q,remaining:r,served:served,status:st}}if(e.type==='advance'){n+=e.dt;status='advanced'}else if(e.type==='add'){var exists=false;for(var i=0;i<jobs.length;i++)if(jobs[i].id===e.id){exists=true;break}if(exists||jobs.length>=c.capacity)status='rejected';else{jobs.push({id:e.id,w:e.work,p:e.priority,a:n,k:s.seq++});status='queued'}}else if(e.type==='cancel'){var at=-1;for(var i=0;i<jobs.length;i++)if(jobs[i].id===e.id){at=i;break}if(at<0)status='missing';else{jobs.splice(at,1);status='cancelled'}}else if(e.type==='run'){if(!jobs.length)status='empty';else{var bi=0;for(var i=1;i<jobs.length;i++){var pi=pri(jobs[i]),pb=pri(jobs[bi]);if(pi>pb||pi===pb&&jobs[i].k<jobs[bi].k)bi=i}var j=jobs[bi],u=Math.min(e.budget,j.w);j.w-=u;var done=j.w===0;served=[{id:j.id,units:u,complete:done}];if(done)jobs.splice(bi,1);status='served'}}s.now=n;return {state:s,output:snap(status)}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "now": 0,
+            "pending": [
+              "a"
+            ],
+            "priorities": {
+              "a": 0
+            },
+            "remaining": {
+              "a": 3
+            },
+            "served": [],
+            "status": "queued"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "a"
+            ],
+            "priorities": {
+              "a": 3
+            },
+            "remaining": {
+              "a": 3
+            },
+            "served": [],
+            "status": "advanced"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "a",
+              "b"
+            ],
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "remaining": {
+              "a": 3,
+              "b": 1
+            },
+            "served": [],
+            "status": "queued"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "a",
+              "b"
+            ],
+            "priorities": {
+              "a": 3,
+              "b": 3
+            },
+            "remaining": {
+              "a": 1,
+              "b": 1
+            },
+            "served": [
+              {
+                "id": "a",
+                "units": 2,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "b"
+            ],
+            "priorities": {
+              "b": 3
+            },
+            "remaining": {
+              "b": 1
+            },
+            "served": [
+              {
+                "id": "a",
+                "units": 1,
+                "complete": true
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 9,
+            "pending": [],
+            "priorities": {},
+            "remaining": {},
+            "served": [],
+            "status": "cancelled"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "a"
+            ],
+            "priorities": {
+              "a": 1
+            },
+            "remaining": {
+              "a": 2
+            },
+            "served": [],
+            "status": "queued"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "a"
+            ],
+            "priorities": {
+              "a": 1
+            },
+            "remaining": {
+              "a": 2
+            },
+            "served": [
+              {
+                "id": "a",
+                "units": 0,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 9,
+            "pending": [],
+            "priorities": {},
+            "remaining": {},
+            "served": [
+              {
+                "id": "a",
+                "units": 2,
+                "complete": true
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 9,
+            "pending": [],
+            "priorities": {},
+            "remaining": {},
+            "served": [],
+            "status": "missing"
+          },
+          {
+            "now": 9,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 1
+            },
+            "remaining": {
+              "c": 5
+            },
+            "served": [],
+            "status": "queued"
+          },
+          {
+            "now": 11,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 1
+            },
+            "remaining": {
+              "c": 5
+            },
+            "served": [],
+            "status": "advanced"
+          },
+          {
+            "now": 11,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 1
+            },
+            "remaining": {
+              "c": 5
+            },
+            "served": [],
+            "status": "rejected"
+          },
+          {
+            "now": 12,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 5
+            },
+            "served": [],
+            "status": "advanced"
+          },
+          {
+            "now": 12,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 4
+            },
+            "served": [
+              {
+                "id": "c",
+                "units": 1,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 12,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 4
+            },
+            "served": [],
+            "status": "missing"
+          },
+          {
+            "now": 12,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 3
+            },
+            "served": [
+              {
+                "id": "c",
+                "units": 1,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 12,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 3
+            },
+            "served": [],
+            "status": "missing"
+          },
+          {
+            "now": 12,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 5
+            },
+            "served": [],
+            "status": "queued"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 5
+            },
+            "served": [],
+            "status": "advanced"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 5
+            },
+            "served": [],
+            "status": "advanced"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 5
+            },
+            "served": [],
+            "status": "missing"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 5
+            },
+            "served": [],
+            "status": "missing"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 3
+            },
+            "served": [
+              {
+                "id": "d",
+                "units": 2,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "d"
+            ],
+            "priorities": {
+              "c": 2,
+              "d": 3
+            },
+            "remaining": {
+              "c": 3,
+              "d": 1
+            },
+            "served": [
+              {
+                "id": "d",
+                "units": 2,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 3
+            },
+            "served": [
+              {
+                "id": "d",
+                "units": 1,
+                "complete": true
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 3
+            },
+            "served": [],
+            "status": "rejected"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 3
+            },
+            "served": [],
+            "status": "missing"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 3
+            },
+            "served": [],
+            "status": "rejected"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 2
+            },
+            "served": [
+              {
+                "id": "c",
+                "units": 1,
+                "complete": false
+              }
+            ],
+            "status": "served"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c"
+            ],
+            "priorities": {
+              "c": 2
+            },
+            "remaining": {
+              "c": 2
+            },
+            "served": [],
+            "status": "advanced"
+          },
+          {
+            "now": 13,
+            "pending": [
+              "c",
+              "b"
+            ],
+            "priorities": {
+              "c": 2,
+              "b": 1
+            },
+            "remaining": {
+              "c": 2,
+              "b": 5
+            },
+            "served": [],
+            "status": "queued"
+          },
+          {
+            "now": 15,
+            "pending": [
+              "c",
+              "b"
+            ],
+            "priorities": {
+              "c": 3,
+              "b": 1
+            },
+            "remaining": {
+              "c": 2,
+              "b": 5
+            },
+            "served": [],
+            "status": "advanced"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 43,
+        "outputSHA256": "6c11a63aa9677003142c95d9ed94a2dc6dd365b7c0cb5747f9e4132337c6742f",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 48,
+        "outputSHA256": "42fcc06c18212b2b1aa092ff741976553e338add000d7db7f2cea775da99b1f8",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputsOmitted": true,
+        "outputCount": 43,
+        "outputSHA256": "1241d51064b952d2f403c16e3d0673337dedcf779244a59eb277b5fa9ba97168",
+        "reason": "Uniform 4000-byte public-output feedback limit"
+      }
+    ]
+  }
+}

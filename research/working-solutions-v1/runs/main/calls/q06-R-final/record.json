@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q06-R-final",
+  "requestSHA256": "37463f874ec1a4da6a62e377da3d88162dad449b3fc4e8957d18b0ba3188213f",
+  "promptSHA256": "5ef89013b8c37dc52d0cf762a64ff7880ff42733fe4a23f76dd07a5f18aaa77e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:21:36.369870+00:00",
+  "finishedAt": "2026-09-20T23:21:49.596458+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.22470312495716,
+      "usage": {
+        "input_tokens": 7726,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 528,
+        "reasoning_output_tokens": 245
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b611688d841470b90754f39694d8f1828be9fbd44b492c09763255644fe4f858",
+      "stderrSHA256": "b279a6366237bd764c8b85c6c3fb3a82d6fc52e50f97378040a9287736be4fb5"
+    }
+  ],
+  "result": {
+    "explanation": "The implementation maintains credits, fractional carry, and a bounded array of identifier records. Advances convert accumulated rate units into credits while preserving the remainder. Takes require an unused identifier and sufficient credits; refunds restore only an active reservation, while retaining the identifier as consumed after refund.",
+    "program": "function solve({config,state,event}){var s=state||{c:config.capacity,r:0,m:[]},i,j,a,st;if(event.type==='advance'){a=s.r+event.dt*config.rate;s.c=Math.min(config.capacity,s.c+Math.floor(a/config.denom));s.r=a%config.denom;st='advanced'}else{for(i=0,j=-1;i<s.m.length;i++)if(s.m[i][0]===event.id){j=i;break}if(event.type==='take'){if(j<0&&event.cost<=s.c){s.c-=event.cost;s.m.push([event.id,event.cost]);st='taken'}else st='rejected'}else if(j>=0&&s.m[j][1]>0){s.c=Math.min(config.capacity,s.c+s.m[j][1]);s.m[j][1]=0;st='refunded'}else st='ignored'}return{state:s,output:{status:st,credits:s.c,carry:s.r}}}"
+  },
+  "resultSHA256": "929610c297a75f16265d41a734cb9803edb7cbafb885acb4b1b589a6f69101da",
+  "rawOutputSHA256": "929610c297a75f16265d41a734cb9803edb7cbafb885acb4b1b589a6f69101da"
+}

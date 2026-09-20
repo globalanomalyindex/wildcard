@@ -1,0 +1,142 @@
+{
+  "initialRecordSHA256": "0ef23d4e39db8b72aab1ac07d6f4f10e3aeef7c5c31bbc716ca304e868b40605",
+  "firstShown": {
+    "explanation": "Use a finite controller state: newest observation time, mode, warning kind/ID, hysteresis counters, and acknowledged IDs. Newer observations alone advance time; critical observations take priority unless acknowledged. Normal hysteresis operates only while enabled and no critical warning is visible.",
+    "mapping": "config thresholds map to up/down consecutive-normal counters; state stores lastTime, enabled, visible kind/id, counters, and acknowledged IDs; event types transition these variables; output projects visibility, kind, and critical ID.",
+    "assumptions": "Inputs satisfy the published validity constraints. IDs are compared by exact string equality. Initial state is null and all supplied events are processed synchronously in order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var s=null;for(var i=0;i<output.length;i++){var r=solve({config:input.config,state:s,event:input.events[i]});s=r.state;var a=r.output,b=output[i];if(!b||b.visible!==a.visible||b.kind!==a.kind||b.id!==a.id)return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={t:-1,en:true,k:null,id:null,u:0,d:0,a:[]};else{s={t:s.t,en:s.en,k:s.k,id:s.id,u:s.u,d:s.d,a:s.a.slice()}}function has(id){return s.a.indexOf(id)>=0}function reset(){s.u=0;s.d=0}if(e.type==='ack'){if(!has(e.id))s.a.push(e.id);if(s.k==='critical'&&s.id===e.id){s.k=null;s.id=null;reset()}}else if(e.type==='mode'){s.en=e.enabled;reset();if(!s.en&&s.k==='normal')s.k=null}else if(e.type==='observe'&&e.t>s.t){s.t=e.t;if(e.critical){if(!has(e.id)){s.k='critical';s.id=e.id;reset()}}else if(s.k!=='critical'&&s.en){if(e.level>=c.high){s.u++;s.d=0;if(s.u>=c.dwell){s.k='normal';s.id=null}}else if(e.level<=c.low){s.d++;s.u=0;if(s.d>=c.dwell){s.k=null;s.id=null}}else reset()}}return{state:s,output:{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": true,
+            "kind": "normal",
+            "id": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          }
+        ]
+      }
+    ]
+  }
+}

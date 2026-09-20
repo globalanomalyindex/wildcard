@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-X-initial",
+  "requestSHA256": "7c2509b9b70cb4bd122416b64f5c0a4525961d41f98cd122317bb487fe3ef0f3",
+  "promptSHA256": "cf53aa336bf8e046f8b2eac04cd25ffc38804c7dba08ce69ed4ed0a69f388c27",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:49:15.108738+00:00",
+  "finishedAt": "2026-09-20T22:49:53.487821+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 38.37909675016999,
+      "usage": {
+        "input_tokens": 7453,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1288,
+        "reasoning_output_tokens": 454
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "30a2de76320fb31f9d167b51d8ebb26d44d30490e891ffb1a3e9703fa53fde45",
+      "stderrSHA256": "78c45fd2496b5360489fa115f12511b51b87c17e6415aefe09cb2af1b9103345"
+    }
+  ],
+  "result": {
+    "explanation": "A pending offer expires at the start of each event, except advance first adds dt and then performs the expiration check. Matching accepts accumulate unique configured parties; the second party connects permanently until cancellation.",
+    "mapping": "The state stores now, token, expires, approved, connected, and status. Each output is a snapshot plus whether expiration occurred during that event.",
+    "assumptions": "Unknown operations and mismatched accepts/cancels are ignored with status ignored. Expiration clears only an unconnected pending session. Party IDs are ASCII as specified.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.ttl>0&&Array.isArray(input.config.parties)&&input.config.parties.length===2}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var p=input.config.parties,t=input.config.ttl,n=0,k=null,x=null,a=[],c=null,s='idle';for(var i=0;i<output.length;i++){var e=input.events[i],ex=false;if(e.type==='advance'){n+=e.dt;if(x!==null&&c===null&&n>=x){k=null;x=null;a=[];ex=true;s='expired'}}else if(x!==null&&c===null&&n>=x){k=null;x=null;a=[];ex=true;s='expired'}if(e.type==='offer'){k=e.token;x=n+t;a=[];c=null;s='offered'}else if(e.type==='accept'){if(c===null&&k===e.token&&p.indexOf(e.party)>=0){if(a.indexOf(e.party)>=0)s='duplicate';else{a.push(e.party);a.sort();if(a.length===2){c=k;x=null;s='connected'}else s='accepted'}}else if(!ex)s='ignored'}else if(e.type==='cancel'){if((c!==null||k!==null)&&e.token===k){k=null;x=null;a=[];c=null;s='cancelled'}else if(!ex)s='ignored'}else if(e.type==='advance')s='advanced';else if(e.type!=='offer'&&!ex)s='ignored';var q={status:s,now:n,token:k,expires:x,approved:a.slice().sort(),connected:c,expired:ex};if(JSON.stringify(q)!==JSON.stringify(output[i]))return false}return true}",
+    "program": "function solve({config,state,event}){var z=state||{now:0,token:null,expires:null,approved:[],connected:null,status:'idle'},n=z.now,k=z.token,x=z.expires,a=z.approved.slice(),c=z.connected,s=z.status,ex=false;if(event.type==='advance')n+=event.dt;if(x!==null&&c===null&&n>=x){k=null;x=null;a=[];ex=true;s='expired'}if(event.type==='offer'){k=event.token;x=n+config.ttl;a=[];c=null;s='offered'}else if(event.type==='accept'){if(c===null&&k===event.token&&config.parties.indexOf(event.party)>=0){if(a.indexOf(event.party)>=0)s='duplicate';else{a.push(event.party);a.sort();if(a.length===2){c=k;x=null;s='connected'}else s='accepted'}}else if(!ex)s='ignored'}else if(event.type==='cancel'){if((c!==null||k!==null)&&event.token===k){k=null;x=null;a=[];c=null;s='cancelled'}else if(!ex)s='ignored'}else if(event.type==='advance')s='advanced';else if(event.type!=='offer'&&!ex)s='ignored';var o={status:s,now:n,token:k,expires:x,approved:a.slice().sort(),connected:c,expired:ex};return{state:{now:n,token:k,expires:x,approved:a,connected:c,status:s},output:o}}"
+  },
+  "resultSHA256": "93017c9547fe84f79d0d2e1717c3995c996f0940a921ab1785a5887e5a2d20d8",
+  "rawOutputSHA256": "d70b6447a2a45b148c8d72adae455753b9db24297cf445b18d27e864a0942c39"
+}

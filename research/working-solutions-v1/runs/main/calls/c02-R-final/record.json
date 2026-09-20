@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c02-R-final",
+  "requestSHA256": "95db9e7d3670ce8dc60a725cafedeb997f513d538f4290dfab957db3b99cb17d",
+  "promptSHA256": "57db60eb5f0972eb5f20e443c23eb9c071a14432c9fd1182b33985b9f567f883",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:47.074096+00:00",
+  "finishedAt": "2026-09-20T23:25:00.042065+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.967342916177586,
+      "usage": {
+        "input_tokens": 8100,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 530,
+        "reasoning_output_tokens": 203
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "6c628bbde416d67e0da5f930bbbcf352658f2e8c0134e32377195211c112508a",
+      "stderrSHA256": "b99de724af29cc1542475ac55ae601373334f452685169443fc9a2970df99beb"
+    }
+  ],
+  "result": {
+    "explanation": "Implements logical time, cached values with fresh/stale visibility, single-flight refreshes, monotonic fetch tokens, matching response handling, invalidation, and sorted pending keys. State is initialized only when the host supplies null; all event outputs contain exactly value, fetch, pending, and now.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={now:0,next:1,cache:{},pending:{}};var out={value:null,fetch:[],pending:[],now:s.now};if(e.type==='advance'){s.now+=e.dt}else if(e.type==='get'){var z=s.cache[e.key],has=z!==undefined,age=has?s.now-z.t:0;if(has&&age<c.ttl+c.stale)out.value=z.v;if((!has||age>=c.ttl)&&s.pending[e.key]===undefined){var t=s.next++;s.pending[e.key]=t;out.fetch.push({key:e.key,token:t})}}else if(e.type==='resolve'){if(s.pending[e.key]===e.token){s.cache[e.key]={v:e.value,t:s.now};delete s.pending[e.key]}}else if(e.type==='reject'){if(s.pending[e.key]===e.token)delete s.pending[e.key]}else if(e.type==='invalidate'){delete s.cache[e.key];delete s.pending[e.key]}out.now=s.now;out.pending=Object.keys(s.pending).sort();return{state:s,output:out}}"
+  },
+  "resultSHA256": "8c3b12d72f5dd9055ecc0abb8375f016661723993d9aed90eb910f7f6cd61996",
+  "rawOutputSHA256": "8c3b12d72f5dd9055ecc0abb8375f016661723993d9aed90eb910f7f6cd61996"
+}

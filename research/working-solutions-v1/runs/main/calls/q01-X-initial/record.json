@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q01-X-initial",
+  "requestSHA256": "59118fcbb33d71713e6a29bd43fd6a9b25cecaf43f666c1c706d7de07232137b",
+  "promptSHA256": "9033451bb3a5e879a34c233e2fc21766f6379dcb69afda067b53515e119abc9f",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:11:26.711464+00:00",
+  "finishedAt": "2026-09-20T23:11:51.151004+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 24.438983666012064,
+      "usage": {
+        "input_tokens": 7170,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1185,
+        "reasoning_output_tokens": 394
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "3be487727efd7efec79fca2bd3eea02fefc5d60fa387ca2c4d77672f0b2595af",
+      "stderrSHA256": "9c46c6862c404d810c589148afe003d01c448e158a40cd2e95b9bd1e9d4baead"
+    }
+  ],
+  "result": {
+    "explanation": "A queued job remains eligible until its deadline, while expiration is applied before each event and immediately after time advances. Accepted jobs retain insertion order for deadline ties.",
+    "mapping": "config.capacity bounds queued bytes; state tracks now, queued jobs, and insertion sequence; event mutates only the current queue and clock; output is a snapshot after processing.",
+    "assumptions": "Events and quantities satisfy the stated public preconditions. State is trusted only as the state returned by this program.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&input.config.capacity>=1}",
+    "holds": "function holds(input,output){let c=input.config.capacity,n=0,q=[],seq=0;function exp(){q=q.filter(x=>x.d>n)}function snap(s,r){let b=0;for(let x of q)b+=x.z;return s&&output[i].status===s&&output[i].now===n&&output[i].bytes===b&&output[i].ran===r&&JSON.stringify(output[i].pending)===JSON.stringify(q.map(x=>x.id))}for(var i=0;i<input.events.length;i++){let e=input.events[i];exp();let r=null,s;if(e.type==='add'){if(q.some(x=>x.id===e.id)||e.deadline<=n||q.reduce((a,x)=>a+x.z,0)+e.size>c)s='rejected';else{q.push({id:e.id,z:e.size,d:e.deadline,k:seq++});s='accepted'}}else if(e.type==='cancel'){let j=q.findIndex(x=>x.id===e.id);if(j<0)s='missing';else{q.splice(j,1);s='cancelled'}}else if(e.type==='advance'){n+=e.dt;exp();s='advanced'}else{if(!q.length)s='empty';else{let j=0;for(let k=1;k<q.length;k++)if(q[k].d<q[j].d||q[k].d===q[j].d&&q[k].k<q[j].k)j=k;r=q[j].id;q.splice(j,1);s='ran'}}if(!snap(s,r))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,jobs:[],seq:0},q=s.jobs;function expire(){s.jobs=q=q.filter(x=>x.deadline>s.now)}function bytes(){let n=0;for(let x of q)n+=x.size;return n}expire();let t=event.type,st,ran=null;if(t==='add'){if(q.some(x=>x.id===event.id)||event.deadline<=s.now||bytes()+event.size>config.capacity)st='rejected';else{q.push({id:event.id,size:event.size,deadline:event.deadline,seq:s.seq++});st='accepted'}}else if(t==='cancel'){let i=q.findIndex(x=>x.id===event.id);if(i<0)st='missing';else{q.splice(i,1);st='cancelled'}}else if(t==='advance'){s.now+=event.dt;expire();st='advanced'}else if(t==='run'){if(!q.length)st='empty';else{let i=0;for(let j=1;j<q.length;j++)if(q[j].deadline<q[i].deadline||q[j].deadline===q[i].deadline&&q[j].seq<q[i].seq)i=j;ran=q[i].id;q.splice(i,1);st='ran'}}return{state:s,output:{status:st,ran:ran,pending:q.map(x=>x.id),bytes:bytes(),now:s.now}}}"
+  },
+  "resultSHA256": "c2078f69373861030da5a75ce2f38dc850ad6cacdb83db4d54f8059620d75463",
+  "rawOutputSHA256": "2ebaf9666dc79644e5d7f67bc81edb3f66f6e60f97734f114f934b5bc7c10248"
+}

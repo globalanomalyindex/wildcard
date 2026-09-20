@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c04-X-final",
+  "requestSHA256": "3d0a19cdb7d8b2da0eebf426a38295d51a8a2b2144f08a6b05f581800b3234f3",
+  "promptSHA256": "b91ebe7e24083b6c7ab575c0eaf7585838f80fc00b0afd3d97566431f95fffcb",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:27:09.527887+00:00",
+  "finishedAt": "2026-09-20T23:27:22.774153+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.245048207929358,
+      "usage": {
+        "input_tokens": 7768,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 562,
+        "reasoning_output_tokens": 160
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "f48f5f71eeac90cdccdfab6ee75f49554957cafc95e93e9cf78aadd007260af5",
+      "stderrSHA256": "e305b8aac55bf78c60d64be485e8d7169b712ae00275cdb1fe0f1ecf1ef68f4d"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain the sequence, retained write records, per-reader acknowledgments, and latest visible value for each key. A set appends a write and updates the view. An acknowledgment advances only when it is within the reader’s monotonic valid range. Compaction computes the minimum acknowledgment, preserves every record above it, and preserves the latest record at or below it for each key, retaining sequence order.",
+    "program": "function solve({config,state,event}){\n  if(state===null){\n    state={seq:0,log:[],acks:{},view:{}};\n    for(const r of config.readers)state.acks[r]=0;\n  }\n  if(event.type==='set'){\n    const seq=++state.seq;\n    state.log.push({seq,key:event.key,value:event.value});\n    state.view[event.key]=event.value;\n  }else if(event.type==='ack'){\n    const old=state.acks[event.reader];\n    if(old!==undefined&&old<=event.seq&&event.seq<=state.seq)\n      state.acks[event.reader]=event.seq;\n  }else if(event.type==='compact'){\n    let watermark=Infinity;\n    for(const r of config.readers)\n      if(state.acks[r]<watermark)watermark=state.acks[r];\n    const latest={};\n    for(const rec of state.log)\n      if(rec.seq<=watermark)latest[rec.key]=rec;\n    const kept=[];\n    for(const rec of state.log)\n      if(rec.seq>watermark||latest[rec.key]===rec)kept.push(rec);\n    state.log=kept;\n  }\n  return {state,output:{log:state.log.map(rec=>rec.seq),view:{...state.view}}};\n}"
+  },
+  "resultSHA256": "3f31ad06191fd6bde37d40516a2e9d8d9ea7a96e05300f4fc1fe4b29d1b54768",
+  "rawOutputSHA256": "3f31ad06191fd6bde37d40516a2e9d8d9ea7a96e05300f4fc1fe4b29d1b54768"
+}

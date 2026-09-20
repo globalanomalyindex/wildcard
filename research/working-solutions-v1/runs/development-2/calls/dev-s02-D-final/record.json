@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-D-final",
+  "requestSHA256": "61c444ba5f971d6d6578d2523a18c38481f3860763863baf708a49b1fc7b2700",
+  "promptSHA256": "860081c923ebbaf33bcf8671ada7e267d5feaf677124b4c82a4f681075ecc360",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:00:31.752855+00:00",
+  "finishedAt": "2026-09-20T23:00:44.154576+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.400320915970951,
+      "usage": {
+        "input_tokens": 9058,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 519,
+        "reasoning_output_tokens": 93
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "bb13a6b772203a65340bc71325fda0abbb2c2d211290211d3b4f8173ef14a529",
+      "stderrSHA256": "13f20a9bc61d4eaee856213110440e9878d9940d3ec3825536ef74b6c5f1a921"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain only the current register values and version. For each event, apply rejection precedence exactly: invalid structure, stale version, guard conflict, capacity overflow. On successful non-identical candidates, replace all updates atomically and increment once; identical candidates are unchanged. Changed keys are sorted by Unicode code-point order.",
+    "program": "function solve({config,state,event}){let s=state||{v:0,x:Object.assign({},config.initial),c:config.capacity},x=s.x,v=s.v,g=event.guards,u=event.updates,bad=false,k;for(k in g)if(!Object.prototype.hasOwnProperty.call(x,k))bad=true;for(k in u)if(!Object.prototype.hasOwnProperty.call(g,k)||u[k]<0)bad=true;let status=bad?'invalid':event.version!==v?'stale':'committed',changed=[];if(status==='committed'){for(k in g)if(x[k]!==g[k]){status='conflict';break}if(status==='committed'){let y=Object.assign({},x),sum=0;for(k in y)sum+=y[k];for(k in u){sum-=y[k];sum+=u[k];y[k]=u[k]}if(sum>s.c)status='capacity';else{for(k in y)if(y[k]!==x[k])changed.push(k);changed.sort((a,b)=>{let A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length);for(let i=0;i<n;i++){let d=A[i].codePointAt(0)-B[i].codePointAt(0);if(d)return d}return A.length-B.length});if(changed.length){x=y;v++}else status='unchanged'}}}if(status!=='committed')changed=[];return{state:{v:v,x:x,c:s.c},output:{status:status,version:v,values:Object.assign({},x),changed:changed}}}"
+  },
+  "resultSHA256": "8d400569435963a5862939dd3eb720637989c501da9e2c207cd2f63bf91d3ea9",
+  "rawOutputSHA256": "8d400569435963a5862939dd3eb720637989c501da9e2c207cd2f63bf91d3ea9"
+}

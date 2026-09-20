@@ -1,0 +1,379 @@
+{
+  "schema_version": "working-solutions-cards-v1",
+  "cards": [
+    {
+      "id": "c01",
+      "label": "Canal locks",
+      "relation": "Passage between regions at different levels proceeds through an intermediate chamber. The chamber matches the entrance level before admission, is isolated while its level changes, and matches the departure level before release.",
+      "assumptions": [
+        "The chamber can be isolated from each neighboring region.",
+        "Level differences and the states of the gates are observable."
+      ],
+      "boundary": "Simultaneous open connections bypass the intermediate isolation. An unobserved level difference does not establish that opening a gate is appropriate.",
+      "source_fact": "USACE describes raising and lowering vessels by closing lock gates, filling or emptying the chamber, and opening the gates after levels equalize.",
+      "sources": [
+        {
+          "title": "Tulsa District Navigation: Locking",
+          "publisher": "U.S. Army Corps of Engineers",
+          "url": "https://www.swt.usace.army.mil/Missions/Navigation/Locking.aspx"
+        }
+      ],
+      "tags": [
+        "isolation",
+        "ordering",
+        "reversibility"
+      ]
+    },
+    {
+      "id": "c02",
+      "label": "Seed banking",
+      "relation": "Preserving a reserve and preserving its ability to reactivate are different conditions. Suitable material remains in controlled storage, while periodic sample recovery provides evidence of continued viability. Duplicate holdings reduce dependence on one location.",
+      "assumptions": [
+        "The material tolerates the chosen storage treatment.",
+        "Samples provide relevant evidence about the collection they represent.",
+        "Duplicate collections remain identifiable as corresponding holdings."
+      ],
+      "boundary": "Some material cannot survive drying or freezing. Successful retention alone does not demonstrate viability, and sampled viability is not certainty about every stored item.",
+      "source_fact": "Kew stores suitable dried seeds in cold vaults, periodically tests germination, and commonly duplicates holdings in their country of origin. Some seeds do not tolerate conventional storage.",
+      "sources": [
+        {
+          "title": "How to preserve seeds for the future",
+          "publisher": "Royal Botanic Gardens, Kew",
+          "url": "https://www.kew.org/read-and-watch/seed-collecting-msb"
+        }
+      ],
+      "tags": [
+        "retention",
+        "recovery",
+        "identity"
+      ]
+    },
+    {
+      "id": "c03",
+      "label": "Dendrochronology",
+      "relation": "Overlapping sequences can be aligned by distinctive patterns spanning several observations. Cross-comparison can reveal missing or extra local observations that a simple position count would treat as elapsed intervals.",
+      "assumptions": [
+        "The sequences share a comparable underlying history.",
+        "The overlap contains enough distinguishing structure to support alignment."
+      ],
+      "boundary": "Repeated patterns or insufficient overlap can support several alignments. A single coincident observation does not establish a unique chronological match.",
+      "source_fact": "NOAA describes crossdating tree-ring patterns from several trees to account for missing or extra rings and align samples from different periods.",
+      "sources": [
+        {
+          "title": "Be a Tree Ring Detective",
+          "publisher": "NOAA",
+          "url": "https://oceanservice.noaa.gov/education/dyw-tree-detective.html"
+        }
+      ],
+      "tags": [
+        "identity",
+        "ordering",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "c04",
+      "label": "Wetland flood storage",
+      "relation": "Temporary storage and slow release can spread an incoming surge over time and reduce a downstream peak. In a simplified flow balance, retained quantity changes with inflow and outflow; delaying movement does not by itself remove the incoming quantity.",
+      "assumptions": [
+        "Storage has finite available capacity.",
+        "Release or another accounted outflow can restore capacity between surges.",
+        "Any other gain or loss is included in the flow balance."
+      ],
+      "boundary": "Storage alone cannot absorb a sustained excess of inflow indefinitely. A reduced peak is not evidence that the total incoming quantity disappeared.",
+      "source_fact": "EPA describes wetlands trapping and slowly releasing water, slowing runoff, and storing peak flows. The finite-capacity balance is an explicitly stated abstraction of storage behavior.",
+      "sources": [
+        {
+          "title": "Incorporating Wetland Restoration and Protection in Planning Documents",
+          "publisher": "U.S. Environmental Protection Agency",
+          "url": "https://www.epa.gov/wetlands/incorporating-wetland-restoration-and-protection-planning-documents"
+        }
+      ],
+      "tags": [
+        "capacity",
+        "conservation",
+        "recovery"
+      ]
+    },
+    {
+      "id": "c05",
+      "label": "Paper chromatography",
+      "relation": "Constituents carried through a stationary medium can move at different rates because their interactions with the moving and stationary phases differ. A combined mixture can therefore reveal separable components under a suitable choice of phases.",
+      "assumptions": [
+        "The phases interact differently with the constituents of interest.",
+        "The observed migration conditions are comparable."
+      ],
+      "boundary": "Similar migration does not by itself establish identity. Poorly distinguishing phases can leave constituents unresolved, and different phases can change their relative migration.",
+      "source_fact": "The Royal Society of Chemistry describes chromatographic separation through different distributions or affinities between mobile and stationary phases.",
+      "sources": [
+        {
+          "title": "Chromatography",
+          "publisher": "Royal Society of Chemistry",
+          "url": "https://edu.rsc.org/resources/chromatography/11333.article"
+        }
+      ],
+      "tags": [
+        "identity",
+        "aggregation",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "c06",
+      "label": "Astronomical adaptive optics",
+      "relation": "A reference measurement estimates a changing disturbance, and a corrector adjusts the observation path using that estimate. Correction remains useful only while the reference samples a relevant disturbance and the measurement-to-correction delay is sufficiently short.",
+      "assumptions": [
+        "Reference and observed object experience sufficiently related disturbances.",
+        "The corrector can respond on the timescale of the disturbance."
+      ],
+      "boundary": "A stale or spatially unrepresentative reference can produce an inappropriate correction. Correcting the observation path does not establish the intrinsic state of the observed object.",
+      "source_fact": "ESO describes guide-star measurements controlling deformable mirrors in real time, with correction limited by temporal response and the atmospheric paths sampled by the reference.",
+      "sources": [
+        {
+          "title": "Adaptive Optics",
+          "publisher": "European Southern Observatory",
+          "url": "https://elt.eso.org/telescope/adaptiveoptics/"
+        },
+        {
+          "title": "Adaptive Optics Modes",
+          "publisher": "European Southern Observatory",
+          "url": "https://www.eso.org/sci/facilities/develop/ao/ao_modes.html"
+        }
+      ],
+      "tags": [
+        "causality",
+        "deadlines",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "c07",
+      "label": "Astronomical interferometry",
+      "relation": "Separated measurements can be combined after their relative arrival paths are aligned. Different separations and orientations contribute different spatial information; fine detail and broad structure require complementary measurement coverage.",
+      "assumptions": [
+        "The measurements concern a compatible signal and maintain the needed relative alignment.",
+        "The range of separations and orientations samples the structure being reconstructed."
+      ],
+      "boundary": "A longer separation does not supply missing measurement orientations or increase the collecting area by the same factor. Misaligned signals need not combine into an accurate reconstruction.",
+      "source_fact": "ESO describes compensating path delays in interferometry and reconstructing images from telescope baselines of different lengths and orientations, distinguishing resolution from collected light.",
+      "sources": [
+        {
+          "title": "Interferometry",
+          "publisher": "European Southern Observatory",
+          "url": "https://www.hq.eso.org/public/teles-instr/technology/interferometry/"
+        }
+      ],
+      "tags": [
+        "aggregation",
+        "ordering",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "c08",
+      "label": "Boids flock simulation",
+      "relation": "Agents following local separation, alignment, and cohesion tendencies can produce a coordinated group pattern without a central trajectory assigned to each member. Each change depends on the neighbors observable to that agent.",
+      "assumptions": [
+        "Agents can observe a defined local neighborhood.",
+        "The local tendencies and their relative weights are specified."
+      ],
+      "boundary": "Local coordination does not establish global fairness, optimality, or collision avoidance under arbitrary settings. Changing neighborhoods or weights can change the collective behavior.",
+      "source_fact": "Craig Reynolds' Boids model uses separation, alignment, and cohesion as local steering behaviors to generate simulated flocking.",
+      "sources": [
+        {
+          "title": "Boids: Flocks, Herds, and Schools",
+          "publisher": "Craig Reynolds",
+          "url": "https://www.red3d.com/cwr/boids/"
+        }
+      ],
+      "tags": [
+        "propagation",
+        "causality",
+        "aggregation"
+      ]
+    },
+    {
+      "id": "c09",
+      "label": "Prescribed fire management",
+      "relation": "Accumulated combustible material can support a larger later disturbance. A planned intervention consumes part of that material only under specified operating conditions, with observation during the intervention and other treatment methods available when burning is unsuitable.",
+      "assumptions": [
+        "The material and operating area are appropriate for the planned treatment.",
+        "Conditions can be assessed before and during the intervention."
+      ],
+      "boundary": "The same intervention can be harmful outside its prescription. Reduced fuel is not a guarantee against future fire, and consuming material is not inherently reversible.",
+      "source_fact": "The National Park Service describes prescribed fires, approved management plans, go/no-go checklists, and nonfire fuel treatments where burning is inappropriate.",
+      "sources": [
+        {
+          "title": "Wildfires, Prescribed Fires, and Fuels",
+          "publisher": "U.S. National Park Service",
+          "url": "https://www.nps.gov/orgs/1965/wildfires-prescribed-fires-fuels.htm"
+        }
+      ],
+      "tags": [
+        "capacity",
+        "thresholds",
+        "causality"
+      ]
+    },
+    {
+      "id": "c10",
+      "label": "Tidal prediction",
+      "relation": "Recurring astronomical components support a prediction that can be compared with observed water levels. Deviations can arise from irregular forces rather than from a change in the recurring component itself.",
+      "assumptions": [
+        "Recurring components are estimated for the relevant location.",
+        "The prediction and observation refer to comparable times and quantities."
+      ],
+      "boundary": "Short-term weather can dominate or shift observed water levels. A predicted cycle does not determine the actual level or the timing of a local current in every setting.",
+      "source_fact": "NOAA distinguishes astronomical tide prediction from wind, rainfall, runoff, and other meteorological effects, and describes comparisons between predicted and observed tides.",
+      "sources": [
+        {
+          "title": "Frequently Asked Questions: Tides and Currents",
+          "publisher": "NOAA",
+          "url": "https://tidesandcurrents.noaa.gov/faq.html"
+        }
+      ],
+      "tags": [
+        "causality",
+        "uncertainty"
+      ]
+    },
+    {
+      "id": "c11",
+      "label": "Theatrical lighting cue tracking",
+      "relation": "A value entered in a sequence persists through later positions that contain no replacement for it. A new entry can therefore alter later states. A cue-only change limits that propagation by restoring the prior downstream value at the next position.",
+      "assumptions": [
+        "The sequence uses tracking rather than independent complete states.",
+        "Explicit changes can be distinguished from values inherited from earlier positions."
+      ],
+      "boundary": "An absent change is not an explicit reset. Forward-tracking and cue-only editing have different scopes and cannot be assumed interchangeable.",
+      "source_fact": "ETC documents values tracking forward through cues and a cue-only operation that prevents an inserted or merged change from altering subsequent cues.",
+      "sources": [
+        {
+          "title": "Working with Tracking",
+          "publisher": "Electronic Theatre Controls",
+          "url": "https://www.etcconnect.com/webdocs/Controls/HOG/HTML/en/sect-ww_tracking.htm"
+        }
+      ],
+      "tags": [
+        "propagation",
+        "ordering",
+        "reversibility"
+      ]
+    },
+    {
+      "id": "c12",
+      "label": "Cartographic generalization",
+      "relation": "At a smaller representation scale, selection, simplification, and combination can preserve legibility while omitting detail. The resulting representation depends on scale and purpose; omission from that representation does not establish absence from the represented world.",
+      "assumptions": [
+        "The representation has a specified scale and communicative purpose.",
+        "A more detailed source contains distinctions from which the representation is derived."
+      ],
+      "boundary": "Simplification can remove a distinction important for another purpose. A reduced representation cannot recover information that it does not encode.",
+      "source_fact": "USGS describes cartographic generalization as selecting and reducing detail to produce representations appropriate to scale.",
+      "sources": [
+        {
+          "title": "Generalization",
+          "publisher": "U.S. Geological Survey",
+          "url": "https://www.usgs.gov/centers/cegis/science/science-topics/generalization"
+        }
+      ],
+      "tags": [
+        "visibility",
+        "aggregation",
+        "retention"
+      ]
+    },
+    {
+      "id": "c13",
+      "label": "Deep-space error correction",
+      "relation": "Structured redundancy makes some transmission errors detectable and some correctable. Detecting that a received message is inconsistent is weaker than identifying a unique original message; reconstruction depends on the coding scheme and the error pattern.",
+      "assumptions": [
+        "Sender and receiver use compatible coding conventions.",
+        "The error pattern lies within the relevant detection or correction capability."
+      ],
+      "boundary": "A detection-only check cannot reconstruct an unknown original. Redundancy consumes transmission capacity, and sufficiently severe corruption can remain uncorrectable or undetected.",
+      "source_fact": "NASA Deep Space Network documentation lists forward error-correcting codes and separately identifies a cyclic redundancy check as error detection that cannot correct errors.",
+      "sources": [
+        {
+          "title": "DSN Telecommunications Link Design Handbook: Telemetry Data Decoding, 208 Rev. C",
+          "publisher": "NASA Jet Propulsion Laboratory",
+          "url": "https://deepspace.jpl.nasa.gov/dsndocs/810-005/208/208C.pdf"
+        }
+      ],
+      "tags": [
+        "recovery",
+        "uncertainty",
+        "capacity"
+      ]
+    },
+    {
+      "id": "c14",
+      "label": "Comparator hysteresis",
+      "relation": "A state-dependent comparator uses distinct upper and lower transition thresholds. Between them, the existing state is retained. Fluctuations that remain within this interval need not cause repeated switching.",
+      "assumptions": [
+        "The output has a preceding state.",
+        "Distinct thresholds are appropriate to the signal range and acceptable response delay."
+      ],
+      "boundary": "A wider separation can postpone response to a real change. Behavior with two state-dependent thresholds differs from reacting to every crossing of one fixed threshold.",
+      "source_fact": "Texas Instruments describes an inverting comparator with upper and lower hysteresis thresholds to reduce unwanted transitions caused by noise or slow-moving signals.",
+      "sources": [
+        {
+          "title": "Inverting comparator with hysteresis circuit",
+          "publisher": "Texas Instruments",
+          "url": "https://www.ti.com/tool/CIRCUIT060076"
+        }
+      ],
+      "tags": [
+        "thresholds",
+        "retention",
+        "causality"
+      ]
+    },
+    {
+      "id": "c15",
+      "label": "Archival provenance and original order",
+      "relation": "The origin and original arrangement of records preserve relationships that can be lost when the same contents are rearranged arbitrarily. A later description or arrangement is distinct from evidence of the organization in which the records were produced.",
+      "assumptions": [
+        "The origin or original order is known or supported by evidence.",
+        "Relationships among records contribute to their interpretation."
+      ],
+      "boundary": "Original order can be lost or disrupted. A newly devised arrangement does not establish that it was the historical arrangement, and provenance does not make every recorded claim true.",
+      "source_fact": "The National Archives explains provenance, preserving or restoring original order, and devising arrangements when necessary, emphasizing the evidential significance of context.",
+      "sources": [
+        {
+          "title": "Principles of Arrangement",
+          "publisher": "U.S. National Archives",
+          "url": "https://www.archives.gov/research/alic/reference/archives-resources/principles-of-arrangement.html"
+        }
+      ],
+      "tags": [
+        "identity",
+        "ordering",
+        "retention"
+      ]
+    },
+    {
+      "id": "c16",
+      "label": "Lighthouse sector signals",
+      "relation": "A navigational source can provide a general identifying signal and a separate directional indication for a particular hazard. What a sector indication signifies depends on the observer's position and its relationship to the marked region.",
+      "assumptions": [
+        "The source and the meaning of its sector can be identified.",
+        "The observer has sufficient visibility and positional context to interpret the indication."
+      ],
+      "boundary": "A sector signal describes only its designated region. An ordinary indication does not certify that every nearby route is hazard-free, and poor visibility can limit interpretation.",
+      "source_fact": "Trinity House describes Start Point's white navigational flashes and a separate red sector marking the shallow Skerries Bank, alongside a low-visibility hazard warning signal.",
+      "sources": [
+        {
+          "title": "Trinity House completes re-engineering of Start Point Lighthouse",
+          "publisher": "Trinity House",
+          "url": "https://trinityhouse.co.uk/news/trinity-house-completes-re-engineering-of-start-point-lighthouse"
+        }
+      ],
+      "tags": [
+        "visibility",
+        "identity",
+        "uncertainty"
+      ]
+    }
+  ]
+}

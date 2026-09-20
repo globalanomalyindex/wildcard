@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-R-final",
+  "requestSHA256": "8a2006952153ec8899f2eb1782af43e39ef5d046ac15c1a19dbda06b3538f952",
+  "promptSHA256": "a097c67fa2b78c8e81024ee723968ec89d0148d089e1d683c1c3caba4b4ce9c9",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:59:04.256498+00:00",
+  "finishedAt": "2026-09-20T22:59:20.826581+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.57014033291489,
+      "usage": {
+        "input_tokens": 8958,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 768,
+        "reasoning_output_tokens": 270
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "859ef4acc908c9b6e626c8e589579c876077c9c062f0f200ea1f69a50ce8ae0b",
+      "stderrSHA256": "9a6fae6630a37352d09598dd74ca690302090aaae0c95c49400e75fe55f0778e"
+    }
+  ],
+  "result": {
+    "explanation": "Implements atomic guarded batches with the required rejection precedence: invalid, stale, conflict, capacity. Rejected requests preserve values and version. Identical candidates are unchanged; otherwise all changed updates commit together, incrementing version once, and changed keys are sorted by Unicode code point order.",
+    "program": "function solve({config,state,event}){if(state===null)state={v:0,values:Object.assign({},config.initial),cap:config.capacity};var val=state.values,v=state.v,g=event.guards,u=event.updates,invalid=false,ks=Object.keys(g),us=Object.keys(u),i;for(i=0;i<ks.length;i++)if(!Object.prototype.hasOwnProperty.call(val,ks[i]))invalid=true;for(i=0;i<us.length;i++)if(!Object.prototype.hasOwnProperty.call(g,us[i])||u[us[i]]<0)invalid=true;var status,changed=[];if(invalid)status='invalid';else if(event.version!==v)status='stale';else{for(i=0;i<ks.length;i++)if(val[ks[i]]!==g[ks[i]]){status='conflict';break}if(!status){var cand=Object.assign({},val);for(i=0;i<us.length;i++)cand[us[i]]=u[us[i]];var sum=0,ck=Object.keys(cand);for(i=0;i<ck.length;i++)sum+=cand[ck[i]];if(sum>state.cap)status='capacity';else{for(i=0;i<us.length;i++)if(val[us[i]]!==cand[us[i]])changed.push(us[i]);changed.sort(function(a,b){var A=Array.from(a),B=Array.from(b),n=Math.min(A.length,B.length),j;for(j=0;j<n;j++){var d=A[j].codePointAt(0)-B[j].codePointAt(0);if(d)return d}return A.length-B.length});if(changed.length){val=cand;v++;status='committed'}else status='unchanged'}}}return{state:{v:v,values:val,cap:state.cap},output:{status:status,version:v,values:Object.assign({},val),changed:status==='committed'?changed:[]}}}"
+  },
+  "resultSHA256": "261949bea2f49e8c0f89ecf2541bf3f45685d65b6be98b9ac5705f311439d064",
+  "rawOutputSHA256": "261949bea2f49e8c0f89ecf2541bf3f45685d65b6be98b9ac5705f311439d064"
+}

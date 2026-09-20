@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c02-D-final",
+  "requestSHA256": "74134f22b28d5c5ea7bf66ec640066387052f7171e0c44f3f84b32d160c90621",
+  "promptSHA256": "573aed7a884dafaf7bf71f7106004c535cc2856ed0ca53559db62b41d6358783",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:54.319173+00:00",
+  "finishedAt": "2026-09-20T23:23:07.978616+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.657127415994182,
+      "usage": {
+        "input_tokens": 8011,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 376,
+        "reasoning_output_tokens": 73
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "101438d01be849c5d9c661c75b68f85e823b7743a990b87fa190d96625e27b19",
+      "stderrSHA256": "c6bd73f0a8eaa9ea687d063d6f7e172ceb6f68bbca7909d5c26de96af7946086"
+    }
+  ],
+  "result": {
+    "explanation": "Implements single-flight stale caching. Cached entries remain stored after expiry, stale values are visible only before ttl+stale, and refresh begins at age >= ttl when no request is pending. Responses affect state only when their key and token match; invalidation clears both cache and pending state without rewinding tokens.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={now:0,c:{},p:{},n:1};var f=[],v=null,k=e.key,t=e.type;if(t==='get'){var z=s.c[k],a=z?s.now-z[1]:0;if(z&&a<c.ttl+c.stale)v=z[0];if((!z||a>=c.ttl)&&s.p[k]===undefined){s.p[k]=s.n;f.push({key:k,token:s.n});s.n++}}else if(t==='resolve'&&s.p[k]===e.token){s.c[k]=[e.value,s.now];delete s.p[k]}else if(t==='reject'&&s.p[k]===e.token)delete s.p[k];else if(t==='invalidate'){delete s.c[k];delete s.p[k]}else if(t==='advance')s.now+=e.dt;return{state:s,output:{value:v,fetch:f,pending:Object.keys(s.p).sort(),now:s.now}}}"
+  },
+  "resultSHA256": "97a57531a9b39f1bae637e3c628ef792cb655aa1a0eb648ff1a11ac264dda8c9",
+  "rawOutputSHA256": "97a57531a9b39f1bae637e3c628ef792cb655aa1a0eb648ff1a11ac264dda8c9"
+}

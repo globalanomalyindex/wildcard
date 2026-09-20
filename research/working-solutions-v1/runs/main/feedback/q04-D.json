@@ -1,0 +1,190 @@
+{
+  "initialRecordSHA256": "d943d2360e0c485c984efdf0e0e21817ecd03c8000eee7a7dcafadbdcd253c0f",
+  "firstShown": {
+    "explanation": "Rule: after each event, output is the exact observable projection of the updated resource/job ledger. Begin is atomic: it succeeds only when the ID is unused and every requested resource is free; otherwise it is blocked without consuming the ID. Prepare, commit, and abort enforce their phase transitions. A counterexample changing held[x] violates this projection invariant.",
+    "mapping": "Map resources to current owners, IDs to phases, and committed IDs to done. The event determines a status and ledger transition; output projects held, sorted done IDs, and that status.",
+    "assumptions": "Inputs satisfy the stated identifier, resource, event, and numeric constraints. JSON object key order is not semantically significant.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var j={},h={},d=[],u={},R=input.config.resources;function eq(a,b){return JSON.stringify(a)===JSON.stringify(b)}function view(s){var q={status:s,held:{},done:d.slice().sort()};for(var i=0;i<R.length;i++)if(h[R[i]]!==undefined)q.held[R[i]]=h[R[i]];return q}for(var k=0;k<input.events.length;k++){var e=input.events[k],st='invalid',id=e.id;if(e.type==='begin'){var ok=!u[id];if(ok)for(var i=0;i<e.resources.length;i++)if(h[e.resources[i]]!==undefined)ok=false;if(ok){u[id]=1;j[id]={p:'active',r:e.resources.slice()};for(i=0;i<e.resources.length;i++)h[e.resources[i]]=id;st='begun'}else st='blocked'}else if(e.type==='prepare'&&j[id]&&j[id].p==='active'){j[id].p='prepared';st='prepared'}else if(e.type==='commit'&&j[id]&&j[id].p==='prepared'){for(var z of j[id].r)delete h[z];d.push(id);j[id].p='committed';st='committed'}else if(e.type==='abort'&&j[id]&&(j[id].p==='active'||j[id].p==='prepared')){for(var z of j[id].r)delete h[z];j[id].p='aborted';st='aborted'}if(!eq(output[k],view(st)))return false}return true}",
+    "program": "function solve({config,state,event}){var s=state||{jobs:{},held:{},done:[],used:{}};var jobs=JSON.parse(JSON.stringify(s.jobs)),held=Object.assign({},s.held),done=s.done.slice(),used=Object.assign({},s.used),e=event,id=e.id,status='invalid';if(e.type==='begin'){var ok=!used[id];if(ok)for(var i=0;i<e.resources.length;i++)if(held[e.resources[i]]!==undefined)ok=false;if(ok){used[id]=1;jobs[id]={phase:'active',resources:e.resources.slice()};for(i=0;i<e.resources.length;i++)held[e.resources[i]]=id;status='begun'}else status='blocked'}else if(e.type==='prepare'){if(jobs[id]&&jobs[id].phase==='active'){jobs[id].phase='prepared';status='prepared'}}else if(e.type==='commit'){if(jobs[id]&&jobs[id].phase==='prepared'){for(var i=0;i<jobs[id].resources.length;i++)delete held[jobs[id].resources[i]];jobs[id].phase='committed';done.push(id);status='committed'}}else if(e.type==='abort'){if(jobs[id]&&(jobs[id].phase==='active'||jobs[id].phase==='prepared')){for(var i=0;i<jobs[id].resources.length;i++)delete held[jobs[id].resources[i]];jobs[id].phase='aborted';status='aborted'}}done.sort();var out={status:status,held:{},done:done.slice()};for(var i=0;i<config.resources.length;i++){var r=config.resources[i];if(held[r]!==undefined)out.held[r]=held[r]}return{state:{jobs:jobs,held:held,done:done,used:used},output:out}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "begun",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "blocked",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "invalid",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "prepared",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "begun",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "blocked",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "invalid",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "prepared",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "begun",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "blocked",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "blocked",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "invalid",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "begun",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "blocked",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "invalid",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          },
+          {
+            "status": "prepared",
+            "held": {
+              "x": "a",
+              "y": "a"
+            },
+            "done": []
+          }
+        ]
+      }
+    ]
+  }
+}

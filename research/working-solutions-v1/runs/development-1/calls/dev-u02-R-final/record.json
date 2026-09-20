@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u02-R-final",
+  "requestSHA256": "b79fada052535109fc10711bc8005e63f7ed5efed6f3f281f323076cbdc8369d",
+  "promptSHA256": "a09a5a074bf3b6eb726de056c01d47e344b946206586defac4dc06e0170b0574",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:37:11.893352+00:00",
+  "finishedAt": "2026-09-20T22:37:30.178808+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.283873749896884,
+      "usage": {
+        "input_tokens": 16588,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 773,
+        "reasoning_output_tokens": 109
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b1cc47780bbe45a2f6e4afe78080db56bfc76fbd4aa5c00b181a2d821b765fd2",
+      "stderrSHA256": "90c9e94080c8231c2fc13d81ce429798f7fe54d7c5150dbfae13a1b8ebb1922f"
+    }
+  ],
+  "result": {
+    "explanation": "Keeps requirement, eligibility, and one selected panel per group in opaque state. Each event applies only to known entities, then removes disabled selections and refills empty required groups using fixed panel order. Output is projected in group order, with expanded panels in global panel order and lexicographically sorted unsatisfied required groups.",
+    "program": "function solve({config,state,event}){var G=config.groups,P=config.panels,s=state,i,j,k,e=event||{};if(!s){s={r:[],o:[],en:[]};for(i=0;i<G.length;i++){s.r[i]=!!G[i].required;s.o[i]=null}for(i=0;i<P.length;i++)s.en[i]=!!P[i].enabled;for(i=0;i<G.length;i++)if(s.r[i])for(j=0;j<P.length;j++)if(P[j].group===G[i].id&&s.en[j]){s.o[i]=P[j].id;break}}var gi=-1,pi=-1;if(e.type==='toggle'){for(i=0;i<P.length;i++)if(P[i].id===e.id){pi=i;break}if(pi>=0&&s.en[pi]){for(i=0;i<G.length;i++)if(G[i].id===P[pi].group){gi=i;break}if(gi>=0){if(s.o[gi]===P[pi].id){if(!s.r[gi])s.o[gi]=null}else s.o[gi]=P[pi].id}}}else if(e.type==='enabled'){for(i=0;i<P.length;i++)if(P[i].id===e.id){s.en[i]=!!e.value;break}}else if(e.type==='close'){for(i=0;i<G.length;i++)if(G[i].id===e.group){if(!s.r[i])s.o[i]=null;break}}else if(e.type==='mode'){for(i=0;i<G.length;i++)if(G[i].id===e.group){s.r[i]=!!e.required;break}}for(i=0;i<G.length;i++){if(s.o[i]!==null){var ok=false;for(j=0;j<P.length;j++)if(P[j].id===s.o[i]&&s.en[j]){ok=true;break}if(!ok)s.o[i]=null}if(s.o[i]===null&&s.r[i])for(j=0;j<P.length;j++)if(P[j].group===G[i].id&&s.en[j]){s.o[i]=P[j].id;break}}var open={},expanded=[],uns=[];for(i=0;i<G.length;i++){open[G[i].id]=s.o[i];if(s.r[i]&&s.o[i]===null)uns.push(G[i].id)}uns.sort();for(i=0;i<P.length;i++)for(j=0;j<G.length;j++)if(s.o[j]===P[i].id){expanded.push(P[i].id);break}return{state:s,output:{open:open,expanded:expanded,unsatisfied:uns}}}"
+  },
+  "resultSHA256": "b2f2a1c32aae0d471e6462399ed9f3621b9b45459abff75561bbf2e07b0f113f",
+  "rawOutputSHA256": "b2f2a1c32aae0d471e6462399ed9f3621b9b45459abff75561bbf2e07b0f113f"
+}

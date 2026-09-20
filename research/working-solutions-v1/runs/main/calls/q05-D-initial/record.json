@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q05-D-initial",
+  "requestSHA256": "635590322c94451cd15ccb7e07920fd921032498cc344f765af3b9fdd17b5510",
+  "promptSHA256": "1d1770b9f94588b677611ed2aeaffcdc3e9ad1d6bcc3b0ccfe224563f8d2691b",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:17:21.532184+00:00",
+  "finishedAt": "2026-09-20T23:17:42.120304+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.58691129204817,
+      "usage": {
+        "input_tokens": 6918,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 986,
+        "reasoning_output_tokens": 329
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "7f831e19200c9e1db637b993fea554948b21feb01d9af9c5dfc6a68e3c49f96f",
+      "stderrSHA256": "f5f9fd8c72edcb584fef98255a643e0ed1aec935e3ae58c1ac1742a4cf98d671"
+    }
+  ],
+  "result": {
+    "explanation": "The conditional rule is: accept a reservation exactly when its ID is unused, its interval and units are valid, and adding its units never exceeds capacity at any integer instant in the half-open interval. Otherwise preserve state and reject. Cancellation removes only an active ID.",
+    "mapping": "State maps each active ID to {start,end,units}; output maps the active records to sorted IDs and sums their units. Interval feasibility is checked pointwise for t=start through end-1, which is equivalent for integer endpoints and half-open intervals.",
+    "assumptions": "Identifiers are compared by exact string equality and sorted lexicographically. The supplied config is authoritative on every call; state is only the returned reservation collection.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let s=null;for(let i=0;i<output.length;i++){let z=solve({config:input.config,state:s,event:input.events[i]});if(JSON.stringify(z.output)!==JSON.stringify(output[i]))return false;s=z.state}return true}",
+    "program": "function solve({config,state,event}) {\n  const cap=config.capacity;\n  const old=state&&Array.isArray(state.r)?state.r:[];\n  const r=old.map(x=>({id:x.id,s:x.s,e:x.e,u:x.u}));\n  let status;\n  if(event.type==='cancel'){\n    let k=-1;\n    for(let i=0;i<r.length;i++) if(r[i].id===event.id){k=i;break;}\n    if(k<0) status='missing';\n    else {r.splice(k,1);status='cancelled';}\n  } else if(event.type==='reserve'){\n    let exists=false;\n    for(const x of r) if(x.id===event.id){exists=true;break;}\n    let ok=!exists&&Number.isSafeInteger(event.start)&&Number.isSafeInteger(event.end)&&Number.isSafeInteger(event.units)&&event.start>=0&&event.start<event.end&&event.units>=1&&event.units<=cap;\n    if(ok){\n      for(let t=event.start;t<event.end&&ok;t++){\n        let n=event.units;\n        for(const x of r) if(t>=x.s&&t<x.e)n+=x.u;\n        if(n>cap)ok=false;\n      }\n    }\n    if(ok){r.push({id:event.id,s:event.start,e:event.end,u:event.units});status='reserved';}\n    else status='rejected';\n  } else status='rejected';\n  const active=r.map(x=>x.id).sort();\n  let units=0;for(const x of r)units+=x.u;\n  return {state:{r:r},output:{status:status,active:active,units:units}};\n}"
+  },
+  "resultSHA256": "c9b4e04b0f1e64f7f1a2d1d2dde55c3bff78dc3dac67b0ba44c4c250ca5c9c66",
+  "rawOutputSHA256": "443cc0b4845e59fd723eac423123aa88b3c87cb99f470ef071022c8325317206"
+}

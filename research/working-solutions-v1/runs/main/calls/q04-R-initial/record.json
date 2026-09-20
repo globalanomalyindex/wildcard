@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q04-R-initial",
+  "requestSHA256": "4010c33c9f3d13336d335e7d1c09af0c3b4531b7d5224a433a202ade1acdddf1",
+  "promptSHA256": "037ba4fcb418c10854d6809b68418a11dea730512bb2a85ca9cc06c17c79a53e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:17:54.096293+00:00",
+  "finishedAt": "2026-09-20T23:18:15.249151+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.15158133301884,
+      "usage": {
+        "input_tokens": 7093,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 805,
+        "reasoning_output_tokens": 270
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "04630be48e385198030433d827b154dbd8311bca0569a9fc2117e459e833cc95",
+      "stderrSHA256": "7c3942d94326afc62820d05ccd17c0028d0eff5b71e6f6f2a7539cb0cc9e1753"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain job phases and resource ownership. A begin is atomic: it succeeds only when the identifier is unused and every requested resource is free. Prepare, commit, and abort enforce their phase rules; releasing resources is atomic with terminal transitions.",
+    "mapping": "jobs maps IDs to phase and requested resources; held maps resources to active or prepared job IDs; done stores committed IDs.",
+    "assumptions": "Event fields are valid as specified. Output object key ordering is not semantically significant; done is sorted lexicographically.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){let s=null;for(let e of input.events){let r=solve({config:input.config,state:s,event:e});s=r.state;let o=r.output;if(!o||typeof o.status!==\"string\"||!o.held||!Array.isArray(o.done))return false;let d=o.done.slice().sort();if(JSON.stringify(d)!==JSON.stringify(o.done))return false;for(let k in o.held)if(!input.config.resources.includes(k))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{j:{},h:{},d:[]},e=event,id=e.id,status=\"invalid\";if(e.type===\"begin\"){let ok=!s.j[id]&&e.resources.every(r=>s.h[r]===undefined);if(ok){s.j[id]={p:\"active\",r:e.resources.slice()};for(let r of e.resources)s.h[r]=id;status=\"begun\"}else status=\"blocked\"}else{let j=s.j[id];if(e.type===\"prepare\"){if(j&&j.p===\"active\"){j.p=\"prepared\";status=\"prepared\"}}else if(e.type===\"commit\"){if(j&&j.p===\"prepared\"){for(let r of j.r)delete s.h[r];j.p=\"committed\";s.d.push(id);status=\"committed\"}}else if(e.type===\"abort\"){if(j&&(j.p===\"active\"||j.p===\"prepared\")){for(let r of j.r)delete s.h[r];j.p=\"aborted\";status=\"aborted\"}}}let held={};for(let r of config.resources)if(s.h[r]!==undefined)held[r]=s.h[r];return{state:s,output:{status:status,held:held,done:s.d.slice().sort()}}}"
+  },
+  "resultSHA256": "98b1047d730d5e542a81ee65cece8774ab4fed7a44c26bb0881bfb620d5091ac",
+  "rawOutputSHA256": "15f55d7f1fded0bbb82cb10d16a1dd0a53593e06e4685c7950a3f16ab878b5e3"
+}

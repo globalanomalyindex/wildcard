@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s03-R-initial",
+  "requestSHA256": "3640a1d3b3bee5568c12ce8871f4fcab1b89c7af5ad2746e81f109029b7cc40e",
+  "promptSHA256": "7d1dddd4f31a10b0af7a30ab6c1e66c4f03c3ab17cebf669a1e6e63cd31a4b45",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:13:35.787337+00:00",
+  "finishedAt": "2026-09-20T23:14:00.970391+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 25.18208650010638,
+      "usage": {
+        "input_tokens": 7147,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1110,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "d6a2a43433a1235448c31809c52b7c1650bfbf72e956306184be1eb78cbe0ea5",
+      "stderrSHA256": "4e28eca6b45533e3b5849629b3489a9fc57a5217068ed9f9a9a9e956a545eb94"
+    }
+  ],
+  "result": {
+    "explanation": "Track an immutable record graph and local head. Merge each event atomically, reject conflicting IDs, then compare the two parent walks. Unknown terminal IDs are collected from both walks before any advance.",
+    "mapping": "Records map IDs to immutable {parent,value} identities; parent links define ancestry. Local and remote heads are compared by graph reachability, never by values or timing.",
+    "assumptions": "Inputs satisfy the stated legal-value, acyclicity, and size constraints. Duplicate identical records are harmless; conflicting duplicates reject the complete event.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!=='object'||!['same','advance','ahead','fork','unknown','conflict'].includes(x.decision)||!Array.isArray(x.missing)||!Object.prototype.hasOwnProperty.call(x,'head'))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{head:null,records:[]};let old=s.records, conflict=false, add=[];for(const r of event.records){let prior=null;for(const x of old)if(x.id===r.id){prior=x;break}for(const x of add)if(x.id===r.id){prior=x;break}if(prior&&(prior.parent!==r.parent||prior.value!==r.value)){conflict=true;break}if(!prior)add.push({id:r.id,parent:r.parent,value:r.value})}let rec=conflict?old:old.concat(add);function get(id){for(const r of rec)if(r.id===id)return r;return null}function walk(h){let a=[],m=[],x=h;while(x!==null){a.push(x);let r=get(x);if(!r){m.push(x);break}x=r.parent}a.push(null);return{a,m}}let L=walk(s.head),R=walk(event.head),missing=L.m.concat(R.m);missing.sort();let u=[];for(const x of missing)if(!u.length||u[u.length-1]!==x)u.push(x);let decision,head=s.head;if(conflict)decision='conflict';else if(s.head===event.head)decision='same';else if(L.a.indexOf(event.head)>=0)decision='ahead';else if(R.a.indexOf(s.head)>=0){head=event.head;decision='advance'}else if(L.a[L.a.length-1]===null&&R.a[R.a.length-1]===null)decision='fork';else decision='unknown';return{state:{head,records:rec},output:{head,decision,missing:u}}}"
+  },
+  "resultSHA256": "7b09c218c3378f972066b1ffd596f5c565918636d5746093d0f2152823e52e80",
+  "rawOutputSHA256": "27b2c9e65aed8a8fa06c18eb913477e24166b2b38e9ad07f45e805231c0f94b6"
+}

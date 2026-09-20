@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u04-X-initial",
+  "requestSHA256": "56a026573aa9262564ec0538cc42e8175f26ecd130a2ae3ec9e8d534a6e95c2b",
+  "promptSHA256": "565600cc4bfacc433f893459a047740ab9e36bf87ecf2b794408462fa01b68ce",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:12:35.774861+00:00",
+  "finishedAt": "2026-09-20T23:13:16.734986+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 40.959651625016704,
+      "usage": {
+        "input_tokens": 7282,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 870,
+        "reasoning_output_tokens": 301
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "dc6d0851c7bc788df076866d27a1b6f660d2d8a6181c106b4773d992397a7f51",
+      "stderrSHA256": "b442fce0d50c4906c05935b36aab433b280b7aa6510fee2b3e7228e9e141dd04"
+    }
+  ],
+  "result": {
+    "explanation": "Use a finite controller state: last observation time, acknowledged IDs, mode, normal hysteresis counters, and current warning. Critical observations take precedence unless their ID was acknowledged.",
+    "mapping": "config.low/high/dwell map to hysteresis thresholds and persistence. State maps to lastTime, acknowledgements, enabled mode, counters, and visible warning. Events map to ordered transitions; output is the resulting warning projection.",
+    "assumptions": "The host supplies the same config on each call and passes returned JSON state unchanged. Event types are valid under the specification. IDs are compared by exact string equality.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||typeof x.visible!==\"boolean\"||!(x.kind===null||x.kind===\"normal\"||x.kind===\"critical\"))return false;if(x.visible!==(x.kind!==null))return false;if(x.kind===\"critical\"&&typeof x.id!==\"string\")return false;if(x.kind!==\"critical\"&&x.id!==null)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={t:-1,a:{},e:true,h:0,l:0,v:false,k:null,i:null};const reset=()=>{s.h=0;s.l=0};if(event.type==='ack'){s.a[event.id]=1;if(s.k==='critical'&&s.i===event.id){s.v=false;s.k=null;s.i=null;reset()}}else if(event.type==='mode'){s.e=event.enabled;reset();if(!s.e&&s.k==='normal'){s.v=false;s.k=null;s.i=null}}else if(event.type==='observe'&&event.t>s.t){s.t=event.t;if(event.critical){if(!s.a[event.id]){s.v=true;s.k='critical';s.i=event.id;reset()}}else if(s.k!=='critical'&&s.e){if(event.level>=config.high){s.h++;s.l=0;if(s.h>=config.dwell){s.v=true;s.k='normal';s.i=null}}else if(event.level<=config.low){s.l++;s.h=0;if(s.l>=config.dwell&&s.k==='normal'){s.v=false;s.k=null;s.i=null}}else reset()}}return{state:s,output:{visible:s.v,kind:s.v?s.k:null,id:s.v&&s.k==='critical'?s.i:null}}}"
+  },
+  "resultSHA256": "1b1b1b0bfa2e722ffd88acdcc50aa1b5b028fc658a7aa868f72296894b1eeed5",
+  "rawOutputSHA256": "dcb30f4a6d1b3590d497d1207c41e9d5dd3d286bd875129a8042af7da0e3e2ed"
+}

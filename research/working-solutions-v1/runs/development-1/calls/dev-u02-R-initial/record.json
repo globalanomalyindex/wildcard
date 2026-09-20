@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u02-R-initial",
+  "requestSHA256": "2486dcb039e3d4b7f7238b733555420cd3abd8f1b517eb119bb37c24cae305bd",
+  "promptSHA256": "5af33132a37346e5acc67c5d74e8d7c513028a6ad887a9472e83246da306d513",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:32:31.669970+00:00",
+  "finishedAt": "2026-09-20T22:32:57.344480+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 25.674326499924064,
+      "usage": {
+        "input_tokens": 13304,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1209,
+        "reasoning_output_tokens": 288
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "ac3111383688d83c3b79fbf1dad6bbf7946b4628e6ccffc2bd7dd03a5da539bb",
+      "stderrSHA256": "e771db94501d435b491afa3ca654fcf16101a7dfa97ac16e6ecad4e5f5ab70d5"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain one independent open panel per group. Apply the event, remove disabled selections, then refill empty required groups using fixed panel order. Emit global-order expansions and lexicographically sorted unsatisfied required IDs.",
+    "mapping": "Group requirement and selected panel are controller state; panel enabled flags are mutable eligibility; output is a projection of those values.",
+    "assumptions": "The supplied config remains available on every call. State is JSON-serializable and may contain only controller data.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.groups)&&Array.isArray(input.config.panels)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==(input.events||[]).length)return false;return output.every(x=>x&&x.open&&Array.isArray(x.expanded)&&Array.isArray(x.unsatisfied)&&!JSON.stringify(x).includes('__changed'))}",
+    "program": "function solve({config,state,event}){\n  var gs=config.groups,ps=config.panels,s=state;\n  if(!s){\n    s={r:[],o:[],en:[]};\n    for(var i=0;i<gs.length;i++){s.r[i]=!!gs[i].required;s.o[i]=null}\n    for(i=0;i<ps.length;i++)s.en[i]=!!ps[i].enabled;\n    for(i=0;i<gs.length;i++)if(s.r[i])for(var j=0;j<ps.length;j++)if(ps[j].group===gs[i].id&&s.en[j]){s.o[i]=ps[j].id;break}\n  }else for(var i=0;i<ps.length;i++)if(typeof s.en[i]!=='boolean')s.en[i]=!!ps[i].enabled;\n  var gi=-1,pi=-1,e=event||{};\n  if(e.type==='toggle'){\n    for(var i=0;i<ps.length;i++)if(ps[i].id===e.id){pi=i;break}\n    if(pi>=0&&s.en[pi]){for(i=0;i<gs.length;i++)if(gs[i].id===ps[pi].group){gi=i;break}if(gi>=0){if(s.o[gi]===ps[pi].id){if(!s.r[gi])s.o[gi]=null}else s.o[gi]=ps[pi].id}}\n  }else if(e.type==='enabled'){\n    for(var i=0;i<ps.length;i++)if(ps[i].id===e.id){s.en[i]=!!e.value;break}\n  }else if(e.type==='close'){\n    for(var i=0;i<gs.length;i++)if(gs[i].id===e.group&& !s.r[i]){s.o[i]=null;break}\n  }else if(e.type==='mode'){\n    for(var i=0;i<gs.length;i++)if(gs[i].id===e.group){s.r[i]=!!e.required;break}\n  }\n  for(var i=0;i<gs.length;i++){\n    if(s.o[i]!==null){var ok=false;for(var j=0;j<ps.length;j++)if(ps[j].id===s.o[i]&&s.en[j]){ok=true;break}if(!ok)s.o[i]=null}\n    if(s.o[i]===null&&s.r[i])for(var j=0;j<ps.length;j++)if(ps[j].group===gs[i].id&&s.en[j]){s.o[i]=ps[j].id;break}\n  }\n  var open={},uns=[],exp=[];\n  for(var i=0;i<gs.length;i++){open[gs[i].id]=s.o[i];if(s.r[i]&&s.o[i]===null)uns.push(gs[i].id)}\n  uns.sort();\n  for(var j=0;j<ps.length;j++)for(var i=0;i<s.o.length;i++)if(s.o[i]===ps[j].id){exp.push(ps[j].id);break}\n  return {state:s,output:{open:open,expanded:exp,unsatisfied:uns}};\n}"
+  },
+  "resultSHA256": "c3b1e6b6c6f2585df68c495f00a86f740dc8f26c04f53df557f0ac5f2b97d6d5",
+  "rawOutputSHA256": "a033fe7b4b564d9590f0a24e2eb3b14ce2d5e4c173bdc902b60739662c6b168c"
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q02-R-initial",
+  "requestSHA256": "1e979eab93114453df9cf714c3249bf12f4b35559a8a8cbc19ae7236e22a7c9b",
+  "promptSHA256": "42a6363928940fcb0a74834ef2542c39ac4921460a54861ae78323eb24fc7ca3",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:52:48.982933+00:00",
+  "finishedAt": "2026-09-20T22:53:12.578720+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 23.595963208004832,
+      "usage": {
+        "input_tokens": 7115,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 797,
+        "reasoning_output_tokens": 138
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "da49924bc4d0331a8cd51720835788125d963dbbddee8ad065b1a40686dab47b",
+      "stderrSHA256": "8d0f17ec780c33500eee784f12dcdcb18ede2b4dbe5c5d54843f05826218d8f4"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain the current clock, active owner, lease deadline, and highest issued generation. Advance first changes time, then expiration is checked before the operation. Acquisition is vacant-only; renewal and release require the exact owner and generation.",
+    "mapping": "config.ttl maps to lease duration; state stores now, owner, generation, and expires. Each event produces the documented status snapshot.",
+    "assumptions": "Inputs satisfy the stated schema and safe-integer bounds. Event identifiers are compared by ordinary JSON string equality.",
+    "applies": "function applies(input){return !!(input&&input.config&&Array.isArray(input.events));}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var t=0,o=null,g=0,x=null,ttl=input.config.ttl;for(var i=0;i<input.events.length;i++){var e=input.events[i],status;if(e.type==='advance'){t+=e.dt;status='advanced';}else if(e.type==='acquire'){if(x!==null&&x<=t){o=null;x=null;}if(o===null){g++;o=e.owner;x=t+ttl;status='acquired';}else status='busy';}else if(e.type==='renew'){if(x!==null&&x<=t){o=null;x=null;}if(o!==null&&o===e.owner&&g===e.generation){x=t+ttl;status='renewed';}else status='ignored';}else if(e.type==='release'){if(x!==null&&x<=t){o=null;x=null;}if(o!==null&&o===e.owner&&g===e.generation){o=null;x=null;status='released';}else status='ignored';}else return false;var z=output[i];if(!z||z.status!==status||z.now!==t||z.owner!==o||z.generation!==g||z.expires!==x)return false;}return true;}",
+    "program": "function solve({config,state,event}){var s=state||{now:0,owner:null,generation:0,expires:null},e=event,t=s.now,o=s.owner,g=s.generation,x=s.expires,status;if(e.type==='advance'){t+=e.dt;status='advanced';}else{if(x!==null&&x<=t){o=null;x=null;}if(e.type==='acquire'){if(o===null){g++;o=e.owner;x=t+config.ttl;status='acquired';}else status='busy';}else if(e.type==='renew'){if(o!==null&&o===e.owner&&g===e.generation){x=t+config.ttl;status='renewed';}else status='ignored';}else if(e.type==='release'){if(o!==null&&o===e.owner&&g===e.generation){o=null;x=null;status='released';}else status='ignored';}}var ns={now:t,owner:o,generation:g,expires:x};return {state:ns,output:{status:status,owner:o,generation:g,expires:x,now:t}};}"
+  },
+  "resultSHA256": "5038dc0690cb45888ec3bf1efeb96488805bbdbf157e1c752ffb04ffaa1ff514",
+  "rawOutputSHA256": "1dff6d88642b04cb9aa2c2129afaf9c7de28f14c68724ef27ee61e833f79268c"
+}

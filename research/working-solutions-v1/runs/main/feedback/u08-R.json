@@ -1,0 +1,207 @@
+{
+  "initialRecordSHA256": "9da2c085416da378ecbbf09125873eba12fb53d9bacc6e6086f56111d95f5d0e",
+  "firstShown": {
+    "explanation": "Maintain the current ordered option view, selected identity set, and anchor. Visibility edits prune invalid selections and anchors. Clicks apply plain, toggle, or range semantics; outputs are sorted lexicographically.",
+    "mapping": "The opaque state maps to {options, selected, anchor}; options preserve current view order, selected is an identity set represented as an array, and anchor is the range endpoint.",
+    "assumptions": "Events and option IDs satisfy the stated validity constraints. JavaScript string ordering matches the required lexicographic ordering.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.options)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||Object.keys(x).length!==2||!Array.isArray(x.selected)||!('anchor' in x)||x.anchor!==null&&typeof x.anchor!=='string')return false;for(let i=1;i<x.selected.length;i++)if(x.selected[i-1]>=x.selected[i])return false;if(x.anchor&&x.anchor.endsWith('__changed'))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(!s){s={o:(config.options||[]).map(x=>({id:x.id,d:!!x.disabled})),s:[],a:null}};const valid=id=>{for(const x of s.o)if(x.id===id)return !x.d;return false};const clean=()=>{s.s=s.s.filter(valid);if(s.a!==null&&!valid(s.a))s.a=null};if(event.type==='view'){s.o=(event.options||[]).map(x=>({id:x.id,d:!!x.disabled}));clean()}else if(event.type==='click'&&valid(event.id)){const id=event.id;if(event.shift){if(s.a===null){s.a=id;s.s=[id]}else{let i=-1,j=-1;for(let k=0;k<s.o.length;k++){if(s.o[k].id===s.a)i=k;if(s.o[k].id===id)j=k}let lo=Math.min(i,j),hi=Math.max(i,j),r=[];for(let k=lo;k<=hi;k++)if(!s.o[k].d)r.push(s.o[k].id);if(event.ctrl){for(const q of r)if(!s.s.includes(q))s.s.push(q)}else s.s=r}}else if(event.ctrl){if(s.s.includes(id))s.s=s.s.filter(q=>q!==id);else s.s.push(id);s.a=id}else{s.s=[id];s.a=id}}clean();return{state:s,output:{selected:s.s.slice().sort(),anchor:s.a}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": "v030387_0"
+          },
+          {
+            "selected": [
+              "v030387_0",
+              "v585619_2",
+              "v736690_3"
+            ],
+            "anchor": "v030387_0"
+          },
+          {
+            "selected": [
+              "v030387_0",
+              "v736690_3"
+            ],
+            "anchor": "v585619_2"
+          },
+          {
+            "selected": [
+              "v030387_0"
+            ],
+            "anchor": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v217284_0"
+            ],
+            "anchor": "v217284_0"
+          },
+          {
+            "selected": [
+              "v217284_0",
+              "v510454_2",
+              "v834982_3"
+            ],
+            "anchor": "v217284_0"
+          },
+          {
+            "selected": [],
+            "anchor": null
+          },
+          {
+            "selected": [],
+            "anchor": null
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v544284_3"
+            ],
+            "anchor": "v544284_3"
+          },
+          {
+            "selected": [
+              "v488561_0"
+            ],
+            "anchor": "v488561_0"
+          },
+          {
+            "selected": [
+              "v167631_2",
+              "v488561_0",
+              "v544284_3"
+            ],
+            "anchor": "v488561_0"
+          },
+          {
+            "selected": [
+              "v167631_2",
+              "v488561_0",
+              "v544284_3"
+            ],
+            "anchor": "v488561_0"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "selected": [
+              "v338074_0"
+            ],
+            "anchor": "v338074_0"
+          },
+          {
+            "selected": [
+              "v322425_2",
+              "v338074_0",
+              "v389580_3"
+            ],
+            "anchor": "v338074_0"
+          },
+          {
+            "selected": [
+              "v322425_2"
+            ],
+            "anchor": "v322425_2"
+          },
+          {
+            "selected": [
+              "v322425_2"
+            ],
+            "anchor": "v322425_2"
+          }
+        ]
+      }
+    ]
+  }
+}

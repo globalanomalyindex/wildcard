@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c08-R-initial",
+  "requestSHA256": "985cc66b2b70d8ebf3bfd7dfac19050d7511dd063d2200a7bceac933bfe5acc0",
+  "promptSHA256": "acad20df989361a40f889494e78c6be3bbedd3edec0c48228bdfde39191be306",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:16:40.918814+00:00",
+  "finishedAt": "2026-09-20T23:17:11.287809+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 30.367963750148192,
+      "usage": {
+        "input_tokens": 7088,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1201,
+        "reasoning_output_tokens": 384
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4f0918ce316055c1192f1d6e78c05ecbe6c9fda4fbcf53c2ecf2ed6bf8b9b89d",
+      "stderrSHA256": "e84d6bc6737474169b8c9838068c9b1664b6202f2dc2d4c0d52f0d56978a230a"
+    }
+  ],
+  "result": {
+    "explanation": "Track each byte as either unknown or its stored value. A put is transactional: validate bounds and all known overlaps before writing. Reads report maximal unknown runs; clears erase the selected range.",
+    "mapping": "Buffer positions map to state array entries: null means unknown, and 0..255 means known byte. known is the count of non-null entries.",
+    "assumptions": "Inputs use the specified event shapes and safe integers. Initial null state denotes a fresh buffer; subsequently returned arrays are passed back unchanged.",
+    "applies": "function applies(input){return !!(input&&input.config&&Array.isArray(input.events)&&input.config.length>=1)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var a=Array(input.config.length).fill(null),n=0;for(var k=0;k<input.events.length;k++){var e=input.events[k],d=null,m=[],s='invalid',t=e.type,x=e.start,y=e.end,i;if(t==='put'&&Array.isArray(e.data)&&Number.isInteger(x)&&x>=0&&x+e.data.length<=a.length){var ok=true;for(i=0;i<e.data.length;i++)if(a[x+i]!==null&&a[x+i]!==e.data[i])ok=false;if(ok){for(i=0;i<e.data.length;i++)if(a[x+i]===null){a[x+i]=e.data[i];n++}s='stored'}}else if((t==='read'||t==='clear')&&Number.isInteger(x)&&Number.isInteger(y)&&x>=0&&x<=y&&y<=a.length){if(t==='clear'){for(i=x;i<y;i++)if(a[i]!==null){a[i]=null;n--}s='cleared'}else{var q=x;while(q<y){if(a[q]===null){var z=q;while(z<y&&a[z]===null)z++;m.push([q,z]);q=z}else q++}if(!m.length){s='complete';d=a.slice(x,y)}}}var r={status:s,data:d,missing:m,known:n};if(JSON.stringify(r)!==JSON.stringify(output[k]))return false}return true}",
+    "program": "function solve({config,state,event}){var L=config.length,a=state===null?Array(L).fill(null):state.slice(),n=0,i;if(state===null)n=0;else for(i=0;i<L;i++)if(a[i]!==null)n++;var e=event,t=e.type,s='invalid',d=null,m=[],x=e.start,y=e.end;if(t==='put'&&Array.isArray(e.data)&&Number.isInteger(x)&&x>=0&&x+e.data.length<=L){var ok=true;for(i=0;i<e.data.length;i++)if(a[x+i]!==null&&a[x+i]!==e.data[i]){ok=false;break}if(ok){for(i=0;i<e.data.length;i++)if(a[x+i]===null){a[x+i]=e.data[i];n++}s='stored'}}else if((t==='read'||t==='clear')&&Number.isInteger(x)&&Number.isInteger(y)&&x>=0&&x<=y&&y<=L){if(t==='clear'){for(i=x;i<y;i++)if(a[i]!==null){a[i]=null;n--}s='cleared'}else{var p=x;while(p<y){if(a[p]===null){var q=p;while(q<y&&a[q]===null)q++;m.push([p,q]);p=q}else p++}if(!m.length){s='complete';d=a.slice(x,y)}}}return{state:a,output:{status:s,data:d,missing:m,known:n}}}"
+  },
+  "resultSHA256": "03fbe98ed4960bd1aa06a7c3e4a78a4ec6dbaed0f64dae5b364739a06672a546",
+  "rawOutputSHA256": "92ec054431379476ee0c6836865bfe1b4f6c21d9cd3364f7e57055941260f1a6"
+}

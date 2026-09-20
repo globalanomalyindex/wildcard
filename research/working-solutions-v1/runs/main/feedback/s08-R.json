@@ -1,0 +1,261 @@
+{
+  "initialRecordSHA256": "6f6a2c32c0e5f9021d7d8c09318d47177d88a604ae06753466753d527ba2abe0",
+  "firstShown": {
+    "explanation": "Three-way merge resolves unchanged-side edits, recursively combines compatible object edits, and records irreconcilable conflicts while retaining the base value.",
+    "mapping": "base is the common ancestor; local and remote are concurrent revisions; merged and conflicts are the derived output.",
+    "assumptions": "Inputs satisfy the stated JSON limits and event shape. State is unused because events are independent.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){function eq(a,b){return JSON.stringify(a)===JSON.stringify(b)}function cp(a,b){let x=Array.from(a),y=Array.from(b);for(let i=0;i<Math.min(x.length,y.length);i++){let d=x[i].codePointAt(0)-y[i].codePointAt(0);if(d)return d}return x.length-y.length}function obj(x){return x!==null&&typeof x==='object'&&!Array.isArray(x)}function m(b,l,r,p,c){let ae=b===u,be=l===u,ce=r===u;if(eq(l,r))return l;if(eq(l,b))return r;if(eq(r,b))return l;if(obj(l)&&obj(r)&&(ae||obj(b))){let z={},q=new Set([...Object.keys(l),...Object.keys(r),...(obj(b)?Object.keys(b):[])]);for(let k of [...q].sort(cp)){let v=m(obj(b)&&k in b?b[k]:u,k in l?l[k]:u,k in r?r[k]:u,p.concat(k),c);if(v!==u)z[k]=v}return z}if(!ae)c.push(p);return b}let u={},ok=Array.isArray(output);if(!ok)return false;let want=input.events.map(e=>{let c=[],z=m(e.base,e.local,e.remote,[],c);return {merged:z,conflicts:c}});return eq(want,output)}",
+    "program": "function solve({config,state,event}){const U=Symbol('absent');function obj(x){return x!==null&&typeof x==='object'&&!Array.isArray(x)}function eq(a,b){if(a===U||b===U)return a===b;if(typeof a!==typeof b||a===null||b===null)return a===b;if(typeof a!=='object')return a===b;if(Array.isArray(a)||Array.isArray(b)){if(!Array.isArray(a)||!Array.isArray(b)||a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(!eq(a[i],b[i]))return false;return true}let ak=Object.keys(a),bk=Object.keys(b);if(ak.length!==bk.length)return false;for(let k of ak)if(!Object.prototype.hasOwnProperty.call(b,k)||!eq(a[k],b[k]))return false;return true}function cmp(a,b){let x=Array.from(a),y=Array.from(b);for(let i=0;i<Math.min(x.length,y.length);i++){let d=x[i].codePointAt(0)-y[i].codePointAt(0);if(d)return d}return x.length-y.length}function merge(b,l,r,path,cs){if(eq(l,r))return l;if(eq(l,b))return r;if(eq(r,b))return l;if(obj(l)&&obj(r)&&(b===U||obj(b))){let z={},ks=new Set([...Object.keys(l),...Object.keys(r),...(b===U?[]:Object.keys(b))]);for(let k of [...ks].sort(cmp)){let v=merge(b!==U&&Object.prototype.hasOwnProperty.call(b,k)?b[k]:U,Object.prototype.hasOwnProperty.call(l,k)?l[k]:U,Object.prototype.hasOwnProperty.call(r,k)?r[k]:U,path.concat(k),cs);if(v!==U)z[k]=v}return z}if(b!==U)cs.push(path);return b}let c=[],m=merge(event.base,event.local,event.remote,[],c);return {state:null,output:{merged:m,conflicts:c}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "merged": {
+              "v386116_0": 1,
+              "v761228_1": 2
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v402659_2": {
+                "v386116_0": 0,
+                "v761228_1": 3
+              },
+              "v781479_3": 7
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v402659_2": {
+                "v386116_0": null,
+                "v761228_1": 3
+              },
+              "v781479_3": 3
+            },
+            "conflicts": [
+              [
+                "v402659_2"
+              ]
+            ]
+          },
+          {
+            "merged": {
+              "v386116_0": 0
+            },
+            "conflicts": [
+              [
+                "v386116_0"
+              ]
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "merged": {
+              "v030491_1": 2,
+              "v272641_0": 8
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v310691_2": {
+                "v272641_0": 2,
+                "v030491_1": 2
+              },
+              "v883590_3": 7
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v272641_0": 0
+            },
+            "conflicts": [
+              [
+                "v272641_0"
+              ]
+            ]
+          },
+          {
+            "merged": {
+              "v310691_2": {
+                "v272641_0": true,
+                "v030491_1": 2
+              },
+              "v883590_3": 5
+            },
+            "conflicts": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_3_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "merged": {
+              "v142234_3": 0,
+              "v394078_0": {
+                "v378913_1": false,
+                "v976530_2": 1
+              }
+            },
+            "conflicts": [
+              [
+                "v394078_0"
+              ]
+            ]
+          },
+          {
+            "merged": {
+              "v142234_3": 9,
+              "v394078_0": {
+                "v378913_1": true,
+                "v976530_2": 2
+              }
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v394078_0": [
+                1
+              ]
+            },
+            "conflicts": [
+              [
+                "v394078_0"
+              ]
+            ]
+          },
+          {
+            "merged": {},
+            "conflicts": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "merged": {
+              "v211339_1": 2,
+              "v293424_0": 2
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v308849_2": {
+                "v293424_0": 0,
+                "v211339_1": 0
+              },
+              "v813061_3": 6
+            },
+            "conflicts": []
+          },
+          {
+            "merged": {
+              "v293424_0": 0
+            },
+            "conflicts": [
+              [
+                "v293424_0"
+              ]
+            ]
+          },
+          {
+            "merged": {
+              "v308849_2": {
+                "v293424_0": 0,
+                "v211339_1": 4
+              },
+              "v813061_3": 7
+            },
+            "conflicts": []
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,238 @@
+{
+  "initialRecordSHA256": "876e25091ca6eebeb9248e92296f44427d73758ac4f0cc9c433cffb0a88a71a2",
+  "firstShown": {
+    "explanation": "The rule is single-flight caching: freshness is age < ttl; stale data remains visible while age < ttl+stale, and at most one refresh may be pending per key. A response affects state only when its key and token match. For example, after ttl=2 and a resolve at time 0, time 2 must trigger a refresh rather than return the value.",
+    "mapping": "now is current time; c[key]=[value,storedTime]; p[key]=pending token; n is the next token. A get reads c when age < ttl+stale and starts a fetch exactly when age >= ttl and no matching pending request exists.",
+    "assumptions": "Inputs satisfy the stated schema, safe-integer bounds, and JSON-value restrictions. Keys are lowercase ASCII as specified. The implementation treats cached null as a stored value.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var q={now:0,c:{},p:{},n:1},T=input.config.ttl,S=input.config.stale;for(var i=0;i<input.events.length;i++){var e=input.events[i],o=output[i],f=[],v=null,k=e.key;if(e.type==='get'){var x=q.c[k],a=x?q.now-x[1]:0;if(x&&a<T+S)v=x[0];if((!x||a>=T)&&q.p[k]===undefined){q.p[k]=q.n;f=[{key:k,token:q.n++}]}}else if(e.type==='resolve'&&q.p[k]===e.token){q.c[k]=[e.value,q.now];delete q.p[k]}else if(e.type==='reject'&&q.p[k]===e.token)delete q.p[k];else if(e.type==='invalidate'){delete q.c[k];delete q.p[k]}else if(e.type==='advance')q.now+=e.dt;var p=Object.keys(q.p).sort();if(!o||o.now!==q.now||o.value!==v||JSON.stringify(o.fetch)!==JSON.stringify(f)||JSON.stringify(o.pending)!==JSON.stringify(p))return false}return true}",
+    "program": "function solve(x){var C=x.config,e=x.event,s=x.state;if(s===null)s={now:0,c:{},p:{},n:1};var f=[],v=null,k=e.key,t=e.type;if(t==='get'){var z=s.c[k],a=z?s.now-z[1]:0;if(z&&a<C.ttl+C.stale)v=z[0];if((!z||a>=C.ttl)&&s.p[k]===undefined){s.p[k]=s.n;f.push({key:k,token:s.n++})}}else if(t==='resolve'&&s.p[k]===e.token){s.c[k]=[e.value,s.now];delete s.p[k]}else if(t==='reject'&&s.p[k]===e.token)delete s.p[k];else if(t==='invalidate'){delete s.c[k];delete s.p[k]}else if(t==='advance')s.now+=e.dt;return{state:s,output:{value:v,fetch:f,pending:Object.keys(s.p).sort(),now:s.now}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "value": null,
+            "fetch": [
+              {
+                "key": "a",
+                "token": 1
+              }
+            ],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "value": null,
+            "fetch": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u03-X-initial",
+  "requestSHA256": "773a05b9d8dc8ae59bd7ceb65b553e9b8fab3e9726f693fb73534dd76699b521",
+  "promptSHA256": "2f44aed596a747b7b53e778bfb51b5a37b90126761c020a2d45715d73313ca99",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:07:33.031338+00:00",
+  "finishedAt": "2026-09-20T23:08:05.137483+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 32.106732124928385,
+      "usage": {
+        "input_tokens": 8426,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1196,
+        "reasoning_output_tokens": 398
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b345d9941ee4000888629479dabf96ab454a205bf65642bafd0be6600cfbd419",
+      "stderrSHA256": "45cfd69820d830d6108c8e465e67f4680ba2e362f41322515d87bd175bb825d1"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain an opaque controller state containing element eligibility overrides, the ordered dialog stack, and current focus. Each event applies the specified transition, then emits a derived snapshot. Stale or lower-layer completions are ignored.",
+    "mapping": "Dialog stack maps to active and inert layers; each dialog record maps its ID, opener, and requested focus. Element eligibility maps to present AND enabled, with fallback always eligible.",
+    "assumptions": "Inputs satisfy the published identity, shape, finiteness, and trace limits. Dialog IDs are unique while present in the stack. Unknown focus IDs are ineligible unless supplied by an element configuration or later element event.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={e:{},a:[],f:c.fallback};function ok(x){if(x===c.fallback)return true;let v=s.e[x]||c.elements[x];return !!(v&&v.present&&v.enabled)}function snap(){let a=s.a;return {stack:a.map(x=>x.id),active:a.length?a[a.length-1].id:null,focus:s.f,inert:a.slice(0,-1).map(x=>x.id)}}for(let q of input.events){if(q.type==='element'){s.e[q.id]={present:q.present,enabled:q.enabled};if(!ok(s.f))s.f=s.a.length&&ok(s.a[s.a.length-1].focus)?s.a[s.a.length-1].focus:c.fallback}else if(q.type==='open'&&!s.a.some(x=>x.id===q.id)){s.a.push({id:q.id,opener:q.opener,focus:q.focus});s.f=ok(q.focus)?q.focus:c.fallback}else if((q.type==='close'||q.type==='complete')&&s.a.length&&s.a[s.a.length-1].id===q.id){let x=s.a.pop();let t=s.a.length?s.a[s.a.length-1].focus:null;s.f=ok(x.opener)?x.opener:t&&ok(t)?t:c.fallback}let z=snap(),r=output.shift();if(JSON.stringify(z)!==JSON.stringify(r))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{e:{},a:[],f:config.fallback};const ok=x=>{if(x===config.fallback)return true;let v=s.e[x]||config.elements[x];return!!(v&&v.present&&v.enabled)};if(event.type==='element'){s.e[event.id]={present:event.present,enabled:event.enabled};if(!ok(s.f))s.f=s.a.length&&ok(s.a[s.a.length-1].focus)?s.a[s.a.length-1].focus:config.fallback}else if(event.type==='open'&&!s.a.some(x=>x.id===event.id)){s.a.push({id:event.id,opener:event.opener,focus:event.focus});s.f=ok(event.focus)?event.focus:config.fallback}else if((event.type==='close'||event.type==='complete')&&s.a.length&&s.a[s.a.length-1].id===event.id){let x=s.a.pop(),t=s.a.length?s.a[s.a.length-1].focus:null;s.f=ok(x.opener)?x.opener:t&&ok(t)?t:config.fallback}let a=s.a;return{state:s,output:{stack:a.map(x=>x.id),active:a.length?a[a.length-1].id:null,focus:s.f,inert:a.slice(0,-1).map(x=>x.id)}}}"
+  },
+  "resultSHA256": "0fadb8a08d11a64bf98bded09a78ec862fd48599bb958deb56ce30a87cac1c2b",
+  "rawOutputSHA256": "ce8185d2a2b48f7dd47629ecd8af90ef8c52e1cc7cd64f6a6b32baf9820793d8"
+}

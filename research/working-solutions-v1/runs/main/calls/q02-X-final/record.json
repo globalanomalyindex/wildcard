@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q02-X-final",
+  "requestSHA256": "8c812c829c9fbe97bb633a1a420000e6bbc1815adbb0eb4a0720648b7604a9b4",
+  "promptSHA256": "f09aec890460d439d5cf1e8414fb84e8928b35a7772ab45a421a78cad7e1a4e6",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:26.813316+00:00",
+  "finishedAt": "2026-09-20T23:26:37.496077+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 10.681240167003125,
+      "usage": {
+        "input_tokens": 8393,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 420,
+        "reasoning_output_tokens": 80
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "1c2d53c1cab4a5e241049d8b31136a06c4d748c709f40aaa86769fab1e638479",
+      "stderrSHA256": "336e693ed22d73d7a903110f09fa94b6dfc45afeaee89a9eaa58566ac64d1c02"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains sorted tenant order, the weighted slot cycle, FIFO queues, and a cursor. Add events reject IDs pending in any queue; dispatch scans at most one cycle and advances only after sending.",
+    "program": "function solve(x){var w=x.config.weights,n=Object.keys(w).sort(),cy=[],i,j;for(i=0;i<n.length;i++)for(j=0;j<w[n[i]];j++)cy.push(n[i]);var q={},c,s=x.state;if(s){c=s.c;q={};for(i=0;i<n.length;i++)q[n[i]]=s.q[n[i]].slice()}else{c=0;for(i=0;i<n.length;i++)q[n[i]]=[]}var e=x.event,st,sent=null;if(e.type==='add'){var d=false;for(i=0;i<n.length;i++)if(q[n[i]].indexOf(e.id)>=0){d=true;break}if(d)st='duplicate';else{q[e.tenant].push(e.id);st='queued'}}else{st='empty';for(j=0;j<cy.length;j++){var z=(c+j)%cy.length,t=cy[z];if(q[t].length){sent=q[t].shift();c=(z+1)%cy.length;st='sent';break}}}var outq={};for(i=0;i<n.length;i++)outq[n[i]]=q[n[i]].slice();return{state:{q:q,c:c},output:{status:st,sent:sent,queues:outq,cursor:c}}}"
+  },
+  "resultSHA256": "c1f15f27162a626f8d764c335c988f124a3c6b80e28755d2f3abe25f35b2239e",
+  "rawOutputSHA256": "c1f15f27162a626f8d764c335c988f124a3c6b80e28755d2f3abe25f35b2239e"
+}

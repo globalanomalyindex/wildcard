@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s06-X-initial",
+  "requestSHA256": "ad4d1db9b1d4786b381bc364b5e1435db031d5b1b7ed7e552942f82e09a92eb4",
+  "promptSHA256": "cf7052bd0fe3b07fa1dddce7868122c20705de81e9d87eb6f2869cdae7504826",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:06:33.276282+00:00",
+  "finishedAt": "2026-09-20T23:07:01.229476+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 27.951536542037502,
+      "usage": {
+        "input_tokens": 7227,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 853,
+        "reasoning_output_tokens": 293
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "ce0d3132f85b1b9859c7d666830822aad26415eeb945784a0a84eb8a460867bb",
+      "stderrSHA256": "7b4db724ac00641a457b666914c2fcea5f88eb8be96e52294a3707f1f896d46c"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain version, value, historical acknowledgment, and a request latch. Valid newer deltas/snapshots advance state and rearm recovery; conflicts request one snapshot until advancement.",
+    "mapping": "config.version/value initialize current version/value. State fields v,x,a,l represent current version/value, acknowledged version, and request latch.",
+    "assumptions": "Malformed or unknown events are ignored. Legal numeric inputs remain safe integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,v=c.version,x=c.value,a=-1,l=false;for(var i=0;i<input.events.length;i++){var e=input.events[i],fx=[];if(e&&e.type==='delta'){if(e.base===v&&e.version>v){v=e.version;x+=e.delta;l=false}else if(e.version>v){if(!l){fx=[{type:'snapshot',base:v}];l=true}}}else if(e&&e.type==='snapshot'){if(e.version>v){v=e.version;x=e.value;l=false}else if(e.version===v&&e.value!==x&&!l){fx=[{type:'snapshot',base:v}];l=true}}else if(e&&e.type==='ack'&&e.version===v)a=v;var q=output[i];if(!q||q.version!==v||q.value!==x||q.acknowledged!==a||JSON.stringify(q.effects)!==JSON.stringify(fx))return false}return true}",
+    "program": "function solve({config,state,event}){var s=state;if(s===null)s={v:config.version,x:config.value,a:-1,l:false};var v=s.v,x=s.x,a=s.a,l=s.l,e=event,fx=[];if(e&&e.type==='delta'){if(e.base===v&&e.version>v){v=e.version;x+=e.delta;l=false}else if(e.version>v&&!l){fx=[{type:'snapshot',base:v}];l=true}}else if(e&&e.type==='snapshot'){if(e.version>v){v=e.version;x=e.value;l=false}else if(e.version===v&&e.value!==x&&!l){fx=[{type:'snapshot',base:v}];l=true}}else if(e&&e.type==='ack'&&e.version===v)a=v;var ns={v:v,x:x,a:a,l:l};return {state:ns,output:{version:v,value:x,acknowledged:a,effects:fx}}}"
+  },
+  "resultSHA256": "d255c784ffbc8dc2c7e45329df2a5be2b3236994ac94c3ed32fa5ca31288e295",
+  "rawOutputSHA256": "641df56d264fd050d76fcd721e0a916b9c3833a4a5ab7283f080bfeaaa261183"
+}

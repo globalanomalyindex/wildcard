@@ -1,0 +1,1249 @@
+{
+  "initialRecordSHA256": "5edf1876d7fc57bc286256396332792bd4459872597467965b5de2e062aaf026",
+  "firstShown": {
+    "explanation": "Rule: each group owns at most one open panel. After every event, remove disabled selections, then fill empty required groups with their first enabled panel. A toggle replaces its group’s selection, or closes it only when optional. Alternatives that let required groups close or preserve disabled panels contradict the examples; the foil’s altered panel ID is a direct counterexample.",
+    "mapping": "Group requirement, enabled-panel eligibility, and current open panel map directly to state variables; output is derived in group order and global panel order. No outside correspondence is used.",
+    "assumptions": "config is available on the initial call; subsequent calls provide the returned state and the current event. IDs and event shapes satisfy the public contract.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||!x.open||!Array.isArray(x.expanded)||!Array.isArray(x.unsatisfied))return false;for(const p of x.expanded)if(typeof p!==\"string\"||p.indexOf(\"__changed\")>=0)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null){s={e:config.panels.map(p=>p.enabled),r:config.groups.map(g=>g.required),o:config.groups.map(()=>null)};for(let i=0;i<config.groups.length;i++)if(s.r[i])for(let j=0;j<config.panels.length;j++)if(config.panels[j].group===config.groups[i].id&&s.e[j]){s.o[i]=config.panels[j].id;break}}let gi=-1,pi=-1;if(event.type==='toggle'||event.type==='enabled'){for(let j=0;j<config.panels.length;j++)if(config.panels[j].id===event.id){pi=j;break}if(pi>=0)for(let i=0;i<config.groups.length;i++)if(config.groups[i].id===config.panels[pi].group){gi=i;break}}else{for(let i=0;i<config.groups.length;i++)if(config.groups[i].id===event.group){gi=i;break}}if(event.type==='toggle'&&pi>=0&&s.e[pi]){if(s.o[gi]===event.id){if(!s.r[gi])s.o[gi]=null}else s.o[gi]=event.id}else if(event.type==='enabled'&&pi>=0)s.e[pi]=event.value;else if(event.type==='close'&&gi>=0&&!s.r[gi])s.o[gi]=null;else if(event.type==='mode'&&gi>=0)s.r[gi]=event.required;for(let i=0;i<config.groups.length;i++){let ok=false;if(s.o[i]!==null)for(let j=0;j<config.panels.length;j++)if(config.panels[j].id===s.o[i]&&s.e[j]){ok=true;break}if(!ok)s.o[i]=null;if(s.r[i]&&s.o[i]===null)for(let j=0;j<config.panels.length;j++)if(config.panels[j].group===config.groups[i].id&&s.e[j]){s.o[i]=config.panels[j].id;break}}let open={};for(let i=0;i<config.groups.length;i++)open[config.groups[i].id]=s.o[i];let expanded=[];for(let j=0;j<config.panels.length;j++)for(let i=0;i<config.groups.length;i++)if(s.o[i]===config.panels[j].id){expanded.push(s.o[i]);break}let unsatisfied=[];for(let i=0;i<config.groups.length;i++)if(s.r[i]&&s.o[i]===null)unsatisfied.push(config.groups[i].id);unsatisfied.sort();return{state:s,output:{open,expanded,unsatisfied}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": null
+            },
+            "expanded": [],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": null
+            },
+            "expanded": [],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": null
+            },
+            "expanded": [],
+            "unsatisfied": [
+              "g"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null
+            },
+            "expanded": [
+              "a"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c"
+            },
+            "expanded": [
+              "a",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c"
+            },
+            "expanded": [
+              "c"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c"
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "open": {
+              "g": "a",
+              "h": null,
+              "i": "e"
+            },
+            "expanded": [
+              "a",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "a",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "a",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "c",
+              "e"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "c",
+              "e"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "c",
+              "e"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": null,
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "c",
+              "e"
+            ],
+            "unsatisfied": [
+              "g"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": "e"
+            },
+            "expanded": [
+              "b",
+              "c",
+              "e"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": "c",
+              "i": null
+            },
+            "expanded": [
+              "b",
+              "c"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": [
+              "i"
+            ]
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          },
+          {
+            "open": {
+              "g": "b",
+              "h": null,
+              "i": null
+            },
+            "expanded": [
+              "b"
+            ],
+            "unsatisfied": []
+          }
+        ]
+      }
+    ]
+  }
+}

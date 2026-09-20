@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q01-X-final",
+  "requestSHA256": "d95079bea879990072a7663899333aff2a2d8401e3dc2e9376cb0449295c7825",
+  "promptSHA256": "c1439b90c66c7b8c590bb7f79c82f6020ed581e4e55b659c6905e98899c72d5c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:59:35.800484+00:00",
+  "finishedAt": "2026-09-20T22:59:49.814618+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.01244558300823,
+      "usage": {
+        "input_tokens": 9022,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 574,
+        "reasoning_output_tokens": 95
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "dc678b30b790fdb4c4b24a1c6a0ab9d58f786c08d96756d870943cbd8bc65e11",
+      "stderrSHA256": "34ffe1f639fadd47f0bb8970ba51b82bf7e31d3daf193932e06079dc95fea8cf"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains current time and pending jobs with original arrival and insertion order. Each event updates only the relevant state, then emits the complete required snapshot. Aging is capped, ties use insertion order, and a run services exactly one selected job.",
+    "program": "function solve({config:c,state:s,event:e}){if(s===null)s={now:0,jobs:[],seq:0};var n=s.now,j=s.jobs,seq=s.seq,status,served=[];if(e.type==='add'){if(j.length<c.capacity&&!j.some(function(x){return x.id===e.id})){j.push({id:e.id,w:e.work,p:e.priority,a:n,i:seq++});status='queued'}else status='rejected'}else if(e.type==='advance'){n+=e.dt;status='advanced'}else if(e.type==='cancel'){var ci=j.findIndex(function(x){return x.id===e.id});if(ci<0)status='missing';else{j.splice(ci,1);status='cancelled'}}else if(e.type==='run'){status='empty';if(j.length){var k=0;for(var i=1;i<j.length;i++){var x=j[i],y=j[k],px=Math.min(c.ceiling,x.p+Math.floor((n-x.a)/c.quantum)),py=Math.min(c.ceiling,y.p+Math.floor((n-y.a)/c.quantum));if(px>py||(px===py&&x.i<y.i))k=i}var z=j[k],u=Math.min(e.budget,z.w),done=u===z.w;z.w-=u;served=[{id:z.id,units:u,complete:done}];if(done)j.splice(k,1);status='served'}}var pending=[],remaining={},priorities={};for(var q=0;q<j.length;q++){var v=j[q];pending.push(v.id);remaining[v.id]=v.w;priorities[v.id]=Math.min(c.ceiling,v.p+Math.floor((n-v.a)/c.quantum))}return{state:{now:n,jobs:j,seq:seq},output:{status:status,served:served,pending:pending,remaining:remaining,priorities:priorities,now:n}}}"
+  },
+  "resultSHA256": "0f33bfa2fe88fb711c694c4a9201f89d75afcde1257d2c6d783f06608811f0e4",
+  "rawOutputSHA256": "0f33bfa2fe88fb711c694c4a9201f89d75afcde1257d2c6d783f06608811f0e4"
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u02-R-final",
+  "requestSHA256": "a6c07e44b949b0ce7068535f898d98ce96d6293bdac3c97830b2c61eed976b84",
+  "promptSHA256": "149a8d9d9986a3872fed119532781d07a11393514d8d547aafffb5a13cd0b839",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:00:12.813439+00:00",
+  "finishedAt": "2026-09-20T23:00:31.728076+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.913575957994908,
+      "usage": {
+        "input_tokens": 9059,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 682,
+        "reasoning_output_tokens": 85
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "e8d6303c5f87c876bbcdca12dd4401e77adcf4de94ab6144edbd20b734a65e5c",
+      "stderrSHA256": "da1f237213460f78e4ea7b0487be9359a7fa08a10bab7158768f469cec1496c6"
+    }
+  ],
+  "result": {
+    "explanation": "Tracks enabled eligibility, per-group requirement mode, and one open panel per group. It initializes required groups from fixed panel order, applies each event independently, removes ineligible panels, refills required groups, and derives the exact open, expanded, and sorted unsatisfied output.",
+    "program": "function solve({config,state,event}){\nconst G=config.groups,P=config.panels;\nlet s=state;\nconst gi=id=>{for(let i=0;i<G.length;i++)if(G[i].id===id)return i;return -1};\nconst pi=id=>{for(let i=0;i<P.length;i++)if(P[i].id===id)return i;return -1};\nif(s===null){s={e:P.map(p=>p.enabled),o:G.map(()=>null),r:G.map(g=>g.required)};for(let i=0;i<G.length;i++)if(s.r[i])for(let j=0;j<P.length;j++)if(P[j].group===G[i].id&&s.e[j]){s.o[i]=P[j].id;break}}\nif(event.type==='toggle'){let j=pi(event.id);if(j>=0&&s.e[j]){let i=gi(P[j].group);if(s.o[i]===P[j].id){if(!s.r[i])s.o[i]=null}else s.o[i]=P[j].id}}\nelse if(event.type==='enabled'){let j=pi(event.id);if(j>=0)s.e[j]=event.value}\nelse if(event.type==='close'){let i=gi(event.group);if(i>=0&&!s.r[i])s.o[i]=null}\nelse if(event.type==='mode'){let i=gi(event.group);if(i>=0)s.r[i]=event.required}\nfor(let i=0;i<G.length;i++){let j=pi(s.o[i]);if(j<0||!s.e[j])s.o[i]=null;if(s.o[i]===null&&s.r[i])for(let k=0;k<P.length;k++)if(P[k].group===G[i].id&&s.e[k]){s.o[i]=P[k].id;break}}\nlet open={},expanded=[];for(let i=0;i<G.length;i++)open[G[i].id]=s.o[i];for(let j=0;j<P.length;j++)for(let i=0;i<G.length;i++)if(s.o[i]===P[j].id)expanded.push(P[j].id);\nlet unsatisfied=[];for(let i=0;i<G.length;i++)if(s.r[i]&&s.o[i]===null)unsatisfied.push(G[i].id);unsatisfied.sort();\nreturn{state:s,output:{open,expanded,unsatisfied}};\n}"
+  },
+  "resultSHA256": "02c053e539687bc5b95c53da44402f69bc2067b1e1863f29e675d7dea8a72840",
+  "rawOutputSHA256": "02c053e539687bc5b95c53da44402f69bc2067b1e1863f29e675d7dea8a72840"
+}

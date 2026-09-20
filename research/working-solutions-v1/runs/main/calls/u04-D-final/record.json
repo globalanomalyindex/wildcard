@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u04-D-final",
+  "requestSHA256": "050474893824a11a53c1f5b23a3591c5b42365f35e56d9d605e055fb2743bfbe",
+  "promptSHA256": "d64d80110d86105bad2828b97501a429ff39d6bba63536da0b4840e3aa2f3501",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:25:06.345588+00:00",
+  "finishedAt": "2026-09-20T23:25:18.347143+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 11.998682041885331,
+      "usage": {
+        "input_tokens": 7882,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 491,
+        "reasoning_output_tokens": 97
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "da9f5ee1c973d8be9571fe21b35b70d4fbf85ef44493e6b12fcb4337cb8178b8",
+      "stderrSHA256": "c0b76b3d4b8b012216d5e7ef99fe1bf1c7c71dfe165058bb4da905d7c5950843"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains the newest observation time, enabled mode, visible warning, hysteresis counters, and acknowledged critical IDs. Observations only affect behavior when newer than the recorded time. Unacknowledged critical observations take priority; normal observations are ignored while critical is visible. Mode changes reset counters, and acknowledgements hide only a matching critical warning.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s==null)s={t:-1,en:true,k:null,id:null,u:0,d:0,a:[]};else s={t:s.t,en:s.en,k:s.k,id:s.id,u:s.u,d:s.d,a:s.a.slice()};function reset(){s.u=0;s.d=0}function seen(id){return s.a.indexOf(id)>=0}if(e.type==='ack'){if(!seen(e.id))s.a.push(e.id);if(s.k==='critical'&&s.id===e.id){s.k=null;s.id=null;reset()}}else if(e.type==='mode'){s.en=e.enabled;reset();if(!s.en&&s.k==='normal'){s.k=null;s.id=null}}else if(e.type==='observe'&&e.t>s.t){s.t=e.t;if(e.critical){if(!seen(e.id)){s.k='critical';s.id=e.id;reset()}}else if(s.k!=='critical'&&s.en){if(e.level>=c.high){s.u++;s.d=0;if(s.u>=c.dwell){s.k='normal';s.id=null}}else if(e.level<=c.low){s.d++;s.u=0;if(s.d>=c.dwell){s.k=null;s.id=null}}else reset()}}return{state:s,output:{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}}"
+  },
+  "resultSHA256": "c48d60d2e63fa1531e2ccd99926f7c170d76364cc48d6f1d318ff06e3bcc45be",
+  "rawOutputSHA256": "c48d60d2e63fa1531e2ccd99926f7c170d76364cc48d6f1d318ff06e3bcc45be"
+}

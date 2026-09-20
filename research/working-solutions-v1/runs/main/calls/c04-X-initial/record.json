@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c04-X-initial",
+  "requestSHA256": "0b9f687606c22380d48ac6e2498aafd2e712ece9cd6414c1f1cb67b569f73d49",
+  "promptSHA256": "41951d4cbd659972b1228f7fc235c8d4cbcafadbee4d6e391bf454fd26daf1d0",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:17:40.225167+00:00",
+  "finishedAt": "2026-09-20T23:17:58.281260+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.05472775013186,
+      "usage": {
+        "input_tokens": 6886,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 682,
+        "reasoning_output_tokens": 119
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a89638a0576c8809efb963620a1a6266cc1e00624ceb990aceb3862df12a9ac5",
+      "stderrSHA256": "d82ed20166c9f349582dc82180a18a20aef081d6d3fabe5fa1e6022edc4e7ca1"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain sequence, retained records, acknowledgments, and visible latest values. Sets append records. Valid acknowledgments advance only within the reader's current causal range. Compaction retains all records above the minimum acknowledgment and the newest record at or below it for each key, preserving order and visibility.",
+    "mapping": "Sequence maps to write order; log stores retained {seq,key,value} records; acknowledgments map each configured reader to its acknowledged sequence; view maps each key to its latest value.",
+    "assumptions": "Inputs follow the stated contract: configured readers are nonempty, event fields are present and valid, values are integers, and numeric operations are safe. State is trusted only as state produced by this program.",
+    "applies": "function applies(input){return !!(input&&input.config&&Array.isArray(input.config.readers)&&input.config.readers.length&&Array.isArray(input.events));}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||!Array.isArray(x.log)||!x.view||typeof x.view!=='object')return false;for(const n of x.log)if(!Number.isSafeInteger(n))return false;}return true;}",
+    "program": "function solve({config,state,event}){\n  if(state===null){state={seq:0,log:[],acks:{},view:{}};for(const r of config.readers)state.acks[r]=0;}\n  const t=event.type;\n  if(t==='set'){\n    state.seq++;\n    state.log.push({seq:state.seq,key:event.key,value:event.value});\n    state.view[event.key]=event.value;\n  }else if(t==='ack'){\n    const old=state.acks[event.reader];\n    if(old!==undefined&&old<=event.seq&&event.seq<=state.seq)state.acks[event.reader]=event.seq;\n  }else if(t==='compact'){\n    let wm=Infinity;\n    for(const r of config.readers)if(state.acks[r]<wm)wm=state.acks[r];\n    const latest={};\n    for(const rec of state.log)if(rec.seq<=wm)latest[rec.key]=rec;\n    const kept=[];\n    for(const rec of state.log)if(rec.seq>wm||latest[rec.key]===rec)kept.push(rec);\n    state.log=kept;\n  }\n  return {state,output:{log:state.log.map(r=>r.seq),view:{...state.view}}};\n}"
+  },
+  "resultSHA256": "1622906798f865d415c52ebce1ba3a1bb742ea8dc4b7780164ae78bd0c5ead26",
+  "rawOutputSHA256": "ab409862c35c18382b4e89cb381629223584c76f012cfdb3e7a4ab29df656f18"
+}

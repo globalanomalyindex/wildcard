@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-X-initial",
+  "requestSHA256": "8ee588ac5f312db3fd1276d0e9738fe1a973f87f74d41e78122e6d0a4fe0a110",
+  "promptSHA256": "408d963dd59a56f769760092b785323b6fc194da08ee01d96292f3b9582a9c73",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:52:31.425013+00:00",
+  "finishedAt": "2026-09-20T22:53:08.927799+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 37.50343579100445,
+      "usage": {
+        "input_tokens": 7762,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1306,
+        "reasoning_output_tokens": 365
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4ba9ec56b0aae0686e2deaf082e933247017d59ae0702904bf8e2a3a4fa53805",
+      "stderrSHA256": "0ce02476d1b3dbc4952f8e02ab42904f8cdda267ee9038c2f70083b3bdcb4be0"
+    }
+  ],
+  "result": {
+    "explanation": "Atomic guarded batches preserve the current register map and version on rejection. Validation precedes version, guard-conflict, and capacity checks. Successful non-identical candidates commit together and increment version once.",
+    "mapping": "Registers map to values, version tracks committed batches, guards identify required current values, updates form the candidate map, and capacity bounds its total.",
+    "assumptions": "Inputs follow the stated legal JSON contract; event register names are strings and numeric values are safe integers.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||!input||!input.config)return false;var c=input.config,v=Object.assign({},c.initial),ver=0;if(output.length!==input.events.length)return false;function cp(a,b){var x=Array.from(a),y=Array.from(b);for(var i=0;i<Math.min(x.length,y.length);i++){if(x[i].codePointAt(0)!==y[i].codePointAt(0))return x[i].codePointAt(0)-y[i].codePointAt(0)}return x.length-y.length}for(var n=0;n<input.events.length;n++){var e=input.events[n],o=output[n],ok=true,g=e.guards||{},u=e.updates||{},ks=Object.keys(v),us=Object.keys(u);for(var i of Object.keys(g))if(!Object.prototype.hasOwnProperty.call(v,i))ok=false;for(var i of us)if(!Object.prototype.hasOwnProperty.call(g,i)||u[i]<0)ok=false;var s='invalid',cand=Object.assign({},v);if(ok&&e.version!==ver)s='stale';else if(ok){for(var i of Object.keys(g))if(v[i]!==g[i])ok=false;if(!ok)s='conflict';else{for(var i of us)cand[i]=u[i];var sum=0;for(var i of Object.keys(cand))sum+=cand[i];if(sum>c.capacity)s='capacity';else{var ch=[];for(var i of us)if(v[i]!==cand[i])ch.push(i);ch.sort(cp);if(ch.length){v=cand;ver++;s='committed'}else s='unchanged'}}}var want={status:s,version:ver,values:v,changed:s==='committed'?Object.keys(u).filter(function(k){return v[k]===u[k]&&u[k]!==undefined}).sort(cp):[]};if(JSON.stringify(o)!==JSON.stringify(want))return false}return true}",
+    "program": "function solve({config,state,event}){var st=state;if(st===null)st={version:0,values:Object.assign({},config.initial)};var v=st.values,ver=st.version,g=event.guards||{},u=event.updates||{},invalid=false,ks=Object.keys(v);for(var k of Object.keys(g))if(!Object.prototype.hasOwnProperty.call(v,k))invalid=true;for(var k of Object.keys(u))if(!Object.prototype.hasOwnProperty.call(g,k)||u[k]<0)invalid=true;var status,cand=Object.assign({},v),changed=[];if(invalid)status='invalid';else if(event.version!==ver)status='stale';else{for(var k of Object.keys(g))if(v[k]!==g[k]){status='conflict';break}if(!status){for(var k of Object.keys(u))cand[k]=u[k];var sum=0;for(var k of Object.keys(cand))sum+=cand[k];if(sum>config.capacity)status='capacity';else{for(var k of Object.keys(u))if(v[k]!==cand[k])changed.push(k);var cmp=function(a,b){var x=Array.from(a),y=Array.from(b);for(var i=0;i<Math.min(x.length,y.length);i++){var d=x[i].codePointAt(0)-y[i].codePointAt(0);if(d)return d}return x.length-y.length};changed.sort(cmp);if(changed.length){v=cand;ver++;status='committed'}else status='unchanged'}}}return{state:{version:ver,values:v},output:{status:status,version:ver,values:Object.assign({},v),changed:status==='committed'?changed:[]}}}"
+  },
+  "resultSHA256": "b70094bd6aae96d68e038aeb420ab5052b58e3e0c8c89353f27df4ff35750628",
+  "rawOutputSHA256": "baccf57590b1b1bef0d55e76be68da6faa4cf3ca3f1cbb24e10dd20ed76c20cd"
+}

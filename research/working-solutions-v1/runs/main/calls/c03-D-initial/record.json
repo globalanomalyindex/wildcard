@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c03-D-initial",
+  "requestSHA256": "b68419371ad94af6a84e83f3718be054ee55e547e3a3be56072f058bf65a00ad",
+  "promptSHA256": "28d7c2544d20ef7c926631f663cf837a4331dec965d4057357f4a064298ee235",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:12:47.567894+00:00",
+  "finishedAt": "2026-09-20T23:13:21.487242+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 33.91845183307305,
+      "usage": {
+        "input_tokens": 6895,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 711,
+        "reasoning_output_tokens": 84
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "1f705c6366ad53e71508265dbd6675662be16f2c4c36e7695b692f53a1bad92b",
+      "stderrSHA256": "964c18b38896be855843675b1842763383f3bded83ff15745eed43bc525700c5"
+    }
+  ],
+  "result": {
+    "explanation": "The conditional rule is: retain snapshots in insertion order, replace an existing ID before appending it, cap retention to the newest keep entries, and restore the newest retained snapshot whose stored checksum matches its recomputed checksum. A counterexample to choosing the newest snapshot unconditionally is p1: damaged b must be skipped so a is restored.",
+    "mapping": "config.keep maps to retention capacity; each snapshot maps to {id,data,checksum}; event operations map to ordered state transitions; restore maps to reverse validation and copying.",
+    "assumptions": "Inputs satisfy the stated numeric, event, and capacity constraints. State is internally represented as a snapshot array. Damage mutates only data and never the stored checksum.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.events.length<=48&&input.config&&Number.isInteger(input.config.keep)&&input.config.keep>=1}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false; for(const x of output){if(!x||!Array.isArray(x.retained)||!Object.prototype.hasOwnProperty.call(x,'data')||!Object.prototype.hasOwnProperty.call(x,'chosen'))return false} return true}",
+    "program": "function solve({config,state,event}) {\n  let s = Array.isArray(state) ? state : [];\n  const copy = a => a.slice();\n  const sum = a => { let n=0; for(let i=0;i<a.length;i++) n=(n+(i+1)*a[i])%251; return n; };\n  const type = event && event.type;\n  if(type === 'save') {\n    const id=event.id;\n    let k=s.findIndex(x=>x.id===id);\n    if(k>=0) s.splice(k,1);\n    s.push({id:id,data:copy(event.data),checksum:event.checksum});\n    while(s.length>config.keep) s.shift();\n  } else if(type === 'damage') {\n    const x=s.find(x=>x.id===event.id);\n    if(x && Number.isInteger(event.index) && event.index>=0 && event.index<x.data.length) x.data[event.index]=event.value;\n  } else if(type === 'drop') {\n    const k=s.findIndex(x=>x.id===event.id);\n    if(k>=0) s.splice(k,1);\n  } else if(type === 'restore') {}\n  let data=null, chosen=null;\n  if(type === 'restore') {\n    for(let i=s.length-1;i>=0;i--) if(sum(s[i].data)===s[i].checksum){data=copy(s[i].data);chosen=s[i].id;break;}\n  }\n  return {state:s,output:{data:data,chosen:chosen,retained:s.map(x=>x.id)}};\n}"
+  },
+  "resultSHA256": "4433a50ab9f79c4a1240948765e90a3a1517ab43388d0b64762d65730b168e69",
+  "rawOutputSHA256": "7fcc81e3efbb8394dd63913534c1a69eb251d526a5a3d84e922fc27e1a2a5d29"
+}

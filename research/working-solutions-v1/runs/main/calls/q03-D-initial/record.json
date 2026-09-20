@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q03-D-initial",
+  "requestSHA256": "7a5145209312b9920229b4e5089f3efcdbdbdb8c01cbe4145f6d7b08dbf57a9b",
+  "promptSHA256": "85ed320f72194e261393d779fc1f4e8c9065a20f1c11f275dde1908a9e3fd449",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:11:05.816908+00:00",
+  "finishedAt": "2026-09-20T23:11:26.685810+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.867810250027105,
+      "usage": {
+        "input_tokens": 6735,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 943,
+        "reasoning_output_tokens": 272
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a01d950490aa75dce3f6a04fba3b7ee989678078fb2f33dd91d9e6d2a9a7ebfd",
+      "stderrSHA256": "fb613deac32bf0d3a3926c7e5a88ed03aee26b8da592659354f4a65dc3b3ca53"
+    }
+  ],
+  "result": {
+    "explanation": "The rule is: pending values retain their first insertion time; replacements change only the value. A non-required batch drains when its distinct-key count reaches limit, when any key reaches delay age, or on flush, always in lexical order. Required puts bypass batching. For example, resetting age on replacement would incorrectly delay p1.",
+    "mapping": "config.limit and config.delay govern count and age triggers; config.required selects immediate delivery. State maps each pending key to {value,at}, plus now. Event effects produce emitted, pending, and now.",
+    "assumptions": "Inputs obey the stated legal-input constraints. Lexical order is JavaScript string ordering for single lowercase ASCII identifiers. Returned state is JSON data and is passed unchanged to the next call.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,n=0,p={},o=[];function keys(){return Object.keys(p).sort()}function drain(){var r=keys().map(function(k){return {key:k,value:p[k].v}});p={};return r}for(var e of input.events){var em=[];if(e.type==='put'){if(c.required)em=[{key:e.key,value:e.value}];else{if(!p[e.key])p[e.key]={v:e.value,t:n};else p[e.key].v=e.value;if(Object.keys(p).length>=c.limit)em=drain()}}else if(e.type==='cancel')delete p[e.key];else if(e.type==='advance'){n+=e.dt;if(Object.keys(p).some(function(k){return n-p[k].t>=c.delay}))em=drain()}else if(e.type==='flush')em=drain();var q=keys(),x=output[o.length];if(!x||x.now!==n||JSON.stringify(x.emitted)!==JSON.stringify(em)||JSON.stringify(x.pending)!==JSON.stringify(q))return false;o++}return true}",
+    "program": "function solve(x){var c=x.config,s=x.state||{now:0,pending:{}},e=x.event;var now=s.now,p=s.pending,em=[];function ks(){return Object.keys(p).sort()}function drain(){var a=ks();em=a.map(function(k){return {key:k,value:p[k].value}});p={}}if(e.type==='put'){if(c.required)em=[{key:e.key,value:e.value}];else{if(p[e.key]===undefined)p[e.key]={value:e.value,at:now};else p[e.key].value=e.value;if(Object.keys(p).length>=c.limit)drain()}}else if(e.type==='cancel'){delete p[e.key]}else if(e.type==='advance'){now+=e.dt;if(Object.keys(p).some(function(k){return now-p[k].at>=c.delay}))drain()}else if(e.type==='flush')drain();return {state:{now:now,pending:p},output:{emitted:em,pending:ks(),now:now}}}"
+  },
+  "resultSHA256": "7dcbbf35546544ba96244088c72f4651d6f084de6aadc2d08ec3dbd464f0f90b",
+  "rawOutputSHA256": "c152ae16f912bc9950b34caf15aff3db842cdfa1080803c344b1ca2c9bb2bb56"
+}

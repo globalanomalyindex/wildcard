@@ -1,0 +1,66 @@
+{
+  "initialRecordSHA256": "3256c71ceb75500ce3e9fc0d10457fedf3961be335fd7edfaddbe7082ee15d22",
+  "firstShown": {
+    "explanation": "Use a recency-ordered entry list. Expired entries are removed before each event and immediately after time advances. Oversized puts are no-ops; other puts replace, evict oldest entries as needed, and ttl=0 removes the key.",
+    "mapping": "Cache state maps now plus oldest-to-newest entries to key, value, size, and expiry. Output reports the current value result, recency keys, total bytes, and time.",
+    "assumptions": "Inputs satisfy the stated schema and safe-integer limits. State is only the JSON returned by this function.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.capacity>=1;}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let s={now:0,e:[]},cap=input.config.capacity;function clean(){s.e=s.e.filter(x=>x.x>s.now)}function rem(k){let i=s.e.findIndex(x=>x.k===k);if(i>=0)s.e.splice(i,1)}function snap(v){return {value:v,keys:s.e.map(x=>x.k),bytes:s.e.reduce((a,x)=>a+x.z,0),now:s.now}}for(let i=0;i<input.events.length;i++){let q=input.events[i],v=null;clean();if(q.type==='advance'){s.now+=q.dt;clean()}else if(q.type==='get'){let j=s.e.findIndex(x=>x.k===q.key);if(j>=0){let x=s.e.splice(j,1)[0];v=x.v;s.e.push(x)}}else if(q.type==='put'&&q.size<=cap){rem(q.key);if(q.ttl>0){let b=s.e.reduce((a,x)=>a+x.z,0);while(s.e.length&&b+q.size>cap)b-=s.e.shift().z;s.e.push({k:q.key,v:q.value,z:q.size,x:s.now+q.ttl})}}let r=snap(v),o=output[i];if(JSON.stringify(r)!==JSON.stringify(o))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,e:[]},cap=config.capacity;function clean(){s.e=s.e.filter(x=>x.x>s.now)}function remove(k){let i=s.e.findIndex(x=>x.k===k);if(i>=0)s.e.splice(i,1)}function out(v){return{value:v,keys:s.e.map(x=>x.k),bytes:s.e.reduce((n,x)=>n+x.size,0),now:s.now}}let v=null;clean();if(event.type==='advance'){s.now+=event.dt;clean()}else if(event.type==='get'){let i=s.e.findIndex(x=>x.key===event.key);if(i>=0){let x=s.e.splice(i,1)[0];v=x.value;s.e.push(x)}}else if(event.type==='put'){if(event.size<=cap){remove(event.key);if(event.ttl>0){let bytes=s.e.reduce((n,x)=>n+x.size,0);while(s.e.length&&bytes+event.size>cap)bytes-=s.e.shift().size;s.e.push({key:event.key,value:event.value,size:event.size,x:s.now+event.ttl})}}}return{state:s,output:out(v)}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "runtime_error",
+        "passed": false,
+        "violations": [
+          "runtime_error"
+        ],
+        "error": "Error: non-JSON value\n    at encode (<input>:17:38)\n    at encode (<input>:27:82)\n    at encode (<input>:32:108)\n    at encode (<input>:32:108)\n    at <anonymous> (<input>:45:29)\n",
+        "outputs": []
+      },
+      {
+        "id": "p2",
+        "status": "runtime_error",
+        "passed": false,
+        "violations": [
+          "runtime_error"
+        ],
+        "error": "Error: non-JSON value\n    at encode (<input>:17:38)\n    at encode (<input>:27:82)\n    at encode (<input>:32:108)\n    at encode (<input>:32:108)\n    at <anonymous> (<input>:45:29)\n",
+        "outputs": []
+      },
+      {
+        "id": "p3",
+        "status": "runtime_error",
+        "passed": false,
+        "violations": [
+          "runtime_error"
+        ],
+        "error": "Error: non-JSON value\n    at encode (<input>:17:38)\n    at encode (<input>:27:82)\n    at encode (<input>:32:108)\n    at encode (<input>:32:108)\n    at <anonymous> (<input>:45:29)\n",
+        "outputs": []
+      },
+      {
+        "id": "p4",
+        "status": "runtime_error",
+        "passed": false,
+        "violations": [
+          "runtime_error"
+        ],
+        "error": "Error: non-JSON value\n    at encode (<input>:17:38)\n    at encode (<input>:27:82)\n    at encode (<input>:32:108)\n    at encode (<input>:32:108)\n    at <anonymous> (<input>:45:29)\n",
+        "outputs": []
+      }
+    ]
+  }
+}

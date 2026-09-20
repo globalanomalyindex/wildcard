@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s08-D-initial",
+  "requestSHA256": "9b384babe7e4530d480c47fa7d658eaa706c8e773f8616fe807f3ebded17f225",
+  "promptSHA256": "42b3c5d67657893b43ea572722d92fab6d1497efa4ac20dc645bcb1dcdb188c6",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:14:10.895377+00:00",
+  "finishedAt": "2026-09-20T23:14:44.620888+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 33.72550637507811,
+      "usage": {
+        "input_tokens": 8896,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1527,
+        "reasoning_output_tokens": 454
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "f3c34a77195f9537d1b73c642ca559331bce342431c8f222dafac2c1ffb7fe9e",
+      "stderrSHA256": "4334e42f4a5efe1bb3405fb6cdb64000030e8c32d6d06472e92a16061ec5b216"
+    }
+  ],
+  "result": {
+    "explanation": "The direct rule is recursive three-way merge: equal edits win; otherwise an unchanged side yields the other side; object/object disagreements recurse; all other disagreements retain base and record the path. A tempting alternative is last-writer-wins, but it fails when both sides independently change a scalar differently.",
+    "mapping": "At each path, base/local/remote values map directly to the merge decision and conflict path.",
+    "assumptions": "Inputs satisfy the stated legal JSON and depth limits. State is unused because events are independent.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){function q(a,b){if(a===b)return true;if(typeof a!==typeof b||a===null||b===null)return false;if(Array.isArray(a)||Array.isArray(b)){if(!Array.isArray(a)||a.length!==b.length)return false;for(var i=0;i<a.length;i++)if(!q(a[i],b[i]))return false;return true}if(typeof a==='object'){var x=Object.keys(a),y=Object.keys(b);if(x.length!==y.length)return false;for(var k of x)if(!Object.prototype.hasOwnProperty.call(b,k)||!q(a[k],b[k]))return false;return true}return false}function m(e){var c=[],has=Object.prototype.hasOwnProperty;function f(b,hb,l,hl,r,hr,p){if(q(hl?l:undefined,hr?r:undefined))return [hl?l:undefined,hl||hr];if(q(hl?l:undefined,hb?b:undefined))return [hr?r:undefined,hr];if(q(hr?r:undefined,hb?b:undefined))return [hl?l:undefined,hl];if(hl&&hr&&l&&r&&!Array.isArray(l)&&typeof l==='object'&&!Array.isArray(r)&&typeof r==='object'&&( !hb||(b&&!Array.isArray(b)&&typeof b==='object'))){var z={},ks=Object.keys(l);for(var k of Object.keys(r))if(ks.indexOf(k)<0)ks.push(k);ks.sort();for(var k of ks){var t=f(hb&&b&&has.call(b,k),hb&&b&&b[k],l&&has.call(l,k),l&&l[k],r&&has.call(r,k),r&&r[k],p.concat(k));if(t[1])z[k]=t[0]}return [z,true]}if(hb)return [b,true];c.push(p);return [undefined,false]}var x=f(true,e.base,true,e.local,true,e.remote,[]);return {merged:x[0],conflicts:c}}var want=input.events.map(m);return q(want,output)}",
+    "program": "function solve({config,state,event}){var has=Object.prototype.hasOwnProperty,conf=[],UN={};function eq(a,b){if(a===UN||b===UN)return a===b;if(a===b)return true;if(typeof a!==typeof b||a===null||b===null)return false;if(Array.isArray(a)||Array.isArray(b)){if(!Array.isArray(a)||a.length!==b.length)return false;for(var i=0;i<a.length;i++)if(!eq(a[i],b[i]))return false;return true}if(typeof a==='object'){var x=Object.keys(a),y=Object.keys(b);if(x.length!==y.length)return false;for(var k of x)if(!has.call(b,k)||!eq(a[k],b[k]))return false;return true}return false}function merge(b,hb,l,hl,r,hr,path){var bl=hb?b:UN,ll=hl?l:UN,rr=hr?r:UN;if(eq(ll,rr))return [ll,ll!==UN];if(eq(ll,bl))return [rr,rr!==UN];if(eq(rr,bl))return [ll,ll!==UN];var lo=hl&&l&&typeof l==='object'&&!Array.isArray(l),ro=hr&&r&&typeof r==='object'&&!Array.isArray(r),bo=hb&&b&&typeof b==='object'&&!Array.isArray(b);if(lo&&ro&&(!hb||bo)){var z={},keys=Object.keys(l);for(var k of Object.keys(r))if(keys.indexOf(k)<0)keys.push(k);keys.sort();for(var i=0;i<keys.length;i++){k=keys[i];var t=merge(bo&&has.call(b,k)?b[k]:UN,bo&&has.call(b,k),has.call(l,k)?l[k]:UN,has.call(l,k),has.call(r,k)?r[k]:UN,has.call(r,k),path.concat(k));if(t[1])z[k]=t[0]}return [z,true]}if(hb)return [b,true];conf.push(path);return [UN,false]}var t=merge(event.base,true,event.local,true,event.remote,true,[]);return {state:state,output:{merged:t[0],conflicts:conf}}}"
+  },
+  "resultSHA256": "ceb1ca802c8bdd82f654bd6f1310d6ed49bb68033a8976642b74b69d182bfc36",
+  "rawOutputSHA256": "440c58ccef4b8f11ef629616daf46f18601880e74c13d8cd0f491951becc24e0"
+}

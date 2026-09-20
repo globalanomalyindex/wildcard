@@ -1,0 +1,184 @@
+{
+  "initialRecordSHA256": "c40585863cbcc2a0ea7e8e14315628d0ce76dd55586dee81d9f036770011c03a",
+  "firstShown": {
+    "explanation": "Use a finite controller state: last observation time, acknowledged IDs, mode, normal hysteresis counters, and current warning. Critical observations take precedence unless their ID was acknowledged.",
+    "mapping": "config.low/high/dwell map to hysteresis thresholds and persistence. State maps to lastTime, acknowledgements, enabled mode, counters, and visible warning. Events map to ordered transitions; output is the resulting warning projection.",
+    "assumptions": "The host supplies the same config on each call and passes returned JSON state unchanged. Event types are valid under the specification. IDs are compared by exact string equality.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||typeof x.visible!==\"boolean\"||!(x.kind===null||x.kind===\"normal\"||x.kind===\"critical\"))return false;if(x.visible!==(x.kind!==null))return false;if(x.kind===\"critical\"&&typeof x.id!==\"string\")return false;if(x.kind!==\"critical\"&&x.id!==null)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={t:-1,a:{},e:true,h:0,l:0,v:false,k:null,i:null};const reset=()=>{s.h=0;s.l=0};if(event.type==='ack'){s.a[event.id]=1;if(s.k==='critical'&&s.i===event.id){s.v=false;s.k=null;s.i=null;reset()}}else if(event.type==='mode'){s.e=event.enabled;reset();if(!s.e&&s.k==='normal'){s.v=false;s.k=null;s.i=null}}else if(event.type==='observe'&&event.t>s.t){s.t=event.t;if(event.critical){if(!s.a[event.id]){s.v=true;s.k='critical';s.i=event.id;reset()}}else if(s.k!=='critical'&&s.e){if(event.level>=config.high){s.h++;s.l=0;if(s.h>=config.dwell){s.v=true;s.k='normal';s.i=null}}else if(event.level<=config.low){s.l++;s.h=0;if(s.l>=config.dwell&&s.k==='normal'){s.v=false;s.k=null;s.i=null}}else reset()}}return{state:s,output:{visible:s.v,kind:s.v?s.k:null,id:s.v&&s.k==='critical'?s.i:null}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": true,
+            "kind": "normal",
+            "id": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          }
+        ]
+      }
+    ]
+  }
+}

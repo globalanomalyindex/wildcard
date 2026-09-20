@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q08-D-initial",
+  "requestSHA256": "5d9f643f0ab30fef15700105e29e34ac8a43581c04a43c3f3c73d157376bb44d",
+  "promptSHA256": "f4eab8a9685bd95097d0c7a51ed6a16ce4387275190928398131fc110943687a",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:12:14.680321+00:00",
+  "finishedAt": "2026-09-20T23:12:47.553218+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 32.872973249992356,
+      "usage": {
+        "input_tokens": 7057,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 910,
+        "reasoning_output_tokens": 269
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a88d35a2920e2d5f6a20fe65a5980409815ffc107993d45eb76ed0de0c336bff",
+      "stderrSHA256": "f8b7fd482c7eb4d6127218862575bd9bbbda2c6c6b30c3d495e5ca050a46a6ac"
+    }
+  ],
+  "result": {
+    "explanation": "A completion affects only a matching running node. After each event, repeatedly block pending nodes whose prerequisites are failed or blocked, then start all currently eligible pending nodes simultaneously in lexical order. Counterexample: starting a node whose prerequisite merely completed in the same event would violate the running-state requirement.",
+    "mapping": "For each node, state is one of pending, running, done, failed, or blocked; dependencies map prerequisite IDs to nodes. The returned started list is the lexical set transitioned pending→running after propagation.",
+    "assumptions": "Event type ok marks a matching running node done; fail marks it failed; all other completion events are ignored. Poll only triggers propagation and scheduling. Config remains available on every call.",
+    "applies": "function applies(input){return !!input&&!!input.config&&!!input.config.deps&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let d=input.config.deps,k=Object.keys(d).sort(),s={};k.forEach(x=>s[x]='pending');for(let z=0;z<output.length;z++){let e=input.events[z];if(e&&((e.type==='ok')||(e.type==='fail'))&&s[e.id]==='running')s[e.id]=e.type==='ok'?'done':'failed';let ch=true;while(ch){ch=false;for(let x of k)if(s[x]==='pending'&&d[x].some(q=>s[q]==='failed'||s[q]==='blocked'))s[x]='blocked',ch=true}let a=[];for(let x of k)if(s[x]==='pending'&&d[x].every(q=>s[q]==='done'))s[x]='running',a.push(x);let o=output[z];if(!o||JSON.stringify(o.started)!==JSON.stringify(a))return false;let t={};k.forEach(x=>t[x]=s[x]);if(JSON.stringify(o.states)!==JSON.stringify(t))return false}return true}",
+    "program": "function solve({config,state,event}){let d=config.deps,k=Object.keys(d).sort(),s=state?state.s:Object.fromEntries(k.map(x=>[x,'pending']));if(event&&(event.type==='ok'||event.type==='fail')&&s[event.id]==='running')s[event.id]=event.type==='ok'?'done':'failed';let ch=true;while(ch){ch=false;for(let x of k)if(s[x]==='pending'&&d[x].some(q=>s[q]==='failed'||s[q]==='blocked')){s[x]='blocked';ch=true}}let a=[];for(let x of k)if(s[x]==='pending'&&d[x].every(q=>s[q]==='done')){s[x]='running';a.push(x)}let t={};for(let x of k)t[x]=s[x];return {state:{s:s},output:{started:a,states:t}}}"
+  },
+  "resultSHA256": "8ea41cf038987dcd91ad93541e65798ce9a66f7dac96aaa5d5c783559cc5c50f",
+  "rawOutputSHA256": "b69e4c143635f7b66aca137f93cd0db0d41e9ed3ccde0a12463b1d18faae0623"
+}

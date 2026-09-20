@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q03-D-final",
+  "requestSHA256": "5a42ce888db9c31d7aff1c42cc68eddc5c8177b4f48ec61cee88fb8202b0865f",
+  "promptSHA256": "c8c9d78ca4e531cd28278878e449841861a0be87aeff0a9c4eff5c91da3a27a5",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:02.959270+00:00",
+  "finishedAt": "2026-09-20T23:26:13.656720+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 10.694957209052518,
+      "usage": {
+        "input_tokens": 7667,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 437,
+        "reasoning_output_tokens": 134
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fc0d492b643728f8c6076a42858c00cd8adb71b0ed3b64606f84f5d7e3ba0492",
+      "stderrSHA256": "2f8d64d724bb30f1f0df48aa2eb6a797ba7ce105cfe63c9c35489dd7e41f076e"
+    }
+  ],
+  "result": {
+    "explanation": "Pending entries store their latest value and original insertion time. Non-required batches drain on reaching the distinct-key limit, when any pending entry reaches the delay, or on flush. Replacement updates only the value, while cancellation removes one key. Required puts emit immediately. Every emission and pending-key list is lexically sorted, and advance updates time before checking ages.",
+    "program": "function solve(x){var c=x.config,s=x.state||{now:0,pending:{}},e=x.event,n=s.now,p=s.pending,em=[];function keys(){return Object.keys(p).sort()}function drain(){var a=keys();em=a.map(function(k){return {key:k,value:p[k].value}});p={}}if(e.type==='put'){if(c.required){em=[{key:e.key,value:e.value}]}else{if(p[e.key]===undefined)p[e.key]={value:e.value,at:n};else p[e.key].value=e.value;if(Object.keys(p).length>=c.limit)drain()}}else if(e.type==='cancel'){delete p[e.key]}else if(e.type==='advance'){n+=e.dt;if(Object.keys(p).some(function(k){return n-p[k].at>=c.delay}))drain()}else if(e.type==='flush')drain();return {state:{now:n,pending:p},output:{emitted:em,pending:keys(),now:n}}}"
+  },
+  "resultSHA256": "040924fc4f6176210fd771abd6ed31b1ec6778011bdd4145bc77e2aba3a0812e",
+  "rawOutputSHA256": "040924fc4f6176210fd771abd6ed31b1ec6778011bdd4145bc77e2aba3a0812e"
+}

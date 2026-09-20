@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s05-R-initial",
+  "requestSHA256": "248b79867b0765199d5e32e639d77548617b2cbcd323a127a565794df28441e4",
+  "promptSHA256": "33bd0b8600840ee978a720fecb9cdb5b591543ae469b0f33ccd1d37e0274f8bc",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:10:30.808661+00:00",
+  "finishedAt": "2026-09-20T23:10:58.027646+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 27.217508959118277,
+      "usage": {
+        "input_tokens": 7367,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1359,
+        "reasoning_output_tokens": 612
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a55c6df39ba8d232f7aff6fc6365ae2cd0b945d5b749561e3e637684becfc855",
+      "stderrSHA256": "40c0204d93764b0b80799bcc16fd77bdd2d051a43fcfe92ec788c651995d2ac8"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain separate receive, send, and spend identity records. Debits occur on accepted sends/spends; pending sends refund only on cancellation. Outputs are rebuilt with code-point ordering.",
+    "mapping": "The optional rule maps available and spent to conserved rights, received grants to additions, and pending sends to reserved debits. Transfer of the outside archival-order rule is inappropriate because this task defines operational identity and ordering, not provenance.",
+    "assumptions": "Malformed receive/send/spend operations are invalid. Ack and cancel operations that do not target a currently pending send are ignored, including malformed targets.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){var c=input.config,total=c.initial;for(var o of output){if(!o||typeof o.available!='number'||typeof o.spent!='number'||o.available<0||o.spent<0)return false;var g=0;for(var id of o.received||[])if(Object.prototype.hasOwnProperty.call(c.grants,id))g+=c.grants[id];if(o.available+o.spent>total+g)return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null){s={a:c.initial,sp:0,r:[],se:[],pe:[],sc:[],ss:[]}}function has(a,id){return a.indexOf(id)>=0}function rec(a,id){for(var z of a)if(z[0]===id)return z;return null}function cmp(a,b){var x=Array.from(a),y=Array.from(b),n=Math.min(x.length,y.length);for(var i=0;i<n;i++){if(x[i].codePointAt(0)!==y[i].codePointAt(0))return x[i].codePointAt(0)-y[i].codePointAt(0)}return x.length-y.length}var st='ignored',t=e&&e.type,id=e&&e.id,amt=e&&e.amount,validId=typeof id==='string';if(t==='receive'){if(!validId||typeof amt!=='number'||!Number.isSafeInteger(amt)||amt<=0||!Object.prototype.hasOwnProperty.call(c.grants,id)||c.grants[id]!==amt)st='invalid';else if(has(s.r,id))st='duplicate';else{s.r.push(id);s.a+=amt;st='accepted'}}else if(t==='send'||t==='spend'){var arr=t==='send'?s.se:s.ss,old=rec(arr,id);if(!validId||typeof amt!=='number'||!Number.isSafeInteger(amt)||amt<=0)st='invalid';else if(old)st=old[1]===amt?'duplicate':'conflict';else if(s.a<amt)st='insufficient';else{arr.push([id,amt]);s.a-=amt;if(t==='send')s.pe.push([id,amt]);else s.sp+=amt;st='accepted'}}else if(t==='ack'||t==='cancel'){if(validId){var q=rec(s.pe,id);if(q){s.pe.splice(s.pe.indexOf(q),1);if(t==='cancel')s.a+=q[1]}}}else st='invalid';var rr=s.r.slice().sort(cmp),pp=s.pe.map(function(z){return z[0]}).sort(cmp);return{state:s,output:{status:st,available:s.a,spent:s.sp,pending:pp,received:rr}}}"
+  },
+  "resultSHA256": "1656b5ea201c5a044debb6ef22bcb540e675b9b6e733ae3380599c364a84c049",
+  "rawOutputSHA256": "98ae3efe4378524c2b87a4fd9c52469b8bb64047cff61ef44c2284c94f6b2fd4"
+}

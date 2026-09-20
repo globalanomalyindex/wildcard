@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u01-R-initial",
+  "requestSHA256": "761a0d867de7f6028c5989f393d0a2fa0452184ae6fd4e2c82f3726fea8debbe",
+  "promptSHA256": "e1f849d6a41c579b05082b6fd56fbd12723b5610de8a56113fff510bf45e3db9",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:06:50.682079+00:00",
+  "finishedAt": "2026-09-20T23:07:10.245574+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.56165499985218,
+      "usage": {
+        "input_tokens": 8376,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 811,
+        "reasoning_output_tokens": 171
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "da37ed43362c8141b1307804a94417fad7bccd92e9e180398e79c6ef6a7b9a30",
+      "stderrSHA256": "aa4fbf97ae9748cd2f93c4d622561007a5e0b46ad7424d19271fff8184b7f2a4"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain an opaque controller state. Only the mounted, loading request matching the current ID may settle; a new search cancels the prior request first. Disposal resets data and unmounts, while mount restores the initial mounted state.",
+    "mapping": "The current ID is the causal identity of the active request; query/result/error/loading are retained or replaced exactly as specified, and effects record only cancellation and request actions from the current event.",
+    "assumptions": "Events are legal JSON objects under the stated contract. Unknown events are no-ops while mounted and all non-mount events are no-ops while disposed.",
+    "applies": "function applies(input){return Array.isArray(input&&input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||Array.isArray(x))return false;for(const k of [\"mounted\",\"query\",\"current\",\"loading\",\"result\",\"error\",\"effects\"])if(!(k in x))return false;if(Object.keys(x).length!==7||!Array.isArray(x.effects))return false}return true}",
+    "program": "function solve({config,state,event}){\n  const init=()=>({mounted:true,query:\"\",current:null,loading:false,result:null,error:null});\n  let s=state==null?init():state;\n  let effects=[];\n  const out=()=>({mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects});\n  if(!s.mounted){\n    if(event&&event.type===\"mount\")s=init();\n    return {state:s,output:out()};\n  }\n  if(!event||typeof event!==\"object\")return {state:s,output:out()};\n  if(event.type===\"search\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s.current=event.id;s.query=event.query;s.loading=true;s.error=null;\n    effects.push({type:\"request\",id:event.id,query:event.query});\n  }else if(event.type===\"success\"){\n    if(s.loading&&s.current===event.id){s.result=event.result;s.error=null;s.loading=false;}\n  }else if(event.type===\"failure\"){\n    if(s.loading&&s.current===event.id){s.error=event.error;s.loading=false;}\n  }else if(event.type===\"cancel\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s.loading=false;s.current=null;s.error=null;\n  }else if(event.type===\"dispose\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s=init();s.mounted=false;\n  }\n  return {state:s,output:out()};\n}"
+  },
+  "resultSHA256": "e4db6d887e628e1b927d04754978441f3747cdc06fae77a9ecff54282a8e0be0",
+  "rawOutputSHA256": "0f8e4c2a0a76d7a010e697ba215e26d84d260bce80dad383a776ff824e9c4529"
+}

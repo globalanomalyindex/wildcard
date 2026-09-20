@@ -1,0 +1,849 @@
+{
+  "initialRecordSHA256": "eca968864523ad58d07bdd6ed9b6230e1f1c4469323624e1728fc2eb46497036",
+  "firstShown": {
+    "explanation": "The controller keeps the committed lattice value separately from the editable draft. Input edits only the draft; commit validates and snaps to the nearest legal lattice point, with ties rounded downward. Cancel and stepping restore canonical committed text.",
+    "mapping": "config defines the lattice; state stores committed value, draft, error, disabled flag, and lattice parameters. Each event transforms that state and returns a derived output.",
+    "assumptions": "Inputs satisfy the published config and event shapes. Numeric values are safe integers, and decimal input is ASCII with optional leading sign followed by digits.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var e=input.events[0],o=output[0],c=input.config;if(e&&e.type==='input'&&e.text!==String(c.initial)&&o.dirty!==true)return false;return true}",
+    "program": "function solve(a){var q=a.config,e=a.event,s=a.state;if(s===null)s={v:q.initial,d:String(q.initial),x:null,z:false,mi:q.min,ma:q.max,st:q.step};var t=e.type;if(t==='mode'){s.z=e.disabled}else if(t==='input'){if(!s.z){s.d=e.text;s.x=null}}else if(t==='cancel'){s.d=String(s.v);s.x=null}else if(!s.z&&t==='commit'){var r=/^[+-]?[0-9]+$/.test(s.d),n=0;if(r){n=Number(s.d);r=Number.isSafeInteger(n)}if(!r)s.x='invalid';else{if(n<=s.mi)n=s.mi;else if(n>=s.ma)n=s.ma;else{var u=Math.floor((n-s.mi)/s.st),lo=s.mi+u*s.st,hi=lo+s.st;if(hi>s.ma)hi=s.ma;if(n-lo>hi-n)n=hi;else n=lo} s.v=n;s.d=String(n);s.x=null}}else if(!s.z&&t==='step'){var k=Math.round((s.v-s.mi)/s.st);k+=e.direction;if(k<0)k=0;var z=Math.floor((s.ma-s.mi)/s.st);if(k>z)k=z;s.v=s.mi+k*s.st;s.d=String(s.v);s.x=null}return{state:s,output:{value:s.v,draft:s.d,dirty:s.d!==String(s.v),error:s.x,disabled:s.z}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_9_contract",
+          "event_10_contract",
+          "event_11_contract",
+          "event_12_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "999",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 5,
+            "draft": "5",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "-0",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "0",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "0",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "0",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "+0",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "0",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_9_contract",
+          "event_10_contract",
+          "event_11_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "999",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 5,
+            "draft": "5",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "-0",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_14_contract",
+          "event_15_contract",
+          "event_16_contract",
+          "event_17_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "999",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "999",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 5,
+            "draft": "5",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 5,
+            "draft": "5",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 4,
+            "draft": "4",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "0",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 0,
+            "draft": "0",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "-99",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "-99",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 2,
+            "draft": "2",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": false,
+        "violations": [
+          "event_9_contract",
+          "event_10_contract"
+        ],
+        "error": null,
+        "outputs": [
+          {
+            "value": -3,
+            "draft": "3",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "1x",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 3,
+            "draft": "1x",
+            "dirty": true,
+            "error": "invalid",
+            "disabled": true
+          },
+          {
+            "value": 3,
+            "draft": "3",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": 3,
+            "draft": "3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 3,
+            "draft": "999",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 8,
+            "draft": "8",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "+0",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "6",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": 6,
+            "draft": "-99",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": true
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": -3,
+            "draft": "-0",
+            "dirty": true,
+            "error": null,
+            "disabled": false
+          },
+          {
+            "value": -3,
+            "draft": "-3",
+            "dirty": false,
+            "error": null,
+            "disabled": false
+          }
+        ]
+      }
+    ]
+  }
+}

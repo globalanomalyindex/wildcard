@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c03-D-final",
+  "requestSHA256": "9e4b8585319139b1b9263e79e28f2c2b1891f8d4da14a2a9fb5fed889fc12e4e",
+  "promptSHA256": "2a7bec11391f4c7fc23277e5dc29a41650239eb904f273bba3e2ac55701d4cbe",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:25:32.432376+00:00",
+  "finishedAt": "2026-09-20T23:25:47.623900+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 15.19005100009963,
+      "usage": {
+        "input_tokens": 7892,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 675,
+        "reasoning_output_tokens": 97
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "7e06394709f4b914e1819d078a99551be0e1923b74a7d3b689717def0f6f23a7",
+      "stderrSHA256": "8fba0a91e840e3ddacbfdbffb1c92c2b09fc1d37dfc30f7ad3208eba92003c42"
+    }
+  ],
+  "result": {
+    "explanation": "Retain snapshots in oldest-to-newest order. Saving an existing ID removes its prior snapshot, appends the new snapshot, and trims the oldest entries beyond keep. Damage changes only a valid stored data element and leaves its checksum unchanged. Restore scans retained snapshots newest-first, recomputes the specified checksum modulo 251, and returns a copied data array from the first match; all other events return null data and chosen values.",
+    "program": "function solve({config,state,event}) {\n  const s = Array.isArray(state) ? state : [];\n  const t = event && event.type;\n  if (t === \"save\") {\n    for (let i = 0; i < s.length; i++) {\n      if (s[i].id === event.id) { s.splice(i, 1); break; }\n    }\n    s.push({id:event.id, data:event.data.slice(), checksum:event.checksum});\n    while (s.length > config.keep) s.shift();\n  } else if (t === \"damage\") {\n    for (let i = 0; i < s.length; i++) {\n      const x = s[i];\n      if (x.id === event.id) {\n        const j = event.index;\n        if (Number.isInteger(j) && j >= 0 && j < x.data.length) x.data[j] = event.value;\n        break;\n      }\n    }\n  } else if (t === \"drop\") {\n    for (let i = 0; i < s.length; i++) {\n      if (s[i].id === event.id) { s.splice(i, 1); break; }\n    }\n  }\n  let data = null, chosen = null;\n  if (t === \"restore\") {\n    for (let i = s.length - 1; i >= 0; i--) {\n      const x = s[i];\n      let sum = 0;\n      for (let j = 0; j < x.data.length; j++) sum = (sum + (j + 1) * x.data[j]) % 251;\n      if (sum === x.checksum) {\n        data = x.data.slice();\n        chosen = x.id;\n        break;\n      }\n    }\n  }\n  const retained = new Array(s.length);\n  for (let i = 0; i < s.length; i++) retained[i] = s[i].id;\n  return {state:s, output:{data:data, chosen:chosen, retained:retained}};\n}"
+  },
+  "resultSHA256": "a83cf087865d934c005a25412415fb57e4c9e369652ece0e80732c0326250ea9",
+  "rawOutputSHA256": "a83cf087865d934c005a25412415fb57e4c9e369652ece0e80732c0326250ea9"
+}

@@ -1,0 +1,16 @@
+{
+  "type": "object",
+  "properties": {
+    "explanation": {
+      "type": "string"
+    },
+    "program": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "explanation",
+    "program"
+  ],
+  "additionalProperties": false
+}

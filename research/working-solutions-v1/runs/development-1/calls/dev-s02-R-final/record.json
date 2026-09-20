@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s02-R-final",
+  "requestSHA256": "106739a5d730fe8a07047585e121b01cd59d948407ea535fdd92f70fc877d1ad",
+  "promptSHA256": "0b8dc8915673e1196dff33fe2b89886a22188e4e4f235b99abf7a6f520fa0032",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:36:39.874436+00:00",
+  "finishedAt": "2026-09-20T22:36:53.877957+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.0015269999858,
+      "usage": {
+        "input_tokens": 17690,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 581,
+        "reasoning_output_tokens": 60
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "8b4bd3f4f927aa9d3ecf32e06fda62a10f00b267b4c5ffde56904a080a3edf65",
+      "stderrSHA256": "e69e4274d21b2d4ed656db856686499f21b49f479ec87e9221583856db63cb85"
+    }
+  ],
+  "result": {
+    "explanation": "Implements validation precedence, version and guard checks, atomic candidate construction, capacity enforcement, versioning, and code-point-sorted changed keys. State is copied safely so committed changes are reported correctly.",
+    "program": "function solve({config,state,event}){\n  function has(o,k){return Object.prototype.hasOwnProperty.call(o,k)}\n  function copy(o){var r={};for(var k of Object.keys(o))r[k]=o[k];return r}\n  function cmp(a,b){var x=Array.from(a),y=Array.from(b),n=Math.min(x.length,y.length);for(var i=0;i<n;i++){var d=x[i].codePointAt(0)-y[i].codePointAt(0);if(d)return d}return x.length-y.length}\n  if(state===null)state={version:0,capacity:config.capacity,values:copy(config.initial)}\n  var values=state.values,g=event.guards,u=event.updates,invalid=false,k\n  for(k of Object.keys(g))if(!has(values,k))invalid=true\n  for(k of Object.keys(u))if(!has(values,k)||!has(g,k)||u[k]<0)invalid=true\n  var status,version=state.version,changed=[]\n  if(invalid)status='invalid'\n  else if(event.version!==version)status='stale'\n  else{\n    status='unchanged'\n    for(k of Object.keys(g))if(values[k]!==g[k]){status='conflict';break}\n    if(status==='unchanged'){\n      var candidate=copy(values),sum=0\n      for(k of Object.keys(u))candidate[k]=u[k]\n      for(k of Object.keys(candidate))sum+=candidate[k]\n      if(sum>state.capacity)status='capacity'\n      else{\n        for(k of Object.keys(values))if(candidate[k]!==values[k])changed.push(k)\n        changed.sort(cmp)\n        if(changed.length){values=candidate;version++;status='committed'}\n      }\n    }\n  }\n  state={version:version,capacity:state.capacity,values:values}\n  if(status!=='committed')changed=[]\n  return {state:state,output:{status:status,version:version,values:copy(values),changed:changed}}\n}"
+  },
+  "resultSHA256": "81b74db2cf2578e423b2ab93ab1282c818f73c2b0f1a17ff9c25a4b2aa166caa",
+  "rawOutputSHA256": "81b74db2cf2578e423b2ab93ab1282c818f73c2b0f1a17ff9c25a4b2aa166caa"
+}

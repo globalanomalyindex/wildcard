@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u01-D-initial",
+  "requestSHA256": "e4da6c25480dc0cb4192c16ef01fcfed3bbe50df69966cca6e88783b3f75ddb9",
+  "promptSHA256": "6e4d2c70c0771bd48413759adc9bc0787f95f2bb7d0e63700ae68e42d7d70440",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:52:28.799069+00:00",
+  "finishedAt": "2026-09-20T22:52:48.971648+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.172809541923925,
+      "usage": {
+        "input_tokens": 6921,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 890,
+        "reasoning_output_tokens": 239
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "9e3bb758a7f9e618ddda7092a6680e1002e413484bbbc3adea04cd1c38cbb462",
+      "stderrSHA256": "5acdf25af57ab93bd99f060dea74ce39d63cd3426473a210b2c31d8fd437f46d"
+    }
+  ],
+  "result": {
+    "explanation": "The direct rule is that dirty is true exactly when draft differs from the committed value's canonical decimal text. Input edits draft only; valid commits snap to the nearest legal lattice value, with ties downward. Invalid commits preserve all value and draft data while setting error.",
+    "mapping": "Committed value maps to value; editable text maps to draft; validation status maps to error; mode maps to disabled; dirty maps to draft !== String(value).",
+    "assumptions": "config is available on every call, events are legal per the public contract, and state is only the previously returned opaque state.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&Number.isInteger(input.config.min)&&Number.isInteger(input.config.max)&&Number.isInteger(input.config.step)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output))return false;return output.every(function(o){return o&&Object.keys(o).length===5&&typeof o.value==='number'&&typeof o.draft==='string'&&typeof o.dirty==='boolean'&&(o.dirty===(o.draft!==String(o.value)))&&(typeof o.disabled==='boolean')&&(o.error===null||o.error==='invalid')})}",
+    "program": "function solve({config,state,event}){\n  if(state===null)state={v:config.initial,d:String(config.initial),e:null,x:false};\n  var s={v:state.v,d:state.d,e:state.e,x:state.x},t=event.type;\n  if(t==='mode')s.x=event.disabled;\n  else if(t==='cancel'){s.d=String(s.v);s.e=null}\n  else if(!s.x&&t==='input'){s.d=event.text;s.e=null}\n  else if(!s.x&&t==='commit'){\n    var z=s.d,m=/^[+-]?[0-9]+$/.test(z),n=m?Number(z):NaN;\n    if(!m||!Number.isSafeInteger(n))s.e='invalid';\n    else{\n      var q=(n-config.min)/config.step,k=Math.floor(q),r=k*config.step+config.min;\n      if(k<=0)r=config.min;\n      else if(r>=config.max)r=config.max;\n      else{var u=r+config.step;if(n-r>u-n)r=u}\n      s.v=r;s.d=String(r);s.e=null;\n    }\n  }else if(!s.x&&t==='step'){\n    var k=Math.round((s.v-config.min)/config.step)+(event.direction<0?-1:1),r=config.min+k*config.step;\n    if(r<config.min)r=config.min;if(r>config.max)r=config.max;\n    s.v=r;s.d=String(r);s.e=null;\n  }\n  return {state:s,output:{value:s.v,draft:s.d,dirty:s.d!==String(s.v),error:s.e,disabled:s.x}};\n}"
+  },
+  "resultSHA256": "9b67f1e5b21ece88a0bf6e31e0b2b585f5e87f99b2e26eb328088d5f4289f395",
+  "rawOutputSHA256": "769cba90b45d9051cb108df1ce27aeb1eef1591f5b6ec33cc81b2f15bf98cd10"
+}

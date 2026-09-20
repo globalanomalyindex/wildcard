@@ -1,0 +1,320 @@
+{
+  "initialRecordSHA256": "e13e4aeb5c7d93f5a7f705946fe2da29e1d7c9fa853ca6d7c2e01ac717127675",
+  "firstShown": {
+    "explanation": "Maintain an ordered resident cache, durable map, lifetime versions, and per-entry flush eligibility. Writes advance versions; acknowledgments persist only the exact currently flushed version.",
+    "mapping": "Cache entries map keys to value, version, dirty, and flushed state; order is oldest-to-newest. Durable stores acknowledged values; versions persist independently of residency.",
+    "assumptions": "Events are valid under the stated contract, keys are strings, and JSON values are safe finite data. Unknown event types are treated as no-ops.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){return Array.isArray(output)&&output.every(function(x){return x&&Array.isArray(x.cached)&&Array.isArray(x.dirty)&&x.durable&&Array.isArray(x.flush)&&typeof x.status==='string'&&x.cached.every(function(k){return typeof k==='string'&&k.indexOf('__changed')<0})})}",
+    "program": "function solve(x){\n  var c=x.config||{}, ev=x.event||{}, s=x.state;\n  if(!s)s={o:[],e:{},v:{},d:{}};\n  var o=s.o,e=s.e,v=s.v,d=s.d,k=ev.key, status='ignored',value=null,fl=[];\n  function has(a,z){return Object.prototype.hasOwnProperty.call(a,z)}\n  function touch(z){var i=o.indexOf(z);if(i>=0)o.splice(i,1);o.push(z)}\n  function remove(z){var i=o.indexOf(z);if(i>=0)o.splice(i,1);delete e[z]}\n  function cleanSlot(){for(var i=0;i<o.length;i++)if(!e[o[i]].dirty)return o[i];return null}\n  function make(z,val,dirty){e[z]={value:val,version:v[z]||0,dirty:!!dirty,flushed:false};o.push(z)}\n  if(ev.type==='write'){\n    v[k]=(v[k]||0)+1;\n    if(has(e,k)){e[k].value=ev.value;e[k].version=v[k];e[k].dirty=true;e[k].flushed=false;touch(k);status='written'}\n    else {if(o.length<(c.slots||0)){make(k,ev.value,true);status='written'}else{var q=cleanSlot();if(q!==null){remove(q);make(k,ev.value,true);status='written'}else status='blocked'}}\n  }else if(ev.type==='read'){\n    if(has(e,k)){value=e[k].value;touch(k);status='hit'}\n    else if(has(d,k)){value=d[k];var q=null;if(o.length>=(c.slots||0))q=cleanSlot();if(o.length<(c.slots||0)||(q!==null)){if(q!==null)remove(q);make(k,value,false)}status='durable'}\n    else status='miss'\n  }else if(ev.type==='flush'){\n    if(has(e,k)&&e[k].dirty){var z=e[k];z.flushed=true;fl.push({key:k,value:z.value,version:z.version});status='flushed'}\n  }else if(ev.type==='ack'){\n    if(has(e,k)){var z=e[k];if(z.dirty&&z.version===ev.version&&z.flushed){d[k]=z.value;z.dirty=false;z.flushed=false;status='persisted'}}\n  }else if(ev.type==='evict'){\n    if(!has(e,k))status='missing';else if(e[k].dirty)status='blocked';else{remove(k);status='evicted'}\n  }\n  var dirty=o.filter(function(z){return e[z].dirty}).sort();\n  var cached=o.slice(),durable={};Object.keys(d).sort().forEach(function(z){durable[z]=d[z]});\n  return {state:s,output:{status:status,value:value,flush:fl,cached:cached,dirty:dirty,durable:durable}};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "ignored",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "flushed",
+            "value": null,
+            "flush": [
+              {
+                "key": "a",
+                "value": 1,
+                "version": 1
+              }
+            ],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "ignored",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "flushed",
+            "value": null,
+            "flush": [
+              {
+                "key": "a",
+                "value": 1,
+                "version": 1
+              }
+            ],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "ignored",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "flushed",
+            "value": null,
+            "flush": [
+              {
+                "key": "a",
+                "value": 1,
+                "version": 2
+              }
+            ],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "ignored",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "flushed",
+            "value": null,
+            "flush": [
+              {
+                "key": "a",
+                "value": 1,
+                "version": 1
+              }
+            ],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          },
+          {
+            "status": "written",
+            "value": null,
+            "flush": [],
+            "cached": [
+              "a"
+            ],
+            "dirty": [
+              "a"
+            ],
+            "durable": {}
+          }
+        ]
+      }
+    ]
+  }
+}

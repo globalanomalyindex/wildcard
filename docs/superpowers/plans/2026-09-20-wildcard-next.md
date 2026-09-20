@@ -33,7 +33,7 @@ Hostile Unicode/quote seeds must remain literal across HTML, URLs and shell. Leg
 - [x] Analyze fixed primary and secondary contrasts, uncertainty, judge disagreement, task-level results, failures and actual usage. Independently review conclusions.
 - [x] Integrate safe interactive draws, evidence-driven case study and recorded comparison explorer. Correct README, plugin descriptions and theory language; publish authorship/contribution boundaries.
 - [x] Run complete tests and browser checks; review the branch and fix material issues.
-- [ ] Push the reviewed release to main, wait for CI, and verify live deployment.
+- [x] Push the reviewed release to main, wait for CI, and verify live deployment.
 
 ## Interfaces
 
@@ -56,3 +56,5 @@ Study assets: tasks contain `main` and `development` arrays; cards contain groun
 ### Final local release gate
 
 The complete amended dataset passes 898 browser checks in each of Chromium, Firefox and WebKit. Rapid comparison changes are coalesced into address-bar updates without delaying visible selections. Runtime tests and raw-record reproduction pass; all 478 historical files remain unchanged. The 13-page research PDF was rendered and visually checked in full, including its final pagination. Public results preserve the original primary halt and identify the completed amended measurement.
+
+The release merged through PR #1 as f84e341. GitHub Actions run 35538289076 passed validation and Pages deployment. Six live assets matched the reviewed bytes, 128 live browser checks passed, and a fresh GitHub plugin installation verified the exact merged source. The user subsequently authorized a separate working-solutions system and study; that follow-up does not alter this study’s finding.

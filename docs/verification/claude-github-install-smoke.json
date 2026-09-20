@@ -1,0 +1,339 @@
+{
+  "checkedAt": "2026-09-20T21:22:14.835155+00:00",
+  "source": "Fresh public GitHub marketplace download",
+  "repository": "https://github.com/globalanomalyindex/wildcard.git",
+  "expectedMainCommit": "f84e3415729dfe72986c3174f5dcaf681f623110",
+  "isolation": "New CLAUDE_CONFIG_DIR and empty working directory; normal profile is not used",
+  "modelInvocation": false,
+  "steps": [
+    {
+      "label": "Claude version",
+      "command": [
+        "claude",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "2.1.228 (Claude Code)\n",
+      "stderr": ""
+    },
+    {
+      "label": "Node version",
+      "command": [
+        "node",
+        "--version"
+      ],
+      "returncode": 0,
+      "stdout": "v26.0.0\n",
+      "stderr": ""
+    },
+    {
+      "label": "Remote main before installation",
+      "command": [
+        "git",
+        "ls-remote",
+        "https://github.com/globalanomalyindex/wildcard.git",
+        "refs/heads/main"
+      ],
+      "returncode": 0,
+      "stdout": "f84e3415729dfe72986c3174f5dcaf681f623110\trefs/heads/main\n",
+      "stderr": ""
+    },
+    {
+      "label": "Initial plugin inventory",
+      "command": [
+        "claude",
+        "plugin",
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "label": "Add GitHub marketplace",
+      "command": [
+        "claude",
+        "plugin",
+        "marketplace",
+        "add",
+        "globalanomalyindex/wildcard",
+        "--scope",
+        "user"
+      ],
+      "returncode": 0,
+      "stdout": "Adding marketplace…SSH not configured, cloning via HTTPS: https://github.com/globalanomalyindex/wildcard.git\nRefreshing marketplace cache (timeout: 120s)…\nCloning repository (timeout: 120s): https://github.com/globalanomalyindex/wildcard.git\nClone complete, validating marketplace…\nCleaning up old marketplace cache…\n✔ Successfully added marketplace: globalanomalyindex (declared in user settings)\n",
+      "stderr": ""
+    },
+    {
+      "label": "Marketplace inventory",
+      "command": [
+        "claude",
+        "plugin",
+        "marketplace",
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "[\n  {\n    \"name\": \"globalanomalyindex\",\n    \"source\": \"github\",\n    \"repo\": \"globalanomalyindex/wildcard\",\n    \"installLocation\": \"$ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex\"\n  }\n]\n",
+      "stderr": ""
+    },
+    {
+      "label": "Downloaded marketplace commit",
+      "command": [
+        "git",
+        "rev-parse",
+        "HEAD"
+      ],
+      "returncode": 0,
+      "stdout": "f84e3415729dfe72986c3174f5dcaf681f623110\n",
+      "stderr": ""
+    },
+    {
+      "label": "Downloaded marketplace origin",
+      "command": [
+        "git",
+        "remote",
+        "get-url",
+        "origin"
+      ],
+      "returncode": 0,
+      "stdout": "https://github.com/globalanomalyindex/wildcard.git\n",
+      "stderr": ""
+    },
+    {
+      "label": "Marketplace validation",
+      "command": [
+        "claude",
+        "plugin",
+        "validate",
+        "$ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex"
+      ],
+      "returncode": 0,
+      "stdout": "Validating marketplace manifest: $ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex/.claude-plugin/marketplace.json\n\n✔ Validation passed\n",
+      "stderr": ""
+    },
+    {
+      "label": "Plugin validation",
+      "command": [
+        "claude",
+        "plugin",
+        "validate",
+        "$ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex/plugin"
+      ],
+      "returncode": 0,
+      "stdout": "Validating plugin manifest: $ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex/plugin/.claude-plugin/plugin.json\n\n✔ Validation passed\n",
+      "stderr": ""
+    },
+    {
+      "label": "Install plugin",
+      "command": [
+        "claude",
+        "plugin",
+        "install",
+        "wildcard@globalanomalyindex",
+        "--scope",
+        "user"
+      ],
+      "returncode": 0,
+      "stdout": "Installing plugin \"wildcard@globalanomalyindex\"...✔ Successfully installed plugin: wildcard@globalanomalyindex (scope: user)\n",
+      "stderr": ""
+    },
+    {
+      "label": "Installed plugin inventory",
+      "command": [
+        "claude",
+        "plugin",
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "[\n  {\n    \"id\": \"wildcard@globalanomalyindex\",\n    \"version\": \"2.0.0\",\n    \"scope\": \"user\",\n    \"enabled\": true,\n    \"installPath\": \"$ISOLATED_PROFILE/config/plugins/cache/globalanomalyindex/wildcard/2.0.0\",\n    \"installedAt\": \"2026-09-20T21:22:20.076Z\",\n    \"lastUpdated\": \"2026-09-20T21:22:20.076Z\"\n  }\n]\n",
+      "stderr": ""
+    },
+    {
+      "label": "Recognized component inventory",
+      "command": [
+        "claude",
+        "plugin",
+        "details",
+        "wildcard@globalanomalyindex"
+      ],
+      "returncode": 0,
+      "stdout": "wildcard 2.0.0\n  Explore an outside cue and develop optional concrete moves. Requires Node.js 22+. Versioned local sampling and replay receipts; model-generated suggestions still require factual and task-specific evaluation.\n  Source: wildcard@globalanomalyindex\n\nComponent inventory\n  Skills (1)  wildcard\n  Agents (0)\n  Hooks (0)\n  MCP servers (0)\n  LSP servers (0)\n\nProjected token cost\n  Always-on:   ~102 tok   added to every session\n\nPer-component (rounded)\n  component  always-on  on-invoke\n  wildcard        ~100      ~2.1k\n\n  On-invoke cost is paid each time a skill or agent fires.\n  Token counts are estimates and may differ from actual usage.\n",
+      "stderr": ""
+    },
+    {
+      "label": "Installed local sampler",
+      "command": [
+        "bash",
+        "$ISOLATED_PROFILE/config/plugins/cache/globalanomalyindex/wildcard/2.0.0/scripts/draw.sh",
+        "--seed",
+        "github-install-smoke-2026-09-20",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schemaVersion\": 2,\n  \"sampler\": \"sha256-counter-v2\",\n  \"seedEncoding\": \"utf-8\",\n  \"seed\": \"github-install-smoke-2026-09-20\",\n  \"corpusVersion\": \"corpus-v2-2026-09-20\",\n  \"corpusSha256\": \"acd7a92dd154ca5ba93d8e7939e4c6331eb1a8dfeaf461bf456a85608ed56388\",\n  \"lensVersion\": \"lenses-v1\",\n  \"modePolicy\": \"equal-mode\",\n  \"modeForced\": false,\n  \"mode\": \"concept\",\n  \"key\": \"concept\",\n  \"entryId\": \"concept-9b89025ce7a6d932b28f6e15\",\n  \"entryIndex\": 26,\n  \"value\": \"aurora\",\n  \"lens\": \"constraints-and-limits\",\n  \"lensIndex\": 3\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "Downloaded source sampler parity",
+      "command": [
+        "bash",
+        "$ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex/plugin/scripts/draw.sh",
+        "--seed",
+        "github-install-smoke-2026-09-20",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "{\n  \"schemaVersion\": 2,\n  \"sampler\": \"sha256-counter-v2\",\n  \"seedEncoding\": \"utf-8\",\n  \"seed\": \"github-install-smoke-2026-09-20\",\n  \"corpusVersion\": \"corpus-v2-2026-09-20\",\n  \"corpusSha256\": \"acd7a92dd154ca5ba93d8e7939e4c6331eb1a8dfeaf461bf456a85608ed56388\",\n  \"lensVersion\": \"lenses-v1\",\n  \"modePolicy\": \"equal-mode\",\n  \"modeForced\": false,\n  \"mode\": \"concept\",\n  \"key\": \"concept\",\n  \"entryId\": \"concept-9b89025ce7a6d932b28f6e15\",\n  \"entryIndex\": 26,\n  \"value\": \"aurora\",\n  \"lens\": \"constraints-and-limits\",\n  \"lensIndex\": 3\n}\n",
+      "stderr": ""
+    },
+    {
+      "label": "Remote main after installation",
+      "command": [
+        "git",
+        "ls-remote",
+        "https://github.com/globalanomalyindex/wildcard.git",
+        "refs/heads/main"
+      ],
+      "returncode": 0,
+      "stdout": "f84e3415729dfe72986c3174f5dcaf681f623110\trefs/heads/main\n",
+      "stderr": ""
+    },
+    {
+      "label": "Uninstall isolated plugin",
+      "command": [
+        "claude",
+        "plugin",
+        "uninstall",
+        "wildcard@globalanomalyindex",
+        "--scope",
+        "user"
+      ],
+      "returncode": 0,
+      "stdout": "✔ Successfully uninstalled plugin: wildcard (scope: user)\n",
+      "stderr": ""
+    },
+    {
+      "label": "Final plugin inventory",
+      "command": [
+        "claude",
+        "plugin",
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    },
+    {
+      "label": "Remove isolated marketplace",
+      "command": [
+        "claude",
+        "plugin",
+        "marketplace",
+        "remove",
+        "globalanomalyindex",
+        "--scope",
+        "user"
+      ],
+      "returncode": 0,
+      "stdout": "✔ Successfully removed marketplace: globalanomalyindex (from user settings)\n",
+      "stderr": ""
+    },
+    {
+      "label": "Final marketplace inventory",
+      "command": [
+        "claude",
+        "plugin",
+        "marketplace",
+        "list",
+        "--json"
+      ],
+      "returncode": 0,
+      "stdout": "[]\n",
+      "stderr": ""
+    }
+  ],
+  "checks": {
+    "initialPluginsEmpty": true,
+    "version": "2.0.0",
+    "publicAuthor": "christopher robin fiore",
+    "sourcePayloadFilesMatched": 23,
+    "installedSamplerMatchesRemoteSource": true,
+    "remoteCommitStable": true,
+    "uninstalled": true,
+    "marketplaceRemoved": true,
+    "isolatedProfileRemoved": true
+  },
+  "limits": [
+    "No Claude model invocation or generated-idea evaluation was performed.",
+    "The local runtime was checked; this does not establish every supported operating-system/runtime combination.",
+    "The installation check does not test a migration from an older installed plugin version."
+  ],
+  "host": "2.1.228 (Claude Code)",
+  "node": "v26.0.0",
+  "marketplaces": [
+    {
+      "name": "globalanomalyindex",
+      "source": "github",
+      "repo": "globalanomalyindex/wildcard",
+      "installLocation": "$ISOLATED_PROFILE/config/plugins/marketplaces/globalanomalyindex"
+    }
+  ],
+  "actualDownloadedCommit": "f84e3415729dfe72986c3174f5dcaf681f623110",
+  "installedInventory": [
+    {
+      "id": "wildcard@globalanomalyindex",
+      "version": "2.0.0",
+      "scope": "user",
+      "enabled": true,
+      "installPath": "$ISOLATED_PROFILE/config/plugins/cache/globalanomalyindex/wildcard/2.0.0",
+      "installedAt": "2026-09-20T21:22:20.076Z",
+      "lastUpdated": "2026-09-20T21:22:20.076Z"
+    }
+  ],
+  "receipt": {
+    "schemaVersion": 2,
+    "sampler": "sha256-counter-v2",
+    "seedEncoding": "utf-8",
+    "seed": "github-install-smoke-2026-09-20",
+    "corpusVersion": "corpus-v2-2026-09-20",
+    "corpusSha256": "acd7a92dd154ca5ba93d8e7939e4c6331eb1a8dfeaf461bf456a85608ed56388",
+    "lensVersion": "lenses-v1",
+    "modePolicy": "equal-mode",
+    "modeForced": false,
+    "mode": "concept",
+    "key": "concept",
+    "entryId": "concept-9b89025ce7a6d932b28f6e15",
+    "entryIndex": 26,
+    "value": "aurora",
+    "lens": "constraints-and-limits",
+    "lensIndex": 3
+  },
+  "normalProfile": {
+    "before": {
+      "entryCount": 20404,
+      "metadataSHA256": "125147fcc7064c76deb6f9b25b938d5e49e4e1316a421d1606dea2ded334634f",
+      "persistentSHA256": {
+        "settings": "06b9ceed45fcf2e9141eb5abb23d4fe2eefef9dad08c26503420d56260b7a49e",
+        "installedPlugins": "4a555768d79c590ee076f1c7131a83a483dc1f2a82a35d68228098cee13dcca0",
+        "knownMarketplaces": "c3261d9668c17c82bb2b2a57c35d13f727c5c5ce73a70a7682d7c423a99027ee",
+        "legacyGlobalConfig": "0e50601b4b44374c97b0bc38fa45eb4c4e3262e715778342df6fe77216f5b538"
+      }
+    },
+    "after": {
+      "entryCount": 20404,
+      "metadataSHA256": "125147fcc7064c76deb6f9b25b938d5e49e4e1316a421d1606dea2ded334634f",
+      "persistentSHA256": {
+        "settings": "06b9ceed45fcf2e9141eb5abb23d4fe2eefef9dad08c26503420d56260b7a49e",
+        "installedPlugins": "4a555768d79c590ee076f1c7131a83a483dc1f2a82a35d68228098cee13dcca0",
+        "knownMarketplaces": "c3261d9668c17c82bb2b2a57c35d13f727c5c5ce73a70a7682d7c423a99027ee",
+        "legacyGlobalConfig": "0e50601b4b44374c97b0bc38fa45eb4c4e3262e715778342df6fe77216f5b538"
+      }
+    },
+    "unchanged": true
+  },
+  "passed": true
+}

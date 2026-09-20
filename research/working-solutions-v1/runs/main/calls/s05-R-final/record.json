@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s05-R-final",
+  "requestSHA256": "6c1b1b5a58373b2b0ffd503e6a08b2adf956b0c6a6def3b3da53a14cf630d184",
+  "promptSHA256": "b82abb6bc5d97eef4ead841501ea7494f7b32f1675dd53be6cd38a4b9da77eaa",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:19:56.793824+00:00",
+  "finishedAt": "2026-09-20T23:20:16.616525+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.821587499929592,
+      "usage": {
+        "input_tokens": 8540,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 838,
+        "reasoning_output_tokens": 302
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "cebd5d4ebf29acf2bfdc5466cee1904a24b7ee06f1fc76e7806060775b11b392",
+      "stderrSHA256": "3b1c0d509db341060f5136f0f9c87b8d16aea960278a8942ba0f608d45868cf0"
+    }
+  ],
+  "result": {
+    "explanation": "Tracks available rights, spent totals, received grants, permanently recorded sends/spends, and currently pending sends. Receive, send, and spend identities are separate. Accepted sends/spends debit immediately; cancellation refunds a pending send, while acknowledgment only removes pending status. Outputs sort identifiers by Unicode code point order.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={a:c.initial,sp:0,r:[],se:[],pe:[],ss:[]};function find(a,id){for(var i=0;i<a.length;i++)if(a[i][0]===id)return a[i];return null}function has(a,id){return a.indexOf(id)>=0}function cmp(a,b){var i=0,n=Math.min(a.length,b.length);while(i<n){var x=a.codePointAt(i),y=b.codePointAt(i);if(x!==y)return x-y;i++}return a.length-b.length}var t=e&&e.type,id=e&&e.id,amt=e&&e.amount,st='ignored',ok=typeof id==='string';if(t==='receive'){if(!ok||typeof amt!=='number'||!Number.isSafeInteger(amt)||amt<=0||!Object.prototype.hasOwnProperty.call(c.grants,id)||c.grants[id]!==amt)st='invalid';else if(has(s.r,id))st='duplicate';else{s.r.push(id);s.a+=amt;st='accepted'}}else if(t==='send'||t==='spend'){var a=t==='send'?s.se:s.ss,o=find(a,id);if(!ok||typeof amt!=='number'||!Number.isSafeInteger(amt)||amt<=0)st='invalid';else if(o)st=o[1]===amt?'duplicate':'conflict';else if(s.a<amt)st='insufficient';else{a.push([id,amt]);s.a-=amt;if(t==='send')s.pe.push([id,amt]);else s.sp+=amt;st='accepted'}}else if(t==='ack'||t==='cancel'){if(ok){var p=find(s.pe,id);if(p){s.pe.splice(s.pe.indexOf(p),1);if(t==='cancel')s.a+=p[1]}}}else st='invalid';return{state:s,output:{status:st,available:s.a,spent:s.sp,pending:s.pe.map(function(v){return v[0]}).sort(cmp),received:s.r.slice().sort(cmp)}}}"
+  },
+  "resultSHA256": "a8e3f1513d2d9e88a16e60bc72009297b175d6c1141eeae980d1500c303c95de",
+  "rawOutputSHA256": "a8e3f1513d2d9e88a16e60bc72009297b175d6c1141eeae980d1500c303c95de"
+}

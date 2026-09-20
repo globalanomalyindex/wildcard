@@ -1,0 +1,274 @@
+{
+  "initialRecordSHA256": "895e32bf1e379a7c123b7ffc899c45b23fe34f816be9e4b16be65b9cdf8bf348",
+  "firstShown": {
+    "explanation": "Track each submission’s pre-submit snapshot and revision. A callback may commit only while its submission remains current and no newer revision exists; otherwise it merely settles the pending request.",
+    "mapping": "Submission IDs map to pending records, permanent seen IDs, a current owner, and the revision captured at submission. Edits and submissions advance revision; accepted outcomes advance it again.",
+    "assumptions": "Object fields contain JSON scalar values, so shallow object copies preserve all required data. Lexicographic JavaScript sorting matches the required sorted ID order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,out){if(!Array.isArray(out)||out.length!==input.events.length)return false;var s=null,h=[],p=[],own=null;function cp(x){var y={};for(var k in x)y[k]=x[k];return y}function patch(f,e){(e.remove||[]).forEach(function(k){delete f[k]});for(var k in(e.set||{}))f[k]=e.set[k]}function eq(a,b){return JSON.stringify(a)===JSON.stringify(b)}s={f:cp(input.config.fields),r:0,t:'idle'};for(var i=0;i<input.events.length;i++){var e=input.events[i],q=s.f;if(e.type==='edit'){patch(q,e);s.r++;s.t='idle'}else if(e.type==='submit'){if(h.indexOf(e.id)<0){h.push(e.id);p.push({id:e.id,b:cp(q),r:s.r+1});patch(q,e);s.r++;own=e.id;s.t='saving'}}else if(e.type==='success'||e.type==='failure'){var z=-1;for(var j=0;j<p.length;j++)if(p[j].id===e.id)z=j;if(z>=0){var a=p[z];p.splice(z,1);if(own===e.id&&a.r===s.r){if(e.type==='success'){s.f=cp(e.fields);s.r++;s.t='saved'}else{s.f=a.b;s.r++;s.t='error'}own=null}}}var ids=p.map(function(x){return x.id}).sort(),want={fields:s.f,revision:s.r,status:s.t,pending:ids};if(!eq(out[i],want))return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={f:cp(c.fields),r:0,t:'idle',h:[],p:[],o:null};var f=s.f;if(e.type==='edit'){patch(f,e);s.r++;s.t='idle'}else if(e.type==='submit'){if(s.h.indexOf(e.id)<0){s.h.push(e.id);s.p.push({id:e.id,b:cp(f),r:s.r+1});patch(f,e);s.r++;s.o=e.id;s.t='saving'}}else if(e.type==='success'||e.type==='failure'){var n=-1;for(var i=0;i<s.p.length;i++)if(s.p[i].id===e.id)n=i;if(n>=0){var q=s.p[n];s.p.splice(n,1);if(s.o===e.id&&q.r===s.r){if(e.type==='success'){s.f=cp(e.fields);s.r++;s.t='saved'}else{s.f=q.b;s.r++;s.t='error'}s.o=null}}}var ids=s.p.map(function(q){return q.id}).sort();return{state:s,output:{fields:s.f,revision:s.r,status:s.t,pending:ids}}}function cp(x){var y={};for(var k in x)y[k]=x[k];return y}function patch(f,e){(e.remove||[]).forEach(function(k){delete f[k]});for(var k in(e.set||{}))f[k]=e.set[k]}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v400333_0": "one",
+              "v336980_2": 3
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v716246_3"
+            ]
+          },
+          {
+            "fields": {
+              "v400333_0": "v644886_4",
+              "v336980_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v716246_3"
+            ]
+          },
+          {
+            "fields": {
+              "v400333_0": "v644886_4",
+              "v336980_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": []
+          },
+          {
+            "fields": {
+              "v400333_0": "v512592_5",
+              "v336980_2": 3
+            },
+            "revision": 3,
+            "status": "saving",
+            "pending": [
+              "v783722_6"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v418342_0": "one",
+              "v433191_2": 4
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v327331_3"
+            ]
+          },
+          {
+            "fields": {
+              "v433191_2": 4,
+              "v418342_0": 0
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v327331_3"
+            ]
+          },
+          {
+            "fields": {
+              "v418342_0": 0,
+              "v433191_2": 0
+            },
+            "revision": 3,
+            "status": "idle",
+            "pending": [
+              "v327331_3"
+            ]
+          },
+          {
+            "fields": {
+              "v418342_0": "v701814_4",
+              "v433191_2": 0
+            },
+            "revision": 4,
+            "status": "idle",
+            "pending": [
+              "v327331_3"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v839274_0": "one",
+              "v571918_2": 3
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v027918_3"
+            ]
+          },
+          {
+            "fields": {
+              "v839274_0": "v213835_4",
+              "v571918_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v027918_3"
+            ]
+          },
+          {
+            "fields": {
+              "v839274_0": "v213835_4",
+              "v571918_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": []
+          },
+          {
+            "fields": {
+              "v839274_0": "v374508_5",
+              "v571918_2": 3
+            },
+            "revision": 3,
+            "status": "saving",
+            "pending": [
+              "v101417_6"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v836475_0": "one",
+              "v789893_2": 2
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v615562_3"
+            ]
+          },
+          {
+            "fields": {
+              "v836475_0": "v189174_4",
+              "v789893_2": 2
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v615562_3"
+            ]
+          },
+          {
+            "fields": {
+              "v836475_0": "v189174_4",
+              "v789893_2": "edit"
+            },
+            "revision": 3,
+            "status": "idle",
+            "pending": [
+              "v615562_3"
+            ]
+          },
+          {
+            "fields": {
+              "v836475_0": "v189174_4",
+              "v789893_2": "edit"
+            },
+            "revision": 3,
+            "status": "idle",
+            "pending": []
+          }
+        ]
+      }
+    ]
+  }
+}

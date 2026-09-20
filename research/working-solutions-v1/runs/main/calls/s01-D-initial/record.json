@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-D-initial",
+  "requestSHA256": "8f8d61820078067cf8dae0ae904bb22e3b5e324ad7e64e1d2127d4dff4e3a9c8",
+  "promptSHA256": "50cc57d86dee5af99711b8fa884627ddba9ebde5077e2a25e70636f63e0ae69e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:08:25.142368+00:00",
+  "finishedAt": "2026-09-20T23:08:46.418396+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.27481787512079,
+      "usage": {
+        "input_tokens": 6872,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 951,
+        "reasoning_output_tokens": 336
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "d862624832c381b0b8252c55846df564610238b7ac28c6ee6a9f139fe1550030",
+      "stderrSHA256": "0df562a1cad77c4dc761498e904cb3996bff2c6d9d341e7e3f173074f5a9e707"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain permanent ID records and unique sequence reservations. Existing IDs are duplicate only when both original fields match; otherwise conflict. New IDs below next are stale, while sequences already reserved conflict. Accepted records are repeatedly applied in sequence order from next.",
+    "mapping": "state.n is the next unapplied sequence, state.v is accumulated value, and state.a stores permanent [id,seq,delta] records. Reservations include applied records. Each output reports status, current value, next, and sorted pending sequences.",
+    "assumptions": "Inputs follow the stated event contract and use safe integers. The implementation treats malformed events defensively as conflicts, although legal traces contain only valid events.",
+    "applies": "input=>!!input&&Array.isArray(input.events)",
+    "holds": "(input,out)=>{if(!Array.isArray(out)||out.length!==input.events.length)return false;let n=1,v=0,a=[];for(let k=0;k<input.events.length;k++){let e=input.events[k],s='accepted',old=a.find(x=>x[0]===e.id);if(old)s=old[1]===e.seq&&old[2]===e.delta?'duplicate':'conflict';else if(e.seq<n)s='stale';else if(a.some(x=>x[1]===e.seq))s='conflict';else a.push([e.id,e.seq,e.delta]);if(s==='accepted')for(;;){let x=a.find(x=>x[1]===n);if(!x)break;v+=x[2];n++}let p=a.filter(x=>x[1]>=n).map(x=>x[1]).sort((x,y)=>x-y),q=out[k];if(!q||Object.keys(q).length!==4||q.status!==s||q.value!==v||q.next!==n||JSON.stringify(q.pending)!==JSON.stringify(p))return false}return true}",
+    "program": "function solve({config,state,event}){let z=state||{n:1,v:0,a:[]},n=z.n,v=z.v,a=z.a,e=event,s='accepted',o=a.find(x=>x[0]===e.id);if(o)s=o[1]===e.seq&&o[2]===e.delta?'duplicate':'conflict';else if(e.seq<n)s='stale';else if(a.some(x=>x[1]===e.seq))s='conflict';else a.push([e.id,e.seq,e.delta]);if(s==='accepted')for(;;){let x=a.find(x=>x[1]===n);if(!x)break;v+=x[2];n++}let p=a.filter(x=>x[1]>=n).map(x=>x[1]).sort((x,y)=>x-y);return{state:{n:n,v:v,a:a},output:{status:s,value:v,next:n,pending:p}}}"
+  },
+  "resultSHA256": "38f5d6f16f69b4c3e32138e032dcfaeeb55f32d3af69bb4713efd2b21caf1bd1",
+  "rawOutputSHA256": "ca09216c061b48d2e936b0b96d7de50c51c09d2dcefda795802ad30a3df7a1d0"
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c01-X-final",
+  "requestSHA256": "7833731ae56ffa41869fa0b0e60bb1462ae5e0817994648992175276eabd041e",
+  "promptSHA256": "c78451edfc704f749969fda0ba748e6cf672bf89be008d1a21c8b0a6b5fc0adf",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:16.524732+00:00",
+  "finishedAt": "2026-09-20T23:22:29.746260+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.217744166962802,
+      "usage": {
+        "input_tokens": 7904,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 573,
+        "reasoning_output_tokens": 118
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "ed2e163e77f07888703879b3c2725f938cbb9f4a4ad88b9060e52e7fb834080e",
+      "stderrSHA256": "325106ef99c1f7732bc1c1b4854ae0300ca730eab39d123c54539cf322484b88"
+    }
+  ],
+  "result": {
+    "explanation": "Tracks current time and an oldest-to-newest entry array. Expired entries are removed before every event and again after advancing. Valid nonzero-TTL puts remove any existing key, evict oldest entries until the new item fits, then append it as newest. Oversized puts do nothing; zero-TTL puts remove the key. Gets return the value and refresh recency.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s==null)s={now:0,entries:[]};else s={now:s.now,entries:s.entries.map(function(a){return{key:a.key,value:a.value,size:a.size,exp:a.exp}})};function clean(){var a=[];for(var i=0;i<s.entries.length;i++)if(s.entries[i].exp>s.now)a.push(s.entries[i]);s.entries=a}function find(k){for(var i=0;i<s.entries.length;i++)if(s.entries[i].key===k)return i;return-1}function result(v){var keys=[],bytes=0;for(var i=0;i<s.entries.length;i++){keys.push(s.entries[i].key);bytes+=s.entries[i].size}return{state:s,output:{value:v,keys:keys,bytes:bytes,now:s.now}}}clean();if(e.type==='advance'){s.now+=e.dt;clean();return result(null)}if(e.type==='get'){var j=find(e.key);if(j<0)return result(null);var a=s.entries.splice(j,1)[0];s.entries.push(a);return result(a.value)}if(e.type==='put'){if(e.size>c.capacity)return result(null);var j=find(e.key);if(j>=0)s.entries.splice(j,1);if(e.ttl===0)return result(null);var bytes=0;for(var i=0;i<s.entries.length;i++)bytes+=s.entries[i].size;while(bytes+e.size>c.capacity){bytes-=s.entries.shift().size}s.entries.push({key:e.key,value:e.value,size:e.size,exp:s.now+e.ttl});return result(null)}return result(null)}"
+  },
+  "resultSHA256": "30f6cc3c216c891696f861e50b8075e709c42e2f3e67c1da8d9885800d7c52b1",
+  "rawOutputSHA256": "30f6cc3c216c891696f861e50b8075e709c42e2f3e67c1da8d9885800d7c52b1"
+}

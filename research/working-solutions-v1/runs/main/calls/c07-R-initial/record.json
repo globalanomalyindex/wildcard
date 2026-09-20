@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c07-R-initial",
+  "requestSHA256": "a01d79b8c482373c01d1d9023caebfd8fb72fcfa631f53aad256d48ece352dfa",
+  "promptSHA256": "97d43e95bd0de775f883ccca5ddaac012c52f4a4811dfc3f8ca5487092771a6a",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:10:34.420093+00:00",
+  "finishedAt": "2026-09-20T23:11:05.000007+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 30.57866575010121,
+      "usage": {
+        "input_tokens": 7079,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1120,
+        "reasoning_output_tokens": 463
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "cec7dd14e2798393e7b3d8556a2a90ad2ee91c4dd7de453e1836145040b5fec3",
+      "stderrSHA256": "6accbd988bb4ccd4fffb0ae1d4c8326c028d5833b6a51f0555e4e01f0f6a6608"
+    }
+  ],
+  "result": {
+    "explanation": "Memoize each evaluated node. A leaf update invalidates that leaf and every node reachable from it through dependency edges; unrelated memoized nodes remain valid. Evaluation recursively follows listed dependency order and counts only newly memoized nodes.",
+    "mapping": "The memo table is the retained state; dependency reachability maps leaf changes to invalidated computed values.",
+    "assumptions": "Inputs satisfy the stated DAG, node, and safe-integer constraints. State is only produced by this program.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){var c=input.config, s={v:Object.assign({},c.values),m:{}}, want=[]; function inv(x){var q=[x],b={};while(q.length){var n=q.pop();if(b[n])continue;b[n]=1;for(var k in c.deps)if(c.deps[k].indexOf(n)>=0)q.push(k)}for(var k in b)delete s.m[k]} function ev(n){var count=0;function f(x){if(Object.prototype.hasOwnProperty.call(s.m,x))return s.m[x];var ds=c.deps[x],z;if(!ds.length)z=s.v[x];else{z=0;for(var i=0;i<ds.length;i++)z+=f(ds[i])}s.m[x]=z;count++;return z}var z=f(n),v=Object.keys(s.m).sort();return {value:z,computed:count,valid:v}}for(var i=0;i<input.events.length;i++){var e=input.events[i];if(e.type==='set'){if(c.deps[e.node].length===0){s.v[e.node]=e.value;inv(e.node)}want.push({value:null,computed:0,valid:Object.keys(s.m).sort()})}else want.push(ev(e.node))}return JSON.stringify(want)===JSON.stringify(output)}",
+    "program": "function solve({config,state,event}){var s=state||{v:Object.assign({},config.values),m:{}};if(event.type==='set'){if(config.deps[event.node].length===0){s.v[event.node]=event.value;var q=[event.node],bad={};while(q.length){var n=q.pop();if(bad[n])continue;bad[n]=1;for(var k in config.deps)if(config.deps[k].indexOf(n)>=0)q.push(k)}for(var k in bad)delete s.m[k]}return {state:s,output:{value:null,computed:0,valid:Object.keys(s.m).sort()}}}var count=0;function f(n){if(Object.prototype.hasOwnProperty.call(s.m,n))return s.m[n];var d=config.deps[n],z;if(!d.length)z=s.v[n];else{z=0;for(var i=0;i<d.length;i++)z+=f(d[i])}s.m[n]=z;count++;return z}var value=f(event.node);return {state:s,output:{value:value,computed:count,valid:Object.keys(s.m).sort()}}}"
+  },
+  "resultSHA256": "b9462a478e7fa040b20531a12c6474eec5a5aa73d1d072c6cecc5b5fc612da71",
+  "rawOutputSHA256": "f57b4396a7c6c0ca78d0df61c430e34d7ce9fee83e6240b21aca0d716f888555"
+}

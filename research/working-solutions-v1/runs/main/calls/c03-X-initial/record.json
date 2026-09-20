@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c03-X-initial",
+  "requestSHA256": "4adbbd1ba4723ffcd5bfccdc1f9ce089799f3c776017267aee6b77cc0d076f27",
+  "promptSHA256": "9622fa8dfd8c7f4fa50651fa02cd212d3e73a97d6b021271f6bbb7d60db5c3c6",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:08:46.443074+00:00",
+  "finishedAt": "2026-09-20T23:09:07.036302+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.59202054189518,
+      "usage": {
+        "input_tokens": 7118,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 740,
+        "reasoning_output_tokens": 126
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "94617fcb0a47b52943ace31ce90b28f077f71046541df144d838b01637aa779e",
+      "stderrSHA256": "1dfb6e45aeb43ff9204ae25a740dd0ddc0be8f6291f5717a5b575f33765e1d97"
+    }
+  ],
+  "result": {
+    "explanation": "Use an ordered list of retained snapshots. Saving removes any prior snapshot with the same ID, appends the replacement, then trims the list to the newest keep entries. Damage mutates only matching stored data. Restore scans newest to oldest and accepts exactly checksum-valid snapshots.",
+    "mapping": "State is {s:[{id,d,c}]}, where s is oldest-to-newest. For each snapshot, d is mutable data and c is its declared checksum. Output retained is the ordered snapshot IDs; restore returns a copied d and id or nulls.",
+    "assumptions": "Inputs satisfy the stated legal numeric and shape constraints. Save replacement is treated as removing the old identity and appending the new version, consistent with newest ordering. Checksum arithmetic uses modulo 251 normalized to 0..250.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.config&&input.config.keep>=1;}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||!Array.isArray(x.retained)||!('data'in x)||!('chosen'in x))return false;if(x.chosen===null&&x.data!==null)return false;if(x.chosen!==null&&!Array.isArray(x.data))return false;}return true;}",
+    "program": "function solve({config,state,event}) {\n  const st=state&&Array.isArray(state.s)?state:{s:[]};\n  const s=st.s;\n  const sum=d=>{let z=0;for(let i=0;i<d.length;i++)z=(z+(i+1)*d[i])%251;return z<0?z+251:z};\n  if(event.type==='save'){\n    for(let i=s.length-1;i>=0;i--)if(s[i].id===event.id)s.splice(i,1);\n    s.push({id:event.id,d:event.data.slice(),c:event.checksum});\n    while(s.length>config.keep)s.shift();\n  } else if(event.type==='damage'){\n    for(const q of s)if(q.id===event.id&&event.index>=0&&event.index<q.d.length){q.d[event.index]=event.value;break}\n  } else if(event.type==='drop'){\n    for(let i=s.length-1;i>=0;i--)if(s[i].id===event.id)s.splice(i,1);\n  }\n  let data=null,chosen=null;\n  if(event.type==='restore')for(let i=s.length-1;i>=0;i--)if(sum(s[i].d)===s[i].c){data=s[i].d.slice();chosen=s[i].id;break}\n  return {state:st,output:{data,chosen,retained:s.map(q=>q.id)}};\n}"
+  },
+  "resultSHA256": "d2f157f03431e0a62da8672a50718a8b7bb48fa7eedcfed4783131c850283193",
+  "rawOutputSHA256": "5eb0949313968a23ddfeead5b5a91e46d6809f74d4e3721a6eb6223bf8071a75"
+}

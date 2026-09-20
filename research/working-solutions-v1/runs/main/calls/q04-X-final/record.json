@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q04-X-final",
+  "requestSHA256": "1245d2bbee0bfdd7602e5a4cd98fa308b1c116900fb776cf6a27b26dedbf5979",
+  "promptSHA256": "fa47f001faa8137d0fb9f55b6a7897df562b6350fd7650dd65fdc5863cae8ee7",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:27:45.846272+00:00",
+  "finishedAt": "2026-09-20T23:28:01.013072+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 15.165836333995685,
+      "usage": {
+        "input_tokens": 8084,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 623,
+        "reasoning_output_tokens": 102
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "368d12077ed884336a1f3ddfbc0262867690f61cf4ec2b451892fdca7295ea63",
+      "stderrSHA256": "94db2f772c49ffdfbd8d2f89d977c70373ae3310fd117dedef9646f2addca12b"
+    }
+  ],
+  "result": {
+    "explanation": "Track each begun job, its phase, and its owned resources. A begin is atomic and does not consume an ID when blocked. Prepare, commit, and abort enforce the required phase transitions; terminal jobs remain recorded so IDs cannot be reused. Ownership is released on commit or abort, and output exposes only configured held resources plus sorted committed IDs.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s==null)s={j:{},h:{},d:[]};else{var j0=s.j||{},h0=s.h||{},d0=s.d||[];s={j:{},h:Object.assign({},h0),d:d0.slice()};for(var q in j0){s.j[q]={p:j0[q].p,r:(j0[q].r||[]).slice()}}}var id=e.id,st=\"invalid\",j;if(e.type===\"begin\"){var ok=!Object.prototype.hasOwnProperty.call(s.j,id);if(ok)for(var i=0;i<e.resources.length;i++)if(Object.prototype.hasOwnProperty.call(s.h,e.resources[i])){ok=false;break}if(ok){s.j[id]={p:\"active\",r:e.resources.slice()};for(i=0;i<e.resources.length;i++)s.h[e.resources[i]]=id;st=\"begun\"}else st=\"blocked\"}else if(Object.prototype.hasOwnProperty.call(s.j,id)){j=s.j[id];if(e.type===\"prepare\"&&j.p===\"active\"){j.p=\"prepared\";st=\"prepared\"}else if(e.type===\"commit\"&&j.p===\"prepared\"){j.p=\"committed\";for(var k=0;k<j.r.length;k++)delete s.h[j.r[k]];s.d.push(id);s.d.sort();st=\"committed\"}else if(e.type===\"abort\"&&(j.p===\"active\"||j.p===\"prepared\")){j.p=\"aborted\";for(var z=0;z<j.r.length;z++)delete s.h[j.r[z]];st=\"aborted\"}}var held={};for(var a=0;a<c.resources.length;a++){var r=c.resources[a];if(Object.prototype.hasOwnProperty.call(s.h,r))held[r]=s.h[r]}return{state:s,output:{status:st,held:held,done:s.d.slice()}}}"
+  },
+  "resultSHA256": "5002860cf9f9a824e87a8cf68f132341e425e586c53e09f032234d6a7519a688",
+  "rawOutputSHA256": "5002860cf9f9a824e87a8cf68f132341e425e586c53e09f032234d6a7519a688"
+}

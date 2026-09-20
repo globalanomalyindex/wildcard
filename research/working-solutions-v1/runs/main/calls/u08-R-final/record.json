@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u08-R-final",
+  "requestSHA256": "98e0a633dfb6b89125dce7a22d2b9b8be45ef331749c6f8867343c183327f5e8",
+  "promptSHA256": "5345c876255114f8234edda0fc099234543bfaeebed9e3aca2da289157754323",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:44.267230+00:00",
+  "finishedAt": "2026-09-20T23:24:59.452943+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 15.184652500087395,
+      "usage": {
+        "input_tokens": 8896,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 529,
+        "reasoning_output_tokens": 104
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4f2b2a2340bd0cad89fb7dbebd2e320efbfa05f662dbf74810037e4f365ae994",
+      "stderrSHA256": "af04480be2d9f133003f7c79ed95be69253a8ea375a64af89fd517a2727ca045"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains the current view order, selected IDs, and anchor. View events replace the view and prune unavailable or disabled selections and anchors. Clicks implement plain replacement, Ctrl toggling, and Shift range selection, with Ctrl+Shift union. Range membership follows the current view and skips disabled options; outputs sort selected IDs lexicographically.",
+    "program": "function solve({config,state,event}){let s=state;if(s===null){s={o:config.options.map(x=>({id:x.id,d:x.disabled})),q:[],a:null}}const ok=id=>{for(const x of s.o)if(x.id===id)return x.d===false;return false};const clean=()=>{let q=[];for(const id of s.q)if(ok(id)&&!q.includes(id))q.push(id);s.q=q;if(s.a!==null&&!ok(s.a))s.a=null};if(event.type==='view'){s.o=event.options.map(x=>({id:x.id,d:x.disabled}));clean()}else if(event.type==='click'&&ok(event.id)){let id=event.id;if(!event.shift){if(event.ctrl){if(s.q.includes(id))s.q=s.q.filter(x=>x!==id);else s.q.push(id)}else s.q=[id];s.a=id}else if(s.a===null){s.a=id;s.q=[id]}else{let a=-1,b=-1;for(let i=0;i<s.o.length;i++){if(s.o[i].id===s.a)a=i;if(s.o[i].id===id)b=i}let r=[];for(let i=Math.min(a,b);i<=Math.max(a,b);i++)if(!s.o[i].d)r.push(s.o[i].id);if(event.ctrl){for(const x of r)if(!s.q.includes(x))s.q.push(x)}else s.q=r}clean()}return{state:s,output:{selected:s.q.slice().sort(),anchor:s.a}}}"
+  },
+  "resultSHA256": "240de2ae35e7a24dc6ba52ac15408e38a3ca954932e4b83829e630e7c9625c46",
+  "rawOutputSHA256": "240de2ae35e7a24dc6ba52ac15408e38a3ca954932e4b83829e630e7c9625c46"
+}

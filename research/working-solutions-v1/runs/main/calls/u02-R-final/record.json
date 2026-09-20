@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u02-R-final",
+  "requestSHA256": "75706770fce5d9666e3a1c0a3d9c76f6bc49e250124a6361499f8b4602a467f1",
+  "promptSHA256": "05447bc8325cf89a801b2c9ad3026a46cf45cc8dc113cfa7d07fd9ea0675f9b2",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:17.555140+00:00",
+  "finishedAt": "2026-09-20T23:22:38.779038+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.222578708082438,
+      "usage": {
+        "input_tokens": 14093,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1000,
+        "reasoning_output_tokens": 465
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "ffa0ac0a3d4858a3ccba948d6b5afe3179f148de35189eb7846cab53d6ef0d76",
+      "stderrSHA256": "7ef0b1044edda032c75ac4f1f087694cf5afb4b900af29cc836b70b990c0f373"
+    }
+  ],
+  "result": {
+    "explanation": "For each event, update the addressed frame record, then replay frames in order from the initial values. Snapshots replace the carried state and clear both patches; persistent edits affect the carried state after their frame, while one-frame edits affect only that frame's displayed copy. Inserted frames capture the preceding carried state at insertion time.",
+    "program": "function cp(x){if(!x||typeof x!==\"object\")return x;var y={};for(var k of Object.keys(x))Object.defineProperty(y,k,{value:cp(x[k]),writable:true,enumerable:true,configurable:true});return y}\nfunction put(o,k,v){Object.defineProperty(o,k,{value:v,writable:true,enumerable:true,configurable:true})}\nfunction solve(a){var s=a.state,e=a.event,i,j,c,r,f,g,v;if(!s)s={init:cp(a.config.initial),f:a.config.frames.map(function(id){return{id:id,p:{},o:{},s:null}})}\n i=-1;for(j=0;j<s.f.length;j++)if(s.f[j].id===e.id){i=j;break}\n if(e.type==='edit'&&i>=0)put(s.f[i][e.scope==='one'?'o':'p'],e.key,e.value);\n else if(e.type==='snapshot'&&i>=0)s.f[i]={id:e.id,p:{},o:{},s:cp(e.values)};\n else if(e.type==='insert'&&!s.f.some(function(x){return x.id===e.id})){j=e.after===null?-1:-1;for(var n=0;n<s.f.length;n++)if(s.f[n].id===e.after){j=n;break}if(e.after===null||j>=0){c=cp(s.init);for(n=0;n<=j;n++){f=s.f[n];if(f.s)c=cp(f.s);for(var k of Object.keys(f.p))put(c,k,f.p[k])}s.f.splice(j+1,0,{id:e.id,p:{},o:{},s:c})}}\n c=cp(s.init);r=[];for(f of s.f){if(f.s)c=cp(f.s);for(var k of Object.keys(f.p))put(c,k,f.p[k]);v=cp(c);for(k of Object.keys(f.o))put(v,k,f.o[k]);r.push({id:f.id,values:v})}return{state:s,output:{frames:r}}}"
+  },
+  "resultSHA256": "e325eda5255bb0f8203a99d7c700f936a28dfe8a7e84092f22da65bb6ebcaac0",
+  "rawOutputSHA256": "e325eda5255bb0f8203a99d7c700f936a28dfe8a7e84092f22da65bb6ebcaac0"
+}

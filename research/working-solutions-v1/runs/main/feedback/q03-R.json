@@ -1,0 +1,227 @@
+{
+  "initialRecordSHA256": "0bc556dd830062d6df73f0db97933cbe659f4d2e854450512c1c7ce76aae20f4",
+  "firstShown": {
+    "explanation": "Maintain current time and, for each pending key, its latest value and first pending time. Required puts emit immediately; otherwise capacity and age-triggered flushes drain all pending keys in lexical order.",
+    "mapping": "Keys map to pending records {value,at}; now is accumulated advance time; emitted is the drained lexical snapshot.",
+    "assumptions": "Event fields and config are valid as specified. Lexical order is JavaScript string order for lowercase ASCII keys.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,s={now:0,k:{}};function keys(){return Object.keys(s.k).sort()}function flush(){var a=keys().map(function(x){return {key:x,value:s.k[x].v}});s.k={};return a}for(var i=0;i<input.events.length;i++){var e=input.events[i],a=[];if(e.type==='put'){if(c.required)a=[{key:e.key,value:e.value}];else{if(!s.k[e.key])s.k[e.key]={v:e.value,at:s.now};else s.k[e.key].v=e.value;if(Object.keys(s.k).length>=c.limit)a=flush()}}else if(e.type==='cancel')delete s.k[e.key];else if(e.type==='advance'){s.now+=e.dt;if(!c.required){var q=keys();for(var j=0;j<q.length;j++)if(s.now-s.k[q[j]].at>=c.delay){a=flush();break}}}else if(e.type==='flush')a=flush();var want={emitted:a,pending:keys(),now:s.now},got=output[i];if(JSON.stringify(got)!==JSON.stringify(want))return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state||{now:0,k:{}};function ks(){return Object.keys(s.k).sort()}function flush(){var a=ks().map(function(z){return{key:z,value:s.k[z].v}});s.k={};return a}var a=[];if(e.type==='put'){if(c.required)a=[{key:e.key,value:e.value}];else{if(s.k[e.key]===undefined)s.k[e.key]={v:e.value,at:s.now};else s.k[e.key].v=e.value;if(Object.keys(s.k).length>=c.limit)a=flush()}}else if(e.type==='cancel'){delete s.k[e.key]}else if(e.type==='advance'){s.now+=e.dt;if(!c.required){var q=ks();for(var i=0;i<q.length;i++)if(s.now-s.k[q[i]].at>=c.delay){a=flush();break}}}else if(e.type==='flush')a=flush();return{state:s,output:{emitted:a,pending:ks(),now:s.now}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 1
+          },
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 1
+          },
+          {
+            "emitted": [
+              {
+                "key": "a",
+                "value": 2
+              }
+            ],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 1
+          },
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 1
+          },
+          {
+            "emitted": [
+              {
+                "key": "a",
+                "value": 2
+              }
+            ],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 0
+          },
+          {
+            "emitted": [],
+            "pending": [
+              "a"
+            ],
+            "now": 1
+          },
+          {
+            "emitted": [
+              {
+                "key": "a",
+                "value": 1
+              }
+            ],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "emitted": [
+              {
+                "key": "a",
+                "value": 1
+              }
+            ],
+            "pending": [],
+            "now": 0
+          },
+          {
+            "emitted": [],
+            "pending": [],
+            "now": 1
+          },
+          {
+            "emitted": [
+              {
+                "key": "a",
+                "value": 2
+              }
+            ],
+            "pending": [],
+            "now": 1
+          },
+          {
+            "emitted": [],
+            "pending": [],
+            "now": 2
+          }
+        ]
+      }
+    ]
+  }
+}

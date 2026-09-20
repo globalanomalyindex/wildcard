@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u04-D-initial",
+  "requestSHA256": "141689696aa26574eb5263597b149f4b43a36cc2690ecf740feeee987a112d14",
+  "promptSHA256": "a6fb7d82c96751df34d6dc9c89fcf6b6f16388db2efa5b591d2a678d2f2838d0",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:13:16.759885+00:00",
+  "finishedAt": "2026-09-20T23:13:35.767280+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.006999416043982,
+      "usage": {
+        "input_tokens": 7076,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 889,
+        "reasoning_output_tokens": 309
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "5486bd08225d24a00898cf4f240177ca0b48804324f6afa3762fc1b5b725350b",
+      "stderrSHA256": "37540e073792f3f4a3b70f112536b521699efa98ea7aee990eb2037378851009"
+    }
+  ],
+  "result": {
+    "explanation": "Use a finite controller state: newest observation time, mode, warning kind/ID, hysteresis counters, and acknowledged IDs. Newer observations alone advance time; critical observations take priority unless acknowledged. Normal hysteresis operates only while enabled and no critical warning is visible.",
+    "mapping": "config thresholds map to up/down consecutive-normal counters; state stores lastTime, enabled, visible kind/id, counters, and acknowledged IDs; event types transition these variables; output projects visibility, kind, and critical ID.",
+    "assumptions": "Inputs satisfy the published validity constraints. IDs are compared by exact string equality. Initial state is null and all supplied events are processed synchronously in order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var s=null;for(var i=0;i<output.length;i++){var r=solve({config:input.config,state:s,event:input.events[i]});s=r.state;var a=r.output,b=output[i];if(!b||b.visible!==a.visible||b.kind!==a.kind||b.id!==a.id)return false}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null)s={t:-1,en:true,k:null,id:null,u:0,d:0,a:[]};else{s={t:s.t,en:s.en,k:s.k,id:s.id,u:s.u,d:s.d,a:s.a.slice()}}function has(id){return s.a.indexOf(id)>=0}function reset(){s.u=0;s.d=0}if(e.type==='ack'){if(!has(e.id))s.a.push(e.id);if(s.k==='critical'&&s.id===e.id){s.k=null;s.id=null;reset()}}else if(e.type==='mode'){s.en=e.enabled;reset();if(!s.en&&s.k==='normal')s.k=null}else if(e.type==='observe'&&e.t>s.t){s.t=e.t;if(e.critical){if(!has(e.id)){s.k='critical';s.id=e.id;reset()}}else if(s.k!=='critical'&&s.en){if(e.level>=c.high){s.u++;s.d=0;if(s.u>=c.dwell){s.k='normal';s.id=null}}else if(e.level<=c.low){s.d++;s.u=0;if(s.d>=c.dwell){s.k=null;s.id=null}}else reset()}}return{state:s,output:{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}}"
+  },
+  "resultSHA256": "6af99a4d4c8884e1423698003367d08168508d513967685bc525cf4b81d943ba",
+  "rawOutputSHA256": "59a9a2574e0813dcc23dc1fd6c846235c6e0a8b05c821c931172cf5c5b0bdb4a"
+}

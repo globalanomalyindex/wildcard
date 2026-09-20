@@ -1,0 +1,232 @@
+{
+  "initialRecordSHA256": "7f62de3308beb46abd0a59825e1797605e3b4381e76902b25022b79c3fc82976",
+  "firstShown": {
+    "explanation": "Each submission owns the revision it creates and stores a pre-submit snapshot. Outcomes may settle their own pending record, but only the current owner at the same revision may alter fields. Edits and newer submissions therefore protect newer values.",
+    "mapping": "The controller maps fields, revision, status, pending records, submission history, and current owner directly to the specified form state and causal guards.",
+    "assumptions": "Inputs are valid JSON under the stated contract; field values are scalar JSON values and IDs are nonempty ASCII strings.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var s=null;for(var i=0;i<input.events.length;i++){var x=solve({config:input.config,state:s,event:input.events[i]});if(JSON.stringify(x.output)!==JSON.stringify(output[i]))return false;s=x.state}return true}",
+    "program": "function cp(o){var r={};for(var k in o)if(Object.prototype.hasOwnProperty.call(o,k))r[k]=o[k];return r}\nfunction patch(f,e){var r=cp(f),a=e.remove||[],k;for(var i=0;i<a.length;i++)delete r[a[i]];var z=e.set||{};for(k in z)if(Object.prototype.hasOwnProperty.call(z,k))r[k]=z[k];return r}\nfunction solve(q){var e=q.event,s=q.state;if(s===null)s={f:cp(q.config.fields),r:0,st:'idle',o:null,p:{},h:{}};var t=e.type,k,id,x;\nif(t==='edit'){s.f=patch(s.f,e);s.r++;s.st='idle'}\nelse if(t==='submit'){id=e.id;if(!Object.prototype.hasOwnProperty.call(s.h,id)){s.h[id]=1;s.p[id]={pre:cp(s.f),rev:s.r+1};s.f=patch(s.f,e);s.r++;s.o=id;s.st='saving'}}\nelse if(t==='success'||t==='failure'){id=e.id;if(Object.prototype.hasOwnProperty.call(s.p,id)){x=s.p[id];delete s.p[id];if(s.o===id&&x.rev===s.r){if(t==='success'){s.f=cp(e.fields);s.r++;s.st='saved'}else{s.f=cp(x.pre);s.r++;s.st='error'}s.o=null}}}\nvar a=Object.keys(s.p).sort(),o={fields:cp(s.f),revision:s.r,status:s.st,pending:a};return {state:s,output:o}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v400333_0": "one",
+              "v336980_2": 3
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v716246_3"
+            ]
+          },
+          {
+            "fields": {
+              "v400333_0": "v644886_4",
+              "v336980_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v716246_3"
+            ]
+          },
+          {
+            "fields": {
+              "v400333_0": "v644886_4",
+              "v336980_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": []
+          },
+          {
+            "fields": {
+              "v400333_0": "v512592_5",
+              "v336980_2": 3
+            },
+            "revision": 3,
+            "status": "saving",
+            "pending": [
+              "v783722_6"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v418342_0": "one",
+              "v433191_2": 4
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v327331_3"
+            ]
+          },
+          {
+            "fields": {
+              "v433191_2": 4,
+              "v418342_0": 0
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v327331_3"
+            ]
+          },
+          {
+            "fields": {
+              "v418342_0": 0,
+              "v433191_2": 0
+            },
+            "revision": 3,
+            "status": "idle",
+            "pending": [
+              "v327331_3"
+            ]
+          },
+          {
+            "fields": {
+              "v418342_0": "v701814_4",
+              "v433191_2": 0
+            },
+            "revision": 4,
+            "status": "idle",
+            "pending": [
+              "v327331_3"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v839274_0": "one",
+              "v571918_2": 3
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v027918_3"
+            ]
+          },
+          {
+            "fields": {
+              "v839274_0": "v213835_4",
+              "v571918_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v027918_3"
+            ]
+          },
+          {
+            "fields": {
+              "v839274_0": "v213835_4",
+              "v571918_2": 3
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": []
+          },
+          {
+            "fields": {
+              "v839274_0": "v374508_5",
+              "v571918_2": 3
+            },
+            "revision": 3,
+            "status": "saving",
+            "pending": [
+              "v101417_6"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "fields": {
+              "v836475_0": "one",
+              "v789893_2": 2
+            },
+            "revision": 1,
+            "status": "saving",
+            "pending": [
+              "v615562_3"
+            ]
+          },
+          {
+            "fields": {
+              "v836475_0": "v189174_4",
+              "v789893_2": 2
+            },
+            "revision": 2,
+            "status": "idle",
+            "pending": [
+              "v615562_3"
+            ]
+          },
+          {
+            "fields": {
+              "v836475_0": "v189174_4",
+              "v789893_2": "edit"
+            },
+            "revision": 3,
+            "status": "idle",
+            "pending": [
+              "v615562_3"
+            ]
+          },
+          {
+            "fields": {
+              "v836475_0": "v189174_4",
+              "v789893_2": "edit"
+            },
+            "revision": 3,
+            "status": "idle",
+            "pending": []
+          }
+        ]
+      }
+    ]
+  }
+}

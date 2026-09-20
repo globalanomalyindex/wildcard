@@ -1,0 +1,184 @@
+{
+  "initialRecordSHA256": "1a8bb261981326b09e5026e43a1dcc5f66f7b91017e7eb7dcb381bd9e35c1a90",
+  "firstShown": {
+    "explanation": "Use timestamp ordering, acknowledgement identity, critical precedence, mode state, and directional hysteresis counters. The optional lighthouse analogy is not needed because this is a deterministic event controller.",
+    "mapping": "lastTime maps observation ordering; ack maps permanently acknowledged IDs; criticalId maps the currently visible critical identity; enabled maps mode; dir/count map consecutive high or low normal observations; kind/visible map rendered warning state.",
+    "assumptions": "Inputs satisfy the stated schema and limits. Configuration remains valid for the trace. State is returned unchanged in meaning but may use a compact JSON object.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let c=input.config,s={t:-1,e:true,d:0,n:0,k:null,id:null,a:[]};function o(){return{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}for(let i=0;i<input.events.length;i++){let x=input.events[i];if(x.type==='ack'){if(s.a.indexOf(x.id)<0)s.a.push(x.id);if(s.k==='critical'&&s.id===x.id){s.k=null;s.id=null;s.d=0;s.n=0}}else if(x.type==='mode'){s.e=x.enabled;s.d=0;s.n=0;if(!s.e&&s.k==='normal')s.k=null}else if(x.type==='observe'&&x.t>s.t){s.t=x.t;if(x.critical&&s.a.indexOf(x.id)<0){s.k='critical';s.id=x.id;s.d=0;s.n=0}else if(!x.critical&&s.k!=='critical'&&s.e){let q=x.level>=c.high?1:x.level<=c.low?-1:0;if(q===0||q!==s.d){s.d=q;s.n=q?1:0}else s.n++;if(s.n>=c.dwell){if(q===1)s.k='normal';else if(q===-1)s.k=null;s.n=0}}}let z=o(),y=output[i];if(!y||y.visible!==z.visible||y.kind!==z.kind||y.id!==z.id)return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{t:-1,e:true,d:0,n:0,k:null,id:null,a:[]};let c=config,x=event;if(x.type==='ack'){if(s.a.indexOf(x.id)<0)s.a.push(x.id);if(s.k==='critical'&&s.id===x.id){s.k=null;s.id=null;s.d=0;s.n=0}}else if(x.type==='mode'){s.e=x.enabled;s.d=0;s.n=0;if(!s.e&&s.k==='normal')s.k=null}else if(x.type==='observe'&&x.t>s.t){s.t=x.t;if(x.critical&&s.a.indexOf(x.id)<0){s.k='critical';s.id=x.id;s.d=0;s.n=0}else if(!x.critical&&s.k!=='critical'&&s.e){let q=x.level>=c.high?1:x.level<=c.low?-1:0;if(q===0||q!==s.d){s.d=q;s.n=q?1:0}else s.n++;if(s.n>=c.dwell){if(q===1)s.k='normal';else if(q===-1)s.k=null;s.n=0}}}return{state:s,output:{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": true,
+            "kind": "normal",
+            "id": null
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          },
+          {
+            "visible": true,
+            "kind": "critical",
+            "id": "v257062_1"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          },
+          {
+            "visible": false,
+            "kind": null,
+            "id": null
+          }
+        ]
+      }
+    ]
+  }
+}

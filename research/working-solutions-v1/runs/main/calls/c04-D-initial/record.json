@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c04-D-initial",
+  "requestSHA256": "6b1466ddedecb1b93c059fb1ff5a9dadd4972e6be74280727ba7a29633836b73",
+  "promptSHA256": "e300e5d956e85086156340372c9077811340926ae2b753c24f6045e8f09dbf8c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:14:46.922348+00:00",
+  "finishedAt": "2026-09-20T23:15:06.609391+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.685783291002735,
+      "usage": {
+        "input_tokens": 6660,
+        "cached_input_tokens": 5888,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 921,
+        "reasoning_output_tokens": 311
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a03063b86297ba893bc73dde902f1c7d21f117ad1f9dd4ee158bce3f3b8ad081",
+      "stderrSHA256": "4bae5adc3fd0b6b9c2c57d899054bc863be6ef4c1dfb7c5169b8c6d389f44aa9"
+    }
+  ],
+  "result": {
+    "explanation": "Use the conditional rule: an acknowledgment may advance a reader only when it is no older than that reader's prior acknowledgment and no newer than the current sequence. Compaction retains all records above the minimum acknowledgment and the latest record at or below it for each key. A simpler deletion rule fails when the retained record is the only historical value needed to preserve replay-visible state.",
+    "mapping": "state.seq is the current sequence; state.log stores retained {seq,key,value} records; state.ack stores reader watermarks; state.view stores latest values from all writes. The output derives log sequence numbers and view.",
+    "assumptions": "Inputs follow the stated legal contract: configured readers and event fields are valid, values and arithmetic are safe integers, and only set, ack, and compact events occur.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){var r=input.config.readers,s=0,l=[],a={},v={},want=[];for(var i=0;i<r.length;i++)a[r[i]]=0;for(var e of input.events){if(e.type==='set'){s++;l.push({seq:s,key:e.key,value:e.value});v[e.key]=e.value}else if(e.type==='ack'){if(a[e.reader]<=e.seq&&e.seq<=s)a[e.reader]=e.seq}else{var w=Infinity;for(var k of r)if(a[k]<w)w=a[k];var last={},n=[];for(var x of l)if(x.seq<=w)last[x.key]=x;for(var x of l)if(x.seq>w||last[x.key]===x)n.push(x);l=n}var o={log:l.map(x=>x.seq),view:Object.assign({},v)};want.push(o)}return JSON.stringify(want)===JSON.stringify(output)}",
+    "program": "function solve({config,state,event}){var s=state;if(s===null){s={seq:0,log:[],ack:{},view:{}};for(var r of config.readers)s.ack[r]=0}if(event.type==='set'){s.seq++;s.log.push({seq:s.seq,key:event.key,value:event.value});s.view[event.key]=event.value}else if(event.type==='ack'){var old=s.ack[event.reader];if(old<=event.seq&&event.seq<=s.seq)s.ack[event.reader]=event.seq}else if(event.type==='compact'){var w=Infinity,last={},n=[];for(var r of config.readers)if(s.ack[r]<w)w=s.ack[r];for(var x of s.log)if(x.seq<=w)last[x.key]=x;for(var x of s.log)if(x.seq>w||last[x.key]===x)n.push(x);s.log=n}return{state:s,output:{log:s.log.map(x=>x.seq),view:Object.assign({},s.view)}}}"
+  },
+  "resultSHA256": "1801b6f14951a75868a7ffa3d13c3c22a688c091d484768675938ba5fad1d8de",
+  "rawOutputSHA256": "92e485f1804b2ac754b45d388772576ee2dfce127da1881c3aa3b4737dc70cba"
+}

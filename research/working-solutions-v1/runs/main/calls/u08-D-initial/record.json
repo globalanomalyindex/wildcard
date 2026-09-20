@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u08-D-initial",
+  "requestSHA256": "ac671385521225b251f42e6b454e2c7880b87bcf38c06ed9e19406c20e174742",
+  "promptSHA256": "d5de1425d2c8172666cbc107fad116176ebef9b694fd4575338a40f83982c8fd",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:04:56.204730+00:00",
+  "finishedAt": "2026-09-20T23:05:25.769818+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 29.564012167043984,
+      "usage": {
+        "input_tokens": 7639,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1003,
+        "reasoning_output_tokens": 182
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "3df773e762cc22643fefbd1a7324c77955fabf863f6ae658dc4ba8b20c990354",
+      "stderrSHA256": "02dd1d852cd3b433283f02eeacd9d1186cf3762e6e75e3cd5a07b625d26b7fdc"
+    }
+  ],
+  "result": {
+    "explanation": "Use the current ordered view as the sole range coordinate system. Disabled or absent clicks are no-ops; view updates filter selection and invalidate anchors. A shift click preserves a valid anchor, while a missing anchor is established at the clicked ID.",
+    "mapping": "config.options initializes view order and disabled status; state stores current options, selected IDs, and anchor; each event transforms those variables and emits sorted selected IDs plus anchor.",
+    "assumptions": "Inputs satisfy the stated schema and ID uniqueness constraints. JavaScript string ordering matches the required lexicographic ordering.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.options)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let r={o:input.config.options.map(x=>({id:x.id,d:!!x.disabled})),s:[],a:null};for(let k=0;k<input.events.length;k++){let e=input.events[k];if(e.type==='view'){r.o=e.options.map(x=>({id:x.id,d:!!x.disabled}));let ok=new Set(r.o.filter(x=>!x.d).map(x=>x.id));r.s=r.s.filter(x=>ok.has(x));if(r.a==null||!ok.has(r.a))r.a=null}else if(e.type==='click'){let q=r.o.findIndex(x=>x.id===e.id);if(q<0||r.o[q].d){}else if(!e.shift){if(e.ctrl){r.s=r.s.includes(e.id)?r.s.filter(x=>x!==e.id):r.s.concat(e.id);r.a=e.id}else{r.s=[e.id];r.a=e.id}}else{if(r.a==null||!r.o.some(x=>x.id===r.a&&!x.d))r.a=e.id;let a=r.o.findIndex(x=>x.id===r.a),b=q,lo=Math.min(a,b),hi=Math.max(a,b),z=r.o.slice(lo,hi+1).filter(x=>!x.d).map(x=>x.id);r.s=e.ctrl?r.s.concat(z.filter(x=>!r.s.includes(x))):z}}let want={selected:r.s.slice().sort(),anchor:r.a};if(JSON.stringify(want)!==JSON.stringify(output[k]))return false}return true}",
+    "program": "function solve({config,state,event}){let r=state||{o:config.options.map(x=>({id:x.id,d:!!x.disabled})),s:[],a:null};if(event.type==='view'){r.o=event.options.map(x=>({id:x.id,d:!!x.disabled}));let ok=new Set(r.o.filter(x=>!x.d).map(x=>x.id));r.s=r.s.filter(x=>ok.has(x));if(r.a==null||!ok.has(r.a))r.a=null}else if(event.type==='click'){let q=r.o.findIndex(x=>x.id===event.id);if(q>=0&&!r.o[q].d){if(!event.shift){if(event.ctrl)r.s=r.s.includes(event.id)?r.s.filter(x=>x!==event.id):r.s.concat(event.id);else r.s=[event.id];r.a=event.id}else{if(r.a==null||!r.o.some(x=>x.id===r.a&&!x.d))r.a=event.id;let a=r.o.findIndex(x=>x.id===r.a),lo=Math.min(a,q),hi=Math.max(a,q),z=r.o.slice(lo,hi+1).filter(x=>!x.d).map(x=>x.id);r.s=event.ctrl?r.s.concat(z.filter(x=>!r.s.includes(x))):z}}}return{state:r,output:{selected:r.s.slice().sort(),anchor:r.a}}}"
+  },
+  "resultSHA256": "f659b2c69e35f28b356b20075baa5c4a93094317500fe2b79c1623a007b2a594",
+  "rawOutputSHA256": "b6e0ee9c578c67ebc9bc287995d5e03ba32ff7ac2f5537517eaf525bc3e7a102"
+}

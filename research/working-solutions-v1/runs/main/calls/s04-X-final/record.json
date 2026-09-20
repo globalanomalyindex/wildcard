@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s04-X-final",
+  "requestSHA256": "f4de8b47760dd04d796f68000e6e75ac45229922e58b556df8d2e8aea1caf370",
+  "promptSHA256": "92f681755fd795ab671d4db3c7eef838626cd9632d9d130f6f1317bf81a55f4b",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:34.453579+00:00",
+  "finishedAt": "2026-09-20T23:27:04.162006+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 29.707774000009522,
+      "usage": {
+        "input_tokens": 9399,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1481,
+        "reasoning_output_tokens": 634
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "aee3d774656d810712456c7322381574e4085b6e9b180f1f8ac809a075a8bdf7",
+      "stderrSHA256": "1ba32927907183df56b884e0c0f3499811f4a3af201d1736bbb0947c64cf5b04"
+    }
+  ],
+  "result": {
+    "explanation": "Implements LF framing, byte-limit recovery, strict UTF-8 decoding, JSON/schema validation, transactional staging and atomic commits, abort handling, finish recovery, safe scalar validation, and exact per-event projections.",
+    "program": "function solve({config,state,event}){const M=config.maxBytes;let s=state||{v:{},o:null,t:{},b:[],x:0,e:0};const put=(o,k,v)=>Object.defineProperty(o,k,{value:v,writable:true,enumerable:true,configurable:true});const clear=()=>{s.o=null;s.t={}};const bad=()=>{s.e++;clear()};const utf=a=>{let r='';for(let i=0;i<a.length;i++){let c=a[i],z;if(c<128){r+=String.fromCharCode(c);continue}let n=c<224?2:c<240?3:c<248?4:0;if(!n||i+n>a.length)return null;for(let j=1;j<n;j++)if((a[i+j]&192)!==128)return null;if(n===2){if(c<194)return null;z=(c&31)*64+(a[++i]&63)}else if(n===3){z=(c&15)*4096+(a[++i]&63)*64+(a[++i]&63);if(z>=55296&&z<=57343)return null}else{z=(c&7)*262144+(a[++i]&63)*4096+(a[++i]&63)*64+(a[++i]&63);if(z<65536||z>1114111)return null}r+=String.fromCodePoint(z)}return r};const str=x=>{if(typeof x!=='string')return false;for(let i=0;i<x.length;i++){let c=x.charCodeAt(i);if(c>=55296&&c<=56319){if(i+1>=x.length||x.charCodeAt(++i)<56320||x.charCodeAt(i)>57343)return false}else if(c>=56320)return false}return true};const scalar=x=>x===null||str(x)||typeof x==='boolean'||typeof x==='number'&&Number.isSafeInteger(x);const frame=a=>{if(!a.length)return bad();let q=utf(a),o;try{o=JSON.parse(q)}catch(e){return bad()}if(!q||q[0]!=='{'||!o||Array.isArray(o)||typeof o!=='object')return bad();let k=Object.keys(o),op=o.op;if(op==='begin'&&k.length===2&&k.includes('id')&&str(o.id)&&s.o===null){s.o=o.id;s.t={};return}if(op==='put'&&k.length===3&&k.includes('key')&&k.includes('value')&&str(o.key)&&scalar(o.value)&&s.o!==null){put(s.t,o.key,o.value);return}if(op==='commit'&&k.length===2&&k.includes('id')&&str(o.id)&&s.o===o.id){for(let z of Object.keys(s.t))put(s.v,z,s.t[z]);clear();return}if(op==='abort'&&k.length===1){clear();return}bad()};const line=()=>{if(s.x){s.x=0;s.b=[]}else{frame(s.b);s.b=[]}};if(event.type==='chunk')for(let c of event.bytes){if(s.x){if(c===10)line();continue}if(c===10){line();continue}s.b.push(c);if(s.b.length>M){s.e++;clear();s.x=1;s.b=[]}}else if(event.type==='finish'){if(s.b.length){s.e++;s.b=[]}else if(s.x)s.x=0;if(s.o!==null){s.e++;clear()}}return{state:s,output:{visible:s.v,open:s.o,buffered:s.b.length,errors:s.e}}}"
+  },
+  "resultSHA256": "6cf6775aaea28a6aa098613497b191b5eba82d8edcfc31b76a69677b47434d34",
+  "rawOutputSHA256": "6cf6775aaea28a6aa098613497b191b5eba82d8edcfc31b76a69677b47434d34"
+}

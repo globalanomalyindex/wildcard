@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c03-R-final",
+  "requestSHA256": "eb4c0d27c6f66058c1adc69273f0b10ff419ccdc8d1371606cb35992d37e80eb",
+  "promptSHA256": "31635c30b42acfae699b9320d7cea4aedb95c524049088b7f1743b3cd57a964c",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:23:06.463785+00:00",
+  "finishedAt": "2026-09-20T23:23:19.987785+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.522076832829043,
+      "usage": {
+        "input_tokens": 7966,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 465,
+        "reasoning_output_tokens": 97
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "1e55e3332b953a958cdd65723ee47a5eacb44797f2a8aba659ed9a50394f78ac",
+      "stderrSHA256": "e175d63af82eb9c27ef10ed8452e6d4089c2ac30fd2afcc037c7a19832343a9a"
+    }
+  ],
+  "result": {
+    "explanation": "For each event, maintain snapshots in oldest-to-newest order. A save removes any prior snapshot with the same ID, appends a copied snapshot, and trims the oldest entries beyond config.keep. Damage changes only the requested stored data element when the snapshot and index exist. Drop removes the ID. Restore scans newest to oldest and returns a copied data array for the first snapshot whose weighted checksum modulo 251 equals its stored checksum; otherwise it returns nulls.",
+    "program": "function solve({config,state,event}){let s=state&&Array.isArray(state.snapshots)?state.snapshots:[];const sum=a=>{let r=0;for(let i=0;i<a.length;i++)r=(r+(i+1)*a[i])%251;return r};if(event.type==='save'){s=s.filter(x=>x.id!==event.id);s.push({id:event.id,data:event.data.slice(),checksum:event.checksum});if(s.length>config.keep)s=s.slice(s.length-config.keep)}else if(event.type==='damage'){for(let i=0;i<s.length;i++)if(s[i].id===event.id&&event.index>=0&&event.index<s[i].data.length){s[i].data[event.index]=event.value;break}}else if(event.type==='drop')s=s.filter(x=>x.id!==event.id);let data=null,chosen=null;if(event.type==='restore')for(let i=s.length-1;i>=0;i--)if(sum(s[i].data)===s[i].checksum){data=s[i].data.slice();chosen=s[i].id;break}return{state:{snapshots:s},output:{data:data,chosen:chosen,retained:s.map(x=>x.id)}}}"
+  },
+  "resultSHA256": "3f7581d27e8db5fe484839f36522d4d00a1c93084805eed539ef3d927520d7ab",
+  "rawOutputSHA256": "3f7581d27e8db5fe484839f36522d4d00a1c93084805eed539ef3d927520d7ab"
+}

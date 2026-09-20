@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-u02-R-initial",
+  "requestSHA256": "b759575d2b4570f3f290d00d247ab6337bb11fa9080f425ffb83c3c4772db132",
+  "promptSHA256": "fcfccd0accf8d279a4dc76abddacc46c1cef354ee184d1e12cd85ef7355e7501",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:49:52.146440+00:00",
+  "finishedAt": "2026-09-20T22:50:37.945684+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 45.79856879194267,
+      "usage": {
+        "input_tokens": 7810,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1097,
+        "reasoning_output_tokens": 332
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "956121b1a1e53a2d35acae4ad5bf8f77ceaa23c6ab43686eb5854d7ee664b20d",
+      "stderrSHA256": "d4ef69e8285392068bf0f32e5c0ecef697f65ce1bbffe5f91da7d5478e5c52fe"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain one open panel per group, enforce enabled eligibility, and refill required groups using fixed panel order after every event.",
+    "mapping": "Groups map to requirement and open-panel state; panels map to group and enabled eligibility. Expanded and unsatisfied are derived outputs.",
+    "assumptions": "IDs are valid as specified. Required-group sorting uses ascending Unicode string order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;return output.every(x=>x&&typeof x==='object'&&Array.isArray(x.expanded)&&Array.isArray(x.unsatisfied)&&x.open&&typeof x.open==='object'&&!Object.keys(x).some(k=>!['open','expanded','unsatisfied'].includes(k))&&!x.expanded.some(id=>typeof id!=='string'||id.includes('__changed')))}",
+    "program": "function solve({config,state,event}){\n  const G=config.groups,P=config.panels;\n  let s=state;\n  if(s===null){s={e:P.map(p=>!!p.enabled),o:G.map(()=>null),r:G.map(g=>!!g.required)};for(let i=0;i<G.length;i++)if(s.r[i])for(let j=0;j<P.length;j++)if(P[j].group===G[i].id&&s.e[j]){s.o[i]=P[j].id;break}}\n  const gi=id=>{for(let i=0;i<G.length;i++)if(G[i].id===id)return i;return -1};\n  const pi=id=>{for(let i=0;i<P.length;i++)if(P[i].id===id)return i;return -1};\n  if(event&&event.type==='toggle'){let j=pi(event.id);if(j>=0&&s.e[j]){let i=gi(P[j].group);if(i>=0){if(s.o[i]===P[j].id){if(!s.r[i])s.o[i]=null}else s.o[i]=P[j].id}}}\n  else if(event&&event.type==='enabled'){let j=pi(event.id);if(j>=0)s.e[j]=!!event.value}\n  else if(event&&event.type==='close'){let i=gi(event.group);if(i>=0&&!s.r[i])s.o[i]=null}\n  else if(event&&event.type==='mode'){let i=gi(event.group);if(i>=0)s.r[i]=!!event.required}\n  for(let i=0;i<G.length;i++){let j=pi(s.o[i]);if(j<0||!s.e[j])s.o[i]=null;if(s.o[i]===null&&s.r[i])for(let k=0;k<P.length;k++)if(P[k].group===G[i].id&&s.e[k]){s.o[i]=P[k].id;break}}\n  let open={},expanded=[];for(let i=0;i<G.length;i++)open[G[i].id]=s.o[i];for(let j=0;j<P.length;j++)for(let i=0;i<G.length;i++)if(s.o[i]===P[j].id)expanded.push(P[j].id);\n  let unsatisfied=[];for(let i=0;i<G.length;i++)if(s.r[i]&&s.o[i]===null)unsatisfied.push(G[i].id);unsatisfied.sort();\n  return {state:s,output:{open,expanded,unsatisfied}};\n}"
+  },
+  "resultSHA256": "3f6e2986a34e9c7a39c57bc4c1a33873020950f3c49b498a2b4a3efb5552f421",
+  "rawOutputSHA256": "0df71adf0617284983774405476653ff749575c193ce7e051b86b8694c4a9b42"
+}

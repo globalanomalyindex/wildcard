@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s02-R-initial",
+  "requestSHA256": "4d02059c1ac17328b9c61c2fac177a75f2667648bdd67a0319d991d4422e2912",
+  "promptSHA256": "929bf05e9bdd2dcabe5715ae485cfe9663d11be3e4b3e68d0c82257fe7b1d955",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:17:11.311606+00:00",
+  "finishedAt": "2026-09-20T23:17:40.201013+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 28.888149708043784,
+      "usage": {
+        "input_tokens": 7670,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1083,
+        "reasoning_output_tokens": 404
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "82b928a17be79584f51065e17dbd1ea48693a86792f2e14351aed05c2e902da4",
+      "stderrSHA256": "7cc5174d1ea8a3720d53cd30e1b17afdb71316423cc3c75f72922715f808d38f"
+    }
+  ],
+  "result": {
+    "explanation": "For each key, retain the event with maximum (version, deletion flag, actor, value). Deletions are retained as tombstones and suppress older writes. Emit live values and sorted tombstone keys after every event.",
+    "mapping": "Each state record maps key to [version, deletedFlag, actor, value]. The output is derived from the retained records: nondeleted records populate visible; deleted records populate tombstones.",
+    "assumptions": "Inputs conform to the stated event schema and numeric/string limits. JavaScript code-point comparison is implemented explicitly rather than relying on UTF-16 ordering.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const o of output){if(!o||Object.keys(o).length!==2||!o.visible||!Array.isArray(o.tombstones))return false;for(const k of o.tombstones)if(Object.prototype.hasOwnProperty.call(o.visible,k)||k.includes('__changed'))return false;for(const k in o.visible)if(typeof o.visible[k]!=='string'||o.visible[k].includes('__changed'))return false;for(let i=1;i<o.tombstones.length;i++)if(cmp(o.tombstones[i-1],o.tombstones[i])>=0)return false}return true}function cmp(a,b){const x=Array.from(a),y=Array.from(b),n=Math.min(x.length,y.length);for(let i=0;i<n;i++)if(x[i]!==y[i])return x[i]<y[i]?-1:1;return x.length-y.length}",
+    "program": "function solve({config,state,event}){const s=state||{};const better=(a,b)=>{if(!b)return true;if(a[0]!==b[0])return a[0]>b[0];if(a[1]!==b[1])return a[1]>b[1];const c=(x,y)=>{const u=Array.from(x),v=Array.from(y),n=Math.min(u.length,v.length);for(let i=0;i<n;i++)if(u[i]!==v[i])return u[i]>v[i]?1:-1;return u.length-v.length};let z=c(a[2],b[2]);return z?z>0:c(a[3],b[3])>0};const r=[event.version,event.deleted?1:0,event.actor,event.value];if(better(r,s[event.key]))s[event.key]=r;const visible={},tombstones=[],keys=Object.keys(s);for(const k of keys){const q=s[k];if(q[1])tombstones.push(k);else visible[k]=q[3]}const cmp=(a,b)=>{const x=Array.from(a),y=Array.from(b),n=Math.min(x.length,y.length);for(let i=0;i<n;i++)if(x[i]!==y[i])return x[i]<y[i]?-1:1;return x.length-y.length};tombstones.sort(cmp);return {state:s,output:{visible,tombstones}}}"
+  },
+  "resultSHA256": "7ab9ce7a524d548d9a349e7e8234c9638a04281bc33dec324c3f2fd2af93d204",
+  "rawOutputSHA256": "2a2bb48b6bc96a2933b642edf9d1439bf84c9851b329a6bd4f8931f6e55481bd"
+}

@@ -1,0 +1,1018 @@
+{
+  "initialRecordSHA256": "39509f3a229a8202657165e1a5abdf5fc690a940e6e272b53c4b3cf9420bfa52",
+  "firstShown": {
+    "explanation": "Conditional rule: process each batch only after invalidity, version, guard, and capacity checks in that order. A successful batch commits all updates atomically; version changes only when values change. I considered history-based rollback, but repeated old batches show only the current version and values matter.",
+    "mapping": "Target variables are current register values and version. Guards constrain the current snapshot; updates define one candidate snapshot; status and changed derive solely from the ordered checks.",
+    "assumptions": "Inputs satisfy the stated legal JSON bounds. JavaScript object keys represent register identities, and code-point sorting is implemented explicitly.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){let c=input.config,v=Object.assign({},c.initial),ver=0,cap=c.capacity;let eq=(a,b)=>a===b,keys=o=>Object.keys(o),sort=a=>a.sort((x,y)=>{let A=Array.from(x),B=Array.from(y),n=Math.min(A.length,B.length);for(let i=0;i<n;i++)if(A[i]!==B[i])return A[i]<B[i]?-1:1;return A.length-B.length});if(!Array.isArray(output)||output.length!==input.events.length)return false;for(let z=0;z<input.events.length;z++){let e=input.events[z],s='committed',bad=false,g=e.guards||{},u=e.updates||{};for(let k of keys(g))if(!Object.prototype.hasOwnProperty.call(v,k))bad=true;for(let k of keys(u)){if(!Object.prototype.hasOwnProperty.call(g,k)||!Object.prototype.hasOwnProperty.call(v,k)||u[k]<0)bad=true}if(bad)s='invalid';else if(e.version!==ver)s='stale';else{for(let k of keys(g))if(v[k]!==g[k])s='conflict';if(s==='committed'){let q=Object.assign({},v);for(let k of keys(u))q[k]=u[k];let sum=0;for(let k of keys(q))sum+=q[k];if(sum>cap)s='capacity';else{let ch=sort(keys(u).filter(k=>q[k]!==v[k]));if(!ch.length)s='unchanged';else{v=q;ver++;}}}}let ch=s==='committed'?sort(keys(u).filter(k=>u[k]!==undefined)):[];if(s!=='committed')ch=[];let o=output[z];if(!o||o.status!==s||o.version!==ver||JSON.stringify(o.values)!==JSON.stringify(v)||JSON.stringify(o.changed)!==JSON.stringify(ch))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={v:Object.assign({},config.initial),n:0};let v=s.v,n=s.n,g=event.guards,u=event.updates,bad=false;for(let k in g)if(!Object.prototype.hasOwnProperty.call(v,k))bad=true;for(let k in u)if(!Object.prototype.hasOwnProperty.call(g,k)||!Object.prototype.hasOwnProperty.call(v,k)||u[k]<0)bad=true;let status;if(bad)status='invalid';else if(event.version!==n)status='stale';else{status='committed';for(let k in g)if(v[k]!==g[k]){status='conflict';break}if(status==='committed'){let q=Object.assign({},v);for(let k in u)q[k]=u[k];let sum=0;for(let k in q)sum+=q[k];if(sum>config.capacity)status='capacity';else{let ch=Object.keys(q).filter(k=>q[k]!==v[k]);if(!ch.length)status='unchanged';else{v=q;n++}}}}let changed=[];if(status==='committed'){changed=Object.keys(v).filter(k=>v[k]!==s.v[k]);changed.sort((a,b)=>{let A=Array.from(a),B=Array.from(b),m=Math.min(A.length,B.length);for(let i=0;i<m;i++)if(A[i]!==B[i])return A[i]<B[i]?-1:1;return A.length-B.length})}let out={status:status,version:n,values:Object.assign({},v),changed:changed};return {state:{v:v,n:n},output:out}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "capacity",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "committed",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "unchanged",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "capacity",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "committed",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "unchanged",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "capacity",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "committed",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "unchanged",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "unchanged",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "committed",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "stale",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "capacity",
+            "version": 1,
+            "values": {
+              "a": 0,
+              "b": 2,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "committed",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": [
+              "a",
+              "b"
+            ]
+          },
+          {
+            "status": "unchanged",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "invalid",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "conflict",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          },
+          {
+            "status": "stale",
+            "version": 2,
+            "values": {
+              "a": 1,
+              "b": 1,
+              "c": 0
+            },
+            "changed": []
+          }
+        ]
+      }
+    ]
+  }
+}

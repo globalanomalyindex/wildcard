@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u02-D-final",
+  "requestSHA256": "c23a333e0b906679800c8f9daa5ed8787e91ea411ce30f60a8d0540fc5510d56",
+  "promptSHA256": "065046e0fb5081d5585190b35edd3e1d75d8e199781d5da25804d27d7dac2114",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:47.928984+00:00",
+  "finishedAt": "2026-09-20T23:27:08.598383+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.66809254186228,
+      "usage": {
+        "input_tokens": 13488,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 952,
+        "reasoning_output_tokens": 437
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "9fb2bf17872f7ca6aa6260e8aa60b7cf675653bcece89bd174f58f936844d9a4",
+      "stderrSHA256": "093f4c4fa7ea3bef3675e2440077425b377dc08fceececbe50aa1c1bdad33e1f"
+    }
+  ],
+  "result": {
+    "explanation": "Each frame stores persistent and one-frame patches, or a snapshot boundary. Every event updates only the addressed frame or valid insertion, then recomputes outputs in order: snapshots replace carried state, persistent patches propagate, and one-frame patches affect display only. Copies prevent one-frame edits and later frames from mutating carried state.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null){s={i:[],f:[]};for(var k of Object.keys(c.initial))s.i.push([k,c.initial[k]]);for(var a of c.frames)s.f.push({id:a,p:[],o:[],b:null})}function cp(o){var r={};for(var k of Object.keys(o))Object.defineProperty(r,k,{value:o[k],enumerable:true,writable:true,configurable:true});return r}function set(a,k,v){for(var j=0;j<a.length;j++)if(a[j][0]===k){a[j][1]=v;return}a.push([k,v])}function ap(o,a){for(var j=0;j<a.length;j++)Object.defineProperty(o,a[j][0],{value:a[j][1],enumerable:true,writable:true,configurable:true})}function pos(id){for(var j=0;j<s.f.length;j++)if(s.f[j].id===id)return j;return-1}if(e.type==='insert'){if(pos(e.id)<0){var n={id:e.id,p:[],o:[],b:null},q=e.after===null?-1:pos(e.after);if(e.after===null)s.f.unshift(n);else if(q>=0)s.f.splice(q+1,0,n)}}else{var q=pos(e.id);if(q>=0){var f=s.f[q];if(e.type==='snapshot'){f.b=cp(e.values);f.p=[];f.o=[]}else if(e.type==='edit')set(e.scope==='persistent'?f.p:f.o,e.key,e.value)}}var carry={},z=[];ap(carry,s.i);for(var j=0;j<s.f.length;j++){var f=s.f[j];if(f.b!==null)carry=cp(f.b);ap(carry,f.p);var v=cp(carry);ap(v,f.o);z.push({id:f.id,values:v})}return{state:s,output:{frames:z}}}"
+  },
+  "resultSHA256": "e58e6a34f48f2d209fb0e4ba555a68ba338d7f0a3cca63d14ea03136f493ae1b",
+  "rawOutputSHA256": "97a4a6d5a30df308957ac4cc22fd82817636d7c04deb617c9b00e49d6e7eaef6"
+}

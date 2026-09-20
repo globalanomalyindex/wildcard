@@ -1,0 +1,328 @@
+{
+  "initialRecordSHA256": "4a4eebb408239cda593629fa60fed177c01e7ced9663261a2c5239409983f107",
+  "firstShown": {
+    "explanation": "Use a revision-guarded mutable value plus an immutable snapshot map. Saved IDs are permanently consumed; retained snapshots are tracked in oldest-to-newest order and evicted from the front when capacity is exceeded. Rollback validates the current revision before checking retention, restores only the value, and increments the current revision.",
+    "mapping": "The state maps directly to value, revision, permanently used IDs, retained snapshot records, and retention order. Event status reports saved, exists, written, conflict, rolled_back, dropped, or missing.",
+    "assumptions": "Inputs follow the published event and configuration shapes; all arithmetic remains within safe integer range.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output))return false;let c=input.config,v=c.initial,r=0,u={},s={},q=[],z=[];for(let e of input.events){let st;if(e.type==='write'){if(e.expect!==r)st='conflict';else{v=e.value;r++;st='written'}}else if(e.type==='save'){if(u[e.id])st='exists';else{u[e.id]=1;s[e.id]={value:v,revision:r};q.push(e.id);while(q.length>c.keep)delete s[q.shift()];st='saved'}}else if(e.type==='rollback'){if(e.expect!==r)st='conflict';else if(!s[e.id])st='missing';else{v=s[e.id].value;r++;st='rolled_back'}}else if(e.type==='drop'){if(!s[e.id])st='missing';else{delete s[e.id];q.splice(q.indexOf(e.id),1);st='dropped'}}else return false;let a={status:st,value:v,revision:r,snapshots:q.slice(),saved:{}};for(let k of q)a.saved[k]={value:s[k].value,revision:s[k].revision};z.push(a)}return JSON.stringify(z)===JSON.stringify(output)}",
+    "program": "function solve(x){let c=x.config,e=x.event,t=x.state;if(t==null)t={v:c.initial,r:0,u:{},s:{},q:[]};let v=t.v,r=t.r,u=t.u,s=t.s,q=t.q,st;if(e.type==='write'){if(e.expect!==r)st='conflict';else{v=e.value;r++;st='written'}}else if(e.type==='save'){if(u[e.id])st='exists';else{u[e.id]=1;s[e.id]={value:v,revision:r};q.push(e.id);while(q.length>c.keep)delete s[q.shift()];st='saved'}}else if(e.type==='rollback'){if(e.expect!==r)st='conflict';else if(!s[e.id])st='missing';else{v=s[e.id].value;r++;st='rolled_back'}}else if(e.type==='drop'){if(!s[e.id])st='missing';else{delete s[e.id];q.splice(q.indexOf(e.id),1);st='dropped'}}let saved={};for(let k of q)saved[k]={value:s[k].value,revision:s[k].revision};let output={status:st,value:v,revision:r,snapshots:q.slice(),saved:saved};return {state:{v:v,r:r,u:u,s:s,q:q},output:output}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 0,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 0,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 0,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 2,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": 2,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 2,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": 5,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "exists",
+            "value": 5,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": 5,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "saved",
+            "value": -3,
+            "revision": 0,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "written",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "conflict",
+            "value": 9,
+            "revision": 1,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          },
+          {
+            "status": "rolled_back",
+            "value": -3,
+            "revision": 2,
+            "snapshots": [
+              "a"
+            ],
+            "saved": {
+              "a": {
+                "value": -3,
+                "revision": 0
+              }
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

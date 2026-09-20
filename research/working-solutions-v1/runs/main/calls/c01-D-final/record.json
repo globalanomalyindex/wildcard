@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c01-D-final",
+  "requestSHA256": "8cfa8412199be15327bbd13ba2e4e7c7b63c96639eefe8d264c660a1a4a2b560",
+  "promptSHA256": "5d09c5f7209692b957da5f1bb7b43b96678257537368a741ff4745e6c668a895",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:01.284333+00:00",
+  "finishedAt": "2026-09-20T23:24:15.510930+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.225211041979492,
+      "usage": {
+        "input_tokens": 7913,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 455,
+        "reasoning_output_tokens": 77
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "c1863506c47b7e4a7c78a19ae3b65c4005bdb7d7371daccd093e0f0ca0cb43f1",
+      "stderrSHA256": "d17d751ee83685bad776eafc4ca0c28c6a58e77c410fa6ba215b24b3f5ab0cb5"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains opaque state containing current time and oldest-to-newest entries. Each event first removes expired entries. Advance then purges again after increasing time. Gets return and refresh an entry’s recency. Valid puts replace the existing key, reject oversized values, remove the key for zero TTL, or evict oldest entries until the new value fits before inserting it.",
+    "program": "function solve({config,state,event}){let s=state||{now:0,e:[]},n=s.now,a=s.e.map(x=>({k:x.k,v:x.v,z:x.z,t:x.t}));function purge(){a=a.filter(x=>x.t>n)}function remove(k){a=a.filter(x=>x.k!==k)}function result(v){let b=0;for(let x of a)b+=x.z;return{state:{now:n,e:a.map(x=>({k:x.k,v:x.v,z:x.z,t:x.t}))},output:{value:v,keys:a.map(x=>x.k),bytes:b,now:n}}}purge();if(event.type==='advance'){n+=event.dt;purge();return result(null)}if(event.type==='get'){let i=a.findIndex(x=>x.k===event.key);if(i<0)return result(null);let x=a[i];a.splice(i,1);a.push(x);return result(x.v)}if(event.size>config.capacity)return result(null);remove(event.key);if(event.ttl>0){let b=0;for(let x of a)b+=x.z;while(a.length&&b+event.size>config.capacity){b-=a[0].z;a.shift()}a.push({k:event.key,v:event.value,z:event.size,t:n+event.ttl})}return result(null)}"
+  },
+  "resultSHA256": "0a41fcc70356c01daacea9b41a7d1cd2cc25302ac499f12614fb5751202396f6",
+  "rawOutputSHA256": "0a41fcc70356c01daacea9b41a7d1cd2cc25302ac499f12614fb5751202396f6"
+}

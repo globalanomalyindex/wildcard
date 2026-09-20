@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-R-initial",
+  "requestSHA256": "f46da084759ff614988a20d0f98d3a9a65f7f997a2822c68d6b0cd2d33df80ad",
+  "promptSHA256": "d4c5ab4a887ed53f5122aa9e8d310160b2fe179b1b41d73f449fd7dc068b4ca3",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:18:21.680469+00:00",
+  "finishedAt": "2026-09-20T23:18:45.470992+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 23.790840500034392,
+      "usage": {
+        "input_tokens": 7068,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 851,
+        "reasoning_output_tokens": 317
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "d5ee0ddedcbc3af88aef982ce3c1ef4a8c7c8a3a92a28cf5ece36508a9edfbd4",
+      "stderrSHA256": "dc1984341babbcb65e67c011cc96c64fa1741f792ff1faa1e3b1a740478f64f2"
+    }
+  ],
+  "result": {
+    "explanation": "Track every accepted identity and sequence permanently. New events are rejected as stale or conflicting before insertion; accepted events are inserted, then contiguous pending sequences are applied exactly once.",
+    "mapping": "state.n is the next unapplied sequence, state.v is the accumulated value, state.i maps IDs to [seq,delta], and state.q maps reserved sequence numbers to [delta].",
+    "assumptions": "Events satisfy the stated legal input constraints. State is returned only to the same instance and is not externally modified.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.events.length>0}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var n=1,v=0,ids={},qs={};for(var k=0;k<input.events.length;k++){var e=input.events[k],s=e.seq,id=e.id,d=e.delta,status;if(ids[id])status=ids[id][1]===d?'duplicate':'conflict';else if(qs[s]!==undefined)status='conflict';else if(s<n)status='stale';else{ids[id]=[s,d];qs[s]=d;status='accepted';while(qs[n]!==undefined){v+=qs[n];n++}}var p=[];for(var x in qs)if(+x>=n)p.push(+x);p.sort(function(a,b){return a-b});var o=output[k];if(!o||o.status!==status||o.value!==v||o.next!==n||JSON.stringify(o.pending)!==JSON.stringify(p))return false}return true}",
+    "program": "function solve(a){var s=a.state,e=a.event;if(s===null)s={n:1,v:0,i:{},q:{}};var id=e.id,x=s.i[id],st;if(x)st=x[1]===e.delta?'duplicate':'conflict';else if(s.q[e.seq]!==undefined)st='conflict';else if(e.seq<s.n)st='stale';else{st='accepted';s.i[id]=[e.seq,e.delta];s.q[e.seq]=e.delta;while(s.q[s.n]!==undefined){s.v+=s.q[s.n];s.n++}}var p=[];for(var k in s.q)if(+k>=s.n)p.push(+k);p.sort(function(a,b){return a-b});return{state:s,output:{status:st,value:s.v,next:s.n,pending:p}}}"
+  },
+  "resultSHA256": "646164a0216ff542c6e870b46fa5876ada81e55c7c5022bc1fc339af8feb4d2d",
+  "rawOutputSHA256": "33a85050c6c0bec722bf43095cb8c8a7e11e561d9335fc8582346f10c0769a7f"
+}

@@ -1,0 +1,332 @@
+{
+  "initialRecordSHA256": "72ed05bfa6f7577ca7fee14a88467c7680d70e24c2bc62d97db0d14698cca43f",
+  "firstShown": {
+    "explanation": "Maintain an opaque controller state. Only the mounted, loading request matching the current ID may settle; a new search cancels the prior request first. Disposal resets data and unmounts, while mount restores the initial mounted state.",
+    "mapping": "The current ID is the causal identity of the active request; query/result/error/loading are retained or replaced exactly as specified, and effects record only cancellation and request actions from the current event.",
+    "assumptions": "Events are legal JSON objects under the stated contract. Unknown events are no-ops while mounted and all non-mount events are no-ops while disposed.",
+    "applies": "function applies(input){return Array.isArray(input&&input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||Array.isArray(x))return false;for(const k of [\"mounted\",\"query\",\"current\",\"loading\",\"result\",\"error\",\"effects\"])if(!(k in x))return false;if(Object.keys(x).length!==7||!Array.isArray(x.effects))return false}return true}",
+    "program": "function solve({config,state,event}){\n  const init=()=>({mounted:true,query:\"\",current:null,loading:false,result:null,error:null});\n  let s=state==null?init():state;\n  let effects=[];\n  const out=()=>({mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects});\n  if(!s.mounted){\n    if(event&&event.type===\"mount\")s=init();\n    return {state:s,output:out()};\n  }\n  if(!event||typeof event!==\"object\")return {state:s,output:out()};\n  if(event.type===\"search\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s.current=event.id;s.query=event.query;s.loading=true;s.error=null;\n    effects.push({type:\"request\",id:event.id,query:event.query});\n  }else if(event.type===\"success\"){\n    if(s.loading&&s.current===event.id){s.result=event.result;s.error=null;s.loading=false;}\n  }else if(event.type===\"failure\"){\n    if(s.loading&&s.current===event.id){s.error=event.error;s.loading=false;}\n  }else if(event.type===\"cancel\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s.loading=false;s.current=null;s.error=null;\n  }else if(event.type===\"dispose\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s=init();s.mounted=false;\n  }\n  return {state:s,output:out()};\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "v804151_1",
+            "current": "v926237_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v926237_0",
+                "query": "v804151_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v854081_3",
+            "current": "v596094_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v926237_0"
+              },
+              {
+                "type": "request",
+                "id": "v596094_2",
+                "query": "v854081_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v854081_3",
+            "current": "v596094_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v804151_1",
+            "current": "v045903_5",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v596094_2"
+              },
+              {
+                "type": "request",
+                "id": "v045903_5",
+                "query": "v804151_1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "v649933_1",
+            "current": "v923660_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v923660_0",
+                "query": "v649933_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v800454_3",
+            "current": "v552196_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v923660_0"
+              },
+              {
+                "type": "request",
+                "id": "v552196_2",
+                "query": "v800454_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v800454_3",
+            "current": "v552196_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v800454_3",
+            "current": "v552196_2",
+            "loading": false,
+            "result": null,
+            "error": null,
+            "effects": []
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "v367284_1",
+            "current": "v743562_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v743562_0",
+                "query": "v367284_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v738619_3",
+            "current": "v405615_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v743562_0"
+              },
+              {
+                "type": "request",
+                "id": "v405615_2",
+                "query": "v738619_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v738619_3",
+            "current": "v405615_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v367284_1",
+            "current": "v470433_5",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v405615_2"
+              },
+              {
+                "type": "request",
+                "id": "v470433_5",
+                "query": "v367284_1"
+              }
+            ]
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "mounted": true,
+            "query": "",
+            "current": null,
+            "loading": false,
+            "result": null,
+            "error": null,
+            "effects": []
+          },
+          {
+            "mounted": true,
+            "query": "v310502_1",
+            "current": "v869668_0",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "request",
+                "id": "v869668_0",
+                "query": "v310502_1"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v941653_3",
+            "current": "v964514_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": [
+              {
+                "type": "cancel",
+                "id": "v869668_0"
+              },
+              {
+                "type": "request",
+                "id": "v964514_2",
+                "query": "v941653_3"
+              }
+            ]
+          },
+          {
+            "mounted": true,
+            "query": "v941653_3",
+            "current": "v964514_2",
+            "loading": true,
+            "result": null,
+            "error": null,
+            "effects": []
+          }
+        ]
+      }
+    ]
+  }
+}

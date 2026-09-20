@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s07-R-final",
+  "requestSHA256": "6a206ef923afd1db58d1df4f633e5426edafa53583bc58170ee4f5d4fd55aa48",
+  "promptSHA256": "30c43e25bb7815c21b361ac37afe0dc8d22f26974e1dfed370bbbfcb6cb0cd80",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:25:11.155796+00:00",
+  "finishedAt": "2026-09-20T23:25:32.412238+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.254896125057712,
+      "usage": {
+        "input_tokens": 8563,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 962,
+        "reasoning_output_tokens": 316
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "86c5479ef37ba004bdc59d5e58a50dfbec342e85b1a961bc9d7a03651211f711",
+      "stderrSHA256": "c51bdad08132c9232a370ec277ad664ca6e98befbb33ba035752da7184fdf382"
+    }
+  ],
+  "result": {
+    "explanation": "Implements one active resumable transfer. It validates lengths, byte ranges, offsets, checksums, and whole-chunk overlap conflicts before mutation. Matching chunks are idempotent, completed transfers remain active, and finish exposes data only when every byte is known. Identity comparison distinguishes booleans from numbers and compares structured JSON values recursively.",
+    "program": "function solve({config,state,event}){function eq(a,b){if(typeof a!==typeof b)return false;if(a===b)return true;if(typeof a==='number'&&Number.isFinite(a)&&Number.isFinite(b))return a===b;if(Array.isArray(a)&&Array.isArray(b)){if(a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(!eq(a[i],b[i]))return false;return true}if(a&&b&&typeof a==='object'&&!Array.isArray(a)&&!Array.isArray(b)){let ak=Object.keys(a),bk=Object.keys(b);if(ak.length!==bk.length)return false;for(let k of ak)if(!Object.prototype.hasOwnProperty.call(b,k)||!eq(a[k],b[k]))return false;return true}return false}let s=state||{active:false,id:null,len:0,b:[]};function count(){let n=0;for(let x of s.b)if(x!==null)n++;return n}function out(status,data=null){return{state:s,output:{status:status,id:s.active?s.id:null,received:count(),data:data}}}let t=event&&event.type;if(t==='begin'){let n=event.length;if(!Number.isInteger(n)||n<0||n>config.maxLength)return out('invalid');if(!s.active||!eq(s.id,event.id)){s={active:true,id:event.id,len:n,b:Array(n).fill(null)};return out('ok')}if(s.len!==n)return out('conflict');return out('ok')}if(t!=='chunk'&&t!=='finish')return out('invalid');if(!s.active||!eq(event&&event.id,s.id))return out('ignored');if(t==='finish'){let complete=true;for(let x of s.b)if(x===null){complete=false;break}return complete?out('complete',s.b.slice()):out('incomplete')}let a=event.bytes,o=event.offset;if(!Array.isArray(a)||!Number.isInteger(o)||o<0||o+a.length>s.len||!Number.isInteger(event.checksum))return out('invalid');let sum=0;for(let x of a){if(!Number.isInteger(x)||x<0||x>255)return out('invalid');sum+=x}if(sum%251!==event.checksum)return out('invalid');for(let i=0;i<a.length;i++)if(s.b[o+i]!==null&&s.b[o+i]!==a[i])return out('conflict');for(let i=0;i<a.length;i++)s.b[o+i]=a[i];return out('ok')}"
+  },
+  "resultSHA256": "efbe099acfdba6fdb4b9289c002519fbeb09c791a37704b5fbf26d6b007f1b23",
+  "rawOutputSHA256": "efbe099acfdba6fdb4b9289c002519fbeb09c791a37704b5fbf26d6b007f1b23"
+}

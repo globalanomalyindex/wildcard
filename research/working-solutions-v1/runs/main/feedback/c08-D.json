@@ -1,0 +1,183 @@
+{
+  "initialRecordSHA256": "3acff4406416dfd4a87de4866734615fe68a4178d79d59892e91ac04e77fab3e",
+  "firstShown": {
+    "explanation": "Track each byte as either null (unknown) or its stored value. A put is transactional: validate bounds and all overlaps before writing. Reads derive completeness and maximal unknown runs; clears null their range. The alternative of applying non-conflicting portions of a put fails on the overlapping-conflict example because the entire operation must be rejected.",
+    "mapping": "The state array maps byte positions to known values or null. known is its non-null count; missing is the maximal contiguous null intervals within a requested read.",
+    "assumptions": "Inputs follow the stated legal JSON contract and config.length is a safe positive integer.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let a=Array(input.config.length).fill(null);for(let k=0;k<output.length;k++){let e=input.events[k],o=output[k],n=a.length,ok=true;if(e.type==='put'){ok=Number.isSafeInteger(e.start)&&e.start>=0&&e.start+e.data.length<=n;if(ok)for(let i=0;i<e.data.length;i++)if(a[e.start+i]!==null&&a[e.start+i]!==e.data[i])ok=false;if(ok)for(let i=0;i<e.data.length;i++)a[e.start+i]=e.data[i]}else if(e.type==='read'||e.type==='clear'){ok=Number.isSafeInteger(e.start)&&Number.isSafeInteger(e.end)&&e.start>=0&&e.start<=e.end&&e.end<=n;if(ok&&e.type==='clear')for(let i=e.start;i<e.end;i++)a[i]=null}let c=a.reduce((x,v)=>x+(v!==null),0),d=null,m=[];if(e.type==='read'&&ok){let full=true;for(let i=e.start;i<e.end;i++)if(a[i]===null)full=false;if(full)d=a.slice(e.start,e.end);else{d=null;let i=e.start;while(i<e.end){while(i<e.end&&a[i]!==null)i++;let s=i;while(i<e.end&&a[i]===null)i++;if(s<i)m.push([s,i])}}}let z=e.type==='put'?(ok?['stored',null,[]]:['invalid',null,[]]):e.type==='clear'?(ok?['cleared',null,[]]:['invalid',null,[]]):e.type==='read'?(ok?[d===null?'incomplete':'complete',d,m]:['invalid',null,[]]):['invalid',null,[]];if(JSON.stringify(o)!==JSON.stringify({status:z[0],data:z[1],missing:z[2],known:c}))return false}return true}",
+    "program": "function solve(x){var c=x.config.length,e=x.event,a=x.state===null?Array(c).fill(null):x.state.slice(),t=e.type,ok=false,d=null,m=[],i,s;function range(){return Number.isSafeInteger(e.start)&&Number.isSafeInteger(e.end)&&e.start>=0&&e.start<=e.end&&e.end<=c}if(t==='put'){ok=Number.isSafeInteger(e.start)&&e.start>=0&&Array.isArray(e.data)&&e.start+e.data.length<=c;if(ok)for(i=0;i<e.data.length;i++)if(a[e.start+i]!==null&&a[e.start+i]!==e.data[i])ok=false;if(ok)for(i=0;i<e.data.length;i++)a[e.start+i]=e.data[i]}else if(t==='clear'){ok=range();if(ok)for(i=e.start;i<e.end;i++)a[i]=null}else if(t==='read'){ok=range();if(ok){for(i=e.start;i<e.end;i++)if(a[i]===null)break;if(i===e.end)d=a.slice(e.start,e.end);else{d=null;i=e.start;while(i<e.end){while(i<e.end&&a[i]!==null)i++;s=i;while(i<e.end&&a[i]===null)i++;if(s<i)m.push([s,i])}}}}var k=0;for(i=0;i<c;i++)if(a[i]!==null)k++;var st='invalid';if(t==='put'&&ok)st='stored';else if(t==='clear'&&ok)st='cleared';else if(t==='read'&&ok)st=d===null?'incomplete':'complete';return{state:a,output:{status:st,data:t==='read'&&ok?d:null,missing:t==='read'&&ok?m:[],known:k}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "invalid",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "incomplete",
+            "data": null,
+            "missing": [
+              [
+                2,
+                3
+              ]
+            ],
+            "known": 2
+          },
+          {
+            "status": "cleared",
+            "data": null,
+            "missing": [],
+            "known": 1
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "invalid",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "incomplete",
+            "data": null,
+            "missing": [
+              [
+                2,
+                3
+              ]
+            ],
+            "known": 2
+          },
+          {
+            "status": "cleared",
+            "data": null,
+            "missing": [],
+            "known": 1
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "invalid",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "incomplete",
+            "data": null,
+            "missing": [
+              [
+                2,
+                3
+              ]
+            ],
+            "known": 2
+          },
+          {
+            "status": "incomplete",
+            "data": null,
+            "missing": [
+              [
+                2,
+                3
+              ]
+            ],
+            "known": 2
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "status": "stored",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "invalid",
+            "data": null,
+            "missing": [],
+            "known": 2
+          },
+          {
+            "status": "incomplete",
+            "data": null,
+            "missing": [
+              [
+                2,
+                3
+              ]
+            ],
+            "known": 2
+          },
+          {
+            "status": "cleared",
+            "data": null,
+            "missing": [],
+            "known": 1
+          }
+        ]
+      }
+    ]
+  }
+}

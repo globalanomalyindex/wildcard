@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c07-D-final",
+  "requestSHA256": "8695ac7fbfff9cb1559c2a58c4619a5ac931a9c56ce91e7c325dbedec48e9687",
+  "promptSHA256": "9288b831aafe52f35fe7a8c775ec780ab405d920afaf5d98c5fe23610ae614e9",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:19:56.794146+00:00",
+  "finishedAt": "2026-09-20T23:20:10.487110+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.691514499951154,
+      "usage": {
+        "input_tokens": 7838,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 559,
+        "reasoning_output_tokens": 251
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "e79df3a7d03117e63312da7cad48497a3a28c1863051f80ce5674a4a38cb586e",
+      "stderrSHA256": "b9ca9d0cf77dc59655de1367e7bf5302ef484ba84f2eee9f3d6696141d58dd36"
+    }
+  ],
+  "result": {
+    "explanation": "Memoization is demand-driven. Evaluation recursively visits dependencies in listed order, reuses valid memo entries, stores each newly computed node, and reports the number newly stored. Setting a leaf updates its value and invalidates that leaf plus every transitive dependent through reverse dependency traversal. Setting a nonleaf is ignored. Every set returns null and zero computed nodes.",
+    "program": "function solve({config,state,event}){const d=config.deps;let s=state;if(s===null){s={v:{},m:{}};for(const k in config.values)s.v[k]=config.values[k]}function invalidate(x){delete s.m[x];for(const k in d)if(d[k].indexOf(x)!==-1)invalidate(k)}let value=null,computed=0;if(event.type==='set'){const x=event.node;if(d[x].length===0){s.v[x]=event.value;invalidate(x)}}else{function evalNode(x){if(Object.prototype.hasOwnProperty.call(s.m,x))return s.m[x];const q=d[x];let z;if(q.length===0)z=s.v[x];else{z=0;for(let i=0;i<q.length;i++)z+=evalNode(q[i])}s.m[x]=z;computed++;return z}value=evalNode(event.node)}return{state:s,output:{value:value,computed:computed,valid:Object.keys(s.m).sort()}}}"
+  },
+  "resultSHA256": "b59f0cd8ff68aac9dac7f6e184574dc980a0dc3d5b0b20aaee8731cb742fa44f",
+  "rawOutputSHA256": "b59f0cd8ff68aac9dac7f6e184574dc980a0dc3d5b0b20aaee8731cb742fa44f"
+}

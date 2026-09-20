@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "s04-R-initial",
+  "requestSHA256": "764dcb0d90339ad7afaaf47d513bb45833187261082a8fe4fe6ac1a5cb04c842",
+  "promptSHA256": "ff0e526d9c4656e35416e364563697f2af9037667c249eea899251774d065f25",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:16:25.345663+00:00",
+  "finishedAt": "2026-09-20T23:16:59.777818+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 34.43106249999255,
+      "usage": {
+        "input_tokens": 8092,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1523,
+        "reasoning_output_tokens": 609
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "23ec01e0399104690c97c53d23037f43eb52994056be93692efa85044fe7a479",
+      "stderrSHA256": "0167f229ba4c55301c1830b3490238ebf475a6bce376c49b8172c6eb23815da4"
+    }
+  ],
+  "result": {
+    "explanation": "The rule is: retained bytes are counted exactly, while LF terminates and removes a frame. Invalid frames or overflow abandon transactions, and valid transactional operations update staged or visible data according to the protocol.",
+    "mapping": "The rule maps line-buffer retention to buffered, transaction visibility to open/visible, and recovery events to errors.",
+    "assumptions": "JSON.parse with fatal UTF-8 decoding is available. JSON objects used as maps have ordinary string keys; decoded scalar numbers must be safe integers.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.events.length>0}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||typeof x!==\"object\"||!Number.isInteger(x.buffered)||!Number.isInteger(x.errors)||!((x.open===null)||typeof x.open==='string')||!x.visible||typeof x.visible!==\"object\")return false}let b=0;for(const q of input.events){if(q.type==='chunk'){for(const n of q.bytes){if(n===10){b=0;break}b++}}else if(q.type==='finish')b=0}return output.length?output[0].buffered===((input.events[0].type==='chunk')?(()=>{let n=0;for(const b of input.events[0].bytes){if(b===10)break;n++}return n})():0):true}",
+    "program": "function solve({config,state,event}){\n const M=config.maxBytes;\n if(!state)state={v:{},t:null,b:[],d:false,e:0};\n const bad=()=>{state.e++;state.t=null};\n const scalar=x=>x===null||typeof x==='string'||typeof x==='boolean'||(typeof x==='number'&&Number.isSafeInteger(x));\n const keys=(o,a)=>{if(!o||typeof o!=='object'||Array.isArray(o))return false;let k=Object.keys(o).sort();return k.length===a.length&&a.every(x=>k.includes(x))};\n const frame=a=>{let s;try{s=new TextDecoder('utf-8',{fatal:true}).decode(new Uint8Array(a))}catch(_){bad();return}let o;try{o=JSON.parse(s)}catch(_){bad();return}\n  let ok=false;\n  if(keys(o,['op','id'])&&o.op==='begin'&&typeof o.id==='string')ok=true;\n  else if(keys(o,['op','key','value'])&&o.op==='put'&&typeof o.key==='string'&&scalar(o.value))ok=true;\n  else if(keys(o,['op','id'])&&o.op==='commit'&&typeof o.id==='string')ok=true;\n  else if(keys(o,['op'])&&o.op==='abort')ok=true;\n  if(!ok){bad();return}\n  if(o.op==='begin'){if(state.t)bad();else state.t={id:o.id,d:Object.assign({},state.v)}}\n  else if(o.op==='put'){if(!state.t)bad();else state.t.d[o.key]=o.value}\n  else if(o.op==='commit'){if(!state.t||state.t.id!==o.id)bad();else{state.v=state.t.d;state.t=null}}\n  else state.t=null;\n };\n const add=n=>{for(let i=0;i<n;i++){let x=event.bytes[i];if(state.d){if(x===10)state.d=false;continue}if(x===10){frame(state.b);state.b=[]}else{state.b.push(x);if(state.b.length>M){state.e++;state.t=null;state.b=[];state.d=true}}}};\n if(event.type==='chunk')add(event.bytes);else if(event.type==='finish'){if(state.d)state.d=false;else if(state.b.length){state.e++;state.b=[]}if(state.t){state.e++;state.t=null}}else bad();\n return {state:state,output:{visible:state.v,open:state.t?state.t.id:null,buffered:state.b.length,errors:state.e}};\n}"
+  },
+  "resultSHA256": "e9658b29e0ea4bf8cf3bd59146f0ce97ae2ec23c74ccc36101382d7b701970e9",
+  "rawOutputSHA256": "40da242a4ca016e33c43d3552929032d143ff5dc6200e3e23c9aa3953a830531"
+}

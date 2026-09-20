@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-c02-D-initial",
+  "requestSHA256": "e374c320fb959f2aa6bba68d2abeb73623d8f74a5dd523b7be8f67e41fdbc709",
+  "promptSHA256": "101bf30fcef8299d45c365edc080800f16e578f5a82b67670bf045c3b545d70e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:31:56.292662+00:00",
+  "finishedAt": "2026-09-20T22:32:31.652707+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 35.360149916028604,
+      "usage": {
+        "input_tokens": 21252,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 981,
+        "reasoning_output_tokens": 233
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "2a56f30b060f0a2840907a9a98581a770b134814803abca06760df54ba39528c",
+      "stderrSHA256": "6fd74cd9d674a53b026bc69e0dd25697f496794ac6ff59929f31d1b0411eb610"
+    }
+  ],
+  "result": {
+    "explanation": "Conditional rule: revision-guarded mutations occur only when expect equals the current revision; successful rollback restores retained snapshot value but advances the current revision. Save/drop affect retention without changing revision.",
+    "mapping": "config.initial -> value; state revision -> revision; retained IDs and immutable snapshots -> snapshots/saved; event.expect guards writes and rollbacks.",
+    "assumptions": "Inputs satisfy the stated legal contract. State is initialized from config when null and otherwise is the prior returned opaque state.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var c=input.config,v=c.initial,r=0,a=[],m={},u={},z=[];function eq(x,y){return JSON.stringify(x)===JSON.stringify(y)}function out(st){var q={};for(var i=0;i<a.length;i++)q[a[i]]={value:m[a[i]].value,revision:m[a[i]].revision};return {status:st,value:v,revision:r,snapshots:a.slice(),saved:q}}for(var i=0;i<input.events.length;i++){var e=input.events[i],st;if(e.type==='write'){if(e.expect!==r)st='conflict';else{v=e.value;r++;st='written'}}else if(e.type==='save'){if(u[e.id])st='exists';else{u[e.id]=1;m[e.id]={value:v,revision:r};a.push(e.id);if(a.length>c.keep){var x=a.shift();delete m[x]}st='saved'}}else if(e.type==='rollback'){if(e.expect!==r)st='conflict';else if(!m[e.id])st='missing';else{v=m[e.id].value;r++;st='rolled_back'}}else if(e.type==='drop'){if(!m[e.id])st='missing';else{delete m[e.id];a.splice(a.indexOf(e.id),1);st='dropped'}}else return false;z.push(out(st))}return eq(z,output)}",
+    "program": "function solve(x){var c=x.config,s=x.state,e=x.event;if(s===null)s={v:c.initial,r:0,a:[],m:{},u:{}};var v=s.v,r=s.r,a=s.a,m=s.m,u=s.u,t;if(e.type==='write'){if(e.expect!==r)t='conflict';else{v=e.value;r++;t='written'}}else if(e.type==='save'){if(u[e.id])t='exists';else{u[e.id]=1;m[e.id]={value:v,revision:r};a.push(e.id);if(a.length>c.keep){var q=a.shift();delete m[q]}t='saved'}}else if(e.type==='rollback'){if(e.expect!==r)t='conflict';else if(!m[e.id])t='missing';else{v=m[e.id].value;r++;t='rolled_back'}}else if(e.type==='drop'){if(!m[e.id])t='missing';else{delete m[e.id];a.splice(a.indexOf(e.id),1);t='dropped'}}var z={};for(var i=0;i<a.length;i++)z[a[i]]={value:m[a[i]].value,revision:m[a[i]].revision};var o={status:t,value:v,revision:r,snapshots:a.slice(),saved:z};return {state:{v:v,r:r,a:a,m:m,u:u},output:o}}"
+  },
+  "resultSHA256": "ac9991c0902df9937da3ee67e277a19adb50734651103e6ef2339f01fcc22197",
+  "rawOutputSHA256": "8a84bafe440ddb231ace0b8410581687a7bd9a45ee140d0683b96edc10b54f01"
+}

@@ -6,7 +6,7 @@ the cue can be a niche specialist from a curated pool of 378 disciplines or a co
 
 this is **inference-time context conditioning**: the model receives different text in its context. wildcard does not change model weights, access a parameter or token pool, retrieve identifiable training examples, or implement a neural default-mode network. the sampler selects a cue; the model generates the interpretation. those are separate operations.
 
-by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Download the paper](https://globalanomalyindex.github.io/wildcard/research-paper.pdf) · [Inspect the evidence audit](research/audit-2026-09/README.md).
+by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Download the paper](https://globalanomalyindex.github.io/wildcard/research-paper.pdf) · [Inspect the evidence audit](research/audit-2026-09/README.md) · [Working-solutions follow-up](research/working-solutions-v1/README.md).
 
 ## what has been measured
 
@@ -20,6 +20,8 @@ the new [component study](research/transfer-v1/README.md) acquired four prompt c
 
 the current **v2 sampler and revised prompt have not inherited experimental effectiveness results**. the component study does not test the full 378-specialist/461-concept skill or sampler's creative benefit. the website's live interaction draws a cue locally; it does not run an AI model or demonstrate improved downstream work by itself.
 
+The executable [working-solutions study](research/working-solutions-v1/README.md) now tests a different question: whether supplied outside relations improve working programs under common checks and one repair. The fixed main study completed **192 valid calls across 32 authored task blocks**. Direct, matched outside and shuffled outside conditions passed **94.54%**, **87.24%** and **95.81%** of their withheld traces. Matched minus direct was **-7.300 percentage points**, 95% task-bootstrap interval **[-19.482, +3.906]**, paired sign-flip p = **0.281388**. **The study did not establish an outside-relation advantage.** The two earlier calibration rounds are preserved; the first hit a ceiling and one declared feedback-budget revision passed the second gate. These are bounded software-contract results, not evidence of production reliability or full-plugin creative benefit. [Inspect the programs and traces](https://globalanomalyindex.github.io/wildcard/working-solutions/).
+
 ## install
 
 requires **Bash and Node.js 22 or newer on PATH**, plus a Claude Code version supporting plugins. install and generation use the host's normal network/model access; the cue sampler itself makes no network calls.
@@ -32,7 +34,7 @@ in Claude Code:
 /wildcard:wildcard
 ```
 
-the repository uses the documented single-skill plugin layout, with `plugin/SKILL.md` at its root. see the official [plugin reference](https://code.claude.com/docs/en/plugins-reference) and [installation guide](https://code.claude.com/docs/en/discover-plugins) for host-specific installation scopes, updates and removal. a [recorded smoke test](docs/verification/claude-install-smoke.json) on Claude Code 2.1.228 for macOS used a new isolated configuration profile and a local marketplace source. marketplace/plugin validation, installation of version 2.0.0, skill recognition, a draw from the installed copy, an already-current update check, uninstallation, and marketplace removal passed. the normal profile was unchanged. this did not test a fresh GitHub download, a version migration, or model invocation; the test account was not signed in.
+the repository uses the documented single-skill plugin layout, with `plugin/SKILL.md` at its root. see the official [plugin reference](https://code.claude.com/docs/en/plugins-reference) and [installation guide](https://code.claude.com/docs/en/discover-plugins) for host-specific installation scopes, updates and removal. a [recorded smoke test](docs/verification/claude-install-smoke.json) on Claude Code 2.1.228 for macOS used a new isolated configuration profile and a local marketplace source. marketplace/plugin validation, installation of version 2.0.0, skill recognition, a draw from the installed copy, an already-current update check, uninstallation, and marketplace removal passed. the normal profile was unchanged. a subsequent [fresh GitHub installation](docs/verification/claude-github-install-smoke.json) verified merged commit f84e341, all 23 installed payload files, skill recognition and the installed sampler in another isolated profile. both normal-profile integrity and cleanup passed. version migration and model invocation remain untested; the test account was not signed in.
 
 ## use and replay
 
@@ -73,5 +75,6 @@ tests establish the properties they check: deterministic replay, specified sampl
 - `experiment/`, `experiment/v2/`, `experiment/v3/`: preserved historical studies.
 - `research/audit-2026-09/`: new validation and post-hoc reanalysis of those observations.
 - `research/transfer-v1/`: component-study protocol, preserved acquisition, original analysis halt, and measurement amendment.
+- `research/working-solutions-v1/`: outside-derived conditional rules, isolated JavaScript execution, frozen calibration and withheld-test protocol.
 
 existing license declarations and unresolved asset provenance are recorded in [the notices inventory](THIRD_PARTY_NOTICES.md). this README adds no license grant.

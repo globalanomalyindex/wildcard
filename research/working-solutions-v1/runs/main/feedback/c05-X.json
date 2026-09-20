@@ -1,0 +1,152 @@
+{
+  "initialRecordSHA256": "6bf07eacb3db20f521ff5b29064ffcf308ee5a4bf2d2b85f31987cd35adb3e2e",
+  "firstShown": {
+    "explanation": "Canonicalize each event value recursively: arrays retain order, objects sort keys lexically, and scalar JSON types remain distinct. This directly satisfies the encoding contract.",
+    "mapping": "The input value maps to output.key. State is unused and remains null.",
+    "assumptions": "Inputs obey the stated JSON-value, depth, safe-number, and string restrictions. No external data or mutable history is needed.",
+    "applies": "function applies(input){return !!input&&Array.isArray(input.events)&&input.events.some(function(e){return e&&e.type==='encode';});}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;return output.every(function(x){return x&&typeof x.key==='string';});}",
+    "program": "function esc(s){var r='\"';for(var i=0;i<s.length;i++){var c=s.charCodeAt(i);if(c===34)r+='\\\\\"';else if(c===92)r+='\\\\\\\\';else if(c===8)r+='\\\\b';else if(c===12)r+='\\\\f';else if(c===10)r+='\\\\n';else if(c===13)r+='\\\\r';else if(c===9)r+='\\\\t';else if(c<32){var h=c.toString(16);r+='\\\\u'+('0000'+h).slice(-4);}else r+=s[i];}return r+'\"';}function enc(v){if(v===null)return'null';var t=typeof v;if(t==='string')return esc(v);if(t==='boolean'||t==='number')return JSON.stringify(v);if(Array.isArray(v)){var a=[];for(var i=0;i<v.length;i++)a.push(enc(v[i]));return'['+a.join(',')+']';}var k=Object.keys(v).sort(),a=[];for(var j=0;j<k.length;j++)a.push(esc(k[j])+':'+enc(v[k[j]]));return'{'+a.join(',')+'}';}function solve(x){return{state:null,output:{key:enc(x.event.value)}};}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": true
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":\"1\"}"
+          },
+          {
+            "key": "[true,1,null]"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":\"1\"}"
+          },
+          {
+            "key": "[true,1,null]"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":\"1\"}"
+          },
+          {
+            "key": "{\"a\":\"1\"}"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":1,\"b\":null}"
+          },
+          {
+            "key": "{\"a\":\"1\"}"
+          },
+          {
+            "key": "[true,1,null]"
+          }
+        ]
+      }
+    ]
+  }
+}

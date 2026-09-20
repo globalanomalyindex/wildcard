@@ -1,0 +1,30 @@
+{
+  "manifestSHA256": "31b6097f0d468e6896fbf594c8b891e5cf583f985751222658f018b451da6a18",
+  "finalManifestSHA256": "f3b9e9695aac2357904926205a2885f96fff1d7b1ba50e3157fc2212a20e2b60",
+  "recordsSHA256": {
+    "dev-s01-R-final": "52a66fa836a6e27194eb07eb3b9d018e7bb8b6c7ce0de1ee9f81d1a380f5aafb",
+    "dev-q01-D-final": "7e2eb65737953bb38fbc8dc5621952b537420f407d4fc4610de890402031c3e5",
+    "dev-u01-X-final": "f57badafb7e76d313666e4e9fbf2159c88f9056040db5f0cfca4776ea05cbab5",
+    "dev-q01-X-final": "1d2c0a35663bca7a37b3a14d97b1610d1f62d029f20d71028c21c54f3c1fafea",
+    "dev-q02-R-final": "e5a78c7e5dd5a4c3f13285bbf13eebeba2f986ee7f9582bd648fd21270ac6e03",
+    "dev-s01-D-final": "b7cc4ded24e1dca7d93f4b923eb38aa23cf4fb3f94056c2257b2b8289f03f06c",
+    "dev-s02-R-final": "249c47a6953c3b2a7985d8fb1423894b892c411950b2706a526e9e0acd98627b",
+    "dev-c02-R-final": "acd00d8e489d715bc9a1a4955aaf9c09082ed53f3822d31d19253adba4e31951",
+    "dev-s02-D-final": "4652d17bd80fca498c12dadb3e0063514f3e09188a5c77b860eb51851e4a458a",
+    "dev-s02-X-final": "d25b2d81bddd413be2a6f6134d51996d5229e4b5fbc4b0410ef82a40835fb93e",
+    "dev-s01-X-final": "888597c1c28cf4a719b27d4f84dab53d74b78991a3410c1b2e9c31fa409d2aec",
+    "dev-u01-D-final": "f35686f55c059c2344f7859998b9cf8804c632e1a3f211e782bd3949d7cda06a",
+    "dev-u02-R-final": "e413f6f3e8034f6f91f8baa8fb906a99a04eda995da256a3f32a4174c0fe7ba5",
+    "dev-c02-X-final": "a76f856971f59a494cc80bfadb406922c670d15cc5bfaa00833965f219cb9ee0",
+    "dev-q02-D-final": "8ceb2b4a4385a077fb6197e05a68c5c729f984df932f0dc96a1b245f8d4fd9d9",
+    "dev-q02-X-final": "a0ed6b0d006595f7f670547c34444ec270ae36ff2cb4e0dc757283c63b96bc98",
+    "dev-u01-R-final": "377b57413f1a39313f2faf1c85d115ba87c2a1c063a1e4b5d0ff242ac1955e58",
+    "dev-c01-D-final": "20b9336e6c1539ab6a8d99eed0ee5bc4f0f1f35cd0edbe42bf36397886920f7e",
+    "dev-q01-R-final": "6f5b3fd18500bb6eee99c93e55294c3b3de0fd1cd7e2212ef0bfe4c67d314436",
+    "dev-c02-D-final": "6ccbdfd9841d71f9e8b48c4a50b51fa41084085af730ea4e36194cd239855497",
+    "dev-u02-D-final": "2c4a5d474959ef295d7dba3449de3e82f586c90a5528b5e522e2b4d0c3314c2c",
+    "dev-u02-X-final": "1e8e0da730b0baae48e4490fe88ba03bf32c1dfba95e2d0f7b27a1189a0e1914",
+    "dev-c01-X-final": "ea1ad8d4544ce5e06924c539c8baa6dc8f2507536a94a4e052a445dcd67e0965",
+    "dev-c01-R-final": "55ea1044e9f9b84b62c9ef2ef758e18d54887efb565be5cf2a67b8a8b59d42da"
+  }
+}

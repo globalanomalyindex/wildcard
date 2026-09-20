@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-s01-R-initial",
+  "requestSHA256": "1b86239e5afae0ad4b431ebd94dfab7ec60142278ffa79ba3b9361243376c71c",
+  "promptSHA256": "0ccfb38225fcd5e9533ec9c22342b82c54b30ae9b61d0187995c2635ea95ed81",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:31:36.230344+00:00",
+  "finishedAt": "2026-09-20T22:32:11.637503+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 35.40697920904495,
+      "usage": {
+        "input_tokens": 14775,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 963,
+        "reasoning_output_tokens": 371
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4bfb25e9c933f58b0ebf965749da3a6b9b7d8fc7ff23141809e3a4c99d4a91ad",
+      "stderrSHA256": "4a150a05966ce0a9c35fe2508f46dec45179f0e3be4fdd7f03494ec7c4faceaa"
+    }
+  ],
+  "result": {
+    "explanation": "The rendezvous rule is: a pending offer is valid only before its deadline; matching accepted parties connect it, while cancellation or expiration clears it. Connected sessions do not expire.",
+    "mapping": "config.ttl defines the deadline interval; config.parties defines the only valid approvers. State tracks now, token, expires, approved parties, and connected token. Events mutate these variables and produce the documented snapshot.",
+    "assumptions": "Inputs follow the stated legal JSON contract. Unknown or malformed events are ignored without changing session state. Party IDs are ASCII, so native lexicographic sorting matches the required order.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||x.connected==='__changed'||!Array.isArray(x.approved))return false;for(const k of ['status','now','token','expires','connected','expired'])if(!(k in x))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state==null?[0,null,null,[],null]:state;let n=s[0],tok=s[1],ex=s[2],ap=s[3],con=s[4],expired=false;const t=event&&event.type;if(t==='advance'){n+=event.dt;if(tok!==null&&con===null&&ex!==null&&n>=ex){tok=null;ex=null;ap=[];con=null;expired=true}}else if(tok!==null&&con===null&&ex!==null&&n>=ex){tok=null;ex=null;ap=[];con=null;expired=true}let status='ignored';if(t==='offer'&&typeof event.token==='string'){tok=event.token;ex=n+config.ttl;ap=[];con=null;status='offered'}else if(t==='accept'&&typeof event.token==='string'&&event.token===tok&&con===null&&ex!==null&&config.parties.indexOf(event.party)>=0){if(ap.indexOf(event.party)>=0)status='duplicate';else{ap=ap.concat([event.party]).sort();status='accepted';if(ap.length===2){con=tok;ex=null;status='connected'}}}else if(t==='cancel'&&typeof event.token==='string'&&event.token===tok&&tok!==null){tok=null;ex=null;ap=[];con=null;status='cancelled'}else if(t==='advance')status='advanced';s=[n,tok,ex,ap,con];return{state:s,output:{status,now:n,token:tok,expires:ex,approved:ap,connected:con,expired}}}"
+  },
+  "resultSHA256": "24d50cc6b37996088fb442bbfc2d3cab269bfebe75470ad7e5bb312c6b1fbb4c",
+  "rawOutputSHA256": "674af478b104a2fb01337608f2772559d5e754335e208cdbd427b61bfbacc706"
+}

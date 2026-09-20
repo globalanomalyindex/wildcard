@@ -1,0 +1,231 @@
+{
+  "initialRecordSHA256": "f39bb45a97fa9f09b8f39844b07b91c6d8117357e503010abd2a78913aa3bc97",
+  "firstShown": {
+    "explanation": "A completion affects only a matching running node. After each event, repeatedly block pending nodes whose prerequisites are failed or blocked, then start all currently eligible pending nodes simultaneously in lexical order. Counterexample: starting a node whose prerequisite merely completed in the same event would violate the running-state requirement.",
+    "mapping": "For each node, state is one of pending, running, done, failed, or blocked; dependencies map prerequisite IDs to nodes. The returned started list is the lexical set transitioned pending→running after propagation.",
+    "assumptions": "Event type ok marks a matching running node done; fail marks it failed; all other completion events are ignored. Poll only triggers propagation and scheduling. Config remains available on every call.",
+    "applies": "function applies(input){return !!input&&!!input.config&&!!input.config.deps&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let d=input.config.deps,k=Object.keys(d).sort(),s={};k.forEach(x=>s[x]='pending');for(let z=0;z<output.length;z++){let e=input.events[z];if(e&&((e.type==='ok')||(e.type==='fail'))&&s[e.id]==='running')s[e.id]=e.type==='ok'?'done':'failed';let ch=true;while(ch){ch=false;for(let x of k)if(s[x]==='pending'&&d[x].some(q=>s[q]==='failed'||s[q]==='blocked'))s[x]='blocked',ch=true}let a=[];for(let x of k)if(s[x]==='pending'&&d[x].every(q=>s[q]==='done'))s[x]='running',a.push(x);let o=output[z];if(!o||JSON.stringify(o.started)!==JSON.stringify(a))return false;let t={};k.forEach(x=>t[x]=s[x]);if(JSON.stringify(o.states)!==JSON.stringify(t))return false}return true}",
+    "program": "function solve({config,state,event}){let d=config.deps,k=Object.keys(d).sort(),s=state?state.s:Object.fromEntries(k.map(x=>[x,'pending']));if(event&&(event.type==='ok'||event.type==='fail')&&s[event.id]==='running')s[event.id]=event.type==='ok'?'done':'failed';let ch=true;while(ch){ch=false;for(let x of k)if(s[x]==='pending'&&d[x].some(q=>s[q]==='failed'||s[q]==='blocked')){s[x]='blocked';ch=true}}let a=[];for(let x of k)if(s[x]==='pending'&&d[x].every(q=>s[q]==='done')){s[x]='running';a.push(x)}let t={};for(let x of k)t[x]=s[x];return {state:{s:s},output:{started:a,states:t}}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": false,
+      "error": "ReferenceError: applies is not defined\n    at holds (<input>:1:34)\n",
+      "applicableCorrect": 0,
+      "excludedCorrect": 0,
+      "rejectedFoils": 0,
+      "applicabilityBoundaryExercised": false,
+      "correct": [],
+      "foils": []
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "started": [
+              "a",
+              "b"
+            ],
+            "states": {
+              "a": "running",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "running",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "done",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          },
+          {
+            "started": [
+              "c",
+              "d"
+            ],
+            "states": {
+              "a": "done",
+              "b": "done",
+              "c": "running",
+              "d": "running"
+            }
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "started": [
+              "a",
+              "b",
+              "c",
+              "d"
+            ],
+            "states": {
+              "a": "running",
+              "b": "running",
+              "c": "running",
+              "d": "running"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "running",
+              "b": "running",
+              "c": "running",
+              "d": "running"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "running",
+              "b": "running",
+              "c": "done",
+              "d": "running"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "done",
+              "b": "running",
+              "c": "done",
+              "d": "running"
+            }
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "started": [
+              "a",
+              "b"
+            ],
+            "states": {
+              "a": "running",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "done",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "done",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "done",
+              "b": "running",
+              "c": "pending",
+              "d": "pending"
+            }
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "started": [
+              "a",
+              "c"
+            ],
+            "states": {
+              "a": "running",
+              "b": "pending",
+              "c": "running",
+              "d": "pending",
+              "e": "pending",
+              "f": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "running",
+              "b": "pending",
+              "c": "running",
+              "d": "pending",
+              "e": "pending",
+              "f": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "running",
+              "b": "pending",
+              "c": "done",
+              "d": "pending",
+              "e": "pending",
+              "f": "pending"
+            }
+          },
+          {
+            "started": [],
+            "states": {
+              "a": "running",
+              "b": "pending",
+              "c": "done",
+              "d": "pending",
+              "e": "pending",
+              "f": "pending"
+            }
+          }
+        ]
+      }
+    ]
+  }
+}

@@ -1,0 +1,200 @@
+{
+  "initialRecordSHA256": "b438e68a84781444ca17e0322edcda0f5ebdde7e954490ac1f39283b34b2947d",
+  "firstShown": {
+    "explanation": "A resumable receiver stores one active transfer, its declared length, and known byte positions. Valid chunks are checked before mutation; conflicting overlaps reject the entire chunk. Finishing exposes data only when all positions are known.",
+    "mapping": "The active transfer maps to state.id and state.len; byte conservation maps to state.b, where null means unknown and non-null entries are retained across events.",
+    "assumptions": "Inputs follow the stated JSON limits. Invalid operations produce invalid status while preserving active state; mismatched IDs produce ignored status.",
+    "applies": "function applies(input){return true}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;for(const x of output){if(!x||x.data!==null&&x.status!==\"complete\")return false;if(![\"ok\",\"ignored\",\"invalid\",\"conflict\",\"incomplete\",\"complete\"].includes(x.status))return false;if(typeof x.received!==\"number\"||x.received<0)return false}return true}",
+    "program": "function solve({config,state,event}){const max=config.maxLength;let s=state||{id:null,len:0,b:[]};const out=st=>({data:null,id:s.id,received:s.b.reduce((n,x)=>n+(x!==null),0),status:st});const same=(a,b)=>a===b;let t=event&&event.type;if(t==='begin'){let n=event.length;if(!Number.isInteger(n)||n<0||n>max)return{state:s,output:out('invalid')};if(s.id===null||!same(s.id,event.id)){s={id:event.id,len:n,b:Array(n).fill(null)};return{state:s,output:out('ok')}}if(s.len!==n)return{state:s,output:out('conflict')};return{state:s,output:out('ok')}}if(s.id===null||!same(event&&event.id,s.id))return{state:s,output:out('ignored')};if(t==='finish'){let complete=s.b.every(x=>x!==null);let o=out(complete?'complete':'incomplete');if(complete)o.data=s.b.slice();return{state:s,output:o}}if(t!=='chunk')return{state:s,output:out('invalid')};let a=event.bytes,o=event.offset;if(!Array.isArray(a)||!Number.isInteger(o)||o<0||o+a.length>s.len||!Number.isInteger(event.checksum)||a.some(x=>!Number.isInteger(x)||x<0||x>255)||a.reduce((q,x)=>q+x,0)%251!==event.checksum)return{state:s,output:out('invalid')};for(let i=0;i<a.length;i++)if(s.b[o+i]!==null&&s.b[o+i]!==a[i])return{state:s,output:out('conflict')};for(let i=0;i<a.length;i++)s.b[o+i]=a[i];return{state:s,output:out('ok')}}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "id": "v773127_0",
+            "received": 0,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v773127_0",
+            "received": 2,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v773127_0",
+            "received": 2,
+            "status": "incomplete"
+          },
+          {
+            "data": null,
+            "id": "v773127_0",
+            "received": 4,
+            "status": "ok"
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "id": "v801150_0",
+            "received": 0,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v801150_0",
+            "received": 0,
+            "status": "ignored"
+          },
+          {
+            "data": null,
+            "id": "v801150_0",
+            "received": 2,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v801150_0",
+            "received": 2,
+            "status": "incomplete"
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "id": null,
+            "received": 0,
+            "status": "ignored"
+          },
+          {
+            "data": null,
+            "id": "v092421_0",
+            "received": 0,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v092421_0",
+            "received": 2,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v092421_0",
+            "received": 2,
+            "status": "conflict"
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "data": null,
+            "id": "v608003_0",
+            "received": 0,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v608003_0",
+            "received": 0,
+            "status": "ignored"
+          },
+          {
+            "data": null,
+            "id": "v830405_2",
+            "received": 0,
+            "status": "ok"
+          },
+          {
+            "data": null,
+            "id": "v830405_2",
+            "received": 2,
+            "status": "ok"
+          }
+        ]
+      }
+    ]
+  }
+}

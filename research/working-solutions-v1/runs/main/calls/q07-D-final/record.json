@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q07-D-final",
+  "requestSHA256": "7a005890bbea6a319a8369e6a382b5d82d359cbb9b2f9901acf775598b1a694b",
+  "promptSHA256": "c03558fc01a3b4fecf5e5812a2e823b35bc116faffa5be399a5af2e6d3010f89",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:21:49.619035+00:00",
+  "finishedAt": "2026-09-20T23:22:01.903487+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.283112999983132,
+      "usage": {
+        "input_tokens": 8403,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 537,
+        "reasoning_output_tokens": 59
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "ddbf9ed0641a012ceebffa1cfe4e49ab151b74d372d7bb11015b966c2324147c",
+      "stderrSHA256": "b5c4d7ae8b379857bdfbb884bb3e5ed84a83b36f7b1d8ddf99a3ea9b40644c83"
+    }
+  ],
+  "result": {
+    "explanation": "The lifecycle is tracked with current time, phase, job ID, attempt, and deadline. A start is accepted unless work is pending or waiting. Fail and success affect state only for the matching pending job and attempt. A retry failure enters waiting with a deadline based on the larger of configured delay and the supplied minimum delay. Advance moves time and promotes at most one due retry. Terminal jobs can be started again; irrelevant responses are ignored.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s==null)s={now:0,phase:'idle',id:null,attempt:0,due:null};else s={now:s.now,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due};var send=[],status='ignored',t=e.type;if(t==='start'){if(s.phase==='pending'||s.phase==='waiting')status='busy';else{s.id=e.id;s.attempt=1;s.phase='pending';s.due=null;send=[{id:s.id,attempt:1}];status='started'}}else if(t==='fail'){if(s.phase==='pending'&&s.id===e.id&&s.attempt===e.attempt){if(s.attempt>=c.attempts){s.phase='failed';s.due=null;status='failed'}else{s.phase='waiting';s.due=s.now+Math.max(c.delay,e.after);status='waiting'}}}else if(t==='success'){if(s.phase==='pending'&&s.id===e.id&&s.attempt===e.attempt){s.phase='succeeded';s.due=null;status='succeeded'}}else if(t==='cancel'){if(s.phase==='pending'||s.phase==='waiting'){s.phase='cancelled';s.due=null;status='cancelled'}}else if(t==='advance'){s.now+=e.dt;if(s.phase==='waiting'&&s.now>=s.due){s.attempt++;s.phase='pending';s.due=null;send=[{id:s.id,attempt:s.attempt}]}status='advanced'}return{state:s,output:{status:status,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due,now:s.now,send:send}}}"
+  },
+  "resultSHA256": "a50afce5c3a59ca0950556a2cc974223f7b346ea77988a4cf525def684cc4128",
+  "rawOutputSHA256": "a50afce5c3a59ca0950556a2cc974223f7b346ea77988a4cf525def684cc4128"
+}

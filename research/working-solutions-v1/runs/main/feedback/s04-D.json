@@ -1,0 +1,200 @@
+{
+  "initialRecordSHA256": "95aade096e70be1f21495fb63a94d41c88a2486fdd5f4994333c334cb89fa553",
+  "firstShown": {
+    "explanation": "Use a conditional invariant: retained buffered bytes are exactly the current unterminated line, excluding LF and excluding discarded overflow bytes. Complete lines are decoded and validated before transactional state changes; invalid lines increment errors and clear the open transaction.",
+    "mapping": "The rule maps each event to buffered length, while open, visible, and errors are updated only by validated frames, overflow, or finish recovery.",
+    "assumptions": "Inputs obey the public event and config domains. JSON frame objects must have exactly the documented keys; imported values are scalar and safe.",
+    "applies": "function applies(input){return Array.isArray(input.events)&&input.events.length>0&&input.config&&Number.isInteger(input.config.maxBytes)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let b=0,d=false,m=input.config.maxBytes;for(let i=0;i<output.length;i++){let e=input.events[i];if(e.type==='chunk'){for(let x of e.bytes){if(d){if(x===10)d=false}else if(x===10)b=0;else if(++b>m){b=0;d=true}}}else if(e.type==='finish'){b=0;d=false}if(output[i].buffered!==b)return false}return true}",
+    "program": "function solve({config,state,event}){\n const M=config.maxBytes;\n let s=state||{v:{},o:null,t:{},b:[],d:false,e:0};\n const bad=()=>{s.e++;s.o=null;s.t={}};\n function utf(a){let z='',i=0;while(i<a.length){let c=a[i++],n=0,u=0;if(c<128)u=c;else if(c>=194&&c<=223){n=1;u=c&31}else if(c>=224&&c<=239){n=2;u=c&15}else if(c>=240&&c<=244){n=3;u=c&7}else return null;if(i+n>a.length)return null;for(let j=0;j<n;j++){let q=a[i++];if((q&192)!=128)return null;u=u*64+(q&63)}if((n==2&&u<2048)||(n==3&&u<65536)||(n==3&&u>0x10ffff)||u>=55296&&u<=57343)return null;z+=String.fromCodePoint(u)}return z}\n function sane(x){if(x===null||typeof x==='boolean'||typeof x==='string')return typeof x!=='string'||!/[\\ud800-\\udfff]/.test(x);if(typeof x==='number')return Number.isSafeInteger(x);return false}\n function frame(a){let q=utf(a),x;if(q===null)return null;try{x=JSON.parse(q)}catch(_){return null}if(!x||Array.isArray(x)||typeof x!=='object')return null;let k=Object.keys(x),op=x.op;\n  if(typeof op!=='string')return null;\n  if(op==='begin'){if(k.length!==2||!('id'in x)||typeof x.id!=='string')return null;return x}\n  if(op==='put'){if(k.length!==3||typeof x.key!=='string'||!('value'in x)||!sane(x.value))return null;return x}\n  if(op==='commit'){if(k.length!==2||typeof x.id!=='string')return null;return x}\n  if(op==='abort'){if(k.length!==1)return null;return x}return null}\n function line(){let x=frame(s.b);s.b=[];if(!x){bad();return}if(x.op==='begin'){if(s.o!==null)bad();else{s.o=x.id;s.t={}}}else if(x.op==='put'){if(s.o===null)bad();else s.t[x.key]=x.value}else if(x.op==='commit'){if(s.o===null||s.o!==x.id)bad();else{for(let k of Object.keys(s.t))s.v[k]=s.t[k];s.o=null;s.t={}}}else{s.o=null;s.t={}}}\n if(event.type==='chunk'){for(let x of event.bytes){if(s.d){if(x===10)s.d=false;continue}if(x===10)line();else{if(s.b.length<M)s.b.push(x);else{s.b=[];s.d=true;s.e++;s.o=null;s.t={}}}}}else{if(!s.d&&s.b.length){s.e++;s.b=[];s.o=null;s.t={}}else{s.b=[];s.d=false}if(s.o!==null){s.e++;s.o=null;s.t={}}}\n return {state:s,output:{visible:s.v,open:s.o,buffered:s.b.length,errors:s.e}}\n}"
+  },
+  "feedback": {
+    "initialStatus": "success",
+    "contract": {
+      "admitted": true,
+      "error": null,
+      "applicableCorrect": 4,
+      "excludedCorrect": 0,
+      "rejectedFoils": 4,
+      "applicabilityBoundaryExercised": false,
+      "correct": [
+        {
+          "id": "p1",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p2",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p3",
+          "applies": true,
+          "holds": true
+        },
+        {
+          "id": "p4",
+          "applies": true,
+          "holds": true
+        }
+      ],
+      "foils": [
+        {
+          "id": "p1-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p2-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p3-foil",
+          "applies": true,
+          "holds": false
+        },
+        {
+          "id": "p4-foil",
+          "applies": true,
+          "holds": false
+        }
+      ]
+    },
+    "publicExecution": [
+      {
+        "id": "p1",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {},
+            "open": null,
+            "buffered": 19,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 14,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 39,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 14,
+            "errors": 0
+          }
+        ]
+      },
+      {
+        "id": "p2",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {},
+            "open": null,
+            "buffered": 12,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 11,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 30,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 12,
+            "errors": 0
+          }
+        ]
+      },
+      {
+        "id": "p3",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {},
+            "open": null,
+            "buffered": 15,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 4,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 18,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 34,
+            "errors": 0
+          }
+        ]
+      },
+      {
+        "id": "p4",
+        "status": "success",
+        "passed": true,
+        "violations": [],
+        "error": null,
+        "outputs": [
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 1,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 17,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 34,
+            "errors": 0
+          },
+          {
+            "visible": {},
+            "open": "t",
+            "buffered": 5,
+            "errors": 0
+          }
+        ]
+      }
+    ]
+  }
+}

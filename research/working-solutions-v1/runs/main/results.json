@@ -1,0 +1,3859 @@
+{
+  "schemaVersion": 1,
+  "analysisVersion": "wildcard-working-solutions-analysis-v1",
+  "cohort": "main",
+  "nTasks": 32,
+  "descriptive": {
+    "D": {
+      "nTasks": 32,
+      "meanPassRate": 0.9454345703125,
+      "fullSuiteCount": 30,
+      "fullSuiteRate": 0.9375
+    },
+    "R": {
+      "nTasks": 32,
+      "meanPassRate": 0.8724365234375,
+      "fullSuiteCount": 26,
+      "fullSuiteRate": 0.8125
+    },
+    "X": {
+      "nTasks": 32,
+      "meanPassRate": 0.9581298828125,
+      "fullSuiteCount": 29,
+      "fullSuiteRate": 0.90625
+    }
+  },
+  "perFamily": {
+    "cache": {
+      "D": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      },
+      "R": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      },
+      "X": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      }
+    },
+    "queue": {
+      "D": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      },
+      "R": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      },
+      "X": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      }
+    },
+    "sync": {
+      "D": {
+        "nTasks": 8,
+        "meanPassRate": 0.78173828125,
+        "fullSuiteCount": 6,
+        "fullSuiteRate": 0.75
+      },
+      "R": {
+        "nTasks": 8,
+        "meanPassRate": 0.66259765625,
+        "fullSuiteCount": 5,
+        "fullSuiteRate": 0.625
+      },
+      "X": {
+        "nTasks": 8,
+        "meanPassRate": 0.84375,
+        "fullSuiteCount": 6,
+        "fullSuiteRate": 0.75
+      }
+    },
+    "ui": {
+      "D": {
+        "nTasks": 8,
+        "meanPassRate": 1,
+        "fullSuiteCount": 8,
+        "fullSuiteRate": 1
+      },
+      "R": {
+        "nTasks": 8,
+        "meanPassRate": 0.8271484375,
+        "fullSuiteCount": 5,
+        "fullSuiteRate": 0.625
+      },
+      "X": {
+        "nTasks": 8,
+        "meanPassRate": 0.98876953125,
+        "fullSuiteCount": 7,
+        "fullSuiteRate": 0.875
+      }
+    }
+  },
+  "primary": {
+    "id": "R-D",
+    "armX": "R",
+    "armY": "D",
+    "nPairs": 32,
+    "meanX": 0.8724365234375,
+    "meanY": 0.9454345703125,
+    "difference": -0.072998046875,
+    "integerDifferenceDenominator": 256,
+    "nonzeroPairs": 6,
+    "ci95": [
+      -0.19482421875,
+      0.0390625
+    ],
+    "bootstrap": {
+      "meanDifference": -0.072998046875,
+      "ci95": [
+        -0.19482421875,
+        0.0390625
+      ],
+      "iterations": 100000,
+      "seed": "wildcard-working-solutions-analysis-v1:bootstrap:R-D",
+      "method": "paired-task-percentile-bootstrap-within-fixed-family-strata",
+      "percentileIndicesZeroBased": [
+        2500,
+        97499
+      ],
+      "familySizes": {
+        "cache": 8,
+        "queue": 8,
+        "sync": 8,
+        "ui": 8
+      },
+      "integerDifferenceDenominator": 256
+    },
+    "test": {
+      "p": 0.2813877186122814,
+      "extremeCount": 281387,
+      "iterations": 1000000,
+      "seed": "wildcard-working-solutions-analysis-v1:signflip:R-D",
+      "method": "two-sided-paired-mean-sign-flip-monte-carlo-plus-one",
+      "comparison": "absolute integer count sum >= observed absolute integer count sum",
+      "observedAbsoluteCountSum": 598,
+      "integerDifferenceDenominator": 256
+    },
+    "perTask": [
+      {
+        "taskId": "c01",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c02",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c03",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c04",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c05",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c06",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c07",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c08",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q01",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q02",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q03",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q04",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q05",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q06",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q07",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q08",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s01",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s02",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s03",
+        "family": "sync",
+        "differenceCount": -256
+      },
+      {
+        "taskId": "s04",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s05",
+        "family": "sync",
+        "differenceCount": -244
+      },
+      {
+        "taskId": "s06",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s07",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s08",
+        "family": "sync",
+        "differenceCount": 256
+      },
+      {
+        "taskId": "u01",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u02",
+        "family": "ui",
+        "differenceCount": -96
+      },
+      {
+        "taskId": "u03",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u04",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u05",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u06",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u07",
+        "family": "ui",
+        "differenceCount": -256
+      },
+      {
+        "taskId": "u08",
+        "family": "ui",
+        "differenceCount": -2
+      }
+    ],
+    "perFamily": {
+      "cache": {
+        "nPairs": 8,
+        "difference": 0,
+        "descriptiveOnly": true
+      },
+      "queue": {
+        "nPairs": 8,
+        "difference": 0,
+        "descriptiveOnly": true
+      },
+      "sync": {
+        "nPairs": 8,
+        "difference": -0.119140625,
+        "descriptiveOnly": true
+      },
+      "ui": {
+        "nPairs": 8,
+        "difference": -0.1728515625,
+        "descriptiveOnly": true
+      }
+    },
+    "positiveEvidence": false,
+    "practicalBenefit": false,
+    "decision": "positive-benefit-not-established",
+    "decisionRule": "Positive mean, two-sided p <= .05, and 95% bootstrap lower endpoint > 0; practical-benefit gate additionally requires point difference >= .10. No equivalence or minimum-true-effect claim."
+  },
+  "secondary": {
+    "id": "R-X",
+    "armX": "R",
+    "armY": "X",
+    "nPairs": 32,
+    "meanX": 0.8724365234375,
+    "meanY": 0.9581298828125,
+    "difference": -0.085693359375,
+    "integerDifferenceDenominator": 256,
+    "nonzeroPairs": 7,
+    "ci95": null,
+    "bootstrap": null,
+    "test": null,
+    "perTask": [
+      {
+        "taskId": "c01",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c02",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c03",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c04",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c05",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c06",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c07",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "c08",
+        "family": "cache",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q01",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q02",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q03",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q04",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q05",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q06",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q07",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "q08",
+        "family": "queue",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s01",
+        "family": "sync",
+        "differenceCount": -191
+      },
+      {
+        "taskId": "s02",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s03",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s04",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s05",
+        "family": "sync",
+        "differenceCount": -244
+      },
+      {
+        "taskId": "s06",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s07",
+        "family": "sync",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "s08",
+        "family": "sync",
+        "differenceCount": 64
+      },
+      {
+        "taskId": "u01",
+        "family": "ui",
+        "differenceCount": 23
+      },
+      {
+        "taskId": "u02",
+        "family": "ui",
+        "differenceCount": -96
+      },
+      {
+        "taskId": "u03",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u04",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u05",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u06",
+        "family": "ui",
+        "differenceCount": 0
+      },
+      {
+        "taskId": "u07",
+        "family": "ui",
+        "differenceCount": -256
+      },
+      {
+        "taskId": "u08",
+        "family": "ui",
+        "differenceCount": -2
+      }
+    ],
+    "perFamily": {
+      "cache": {
+        "nPairs": 8,
+        "difference": 0,
+        "descriptiveOnly": true
+      },
+      "queue": {
+        "nPairs": 8,
+        "difference": 0,
+        "descriptiveOnly": true
+      },
+      "sync": {
+        "nPairs": 8,
+        "difference": -0.18115234375,
+        "descriptiveOnly": true
+      },
+      "ui": {
+        "nPairs": 8,
+        "difference": -0.16162109375,
+        "descriptiveOnly": true
+      }
+    },
+    "inferentialGateOpen": false,
+    "positiveEvidence": null
+  },
+  "developmentGate": null,
+  "prototypeReadiness": {
+    "benchmarkGateMet": false,
+    "criterion": "Main R mean >= .95 and at least 24 of 32 R programs pass the complete suite; a benchmark gate only, not production reliability or comparative benefit."
+  },
+  "estimand": "Equal-weight paired difference in per-task hidden-instance pass rate; each of four fixed regimes has 64 cases and each of 32 main tasks receives equal weight.",
+  "multiplicity": "Fixed sequence: inferential R-X is computed only after the primary R-D positive-evidence gate opens; no additional hypothesis family.",
+  "rng": {
+    "algorithm": "SHA-256 of UTF-8 namespace + NUL + decimal counter beginning 0; eight big-endian uint32 words per block. Bootstrap uses rejection-sampled unbiased indices; each sign-flip draw consumes one uint32 with task signs from least significant bit upward.",
+    "purpose": "Analysis resampling only, not provider decoding or hidden-case generation.",
+    "bootstrapIterations": 100000,
+    "signFlipIterations": 1000000
+  },
+  "limitations": [
+    "Inference is conditional on these authored task families, fixed donor library and matching schedule.",
+    "Sign-flip inference assumes exchangeability of paired signs under the null; symmetry is not established by this small authored sample.",
+    "Calls and response limits are matched; realized tokens and unavailable decoding settings are not exactly matched.",
+    "A null result is not equivalence, and hidden cases do not increase the independent task count."
+  ],
+  "perTask": [
+    {
+      "taskId": "c01",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c02",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c03",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c04",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c05",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c06",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c07",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "c08",
+      "family": "cache",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q01",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q02",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q03",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q04",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q05",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q06",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q07",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "q08",
+      "family": "queue",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s01",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 65,
+          "totalCases": 256,
+          "passRate": 0.25390625,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 4,
+            "boundary": 4,
+            "adversarial": 51,
+            "shift": 6
+          },
+          "regimePassRates": {
+            "ordinary": 0.0625,
+            "boundary": 0.0625,
+            "adversarial": 0.796875,
+            "shift": 0.09375
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 65,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 65,
+          "totalCases": 256,
+          "passRate": 0.25390625,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 4,
+            "boundary": 4,
+            "adversarial": 51,
+            "shift": 6
+          },
+          "regimePassRates": {
+            "ordinary": 0.0625,
+            "boundary": 0.0625,
+            "adversarial": 0.796875,
+            "shift": 0.09375
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 65,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s02",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s03",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 0,
+          "totalCases": 256,
+          "passRate": 0.0,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 0,
+            "boundary": 0,
+            "adversarial": 0,
+            "shift": 0
+          },
+          "regimePassRates": {
+            "ordinary": 0.0,
+            "boundary": 0.0,
+            "adversarial": 0.0,
+            "shift": 0.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 0,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 0,
+          "totalCases": 256,
+          "passRate": 0.0,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 0,
+            "boundary": 0,
+            "adversarial": 0,
+            "shift": 0
+          },
+          "regimePassRates": {
+            "ordinary": 0.0,
+            "boundary": 0.0,
+            "adversarial": 0.0,
+            "shift": 0.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 0,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s04",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s05",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 12,
+          "totalCases": 256,
+          "passRate": 0.046875,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 1,
+            "boundary": 5,
+            "adversarial": 3,
+            "shift": 3
+          },
+          "regimePassRates": {
+            "ordinary": 0.015625,
+            "boundary": 0.078125,
+            "adversarial": 0.046875,
+            "shift": 0.046875
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 12,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s06",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s07",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "s08",
+      "family": "sync",
+      "arms": {
+        "D": {
+          "passCount": 0,
+          "totalCases": 256,
+          "passRate": 0.0,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 0,
+            "boundary": 0,
+            "adversarial": 0,
+            "shift": 0
+          },
+          "regimePassRates": {
+            "ordinary": 0.0,
+            "boundary": 0.0,
+            "adversarial": 0.0,
+            "shift": 0.0
+          },
+          "executionStatuses": {
+            "runtime_error": 256
+          },
+          "exactExpectedMatches": 0,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 192,
+          "totalCases": 256,
+          "passRate": 0.75,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 0
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 0.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 192,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u01",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 233,
+          "totalCases": 256,
+          "passRate": 0.91015625,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 58,
+            "boundary": 60,
+            "adversarial": 60,
+            "shift": 55
+          },
+          "regimePassRates": {
+            "ordinary": 0.90625,
+            "boundary": 0.9375,
+            "adversarial": 0.9375,
+            "shift": 0.859375
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 233,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u02",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 160,
+          "totalCases": 256,
+          "passRate": 0.625,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 51,
+            "boundary": 47,
+            "adversarial": 57,
+            "shift": 5
+          },
+          "regimePassRates": {
+            "ordinary": 0.796875,
+            "boundary": 0.734375,
+            "adversarial": 0.890625,
+            "shift": 0.078125
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 160,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u03",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u04",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u05",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u06",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u07",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 0,
+          "totalCases": 256,
+          "passRate": 0.0,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 0,
+            "boundary": 0,
+            "adversarial": 0,
+            "shift": 0
+          },
+          "regimePassRates": {
+            "ordinary": 0.0,
+            "boundary": 0.0,
+            "adversarial": 0.0,
+            "shift": 0.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 0,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    },
+    {
+      "taskId": "u08",
+      "family": "ui",
+      "arms": {
+        "D": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        },
+        "R": {
+          "passCount": 254,
+          "totalCases": 256,
+          "passRate": 0.9921875,
+          "fullSuite": false,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 63,
+            "shift": 63
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 0.984375,
+            "shift": 0.984375
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 254,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": true,
+          "initialStatus": "success"
+        },
+        "X": {
+          "passCount": 256,
+          "totalCases": 256,
+          "passRate": 1.0,
+          "fullSuite": true,
+          "regimePassCounts": {
+            "ordinary": 64,
+            "boundary": 64,
+            "adversarial": 64,
+            "shift": 64
+          },
+          "regimePassRates": {
+            "ordinary": 1.0,
+            "boundary": 1.0,
+            "adversarial": 1.0,
+            "shift": 1.0
+          },
+          "executionStatuses": {
+            "success": 256
+          },
+          "exactExpectedMatches": 256,
+          "exactExpectedMatchRole": "Descriptive only; correctness uses the independent checker.",
+          "finalStatus": "success",
+          "contractAdmitted": false,
+          "initialStatus": "success"
+        }
+      }
+    }
+  ],
+  "contractGates": {
+    "D": {
+      "admitted": 10,
+      "rejected": 22,
+      "nTasks": 32,
+      "descriptiveOnly": true
+    },
+    "R": {
+      "admitted": 14,
+      "rejected": 18,
+      "nTasks": 32,
+      "descriptiveOnly": true
+    },
+    "X": {
+      "admitted": 13,
+      "rejected": 19,
+      "nTasks": 32,
+      "descriptiveOnly": true
+    }
+  },
+  "acquisition": {
+    "logicalCalls": 192,
+    "attempts": 192,
+    "statuses": {
+      "success": 192
+    },
+    "reportedUsageTotals": {
+      "input_tokens": 1546135,
+      "cached_input_tokens": 667648,
+      "output_tokens": 163798,
+      "reasoning_output_tokens": 51853
+    },
+    "missingUsageAttemptCounts": {
+      "input_tokens": 0,
+      "cached_input_tokens": 0,
+      "output_tokens": 0,
+      "reasoning_output_tokens": 0
+    },
+    "summedAttemptLatencySeconds": 4055.383304746123,
+    "latencyInterpretation": "Sum of all attempt durations, not wall-clock elapsed time.",
+    "requestedModels": [
+      "gpt-5.6-luna"
+    ],
+    "knownReturnedModels": [],
+    "returnedModelUnknownCalls": 192,
+    "usdCost": null,
+    "costInterpretation": "All recorded attempts, including transport retries and invalid delivered responses. Cached input and reasoning output are components, not additions to input/output totals. Missing usage remains unknown. No exact token matching.",
+    "byArm": {
+      "D": {
+        "logicalCalls": 64,
+        "attempts": 64,
+        "statuses": {
+          "success": 64
+        },
+        "reportedUsageTotals": {
+          "input_tokens": 506670,
+          "cached_input_tokens": 220928,
+          "output_tokens": 55209,
+          "reasoning_output_tokens": 17074
+        },
+        "missingUsageAttemptCounts": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "summedAttemptLatencySeconds": 1351.1724170392845,
+        "latencyInterpretation": "Sum of all attempt durations, not wall-clock elapsed time.",
+        "requestedModels": [
+          "gpt-5.6-luna"
+        ],
+        "knownReturnedModels": [],
+        "returnedModelUnknownCalls": 64,
+        "usdCost": null,
+        "costInterpretation": "All recorded attempts, including transport retries and invalid delivered responses. Cached input and reasoning output are components, not additions to input/output totals. Missing usage remains unknown. No exact token matching."
+      },
+      "R": {
+        "logicalCalls": 64,
+        "attempts": 64,
+        "statuses": {
+          "success": 64
+        },
+        "reportedUsageTotals": {
+          "input_tokens": 519613,
+          "cached_input_tokens": 218880,
+          "output_tokens": 54757,
+          "reasoning_output_tokens": 18297
+        },
+        "missingUsageAttemptCounts": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "summedAttemptLatencySeconds": 1340.7133609547745,
+        "latencyInterpretation": "Sum of all attempt durations, not wall-clock elapsed time.",
+        "requestedModels": [
+          "gpt-5.6-luna"
+        ],
+        "knownReturnedModels": [],
+        "returnedModelUnknownCalls": 64,
+        "usdCost": null,
+        "costInterpretation": "All recorded attempts, including transport retries and invalid delivered responses. Cached input and reasoning output are components, not additions to input/output totals. Missing usage remains unknown. No exact token matching."
+      },
+      "X": {
+        "logicalCalls": 64,
+        "attempts": 64,
+        "statuses": {
+          "success": 64
+        },
+        "reportedUsageTotals": {
+          "input_tokens": 519852,
+          "cached_input_tokens": 227840,
+          "output_tokens": 53832,
+          "reasoning_output_tokens": 16482
+        },
+        "missingUsageAttemptCounts": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "summedAttemptLatencySeconds": 1363.497526752064,
+        "latencyInterpretation": "Sum of all attempt durations, not wall-clock elapsed time.",
+        "requestedModels": [
+          "gpt-5.6-luna"
+        ],
+        "knownReturnedModels": [],
+        "returnedModelUnknownCalls": 64,
+        "usdCost": null,
+        "costInterpretation": "All recorded attempts, including transport retries and invalid delivered responses. Cached input and reasoning output are components, not additions to input/output totals. Missing usage remains unknown. No exact token matching."
+      }
+    },
+    "byPhase": {
+      "initial": {
+        "logicalCalls": 96,
+        "attempts": 96,
+        "statuses": {
+          "success": 96
+        },
+        "reportedUsageTotals": {
+          "input_tokens": 716597,
+          "cached_input_tokens": 325888,
+          "output_tokens": 101104,
+          "reasoning_output_tokens": 32168
+        },
+        "missingUsageAttemptCounts": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "summedAttemptLatencySeconds": 2572.6203835811466,
+        "latencyInterpretation": "Sum of all attempt durations, not wall-clock elapsed time.",
+        "requestedModels": [
+          "gpt-5.6-luna"
+        ],
+        "knownReturnedModels": [],
+        "returnedModelUnknownCalls": 96,
+        "usdCost": null,
+        "costInterpretation": "All recorded attempts, including transport retries and invalid delivered responses. Cached input and reasoning output are components, not additions to input/output totals. Missing usage remains unknown. No exact token matching."
+      },
+      "final": {
+        "logicalCalls": 96,
+        "attempts": 96,
+        "statuses": {
+          "success": 96
+        },
+        "reportedUsageTotals": {
+          "input_tokens": 829538,
+          "cached_input_tokens": 341760,
+          "output_tokens": 62694,
+          "reasoning_output_tokens": 19685
+        },
+        "missingUsageAttemptCounts": {
+          "input_tokens": 0,
+          "cached_input_tokens": 0,
+          "output_tokens": 0,
+          "reasoning_output_tokens": 0
+        },
+        "summedAttemptLatencySeconds": 1482.7629211649764,
+        "latencyInterpretation": "Sum of all attempt durations, not wall-clock elapsed time.",
+        "requestedModels": [
+          "gpt-5.6-luna"
+        ],
+        "knownReturnedModels": [],
+        "returnedModelUnknownCalls": 96,
+        "usdCost": null,
+        "costInterpretation": "All recorded attempts, including transport retries and invalid delivered responses. Cached input and reasoning output are components, not additions to input/output totals. Missing usage remains unknown. No exact token matching."
+      }
+    }
+  },
+  "provenance": {
+    "study": "wildcard-working-solutions-v1",
+    "sourceCommit": "8341828ba28fea6ca0178c50bad266ea3a171c74",
+    "sourceSHA256": {
+      "run.py": "013b73026ed61cdf9afcc8a8f3b58115dbf0524d753e695f2d07ec20851e4a0c",
+      "catalog.py": "92a5dc6f03a92e38f15ba143e1c828050b2f791e8ae20f2cdd8e11f3d32b3352",
+      "prompts.py": "467b2f7bf634480d65fa05f87ffc80d7108400f24b2f3e81a6349c8e954944c9",
+      "execution.py": "30e8d61d30324dbc65b6e547f75125bae43237839d6faa54dbbb25f17c3be91b",
+      "js_worker.py": "5c9fb26491f0094190ed32f671efaa47e40655b095b8f56affeda076f9bbf795",
+      "analysis.py": "66132356e8a08e37c37e338a4d31b4b771613cfd7c33006aa74e1d4730a5da00",
+      "analyze.mjs": "ba77ef27dcbe0c01013acc14db36733c03b6a0d1dd19dbce7993ef1d25138bd4",
+      "protocol.md": "2419118a80bfa1ace7a7c764525bd2be4097cd25d0bd7d7cba904380b31681c7",
+      "runtime.json": "0422efc537449a691af51e13e5e8ebb6ababf017956458fed07a2d4bb0597da9",
+      "requirements.txt": "85db8448ee7c8c5174a564677afef05799420b5d2877371da61b4de2580a8222",
+      "system-instructions.txt": "bde7da4fb03eee5f7dbe7cc2123b0e4aabd6bdb14adfd7080f8f5d41301ed47e",
+      "cards.json": "128c55f3a8295945a17b0422bbba9e6f2ad6a8928057c712a2733c68bcebbe44",
+      "benchmark/__init__.py": "532e7a9fd07087d2ac1afe4497d8db20c997fc3b1685c730f962c2ba3c940e7c",
+      "benchmark/common.py": "a82224635f33b90b1a2cda9b4f46c9f78580c0ebaeed121b953a48f90b360df1",
+      "benchmark/queue.py": "0926372c16d67b2948b4d7b3148b542a41081ac7fbebc3ade1e1d8534f28b70b",
+      "benchmark/cache.py": "733f90d52f237d62863803da21393e4ffeac29f64f0917b7538880c27fac802c",
+      "benchmark/sync.py": "0ed30bda849ecc51dc8d8ae1209d6f5be9f3921159dc41e947a5472a48d8b9d5",
+      "benchmark/ui.py": "fe94907452acbe978cae940874431788c12d4c40918499cf5fbdc90200d25235",
+      "development-revision.md": "cd3ea25ac5fe37b83599ebf23de254b3082a40cff713f2c2da3f5e67c5db9a2f"
+    },
+    "artifactSHA256": {
+      "manifest.json": "a088da4959c9ad95f4c6f68a0d990038d99d4b3b8c4f068e71487eec3b61e9f1",
+      "final-manifest.json": "f1a856f3b60d4cf155ad8fe050f39c34783f103face7a370761dd3f222195548",
+      "final-program-seal.json": "460903edf24f24af3fc46c5e6e8a254b0ae73f94a9ed83cab35efe9f521987db",
+      "hidden-corpus.json": "9ed5dcb40855680e7a78d4f7336f582766bd2ce16e8795c4de62c60e0d84168e",
+      "execution/c01-D-final.json": "955774d2ba5e698db4335bdd30f6a7352dcccfb1a6075741c20051db75d6fc3c",
+      "execution/c01-R-final.json": "a4739b272ddaa7d1d2852f2d9c8ca9599c6a42fdbb750c391afc803d125274e4",
+      "execution/c01-X-final.json": "249e119cb78ec80f00b1de4137cb6efc994b736ae2e3e79e0184773d93f8fc05",
+      "execution/c02-D-final.json": "2bbf23e242e7e8b18a38a753427a671dab582f54a8b6f8905d1f915424b371d6",
+      "execution/c02-R-final.json": "919e6289b8347d99ffd2a19c9ebf1e4bda46708eca3baca1bbf9b51c7c7c5535",
+      "execution/c02-X-final.json": "5135e6d49fad8f489c92dbf7d93f7f4b4acc665b25d2ed92f037023b9e07da06",
+      "execution/c03-D-final.json": "b56967419e3ea9296c9cd335d65e071fe9f26aa3ffbcd6647d48e1cc1f5ecd8e",
+      "execution/c03-R-final.json": "eca0b87e73b301f0f37542a0b7afaf9abdc8a6c3c01b08cc07342d5be2d7f923",
+      "execution/c03-X-final.json": "e22c122b51f9a2ca994ca4c6aafa5c2dfc77f8980fb8f33c61934c86e0be0a08",
+      "execution/c04-D-final.json": "11ffc28ac36d889d4a0ef91c734ed44b9ded3463a6ca529a2d7676d39e42bee2",
+      "execution/c04-R-final.json": "f392ab32e804c4518fe8a21c5463e23bc228a70245bcc6e35714475a4ff77c92",
+      "execution/c04-X-final.json": "86222a3d2ff0c067ae9a28bf4d723080c75a3b312b6105a6ad4122b30c45b788",
+      "execution/c05-D-final.json": "ffb38e6b1883bc630b3b0e75d42d105d2910bf83a4d594abd38250fcce507dfb",
+      "execution/c05-R-final.json": "a69fea17785e362c7cf631ad994900deb2127f2abbbca007941b81c1a040a028",
+      "execution/c05-X-final.json": "dbd3521907113e96bda2f6cb26177017ae8ad68568c3ed85b21822d0e0b7d834",
+      "execution/c06-D-final.json": "fd6d3c435e84bb9c06a08049f2d38fdbc68babe47f88f2129a8f0d2bc46f81cf",
+      "execution/c06-R-final.json": "b21444a580abbfcb1c030dc159caa2f26ce500b7271a3c4c388f411fd318f184",
+      "execution/c06-X-final.json": "9077f015d18a66988819c021b03d419e326c8690199f9a4a70abd9add6a91e01",
+      "execution/c07-D-final.json": "a323615c578b2d320c70e15a8adc9ebcdc8d869f6b8a6f584d975fe5121955ca",
+      "execution/c07-R-final.json": "b7d2cd6dd44f31f5242bee7ac0cb26b1950ed84db83e1831bc2df9e6923d3043",
+      "execution/c07-X-final.json": "ff47a630ecc7c9e4dbaf195ef26025a01cc0c0f84e09938570ad50440d902033",
+      "execution/c08-D-final.json": "cb6399528050cbca25cf6a64dd414b21eae1d22baa9f0eb526ebbeeba58a97ae",
+      "execution/c08-R-final.json": "263d652d2d67076266955f6f956871378d8e6a39bc90866998edc47bd2bf0183",
+      "execution/c08-X-final.json": "1e0efe5bc6e4d96d1e9b561768e2076496d3e28c4d24790cd13cd1f72803cca4",
+      "execution/q01-D-final.json": "c723ea11e1ab70e26c19c4f1e238e3b68bf0e9dc7872babad3b3de237fd7741f",
+      "execution/q01-R-final.json": "704e990338923184a3a0b1f423421db7e8f113454b046b10f5d719addd91512b",
+      "execution/q01-X-final.json": "0aecbbd13694bb619e1dfebeea6f4027e04beed3011a7f5a1df3ba693492f4d5",
+      "execution/q02-D-final.json": "1092cf9999bca1efb2534aed5fceb6bea78ebc62e41f90521792dd2a63bbb688",
+      "execution/q02-R-final.json": "a3e60ec0fb554967f75af472d09218bc7be893fd7374a946959695d6779cfa3d",
+      "execution/q02-X-final.json": "71bacad954344b2bd9eabc937a6f2ca66e882ea949a0fdcc8d085edc98079eef",
+      "execution/q03-D-final.json": "18b2fade94e95be7d9a33af8acb98a42db942ff8f9c21578da1a37527efb6632",
+      "execution/q03-R-final.json": "8b606871cd788a40e53938d252164338a1f3d5fd6a1c081d794f937e9d5fceaf",
+      "execution/q03-X-final.json": "1fd082d4ac201768fb2e495d0a8e707e2ef1696eacc0f3e749d07559b37c12c3",
+      "execution/q04-D-final.json": "ae8d2548021a3e04e0e856be02593c6ffcd2bd27487c9f62e9d85c45e49b6217",
+      "execution/q04-R-final.json": "5a112137dace84c96725f9cba11a1b127dcb80ad1623a78142105cc8904e8f84",
+      "execution/q04-X-final.json": "62d10f3671c7b0ba901fb3fb8cf73c6cc155222c1c1a8ec5a382f06687e89574",
+      "execution/q05-D-final.json": "2afcb998962151262b42afdc0bf2973450af7b3d5ee66ab17c850439d7b56e45",
+      "execution/q05-R-final.json": "f29c57e87adc76a291769cf423cac7766b70a738fc3e248af9e7dce05aa43e1c",
+      "execution/q05-X-final.json": "8fe576616a2ceb34572f28ff3fd4dd36b7fcebb7ecf4d7a14e92cbabae8f5562",
+      "execution/q06-D-final.json": "865e77f0ea58a171b20d079e60b999690378d3317a58a87effcf84aa9b5cdf7b",
+      "execution/q06-R-final.json": "92951b3c80dcd5da1989e12adaad19623d95002e2ab0575547fdfacb60dbf1b3",
+      "execution/q06-X-final.json": "a96768540c0b7d0b44b2ab526970d80c3eb6866749bfab45894345c6a1a2ca6d",
+      "execution/q07-D-final.json": "723c3d5f2ed10decd346b96ecebc3b363e2dd0fec6f8b61d5e0b45535f4f971f",
+      "execution/q07-R-final.json": "72178659581f9191d90bbc09711b5226bc06cbf43de8482148c99d2718b75dea",
+      "execution/q07-X-final.json": "719dc6fef19b616bf3465eeac2bf850417613bb38112150e0f06fb35dc0a9c45",
+      "execution/q08-D-final.json": "3d1fd4182cd9a492c3e6507c9e7548749f87be16d24527569744314964e5c994",
+      "execution/q08-R-final.json": "17455b01f4b8cde5480764c9a73edf3181d975a35527e0600a714b5926ad3809",
+      "execution/q08-X-final.json": "b4b482d09935d1c5bc0d6aa4ed5131c5fa5869beb583f1cc0e1b7df5c5f0c0a8",
+      "execution/s01-D-final.json": "64fada2d04ce9eac29dab046279b9f09b7ed06279b9a2b2c845980632f1f7596",
+      "execution/s01-R-final.json": "15ee37a2d12b289af72134ef6bc5e9dd43bcf8fcc310bdac85392f6fff4795a2",
+      "execution/s01-X-final.json": "1b914e1797f886168974b2fd727044e50b9cb19f0b1e320b0371e4fb8c46abae",
+      "execution/s02-D-final.json": "476cd3f0d448d0ded0cb5b07333aeb1ebd593aaed9f2de52b4f3670fa38fedf7",
+      "execution/s02-R-final.json": "57ee416cd6d56b9d4bf6fe9f8f1a62273fbb3fdc86ea948e09dc46850080488b",
+      "execution/s02-X-final.json": "c63ebec81e61114fd909fed3ea7266dcb3d241b8822d977e273230ea8fd7da2d",
+      "execution/s03-D-final.json": "e14762aa65140e5c1917a45ba659a04b6ab15aba955a9a63c3ab85ccef29a8ec",
+      "execution/s03-R-final.json": "9fdb5846605c5d2a00144ca0cdcedd3ce8aae2ba08aede5d32c7a717bd24717a",
+      "execution/s03-X-final.json": "04cc4bbf1be31985dba3052e073b45762c5b901fcb460aa3ab2315df869b7912",
+      "execution/s04-D-final.json": "ba8b95bf8febc0e16a1daf4a81b2521ea1c4af2d79ee615f6fe23230cfcd3fdc",
+      "execution/s04-R-final.json": "53507148a7ad0407352e604369d6936bdeebbc02d389e2f32873ea27e137d3cd",
+      "execution/s04-X-final.json": "a3b6084b1cdb7478c117d33d3b26ae2df359718bba7f2dbf236e790bb4d0e539",
+      "execution/s05-D-final.json": "2bf0204ccf2f91652959813e7f553f36fe013008b060f73c921e33931d890489",
+      "execution/s05-R-final.json": "78820e31240ee9437616eaf065bfb5364be7020066795e0c3eb03a6fa4acf060",
+      "execution/s05-X-final.json": "063f3286a7ddfc7ff2e7be5a6bb97f097278bf6c89f051b0c14dc9c5dde7e53b",
+      "execution/s06-D-final.json": "ea7c7a3468041b7832c544695ce9774031b43c20681baed7eb65d64ccf36af6b",
+      "execution/s06-R-final.json": "2dbdb4b070fe127cf0738488cbc69bc9821dcec006aaacea1d53897b529a46f4",
+      "execution/s06-X-final.json": "b37d41b1fcbe2fd4de7d6f4f4613238ff2479fa0f4c26c6d5104dda9ebc1a8db",
+      "execution/s07-D-final.json": "2333a843be657cab3a2e914e85b87de10b038d578e9bfb84d17eec8c1f5c8e5c",
+      "execution/s07-R-final.json": "da93d0259e3bf0f9c91222fabd5627bfebd824f5fc6c20d3eba5d3084616505c",
+      "execution/s07-X-final.json": "a86e9b4a77a24b468e8644e3c097d6581e9a523da2349bea49bdcea2b679b161",
+      "execution/s08-D-final.json": "f82d3db8fce8846bf3a89a4cd52eef6c57de408d77cdc09ea412beabc000e470",
+      "execution/s08-R-final.json": "df86f55d7a765c4788910a72be9497f443b6130a70be7dca64b3aa103fd145be",
+      "execution/s08-X-final.json": "a87706f0246fbf36bdfd2d52b78d2f7ababaa610ac9e526134f6f6332bb3ecfd",
+      "execution/u01-D-final.json": "eddd5a8018934de7f8f249158c480f864d672e391ab3518162252203c22279a4",
+      "execution/u01-R-final.json": "e8f52d477026ee4ebca0e5f3683974131418110ce27a3a3d31b298b89c7578be",
+      "execution/u01-X-final.json": "b1e980ef545264f7887eba1313cdb8bd4c4630615e696e6d737ccb31f13596ea",
+      "execution/u02-D-final.json": "df9d1260faa744ce7dd10784c2459ec007541f3a021b545ca3dfd8837c6e1d21",
+      "execution/u02-R-final.json": "7170b76062ddee1ab982d647eac23f99240305938719f860e8dd88245a543526",
+      "execution/u02-X-final.json": "af77a56062c863d22e7830c22d7ee61d00f5380915032df0c63ca773dc562ceb",
+      "execution/u03-D-final.json": "d7fd4f954f088dc6ea4106fdc5d28004351db1d00b95527ffc5595d59ac1b319",
+      "execution/u03-R-final.json": "fb42b7d829ac6f415ba69fcc3cd73fd2263a2d4bf26ae884e4bb0c82b0ace10f",
+      "execution/u03-X-final.json": "f0ba3443a716547bd892ff362ba3ce985029dd81172eac425187ee3260a2a28a",
+      "execution/u04-D-final.json": "93fbc74594e3d15fd60831e4791d1deef3a00a28247527f09dc5144603e9528b",
+      "execution/u04-R-final.json": "c754c4be47c17b42c73761916f890922739873d7a255a7b29ce173a237ce5f71",
+      "execution/u04-X-final.json": "6b9a26440094bd940a52964a4f54f840275188e4c6ffce0e3daf2d4cd6047f14",
+      "execution/u05-D-final.json": "7fcf17681e15b015da883f5ba4b8ca7c9907edfb21296f4243e97d63e588b732",
+      "execution/u05-R-final.json": "48e36ff346530d1d6292beee1396a867492431d11ae5b72aa30424e366e9a3cc",
+      "execution/u05-X-final.json": "66efb09858605fda8281e458cf6d7b732ed1449b4f1a6d33e8284a22da4a7e5e",
+      "execution/u06-D-final.json": "8431ca26915e0da8133d041af6798988a376ebcb30454f6bb4d58ff1261ac8c2",
+      "execution/u06-R-final.json": "f10efa8041ef1343aa57a7880db98e666519f8832d1c46055036100162c53351",
+      "execution/u06-X-final.json": "6c2497442ac2b52b3fef87fe927af68f1edc644957c786e190325f92e9cea34d",
+      "execution/u07-D-final.json": "078bff0ff37d6d3d448d1bd3927b0d8cda45da31a9c4e63e2d8c4b5a36ead02f",
+      "execution/u07-R-final.json": "377a39f18375056f365a545498dc6c3b83c14cd643be6f3b51321149faec7f35",
+      "execution/u07-X-final.json": "8f665577baf2d9d5de0118a5a5d1a02f998dd890ee14b7bf583d33574bc181be",
+      "execution/u08-D-final.json": "09f98f1d0883e593b57ad6b567a80b2ff3bad4e85e2877285cf49ce1f430525e",
+      "execution/u08-R-final.json": "b9e7684e9124a1cab3139950dd62c6f9e61c859bf9f6eb6d2f03e6d89754c692",
+      "execution/u08-X-final.json": "5a3a04fafab5168a154f8532745b5e328a2e23c91f8718daf5ead40ac36acddc",
+      "feedback/c01-D.json": "d6328e5c5a49ad4be8768469d0b6bdc344c66411be06580be0290bb463292404",
+      "feedback/c01-R.json": "6073b56a8c7d48e09257e443e79c9614bef0e0e3068c806f421b64d0e1de149c",
+      "feedback/c01-X.json": "3bea4bae8bb0e98866d03a13023ec69937c3e2727dd8521109d62e3af59daf47",
+      "feedback/c02-D.json": "5b47e0e4f47dbcfb71fb763a2503a94deb610a4706c520cd1e3bf31939bdc74b",
+      "feedback/c02-R.json": "943dafab6b981a41006caa91f25da47b3d7b11257d0ac2e3069f2ce4e4957f79",
+      "feedback/c02-X.json": "8ac97dcc1429f20d2db051191ab9430ed3c76fde50f01be9f55d8a006c13bf7a",
+      "feedback/c03-D.json": "faf6afb228ea371a9628c3cb93113be4744b10b75f05ce44bb414da48394ad10",
+      "feedback/c03-R.json": "2f13e692d5073a99730ee5410578220f74df9f889672fa2e55e13d6781199241",
+      "feedback/c03-X.json": "56b0742b769f556da95cceb0398f95e97c9d67138c42042424effeacfab5df8d",
+      "feedback/c04-D.json": "66d5d069a1480f173cf9195c371b5b1063749a961d82d901a23850288bddb343",
+      "feedback/c04-R.json": "b5019d29c0ad6e5372fa42da03ba26e6ad6d6c867e6314ca12a025269b23dab0",
+      "feedback/c04-X.json": "297b1e04f93a22eb2d38dad7b0769a559ddb03b8ebc3f7793a26551ba2870670",
+      "feedback/c05-D.json": "64cfec54474ae56a6094f1e8fd22823cc2feb68844134e6dff39d70d64ad3b06",
+      "feedback/c05-R.json": "c67abe7d537cd24c6691061d07f1bfb0fbc663055dcb88f8b3f55f178a2df5d8",
+      "feedback/c05-X.json": "0aec47531e467fc05ad98ee256a1f0655446512d03c47578915867f0fed17f6d",
+      "feedback/c06-D.json": "b39ec8382c25e1337ff8178e76c0f02f13d5768a1e389f5a0a4c36e29d6340e3",
+      "feedback/c06-R.json": "433d9c274451727501e9cf191d986787c1d98b428ea70993a5c4f732fafd4cc0",
+      "feedback/c06-X.json": "001abede64747695b869843c5624e2da81028cd4f6a09b8b2b8ee5e33c06711c",
+      "feedback/c07-D.json": "d1e1eada5a9a3496b34e1e7b17326900a59d0e11045f66bf1856bb03b9ec47e8",
+      "feedback/c07-R.json": "f002dca1965a754f5ea11fd2775641dcee080d74736363a67d0360c8a2ec2080",
+      "feedback/c07-X.json": "e9885486abf407e34cd96e763f1cba53f8247487008314bf2648e17500f99f65",
+      "feedback/c08-D.json": "f7f4efcc29db2c3352f8900eeaf6e0b255e90d856d0c01a602469c37e2902a58",
+      "feedback/c08-R.json": "c61244067db5a3c3e8e5a15bf37e1e4a83030a4a735f3f0ab3a0f889041da09a",
+      "feedback/c08-X.json": "5aab7f1e13af0bb9d4bc1bb177bc8d03db6251eb6f3f970e2218e735157b92c1",
+      "feedback/q01-D.json": "f834fac2c02da5431bde6c75d5ba38898810d46fac47e0ccc0522ff1c9139349",
+      "feedback/q01-R.json": "484c7101047c8312b8b5485eed0bfcce8ff5fac3813c35e406e1a56ca1a1e78d",
+      "feedback/q01-X.json": "a513e31fb374db89512696c46107dd44fa5340f9c8b4321187642d9502cca959",
+      "feedback/q02-D.json": "1b073c993bb9b3339078c37088a3441de08d542ff0fb0c7dacaae7019d1cf815",
+      "feedback/q02-R.json": "ee96cf1a73c8c71279f05973802f75c6954c2aa2b27350af892db8a2fcad6eed",
+      "feedback/q02-X.json": "445a343bee07875011491818f0094647d8adafe7eefefcb351222665d2bea48e",
+      "feedback/q03-D.json": "cfd3e0ac342a1fd50586f444db14d63bc56493193feeb41bd51d5b4848c6f8aa",
+      "feedback/q03-R.json": "8ace03822855bc77164f75a7f6697010b7bbf4ea9ed962ecb899c908c9808cd0",
+      "feedback/q03-X.json": "7da75a8daa467097c0e0f69076d8eddeb9308d962594ffa9747ade4fd0b91d40",
+      "feedback/q04-D.json": "61a7e7858a292b87ecb80194cf1a8103a1560cc76ac01a195f76440bbfcf95b2",
+      "feedback/q04-R.json": "3ccda3681b6674a1a71314903e29fe9e34128edf3f8ed3d803c7c32625a152dc",
+      "feedback/q04-X.json": "2c19f269683b58c01547e6d821c4b957f1c0175597c9071393f3022309e9b1e0",
+      "feedback/q05-D.json": "8aa3eaca2c4f2db3146ecfa34b998cf682e659a6ddd239ca0d66aa0d3c1a5e24",
+      "feedback/q05-R.json": "0eabf479de445b2e0a0634aa2fffe18425d5860866f6443d415e139f6fc80e3b",
+      "feedback/q05-X.json": "f0201b24d1c9800089019bab76e9c78ec0f65a1bb0a63eaf26f972871dc1dc8a",
+      "feedback/q06-D.json": "72e441694acfaefa30351c4ce123ff5b45a51932fafa1fe7489cd7a69997ad84",
+      "feedback/q06-R.json": "593eb6d0fe226c81a3fb0af79cc375a0f5da14c565c7d12dab887e73f91a92a6",
+      "feedback/q06-X.json": "bb94e01bd5cc17f5cc71ec427dec0a74dbb83989e6c22f651d08d6a1e1995178",
+      "feedback/q07-D.json": "1f1a1a4d7866d5f50471d7e51d1ce53f75077b30fdeaf350213e92f390696e06",
+      "feedback/q07-R.json": "12610be4bbe4b5887c99c4892ea3c45710fc759c58b6b211a80d38e1939daa5f",
+      "feedback/q07-X.json": "63c0e43ed7788bb614637824af1d5ab153043672a13d73c929f46eaa8d76e34d",
+      "feedback/q08-D.json": "f13be86f410cd5642ca39331ee9f4320a1d0ee33d9626f15dbd5d49621d64ef1",
+      "feedback/q08-R.json": "f9fa1612ac782e88151dfc9a86695290c057b959eeb6bca46bd93d5555e61b38",
+      "feedback/q08-X.json": "585d2343d314db9e38c9406eebc10bbb296a5d965ca6503d1e208cf08f38ef55",
+      "feedback/s01-D.json": "2d55cb1d61176099c47c4b0626eac7cc43ee62496fab821dbf34b1400b9b49ba",
+      "feedback/s01-R.json": "b5bb239e5e23a9602f3298eb1a9a0d71c9183e37fd3d1e360a8e8050c624f600",
+      "feedback/s01-X.json": "91caa20781abec76e680bfcbe5024aba6f78448bc656067699d0fbcebb0337b2",
+      "feedback/s02-D.json": "0ebd8c326274e607576fa54e315a18058eb41191adc19235737eee7e68f22acc",
+      "feedback/s02-R.json": "0c054ff229732418fbc482ea831079118a1f610fa66a1d15c4bca68ea34c5455",
+      "feedback/s02-X.json": "bf3028165fbe29106bfbb91e6104bcd8b2ed88abbf13d7af19cda1e615aa80af",
+      "feedback/s03-D.json": "7fd9cf1961932a423fef97f65bc6158ad28cc0689a5555c0e68585bc78156fbe",
+      "feedback/s03-R.json": "5e3a8d9a537de2bf60ea73a13ab4523e5a6ac17465bde1a4f7942fc313a6866b",
+      "feedback/s03-X.json": "437cecfc9e85c2c7026a52fc412d31ff2fce89517cd374debcdfcf53f8911a78",
+      "feedback/s04-D.json": "39e80c584536d6507948e8ef7109fc0cbfabf1c090c1f74d3b22a6007fbc28b4",
+      "feedback/s04-R.json": "3f3ea4386b0e4daa460f6181dfdae7b5b076bc1a1e01544b6a11069e2c7b0325",
+      "feedback/s04-X.json": "7db46dba7a245b01a72593f3faac28674ce3e4d9fbe1874f673f0ef0e34d51f2",
+      "feedback/s05-D.json": "dae3143c6a60ff8cef268b0012424ea21d97824078d3e1b04d58bafd288a169e",
+      "feedback/s05-R.json": "a5d9d11e87c56f8e735f914aff566c32a4d1a26461004c8bc4ee7975b74b059a",
+      "feedback/s05-X.json": "3ecd1a4b330b63c5a3b1a909b64a3db4ae78266aab11dbe52b5bac1ea203a949",
+      "feedback/s06-D.json": "d1d50b1833751d51682caf07913622cd14c4cb76a7bb0eb3a2e3963de464ff4d",
+      "feedback/s06-R.json": "deefabe3e731c1e8e9633e509c30c334b6c105fe001c79cad06c0662bd88d251",
+      "feedback/s06-X.json": "b510460ef70c484d8bc5b77bceb816cdeb4da5c48b86a01a74fda03e0f5b7e9a",
+      "feedback/s07-D.json": "d2060ef332d6921192771434ec3c0702b659c56abdbe35f6d9273aee854e340a",
+      "feedback/s07-R.json": "267ad1c8abcf979363b1972bcc5808beb9d6719626cd209fac9d541d9a0c045d",
+      "feedback/s07-X.json": "da175b0d1512cd8c33d5738f523c4ceaa7e9113650ee5ec2992f74790ee16552",
+      "feedback/s08-D.json": "cb9267ebc18479e651870a4da1627044bac2886930c8b043442d4af5cd33bace",
+      "feedback/s08-R.json": "1ee81d95b3e82f305b1a4c3ffe040a5ebe7b7563abb003c10a1c930bb0a9e8be",
+      "feedback/s08-X.json": "b56517a8cdc78633347833efd7fe0e454bd4fe67d0a617d8c10fdb574f6b5804",
+      "feedback/u01-D.json": "edf4b708990b5f2fb85380d54d581db39633842e5a4a72c01cb86184631ce253",
+      "feedback/u01-R.json": "26d60842fa384d770b45b9bcde2898eea754a0020f060cc63dec18a6cf008fe0",
+      "feedback/u01-X.json": "79f899779415e726f1184562b090b2f2780469b7cb9d3d2a5b7694bec4e47839",
+      "feedback/u02-D.json": "fbf9e1c70631e0563ed7cc2b4851f248278fa6e85103fa4292d76b55fd0d6128",
+      "feedback/u02-R.json": "2d01cd41931e4e74d91cd66732c6a1d09275f66835716261e55122f582b9f337",
+      "feedback/u02-X.json": "d14e5a294d394943587befe0e915586ead73809ce1c6eae65ccdc0a719ebc0c2",
+      "feedback/u03-D.json": "4511cdcd29635c936bb4218c85263d6ae59a478db3e959f9519363b1c3ba76a9",
+      "feedback/u03-R.json": "0c7989a1332bf666d30304e263657f15f859aff3b514f76476aa12a1eb3631d6",
+      "feedback/u03-X.json": "a0d4275eaafe6cef729789d4b74dee21aeaed1c6c43539d0cd6ae92ca5ca32c0",
+      "feedback/u04-D.json": "b8ecafd251ec4e5ed783ca0a4c95ba6663e939745c09629d956212d58b6be440",
+      "feedback/u04-R.json": "40b73e6d493228b43c0cfc319e3cd79125bd932c599dfd304417d6626efb0ecc",
+      "feedback/u04-X.json": "64d65eec48b90c4636c07b77996be0090e63485ad46ddafbd5108343752ed4af",
+      "feedback/u05-D.json": "0a734f9425c9ea6e8ae7593bb1984ec3d970270a55939b1ad489bdbff1e69573",
+      "feedback/u05-R.json": "5850bface913a67532ffedab2bb27382ae96e73ebc28b49c22db91326e7242d1",
+      "feedback/u05-X.json": "11790f22f8d842e10aa816b895ca5c13a204dcdd63401bee6932560c659f2811",
+      "feedback/u06-D.json": "bf6df776330f34697ff0fd00052ebd3f8919513a85982e18a81db7244cd9d78d",
+      "feedback/u06-R.json": "33dbfc22d6ca1081443d530afaa31a7286d0b2df77057e39f1ad521bfe583096",
+      "feedback/u06-X.json": "d451c2f9f5c432e75c0a5649d87e5c5bfbf56e5e96f363548c4b75896cadcb12",
+      "feedback/u07-D.json": "c8397e0351f926f2b070ff886f770a23685a0f62aeeb5db741b8986de494c4f9",
+      "feedback/u07-R.json": "6ce4c3ca626b7dd6504e02766059c2a5dda3fec63c668d06bc3037b399f90211",
+      "feedback/u07-X.json": "982a68825408d53986a799468698c73098f994c76d4875f63ee866571ed9c61c",
+      "feedback/u08-D.json": "0a9afa2bd35079d7e516a4c07a975593f3643a6033aa5e24ed777db989d03772",
+      "feedback/u08-R.json": "066dc1870ea96623ada9d28c300730a33adce87827dbae6ce5c7e61337fb2a92",
+      "feedback/u08-X.json": "3e169ca05d6ffd63be2227a27b3f70dbfd21f310402169f008ae430bff8b3439",
+      "calls/c01-D-final/record.json": "108b2b2ac00fdae21d56931b81d52c4e3a35f925071e190269da483aab924149",
+      "calls/c01-D-initial/record.json": "b0ba2bed999039e3d1c01b94a642fd6c186fb1c03a1799157323b65f0c16e84c",
+      "calls/c01-R-final/record.json": "eff97bf9aded325e58c3b603d58f6bc141b0e7a32613abe2ed5f8ec2993511d3",
+      "calls/c01-R-initial/record.json": "309d83fc6414af7567216aead6bfb3f9db068c7606912c7d388889cf52026863",
+      "calls/c01-X-final/record.json": "13c6dd6382b1a30aa6edb50cffd589be7f29c87d4b29750c9f0d6c389b7bf05b",
+      "calls/c01-X-initial/record.json": "85f0b6d52ed32082e6672bcffd00e81779682fe6bad885b65a04ff876784d546",
+      "calls/c02-D-final/record.json": "a53ca3d9e9cbbdf07f76877e389cc1e11923f7fca2244ac34239828aec859990",
+      "calls/c02-D-initial/record.json": "8ff14680598bfde0a90a804ee7acbed597acb570012a8cc743312df3fd1c0f37",
+      "calls/c02-R-final/record.json": "0d2e8a20bb0541bd8d00e5e317b43cfe1b71e1f7af752df72c5e21fdf3113ba3",
+      "calls/c02-R-initial/record.json": "63624d5eb2750a55f6b1202b17b26733d833371b6478fe5e5b4638ed1091e40d",
+      "calls/c02-X-final/record.json": "cf21084cd823dbfebaa49fd5a5dc903fd5e89104ecfbb18c86283543f1410c53",
+      "calls/c02-X-initial/record.json": "e5684365e5ab2e5328438cc888d8c2e7c9dbf9434be3fcff34ef2dc74bdf8396",
+      "calls/c03-D-final/record.json": "5133e4035fd4b8bfaa84bbbe289b4637df30a1db8973e06b9b013c25ee94f8bf",
+      "calls/c03-D-initial/record.json": "3ac2af72bedc513b8fb09c18074d18dbf4a5b32ddba1ab11f9459ddf4ead1059",
+      "calls/c03-R-final/record.json": "b01a13df2125f5b442aa5b5a478acf3d946a5e1dfd5f0dc145b66ecb0c0982ad",
+      "calls/c03-R-initial/record.json": "4cb734f24bddb5900a03d7f7d897fccdc092b627851080d86bd3b84baddcf12e",
+      "calls/c03-X-final/record.json": "34aef7780c754cf236d86b51c6db8d4537e40940a2eefceec4f30f05b77ac2b0",
+      "calls/c03-X-initial/record.json": "382ffb3c3a25a5b2e70642399aaaffa14730b188c7cba82a8f58d1de93558ed9",
+      "calls/c04-D-final/record.json": "c086ba0bb72f2a7238bf3933ed3b635f93ed4215afb76acc9305f01781a9fa92",
+      "calls/c04-D-initial/record.json": "47da159a7efa66a5b9352539a750857d99f15082b82a30f4ffedf63471827d05",
+      "calls/c04-R-final/record.json": "c60d9854e47dce3690518afe528011b5fc1f0bd6c26f927f2332ea151aee6f19",
+      "calls/c04-R-initial/record.json": "afce9a35eb88ab854606ce84cf870d02400f8ad924ac4d7360e9f40d592ce423",
+      "calls/c04-X-final/record.json": "a12e0570ff9fedc5e3a46520f7056f1319972a414a7d02f20270be2d21f6be94",
+      "calls/c04-X-initial/record.json": "59c117ef30b9d48a6fca662dd214fe4d12606253fa1a3f71989c5323280c5259",
+      "calls/c05-D-final/record.json": "ebc9a9b056e94fd5f8dad8d473c67b05a5b7e6c87bf544e877ce18524ccc3f62",
+      "calls/c05-D-initial/record.json": "5ea5e76017ed016ae0ef13977e684d0320ab2212f1a9a6b10b74855bc9b4da7f",
+      "calls/c05-R-final/record.json": "91648b903cbbf772f833828552757e7c0b2c67c09c68471d120b5cda2f8e65f0",
+      "calls/c05-R-initial/record.json": "911f1eb6ec92f0cc1faabc7f5b693f887d24c671ee911ad30538478c23944f96",
+      "calls/c05-X-final/record.json": "862abfc45a01996fe4807e24c6fd2d2380214bf6c981927b881f5314dc56dc2b",
+      "calls/c05-X-initial/record.json": "7e3cff710e99d5df76003c7348f39c57ce2aa4942a4307d717eed125e26cbfa6",
+      "calls/c06-D-final/record.json": "8ef029640202cc3220a73dc44f3e107dd2390747eb7b520a52441cfff88ce047",
+      "calls/c06-D-initial/record.json": "fe8e019dc8f5d303a60b34643ae8b242a561307f3c65a7f46548733c9d6df2e3",
+      "calls/c06-R-final/record.json": "645b44e782efe231f5d236788b49b757e17ed8c211af9731edbcaec14875f16a",
+      "calls/c06-R-initial/record.json": "98448d5e59686b899a2210b07a571586b35220df119842179ee372ac1305fb76",
+      "calls/c06-X-final/record.json": "e9e17c3d761f954674c07f98d28f9dcbc5904a484cdb9570f2ed8e0f1a89866a",
+      "calls/c06-X-initial/record.json": "bbb9d0de767b140275541d19353bcd5c53e71c73ecfb4419d3188054b0a9e3eb",
+      "calls/c07-D-final/record.json": "e2478f503fe75b1b7a4326c4e60fee0b49fed1e4fff61c7a62606aeb5b2854f6",
+      "calls/c07-D-initial/record.json": "1b56e6bac5edfb0aa63c2665e620a8c745a65e6b08c788f420640525fed0f944",
+      "calls/c07-R-final/record.json": "b17f605416b5cdab7a1c1903537d498133958730c17bc75f4f88ff58b52ee7db",
+      "calls/c07-R-initial/record.json": "41c6d182a441f85bf68ad3fac3638fd9c9f6862d1476c3b06c42e13348a30fed",
+      "calls/c07-X-final/record.json": "ec8f2d2520c2d9398fbb1c24b918fa56ee3c41be41b2ab5f83530bd7a08f57b2",
+      "calls/c07-X-initial/record.json": "38e7ce3444a689f8ab54d1abadcfea0e17e7fab20ad63cb41b7c3fd4a9b02084",
+      "calls/c08-D-final/record.json": "4fe19b0d030d03bdd4a5e2c2712c11082d696f29104c9d2e6eda2c84dc41158b",
+      "calls/c08-D-initial/record.json": "8a944180f3f99035c452043e916cc511bd187a48a10531241c5ba0fc9509b915",
+      "calls/c08-R-final/record.json": "8d1754a24d589631ffec2775b187557fd2e2178bbcd705f2f279b39b947b15a6",
+      "calls/c08-R-initial/record.json": "f0961f1ea10e3ef017063b28d4bc2d5748eeb6fe778f0789a6156224368b264e",
+      "calls/c08-X-final/record.json": "ec7ec17dce121842376d0507a7e2c16890afedc75a8c8d5559ae84dc8852f7fd",
+      "calls/c08-X-initial/record.json": "b1508f12770395ef8a8c7b6adc5d9b0d6d3a00ba9ccce0ca2d0e81fb34e1c518",
+      "calls/q01-D-final/record.json": "d112aa5e1eee497ad6e5508552e3f4ac7c32ca324d6cff3417a92a3da3cccd37",
+      "calls/q01-D-initial/record.json": "ab1c28f4c77b28d94065806c9e35a17c13be1c4cbb7fe37710a91c6244a46866",
+      "calls/q01-R-final/record.json": "1c26b6008604a1f46433ff8e52858f9542dc5601fbf928ccf7c091be281e79c5",
+      "calls/q01-R-initial/record.json": "9f1904a75ebd9356565c1858075336cfc04ecef524965b140e83d167289fc65f",
+      "calls/q01-X-final/record.json": "21e1eea5990630c4e8092d5aae172afca285be2aa3a124abb45f08edc5315907",
+      "calls/q01-X-initial/record.json": "3d6152f31b3ad5c2abb0f5cc7ca53e702dc2cb46f0fb229de823633e833ae01f",
+      "calls/q02-D-final/record.json": "cd304586442244a8d655af5c59c4d6396d09038840973770e42efec56a0fafd3",
+      "calls/q02-D-initial/record.json": "bcc9698f7122a23779da579c37567b02d496101ab14be40cd05d9db7039a33bc",
+      "calls/q02-R-final/record.json": "bb0f593eee56450b882435d17702005251e8789463908fc1e0ed493ce476a80d",
+      "calls/q02-R-initial/record.json": "9b80799f9dbd6f017c0ec094ccf9db90cd0b3597bbb51c4891a6469bc7013284",
+      "calls/q02-X-final/record.json": "7501b3b19da8734e4a1bf6fd41a4233cd0749d24ef0f5ae1d5e4c7cb7d405c00",
+      "calls/q02-X-initial/record.json": "634e16ca4a0d726d25e06f94cc529914951c132d7a0936f80cb9de4bc8c3ffd7",
+      "calls/q03-D-final/record.json": "20e59756ff83b9347359a4a680fff22289033835cc1e60c156c48feb919fa05e",
+      "calls/q03-D-initial/record.json": "c11f6e2618c637a631f24e31a733ba66556d3fa7300906aa3bb47d79f3b6f4a1",
+      "calls/q03-R-final/record.json": "675f020e5f3559680b644b3e483f14b310d428f9afd5d069806bd47f923bb750",
+      "calls/q03-R-initial/record.json": "bfd950211cb8eb88a579100d355ca27d31382752494966a9c74515f121393c4a",
+      "calls/q03-X-final/record.json": "cd93c29795779cc7f237c8c0a18c45263f03b3a02d125f1fc9048a4d92525f05",
+      "calls/q03-X-initial/record.json": "031c2a289ed3fdede7e2a4b682697f9245e9713edf90b6137037b9b116310735",
+      "calls/q04-D-final/record.json": "0a90d64511e56e54989cf4b46032ac57b895ebe487e85d2f71a5eb44735d7174",
+      "calls/q04-D-initial/record.json": "82b20aaadb38d0e8e16ad1ab66d1279faabf74d39b86b068f05b65e239aedaf9",
+      "calls/q04-R-final/record.json": "71d30c99a50914b89deb8816347ec37dc807deb58db3a92d5cef0c89d1858df9",
+      "calls/q04-R-initial/record.json": "424ec561b4d8a8e74b8dbb5119c7208a3f7d245833c5216b1717ca286891674f",
+      "calls/q04-X-final/record.json": "dd0a15949d78c5768f0a852648f8586300b343c5afd1ff8cbf3c8ddbbefeca72",
+      "calls/q04-X-initial/record.json": "f6f99d3e4693055ea7dc7f889b154cbcbb840033ab92cb6e4c74e590b47aa345",
+      "calls/q05-D-final/record.json": "88b69a802daa668cb5b1cb0e4fca9a59386ca15736218bee03d13944d338e45f",
+      "calls/q05-D-initial/record.json": "8eb64651c21a139f14a289095c2df917ce638dda295bdb4fdd95f340ecd781ca",
+      "calls/q05-R-final/record.json": "bd277a7aae0098f20061bbb31a4750328bdc31fcc9e6f2a471943e3b173d8013",
+      "calls/q05-R-initial/record.json": "ae49060ec1cf08b25311c7e6570d7111c1cd6fe7d5cbcd3a62251b013bd8070d",
+      "calls/q05-X-final/record.json": "6d1c419705243507f9364375f770d4be9ac3665b3e49fd096e25c83b40e67251",
+      "calls/q05-X-initial/record.json": "7ff817deb19cb90b5a7de1934c12b33d7de96512031a5b0f82b886c0fe954225",
+      "calls/q06-D-final/record.json": "23dcf6e85d8bc3bd34187bf47acb8ab7b7b9e74a0994b68a778121abeb7496ec",
+      "calls/q06-D-initial/record.json": "42beff48b77e45f0832dde165f3b9299615aa02034019366f6ea1bb68f792b36",
+      "calls/q06-R-final/record.json": "e4623071530343088f82f0e30965a572f8277a258fa3395461737a60089698a1",
+      "calls/q06-R-initial/record.json": "5464dd39684b024582ddbbe9bd2bb911470dcefe38ca412f121aa782db5b4622",
+      "calls/q06-X-final/record.json": "adca533419d66302d8a26acabd8c6a2c551178f160de9adb3974baf61b4cf0c9",
+      "calls/q06-X-initial/record.json": "63fec6031cc1dcab0e1c24ebb3e624fabe1fe63c9586972e731e6d9bd40958c2",
+      "calls/q07-D-final/record.json": "5b1712348488cff5615eec636e99401c244148d2ec9f117ab3a3f332d297ef6c",
+      "calls/q07-D-initial/record.json": "d352c92b426279531d58f9fbfba8e4b5abeeaeba00b4359a76f5049258ae884b",
+      "calls/q07-R-final/record.json": "9a34ffa1b819fbb513da703069c80f116f6c06a714f1c185b29ad1964777744a",
+      "calls/q07-R-initial/record.json": "2efef75a319c732b9b6dc4d5e0eaf3fe034481d1c7d97bff8fa1b3806ee0eb40",
+      "calls/q07-X-final/record.json": "b9c57be9a98e0fdd06468c9776913463d3d86206dd40f7fdb6a1027265da67b2",
+      "calls/q07-X-initial/record.json": "1b58c86bf870a47a952f2e65a282c714c34069a66bc214aea96c2e3f86e98711",
+      "calls/q08-D-final/record.json": "3534f0812b5e2efca2cf04a465468551c3dd556e12c534510fc0eb0cc6684d96",
+      "calls/q08-D-initial/record.json": "a9f3fa20cb88fa7a4e59e78d9abc0dd726e0edfde8ef63ad698441234750a271",
+      "calls/q08-R-final/record.json": "3bb77013faa01751d32975d15a3684e3e6bd63c4d79ac1ee48dcab2ee783fca4",
+      "calls/q08-R-initial/record.json": "9a790ce28aa238f6e64a08a9b12e6206d48049f3f3cafe2c362ae171f18c646c",
+      "calls/q08-X-final/record.json": "b48c0ca3c814342851e695cfa6080c8b4621571e6bfaffbbc829abd0fb1e3b4d",
+      "calls/q08-X-initial/record.json": "f71efdef3c884b29c9810b296ab8ce9fe79e2b30697752072909ac27ea93ab63",
+      "calls/s01-D-final/record.json": "93226c816a0ac5ec15fe81491c7b4559bf02795f11853a1fcbdc590d715626f4",
+      "calls/s01-D-initial/record.json": "0ffca2ca03b74ff5283c87b3051b9f084d76b9c7b69fec494092edf7fbe2b739",
+      "calls/s01-R-final/record.json": "750b86f9a6bbf4a34a161424f13b0ea7c5112e17bfda3768bcb32ab5e200d569",
+      "calls/s01-R-initial/record.json": "2e048958c7c4feb1154e25a2df93868d2966c5c0e6dbc416076b9a33a0c9e0aa",
+      "calls/s01-X-final/record.json": "3f3a91bc47c074e81ef8a89261194fe11bd56f40a01c302b9d9bd6669d28bcc4",
+      "calls/s01-X-initial/record.json": "6ecc8b46519ad7a7bcc43fd4e1fc24ba67347f99cb9f9741d19ed6d844784325",
+      "calls/s02-D-final/record.json": "7c5a6a54cda7472e487d652450e2c33dc5ecc2ba2d3d823f19b1fcf66d308343",
+      "calls/s02-D-initial/record.json": "f7fd8efac2c7d491ff2cdfad1b2ff142518e787e58f68920d34fee78849d9d4e",
+      "calls/s02-R-final/record.json": "267b3e1b9bde5eb6a8722139960ebabc5ffec2329838651cc935d2aa6f20c08f",
+      "calls/s02-R-initial/record.json": "0fc0327c2c88880c5d613f4e139bca4d678a2b7dfca475ff88c01e3ba9599231",
+      "calls/s02-X-final/record.json": "bdc09a2f88a8d70c850105bb05371bf293d0510e766cbf1fba74d8c5be6f38f6",
+      "calls/s02-X-initial/record.json": "c4d0a274161f6999ac2fcc73ef2155175a0ff19c8b398150432a50529b7ddbfa",
+      "calls/s03-D-final/record.json": "f609728e800a7a63a5400aa6382daf784a6b768c881a6b37f32230d433d89add",
+      "calls/s03-D-initial/record.json": "3e0cfad8041b1d77ffc8ad9eac3131ea2cfd161c16cd61571825b954ec4b004f",
+      "calls/s03-R-final/record.json": "ef790aacf8a22f25fc8a20e4cde8bf6ec5739cce22c7d2b29486cc862a9a061d",
+      "calls/s03-R-initial/record.json": "0889ba106e3d2ff6dc5b8ae58a7eb19ea186f8ffd3f3b8bb0b27648466bb1161",
+      "calls/s03-X-final/record.json": "07c2ad0d9de6adf7f91fa34ba0a0d6908d63af5b836c049a764937832fed4c00",
+      "calls/s03-X-initial/record.json": "d32cac4b2d908e35998d553081caf96e84dc24fc59619c1125356dae822bee3a",
+      "calls/s04-D-final/record.json": "7649e6d668ec8d1c60817b310e96545b6f1abd95f340f70757ad396fc4eff881",
+      "calls/s04-D-initial/record.json": "455452e75e17cc31b7c314249beff67e4372ad766e62b7398251b4402c20ed78",
+      "calls/s04-R-final/record.json": "f9db8958d776a86b8c1fc096b7ecf458334e015690b26680402161dd0a9ca4cb",
+      "calls/s04-R-initial/record.json": "51eecac5f8e89bd9d5ca8956b550ef63cfee49dc8c1f2a2b695cf3c22a2ecfae",
+      "calls/s04-X-final/record.json": "d6ee6f20def81084db78fc63f69a5835a84347579c1a3eeccacd1981812bef05",
+      "calls/s04-X-initial/record.json": "1e014417a0cb31b220ab070d6c64283576016da5b611e8b325f334751b9b37a6",
+      "calls/s05-D-final/record.json": "c144e80711062115d37676c103e58413c9a765762c78bb4f5f95f7ae4691c819",
+      "calls/s05-D-initial/record.json": "8db2d8f3b03159cd5a7c8012b4b9c45dec15c9512f2dbf91c63e80d4ba679f42",
+      "calls/s05-R-final/record.json": "f59f23ec37e40af34cef595543a9a210a8bfb389bd8eec4a3062fdd773e03641",
+      "calls/s05-R-initial/record.json": "209ab6e1fe2bd5f91f990cc5629c5911fd33337ef255257c0e943b8ee6529ba8",
+      "calls/s05-X-final/record.json": "9541b91d0c1fd01a2fec7e521b1f853dc6fc3fb62fe869b656adcd614e45bfbd",
+      "calls/s05-X-initial/record.json": "f199aba35e25a43a0b3a62c45b8ee83c3e88977905c8d6cade2a4aa627a6240c",
+      "calls/s06-D-final/record.json": "90e277aac3917773864107d36060a5ef3af6efa3ea20b58f2e2bec90ba9d33c7",
+      "calls/s06-D-initial/record.json": "bf8850eaca4496b7b8579ef61f6a144eb5a743daca664be43e577d88e1075c77",
+      "calls/s06-R-final/record.json": "838b30b52c105f4042964c2b38e5007754fc28ba812023dda2c6f2d3c21be5e4",
+      "calls/s06-R-initial/record.json": "72a4de4b8b83f0dfb43f071e7922f68975ef6bad7bbf13faa42871737e2a2fcb",
+      "calls/s06-X-final/record.json": "7f905a9c5e21c83c172fc72afa8550e41eae816dc95367badce1d4f870ed7e16",
+      "calls/s06-X-initial/record.json": "d7226cdc758557a3ecebd0809fe6da249a5a4b346f95e11dab5cafef47d86286",
+      "calls/s07-D-final/record.json": "5a1ad0183bd0baef13f700a0b7e6bbef17e862a2e813567ed2a44ecc55a87070",
+      "calls/s07-D-initial/record.json": "8889aa4510f8c2c2056479cf84c6439988af72c55a4cd334e0f0433617ee2738",
+      "calls/s07-R-final/record.json": "a834342e5f30502f04f630646ccf0526fb37608e3ac99679a172df68d742a244",
+      "calls/s07-R-initial/record.json": "4b0588d7aae2e55976a95f533c4daaf738175703b16ef79771b9f1346134a404",
+      "calls/s07-X-final/record.json": "1fa3744b3adaedbbbb47feadb5d442c148c9cc4b5b12adb6cf6d6bfc70ab9f5d",
+      "calls/s07-X-initial/record.json": "56e01a0113765e4cfb21162fcb941d666acdca96f99f1aac799da14517b74ff2",
+      "calls/s08-D-final/record.json": "34f35d74d315554c008171b9ff2ab2f25e1a5c5bff47cede9b22c5c8324ae3e3",
+      "calls/s08-D-initial/record.json": "0cf03e3349f5f8267c0f1f7b7e5d8ad27a7e2b266f7312bd21e192769c57094f",
+      "calls/s08-R-final/record.json": "2743ca206d19a7b997ba5a2f2dced8256bc4409f3597847eb8b8561990f16b55",
+      "calls/s08-R-initial/record.json": "4ed36ce990c90ff7286cdee4172bd8d4f920e9cc32e37abb8f3e1dfa79a7e86a",
+      "calls/s08-X-final/record.json": "6a84ff6fa1b917a49b264ee3b9a2d36f9cb8c72dc6ecaa64a67f45f791dbee24",
+      "calls/s08-X-initial/record.json": "eb0966e14424d08ba546fa0d51340f4eb7a06c09c6fa40c8ebafae98118a26a2",
+      "calls/u01-D-final/record.json": "c23a2068c4b45b5afffd208a098d875e183774a618abd7074c05b0db65b0c47a",
+      "calls/u01-D-initial/record.json": "4ba59ecf7aaabc1105239b4c60c267325294da88863cc0c6c0811c86d20d031c",
+      "calls/u01-R-final/record.json": "71edd228fd57ba877ce497fc4ee5e525549634d301cd20f0f675046091389652",
+      "calls/u01-R-initial/record.json": "3f31e7a7a2c49964c1b2acc540662781f10fb42460c54bf23a11fb3560863a35",
+      "calls/u01-X-final/record.json": "d1a12eee39c9e7150909e9d9359fc75dbe8a8e2ac211e37166c7c3bef0ea6ce3",
+      "calls/u01-X-initial/record.json": "ed28656de4ebdf4449ce406d216e1e7a46e1c4f82131431682f148565165ff63",
+      "calls/u02-D-final/record.json": "979b129c55bf9125925600ad4e6ae431a6c29d6401244dd3e1bf2f07faf18c01",
+      "calls/u02-D-initial/record.json": "de4a7d0d05b21f670f715e673f5dbe1688856d5d63f8ce2f75bf459fca68e47f",
+      "calls/u02-R-final/record.json": "1b4d14e15f2816e023da0bdbfc7d7f32fe9c1acd7065967e358999b5a5f16d9f",
+      "calls/u02-R-initial/record.json": "7a9ed4ea6b8dcf6a0cea709c2bc887cab59b8fcddb2ead8049c0aead989d9fe7",
+      "calls/u02-X-final/record.json": "52886cd3a7ff6e62b72043e4ccb549d9c9a698a0e70a97aa45164c34becc77f2",
+      "calls/u02-X-initial/record.json": "21a5fb0a609d9c2cae5523ced39cc7877e3a74e3f48f3ec4f4b5a4bb47c2906f",
+      "calls/u03-D-final/record.json": "f3d225a38bbcd7c87588d108aec8bfd04e7cedf02a72ac67b8be3c3753c57bb9",
+      "calls/u03-D-initial/record.json": "aa7b9b72331bde1af65efe1fdf73158ea48309e8f104a615b06b8918e4c576da",
+      "calls/u03-R-final/record.json": "7db9f3fd83f333e0bcdbc525c3c38c3065d215728e436151b447a438f545d7f9",
+      "calls/u03-R-initial/record.json": "0137a6d7f050537a4d3b6b6d37cfb55aaadeddf5b9d8cd16b331174784c3cb47",
+      "calls/u03-X-final/record.json": "39544d89818f5df0cd5c6efaf106da2eabedf499792cad6ac4a0632d237c3939",
+      "calls/u03-X-initial/record.json": "5a37bb79310f5e41681a474d8b99067c27d9fdafd6aebd5020804410161a6706",
+      "calls/u04-D-final/record.json": "08f2b8b8971b6a80a4cb9a64e445e92d6e03c2afe6e48c295a079b9179ae97ce",
+      "calls/u04-D-initial/record.json": "78bc9eeaff9fbcd7e80c9dd28b937233f5f0dafa4cef41ffec0f0e910523f098",
+      "calls/u04-R-final/record.json": "c77e9f2130d0ca188a9bc5c3de0bd13472da0c22b917cf9edd49d0f7546dc5b2",
+      "calls/u04-R-initial/record.json": "fed48aa1f37838deb80bc3a5fe95e7bf6f5a61f69bf1f4620d33f6f86a9bdd22",
+      "calls/u04-X-final/record.json": "434f38088203cb1a4dda69ed6a87e474cb0244be5be4cf1bedd4bf1146c949e0",
+      "calls/u04-X-initial/record.json": "60bbf8a1996081a1a381ee0b2ed25b5ad27e7879dffc433a6327550e788f52da",
+      "calls/u05-D-final/record.json": "fc4c32a41a82bef12794aabf8ed23b466ceaa4206ad1a9799bc7d8995f8ec852",
+      "calls/u05-D-initial/record.json": "b930a27bc4425333716afa1ab6ec5df830ef49e53174b3602fc93df36ee0ffad",
+      "calls/u05-R-final/record.json": "4809f57c4fa48d1f11d20b12fe0fe9387dc84761a5109be2bf8d427559f723d5",
+      "calls/u05-R-initial/record.json": "0db456f38f27221bde90d9ed08e61dcc8eb542a8c81f457eff0dd9da108117ec",
+      "calls/u05-X-final/record.json": "be838aec2ee82bc33b16d193b8af3f4e3f8ad80f634c672a42f7f8de79468c50",
+      "calls/u05-X-initial/record.json": "8fbfb95f17a3f77dd58578cdbe17762a4361df7862194131b8d14773d16b1f71",
+      "calls/u06-D-final/record.json": "7b6ec27cd1d385c68caf41057ca1fec125dc6c9791ec28ea131a324385365dc8",
+      "calls/u06-D-initial/record.json": "783a03e88301107854a8c7825b08dc4c14b1563506c992bbccbae6662d05f9b9",
+      "calls/u06-R-final/record.json": "f4c50fe0374bf6fc078bdd575330a175bc4b4999ca4942386d4f8443bce13167",
+      "calls/u06-R-initial/record.json": "31d4f0910b01b39ed0ee29761e180d9b10234863058ee7509af6a3363a533933",
+      "calls/u06-X-final/record.json": "71760815716ebbbc85f2e9fdf6f22f2a6875a295deedd3b1c62f96cf5c9c235e",
+      "calls/u06-X-initial/record.json": "9d9fc8ca69c8dc15259faf10778622126b51b87461316658452e8337d6dd1d69",
+      "calls/u07-D-final/record.json": "940447796d8ba50d7231326bb972b4f84b5a221cce87ee6e50df3a2375d13743",
+      "calls/u07-D-initial/record.json": "0ee05cfd9c2bc8fea3efca123be3b32f48ea26bce5fe7f6cfba103a542a9d34a",
+      "calls/u07-R-final/record.json": "1a0fa1522bd8f112f6e021a80dc1267dbf816fddb956cf9f6cc123388a5c0c0e",
+      "calls/u07-R-initial/record.json": "9df076587e1ef11b4e6a9bf020fe7a6fd38390836643560ea75dbc91602c5326",
+      "calls/u07-X-final/record.json": "d1ccc17c61e6d8ab451720a57feda58f56338d3dc2c4553d5aaaeb6796887b17",
+      "calls/u07-X-initial/record.json": "1b564bc9acafee89ec5fc73003dabde1a63e334f136adc89f7ce6dfd52a5ed24",
+      "calls/u08-D-final/record.json": "767a923f83ac48547e365207d0a61954988bffc4f4908d91aa67ae04e59a3291",
+      "calls/u08-D-initial/record.json": "3c55c6159ca1a85a2ebab2bfbaa38f92c41959b8ba1862b3ef35ac80488805bd",
+      "calls/u08-R-final/record.json": "90f7bf34c683555ad40af897211d0fbfe1749f649817d7636d90e5f7108a78a4",
+      "calls/u08-R-initial/record.json": "651427db601adb67645ef057d20504bd8dd21fdf84fdf9382e9a37bcfce0b74e",
+      "calls/u08-X-final/record.json": "fc303cd873e5788b6ce1a8790baeb1aea7e816ec1aaab0a1faa1e08f252eb1b6",
+      "calls/u08-X-initial/record.json": "acea546afc141f45c7932bc939210bdd224c4e902f4d0927599a3f06a3925850"
+    },
+    "validation": "Frozen sources and snapshots, raw attempts and delivered responses, complete requests, final seals, seed-derived hidden inputs/reference outputs, and checker verdicts revalidated. JavaScript executions were not rerun."
+  }
+}

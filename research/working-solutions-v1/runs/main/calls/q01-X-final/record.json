@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q01-X-final",
+  "requestSHA256": "f235d87dfefe046d6f54cdaf097e20f934f59bca26d36a51763e8ebdeee984aa",
+  "promptSHA256": "a7834e82a2b92bb00110fd1241016a68548b2b96ea466d2e9ff84350d6af86f2",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:23:10.357914+00:00",
+  "finishedAt": "2026-09-20T23:23:22.618078+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.25900537497364,
+      "usage": {
+        "input_tokens": 8413,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 462,
+        "reasoning_output_tokens": 72
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "452dce8b3f9cb4419761a1b564dc350262fba81a12aa41ec604ae8bf495d99cd",
+      "stderrSHA256": "885a6cf44c1efa37a78f1224fca18fafca04602745029fa10fe98155a5581a29"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains the current time, queued jobs, total insertion sequence, and applies expiration before every event and immediately after advances. Adds require a unique queued ID, a future deadline, and sufficient capacity. Runs select minimum deadline, preserving accepted insertion order for ties. Each response is a complete snapshot with exactly the required fields.",
+    "program": "function solve({config,state,event}){let s=state||{now:0,jobs:[],seq:0},q=s.jobs;function expire(){q=s.jobs=s.jobs.filter(x=>x.deadline>s.now)}function bytes(){let n=0;for(let x of q)n+=x.size;return n}expire();let type=event.type,status,ran=null;if(type==='add'){if(q.some(x=>x.id===event.id)||event.deadline<=s.now||bytes()+event.size>config.capacity)status='rejected';else{q.push({id:event.id,size:event.size,deadline:event.deadline,seq:s.seq++});status='accepted'}}else if(type==='cancel'){let i=q.findIndex(x=>x.id===event.id);if(i<0)status='missing';else{q.splice(i,1);status='cancelled'}}else if(type==='advance'){s.now+=event.dt;expire();status='advanced'}else if(type==='run'){if(!q.length)status='empty';else{let i=0;for(let j=1;j<q.length;j++)if(q[j].deadline<q[i].deadline||q[j].deadline===q[i].deadline&&q[j].seq<q[i].seq)i=j;ran=q[i].id;q.splice(i,1);status='ran'}}return{state:s,output:{status,ran,pending:q.map(x=>x.id),bytes:bytes(),now:s.now}}}"
+  },
+  "resultSHA256": "ac34be8bf5aae663a78597501d96fcc85bbabe0ecc8a7326474cca96d0f662fb",
+  "rawOutputSHA256": "ac34be8bf5aae663a78597501d96fcc85bbabe0ecc8a7326474cca96d0f662fb"
+}

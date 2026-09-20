@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c01-R-initial",
+  "requestSHA256": "d588f5f26bbb422b5be3318ca97ba58f9fdcc8a1b3737f43a2e797bf897764b8",
+  "promptSHA256": "744e40f0cd832b951eadbd134b2fb88742ed20e95e8d442cb1e200618ea00023",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:16:38.354346+00:00",
+  "finishedAt": "2026-09-20T23:17:02.659625+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 24.304729209048674,
+      "usage": {
+        "input_tokens": 7010,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1073,
+        "reasoning_output_tokens": 341
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "25d8206f6fb78d3f1a660af2d3cd476c173c09dc85358bc56deb7706bc65bd06",
+      "stderrSHA256": "75eeacf945a68cb5445e526d3219f55cd66dc54d36223e93080e25fe1ea889ff"
+    }
+  ],
+  "result": {
+    "explanation": "Use a recency-ordered entry list. Expired entries are removed before each event and immediately after time advances. Oversized puts are no-ops; other puts replace, evict oldest entries as needed, and ttl=0 removes the key.",
+    "mapping": "Cache state maps now plus oldest-to-newest entries to key, value, size, and expiry. Output reports the current value result, recency keys, total bytes, and time.",
+    "assumptions": "Inputs satisfy the stated schema and safe-integer limits. State is only the JSON returned by this function.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)&&input.config.capacity>=1;}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;let s={now:0,e:[]},cap=input.config.capacity;function clean(){s.e=s.e.filter(x=>x.x>s.now)}function rem(k){let i=s.e.findIndex(x=>x.k===k);if(i>=0)s.e.splice(i,1)}function snap(v){return {value:v,keys:s.e.map(x=>x.k),bytes:s.e.reduce((a,x)=>a+x.z,0),now:s.now}}for(let i=0;i<input.events.length;i++){let q=input.events[i],v=null;clean();if(q.type==='advance'){s.now+=q.dt;clean()}else if(q.type==='get'){let j=s.e.findIndex(x=>x.k===q.key);if(j>=0){let x=s.e.splice(j,1)[0];v=x.v;s.e.push(x)}}else if(q.type==='put'&&q.size<=cap){rem(q.key);if(q.ttl>0){let b=s.e.reduce((a,x)=>a+x.z,0);while(s.e.length&&b+q.size>cap)b-=s.e.shift().z;s.e.push({k:q.key,v:q.value,z:q.size,x:s.now+q.ttl})}}let r=snap(v),o=output[i];if(JSON.stringify(r)!==JSON.stringify(o))return false}return true}",
+    "program": "function solve({config,state,event}){let s=state||{now:0,e:[]},cap=config.capacity;function clean(){s.e=s.e.filter(x=>x.x>s.now)}function remove(k){let i=s.e.findIndex(x=>x.k===k);if(i>=0)s.e.splice(i,1)}function out(v){return{value:v,keys:s.e.map(x=>x.k),bytes:s.e.reduce((n,x)=>n+x.size,0),now:s.now}}let v=null;clean();if(event.type==='advance'){s.now+=event.dt;clean()}else if(event.type==='get'){let i=s.e.findIndex(x=>x.key===event.key);if(i>=0){let x=s.e.splice(i,1)[0];v=x.value;s.e.push(x)}}else if(event.type==='put'){if(event.size<=cap){remove(event.key);if(event.ttl>0){let bytes=s.e.reduce((n,x)=>n+x.size,0);while(s.e.length&&bytes+event.size>cap)bytes-=s.e.shift().size;s.e.push({key:event.key,value:event.value,size:event.size,x:s.now+event.ttl})}}}return{state:s,output:out(v)}}"
+  },
+  "resultSHA256": "4d81ecff74d7dcdc6e25a17b63b57d6b52adbd8903aed32b6c8fe7dfa81ea419",
+  "rawOutputSHA256": "235516fe43ee87483aa4f22575ce05130e72d2b2c00824b1a61fbbe502a40ec7"
+}

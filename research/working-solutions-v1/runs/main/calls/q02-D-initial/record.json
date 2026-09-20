@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "q02-D-initial",
+  "requestSHA256": "95d69a3fc9c4e89496b4f3449e7ede7454dd11d25d31851f08585b52904e8fe4",
+  "promptSHA256": "371563c9186e661c09c98da1397aaf7c0407c4036aefb57c1e9d4cc0b55939e8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:11:53.807923+00:00",
+  "finishedAt": "2026-09-20T23:12:13.661592+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.85269279195927,
+      "usage": {
+        "input_tokens": 7086,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 936,
+        "reasoning_output_tokens": 215
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4740760a01c144290b05241bd6d5cc27319765a6b398535fd851cbaadabd258d",
+      "stderrSHA256": "e8439f17ebf482328eedea711bc2bb0d2c66cc33404d9f70126d9317581597cc"
+    }
+  ],
+  "result": {
+    "explanation": "Use the target's weighted cyclic scheduler directly. Cursor is a slot index; each dispatch scans one complete cycle and advances only after sending. Duplicate detection scans all pending queues, while sent IDs cease being pending.",
+    "mapping": "config.weights determines sorted tenant order and repeated slot array; state stores that array, cursor, and tenant FIFO queues. Each output mirrors queues and cursor after the event.",
+    "assumptions": "Inputs satisfy the stated validity constraints. The conditional rule applies to every legal public trace and checks the documented transition semantics.",
+    "applies": "function applies(input){return !!(input&&input.config&&input.config.weights&&Array.isArray(input.events));}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var w=input.config.weights,ts=Object.keys(w).sort(),s=[],q={};for(var i=0;i<ts.length;i++){q[ts[i]]=[];for(var j=0;j<w[ts[i]];j++)s.push(ts[i]);}var c=0;for(var k=0;k<input.events.length;k++){var e=input.events[k],o=output[k],sent=null,st;if(e.type==='add'){var d=false;for(var t of ts)if(q[t].indexOf(e.id)>=0)d=true;if(d)st='duplicate';else{q[e.tenant].push(e.id);st='queued';}}else{st='empty';if(s.length)for(var z=0;z<s.length;z++){var x=(c+z)%s.length;if(q[s[x]].length){sent=q[s[x]].shift();c=(x+1)%s.length;st='sent';break;}}}var qq={};for(var t of ts)qq[t]=q[t].slice();if(!o||o.status!==st||o.sent!==sent||o.cursor!==c||JSON.stringify(o.queues)!==JSON.stringify(qq))return false;}return true;}",
+    "program": "function solve(x){var cfg=x.config,e=x.event,st=x.state,ts=Object.keys(cfg.weights).sort(),s,q,c;if(st===null){s=[];q={};for(var i=0;i<ts.length;i++){q[ts[i]]=[];for(var j=0;j<cfg.weights[ts[i]];j++)s.push(ts[i]);}c=0;}else{s=st.s;q=st.q;c=st.c;}var status,sent=null;if(e.type==='add'){var dup=false;for(var i=0;i<ts.length;i++)if(q[ts[i]].indexOf(e.id)!==-1){dup=true;break;}if(dup)status='duplicate';else{q[e.tenant].push(e.id);status='queued';}}else{status='empty';if(s.length)for(var z=0;z<s.length;z++){var p=(c+z)%s.length,t=s[p];if(q[t].length){sent=q[t].shift();c=(p+1)%s.length;status='sent';break;}}}var queues={};for(var i=0;i<ts.length;i++)queues[ts[i]]=q[ts[i]].slice();return {state:{s:s,q:q,c:c},output:{status:status,sent:sent,queues:queues,cursor:c}}}"
+  },
+  "resultSHA256": "1f58241cac19b7b47a6138d9b25b99bc13e56f54ca2ff81f38e036f7a5bcf7db",
+  "rawOutputSHA256": "8211b4a443cc8978ee0a24a1fa5dfd6babb91040444efeb744495bb5a4c08073"
+}

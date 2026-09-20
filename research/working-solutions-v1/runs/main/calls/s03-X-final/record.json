@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s03-X-final",
+  "requestSHA256": "b46cd431fe4354dd307634bd6564edfb5e437488f93cad913346bb185a230ac1",
+  "promptSHA256": "a9c497c9898c27ffb32c5d4d08b6b03305bfe73a8b1b17ef8b83699662a61ba6",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:10.509057+00:00",
+  "finishedAt": "2026-09-20T23:20:33.248255+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 22.7380722919479,
+      "usage": {
+        "input_tokens": 8198,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 944,
+        "reasoning_output_tokens": 356
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "7ffce3ea0890a9c68c7a6c7cc181a8678a04d4573c59a4b39266958ac9d6a55f",
+      "stderrSHA256": "11e99ba1c01ebf8c3b6156628e9460817506a9eed575f9e85239db9cfcc19e2f"
+    }
+  ],
+  "result": {
+    "explanation": "Retain the local head unless the remote head is proven to descend from it. Records are merged atomically; conflicting identities reject the event while ancestry and missing-ID calculations use the unchanged graph. Missing terminal IDs from both pre-advance walks are deduplicated and sorted by Unicode code-point order.",
+    "program": "function solve({config,state,event}){\n  let s=state||{head:null,records:[]};\n  let old=Array.isArray(s.records)?s.records:[], incoming=event.records||[], bad=false;\n  function find(a,id){for(let i=0;i<a.length;i++)if(a[i].id===id)return a[i];return null}\n  for(let i=0;i<incoming.length;i++){\n    let r=incoming[i], x=find(incoming,r.id), y=find(old,r.id);\n    if(x&& (x.p!==r.parent||x.v!==r.value))bad=true;\n    if(y&& (y.p!==r.parent||y.v!==r.value))bad=true;\n  }\n  let graph=old;\n  if(!bad){\n    graph=old.slice();\n    for(let i=0;i<incoming.length;i++){\n      let r=incoming[i];\n      if(!find(graph,r.id))graph.push({id:r.id,p:r.parent,v:r.value});\n    }\n  }\n  function walk(start){\n    let a=[],m=[],h=start;\n    while(h!==null){\n      a.push(h);\n      let r=find(graph,h);\n      if(!r){if(m.indexOf(h)<0)m.push(h);break}\n      h=r.p;\n    }\n    if(h===null)a.push(null);\n    return {a:a,m:m,end:h};\n  }\n  let local=s.head, remote=event.head, l=walk(local), r=walk(remote), miss=[];\n  for(let q of l.m.concat(r.m))if(miss.indexOf(q)<0)miss.push(q);\n  miss.sort();\n  let head=local,decision;\n  if(bad)decision='conflict';\n  else if(local===remote)decision='same';\n  else if(l.a.indexOf(remote)>=0)decision='ahead';\n  else if(r.a.indexOf(local)>=0){decision='advance';head=remote}\n  else if(l.end===null&&r.end===null)decision='fork';\n  else decision='unknown';\n  return {state:{head:head,records:graph},output:{head:head,decision:decision,missing:miss}};\n}"
+  },
+  "resultSHA256": "36d26eb2567fd518834530b85a7409cc361869a643bc5d71891ee6670eb9ce4d",
+  "rawOutputSHA256": "36d26eb2567fd518834530b85a7409cc361869a643bc5d71891ee6670eb9ce4d"
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u08-D-final",
+  "requestSHA256": "770abc6cf4303cda92be8652e0317d81d493d8895a367afeb6455fc74c2e7037",
+  "promptSHA256": "744201415375ea54cf1aa40bc0733038f6b1633813097ea769ec51a2a8a5b794",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:32.525890+00:00",
+  "finishedAt": "2026-09-20T23:24:45.401507+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.875240666791797,
+      "usage": {
+        "input_tokens": 8796,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 544,
+        "reasoning_output_tokens": 89
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "0fb53fe4572e67148873ef0cb1e249426e4360e47d0d683b11fcf44872b8132b",
+      "stderrSHA256": "56d846cbe4ec109184b63332b52b6e95302a1ac930ddb684b042b71883241c60"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains the current ordered view, selected IDs, and anchor in JSON state. View events replace the view, remove unavailable or disabled selections, and invalidate an unavailable anchor. Valid clicks apply plain, Ctrl, Shift, and Ctrl+Shift semantics using the current view; disabled or absent clicks are ignored. Outputs always sort selected IDs lexicographically while preserving the anchor.",
+    "program": "function solve({config,state,event}){let r=state;if(r===null)r={o:config.options.map(x=>({id:x.id,d:x.disabled})),s:[],a:null};if(event.type==='view'){r.o=event.options.map(x=>({id:x.id,d:x.disabled}));let v={};for(let x of r.o)if(!x.d)v[x.id]=1;r.s=r.s.filter(x=>v[x]);if(r.a===null||!v[r.a])r.a=null}else if(event.type==='click'){let q=-1;for(let i=0;i<r.o.length;i++)if(r.o[i].id===event.id){q=i;break}if(q>=0&&!r.o[q].d){if(!event.shift){if(event.ctrl){let i=r.s.indexOf(event.id);if(i<0)r.s.push(event.id);else r.s.splice(i,1)}else r.s=[event.id];r.a=event.id}else{if(r.a===null){r.a=event.id}let a=-1;for(let i=0;i<r.o.length;i++)if(r.o[i].id===r.a&&!r.o[i].d){a=i;break}if(a<0){r.a=event.id;a=q}let lo=Math.min(a,q),hi=Math.max(a,q),z=[];for(let i=lo;i<=hi;i++)if(!r.o[i].d)z.push(r.o[i].id);if(event.ctrl){for(let id of z)if(r.s.indexOf(id)<0)r.s.push(id)}else r.s=z}}}return{state:r,output:{selected:r.s.slice().sort(),anchor:r.a}}}"
+  },
+  "resultSHA256": "7d17e34c16ef47560f046573080b064e798dd0c78894e1e3580b1d79eac0207a",
+  "rawOutputSHA256": "7d17e34c16ef47560f046573080b064e798dd0c78894e1e3580b1d79eac0207a"
+}

@@ -1,0 +1,122 @@
+{
+  "scope": "First failing trace per arm in development-2 dev-c01, inspected descriptively after calibration. No changed scores.",
+  "examples": [
+    {
+      "arm": "D",
+      "caseId": "dev-c01/ordinary/00",
+      "eventIndexZeroBased": 7,
+      "event": {
+        "type": "unpin",
+        "key": "a"
+      },
+      "expected": {
+        "status": "released",
+        "value": null,
+        "order": [],
+        "pins": {},
+        "tombstones": []
+      },
+      "observed": {
+        "status": "removed",
+        "value": null,
+        "order": [],
+        "pins": {},
+        "tombstones": []
+      },
+      "violations": [
+        "event_7:output_contract",
+        "event_16:output_contract",
+        "event_19:output_contract",
+        "event_24:output_contract",
+        "event_26:output_contract"
+      ]
+    },
+    {
+      "arm": "R",
+      "caseId": "dev-c01/ordinary/00",
+      "eventIndexZeroBased": 10,
+      "event": {
+        "type": "unpin",
+        "key": "d"
+      },
+      "expected": {
+        "status": "ignored",
+        "value": null,
+        "order": [
+          "a",
+          "b"
+        ],
+        "pins": {
+          "a": 0,
+          "b": 0
+        },
+        "tombstones": []
+      },
+      "observed": {
+        "status": "missing",
+        "value": null,
+        "order": [
+          "a",
+          "b"
+        ],
+        "pins": {
+          "a": 0,
+          "b": 0
+        },
+        "tombstones": []
+      },
+      "violations": [
+        "event_10:output_contract",
+        "event_13:output_contract",
+        "event_14:output_contract",
+        "event_16:output_contract",
+        "event_23:output_contract",
+        "event_25:output_contract",
+        "event_31:output_contract",
+        "event_32:output_contract"
+      ]
+    },
+    {
+      "arm": "X",
+      "caseId": "dev-c01/ordinary/00",
+      "eventIndexZeroBased": 16,
+      "event": {
+        "type": "pin",
+        "key": "a"
+      },
+      "expected": {
+        "status": "ignored",
+        "value": null,
+        "order": [
+          "b",
+          "d",
+          "c"
+        ],
+        "pins": {
+          "b": 0,
+          "d": 0,
+          "c": 0
+        },
+        "tombstones": []
+      },
+      "observed": {
+        "status": "missing",
+        "value": null,
+        "order": [
+          "b",
+          "d",
+          "c"
+        ],
+        "pins": {
+          "b": 0,
+          "d": 0,
+          "c": 0
+        },
+        "tombstones": []
+      },
+      "violations": [
+        "event_16:output_contract"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-q01-R-initial",
+  "requestSHA256": "5625565c152006153dfa3b29fda286d1d3a2493c4f34cbc683e9577792c8c6ad",
+  "promptSHA256": "612ba164792c836f4013bb7261c7870f370d20acd0a6c2ba093835c65ec8de59",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:33:32.710744+00:00",
+  "finishedAt": "2026-09-20T22:33:54.212853+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.50109879206866,
+      "usage": {
+        "input_tokens": 21060,
+        "cached_input_tokens": 20224,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1017,
+        "reasoning_output_tokens": 366
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "f5fc8e4d1c5d5cbbc6df42caab092022dd43524e6b4e754dbb504c6c895cbb67",
+      "stderrSHA256": "40f5039f990330597248b281ce17edeb6587c5585e14acb6279e1ca5726e4776"
+    }
+  ],
+  "result": {
+    "explanation": "Aging priority rises by elapsed time since acceptance, capped at ceiling. Jobs retain arrival and insertion rank through partial service; capacity and duplicate IDs reject additions.",
+    "mapping": "config controls capacity, quantum, and ceiling; state stores now and pending jobs; events mutate only the current scheduler state.",
+    "assumptions": "Inputs satisfy the stated legal domains and safe-integer bounds. Output object key order is not semantically significant.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;var n=0;for(var i=0;i<output.length;i++){var e=input.events[i],x=output[i];if(!x||x.now===undefined||!Array.isArray(x.pending)||!x.remaining||!x.priorities||!Array.isArray(x.served))return false;if(e.type==='advance'){n+=e.dt;if(x.now!==n)return false} else if(x.now!==n)return false}return true}",
+    "program": "function solve({config,state,event}){var s=state||{now:0,j:[],seq:0};var now=s.now,j=s.j,seq=s.seq,q=config.quantum,ceil=config.ceiling,status,served=[];function find(id){for(var i=0;i<j.length;i++)if(j[i].id===id)return i;return -1}if(event.type==='advance'){now+=event.dt;status='advanced'}else if(event.type==='add'){if(j.length>=config.capacity||find(event.id)>=0)status='rejected';else{j.push({id:event.id,w:event.work,p:event.priority,a:now,r:seq++});status='queued'}}else if(event.type==='cancel'){var k=find(event.id);if(k<0)status='missing';else{j.splice(k,1);status='cancelled'}}else if(event.type==='run'){if(!j.length)status='empty';else{var k=0,best=-1;for(var i=0;i<j.length;i++){var z=Math.min(ceil,j[i].p+Math.floor((now-j[i].a)/q));if(z>best){best=z;k=i}}var x=j[k],u=Math.min(event.budget,x.w);x.w-=u;served=[{id:x.id,units:u,complete:x.w===0}];status='served';if(x.w===0)j.splice(k,1)}}var pending=[],remaining={},priorities={};for(var i=0;i<j.length;i++){var x=j[i],p=Math.min(ceil,x.p+Math.floor((now-x.a)/q));pending.push(x.id);remaining[x.id]=x.w;priorities[x.id]=p}var out={status:status,served:served,pending:pending,remaining:remaining,priorities:priorities,now:now};return{state:{now:now,j:j,seq:seq},output:out}}"
+  },
+  "resultSHA256": "c6c4737fd3017332c782d6b83dc4c8a394e4fc48d5de5782a8a5ff0139abb838",
+  "rawOutputSHA256": "fbddb6747892162d0e6bdb731c15670d4bfab97141388a7e4f56eedaebf642ae"
+}

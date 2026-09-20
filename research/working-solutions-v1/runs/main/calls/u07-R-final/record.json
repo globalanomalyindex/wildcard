@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u07-R-final",
+  "requestSHA256": "f8a27371fb24b71f47c55ba3155a97470f5012597e2d74802d17f4239e6afd93",
+  "promptSHA256": "da4d72792b8753c2e56e00566f320a3b60ceb3c6cd898d4887ad4c98b34e5df2",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:07.305398+00:00",
+  "finishedAt": "2026-09-20T23:26:24.545655+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 17.239369458984584,
+      "usage": {
+        "input_tokens": 8636,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 788,
+        "reasoning_output_tokens": 188
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a41388f103f25627098fbec03573e01feb85af7f221ef8928ea316685ee7814f",
+      "stderrSHA256": "dcbf1cc339fed70db32ad61535b0da5336cf987e842b359fff42d7def769af06"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains a cloned document, bounded undo/redo stacks, and nested transaction checkpoints. Only standalone changes and changed outermost commits affect history; edits within open groups defer redo invalidation until a changed outermost commit. No-op operations preserve histories, while undo/redo exchange snapshots and are disabled during groups.",
+    "program": "function solve({config,state,event}){const clone=x=>{if(!x||typeof x!=='object')return x;if(Array.isArray(x))return x.map(clone);const y={};for(const k of Object.keys(x))y[k]=clone(x[k]);return y};const equal=(a,b)=>{if(a===b)return true;if(typeof a!==typeof b||a===null||b===null)return false;if(Array.isArray(a)||Array.isArray(b)){if(!Array.isArray(a)||!Array.isArray(b)||a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(!equal(a[i],b[i]))return false;return true}const ak=Object.keys(a),bk=Object.keys(b);if(ak.length!==bk.length)return false;for(const k of ak)if(!Object.prototype.hasOwnProperty.call(b,k)||!equal(a[k],b[k]))return false;return true};let s=state;if(!s)s={d:clone(config.initial),u:[],r:[],g:[],n:config.limit};const put=(a,v)=>{a.push(clone(v));if(a.length>s.n)a.shift()};const has=Object.prototype.hasOwnProperty;const t=event.type;if(t==='begin')s.g.push(clone(s.d));else if(t==='commit'&&s.g.length){const start=s.g.pop();if(!s.g.length&&!equal(start,s.d)){put(s.u,start);s.r=[]}}else if(t==='cancel'&&s.g.length)s.d=s.g.pop();else if(t==='undo'&&!s.g.length&&s.u.length){put(s.r,s.d);s.d=s.u.pop()}else if(t==='redo'&&!s.g.length&&s.r.length){put(s.u,s.d);s.d=s.r.pop()}else if(t==='set'||t==='delete'){let changed=false;if(t==='set')changed=!has.call(s.d,event.key)||!equal(s.d[event.key],event.value);else changed=has.call(s.d,event.key);if(changed){if(!s.g.length){put(s.u,s.d);s.r=[]}if(t==='set')s.d[event.key]=clone(event.value);else delete s.d[event.key]}}return{state:s,output:{document:clone(s.d),canUndo:!s.g.length&&s.u.length>0,canRedo:!s.g.length&&s.r.length>0,depth:s.g.length}}}"
+  },
+  "resultSHA256": "3b22cafcc71149b49fe7c87c570b4bad8011be226330be91c09097a942acfcbc",
+  "rawOutputSHA256": "3b22cafcc71149b49fe7c87c570b4bad8011be226330be91c09097a942acfcbc"
+}

@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "u05-D-initial",
+  "requestSHA256": "ace4ef176165f7582eb9959af8e45a20d747023798f96280146429df005cf07b",
+  "promptSHA256": "02cbefb0fe5cd47fa89a200a907be8e0da8c5ef36de772b06a0cb4aeb35c523e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:16:59.799951+00:00",
+  "finishedAt": "2026-09-20T23:17:24.749496+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 24.94797083409503,
+      "usage": {
+        "input_tokens": 7103,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1196,
+        "reasoning_output_tokens": 356
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "6bbad19de3e0e7f5fba728c1af20575da0a24925dc2120967c81ff1cdd9ca393",
+      "stderrSHA256": "4bb1b4ca1469e5b2df3fba8b5d566e0d8185967547da254c7da1968758abdcb2"
+    }
+  ],
+  "result": {
+    "explanation": "The conditional rule is identity-based: enabled options form the navigable sequence; edits preserve active and selected IDs only while those IDs remain enabled and present. Keyboard movement operates on the current enabled sequence, with circular arrows and endpoint jumps. A counterexample is any output that changes the first event's active ID without an input event justifying that change.",
+    "mapping": "Map config/options to an ordered option view, active and selected to stable IDs, and each event to a deterministic transition over that view. Reordering changes navigation order but not retained identity.",
+    "assumptions": "When no active ID exists, ArrowDown selects the first enabled option and ArrowUp selects the last; Home and End select endpoints. Enter with no active ID leaves selection null.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.options)&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!applies(input)||!Array.isArray(output)||output.length!==input.events.length)return false;var o=input.config.options.slice(),a=null,s=null;function ids(){return o.filter(function(x){return !x.disabled}).map(function(x){return x.id})}function ok(x){return x!=null&&o.some(function(y){return y.id===x&&!y.disabled})}function fix(){var e=ids();if(!ok(a))a=e.length?e[0]:null;if(!ok(s))s=null}fix();for(var k=0;k<input.events.length;k++){var e=input.events[k],q=ids(),i;if(e.type==='options'){o=e.options.slice();fix()}else if(e.type==='click'){if(ok(e.id))a=s=e.id}else if(e.type==='key'){q=ids();if(e.key==='Enter'){if(ok(a))s=a}else if(q.length){i=q.indexOf(a);if(e.key==='Home')a=q[0];else if(e.key==='End')a=q[q.length-1];else if(e.key==='ArrowDown')a=q[(i<0?0:i+1)%q.length];else if(e.key==='ArrowUp')a=q[(i<0?q.length-1:i-1+q.length)%q.length]}}if(!output[k]||output[k].active!==a||output[k].selected!==s||Object.keys(output[k]).length!==2)return false}return true}",
+    "program": "function solve(x){var st=x.state,e=x.event,o;if(st===null){o=x.config.options.map(function(v){return{id:v.id,d:!!v.disabled}});st={o:o,a:null,s:null};fix(st)}if(e.type==='options'){st.o=e.options.map(function(v){return{id:v.id,d:!!v.disabled}});fix(st)}else if(e.type==='click'){if(valid(st,e.id))st.a=st.s=e.id}else if(e.type==='key'){var q=enabled(st),i;if(e.key==='Enter'){if(valid(st,st.a))st.s=st.a}else if(q.length){i=q.indexOf(st.a);if(e.key==='Home')st.a=q[0];else if(e.key==='End')st.a=q[q.length-1];else if(e.key==='ArrowDown')st.a=q[(i<0?0:i+1)%q.length];else if(e.key==='ArrowUp')st.a=q[(i<0?q.length-1:i-1+q.length)%q.length]}}return{state:st,output:{active:st.a,selected:st.s}}}function enabled(s){return s.o.filter(function(v){return !v.d}).map(function(v){return v.id})}function valid(s,id){return id!=null&&s.o.some(function(v){return v.id===id&&!v.d})}function fix(s){var q=enabled(s);if(!valid(s,s.a))s.a=q.length?q[0]:null;if(!valid(s,s.s))s.s=null}"
+  },
+  "resultSHA256": "352840f0b00dc460f83b3681c0f04aeb52c9460481e6c99e95900bbefa1d6de8",
+  "rawOutputSHA256": "efd9a653404e5d369945c66282d33ce462aa95ce4c74e88dd36fa787aaa2a7e2"
+}

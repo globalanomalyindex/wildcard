@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u01-D-final",
+  "requestSHA256": "1d163074dab64cbd980aaa15f38cbeb8480966c5dcabf2c5af8ef1fbd898f8ed",
+  "promptSHA256": "748ebdc1e966320dc0cdc0d50d0e95dcce6d1de376f862e4aa97d6f87e96c911",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:16.639880+00:00",
+  "finishedAt": "2026-09-20T23:20:30.809814+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.168436541920528,
+      "usage": {
+        "input_tokens": 9757,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 605,
+        "reasoning_output_tokens": 191
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "faa1af2544faa78b4ba55c36ceba2c1b779b137f60fe22bf90fed0cfd2038529",
+      "stderrSHA256": "595da8240da2481e4b392f89b0dff65bd69e0716f47bed1fcc2751415534518d"
+    }
+  ],
+  "result": {
+    "explanation": "Callbacks settle only when mounted, loading, and their ID matches the current request. Searches cancel any active request before issuing a new one. Cancel and dispose cancel active work; dispose resets data and marks the controller disposed. Disposed controllers ignore all events except mount.",
+    "program": "function solve({config,state,event}){let s=state;if(s===null)s={mounted:true,query:\"\",current:null,loading:false,result:null,error:null};let e=event,f=[];function out(){return{mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects:f}}if(!s.mounted){if(e.type===\"mount\")s={mounted:true,query:\"\",current:null,loading:false,result:null,error:null};return{state:s,output:out()}}if(e.type===\"search\"){if(s.loading)f.push({type:\"cancel\",id:s.current});s={mounted:true,query:e.query,current:e.id,loading:true,result:s.result,error:null};f.push({type:\"request\",id:e.id,query:e.query})}else if(e.type===\"success\"){if(s.loading&&s.current===e.id)s={mounted:true,query:s.query,current:s.current,loading:false,result:e.result,error:null}}else if(e.type===\"failure\"){if(s.loading&&s.current===e.id)s={mounted:true,query:s.query,current:s.current,loading:false,result:s.result,error:e.error}}else if(e.type===\"cancel\"){if(s.loading)f.push({type:\"cancel\",id:s.current});s={mounted:true,query:s.query,current:null,loading:false,result:s.result,error:null}}else if(e.type===\"dispose\"){if(s.loading)f.push({type:\"cancel\",id:s.current});s={mounted:false,query:\"\",current:null,loading:false,result:null,error:null}}return{state:s,output:out()}}"
+  },
+  "resultSHA256": "a9e85225f638fe91854a97d5362db4e89c3b4813d4cfe4600017c5cc8847235c",
+  "rawOutputSHA256": "a9e85225f638fe91854a97d5362db4e89c3b4813d4cfe4600017c5cc8847235c"
+}

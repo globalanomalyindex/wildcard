@@ -1,0 +1,9 @@
+{
+  "id": "transport-only-echo",
+  "phase": "final",
+  "taskId": "transport-only",
+  "arm": "none",
+  "model": "gpt-5.6-luna",
+  "prompt": "This is a transport-only smoke check, not an experiment task. Return explanation=\"transport-only echo check\" and program=\"function solve(x){return {state:null,output:x.event};}\" in the required JSON schema. No tools.",
+  "promptSHA256": "44cd7198c39418d1416871360119f63f083dc4dd1d2bd44d07bc8a2b0bb4ae0f"
+}

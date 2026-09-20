@@ -1,0 +1,47 @@
+{
+  "schemaVersion": 1,
+  "id": "c04-R-initial",
+  "requestSHA256": "05adcdfed228087ad0f4747976ca9fb08877de10665023adcb6c916dbf103ccd",
+  "promptSHA256": "8a226ba87db14fa4d8238f888e601d96fb9b9ced0ad670ac51c4a3fc0d4845ad",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:08:05.149643+00:00",
+  "finishedAt": "2026-09-20T23:08:25.118433+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 19.967958125052974,
+      "usage": {
+        "input_tokens": 6883,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 888,
+        "reasoning_output_tokens": 338
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b6c7b1abc8c42e38a860f5c83aba613f907982e861860d9e332b4490f512d96f",
+      "stderrSHA256": "ccb543a94fd32fc5b8c47d07ebc9ae3c8f9fd68aeaa67638e3fba44a5e34defe"
+    }
+  ],
+  "result": {
+    "explanation": "Retain log order while advancing acknowledgments monotonically. Compaction uses the minimum acknowledgment watermark: records above it remain, and each key keeps its latest record at or below it. The visible view tracks the latest value from every write.",
+    "mapping": "Sequence maps to append order; log stores records; acknowledgments establish the safe watermark; view maps each written key to its latest value.",
+    "assumptions": "Readers are the configured identities, event fields are valid, values are integers, and all inputs obey the stated bounds.",
+    "applies": "function applies(input){return !!input&&!!input.config&&Array.isArray(input.config.readers)&&input.config.readers.length>0&&Array.isArray(input.events)}",
+    "holds": "function holds(input,output){if(!Array.isArray(output)||output.length!==input.events.length)return false;let s=null;for(let i=0;i<input.events.length;i++){let r=solve({config:input.config,state:s,event:input.events[i]});if(JSON.stringify(r.output)!==JSON.stringify(output[i]))return false;s=r.state}return true}",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s===null){s={n:0,l:[],a:{},v:{}};for(var i=0;i<c.readers.length;i++)s.a[c.readers[i]]=0}if(e.type==='set'){s.n++;s.l.push({q:s.n,k:e.key,v:e.value});s.v[e.key]=e.value}else if(e.type==='ack'){var old=s.a[e.reader];if(old!==undefined&&old<=e.seq&&e.seq<=s.n)s.a[e.reader]=e.seq}else if(e.type==='compact'){var w=Infinity,i,j,keep={},z=[];for(i=0;i<c.readers.length;i++)if(s.a[c.readers[i]]<w)w=s.a[c.readers[i]];for(i=0;i<s.l.length;i++)if(s.l[i].q<=w)keep[s.l[i].k]=i;for(i=0;i<s.l.length;i++)if(s.l[i].q>w||keep[s.l[i].k]===i)z.push(s.l[i]);s.l=z}var o={log:[],view:{}};for(var i=0;i<s.l.length;i++){o.log.push(s.l[i].q);o.view[s.l[i].k]=s.l[i].v}for(var k in s.v)if(!(k in o.view))o.view[k]=s.v[k];return{state:s,output:o}}"
+  },
+  "resultSHA256": "80f50319d647bf6e339800b71aa9d2e6adacffcb42f405b7b9f61cf0477fad91",
+  "rawOutputSHA256": "1d73041cdcb5d7e9b8f21f48aa0ac058ef821fbb9be9231fb0c75be317b474e6"
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "dev-c01-R-final",
+  "requestSHA256": "50a3e2abb26edc1bf42c2054bf68ddd72b3a2df55e989aa97b5b2dc4440ff00c",
+  "promptSHA256": "901afba728a40a784ad71cdc53935157142aa293e1f6c35dd74654d42becfce9",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:38:09.840870+00:00",
+  "finishedAt": "2026-09-20T22:38:30.968981+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.126652041915804,
+      "usage": {
+        "input_tokens": 23753,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 993,
+        "reasoning_output_tokens": 516
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "b47053f903fc8bcce6672420f23c220839856eb00dd995b6c146c98a719b81c0",
+      "stderrSHA256": "badbb6faf9b9837207ab157c275dbc0f0f1397cd2033c4a8759abf8b2e211c2e"
+    }
+  ],
+  "result": {
+    "explanation": "Implements pinned FIFO residents with in-place live replacement, FIFO admission eviction, tombstone retention, pin accounting, invalidation, and exact per-event output projection.",
+    "program": "function solve(x){let s=x.state||[],e=x.event,c=x.config.capacity,k=e.key,t=e.type,i=-1;for(let j=0;j<s.length;j++)if(s[j][0]===k){i=j;break}let z=\"ignored\",v=null;if(t===\"put\"){if(i>=0){if(s[i][3])z=\"blocked\";else{s[i][1]=e.value;z=\"stored\"}}else if(s.length<c){s.push([k,e.value,0,0]);z=\"stored\"}else{let q=-1;for(let j=0;j<s.length;j++)if(s[j][2]===0){q=j;break}if(q<0)z=\"blocked\";else{s.splice(q,1);s.push([k,e.value,0,0]);z=\"stored\"}}}else if(t===\"pin\"){if(i>=0&&!s[i][3]){s[i][2]++;z=\"pinned\"}}else if(t===\"unpin\"){if(i>=0&&s[i][2]>0){s[i][2]--;z=\"released\";if(s[i][3]&&!s[i][2])s.splice(i,1)}}else if(t===\"invalidate\"){if(i<0)z=\"missing\";else if(!s[i][2]){s.splice(i,1);z=\"invalidated\"}else if(!s[i][3]){s[i][3]=1;z=\"invalidated\"}}else if(t===\"get\"){if(i>=0&&!s[i][3]){v=s[i][1];z=\"hit\"}else z=\"miss\"}let o=[],p={},r=[];for(let a of s){o.push(a[0]);p[a[0]]=a[2];if(a[3])r.push(a[0])}r.sort();return{state:s,output:{order:o,pins:p,status:z,tombstones:r,value:v}}}"
+  },
+  "resultSHA256": "4c59992bf6f7d4f3095919cdca3e567ba58a33785568e303ade7d532d3837c30",
+  "rawOutputSHA256": "4c59992bf6f7d4f3095919cdca3e567ba58a33785568e303ade7d532d3837c30"
+}
