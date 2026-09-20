@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q05-D-final",
+  "requestSHA256": "c6a7f7adf428bd237b04f9331a365aa6cd052becd7414d7efdd14ead9c4f50c0",
+  "promptSHA256": "05c7d55b7a9550fe0d3c6fcb9e1bfbf71c7018166231fd555191f87f30f05e00",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:25:32.463725+00:00",
+  "finishedAt": "2026-09-20T23:25:47.880519+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 15.416953624924645,
+      "usage": {
+        "input_tokens": 7829,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 673,
+        "reasoning_output_tokens": 192
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "181a803e4274badc4b84a720055368cc3135e9aa8387b78cb2a253d9d5fc9032",
+      "stderrSHA256": "08f06b74197ba66b6ea56a5d2f98fc7bef9f296e18eeb492ad4cdcd7e7e89e20"
+    }
+  ],
+  "result": {
+    "explanation": "A reservation succeeds only when its identifier is not active, its interval and units satisfy the stated bounds, and pointwise overlap never exceeds capacity. State stores active reservations. Cancellation removes an active identifier and reports cancelled; otherwise it reports missing. Every output contains lexicographically sorted active identifiers and the sum of their units.",
+    "program": "function solve({config,state,event}) {\n  const cap=config.capacity;\n  const records=state&&Array.isArray(state.r)?state.r.map(x=>({id:x.id,s:x.s,e:x.e,u:x.u})):[];\n  let status;\n  if(event.type==='cancel'){\n    let i=-1;\n    for(let j=0;j<records.length;j++){\n      if(records[j].id===event.id){i=j;break;}\n    }\n    if(i<0) status='missing';\n    else { records.splice(i,1); status='cancelled'; }\n  } else if(event.type==='reserve'){\n    let duplicate=false;\n    for(const x of records) if(x.id===event.id){duplicate=true;break;}\n    let ok=!duplicate&&Number.isSafeInteger(event.start)&&Number.isSafeInteger(event.end)&&Number.isSafeInteger(event.units)&&event.start>=0&&event.start<event.end&&event.units>=1&&event.units<=cap;\n    if(ok){\n      for(let t=event.start;t<event.end&&ok;t++){\n        let used=event.units;\n        for(const x of records) if(t>=x.s&&t<x.e) used+=x.u;\n        if(used>cap) ok=false;\n      }\n    }\n    if(ok){\n      records.push({id:event.id,s:event.start,e:event.end,u:event.units});\n      status='reserved';\n    } else status='rejected';\n  } else status='rejected';\n  const active=records.map(x=>x.id).sort();\n  let units=0;\n  for(const x of records) units+=x.u;\n  return {state:{r:records},output:{status,active,units}};\n}"
+  },
+  "resultSHA256": "c51d9f26db2a7c21c23a9fc60edb04a1fb4fe64dd2ad823d8f29cda60192050d",
+  "rawOutputSHA256": "c51d9f26db2a7c21c23a9fc60edb04a1fb4fe64dd2ad823d8f29cda60192050d"
+}

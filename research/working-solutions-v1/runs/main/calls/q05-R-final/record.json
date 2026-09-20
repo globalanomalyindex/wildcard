@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q05-R-final",
+  "requestSHA256": "44a85e640f4a087c0a5be8e44e8009ad673d404f44205de11b3378ea9ba80707",
+  "promptSHA256": "3a5978347acf0ebe12787c44cf7b3cc7cc56f4c60298ead6cc62473a0a7753c3",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:14.469473+00:00",
+  "finishedAt": "2026-09-20T23:22:27.540414+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.069493333110586,
+      "usage": {
+        "input_tokens": 7929,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 521,
+        "reasoning_output_tokens": 144
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "50f9332129651f4fbf075bf23bf2c45902b30ed125d9c70c6d564f2945499e86",
+      "stderrSHA256": "c9047d48e539b27b3288f023ece3e12c5cbcdfb6a6dd5c93285775318e1a98aa"
+    }
+  ],
+  "result": {
+    "explanation": "Reservations are stored as an ID-to-interval map. A reserve succeeds only for a new ID with valid integer bounds and units, and only if occupancy remains within capacity at every covered endpoint segment. Cancellation removes an active reservation; all outputs derive from the resulting state.",
+    "program": "function solve(x){var cap=x.config.capacity,m={};if(x.state&&typeof x.state==='object'){for(var key in x.state){if(Object.prototype.hasOwnProperty.call(x.state,key))m[key]=x.state[key]}}var e=x.event,o; if(e.type==='reserve'){var ok=!Object.prototype.hasOwnProperty.call(m,e.id)&&Number.isInteger(e.start)&&Number.isInteger(e.end)&&e.start>=0&&e.start<e.end&&Number.isInteger(e.units)&&e.units>=1&&e.units<=cap;if(ok){for(var t=e.start;t<e.end;t++){var used=e.units;for(var id in m){if(Object.prototype.hasOwnProperty.call(m,id)){var r=m[id];if(r[0]<=t&&t<r[1])used+=r[2]}}if(used>cap){ok=false;break}}}if(ok){m[e.id]=[e.start,e.end,e.units];o={status:'reserved'}}else{o={status:'rejected'}}}else if(e.type==='cancel'){if(Object.prototype.hasOwnProperty.call(m,e.id)){delete m[e.id];o={status:'cancelled'}}else{o={status:'missing'}}}else{o={status:'missing'}}var a=Object.keys(m).sort(),sum=0;for(var i=0;i<a.length;i++)sum+=m[a[i]][2];o.active=a;o.units=sum;return {state:m,output:o};}"
+  },
+  "resultSHA256": "db94890226c319f4e2fb82a54fdd1c51b88be59efa50dfae73d8f6dc8228fa90",
+  "rawOutputSHA256": "8050820482fa68644621209859246f1c5cc4839e7a90d9877e5a63067b00c763"
+}

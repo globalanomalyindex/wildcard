@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q07-R-final",
+  "requestSHA256": "f8a92560f7e41ab4656d08bae839bfc3ae17a84307eff2447238754eca82cd41",
+  "promptSHA256": "19124f72e6de06097337fe7238a6449fefce4235aa9b94590d48a26458a7cec8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:37.516333+00:00",
+  "finishedAt": "2026-09-20T23:26:50.731627+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.214475375134498,
+      "usage": {
+        "input_tokens": 8732,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 552,
+        "reasoning_output_tokens": 78
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "dad2566497f82996b06a42e30b1b5c57c5ca99bead4c25d09ec2182cc249d296",
+      "stderrSHA256": "19efc48724022d1adbaa5e7d77429dbda10daf25d064866f4e0b8e9c8db4dbfc"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains the single lifecycle state across events. Responses are accepted only for the currently pending matching attempt; waiting retries become pending once their deadline is reached, and terminal jobs may be restarted. Each result contains exactly the required output fields.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(s==null)s={now:0,phase:\"idle\",id:null,attempt:0,due:null};else s={now:s.now,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due};var status=\"ignored\",send=[];if(e.type===\"start\"){if(s.phase===\"pending\"||s.phase===\"waiting\")status=\"busy\";else{s.id=e.id;s.attempt=1;s.phase=\"pending\";s.due=null;status=\"started\";send=[{id:s.id,attempt:1}]}}else if(e.type===\"fail\"){if(s.phase===\"pending\"&&e.id===s.id&&e.attempt===s.attempt){if(s.attempt>=c.attempts){s.phase=\"failed\";s.due=null;status=\"failed\"}else{s.phase=\"waiting\";s.due=s.now+Math.max(c.delay,e.after);status=\"waiting\"}}}else if(e.type===\"success\"){if(s.phase===\"pending\"&&e.id===s.id&&e.attempt===s.attempt){s.phase=\"succeeded\";s.due=null;status=\"succeeded\"}}else if(e.type===\"cancel\"){if(s.phase===\"pending\"||s.phase===\"waiting\"){s.phase=\"cancelled\";s.due=null;status=\"cancelled\"}}else if(e.type===\"advance\"){s.now+=e.dt;status=\"advanced\";if(s.phase===\"waiting\"&&s.now>=s.due){s.attempt++;s.phase=\"pending\";s.due=null;send=[{id:s.id,attempt:s.attempt}]}}return{state:s,output:{status:status,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due,now:s.now,send:send}}}"
+  },
+  "resultSHA256": "a91ccff33023509c48d702bf9516afdc8d19b565d2934725325bbe17a7c4c5bb",
+  "rawOutputSHA256": "a91ccff33023509c48d702bf9516afdc8d19b565d2934725325bbe17a7c4c5bb"
+}

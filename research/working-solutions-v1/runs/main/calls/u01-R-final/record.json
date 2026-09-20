@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u01-R-final",
+  "requestSHA256": "08d5cd1290eac58e7584bdb07e98ed9de610a38d2c01208ba130c75be62113c0",
+  "promptSHA256": "5948792f322a243e05499c38a2a6dd3acb989a18447cd56f143d5a86c197704d",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:04.435700+00:00",
+  "finishedAt": "2026-09-20T23:24:18.687129+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.249993833014742,
+      "usage": {
+        "input_tokens": 9967,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 616,
+        "reasoning_output_tokens": 99
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a7ca421f99d1ad303e9623d8f7b6eb76ec594e541a20c5544b4f96dcf019a682",
+      "stderrSHA256": "ef3589508c41c3dcca44299baf180ce5ae4ca40a112c1d51329c7325a96a7e0c"
+    }
+  ],
+  "result": {
+    "explanation": "The controller preserves the initial data model, tracks only the latest loading request, and emits effects for cancellation and request issuance in order. Settlements are accepted only for the mounted, loading request whose ID matches current. Results persist across searches, failures, and cancellation as required. Disposal cancels any active request, resets data, and unmounts; only mount restores the initial mounted state.",
+    "program": "function solve({config,state,event}){\n  const initial=()=>({mounted:true,query:\"\",current:null,loading:false,result:null,error:null});\n  let s=state==null?initial():state;\n  let effects=[];\n  const output=()=>({mounted:s.mounted,query:s.query,current:s.current,loading:s.loading,result:s.result,error:s.error,effects});\n  if(!s.mounted){\n    if(event&&event.type===\"mount\")s=initial();\n    return {state:s,output:output()};\n  }\n  if(!event||typeof event!==\"object\")return {state:s,output:output()};\n  if(event.type===\"search\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s.current=event.id;\n    s.query=event.query;\n    s.loading=true;\n    s.error=null;\n    effects.push({type:\"request\",id:event.id,query:event.query});\n  }else if(event.type===\"success\"){\n    if(s.loading&&s.current===event.id){\n      s.result=event.result;\n      s.error=null;\n      s.loading=false;\n    }\n  }else if(event.type===\"failure\"){\n    if(s.loading&&s.current===event.id){\n      s.error=event.error;\n      s.loading=false;\n    }\n  }else if(event.type===\"cancel\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s.loading=false;\n    s.current=null;\n    s.error=null;\n  }else if(event.type===\"dispose\"){\n    if(s.loading)effects.push({type:\"cancel\",id:s.current});\n    s=initial();\n    s.mounted=false;\n  }\n  return {state:s,output:output()};\n}"
+  },
+  "resultSHA256": "42d38f825647fbade70f4331430d9aeb0ad1508b1142b91683aabf87cceb5803",
+  "rawOutputSHA256": "42d38f825647fbade70f4331430d9aeb0ad1508b1142b91683aabf87cceb5803"
+}

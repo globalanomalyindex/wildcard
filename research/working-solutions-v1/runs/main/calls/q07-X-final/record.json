@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q07-X-final",
+  "requestSHA256": "92744d6b7b446751b695c4cf952b1d37bb211ab094c2cde7c7af3eaaaa7e2056",
+  "promptSHA256": "29fbf2fb5f023b258a278c6c6050e093a96aa0e361c5857fea14c6b4b2fd2fc6",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:04.204519+00:00",
+  "finishedAt": "2026-09-20T23:22:17.533012+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.326676208991557,
+      "usage": {
+        "input_tokens": 8974,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 574,
+        "reasoning_output_tokens": 88
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "2bb28041dff45048c4334cf3d4da36a72eba1181231cb86af7ebc315cd58857d",
+      "stderrSHA256": "5f17471a167ff4a62ae6bd8d34fe5cc6c3bc4b204a8a26c5bd053807f2ec9e9e"
+    }
+  ],
+  "result": {
+    "explanation": "A synchronous retry lifecycle state machine stores logical time, current job identity, attempt, phase, and deadline. Starts are rejected while active; matching responses affect only the current pending attempt. Failures either terminate or schedule a deadline using the larger configured delay and requested minimum. Advance updates time and performs at most one eligible retry, emitting its attempt. All outputs include the complete documented snapshot.",
+    "program": "function solve({config,state,event}){var s=state||{now:0,phase:'idle',id:null,attempt:0,due:null};var n={now:s.now,phase:s.phase,id:s.id,attempt:s.attempt,due:s.due},status,send=[];function ret(){return{state:n,output:{status:status,phase:n.phase,id:n.id,attempt:n.attempt,due:n.due,now:n.now,send:send}}}switch(event.type){case'start':if(n.phase==='pending'||n.phase==='waiting')status='busy';else{n.id=event.id;n.attempt=1;n.phase='pending';n.due=null;status='started';send=[{id:n.id,attempt:1}]}break;case'fail':if(n.phase!=='pending'||event.id!==n.id||event.attempt!==n.attempt)status='ignored';else if(n.attempt>=config.attempts){n.phase='failed';n.due=null;status='failed'}else{n.phase='waiting';n.due=n.now+Math.max(config.delay,event.after);status='waiting'}break;case'success':if(n.phase!=='pending'||event.id!==n.id||event.attempt!==n.attempt)status='ignored';else{n.phase='succeeded';n.due=null;status='succeeded'}break;case'cancel':if(n.phase==='pending'||n.phase==='waiting'){n.phase='cancelled';n.due=null;status='cancelled'}else status='ignored';break;case'advance':n.now+=event.dt;if(n.phase==='waiting'&&n.now>=n.due){n.attempt++;n.phase='pending';n.due=null;send=[{id:n.id,attempt:n.attempt}]}status='advanced';break}return ret()}"
+  },
+  "resultSHA256": "88bab6aa1c46e9cadd7c1ce6d1b03093f207bc36cc546125ca663cbd42323c97",
+  "rawOutputSHA256": "88bab6aa1c46e9cadd7c1ce6d1b03093f207bc36cc546125ca663cbd42323c97"
+}

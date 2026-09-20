@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q03-R-final",
+  "requestSHA256": "66bb8690df65546e9b47851da8001d0a9898dbe57e010245026628fbb611a01f",
+  "promptSHA256": "0bb8ce9c0a509ebd077006b7675394645a04e4c7c59ed6f67d41b3a452d06596",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:43.321429+00:00",
+  "finishedAt": "2026-09-20T23:20:53.407731+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 10.08545820787549,
+      "usage": {
+        "input_tokens": 7923,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 374,
+        "reasoning_output_tokens": 65
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "fd8d0350b0590077edb65ba789c25b2f0dc56817cdc4c1bed8520eaa2228e010",
+      "stderrSHA256": "1fad3f39d2b8046c07716fede4866561022c67fba4f0c3f55de891c856d9af9e"
+    }
+  ],
+  "result": {
+    "explanation": "Tracks accumulated time and pending records containing each key’s latest value and original pending timestamp. Non-required puts trigger a lexical flush at capacity; advances flush when any pending record reaches the delay. Required puts emit immediately. Cancels remove only their key, and every emission drains all pending keys.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state||{now:0,k:{}};function ks(){return Object.keys(s.k).sort()}function flush(){var a=ks().map(function(z){return{key:z,value:s.k[z].v}});s.k={};return a}var a=[];if(e.type==='put'){if(c.required)a=[{key:e.key,value:e.value}];else{if(s.k[e.key]===undefined)s.k[e.key]={v:e.value,at:s.now};else s.k[e.key].v=e.value;if(Object.keys(s.k).length>=c.limit)a=flush()}}else if(e.type==='cancel'){delete s.k[e.key]}else if(e.type==='advance'){s.now+=e.dt;if(!c.required){var q=ks();for(var i=0;i<q.length;i++)if(s.now-s.k[q[i]].at>=c.delay){a=flush();break}}}else if(e.type==='flush')a=flush();return{state:s,output:{emitted:a,pending:ks(),now:s.now}}}"
+  },
+  "resultSHA256": "54610a9b0d37a5d45db814d21be7586205f0955564d1428ddd5debfacc9c6da1",
+  "rawOutputSHA256": "54610a9b0d37a5d45db814d21be7586205f0955564d1428ddd5debfacc9c6da1"
+}

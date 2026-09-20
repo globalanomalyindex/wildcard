@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s08-R-final",
+  "requestSHA256": "19a9fdb05a5df74b731a1f7ead2a86c2a24fd1e1b4ef9ff0bebeb4afe4dc800e",
+  "promptSHA256": "424bfd4340c12dc2cc8c1a5101d1836b47ad14c486c8b29878fcd2fb82eb7e55",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:25:56.029583+00:00",
+  "finishedAt": "2026-09-20T23:26:14.450994+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 18.420357916038483,
+      "usage": {
+        "input_tokens": 10565,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 844,
+        "reasoning_output_tokens": 343
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4e9f44dd9e0d33bb962676e36e6520a8df88e65dae692b27f928894407f907f9",
+      "stderrSHA256": "db6b2ca9a5b45d043a3c36b6f24b797bca5f73abb88eaa69490135391cc38317"
+    }
+  ],
+  "result": {
+    "explanation": "Implements recursive three-way merge with explicit absence handling, type-sensitive deep equality, atomic arrays, Unicode code-point key ordering, conflict recording, and base retention or omission for unresolved edits.",
+    "program": "function solve({config,state,event}){const A=Symbol(\"absent\");function isObj(v){return v!==null&&typeof v===\"object\"&&!Array.isArray(v)}function own(o,k){return Object.prototype.hasOwnProperty.call(o,k)}function eq(a,b){if(a===A||b===A)return a===b;if(a===b)return true;if(typeof a!==typeof b||a===null||b===null)return false;if(typeof a!==\"object\")return false;if(Array.isArray(a)||Array.isArray(b)){if(!Array.isArray(a)||!Array.isArray(b)||a.length!==b.length)return false;for(let i=0;i<a.length;i++)if(!eq(a[i],b[i]))return false;return true}let ka=Object.keys(a),kb=Object.keys(b);if(ka.length!==kb.length)return false;for(let k of ka)if(!own(b,k)||!eq(a[k],b[k]))return false;return true}function cmp(a,b){let x=Array.from(a),y=Array.from(b),n=Math.min(x.length,y.length);for(let i=0;i<n;i++){if(x[i]!==y[i])return x[i]<y[i]?-1:1}return x.length-y.length}function merge(b,l,r,p,c){if(eq(l,r))return l;if(eq(l,b))return r;if(eq(r,b))return l;if(isObj(l)&&isObj(r)&&(b===A||isObj(b))){let keys=new Set(Object.keys(l).concat(Object.keys(r),b===A?[]:Object.keys(b)));let out={};for(let k of Array.from(keys).sort(cmp)){let v=merge(b!==A&&own(b,k)?b[k]:A,own(l,k)?l[k]:A,own(r,k)?r[k]:A,p.concat(k),c);if(v!==A)out[k]=v}return out}c.push(p);return b}let conflicts=[],merged=merge(event.base,event.local,event.remote,[],conflicts);return{state:null,output:{merged,conflicts}}}"
+  },
+  "resultSHA256": "5e27225672af98d02c50a45ce792a31de0b380f9c8d8987e258f0bc4f89d27b8",
+  "rawOutputSHA256": "5e27225672af98d02c50a45ce792a31de0b380f9c8d8987e258f0bc4f89d27b8"
+}

@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s07-D-final",
+  "requestSHA256": "397c608a0a5bc4f083c31ffe0da541b3a5389cc339e78c91b5c15e79885364d1",
+  "promptSHA256": "007a3969c11bab6774c5e2c63faafae009d38f37000921d8dffe1804b3b6e3aa",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:19:56.795879+00:00",
+  "finishedAt": "2026-09-20T23:20:14.050366+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 17.25452116713859,
+      "usage": {
+        "input_tokens": 8609,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 752,
+        "reasoning_output_tokens": 213
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "63acc4bf02afa0a7eedcc1660e9c1fa240181b07e715a9f53d3466f4d44a7582",
+      "stderrSHA256": "542e6d3889d61ee71a0a87419cc226054af5aa8203c5deac274a59edc3399346"
+    }
+  ],
+  "result": {
+    "explanation": "The implementation maintains one active transfer with a declared length and nullable byte slots. Valid begins either create a fresh transfer or preserve a matching one; changing an active transfer’s length conflicts. Chunks are accepted only when their bounds, byte values, checksum, and overlaps are valid. Any conflicting overlap rejects the entire chunk. Finish reports complete data only when every byte is known; irrelevant events are ignored and invalid operations preserve state.",
+    "program": "function solve({config,state,event}){let s=state;if(!s||s.a!==true)s={a:false,id:null,len:0,b:[]};let status=\"ignored\",data=null;if(event&&event.type===\"begin\"){let n=event.length;if(Number.isInteger(n)&&n>=0&&n<=config.maxLength){if(s.a&&s.id===event.id&&s.len!==n)status=\"conflict\";else{if(!s.a||s.id!==event.id)s={a:true,id:event.id,len:n,b:Array(n).fill(null)};status=\"ok\"}}else status=\"invalid\"}else if(event&&event.type===\"chunk\"&&s.a&&s.id===event.id){let b=event.bytes,good=Array.isArray(b)&&Number.isInteger(event.offset)&&event.offset>=0&&Number.isInteger(event.checksum)&&event.offset+b.length<=s.len,sum=0;if(good)for(let x of b){if(!Number.isInteger(x)||x<0||x>255){good=false;break}sum+=x}if(good&&sum%251!==event.checksum)good=false;if(!good)status=\"invalid\";else{let conflict=false;for(let i=0;i<b.length;i++)if(s.b[event.offset+i]!==null&&s.b[event.offset+i]!==b[i]){conflict=true;break}if(conflict)status=\"conflict\";else{for(let i=0;i<b.length;i++)s.b[event.offset+i]=b[i];status=\"ok\"}}}else if(event&&event.type===\"finish\"&&s.a&&s.id===event.id){let complete=true;for(let x of s.b)if(x===null){complete=false;break}status=complete?\"complete\":\"incomplete\";if(complete)data=s.b.slice()}let received=0;if(s.a)for(let x of s.b)if(x!==null)received++;return{state:s,output:{status:status,id:s.a?s.id:null,received:received,data:data}}}"
+  },
+  "resultSHA256": "380b564fd669d5d542c1a1a1b0f0aa6d9a8dd704ae8bcac2538ae8bf438148c5",
+  "rawOutputSHA256": "380b564fd669d5d542c1a1a1b0f0aa6d9a8dd704ae8bcac2538ae8bf438148c5"
+}

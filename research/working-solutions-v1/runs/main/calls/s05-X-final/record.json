@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s05-X-final",
+  "requestSHA256": "b4b5d9cf60404ab7d2876edbecc9f5c148fab825bbe4b7490800d91d8750c800",
+  "promptSHA256": "f2e0bac296a1a08ecadc6f2d034b8b4286e6d27153d43a50e334e653f4b1e1d8",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:57.527466+00:00",
+  "finishedAt": "2026-09-20T23:21:21.020435+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 23.491685208166018,
+      "usage": {
+        "input_tokens": 8504,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1034,
+        "reasoning_output_tokens": 408
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "f93e26742516efdaf9a3ad7b16d16a934005960437d56a85bc021a2225916866",
+      "stderrSHA256": "6809792e129914efc6e363e6041893ab810d9064b74dc09ce78bf0a740947b2e"
+    }
+  ],
+  "result": {
+    "explanation": "Uses separate permanent records for receives, sends, and spends, so namespaces and historical conflicts remain isolated. Successful sends debit immediately and remain pending until acknowledgment or one-time cancellation refund. Receive duplicates require the original grant amount; mismatches are invalid. Outputs rebuild sorted identifier arrays after each event.",
+    "program": "function solve({config,state,event}) {\n  const positive=x=>typeof x==='number'&&Number.isSafeInteger(x)&&x>0;\n  const idok=x=>typeof x==='string';\n  const find=(a,id)=>a.findIndex(x=>x[0]===id);\n  const has=(o,k)=>Object.keys(o).includes(k);\n  const sort=a=>a.slice().sort((x,y)=>x<y?-1:x>y?1:0);\n  if(state===null) state={a:config.initial,s:0,g:config.grants,r:[],w:[],d:[],p:[]};\n  const e=event&&typeof event==='object'?event:{}, t=e.type, id=e.id, amt=e.amount;\n  let status='ignored', i;\n  if(t==='receive') {\n    if(!idok(id)||!positive(amt)) status='invalid';\n    else {\n      i=find(state.r,id);\n      if(i>=0) status=state.r[i][1]===amt?'duplicate':'invalid';\n      else if(!has(state.g,id)||state.g[id]!==amt) status='invalid';\n      else { state.r.push([id,amt]); state.a+=amt; status='accepted'; }\n    }\n  } else if(t==='send'||t==='spend') {\n    const m=t==='send'?state.w:state.d;\n    if(!idok(id)||!positive(amt)) status='invalid';\n    else {\n      i=find(m,id);\n      if(i>=0) status=m[i][1]===amt?'duplicate':'conflict';\n      else if(state.a<amt) status='insufficient';\n      else { m.push([id,amt]); state.a-=amt; if(t==='send')state.p.push([id,amt]); else state.s+=amt; status='accepted'; }\n    }\n  } else if(t==='ack'||t==='cancel') {\n    if(idok(id)) {\n      i=find(state.p,id);\n      if(i>=0) { if(t==='cancel')state.a+=state.p[i][1]; state.p.splice(i,1); status='accepted'; }\n    }\n  } else status='invalid';\n  return {state:state,output:{status:status,available:state.a,spent:state.s,pending:sort(state.p.map(x=>x[0])),received:sort(state.r.map(x=>x[0]))}};\n}"
+  },
+  "resultSHA256": "c51f5b819660b5f1560324b55eaad9a5e79768483ebb8d817914ca7f1ffa8ead",
+  "rawOutputSHA256": "c51f5b819660b5f1560324b55eaad9a5e79768483ebb8d817914ca7f1ffa8ead"
+}

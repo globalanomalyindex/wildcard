@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q08-D-final",
+  "requestSHA256": "0ee3de7b7a5c3f7d5358380d5a524217ee125c8636c35f7fda89c76f0d5e37c2",
+  "promptSHA256": "e6d41b2d868b4eafff4e3fe7e8155066b932836158aac3b4c6743af97978e190",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:26:24.565980+00:00",
+  "finishedAt": "2026-09-20T23:26:34.428651+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 9.861388082848862,
+      "usage": {
+        "input_tokens": 8124,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 353,
+        "reasoning_output_tokens": 79
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "c3fb4a87325c72e1624a0833a8c0a3e0c6f8837bc0bc820eaba8bcf3c91c5557",
+      "stderrSHA256": "d08eaf5e1f498c9bc9dd920f3799729b526174f057a97721faf7f0cfa66810ae"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain each node's lifecycle in opaque state. For each event, complete only a matching running node; then repeatedly propagate blocked status through pending nodes. Finally, simultaneously start every eligible pending node in lexical order and return the complete state map.",
+    "program": "function solve({config,state,event}){const d=config.deps,k=Object.keys(d).sort();const s=state&&state.s?state.s:{};if(!state)for(const x of k)s[x]='pending';if(event&&(event.type==='ok'||event.type==='fail')&&s[event.id]==='running')s[event.id]=event.type==='ok'?'done':'failed';let changed=true;while(changed){changed=false;for(const x of k)if(s[x]==='pending'&&d[x].some(q=>s[q]==='failed'||s[q]==='blocked')){s[x]='blocked';changed=true}}const started=[];for(const x of k)if(s[x]==='pending'&&d[x].every(q=>s[q]==='done')){s[x]='running';started.push(x)}const states={};for(const x of k)states[x]=s[x];return{state:{s:s},output:{started:started,states:states}}}"
+  },
+  "resultSHA256": "3d09bd304b652be7436d5c4b52fcdfae6afe9770f99eaad2f1f9580e28735192",
+  "rawOutputSHA256": "3d09bd304b652be7436d5c4b52fcdfae6afe9770f99eaad2f1f9580e28735192"
+}

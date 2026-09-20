@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u03-X-final",
+  "requestSHA256": "e615387aa4cafc4d51b00fdb7374f652081f949c25baa879533e65ea1f128dfd",
+  "promptSHA256": "44adb88dd72719cf752a19d60835677ad060f26db9ba862d15bf29a5f4f2c82e",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:56.247845+00:00",
+  "finishedAt": "2026-09-20T23:23:10.337507+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 14.087293083081022,
+      "usage": {
+        "input_tokens": 9791,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 531,
+        "reasoning_output_tokens": 156
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "a0f4a3ba2a41bc6eedb42331cb6932bbf92dc4cb7e2871f5907d9076a742fd5f",
+      "stderrSHA256": "64935802b0c82e6847bb61a544cb073a0f8be53b078982ef634ecc7349c34a93"
+    }
+  ],
+  "result": {
+    "explanation": "If an element update makes the current focus ineligible, focus the active dialog’s requested focus when eligible; otherwise use the fallback. Maintain ordered dialog records, apply only valid top-layer closes/completes, and restore opener/requested focus according to eligibility.",
+    "program": "function solve({config,state,event}){let s=state||{e:{},a:[],f:config.fallback};function ok(id){if(id===config.fallback)return true;let v=s.e[id]||config.elements[id];return!!(v&&v.present&&v.enabled)}function focusFallback(){let a=s.a;s.f=a.length&&ok(a[a.length-1].focus)?a[a.length-1].focus:config.fallback}if(event.type==='element'){s.e[event.id]={present:event.present,enabled:event.enabled};if(!ok(s.f))focusFallback()}else if(event.type==='open'&&!s.a.some(function(x){return x.id===event.id})){s.a.push({id:event.id,opener:event.opener,focus:event.focus});s.f=ok(event.focus)?event.focus:config.fallback}else if((event.type==='close'||event.type==='complete')&&s.a.length&&s.a[s.a.length-1].id===event.id){let x=s.a.pop(),a=s.a,t=a.length?a[a.length-1].focus:null;s.f=ok(x.opener)?x.opener:t&&ok(t)?t:config.fallback}let a=s.a;return{state:s,output:{stack:a.map(function(x){return x.id}),active:a.length?a[a.length-1].id:null,focus:s.f,inert:a.slice(0,-1).map(function(x){return x.id})}}}"
+  },
+  "resultSHA256": "b66db42f9afb2522926d88329c958f4a83bd8e9382e6d7a23c4d3fd90958de3e",
+  "rawOutputSHA256": "d64b53ba0ffd984593673d7a1b0729c34f14e75268217095a5db208f281f4ceb"
+}

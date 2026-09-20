@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q04-D-final",
+  "requestSHA256": "8bab444078cb8eb8f82f1ac6fd8f096c9b759589db3c7eea22fe2927f9975d41",
+  "promptSHA256": "c6dd962decd256975a665aea6803abc8141a56dfb431b9fbe9bcdcfada9b3a7d",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:27:22.796688+00:00",
+  "finishedAt": "2026-09-20T23:27:35.312221+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.515020582824945,
+      "usage": {
+        "input_tokens": 8121,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 512,
+        "reasoning_output_tokens": 61
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "3279cc76114fd7cf441306350156457bba849def8decbd4e224ac9c9692df023",
+      "stderrSHA256": "7c1feb2825a80d58b793f3846022336485feef603c895fb579e09bec553feab2"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains job phases, resource ownership, consumed identifiers, and committed IDs. Begin is atomic and does not consume an identifier when blocked. Prepare, commit, and abort apply only to permitted phases; terminal jobs remain recorded. Each output reports the event status, current held resources, and sorted committed IDs.",
+    "program": "function solve({config,state,event}){var s=state||{jobs:{},held:{},done:[],used:{}},jobs=JSON.parse(JSON.stringify(s.jobs)),held=Object.assign({},s.held),done=s.done.slice(),used=Object.assign({},s.used),e=event,id=e.id,status='invalid',i,r,j;if(e.type==='begin'){var ok=!used[id];if(ok)for(i=0;i<e.resources.length;i++)if(held[e.resources[i]]!==undefined){ok=false;break}if(ok){used[id]=true;jobs[id]={phase:'active',resources:e.resources.slice()};for(i=0;i<e.resources.length;i++)held[e.resources[i]]=id;status='begun'}else status='blocked'}else if(e.type==='prepare'){j=jobs[id];if(j&&j.phase==='active'){j.phase='prepared';status='prepared'}}else if(e.type==='commit'){j=jobs[id];if(j&&j.phase==='prepared'){for(i=0;i<j.resources.length;i++)delete held[j.resources[i]];j.phase='committed';done.push(id);status='committed'}}else if(e.type==='abort'){j=jobs[id];if(j&&(j.phase==='active'||j.phase==='prepared')){for(i=0;i<j.resources.length;i++)delete held[j.resources[i]];j.phase='aborted';status='aborted'}}done.sort();var out={status:status,held:{},done:done.slice()};for(i=0;i<config.resources.length;i++){r=config.resources[i];if(held[r]!==undefined)out.held[r]=held[r]}return{state:{jobs:jobs,held:held,done:done,used:used},output:out}}"
+  },
+  "resultSHA256": "5f85bacf3afbd1c7742cab7b6077419df1c6bee4484224723fc2f0e0cdfbc556",
+  "rawOutputSHA256": "5f85bacf3afbd1c7742cab7b6077419df1c6bee4484224723fc2f0e0cdfbc556"
+}

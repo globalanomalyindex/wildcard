@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c06-D-final",
+  "requestSHA256": "b3286aaa09df41c9249dec09d9ab3b8508ebec6df1e2f38f5d0e423116ea2c02",
+  "promptSHA256": "fc85702cd04108c1ee76abe8871c0f6c9d54fd3fce651a4258eedbd657d17d56",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:24:15.533388+00:00",
+  "finishedAt": "2026-09-20T23:24:36.732655+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 21.198629500111565,
+      "usage": {
+        "input_tokens": 8674,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 1001,
+        "reasoning_output_tokens": 413
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "eb5986dbf937128c3f971e9dc93da327ca719c4153ea76d758b914a7ec48f451",
+      "stderrSHA256": "c68ac227986982877270997b67bfb302105ff674809e0f61f7c6ce21e9269a0b"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains recency as an oldest-to-newest array, lifetime versions independently from resident entries, durable values, and the most recently flushed version per key. Writes increment versions even when insertion is blocked. Clean entries may be evicted for insertion or durable promotion; dirty entries cannot. Acknowledgments persist only the currently resident dirty value when its version matches a previously emitted flush.",
+    "program": "function solve(x){var c=x.config,e=x.event,s=x.state;if(!s)s={r:[],v:{},d:{},f:{}};var r=s.r,v=s.v,d=s.d,f=s.f,k=e.key,i=r.findIndex(function(n){return n.k===k}),a=i<0?null:r[i],status='ignored',value=null,flush=[];function touch(n){var j=r.indexOf(n);if(j>=0)r.splice(j,1);r.push(n)}function clean(){for(var j=0;j<r.length;j++)if(!r[j].dirty)return j;return-1}function add(n){if(r.length<c.slots){r.push(n);return true}var j=clean();if(j<0)return false;r.splice(j,1);r.push(n);return true}if(e.type==='write'){var ver=(v[k]||0)+1;v[k]=ver;if(a){a.value=e.value;a.version=ver;a.dirty=true;touch(a);status='written'}else{var n={k:k,value:e.value,version:ver,dirty:true};if(add(n))status='written';else status='blocked'}}else if(e.type==='read'){if(a){value=a.value;touch(a);status='hit'}else if(Object.prototype.hasOwnProperty.call(d,k)){value=d[k];var n={k:k,value:value,version:v[k]||0,dirty:false};add(n);status='durable'}else status='miss'}else if(e.type==='flush'){if(a&&a.dirty){flush=[{key:k,value:a.value,version:a.version}];f[k]=a.version;status='flushed'}}else if(e.type==='ack'){if(a&&a.dirty&&a.version===e.version&&f[k]===e.version){d[k]=a.value;a.dirty=false;status='persisted'}}else if(e.type==='evict'){if(!a)status='missing';else if(a.dirty)status='blocked';else{r.splice(i,1);status='evicted'}}var dirty=r.filter(function(n){return n.dirty}).map(function(n){return n.k}).sort();return{state:s,output:{status:status,value:value,flush:flush,cached:r.map(function(n){return n.k}),dirty:dirty,durable:d}}}"
+  },
+  "resultSHA256": "a3abbdad1b918796864ef04fbfbf5f2a77bd82720a439bd8c4f20ea241f37f5a",
+  "rawOutputSHA256": "a3abbdad1b918796864ef04fbfbf5f2a77bd82720a439bd8c4f20ea241f37f5a"
+}

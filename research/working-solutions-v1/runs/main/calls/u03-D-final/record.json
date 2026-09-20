@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u03-D-final",
+  "requestSHA256": "a69b6b21e2bd1ce2c8b8ef6aa3a0efc89006e665b68c6603406a9b04d1920c18",
+  "promptSHA256": "f112af6a85435d1cf0ce7b2897796890a00a3795a401a3fd8be4af7845411f37",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:53.622187+00:00",
+  "finishedAt": "2026-09-20T23:21:09.694894+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 16.07099475013092,
+      "usage": {
+        "input_tokens": 9690,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 698,
+        "reasoning_output_tokens": 212
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "82da62101764465a5072bb7896139d5b320f197724e2c62f68574ed1c1556ce6",
+      "stderrSHA256": "9d52739250bff5b3d9f1024e8f25b82ed2463b7625235df4abcb0314e40b2802"
+    }
+  ],
+  "result": {
+    "explanation": "Eligibility is present and enabled, except the immutable fallback, which is always eligible. The state stores current eligibility, dialog frames, and focus. Opening pushes only if the ID is absent, then focuses its requested target when eligible or the fallback. A matching top close/complete restores its opener, otherwise the new top frame’s requested target, otherwise fallback. Stale or lower-layer completions do nothing. Element changes update eligibility and repair focus only when the current focus becomes ineligible.",
+    "program": "function solve(a){var c=a.config,s=a.state,e,j;if(s===null){e={};for(j in c.elements)e[j]={present:!!c.elements[j].present,enabled:!!c.elements[j].enabled};s={e:e,st:[],f:c.fallback}}else e=s.e;var v=a.event,id=v.id,ok=function(x){return x===c.fallback||(e[x]&&e[x].present&&e[x].enabled)},w;if(v.type==='element'){e[id]={present:!!v.present,enabled:!!v.enabled};if(!ok(s.f)){w=s.st.length?s.st[s.st.length-1].focus:c.fallback;s.f=ok(w)?w:c.fallback}}else if(v.type==='open'){for(j=0;j<s.st.length&&s.st[j].id!==id;j++);if(j===s.st.length){s.st.push({id:id,opener:v.opener,focus:v.focus});s.f=ok(v.focus)?v.focus:c.fallback}}else if((v.type==='close'||v.type==='complete')&&s.st.length&&s.st[s.st.length-1].id===id){w=s.st.pop();if(ok(w.opener))s.f=w.opener;else{s.f=s.st.length?s.st[s.st.length-1].focus:c.fallback;if(!ok(s.f))s.f=c.fallback}}var stack=[],inert=[];for(j=0;j<s.st.length;j++){stack.push(s.st[j].id);if(j<s.st.length-1)inert.push(s.st[j].id)}return{state:s,output:{stack:stack,active:s.st.length?s.st[s.st.length-1].id:null,focus:s.f,inert:inert}}}"
+  },
+  "resultSHA256": "a544e1567e40cb7a3d0480c34f1da3b32227e26ac236446994f58de22aeee474",
+  "rawOutputSHA256": "a544e1567e40cb7a3d0480c34f1da3b32227e26ac236446994f58de22aeee474"
+}

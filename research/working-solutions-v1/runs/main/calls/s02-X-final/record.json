@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s02-X-final",
+  "requestSHA256": "e876e355eaf6819ffcf96060d7688e71549b17bee4073afcc01bf4150b3f0bdd",
+  "promptSHA256": "0e1bd0c77433a4081b18623ca678accd1cd09ff266a3d764218095d14ca32465",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:31.710690+00:00",
+  "finishedAt": "2026-09-20T23:20:45.326239+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 13.614283165894449,
+      "usage": {
+        "input_tokens": 8891,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 597,
+        "reasoning_output_tokens": 221
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "1d4b947cec7c0857f6b013d777388294a6407ccb3661f1268af49b4f53af6e2a",
+      "stderrSHA256": "97c1ed4913ce888133654d051ff31123741cfbcffd0b07b89be4a7f8c25049ab"
+    }
+  ],
+  "result": {
+    "explanation": "Each key stores its greatest delivered record under (version, deleted flag, actor, value), comparing strings by Unicode code points. Records are retained in an array, making duplicate and permuted delivery convergent and avoiding special-object-key hazards. Output is rebuilt after each event with live values and sorted tombstone keys.",
+    "program": "function solve({config,state,event}){let a=state&&Array.isArray(state.r)?state.r:[],e=event,i=a.findIndex(x=>x[0]===e.key),n=[e.key,e.version,e.deleted?1:0,e.actor,e.value],cp=s=>Array.from(s),cmp=(x,y)=>{let a=cp(x),b=cp(y),n=Math.min(a.length,b.length);for(let i=0;i<n;i++)if(a[i]!==b[i])return a[i]<b[i]?-1:1;return a.length-b.length},better=(x,y)=>x[1]!==y[1]?x[1]>y[1]:x[2]!==y[2]?x[2]>y[2]:cmp(x[3],y[3])>0||cmp(x[3],y[3])===0&&cmp(x[4],y[4])>0;if(i<0)a.push(n);else{let o=a[i];if(better(n,o))a[i]=n}let v={},t=[];for(let x of a)if(x[2])t.push(x[0]);else Object.defineProperty(v,x[0],{value:x[4],enumerable:true,writable:true,configurable:true});t.sort(cmp);return{state:{r:a},output:{visible:v,tombstones:t}}}"
+  },
+  "resultSHA256": "e1fb02268a10eb2a9a7cac3fcf17637cf4ccad3363a1edd4b80d6ec101887f55",
+  "rawOutputSHA256": "e1fb02268a10eb2a9a7cac3fcf17637cf4ccad3363a1edd4b80d6ec101887f55"
+}

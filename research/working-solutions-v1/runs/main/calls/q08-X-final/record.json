@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "q08-X-final",
+  "requestSHA256": "1b8e804dee2ebfff4e69b4476c4eae475e6a584b9dc41f2847dff30d6a70be5e",
+  "promptSHA256": "0768baa20ceda17bb661d2ffaa181406de5193786d0b513cca90641188187c6d",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:01.928321+00:00",
+  "finishedAt": "2026-09-20T23:22:14.444411+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 12.514770417008549,
+      "usage": {
+        "input_tokens": 8446,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 467,
+        "reasoning_output_tokens": 86
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "3c942b2482e91f71e74c94cc9104df47ebafbe363fa9a16e7937057e70298c19",
+      "stderrSHA256": "3dfd42b7ca31a9411c59f275998b226146e322faba5dd28c37405a7a6f90d339"
+    }
+  ],
+  "result": {
+    "explanation": "Maintain each node's status in opaque state. For each event, complete a node only when it is currently running and the event is ok or fail. Repeatedly propagate blocked status through pending nodes, then start every remaining eligible node in lexical order. Return the complete status map and newly started list.",
+    "program": "function solve(x){var d=x.config.deps,n=Object.keys(d).sort(),s=x.state;if(s===null){s={};for(var i=0;i<n.length;i++)s[n[i]]=\"pending\"}var e=x.event;if((e.type===\"ok\"||e.type===\"fail\")&&s[e.id]===\"running\")s[e.id]=e.type===\"ok\"?\"done\":\"failed\";var again=true;while(again){again=false;for(var i=0;i<n.length;i++){var id=n[i];if(s[id]!==\"pending\")continue;var q=d[id],blocked=false;for(var j=0;j<q.length;j++)if(s[q[j]]===\"failed\"||s[q[j]]===\"blocked\"){blocked=true;break}if(blocked){s[id]=\"blocked\";again=true}}}var started=[];for(var i=0;i<n.length;i++){var id=n[i];if(s[id]!==\"pending\")continue;var q=d[id],ready=true;for(var j=0;j<q.length;j++)if(s[q[j]]!==\"done\"){ready=false;break}if(ready){s[id]=\"running\";started.push(id)}}var states={};for(var i=0;i<n.length;i++)states[n[i]]=s[n[i]];return{state:s,output:{started:started,states:states}}}"
+  },
+  "resultSHA256": "c2daf879bea5018ce92a0b9cf9eedee0d0749746e3789cef5fdcae4a6051a20d",
+  "rawOutputSHA256": "c2daf879bea5018ce92a0b9cf9eedee0d0749746e3789cef5fdcae4a6051a20d"
+}

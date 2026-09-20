@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "s01-R-final",
+  "requestSHA256": "7ff5d742bbfe041a9eae58044dae83ef4b4c6a34a530954f495b0cc8ee3e6a18",
+  "promptSHA256": "d05705d5b7e9e11f63af527dc7b0657c193cb837a9139706cbd05b2164e2ac2a",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:22:40.357979+00:00",
+  "finishedAt": "2026-09-20T23:22:56.227743+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 15.868408707901835,
+      "usage": {
+        "input_tokens": 7989,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 636,
+        "reasoning_output_tokens": 285
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "4da05ff35b93c8db228f2fc55a62a40ba97754d59b627f937d75db5ce42e8515",
+      "stderrSHA256": "647d092f1e14de8e0d4e11b11049214f3f0a7dd6faf03d7ef99eef9ac5c32c38"
+    }
+  ],
+  "result": {
+    "explanation": "The implementation keeps permanent identity records and sequence reservations in arrays, avoiding key-collision behavior for arbitrary legal strings. Each event is classified before mutation. Accepted reservations are then applied in contiguous sequence order exactly once, while pending reservations are returned numerically sorted.",
+    "program": "function solve(a){var s=a.state,e=a.event;if(s===null)s={n:1,v:0,i:[],q:[]};var id=e.id,seq=e.seq,d=e.delta,st='accepted',r=null,j;for(j=0;j<s.i.length;j++)if(s.i[j][0]===id){r=s.i[j];break}if(r)st=r[1]===seq&&r[2]===d?'duplicate':'conflict';else{for(j=0;j<s.q.length;j++)if(s.q[j][0]===seq){st='conflict';break}if(st==='accepted'&&seq<s.n)st='stale';if(st==='accepted'){s.i.push([id,seq,d]);s.q.push([seq,d]);while(1){var z=-1;for(j=0;j<s.q.length;j++)if(s.q[j][0]===s.n){z=j;break}if(z<0)break;s.v+=s.q[z][1];s.n++}}}var p=[];for(j=0;j<s.q.length;j++)if(s.q[j][0]>=s.n)p.push(s.q[j][0]);p.sort(function(x,y){return x-y});return{state:s,output:{status:st,value:s.v,next:s.n,pending:p}}}"
+  },
+  "resultSHA256": "b60babe16f283b695b8905c9904d7e0311e399c7624b3edba656d4a5a008824d",
+  "rawOutputSHA256": "9edc4debef360ee0268c92f558fc582c42c6828ee4c2946db95637a77a53e8a6"
+}

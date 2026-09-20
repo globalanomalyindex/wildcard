@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "c06-R-final",
+  "requestSHA256": "527a03b1431e7714a02ade3ae3edcebe5e19b429d8245166c25c02f15e4a77bd",
+  "promptSHA256": "4cd65b12c4c23d3509ef1483d5491b2135a25b1a896d5ee3a29f3f085b008a59",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:20:33.270102+00:00",
+  "finishedAt": "2026-09-20T23:20:53.613576+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 20.343478915980086,
+      "usage": {
+        "input_tokens": 9026,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 933,
+        "reasoning_output_tokens": 234
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "735120aa95e09441ef33495736128d17e9a85c2857a090402b8efba384e0bd85",
+      "stderrSHA256": "af14f20197b7038c3401ce33742d5705ee1b5b16a29efec5698bd837ea03094e"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains ordered LRU residency, durable acknowledged values, lifetime versions, and flush authorizations. Insertions evict only the oldest clean entry; blocked writes still advance the key’s lifetime version. Acknowledgments persist only the currently resident dirty version that was previously flushed.",
+    "program": "function solve({config,state,event}){\n  let s=state||{c:{},o:[],d:{},v:{},f:{}};\n  let t=event.type,k=event.key,status=\"ignored\",value=null,flush=[];\n  const has=(o,x)=>Object.prototype.hasOwnProperty.call(o,x);\n  const touch=x=>{let i=s.o.indexOf(x);if(i>=0)s.o.splice(i,1);s.o.push(x)};\n  const cleanSlot=()=>{for(let i=0;i<s.o.length;i++){let x=s.o[i];if(!s.c[x].dirty){s.o.splice(i,1);delete s.c[x];return true}}return false};\n  if(t===\"write\"){\n    let n=(s.v[k]||0)+1;s.v[k]=n;\n    if(has(s.c,k)){s.c[k]={v:event.value,n:n,dirty:true};touch(k);status=\"written\"}\n    else if(s.o.length<config.slots||cleanSlot()){s.c[k]={v:event.value,n:n,dirty:true};s.o.push(k);status=\"written\"}\n    else status=\"blocked\";\n  }else if(t===\"read\"){\n    if(has(s.c,k)){value=s.c[k].v;touch(k);status=\"hit\"}\n    else if(has(s.d,k)){\n      value=s.d[k];\n      if(s.o.length<config.slots||cleanSlot()){s.c[k]={v:value,n:s.v[k]||0,dirty:false};s.o.push(k)}\n      status=\"durable\";\n    }else status=\"miss\";\n  }else if(t===\"flush\"){\n    if(has(s.c,k)&&s.c[k].dirty){let e=s.c[k];flush=[{key:k,value:e.v,version:e.n}];if(!s.f[k])s.f[k]={};s.f[k][e.n]=true;status=\"flushed\"}\n  }else if(t===\"ack\"){\n    if(has(s.c,k)){let e=s.c[k];if(e.dirty&&event.version===e.n&&s.f[k]&&s.f[k][e.n]){s.d[k]=e.v;e.dirty=false;status=\"persisted\"}}\n  }else if(t===\"evict\"){\n    if(!has(s.c,k))status=\"missing\";\n    else if(s.c[k].dirty)status=\"blocked\";\n    else{delete s.c[k];s.o.splice(s.o.indexOf(k),1);status=\"evicted\"}\n  }\n  let dirty=s.o.filter(x=>s.c[x].dirty).sort();\n  return {state:s,output:{status:status,value:value,flush:flush,cached:s.o.slice(),dirty:dirty,durable:Object.assign({},s.d)}};\n}"
+  },
+  "resultSHA256": "aa50c2343d9417a70ae900014ec55dd36553ce3407525d8074096e72417f68a3",
+  "rawOutputSHA256": "aa50c2343d9417a70ae900014ec55dd36553ce3407525d8074096e72417f68a3"
+}

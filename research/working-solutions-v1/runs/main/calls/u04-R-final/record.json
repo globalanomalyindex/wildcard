@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "u04-R-final",
+  "requestSHA256": "998be386e768ce2e4a59956bc4aca52711d5339c9515dbe27a3820c5a2712748",
+  "promptSHA256": "179ead830c37cf40ac87b2fe93cfa82fe0158fede25faeffd12ed47bf6eb5ad7",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T23:21:24.729523+00:00",
+  "finishedAt": "2026-09-20T23:21:36.358007+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 11.628378874855116,
+      "usage": {
+        "input_tokens": 8417,
+        "cached_input_tokens": 3840,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 476,
+        "reasoning_output_tokens": 121
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "72577f01657bda9ed556c4ade9a08822b7889a71f52f226d1354ea293fdecb04",
+      "stderrSHA256": "fb93a4c145a6e29ac2ad4d9b69e989ae756206feb5374a070341cff0b049932e"
+    }
+  ],
+  "result": {
+    "explanation": "Maintains last-observation time, permanent acknowledgements, mode, critical identity, and directional hysteresis counters. Newer critical observations take precedence unless acknowledged; critical visibility blocks normal processing. Mode changes reset counters and disabling hides only normal warnings. Each event returns the exact documented output shape.",
+    "program": "function solve({config,state,event}){let s=state||{t:-1,e:true,d:0,n:0,k:null,id:null,a:[]},x=event,c=config;if(x.type==='ack'){if(s.a.indexOf(x.id)<0)s.a.push(x.id);if(s.k==='critical'&&s.id===x.id){s.k=null;s.id=null;s.d=0;s.n=0}}else if(x.type==='mode'){s.e=x.enabled;s.d=0;s.n=0;if(!s.e&&s.k==='normal')s.k=null}else if(x.type==='observe'&&x.t>s.t){s.t=x.t;if(x.critical&&s.a.indexOf(x.id)<0){s.k='critical';s.id=x.id;s.d=0;s.n=0}else if(!x.critical&&s.k!=='critical'&&s.e){let q=x.level>=c.high?1:x.level<=c.low?-1:0;if(!q||q!==s.d){s.d=q;s.n=q?1:0}else s.n++;if(s.n>=c.dwell){if(q===1)s.k='normal';else s.k=null;s.n=0}}}return{state:s,output:{visible:s.k!==null,kind:s.k,id:s.k==='critical'?s.id:null}}}"
+  },
+  "resultSHA256": "5a384c14a96fcad1d5f970c1cabd1a406e541b4b7830773c3746fd60d0882d93",
+  "rawOutputSHA256": "5a384c14a96fcad1d5f970c1cabd1a406e541b4b7830773c3746fd60d0882d93"
+}
