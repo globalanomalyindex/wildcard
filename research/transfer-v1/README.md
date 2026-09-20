@@ -108,4 +108,12 @@ python3 research/transfer-v1/amended_analysis.py
 python3 scripts/check-transfer-results.py
 ```
 
-The regeneration command writes only derived amended result files. It does not repair raw responses, rerun model calls, fill missing judgments, or change frozen materials. The separate identity-invariance proof can be regenerated with `python3 research/transfer-v1/original_sensitivity.py`; its default does not compute aggregate effects. Bootstrap and sign-flip streams are fixed by the frozen analysis, so the numerical result is reproducible from a complete dataset. Acquiring new responses is a different operation requiring the recorded transport and model access; these offline commands do not claim to reproduce the provider's hidden sampling state.
+The regeneration command writes only derived amended result files. It does not repair raw responses, rerun model calls, fill missing judgments, or change frozen materials.
+
+Verify the separate identity-invariance proof and its post-hoc original-panel aggregate sensitivity without writing any files:
+
+```sh
+python3 research/transfer-v1/original_sensitivity.py --check --aggregate --amendment-manifest research/transfer-v1/runs/remeasurement/manifest.json
+```
+
+Using `--check` alone verifies only the 256-completion proof. Omitting `--check` regenerates the corresponding derived sensitivity artifacts, never the raw original records. These commands do not reinstate the original primary. Bootstrap and sign-flip streams are fixed by the frozen analysis, so the numerical result is reproducible from a complete dataset. Acquiring new responses is a different operation requiring the recorded transport and model access; these offline commands do not claim to reproduce the provider's hidden sampling state.
