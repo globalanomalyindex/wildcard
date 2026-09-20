@@ -1,0 +1,1 @@
+{"explanation":"transport-only echo check","program":"function solve(x){return {state:null,output:x.event};}"}

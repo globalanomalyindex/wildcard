@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "id": "transport-only-echo",
+  "requestSHA256": "2fd8f7ef37c82b2ce962d42210902f252fd3fc9a149d55f03e9e967a720a82f0",
+  "promptSHA256": "44cd7198c39418d1416871360119f63f083dc4dd1d2bd44d07bc8a2b0bb4ae0f",
+  "status": "success",
+  "error": null,
+  "startedAt": "2026-09-20T22:29:18.660581+00:00",
+  "finishedAt": "2026-09-20T22:29:24.312706+00:00",
+  "requestedModel": "gpt-5.6-luna",
+  "returnedModel": null,
+  "provider": "OpenAI via Codex CLI",
+  "cliVersion": "codex-cli 0.154.0-alpha.6.2",
+  "reasoningEffort": "low",
+  "temperature": null,
+  "topP": null,
+  "maxOutputTokens": null,
+  "attempts": [
+    {
+      "number": 1,
+      "exitCode": 0,
+      "elapsedSeconds": 5.650534208,
+      "usage": {
+        "input_tokens": 4603,
+        "cached_input_tokens": 0,
+        "cache_write_input_tokens": 0,
+        "output_tokens": 36,
+        "reasoning_output_tokens": 0
+      },
+      "completed": true,
+      "toolViolation": false,
+      "malformedEventLines": 0,
+      "eventsSHA256": "008857907be26d24954897cbf52da3155d06584a8eb03048750c212563a4497b",
+      "stderrSHA256": "52beeda2d13223a710d4083d837bedd0685f894066293dd57600091fc97a7196"
+    }
+  ],
+  "result": {
+    "explanation": "transport-only echo check",
+    "program": "function solve(x){return {state:null,output:x.event};}"
+  },
+  "resultSHA256": "2a26513d34fa701c71dfde364a0794b6d1fae654f2fd2d5cd68d2433fbd2f8d9",
+  "rawOutputSHA256": "2a26513d34fa701c71dfde364a0794b6d1fae654f2fd2d5cd68d2433fbd2f8d9"
+}
