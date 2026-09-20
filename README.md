@@ -6,7 +6,7 @@ the cue can be a niche specialist from a curated pool of 378 disciplines or a co
 
 this is **inference-time context conditioning**: the model receives different text in its context. wildcard does not change model weights, access a parameter or token pool, retrieve identifiable training examples, or implement a neural default-mode network. the sampler selects a cue; the model generates the interpretation. those are separate operations.
 
-by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Inspect the evidence audit](research/audit-2026-09/README.md).
+by **christopher robin fiore**, developed with AI assistance across design, implementation and evaluation. [Try the draw](https://globalanomalyindex.github.io/wildcard/) · [Read the case study](https://globalanomalyindex.github.io/wildcard/case-study/) · [Download the paper](https://globalanomalyindex.github.io/wildcard/research-paper.pdf) · [Inspect the evidence audit](research/audit-2026-09/README.md).
 
 ## what has been measured
 

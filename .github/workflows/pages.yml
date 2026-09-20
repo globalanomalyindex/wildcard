@@ -40,7 +40,11 @@ jobs:
           node --test research/transfer-v1/test_analysis.mjs
       - name: Reproduce published study from raw records
         if: github.ref == 'refs/heads/main' || github.event_name == 'pull_request'
-        run: python3 scripts/check-transfer-results.py
+        run: |
+          python3 scripts/check-transfer-results.py
+          python3 docs/verification/verify_transfer_independent.py
+          python3 scripts/build-transfer-summary.py --check
+          python3 research/transfer-v1/original_sensitivity.py --check --aggregate --amendment-manifest research/transfer-v1/runs/remeasurement/manifest.json
       - name: Install pinned browser engines
         run: |
           npx --yes --package=@playwright/cli@0.1.21 playwright-cli install-browser chromium --with-deps

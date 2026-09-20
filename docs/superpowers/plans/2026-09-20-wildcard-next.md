@@ -29,10 +29,11 @@ Hostile Unicode/quote seeds must remain literal across HTML, URLs and shell. Leg
 - [x] Freeze 32 main briefs, grounded relation cards, four development tasks and separate counterfactual diagnostics. Review distinctness and prior-art positioning.
 - [x] Build collector and deterministic schemas. Test malformed JSON, duplicate IDs, tool attempts, incomplete outputs, retries and restart idempotency on synthetic fixtures.
 - [x] Verify transport and judge calibration on development/known-answer fixtures; freeze exact main manifests before acquisition.
-- [ ] Commit and push preregistration with source hashes before main acquisition. Generate baseline bank before main conditions; mask/shuffle judgments with fixed seed; preserve all call artifacts.
-- [ ] Analyze fixed primary and secondary contrasts, uncertainty, judge disagreement, task-level results, failures and actual usage. Independently review conclusions.
-- [ ] Integrate safe interactive draws, evidence-driven case study and recorded comparison explorer. Correct README, plugin descriptions and theory language; publish authorship/contribution boundaries.
-- [ ] Run complete tests and browser checks; review the branch; fix material issues; push reviewed release to main, wait for CI, verify live deployment.
+- [x] Commit and push preregistration with source hashes before main acquisition. Generate baseline bank before main conditions; mask/shuffle judgments with fixed seed; preserve all call artifacts.
+- [x] Analyze fixed primary and secondary contrasts, uncertainty, judge disagreement, task-level results, failures and actual usage. Independently review conclusions.
+- [x] Integrate safe interactive draws, evidence-driven case study and recorded comparison explorer. Correct README, plugin descriptions and theory language; publish authorship/contribution boundaries.
+- [x] Run complete tests and browser checks; review the branch and fix material issues.
+- [ ] Push the reviewed release to main, wait for CI, and verify live deployment.
 
 ## Interfaces
 
@@ -44,6 +45,14 @@ Study assets: tasks contain `main` and `development` arrays; cards contain groun
 
 ## Execution log
 
-2026-09-20: User authorized the full plan and execution in the initiating request. Implementation proceeds without repeated permission gates. Baseline suite: ALL GREEN. Authenticated research transport succeeds; provider-returned model snapshot is not exposed by CLI and will be recorded as unknown.
+2026-09-20: The initiating request authorized the repository audit, research, implementation, and publication. This plan records the resulting execution choices. Baseline suite: ALL GREEN. Authenticated research transport succeeds; provider-returned model snapshot is not exposed by CLI and will be recorded as unknown.
 
 2026-09-20 19:54 UTC: Final development passes all 32 scheduled calls. The earlier complete development run and bank-only prefreeze run remain preserved. Materials commit 6ca0d76 precedes frozen main manifest d93831e, published to globalanomalyindex/wildcard before the first main bank call. Main acquisition is in progress; no main outcome claims are made yet.
+
+2026-09-20 20:30 UTC: All 64 bank and 128 main calls are valid. Original masked panel: 63/64 valid; i07-judge-2 used candidate IDs in two bank-reference fields. The frozen primary analyzer halts before scoring. Original records were committed as cb25d15 and published. The independent reviews support one prospectively frozen full-panel remeasurement with per-request identity enums, preserving the original primary halt and every raw artifact. See research/transfer-v1/amendment.md. Strict counterfactual diagnostics: 6/8 pairs, 12/16 variants.
+
+2026-09-20: Amended freeze ca29d29 was published before any new judge calls; all 64 fresh blocks completed validly in one attempt each and raw records were committed as 36d7b58. The amended primary is inconclusive: LR minus R = -0.015625 QNM@4, 95% family-stratified bootstrap interval [-0.109375, 0.0625], mean sign-flip p = 1. Neither secondary passes Holm correction. An independent implementation reproduces the complete scores and inference. Runtime suite, 29 Python research tests, 10 Node research tests and exact three-artifact reproduction pass; final browser and publication checks follow.
+
+### Final local release gate
+
+The complete amended dataset passes 898 browser checks in each of Chromium, Firefox and WebKit. Rapid comparison changes are coalesced into address-bar updates without delaying visible selections. Runtime tests and raw-record reproduction pass; all 478 historical files remain unchanged. The 13-page research PDF was rendered and visually checked in full, including its final pagination. Public results preserve the original primary halt and identify the completed amended measurement.

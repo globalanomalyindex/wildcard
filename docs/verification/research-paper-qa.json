@@ -1,0 +1,22 @@
+{
+  "artifact": "site/research-paper.pdf",
+  "sha256": "8f3f0e2842eaace128422934c034040ddec9ebbb353709a5b76d16f764e6f080",
+  "manuscript": "research/transfer-v1/paper.md",
+  "manuscriptSha256": "b12299a25dca5cb2fcb6dc7094be234d8db9a34755c5e08802807a77b2ee9dbf",
+  "pages": 13,
+  "author": "christopher robin fiore",
+  "links": 80,
+  "uniqueLinks": 58,
+  "validation": [
+    "All 13 final pages visually inspected by two review workers with divided page ownership",
+    "Widows and short-table pagination corrected and final render rechecked",
+    "Primary estimates, resource accounting and author verified in extracted text",
+    "No replacement or black-square glyphs detected",
+    "All 80 link annotations use HTTP(S) destinations",
+    "Copy published on site is byte-identical to deliverable"
+  ],
+  "limits": [
+    "PDF is not tagged; no accessibility certification is claimed",
+    "External destination availability is not guaranteed"
+  ]
+}
